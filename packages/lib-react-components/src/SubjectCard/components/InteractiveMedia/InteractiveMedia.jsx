@@ -2,6 +2,7 @@ import mime from 'mime/lite'
 import { arrayOf, node, number, objectOf, shape, string } from 'prop-types'
 
 import SimpleMedia from '../SimpleMedia/SimpleMedia'
+import MediaLink from '../MediaLink'
 import MultiMedia from './components/MultiMedia'
 import { MULTI_MEDIA_CONTROLS_HEIGHT } from './components/MultiMedia'
 
@@ -21,11 +22,13 @@ function getSourceList(subject) {
 }
 
 function InteractiveMedia({
+  linkTitle,
   placeholder,
   previewHeight,
   subject,
   subjectIdTitle,
-  width
+  width,
+  url
 }) {
   const sourceList = getSourceList(subject)
   const hasMultipleSources = sourceList.length > 1
@@ -40,27 +43,35 @@ function InteractiveMedia({
   if (hasMultipleSources) {
     return (
       <MultiMedia
+        linkTitle={linkTitle}
         mediaSources={sourceList}
         placeholder={placeholder}
         previewHeight={resolvedPreviewHeight}
         showBackground={showBackground}
         subjectIdTitle={subjectIdTitle}
         width={width}
+        url={url}
       />
     )
   }
 
   if (supportsSimplePreview) {
     return (
-      <SimpleMedia
-        mediaSrc={mediaSrc}
-        placeholder={placeholder}
-        previewHeight={resolvedPreviewHeight}
-        showBackground={showBackground}
-        showTitle={false}
-        subjectIdTitle={subjectIdTitle}
-        width={width}
-      />
+      <MediaLink
+        href={url}
+        title={linkTitle}
+      >
+        <SimpleMedia
+          mediaSrc={mediaSrc}
+          placeholder={placeholder}
+          previewHeight={resolvedPreviewHeight}
+          showBackground={showBackground}
+          showTitle={false}
+          subjectIdTitle={subjectIdTitle}
+          width={width}
+          url={url}
+        />
+      </MediaLink>
     )
   }
 
@@ -68,13 +79,15 @@ function InteractiveMedia({
 }
 
 InteractiveMedia.propTypes = {
+  linkTitle: string.isRequired,
   placeholder: node,
   previewHeight: number.isRequired,
   subject: shape({
     locations: arrayOf(objectOf(string))
   }),
   subjectIdTitle: string.isRequired,
-  width: number.isRequired
+  width: number.isRequired,
+  url: string.isRequired
 }
 
 export default InteractiveMedia

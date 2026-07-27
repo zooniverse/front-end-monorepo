@@ -1,19 +1,22 @@
 import { bool, node, number, arrayOf, string } from 'prop-types'
 import { useEffect, useMemo, useState } from 'react'
 
-import SimpleMedia from '../../../SimpleMedia/SimpleMedia'
 import FlipbookControls from '../FlipbookControls'
+import MediaLink from '../../../MediaLink'
+import SimpleMedia from '../../../SimpleMedia/SimpleMedia'
 
 const FLIPBOOK_INTERVAL = 500
 export const MULTI_MEDIA_CONTROLS_HEIGHT = 45
 
 function MultiMedia({
+	linkTitle,
 	mediaSources = [],
 	placeholder,
 	previewHeight,
 	showBackground,
 	subjectIdTitle,
-	width
+	width,
+	url
 }) {
 	const [currentFrame, setCurrentFrame] = useState(0)
 	const [playing, setPlaying] = useState(false)
@@ -60,15 +63,22 @@ function MultiMedia({
 
 	return (
 		<>
-			<SimpleMedia
-				mediaSrc={currentMediaSrc}
-				placeholder={placeholder}
-				previewHeight={previewHeight}
-				showBackground={showBackground}
-				showTitle={false}
-				subjectIdTitle={subjectIdTitle}
-				width={width}
-			/>
+			<MediaLink
+				href={url}
+				title={linkTitle}
+			>
+				<SimpleMedia
+					linkTitle={linkTitle}
+					mediaSrc={currentMediaSrc}
+					placeholder={placeholder}
+					previewHeight={previewHeight}
+					showBackground={showBackground}
+					showTitle={false}
+					subjectIdTitle={subjectIdTitle}
+					width={width}
+					url={url}
+				/>
+			</MediaLink>
 			<FlipbookControls
 				currentFrame={currentFrame}
 				imageSources={mediaSources}
@@ -81,12 +91,14 @@ function MultiMedia({
 }
 
 MultiMedia.propTypes = {
+	linkTitle: string.isRequired,
 	mediaSources: arrayOf(string).isRequired,
 	placeholder: node,
 	previewHeight: number.isRequired,
 	showBackground: bool,
 	subjectIdTitle: string.isRequired,
-	width: number.isRequired
+	width: number.isRequired,
+	url: string.isRequired
 }
 
 export default MultiMedia

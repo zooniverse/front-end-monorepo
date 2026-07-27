@@ -100,7 +100,7 @@
     "share": "Share"
   },
   "SubjectCard": {
-    "linkTitle": "Subject {{id}} Talk page",
+    "linkTitle": "{{subjectId}} Talk page",
     "subjectId": "Subject {{id}}",
     "FlipbookControls": {
       "frames": "Flipbook frames",
