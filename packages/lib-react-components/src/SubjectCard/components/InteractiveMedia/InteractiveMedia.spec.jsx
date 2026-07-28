@@ -5,15 +5,15 @@ import ImageMeta, { LoggedInLandscape, LoggedInMultiImage } from '../../stories/
 
 describe('InteractiveMedia', function () {
   describe('with single image location', function () {
-    it('should render a MediaLink wrapping the media', function () {
+    it('should render a link wrapping the media', function () {
       const Story = composeStory(LoggedInLandscape, ImageMeta)
       render(<Story />)
       const link = screen.getByRole('link')
-      expect(link).to.exist
-      expect(link.href).to.contain('/talk/subjects/')
+      expect(link).toBeDefined()
+      expect(link.href).to.contain('/talk/subjects/75219502')
     })
 
-    it('should not render FlipbookControls', function () {
+    it('should not render flipbook controls', function () {
       const Story = composeStory(LoggedInLandscape, ImageMeta)
       render(<Story />)
       const buttons = screen.queryAllByTestId('flipbook-controls')
@@ -22,19 +22,19 @@ describe('InteractiveMedia', function () {
   })
 
   describe('with multiple image locations', function () {
-    it('should render a MediaLink wrapping the media', function () {
+    it('should render a link wrapping the media', function () {
       const Story = composeStory(LoggedInMultiImage, ImageMeta)
       render(<Story />)
       const link = screen.getByRole('link')
-      expect(link).to.exist
-      expect(link.href).to.contain('/talk/subjects/')
+      expect(link).toBeDefined()
+      expect(link.href).to.contain('/talk/subjects/121787506')
     })
 
-    it('should render FlipbookControls', function () {
+    it('should render flipbook controls', function () {
       const Story = composeStory(LoggedInMultiImage, ImageMeta)
       render(<Story />)
       const buttons = screen.getAllByTestId('flipbook-controls')
-      expect(buttons).to.exist
+      expect(buttons).toBeDefined()
     })
   })
 })

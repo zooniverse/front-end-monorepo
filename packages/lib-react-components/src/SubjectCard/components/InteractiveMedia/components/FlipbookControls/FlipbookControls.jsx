@@ -9,10 +9,6 @@ import { useTranslation } from '../../../../../translations/i18n'
 
 const THUMBNAIL_SIZE = 30
 
-const Toolbar = styled(Box)`
-  height: 45px;
-`
-
 const FrameList = styled(Box)`
   overflow-x: auto;
   overflow-y: hidden;
@@ -103,14 +99,6 @@ function FlipbookControls({
         event.preventDefault()
         newFrameIndex = frameIndex < imageSources.length - 1 ? frameIndex + 1 : 0
         break
-      case 'Home':
-        event.preventDefault()
-        newFrameIndex = 0
-        break
-      case 'End':
-        event.preventDefault()
-        newFrameIndex = imageSources.length - 1
-        break
       default:
         return
     }
@@ -119,12 +107,13 @@ function FlipbookControls({
   }
 
   return (
-    <Toolbar
+    <Box
       data-testid='flipbook-controls'
       align='center'
       background={{ dark: 'dark-3', light: 'white' }}
       direction='row'
       gap='xxsmall'
+      height='45px'
       pad={{ horizontal: '5px' }}
     >
       <IconActionButton
@@ -164,7 +153,7 @@ function FlipbookControls({
           )
         })}
       </FrameList>
-    </Toolbar>
+    </Box>
   )
 }
 
