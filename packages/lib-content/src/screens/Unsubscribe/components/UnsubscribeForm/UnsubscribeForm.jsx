@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components'
 import { bool } from 'prop-types'
 import { Loader, StatusMessage } from '@zooniverse/react-components'
 import doUnsubscribe from '../../helpers/doUnsubscribe'
-import DarkTealPrimaryButton from '../DarkTealPrimaryButton/DarkTealPrimaryButton.jsx'
+import DarkTealPrimaryButton from '../DarkTealPrimaryButton/DarkTealPrimaryButton'
 
 const ProcessedStateBox = styled(Box)`
   border-radius: 16px;
