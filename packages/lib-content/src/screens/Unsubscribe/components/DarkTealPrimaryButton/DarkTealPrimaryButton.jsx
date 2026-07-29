@@ -4,12 +4,14 @@ import { isValidElement } from 'react'
 
 import darkTealTheme from './darkTeal'
 
+const DEFAULT_HANDLER = () => {}
+
 function DarkTealPrimaryButton ({
   as = '',
   disabled = false,
   href = null,
   label,
-  onClick = () => {},
+  onClick = DEFAULT_HANDLER,
   ...rest
 }) {
   const theme = darkTealTheme

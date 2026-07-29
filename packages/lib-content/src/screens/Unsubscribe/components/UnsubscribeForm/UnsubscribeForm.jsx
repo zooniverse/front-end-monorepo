@@ -39,8 +39,7 @@ const ProcessedStateHeading = styled(Heading)`
   }
 `
 
-const ReadyStateForm = styled(Form)`
-`
+const ReadyStateForm = Form  // Alias-ing for easier code read
 
 const ReadyStateInputBox = styled(Box)`
   gap: 2em;
@@ -54,8 +53,6 @@ function UnsubscribeForm ({
   const [isError, setIsError] = useState(false)
   const [isComplete, setIsComplete] = useState(processed)
   const inputEmail = useRef()
-
-  function onInputChange (event) { setEmail(event.currentTarget.value) }
 
   // This only triggers if the email is valid.
   // Email validation is performed via native HTML form controls.
@@ -113,7 +110,6 @@ function UnsubscribeForm ({
           // Otherwise, show the form for unsubscribing.
 
           <ReadyStateForm
-            className='UnsubscribeForm'
             onSubmit={onSubmit}
           >
             <Heading
@@ -143,7 +139,6 @@ function UnsubscribeForm ({
                 type='submit'
               />
               
-              {/*TODO: style these properly*/}
               {isBusy && <Loader />}
               
             </ReadyStateInputBox>
