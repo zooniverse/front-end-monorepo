@@ -3,6 +3,7 @@ import { arrayOf, node, number, objectOf, shape, string } from 'prop-types'
 
 import SimpleMedia from '../SimpleMedia/SimpleMedia'
 import MediaLink from '../MediaLink'
+import Audio from './components/Audio'
 import MultiMedia from './components/MultiMedia'
 import Video from './components/Video'
 import { MULTI_MEDIA_CONTROLS_HEIGHT } from './components/MultiMedia'
@@ -78,6 +79,20 @@ function InteractiveMedia({
   if (mediaType === 'video') {
     return (
       <Video
+        linkTitle={linkTitle}
+        mediaSrc={mediaSrc}
+        placeholder={placeholder}
+        previewHeight={resolvedPreviewHeight}
+        subjectIdTitle={subjectIdTitle}
+        width={width}
+        url={url}
+      />
+    )
+  }
+
+  if (mediaType === 'audio') {
+    return (
+      <Audio
         linkTitle={linkTitle}
         mediaSrc={mediaSrc}
         placeholder={placeholder}
