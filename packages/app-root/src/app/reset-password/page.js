@@ -1,4 +1,4 @@
-import { ResetPassword } from '@zooniverse/content'
+import ResetPasswordContainer from './ResetPasswordContainer.js'
 
 export const metadata = {
   title: 'Reset Password',
@@ -15,7 +15,7 @@ export default async function ResetPasswordPage (props) {
   const resetPasswordToken = searchParams?.['reset_password_token']
 
   return (
-    <ResetPassword
+    <ResetPasswordContainer
       resetPasswordToken={resetPasswordToken}
     />
   )

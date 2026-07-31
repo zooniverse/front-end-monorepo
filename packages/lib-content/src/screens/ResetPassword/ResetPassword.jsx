@@ -3,9 +3,10 @@
 import { Box } from 'grommet'
 import OtherLayout from '@components/PageLayout/OtherLayout'
 import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent'
-import { string } from 'prop-types'
+import { bool, string } from 'prop-types'
 
 function ResetPassword ({
+  isLoggedIn = false,
   resetPasswordToken = '',
 }) {
   return (
@@ -19,7 +20,8 @@ function ResetPassword ({
           color={{ light: 'black', dark: 'white' }}
         >
           <h3>Reset Password Page</h3>
-          <span>{!!resetPasswordToken ? `token: ${resetPasswordToken}` : 'no reset password token'}</span>
+          <p>{isLoggedIn ? '1️⃣ User is logged in' : '0️⃣ No user'}</p>
+          <p>{!!resetPasswordToken ? `token: ${resetPasswordToken}` : 'no reset password token'}</p>
         </MaxWidthContent>
       </Box>
     </OtherLayout>
@@ -27,7 +29,8 @@ function ResetPassword ({
 }
 
 ResetPassword.propTypes = {
-  resetPasswordToken: string
+  isLoggedIn: bool,
+  resetPasswordToken: string,
 }
 
 export default ResetPassword
