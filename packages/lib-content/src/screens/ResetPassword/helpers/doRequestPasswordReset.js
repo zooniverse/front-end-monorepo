@@ -11,7 +11,8 @@ Input:
 - `email`: string, a valid email address.
 
 Output:
-- true on success, false on error.
+- Returns null on success.
+- Returns an Error object if something goes wrong.
  */
 
 // import auth from 'panoptes-client/lib/auth'
@@ -19,9 +20,9 @@ Output:
 export default async function doRequestPasswordReset ({ email }) {
   try {
     // TODO
-    return true
+    return null
   } catch (error) {
     console.error(error)
-    return false
+    return error
   }
 }

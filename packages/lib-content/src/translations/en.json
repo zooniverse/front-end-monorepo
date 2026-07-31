@@ -365,6 +365,18 @@
     "sidebarLabel": "Discipline",
     "title": "Publications"
   },
+  "ResetPassword": {
+    "RequestResetForm": {
+      "header": "Reset Password",
+      "body": "Enter your email address and we'll send you a link to reset your password.",
+      "footer": "If the reset email hasn't arrived, take a look in your spam folder. If it's not there, try another email address you might've used to join the Zooniverse.",
+      "inputEmail": "Email address",
+      "status": {
+        "success": "We've just sent an email with a link to reset your password."
+      },
+      "submit": "Send"
+    }
+  },
   "Resources": {
     "brand": {
       "heading": "Brand Resources",

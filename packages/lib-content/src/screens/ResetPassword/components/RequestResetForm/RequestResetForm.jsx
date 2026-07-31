@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { Anchor, Box, Form, FormField, Heading, Paragraph, TextInput } from 'grommet'
+import { Form, Heading, Paragraph, TextInput } from 'grommet'
 import { Trans, useTranslation } from '@translations/i18n'
 import styled, { css } from 'styled-components'
 import { bool } from 'prop-types'
@@ -9,9 +9,9 @@ import DarkTealPrimaryButton from '../../../Unsubscribe/components/DarkTealPrima
 
 function RequestResetForm () {
 
-  const { t } = useTranslation()
+const { t } = useTranslation()
   const [isBusy, setIsBusy] = useState(false)
-  const [isError, setIsError] = useState(false)
+  const [apiError, setApiError] = useState(null)  // null, or Error object
   const [isComplete, setIsComplete] = useState(false)
   const inputEmail = useRef()
 
@@ -20,16 +20,28 @@ function RequestResetForm () {
   async function onSubmit () {
     // Prepare to submit!
     setIsBusy(true)
-    setIsError(false)
+    setApiError(null)
 
     // Do the submit!
     const email = inputEmail.current?.value || ''
-    const success = await doRequestPasswordReset({ email })
+    const submitError = await doRequestPasswordReset({ email })
 
     // Successful?
     setIsBusy(false)
-    setIsError(!success)
-    setIsComplete(success)
+    setApiError(submitError)
+    setIsComplete(!submitError)
+  }
+
+  // Update StatusMessage
+  let statusType = ''
+  let statusText = ''
+  if (apiError) {
+    statusType = 'error'
+    statusText = apiError.message?.toString() || apiError.toString?.()
+    // ⚠️ TODO: check what kind of API errors are actually returned.
+  } else if (isComplete) {
+    statusType = 'success'
+    statusText = t('ResetPassword.RequestResetForm.status.success')
   }
 
   return (
@@ -60,7 +72,9 @@ function RequestResetForm () {
           
         {isBusy && <Loader />}
 
-        <StatusMessage type='success' text='TODO' />
+        <StatusMessage type={statusType} text={statusText} />
+
+        {isComplete && <Paragraph>{t('ResetPassword.RequestResetForm.footer')}</Paragraph>}
       </Form>
   )
 }
