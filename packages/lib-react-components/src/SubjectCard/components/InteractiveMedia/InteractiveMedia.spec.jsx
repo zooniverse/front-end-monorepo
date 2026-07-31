@@ -1,7 +1,8 @@
 import { render, screen } from '@testing-library/react'
 import { composeStory } from '@storybook/react'
 
-import ImageMeta, { LoggedInLandscape, LoggedInMultiImage } from '../../stories/interactive/SubjectCard.image.stories'
+import ImageMeta, { LoggedInLandscape } from '../../stories/interactive/SubjectCard.image.stories'
+import MultiMediaMeta, { LoggedInMultiImage } from '../../stories/interactive/SubjectCard.multimedia.stories'
 
 describe('InteractiveMedia', function () {
   describe('with single image location', function () {
@@ -23,7 +24,7 @@ describe('InteractiveMedia', function () {
 
   describe('with multiple image locations', function () {
     it('should render a link wrapping the media', function () {
-      const Story = composeStory(LoggedInMultiImage, ImageMeta)
+      const Story = composeStory(LoggedInMultiImage, MultiMediaMeta)
       render(<Story />)
       const link = screen.getByRole('link')
       expect(link).toBeDefined()
@@ -31,7 +32,7 @@ describe('InteractiveMedia', function () {
     })
 
     it('should render flipbook controls', function () {
-      const Story = composeStory(LoggedInMultiImage, ImageMeta)
+      const Story = composeStory(LoggedInMultiImage, MultiMediaMeta)
       render(<Story />)
       const buttons = screen.getAllByTestId('flipbook-controls')
       expect(buttons).toBeDefined()
