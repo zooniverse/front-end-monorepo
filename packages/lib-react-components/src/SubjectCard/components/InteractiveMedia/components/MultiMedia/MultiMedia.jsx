@@ -1,5 +1,5 @@
 import { bool, node, number, arrayOf, string } from 'prop-types'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import FlipbookControls from '../FlipbookControls'
 import MediaLink from '../../../MediaLink'
@@ -21,23 +21,17 @@ function MultiMedia({
 	const [currentFrame, setCurrentFrame] = useState(0)
 	const [playing, setPlaying] = useState(false)
 
-	const currentMediaSrc = useMemo(() => {
-		return mediaSources[currentFrame]
-	}, [currentFrame, mediaSources])
+	const mediaSourcesLength = mediaSources.length
+	const currentMediaSrc = mediaSources[currentFrame]
 
 	useEffect(() => {
-		setCurrentFrame(0)
-		setPlaying(false)
-	}, [mediaSources])
-
-	useEffect(() => {
-		if (!playing || mediaSources.length < 2) {
+		if (!playing || mediaSourcesLength < 2) {
 			return undefined
 		}
 
 		const timer = window.setTimeout(() => {
 			setCurrentFrame(previousFrame => {
-				if (previousFrame < mediaSources.length - 1) {
+				if (previousFrame < mediaSourcesLength - 1) {
 					return previousFrame + 1
 				}
 
@@ -48,7 +42,7 @@ function MultiMedia({
 		return () => {
 			window.clearTimeout(timer)
 		}
-	}, [currentFrame, mediaSources.length, playing])
+	}, [currentFrame, mediaSourcesLength, playing])
 
 	if (!currentMediaSrc) return null
 
