@@ -137,11 +137,14 @@ function Workflows({ workflows = [] }) {
                     })}
                   </Text>
                   {/*
-                  Only show the ETC if retirement is based on classification count per subject (and the workflow isn't complete).
-                  Other options are 'never_retire' such as in Leveling Up workflows.
+                  Only show the ETC if:
+                    1. Retirement is based on classification count per subject (other options are 'never_retire' such as in Leveling Up workflows)
+                    2. The workflow isn't complete (etc is null if complete)
+                    3. There is more than 1 day of stats data available via ERAS API (etc is null if just launched workflow)
                 */}
                   {workflow?.completeness !== 1 &&
-                  workflow?.retirement?.criteria === 'classification_count' ? (
+                  workflow?.retirement?.criteria === 'classification_count' &&
+                  Number.isFinite(workflow?.etc) ? (
                     <Box direction='row' gap='3px'>
                       <Tip
                         content={<Text color='white'>{t('ProjectStats.workflows.tip')}</Text>}
@@ -156,7 +159,7 @@ function Workflows({ workflows = [] }) {
                         <Button plain icon={<CircleInformation size='0.75rem' />} />
                       </Tip>
                       <Text color={{ light: 'dark-4', dark: 'white' }} size='1rem'>
-                        ETC: {nf.format(workflow?.etc)}
+                        ETC: {nf.format(workflow.etc)}
                       </Text>
                     </Box>
                   ) : null}
