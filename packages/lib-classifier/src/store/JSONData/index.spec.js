@@ -1,22 +1,9 @@
 import { getType } from 'mobx-state-tree'
 
+import { dataSeries, tessLightCurve, variableStar } from '@test/fixtures/jsonSubjectData'
 import JSONData from './'
 
 describe('Models > JSONData', function () {
-  async function superWaspSubject() {
-    const response = await fetch('https://panoptes-uploads.zooniverse.org/subject_location/f311cd2a-f6c7-4cc2-a411-0e32c5ff55e3.json')
-    return await response.json()
-  }
-
-  async function tessSubject() {
-    const response = await fetch('https://panoptes-uploads.zooniverse.org/subject_location/a67ffd6c-36bc-4939-ad32-3706f606825b.txt')
-    return await response.json()
-  }
-
-  async function variableStarSubject() {
-    const response = await fetch('https://panoptes-uploads.zooniverse.org/subject_location/d6b3a990-b284-456e-ab23-1e497d660779.json')
-    return await response.json()
-  }
 
   const barChartSnapshot = {
     data: [
@@ -55,16 +42,14 @@ describe('Models > JSONData', function () {
     ]
   }
 
-  it('should load TESS data', async function () {
-    const tessSnapshot = await tessSubject()
-    const tessData = JSONData.create(tessSnapshot)
+  it('should load TESS data', function () {
+    const tessData = JSONData.create(tessLightCurve)
     const dataType = getType(tessData).name
     expect(dataType).to.equal('TESSLightCurve')
   })
 
-  it('should load series data', async function () {
-    const dataSeriesSnapshot = await superWaspSubject()
-    const seriesData = JSONData.create(dataSeriesSnapshot)
+  it('should load series data', function () {
+    const seriesData = JSONData.create(dataSeries)
     const dataType = getType(seriesData).name
     expect(dataType).to.equal('DataSeriesPlot')
   })
@@ -81,9 +66,8 @@ describe('Models > JSONData', function () {
     expect(dataType).to.equal('GeoJSON')
   })
 
-  it('should load variable star data', async function () {
-    const variableStarSnapshot = await variableStarSubject()
-    const variableStarData = JSONData.create(variableStarSnapshot)
+  it('should load variable star data', function () {
+    const variableStarData = JSONData.create(variableStar)
     const dataType = getType(variableStarData).name
     expect(dataType).to.equal('VariableStarPlots')
   })
