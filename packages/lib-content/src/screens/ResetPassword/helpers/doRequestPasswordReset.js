@@ -1,7 +1,7 @@
 /*
 Perform "Request Password Reset" Action
 
-This function asks Panoptes to send a "password my reset" email, for a specified
+This function asks Panoptes to send a "reset my password" email, for a specified
 user account (email address).
 
 How this works:
