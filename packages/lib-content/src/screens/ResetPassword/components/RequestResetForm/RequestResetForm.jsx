@@ -39,6 +39,11 @@ const { t } = useTranslation()
     statusType = 'error'
     statusText = apiError.message?.toString() || apiError.toString?.()
     // ⚠️ TODO: check what kind of API errors are actually returned.
+
+    if (apiError.status === 429) {  // Special case: too many requests to reset the same email address
+      statusText = t('ResetPassword.RequestResetForm.status.errors.tooManyRequests')
+    }
+
   } else if (isComplete) {
     statusType = 'success'
     statusText = t('ResetPassword.RequestResetForm.status.success')
