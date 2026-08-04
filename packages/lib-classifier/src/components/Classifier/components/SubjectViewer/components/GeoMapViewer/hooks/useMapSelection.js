@@ -49,6 +49,9 @@ export default function useMapSelection({
         if (geometry?.getType?.() !== 'Point') return
         geometry.setCoordinates(clampToSubjectExtent(map, geometry.getCoordinates()))
         feature.changed()
+        if (geoDrawingTask?.setActiveFeatureGeometry) {
+          geoDrawingTask.setActiveFeatureGeometry(geometry)
+        }
       })
     })
 
