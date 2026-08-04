@@ -370,8 +370,9 @@
       "header": "Reset Password"
     },
     "CommitResetForm": {
-      "body": "",
+      "body": "Enter your password twice to confirm it, then you'll be ready to get back to helping with real research.",
       "inputPassword": "New password",
+      "inputConfirmation": "Confirm new password",
       "status": {},
       "submit": "Submit"
     },
