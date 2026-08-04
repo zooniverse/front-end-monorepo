@@ -1,5 +1,9 @@
 import { Box, Button } from 'grommet'
-import { Pause as PauseIcon, Play as PlayIcon } from 'grommet-icons'
+import {
+  Image as ImageIcon,
+  Pause as PauseIcon,
+  Play as PlayIcon
+} from 'grommet-icons'
 import { arrayOf, bool, func, number, string } from 'prop-types'
 import { useEffect, useRef } from 'react'
 import styled from 'styled-components'
@@ -8,10 +12,17 @@ import IconActionButton from '../../../../../IconActionButton'
 import { useTranslation } from '../../../../../translations/i18n'
 
 const THUMBNAIL_SIZE = 30
+const THUMBNAILER_SUPPORTED_HOSTS = [
+  'panoptes-uploads-staging.zooniverse.org',
+  'panoptes-uploads.zooniverse.org'
+]
 
 const FrameList = styled(Box)`
+  box-sizing: border-box;
+  min-height: 40px;
   overflow-x: auto;
   overflow-y: hidden;
+  padding: 2px 5px;
   scrollbar-width: thin;
 `
 
@@ -22,6 +33,7 @@ const FrameButton = styled(Button)`
   flex: 0 0 auto;
   height: ${THUMBNAIL_SIZE}px;
   min-width: ${THUMBNAIL_SIZE}px;
+  overflow: hidden;
   padding: 0;
   width: ${THUMBNAIL_SIZE}px;
 
@@ -36,22 +48,66 @@ const FrameThumbnail = styled(Box)`
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  border-radius: 2px;
-  height: ${THUMBNAIL_SIZE}px;
-  width: ${THUMBNAIL_SIZE}px;
+  border-radius: inherit;
+  height: 100%;
+  width: 100%;
 `
 
-function getThumbnailUrl(imageUrl) {
+const FrameThumbnailIcon = styled(Box)`
+  align-items: center;
+  background: ${props => {
+    return props.theme.dark
+      ? props.theme.global.colors['dark-4']
+      : props.theme.global.colors.white
+  }};
+  border: 1.5px solid ${props => {
+    if (props.$selected) {
+      return props.theme.dark
+        ? props.theme.global.colors['accent-1']
+        : props.theme.global.colors['neutral-1']
+    }
+    return props.theme.global.colors['light-5']
+  }};
+  border-radius: inherit;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
+
+  > svg {
+    stroke: ${props => {
+      if (props.$selected) {
+        return props.theme.dark
+          ? props.theme.global.colors['accent-1']
+          : props.theme.global.colors['neutral-1']
+      }
+      return props.theme.dark
+        ? props.theme.global.colors.white
+        : props.theme.global.colors['dark-3']
+    }};
+  }
+`
+
+function canGenerateThumbnailFromSource(imageUrl) {
   if (typeof imageUrl !== 'string' || imageUrl.length === 0) {
-    return imageUrl
+    return false
   }
 
-  if (imageUrl.startsWith('https://') || imageUrl.startsWith('http://')) {
+  try {
+    const parsedUrl = new URL(imageUrl)
+    return THUMBNAILER_SUPPORTED_HOSTS.includes(parsedUrl.hostname)
+  } catch {
+    return false
+  }
+}
+
+function getThumbnailUrl(imageUrl) {
+  if (canGenerateThumbnailFromSource(imageUrl)) {
     const sourcePath = imageUrl.replace(/^https?:\/\//, '')
     return `https://thumbnails.zooniverse.org/100x100/${sourcePath}`
   }
 
-  return imageUrl
+  return null
 }
 
 function FlipbookControls({
@@ -134,6 +190,7 @@ function FlipbookControls({
       >
         {imageSources.map((source, index) => {
           const selected = index === currentFrame
+          const thumbnailUrl = getThumbnailUrl(source)
 
           return (
             <FrameButton
@@ -148,7 +205,16 @@ function FlipbookControls({
               role='tab'
               tabIndex={selected ? 0 : -1}
             >
-              <FrameThumbnail $thumbnailUrl={getThumbnailUrl(source)} />
+              {thumbnailUrl ? (
+                <FrameThumbnail
+                  data-testid='frame-thumbnail-image'
+                  $thumbnailUrl={thumbnailUrl}
+                />
+              ) : (
+                <FrameThumbnailIcon $selected={selected} data-testid='frame-thumbnail-icon'>
+                  <ImageIcon size='16px' />
+                </FrameThumbnailIcon>
+              )}
             </FrameButton>
           )
         })}
