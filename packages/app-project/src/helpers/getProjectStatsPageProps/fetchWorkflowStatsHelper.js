@@ -120,6 +120,23 @@ function calcDaysToCompletion(erasData, workflow) {
   return numDays
 }
 
+function calcCompleteness(workflow) {
+  if (workflow.completeness === 1) return 1
+
+  let completeness = workflow.completeness // the value returned from panoptes API
+
+  const totalCount = workflow.subjects_count * workflow.retirement.options.count
+
+  // This config prop only applies to stats page UI. Configuring stats_completion_type in
+  // the project builder as "Completeness statistic" does not recalc workflow.completeness on the backend.
+  // The default stats_completeness_type is by retirement count, so we have to override here.
+  if (workflow.configuration.stats_completeness_type === 'classification') {
+    completeness = workflow.classifications_count / totalCount
+  }
+
+  return completeness
+}
+
 async function fetchWorkflowStatsHelper(language = 'en', workflowIDs, env, workflowOrder) {
   // Fetch workflow data from Panoptes API
   const workflows = await fetchWorkflowData(workflowIDs, env)
@@ -151,8 +168,10 @@ async function fetchWorkflowStatsHelper(language = 'en', workflowIDs, env, workf
 
     if (workflowERASData?.data) {
       const workflowETC = calcDaysToCompletion(workflowERASData, workflow) ?? null
+      const workflowCompleteness = calcCompleteness(workflow)
       const workflowWithETC = {
         ...workflow,
+        completeness: workflowCompleteness,
         etc: workflowETC
       }
       return workflowWithETC

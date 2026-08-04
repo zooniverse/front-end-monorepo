@@ -86,6 +86,7 @@ function Workflows({ workflows = [] }) {
     unitDisplay: 'long'
   })
 
+
   return (
     <ContentBox
       title={t('ProjectStats.workflows.title')}
