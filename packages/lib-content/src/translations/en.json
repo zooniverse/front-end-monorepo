@@ -374,7 +374,7 @@
       "status": {
         "success": "We've just sent an email with a link to reset your password.",
         "errors": {
-          "tooManyRequests": "Error: too many password reset requests"
+          "tooManyRequests": "Error: too many password reset requests. Please try again later."
         }
       },
       "submit": "Send"
