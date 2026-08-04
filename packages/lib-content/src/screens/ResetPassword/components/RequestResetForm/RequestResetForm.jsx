@@ -41,7 +41,7 @@ const { t } = useTranslation()
     // ⚠️ TODO: check what kind of API errors are actually returned.
 
     if (apiError.status === 429) {  // Special case: too many requests to reset the same email address
-      statusText = t('ResetPassword.RequestResetForm.status.errors.tooManyRequests')
+      statusText = t('ResetPassword.RequestResetForm.status.errorTooManyRequests')
     }
 
   } else if (isComplete) {
@@ -57,7 +57,7 @@ const { t } = useTranslation()
         <Heading
           level={1}
         >
-          {t('ResetPassword.RequestResetForm.header')}
+          {t('ResetPassword.common.header')}
         </Heading>
         <Paragraph>
           {t('ResetPassword.RequestResetForm.body')}
