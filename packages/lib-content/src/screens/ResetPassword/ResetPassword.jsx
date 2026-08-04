@@ -5,6 +5,7 @@ import OtherLayout from '@components/PageLayout/OtherLayout'
 import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent'
 import { bool, string } from 'prop-types'
 
+import CommitResetForm from './components/CommitResetForm/CommitResetForm'
 import RequestResetForm from './components/RequestResetForm/RequestResetForm'
 
 function ResetPassword ({
@@ -30,7 +31,9 @@ function ResetPassword ({
           )}
 
           {resetPasswordToken && (
-            <p>TODO: CommitResetForm</p>
+            <CommitResetForm
+              resetPasswordToken={resetPasswordToken}
+            />
           )}
         </MaxWidthContent>
       </Box>

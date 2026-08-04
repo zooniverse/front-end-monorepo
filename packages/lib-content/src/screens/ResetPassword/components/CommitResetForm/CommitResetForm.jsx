@@ -4,16 +4,19 @@ import { Trans, useTranslation } from '@translations/i18n'
 import styled, { css } from 'styled-components'
 import { bool } from 'prop-types'
 import { Loader, StatusMessage } from '@zooniverse/react-components'
-import doRequestPasswordReset from '../../helpers/doRequestPasswordReset'
+import doCommitPasswordReset from '../../helpers/doCommitPasswordReset'
 import DarkTealPrimaryButton from '../../../Unsubscribe/components/DarkTealPrimaryButton/DarkTealPrimaryButton'
 
-function RequestResetForm () {
+function CommitResetForm ({
+  resetPasswordToken = ''
+}) {
 
   const { t } = useTranslation()
   const [isBusy, setIsBusy] = useState(false)
   const [apiError, setApiError] = useState(null)  // null, or Error object
   const [isComplete, setIsComplete] = useState(false)
-  const inputEmail = useRef()
+  const inputPassword = useRef()  // New password
+  const inputConfirmation = useRef()  // Confirm new password
 
   // This only triggers if the email is valid.
   // Email validation is performed via native HTML form controls.
@@ -23,8 +26,13 @@ function RequestResetForm () {
     setApiError(null)
 
     // Do the submit!
-    const email = inputEmail.current?.value || ''
-    const submitError = await doRequestPasswordReset({ email })
+    const password = inputPassword.current?.value || ''
+    const confirmation = inputConfirmation.current?.value || ''
+    const submitError = await doCommitPasswordReset({
+      password,
+      confirmation,
+      token: resetPasswordToken,
+    })
 
     // Successful?
     setIsBusy(false)
@@ -38,19 +46,16 @@ function RequestResetForm () {
   if (apiError) {
     statusType = 'error'
     statusText = apiError.message?.toString() || apiError.toString?.()
-
-    if (apiError.status === 429) {  // Special case: too many requests to reset the same email address
-      statusText = t('ResetPassword.RequestResetForm.status.errorTooManyRequests')
-    }
+    // ⚠️ TODO: check what kind of API errors are actually returned.
 
   } else if (isComplete) {
     statusType = 'success'
-    statusText = t('ResetPassword.RequestResetForm.status.success')
+    statusText = t('ResetPassword.CommitResetForm.status.success')
   }
 
   return (
       <Form
-        className='RequestResetForm'
+        className='CommitResetForm'
         onSubmit={onSubmit}
       >
         <Heading
@@ -59,18 +64,25 @@ function RequestResetForm () {
           {t('ResetPassword.common.header')}
         </Heading>
         <Paragraph>
-          {t('ResetPassword.RequestResetForm.body')}
+          {t('ResetPassword.CommitResetForm.body')}
         </Paragraph>
         <TextInput
-          aria-label={t('ResetPassword.RequestResetForm.inputEmail')}
+          aria-label={t('ResetPassword.CommitResetForm.inputPassword')}
           disabled={isBusy || isComplete}
-          ref={inputEmail}
+          ref={inputPassword}
           required
-          type='email'
+          type='password'
+        />
+        <TextInput
+          aria-label={t('ResetPassword.CommitResetForm.inputConfirmation')}
+          disabled={isBusy || isComplete}
+          ref={inputConfirmation}
+          required
+          type='password'
         />
         <DarkTealPrimaryButton
           disabled={isBusy || isComplete}
-          label={t('ResetPassword.RequestResetForm.submit')}
+          label={t('ResetPassword.CommitResetForm.submit')}
           type='submit'
         />
           
@@ -78,9 +90,9 @@ function RequestResetForm () {
 
         <StatusMessage type={statusType} text={statusText} />
 
-        {isComplete && <Paragraph>{t('ResetPassword.RequestResetForm.footer')}</Paragraph>}
+        {isComplete && <Paragraph>{t('ResetPassword.CommitResetForm.footer')}</Paragraph>}
       </Form>
   )
 }
 
-export default RequestResetForm
+export default CommitResetForm
