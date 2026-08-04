@@ -59,13 +59,13 @@ const { t } = useTranslation()
         </Paragraph>
         <TextInput
           aria-label={t('ResetPassword.RequestResetForm.inputEmail')}
-          disabled={isBusy}
+          disabled={isBusy || isComplete}
           ref={inputEmail}
           required
           type='email'
         />
         <DarkTealPrimaryButton
-          disabled={isBusy}
+          disabled={isBusy || isComplete}
           label={t('ResetPassword.RequestResetForm.submit')}
           type='submit'
         />
