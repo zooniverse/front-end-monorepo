@@ -1,7 +1,14 @@
 import GeoJSON from 'ol/format/GeoJSON'
+import { transformExtent } from 'ol/proj'
 
 import { GEOJSON_READ_OPTIONS, ZOOM_ANIMATION_DURATION_MS } from './constants'
-import { fitViewToFeatures, selectFirstFeature } from './mapSelection'
+import constrainMapToExtent from './extentConstraint'
+import { fitViewToExtent, selectFirstFeature } from './mapSelection'
+
+function getSubjectExtent(data) {
+  if (!Array.isArray(data.bbox) || data.bbox.length !== 4) return null
+  return transformExtent(data.bbox, GEOJSON_READ_OPTIONS.dataProjection, GEOJSON_READ_OPTIONS.featureProjection)
+}
 
 export default function loadGeoJSON({ map, source, select, measure, data }) {
   if (!map || !source) return
@@ -13,7 +20,9 @@ export default function loadGeoJSON({ map, source, select, measure, data }) {
   const features = format.readFeatures(data, GEOJSON_READ_OPTIONS)
   source.addFeatures(features)
   if (source.getFeatures().length) {
-    fitViewToFeatures(map, source, ZOOM_ANIMATION_DURATION_MS)
+    const extent = getSubjectExtent(data) || source.getExtent()
+    constrainMapToExtent(map, extent)
+    fitViewToExtent(map, extent, ZOOM_ANIMATION_DURATION_MS)
     selectFirstFeature(select, features)
   }
 }
