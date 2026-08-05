@@ -1,11 +1,21 @@
 import { useRef, useState } from 'react'
-import { Form, Heading, Paragraph, TextInput } from 'grommet'
+import { Box, Form, Heading, Paragraph, TextInput } from 'grommet'
 import { Trans, useTranslation } from '@translations/i18n'
 import styled, { css } from 'styled-components'
 import { bool } from 'prop-types'
 import { Loader, StatusMessage } from '@zooniverse/react-components'
 import doRequestPasswordReset from '../../helpers/doRequestPasswordReset'
 import DarkTealPrimaryButton from '../../../Unsubscribe/components/DarkTealPrimaryButton/DarkTealPrimaryButton'
+
+const DecoDivider = styled('div')`
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #A6A7A9 49.62%, rgba(255, 255, 255, 0) 100%);
+`
+
+const InputBoxes = styled(Box)`
+  gap: 1em;
+`
 
 function RequestResetForm () {
 
@@ -54,31 +64,43 @@ function RequestResetForm () {
         onSubmit={onSubmit}
       >
         <Heading
+          color={{ light: 'neutral-1', dark: 'accent-1' }}
           level={1}
+          textAlign='center'
         >
           {t('ResetPassword.common.header')}
         </Heading>
+
+        <DecoDivider />
+
         <Paragraph>
           {t('ResetPassword.RequestResetForm.body')}
         </Paragraph>
-        <TextInput
-          aria-label={t('ResetPassword.RequestResetForm.inputEmail')}
-          disabled={isBusy || isComplete}
-          ref={inputEmail}
-          required
-          type='email'
-        />
-        <DarkTealPrimaryButton
-          disabled={isBusy || isComplete}
-          label={t('ResetPassword.RequestResetForm.submit')}
-          type='submit'
-        />
+
+        <InputBoxes>
+        
+          <TextInput
+            aria-label={t('ResetPassword.RequestResetForm.inputEmail')}
+            disabled={isBusy || isComplete}
+            ref={inputEmail}
+            required
+            type='email'
+          />
           
-        {isBusy && <Loader />}
+          <Box direction='row' justify='end'>
+            <DarkTealPrimaryButton
+              disabled={isBusy || isComplete}
+              label={t('ResetPassword.RequestResetForm.submit')}
+              type='submit'
+            />
+          </Box>
+            
+          {isBusy && <Loader />}
 
-        <StatusMessage type={statusType} text={statusText} />
+          <StatusMessage type={statusType} text={statusText} />
 
-        {isComplete && <Paragraph>{t('ResetPassword.RequestResetForm.footer')}</Paragraph>}
+          {isComplete && <Paragraph>{t('ResetPassword.RequestResetForm.footer')}</Paragraph>}
+        </InputBoxes>
       </Form>
   )
 }
