@@ -27,9 +27,9 @@ Output:
 
 import auth from 'panoptes-client/lib/auth'
 
-export default async function doRequestPasswordReset ({ password, confirmation, token }) {
+export default async function doCommitPasswordReset ({ password, confirmation, token }) {
   try {
-    await auth.requestPasswordReset({ password, confirmation, token })
+    await auth.resetPassword({ password, confirmation, token })
     return 0
   } catch (error) {
     console.error(error)
