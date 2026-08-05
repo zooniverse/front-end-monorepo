@@ -5,8 +5,9 @@ import OtherLayout from '@components/PageLayout/OtherLayout'
 import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent'
 import { bool, string } from 'prop-types'
 
-import CommitResetForm from './components/CommitResetForm/CommitResetForm'
 import RequestResetForm from './components/RequestResetForm/RequestResetForm'
+import CommitResetForm from './components/CommitResetForm/CommitResetForm'
+import NoAccessMessage from './components/NoAccessMessage/NoAccessMessage'
 
 function ResetPassword ({
   isLoggedIn = false,
@@ -27,7 +28,7 @@ function ResetPassword ({
           )}
 
           {!resetPasswordToken && isLoggedIn && (
-            <p>TODO: Block access</p>
+            <NoAccessMessage />
           )}
 
           {resetPasswordToken && (

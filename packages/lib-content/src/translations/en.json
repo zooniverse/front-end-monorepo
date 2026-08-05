@@ -388,6 +388,9 @@
         "errorTooManyRequests": "Error: too many password reset requests. Please try again later."
       },
       "submit": "Send"
+    },
+    "NoAccessMessage": {
+      "body": "You are currently logged in. Please log out if you would like to reset your password."
     }
   },
   "Resources": {
