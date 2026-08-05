@@ -1,11 +1,27 @@
-import { useRef, useState } from 'react'
-import { Form, Heading, Paragraph, TextInput } from 'grommet'
+import { useId, useRef, useState } from 'react'
+import { Box, Form, FormField, Heading, Paragraph, TextInput } from 'grommet'
 import { Trans, useTranslation } from '@translations/i18n'
 import styled, { css } from 'styled-components'
 import { bool } from 'prop-types'
 import { Loader, StatusMessage } from '@zooniverse/react-components'
 import doCommitPasswordReset from '../../helpers/doCommitPasswordReset'
 import DarkTealPrimaryButton from '../../../Unsubscribe/components/DarkTealPrimaryButton/DarkTealPrimaryButton'
+
+const InputBoxes = styled(Box)`
+  gap: 1em;
+`
+
+const InputBox = styled(Box)`
+  gap: 0.5em;
+`
+
+const InputLabelBox = styled(Box)`
+  gap: 0.5em;
+`
+
+const HelpInfo = styled('span')`
+
+`
 
 function CommitResetForm ({
   resetPasswordToken = ''
@@ -17,6 +33,9 @@ function CommitResetForm ({
   const [isComplete, setIsComplete] = useState(false)
   const inputPassword = useRef()  // New password
   const inputConfirmation = useRef()  // Confirm new password
+
+  const passwordInputId = useId()
+  const confirmationInputId = useId()
 
   // This only triggers if the email is valid.
   // Email validation is performed via native HTML form controls.
@@ -57,39 +76,59 @@ function CommitResetForm ({
         className='CommitResetForm'
         onSubmit={onSubmit}
       >
-        <Heading
-          level={1}
-        >
+        <Heading level={1}>
           {t('ResetPassword.common.header')}
         </Heading>
+
         <Paragraph>
           {t('ResetPassword.CommitResetForm.body')}
         </Paragraph>
-        <TextInput
-          aria-label={t('ResetPassword.CommitResetForm.inputPassword')}
-          disabled={isBusy || isComplete}
-          ref={inputPassword}
-          required
-          type='password'
-        />
-        <TextInput
-          aria-label={t('ResetPassword.CommitResetForm.inputConfirmation')}
-          disabled={isBusy || isComplete}
-          ref={inputConfirmation}
-          required
-          type='password'
-        />
-        <DarkTealPrimaryButton
-          disabled={isBusy || isComplete}
-          label={t('ResetPassword.CommitResetForm.submit')}
-          type='submit'
-        />
-          
-        {isBusy && <Loader />}
 
-        <StatusMessage type={statusType} text={statusText} />
+        <InputBoxes>
 
-        {isComplete && <Paragraph>{t('ResetPassword.CommitResetForm.footer')}</Paragraph>}
+          <InputBox>
+            <InputLabelBox direction='row'>
+              <label for={passwordInputId}>{t('ResetPassword.CommitResetForm.inputPassword')}</label>
+              <HelpInfo>{t('ResetPassword.CommitResetForm.helpInfoPassword')}</HelpInfo>
+            </InputLabelBox>
+            <TextInput
+              id={passwordInputId}
+              disabled={isBusy || isComplete}
+              ref={inputPassword}
+              required
+              type='password'
+            />
+          </InputBox>
+
+          <InputBox>
+            <InputLabelBox direction='row'>
+              <label for={confirmationInputId}>{t('ResetPassword.CommitResetForm.inputConfirmation')}</label>
+              <HelpInfo>{t('ResetPassword.CommitResetForm.helpInfoConfirmation')}</HelpInfo>
+            </InputLabelBox>
+            <TextInput
+              id={confirmationInputId}
+              disabled={isBusy || isComplete}
+              ref={inputConfirmation}
+              required
+              type='password'
+            />
+          </InputBox>
+
+          <Box direction='row' justify='end'>
+            <DarkTealPrimaryButton
+              disabled={isBusy || isComplete}
+              label={t('ResetPassword.CommitResetForm.submit')}
+              type='submit'
+            />
+          </Box>
+
+          {isBusy && <Loader />}
+
+          <StatusMessage type={statusType} text={statusText} />
+
+          {isComplete && <Paragraph>{t('ResetPassword.CommitResetForm.footer')}</Paragraph>}
+
+        </InputBoxes>          
       </Form>
   )
 }
