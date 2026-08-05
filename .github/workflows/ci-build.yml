@@ -13,7 +13,7 @@ jobs:
       PANOPTES_ENV: production
     steps:
       - uses: actions/checkout@v7
-      - uses: pnpm/action-setup@v6
+      - uses: pnpm/action-setup@v6.0.9
       - name: Use Node.js 22
         uses: actions/setup-node@v7
         with:
@@ -35,7 +35,7 @@ jobs:
       PANOPTES_ENV: production
     steps:
       - uses: actions/checkout@v7
-      - uses: pnpm/action-setup@v6
+      - uses: pnpm/action-setup@v6.0.9
       - name: Use Node.js 22
         uses: actions/setup-node@v7
         with:
@@ -55,7 +55,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: pnpm/action-setup@v6
+      - uses: pnpm/action-setup@v6.0.9
       - name: Use Node.js 22
         uses: actions/setup-node@v7
         with:
