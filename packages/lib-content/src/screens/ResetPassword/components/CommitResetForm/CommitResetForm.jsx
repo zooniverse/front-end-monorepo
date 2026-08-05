@@ -46,7 +46,6 @@ function CommitResetForm ({
   if (apiError) {
     statusType = 'error'
     statusText = apiError.message?.toString() || apiError.toString?.()
-    // ⚠️ TODO: check what kind of API errors are actually returned.
 
   } else if (isComplete) {
     statusType = 'success'

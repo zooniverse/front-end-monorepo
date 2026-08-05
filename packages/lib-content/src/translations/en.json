@@ -373,7 +373,10 @@
       "body": "Enter your password twice to confirm it, then you'll be ready to get back to helping with real research.",
       "inputPassword": "New password",
       "inputConfirmation": "Confirm new password",
-      "status": {},
+      "status": {
+        "success": "",
+        "errorPasswordsDoNotMatch": "Error: the passwords do not match, please try again."
+      },
       "submit": "Submit"
     },
     "RequestResetForm": {

@@ -32,7 +32,18 @@ export default async function doCommitPasswordReset ({ password, confirmation, t
     await auth.resetPassword({ password, confirmation, token })
     return 0
   } catch (error) {
-    console.error(error)
-    return error
+    let _error = error
+    console.error(_error)
+
+    // For some reason, auth.resetPassword() sometimes throws the entire
+    // XMLHttpRequest's Response object instead of an Error object. If this
+    // happens, we need to adapt it.
+
+    if (_error.req && error.status >= 400 && error.status <= 599) {
+      const errorMessage = _error.body?.errors?.[0]?.message || 'Unknown API error'
+      _error = new Error(errorMessage)
+    }
+
+    return _error
   }
 }
