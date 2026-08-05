@@ -22,7 +22,8 @@ function createMoveToClickInteraction({
   map,
   selectInteraction,
   geoDrawingTask,
-  featuresLayer
+  featuresLayer,
+  isPointDrawBelowCap = () => false
 }) {
   const state = {
     downCoordinate: null,
@@ -214,6 +215,11 @@ function createMoveToClickInteraction({
     })
 
     if (clickedOtherFeatureCenter) {
+      return false
+    }
+
+    // Empty-map clicks create a point while capacity remains; teleport only resumes at the cap.
+    if (isPointDrawBelowCap()) {
       return false
     }
 

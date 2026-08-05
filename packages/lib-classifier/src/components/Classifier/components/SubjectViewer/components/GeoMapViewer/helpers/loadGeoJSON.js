@@ -10,7 +10,7 @@ function getSubjectExtent(data) {
   return transformExtent(data.bbox, GEOJSON_READ_OPTIONS.dataProjection, GEOJSON_READ_OPTIONS.featureProjection)
 }
 
-export default function loadGeoJSON({ map, source, select, measure, data }) {
+export default function loadGeoJSON({ map, source, select, measure, data, autoSelect = true }) {
   if (!map || !source) return
   measure?.clear?.()
   source.clear()
@@ -19,10 +19,10 @@ export default function loadGeoJSON({ map, source, select, measure, data }) {
   const format = new GeoJSON()
   const features = format.readFeatures(data, GEOJSON_READ_OPTIONS)
   source.addFeatures(features)
-  if (source.getFeatures().length) {
-    const extent = getSubjectExtent(data) || source.getExtent()
-    constrainMapToExtent(map, extent)
-    fitViewToExtent(map, extent, ZOOM_ANIMATION_DURATION_MS)
-    selectFirstFeature(select, features)
-  }
+  const subjectExtent = getSubjectExtent(data)
+  const viewExtent = subjectExtent || (features.length ? source.getExtent() : null)
+  if (!viewExtent) return
+  if (subjectExtent) constrainMapToExtent(map, subjectExtent)
+  fitViewToExtent(map, viewExtent, ZOOM_ANIMATION_DURATION_MS)
+  if (autoSelect) selectFirstFeature(select, features)
 }

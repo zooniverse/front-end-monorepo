@@ -12,6 +12,7 @@ export default function useMapCursor({
   draw,
   modify,
   moveToClick,
+  pointDraw,
   geoDrawingTask,
   hasGeoDrawingTask,
   activeToolType,
@@ -63,6 +64,7 @@ export default function useMapCursor({
           select,
           draw,
           modify,
+          pointDraw,
           geoDrawingTask,
           activeToolType,
           isMeasureModeActive,
@@ -98,5 +100,5 @@ export default function useMapCursor({
       map.un('pointerdown', onPointerDown)
       if (rafId !== null) cancelAnimationFrame(rafId)
     }
-  }, [map, layer, select, draw, modify, moveToClick, geoDrawingTask, hasGeoDrawingTask, activeToolType, isMeasureModeActive])
+  }, [map, layer, select, draw, modify, moveToClick, pointDraw, geoDrawingTask, hasGeoDrawingTask, activeToolType, isMeasureModeActive])
 }
