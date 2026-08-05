@@ -1,8 +1,10 @@
 import { primaryAction } from 'ol/events/condition'
 import { unByKey } from 'ol/Observable'
 import Draw from 'ol/interaction/Draw'
+import { createEditingStyle } from 'ol/style/Style'
 
 import { FEATURE_HIT_TOLERANCE_PX } from './createGeoLineStringInteraction'
+import { isWithinSubjectExtent } from './extentConstraint'
 import isPointFeature from './isPointFeature'
 
 // Subject-provided points carry no toolIndex, so they never count toward the cap.
@@ -10,6 +12,30 @@ function countPointFeaturesForTool(source, toolIndex) {
   return source.getFeatures().filter((feature) => (
     isPointFeature(feature) && feature.get?.('toolIndex') === toolIndex
   )).length
+}
+
+export function createSketchStyle({ map }) {
+  const editingStyles = createEditingStyle()
+  return (feature) => {
+    const geometry = feature.getGeometry()
+    if (!geometry) return null
+    if (geometry.getType() === 'Point' && !isWithinSubjectExtent(map, geometry.getCoordinates())) {
+      return null
+    }
+    return editingStyles[geometry.getType()]
+  }
+}
+
+export function createDrawCondition({ map, featuresLayer }) {
+  return (event) => {
+    if (!primaryAction(event)) return false
+    if (!isWithinSubjectExtent(map, event.coordinate)) return false
+    if (!featuresLayer) return true
+    return !map.hasFeatureAtPixel(event.pixel, {
+      layerFilter: (layer) => layer === featuresLayer,
+      hitTolerance: FEATURE_HIT_TOLERANCE_PX
+    })
+  }
 }
 
 function createGeoPointInteraction({
@@ -26,14 +52,8 @@ function createGeoPointInteraction({
   const draw = new Draw({
     source,
     type: 'Point',
-    condition: (event) => {
-      if (!primaryAction(event)) return false
-      if (!featuresLayer) return true
-      return !map.hasFeatureAtPixel(event.pixel, {
-        layerFilter: (layer) => layer === featuresLayer,
-        hitTolerance: FEATURE_HIT_TOLERANCE_PX
-      })
-    }
+    condition: createDrawCondition({ map, featuresLayer }),
+    style: createSketchStyle({ map })
   })
 
   map.addInteraction(draw)

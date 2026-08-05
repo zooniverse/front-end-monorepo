@@ -2,6 +2,7 @@ import { isPixelNearDragHandle } from '@plugins/tasks/experimental/geoDrawing/fe
 
 import asMSTFeature from './asMSTFeature'
 import { FEATURE_HIT_TOLERANCE_PX } from './createGeoLineStringInteraction'
+import { isWithinSubjectExtent } from './extentConstraint'
 import getDrawModeCursor from './getDrawModeCursor'
 import getInteractionStates from './getInteractionStates'
 import getPixelDistance from './getPixelDistance'
@@ -130,7 +131,9 @@ export default function getCursorFromState({
     return getDrawCursor({ map, layer, select, draw, modify, pixel, dragging })
   }
 
-  const pointDrawReady = !!(states.pointDraw && pointDraw && !pointDraw.isCapped())
+  const pointerCoordinate = map.getCoordinateFromPixel?.(pixel) ?? null
+  const pointerInExtent = pointerCoordinate ? isWithinSubjectExtent(map, pointerCoordinate) : true
+  const pointDrawReady = !!(states.pointDraw && pointDraw && !pointDraw.isCapped()) && pointerInExtent
 
   const selected = select.getFeatures().item(0)
   if (selected) {

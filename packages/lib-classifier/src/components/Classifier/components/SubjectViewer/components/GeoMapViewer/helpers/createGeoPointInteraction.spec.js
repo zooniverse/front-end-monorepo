@@ -4,7 +4,7 @@ import LineStringGeom from 'ol/geom/LineString'
 import { Select } from 'ol/interaction'
 import VectorSource from 'ol/source/Vector'
 import VectorLayer from 'ol/layer/Vector'
-import createGeoPointInteraction from './createGeoPointInteraction'
+import createGeoPointInteraction, { createDrawCondition, createSketchStyle } from './createGeoPointInteraction'
 
 function buildMap(source) {
   const layer = new VectorLayer({ source })
@@ -201,5 +201,63 @@ describe('helpers > createGeoPointInteraction', function () {
     expect(map.getInteractions().getArray().some(i => i.constructor.name === 'Draw')).to.equal(true)
     interaction.destroy()
     expect(map.getInteractions().getArray().some(i => i.constructor.name === 'Draw')).to.equal(false)
+  })
+
+  describe('createDrawCondition', function () {
+    const primaryEvent = (coordinate) => ({
+      coordinate,
+      pixel: [10, 10],
+      originalEvent: { pointerId: 1, isPrimary: true, button: 0, pointerType: 'mouse' }
+    })
+
+    it('accepts a primary click when no subject extent is set', function () {
+      const condition = createDrawCondition({ map })
+      expect(condition(primaryEvent([5, 5]))).to.equal(true)
+    })
+
+    it('accepts a primary click inside the subject extent', function () {
+      map.set('subjectExtent', [0, 0, 100, 100])
+      const condition = createDrawCondition({ map })
+      expect(condition(primaryEvent([50, 50]))).to.equal(true)
+    })
+
+    it('rejects a click outside the subject extent', function () {
+      map.set('subjectExtent', [0, 0, 100, 100])
+      const condition = createDrawCondition({ map })
+      expect(condition(primaryEvent([150, 50]))).to.equal(false)
+    })
+
+    it('rejects a non-primary click', function () {
+      const condition = createDrawCondition({ map })
+      const event = {
+        coordinate: [5, 5],
+        pixel: [10, 10],
+        originalEvent: { pointerId: 1, isPrimary: true, button: 2, pointerType: 'mouse' }
+      }
+      expect(condition(event)).to.equal(false)
+    })
+  })
+
+  describe('createSketchStyle', function () {
+    function sketchPoint(coordinates) {
+      return new Feature({ geometry: new PointGeom(coordinates) })
+    }
+
+    it('styles the sketch point when no subject extent is set', function () {
+      const style = createSketchStyle({ map })
+      expect(style(sketchPoint([5, 5]))).to.exist
+    })
+
+    it('styles the sketch point inside the subject extent', function () {
+      map.set('subjectExtent', [0, 0, 100, 100])
+      const style = createSketchStyle({ map })
+      expect(style(sketchPoint([50, 50]))).to.exist
+    })
+
+    it('hides the sketch point outside the subject extent', function () {
+      map.set('subjectExtent', [0, 0, 100, 100])
+      const style = createSketchStyle({ map })
+      expect(style(sketchPoint([150, 50]))).to.equal(null)
+    })
   })
 })

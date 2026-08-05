@@ -19,9 +19,10 @@ export default function loadGeoJSON({ map, source, select, measure, data, autoSe
   const format = new GeoJSON()
   const features = format.readFeatures(data, GEOJSON_READ_OPTIONS)
   source.addFeatures(features)
-  const extent = getSubjectExtent(data) || (features.length ? source.getExtent() : null)
-  if (!extent) return
-  constrainMapToExtent(map, extent)
-  fitViewToExtent(map, extent, ZOOM_ANIMATION_DURATION_MS)
+  const subjectExtent = getSubjectExtent(data)
+  const viewExtent = subjectExtent || (features.length ? source.getExtent() : null)
+  if (!viewExtent) return
+  if (subjectExtent) constrainMapToExtent(map, subjectExtent)
+  fitViewToExtent(map, viewExtent, ZOOM_ANIMATION_DURATION_MS)
   if (autoSelect) selectFirstFeature(select, features)
 }

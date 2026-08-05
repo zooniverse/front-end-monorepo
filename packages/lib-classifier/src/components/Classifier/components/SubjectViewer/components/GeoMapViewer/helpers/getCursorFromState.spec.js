@@ -50,4 +50,39 @@ describe('helpers > getCursorFromState > point creation mode', function () {
     const cursor = cursorFor({ geoDrawingTask: creatableTask, pointDraw: { isCapped: () => false }, dragging: true })
     expect(cursor).to.equal('')
   })
+
+  describe('with a subject extent', function () {
+    function extentMap(coordinate) {
+      return {
+        get: (key) => (key === 'subjectExtent' ? [0, 0, 100, 100] : undefined),
+        getCoordinateFromPixel: () => coordinate
+      }
+    }
+
+    function cursorAt(coordinate) {
+      return getCursorFromState({
+        map: extentMap(coordinate),
+        layer: {},
+        select: fakeSelect(),
+        draw: null,
+        modify: null,
+        pointDraw: { isCapped: () => false },
+        geoDrawingTask: creatableTask,
+        activeToolType: 'Point',
+        isMeasureModeActive: false,
+        isDraggingPoint: false,
+        pixel: [0, 0],
+        dragging: false,
+        cachedFeatureHit: false
+      })
+    }
+
+    it('returns crosshair when the pointer is inside the subject extent', function () {
+      expect(cursorAt([50, 50])).to.equal('crosshair')
+    })
+
+    it('returns default when the pointer is outside the subject extent', function () {
+      expect(cursorAt([150, 50])).to.equal('default')
+    })
+  })
 })

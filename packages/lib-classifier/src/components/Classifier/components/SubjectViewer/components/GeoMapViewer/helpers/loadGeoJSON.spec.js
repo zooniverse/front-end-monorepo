@@ -78,4 +78,34 @@ describe('helpers > loadGeoJSON', function () {
     expect(map.get('subjectExtent')).to.equal(undefined)
     expect(map.getLayers().getArray().some(layer => layer.get('extentMask'))).to.equal(false)
   })
+
+  it('does not constrain when the FeatureCollection has features but no bbox', function () {
+    const spreadPoints = {
+      type: 'FeatureCollection',
+      features: [
+        { type: 'Feature', geometry: { type: 'Point', coordinates: [151.2768, -33.89155] }, properties: {} },
+        { type: 'Feature', geometry: { type: 'Point', coordinates: [151.28849, -33.79645] }, properties: {} }
+      ]
+    }
+    loadGeoJSON({ map, source, select, data: spreadPoints })
+    expect(source.getFeatures()).to.have.length(2)
+    expect(map.get('subjectExtent')).to.equal(undefined)
+    expect(map.getLayers().getArray().some(layer => layer.get('extentMask'))).to.equal(false)
+    expect(select.getFeatures().getLength()).to.equal(1)
+  })
+
+  it('constrains to the bbox, not the features extent, when both are present', function () {
+    const bbox = [-91.05, 47.96, -90.97, 48.01]
+    const data = {
+      type: 'FeatureCollection',
+      bbox,
+      features: [
+        { type: 'Feature', geometry: { type: 'Point', coordinates: [-91.0, 47.98] }, properties: {} }
+      ]
+    }
+    loadGeoJSON({ map, source, select, data })
+    const expected = transformExtent(bbox, GEOJSON_READ_OPTIONS.dataProjection, GEOJSON_READ_OPTIONS.featureProjection)
+    expect(map.get('subjectExtent')).to.deep.equal(expected)
+    expect(map.getLayers().getArray().some(layer => layer.get('extentMask'))).to.equal(true)
+  })
 })

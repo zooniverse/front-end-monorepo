@@ -201,6 +201,7 @@ export const WithGeoDrawingPointCreationTask = {
 
     const geoJSON = {
       type: 'FeatureCollection',
+      bbox: [-91.05, 47.96, -90.97, 48.01],
       features: seedSubjectPoint
         ? [
             {
