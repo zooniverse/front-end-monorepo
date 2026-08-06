@@ -10,6 +10,10 @@ import DarkTealPrimaryButton from '../../../Unsubscribe/components/DarkTealPrima
 
 const InputBoxes = styled(Box)`
   gap: 1em;
+
+  input:user-invalid {
+    border-color: ${props => props.theme.global.colors['neutral-4']};
+  }
 `
 
 function RequestResetForm () {
