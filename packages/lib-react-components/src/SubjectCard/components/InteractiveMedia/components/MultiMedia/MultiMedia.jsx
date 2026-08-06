@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 import FlipbookControls from '../FlipbookControls'
-import SubjectThumbnail from '../SubjectThumbnail'
+import Image from '../Image'
 import MediaLink from '../../../MediaLink'
 
 const FLIPBOOK_INTERVAL = 500
@@ -71,7 +71,7 @@ function MultiMedia({
 					round={{ corner: 'top', size: '8px' }}
 					width={`${width}px`}
 				>
-					<SubjectThumbnail
+					<Image
 						alt={subjectIdTitle}
 						fit='contain'
 						height={previewHeight}
