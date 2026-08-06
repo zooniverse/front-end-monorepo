@@ -4,11 +4,11 @@ import { useState } from 'react'
 import FlipbookControls from './FlipbookControls'
 import {
   SMITHSONIAN_WILDLIFE_MULTI_IMAGE_SUBJECT,
-  SQUIRREL_MAPPER_SUBJECT
+  SQUIRREL_MAPPER_MULTI_IMAGE_SUBJECT
 } from '../../../../stories/SubjectCardStoryData'
 
 const IMAGE_SOURCES = SMITHSONIAN_WILDLIFE_MULTI_IMAGE_SUBJECT.locations.map(location => Object.values(location)[0])
-const EXTERNAL_IMAGE_SOURCES = Array.from({ length: 5 }, () => SQUIRREL_MAPPER_SUBJECT.locations[0])
+const EXTERNAL_IMAGE_SOURCES = SQUIRREL_MAPPER_MULTI_IMAGE_SUBJECT.locations.map(location => Object.values(location)[0])
 
 function FlipbookControlsPreview({ imageSources = IMAGE_SOURCES }) {
   const [currentFrame, setCurrentFrame] = useState(0)

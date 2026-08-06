@@ -1,4 +1,4 @@
-import SubjectCard from '../../SubjectCard'
+import SubjectCard from '../../../SubjectCard'
 import {
   BELUGA_BITS_SUBJECT,
   DARK_ENERGY_EXPLORERS_SUBJECT,
@@ -11,10 +11,10 @@ import {
   SMITHSONIAN_WILDLIFE_MULTI_IMAGE_SUBJECT,
   SQUIRREL_MAPPER_SUBJECT,
   WILDWATCH_KENYA_SUBJECT,
-} from '../SubjectCardStoryData'
+} from '../../SubjectCardStoryData'
 
 const meta = {
-  title: 'Components / SubjectCard / Interactive / Image',
+  title: 'Components / SubjectCard / Interactive / SingleMedia / Image',
   component: SubjectCard
 }
 

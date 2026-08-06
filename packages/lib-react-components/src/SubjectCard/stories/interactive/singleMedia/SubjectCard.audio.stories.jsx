@@ -1,11 +1,11 @@
-import SubjectCard from '../../SubjectCard'
+import SubjectCard from '../../../SubjectCard'
 import {
   FROG_FIND_SUBJECT,
   InteractiveStory
-} from '../SubjectCardStoryData'
+} from '../../SubjectCardStoryData'
 
 const meta = {
-  title: 'Components / SubjectCard / Interactive / Audio',
+  title: 'Components / SubjectCard / Interactive / SingleMedia / Audio',
   component: SubjectCard
 }
 

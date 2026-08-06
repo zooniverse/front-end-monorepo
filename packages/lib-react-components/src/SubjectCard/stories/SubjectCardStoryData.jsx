@@ -227,6 +227,23 @@ export const SQUIRREL_MAPPER_SUBJECT = {
   metadata: DEFAULT_METADATA
 }
 
+export const SQUIRREL_MAPPER_MULTI_IMAGE_SUBJECT = {
+  id: '85284649',
+  links: { project: '8149' },
+  locations: [
+    {
+      "image/jpeg": "https://static.inaturalist.org/photos/76275575/original.jpg"
+    },
+    {
+      "image/jpeg": "https://static.inaturalist.org/photos/76275572/original.jpg"
+    },
+    {
+      "image/jpeg": "https://static.inaturalist.org/photos/76275566/original.jpg"
+    }
+  ],
+  metadata: DEFAULT_METADATA
+}
+
 export function StoryRow({
   login,
   subject

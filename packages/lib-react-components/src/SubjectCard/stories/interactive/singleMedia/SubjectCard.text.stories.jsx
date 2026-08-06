@@ -1,11 +1,11 @@
-import SubjectCard from '../../SubjectCard'
+import SubjectCard from '../../../SubjectCard'
 import {
   NOTES_FROM_NATURE_TEXT_SUBJECT,
   InteractiveStory
-} from '../SubjectCardStoryData'
+} from '../../SubjectCardStoryData'
 
 const meta = {
-  title: 'Components / SubjectCard / Interactive / Text',
+  title: 'Components / SubjectCard / Interactive / SingleMedia / Text',
   component: SubjectCard
 }
 

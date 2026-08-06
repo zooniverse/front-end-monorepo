@@ -29,7 +29,7 @@ describe('FlipbookControls', function () {
     const fallbackIcons = screen.getAllByTestId('frame-thumbnail-icon')
     const imageThumbnails = screen.queryAllByTestId('frame-thumbnail-image')
 
-    expect(fallbackIcons.length).to.equal(5)
+    expect(fallbackIcons.length).to.equal(3)
     expect(imageThumbnails.length).to.equal(0)
   })
 })
