@@ -11,6 +11,7 @@ const locales = [
   'el', // Greek
   'en', // English
   'es', // Spanish
+  'fa', // Persian / Farsi
   'fi', // Finnish
   'fr', // French
   'ha', // Hausa

@@ -1,4 +1,4 @@
-import SubjectCard from '../../SubjectCard'
+import SubjectCard from '../../../SubjectCard'
 import {
   BELUGA_BITS_SUBJECT,
   DARK_ENERGY_EXPLORERS_SUBJECT,
@@ -9,11 +9,12 @@ import {
   PRINT_SUBJECT,
   RADIO_METEOR_ZOO_SUBJECT,
   SMITHSONIAN_WILDLIFE_MULTI_IMAGE_SUBJECT,
+  SQUIRREL_MAPPER_SUBJECT,
   WILDWATCH_KENYA_SUBJECT,
-} from '../SubjectCardStoryData'
+} from '../../SubjectCardStoryData'
 
 const meta = {
-  title: 'Components / SubjectCard / Interactive / Image',
+  title: 'Components / SubjectCard / Interactive / SingleMedia / Image',
   component: SubjectCard
 }
 
@@ -51,6 +52,6 @@ export const LoggedInSquareDark = {
   render: () => <InteractiveStory login={'TestUser'} subject={GALAXY_ZOO_SUBJECT} />
 }
 
-export const LoggedInMultiImage = {
-  render: () => <InteractiveStory login={'TestUser'} subject={SMITHSONIAN_WILDLIFE_MULTI_IMAGE_SUBJECT} />
+export const LoggedInExternal = {
+  render: () => <InteractiveStory login={'TestUser'} subject={SQUIRREL_MAPPER_SUBJECT} />
 }

@@ -1,19 +1,23 @@
-import { bool, node, number, arrayOf, string } from 'prop-types'
-import { useEffect, useMemo, useState } from 'react'
+import { Box } from 'grommet'
+import { number, arrayOf, string } from 'prop-types'
+import { useEffect, useState } from 'react'
+import styled from 'styled-components'
 
 import FlipbookControls from '../FlipbookControls'
+import SubjectThumbnail from '../SubjectThumbnail'
 import MediaLink from '../../../MediaLink'
-import SimpleMedia from '../../../SimpleMedia/SimpleMedia'
 
 const FLIPBOOK_INTERVAL = 500
 export const MULTI_MEDIA_CONTROLS_HEIGHT = 45
 
+const StyledPreview = styled(Box)`
+	overflow: hidden;
+`
+
 function MultiMedia({
 	linkTitle,
 	mediaSources = [],
-	placeholder,
 	previewHeight,
-	showBackground,
 	subjectIdTitle,
 	width,
 	url
@@ -21,23 +25,17 @@ function MultiMedia({
 	const [currentFrame, setCurrentFrame] = useState(0)
 	const [playing, setPlaying] = useState(false)
 
-	const currentMediaSrc = useMemo(() => {
-		return mediaSources[currentFrame]
-	}, [currentFrame, mediaSources])
+	const mediaSourcesLength = mediaSources.length
+	const currentMediaSrc = mediaSources[currentFrame]
 
 	useEffect(() => {
-		setCurrentFrame(0)
-		setPlaying(false)
-	}, [mediaSources])
-
-	useEffect(() => {
-		if (!playing || mediaSources.length < 2) {
+		if (!playing || mediaSourcesLength < 2) {
 			return undefined
 		}
 
 		const timer = window.setTimeout(() => {
 			setCurrentFrame(previousFrame => {
-				if (previousFrame < mediaSources.length - 1) {
+				if (previousFrame < mediaSourcesLength - 1) {
 					return previousFrame + 1
 				}
 
@@ -48,7 +46,7 @@ function MultiMedia({
 		return () => {
 			window.clearTimeout(timer)
 		}
-	}, [currentFrame, mediaSources.length, playing])
+	}, [currentFrame, mediaSourcesLength, playing])
 
 	if (!currentMediaSrc) return null
 
@@ -67,15 +65,20 @@ function MultiMedia({
 				href={url}
 				title={linkTitle}
 			>
-				<SimpleMedia
-					mediaSrc={currentMediaSrc}
-					placeholder={placeholder}
-					previewHeight={previewHeight}
-					showBackground={showBackground}
-					showTitle={false}
-					subjectIdTitle={subjectIdTitle}
-					width={width}
-				/>
+				<StyledPreview
+					justify='center'
+					height={`${previewHeight}px`}
+					round={{ corner: 'top', size: '8px' }}
+					width={`${width}px`}
+				>
+					<SubjectThumbnail
+						alt={subjectIdTitle}
+						fit='contain'
+						height={previewHeight}
+						src={currentMediaSrc}
+						width={width}
+					/>
+				</StyledPreview>
 			</MediaLink>
 			<FlipbookControls
 				currentFrame={currentFrame}
@@ -91,9 +94,7 @@ function MultiMedia({
 MultiMedia.propTypes = {
 	linkTitle: string.isRequired,
 	mediaSources: arrayOf(string).isRequired,
-	placeholder: node,
 	previewHeight: number.isRequired,
-	showBackground: bool,
 	subjectIdTitle: string.isRequired,
 	width: number.isRequired,
 	url: string.isRequired

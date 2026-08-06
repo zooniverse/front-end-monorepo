@@ -1,5 +1,5 @@
 import { Box } from 'grommet'
-import { bool, node, number, string } from 'prop-types'
+import { bool, node, number, string, oneOf } from 'prop-types'
 import styled from 'styled-components'
 
 import Media from '../../../Media'
@@ -42,6 +42,7 @@ const StyledTitleText = styled.span`
 `
 
 function SimpleMedia({
+	defaultMimeType = 'image',
 	mediaSrc,
 	placeholder,
 	previewHeight,
@@ -62,6 +63,7 @@ function SimpleMedia({
 						alt=''
 						aria-hidden='true'
 						controls={false}
+						defaultMimeType={defaultMimeType}
 						fit='cover'
 						height={previewHeight}
 						showPoster={true}
@@ -76,6 +78,7 @@ function SimpleMedia({
 				<StyledForegroundMedia
 					alt={subjectIdTitle}
 					controls={false}
+					defaultMimeType={defaultMimeType}
 					fit='contain'
 					height={previewHeight}
 					placeholder={placeholder}
@@ -103,6 +106,7 @@ function SimpleMedia({
 }
 
 SimpleMedia.propTypes = {
+	defaultMimeType: oneOf(['application', 'audio', 'image', 'text', 'video']),
 	mediaSrc: string,
 	placeholder: node,
 	previewHeight: number.isRequired,

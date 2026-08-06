@@ -2,6 +2,7 @@ import PointerInteraction from 'ol/interaction/Pointer'
 import { get as getProjection } from 'ol/proj'
 import { isPixelNearDragHandle } from '@plugins/tasks/experimental/geoDrawing/features/models/Point/dragHandle'
 import asMSTFeature from './asMSTFeature'
+import { clampToSubjectExtent, isWithinSubjectExtent } from './extentConstraint'
 import getPixelDistance from './getPixelDistance'
 import { isPixelNearPointCenter, POINT_CENTER_HIT_RADIUS_PIXELS, getFeaturePixelsAcrossWorldCopies } from './hitTesting'
 
@@ -21,7 +22,8 @@ function createMoveToClickInteraction({
   map,
   selectInteraction,
   geoDrawingTask,
-  featuresLayer
+  featuresLayer,
+  isPointDrawBelowCap = () => false
 }) {
   const state = {
     downCoordinate: null,
@@ -102,6 +104,7 @@ function createMoveToClickInteraction({
   }
 
   function teleportFeatureTo(coordinate, projectionCode) {
+    if (!isWithinSubjectExtent(map, coordinate)) return
     const geometry = state.selectedFeature.getGeometry()
     if (!geometry || typeof geometry.setCoordinates !== 'function') return
 
@@ -215,6 +218,11 @@ function createMoveToClickInteraction({
       return false
     }
 
+    // Empty-map clicks create a point while capacity remains; teleport only resumes at the cap.
+    if (isPointDrawBelowCap()) {
+      return false
+    }
+
     state.disabledSelect = true
     selectInteraction.setActive(false)
     return true
@@ -239,9 +247,13 @@ function createMoveToClickInteraction({
 
     if (geometry && typeof geometry.setCoordinates === 'function') {
       const projectionCode = map.getView().getProjection().getCode()
-      geometry.setCoordinates([
-        normalizeCoordinateToWorld(state.featureCoordinate[0] + deltaX, projectionCode),
+      const clamped = clampToSubjectExtent(map, [
+        state.featureCoordinate[0] + deltaX,
         state.featureCoordinate[1] + deltaY
+      ])
+      geometry.setCoordinates([
+        normalizeCoordinateToWorld(clamped[0], projectionCode),
+        clamped[1]
       ])
       state.selectedFeature.changed()
 

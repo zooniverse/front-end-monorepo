@@ -1,13 +1,13 @@
-import SubjectCard from '../../SubjectCard'
+import SubjectCard from '../../../SubjectCard'
 import {
   BLACK_HOLE_HUNTERS_SUBJECT,
   MIND_MAPPER_SUBJECT,
   NOTES_FROM_NATURE_GEOJSON_SUBJECT,
   InteractiveStory
-} from '../SubjectCardStoryData'
+} from '../../SubjectCardStoryData'
 
 const meta = {
-  title: 'Components / SubjectCard / Interactive / Application',
+  title: 'Components / SubjectCard / Interactive / SingleMedia / Application',
   component: SubjectCard
 }
 
