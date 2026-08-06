@@ -45,9 +45,7 @@ function InteractiveMedia({
       <MultiMedia
         linkTitle={linkTitle}
         mediaSources={sourceList}
-        placeholder={placeholder}
         previewHeight={resolvedPreviewHeight}
-        showBackground={showBackground}
         subjectIdTitle={subjectIdTitle}
         width={width}
         url={url}
