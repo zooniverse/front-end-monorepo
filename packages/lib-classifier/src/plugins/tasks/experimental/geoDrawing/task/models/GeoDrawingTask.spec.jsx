@@ -151,6 +151,67 @@ describe('Model > GeoDrawingTask', function () {
       expect(task.isComplete(annotation)).to.equal(false)
     })
 
+    describe('with a creatable Point tool', function () {
+      const pointTaskSnapshot = {
+        strings: { instruction: 'Mark the points.' },
+        taskKey: 'T0',
+        tools: [
+          { label: 'Point', type: 'Point', min: 2, max: 3 }
+        ],
+        type: 'geoDrawing'
+      }
+
+      function pointFeature(coordinates, properties) {
+        return { type: 'Feature', geometry: { type: 'Point', coordinates }, properties }
+      }
+
+      it('returns false when fewer than tool.min points are tagged for that tool', function () {
+        const task = GeoDrawingTask.create(pointTaskSnapshot)
+        const annotation = task.defaultAnnotation()
+        annotation.update({
+          type: 'FeatureCollection',
+          features: [pointFeature([0, 0], { toolIndex: 0 })]
+        })
+        expect(task.isComplete(annotation)).to.equal(false)
+      })
+
+      it('returns true when at least tool.min points are tagged for that tool', function () {
+        const task = GeoDrawingTask.create(pointTaskSnapshot)
+        const annotation = task.defaultAnnotation()
+        annotation.update({
+          type: 'FeatureCollection',
+          features: [
+            pointFeature([0, 0], { toolIndex: 0 }),
+            pointFeature([1, 1], { toolIndex: 0 })
+          ]
+        })
+        expect(task.isComplete(annotation)).to.equal(true)
+      })
+
+      it('excludes subject-provided points (no toolIndex) from the min count', function () {
+        const task = GeoDrawingTask.create(pointTaskSnapshot)
+        const annotation = task.defaultAnnotation()
+        annotation.update({
+          type: 'FeatureCollection',
+          features: [
+            pointFeature([0, 0], {}),
+            pointFeature([1, 1], { toolIndex: 0 })
+          ]
+        })
+        expect(task.isComplete(annotation)).to.equal(false)
+      })
+
+      it('does not enforce a min for a move-only Point tool (defaults min 0, max 0)', function () {
+        const task = GeoDrawingTask.create({
+          ...pointTaskSnapshot,
+          tools: [{ label: 'Point', type: 'Point' }]
+        })
+        const annotation = task.defaultAnnotation()
+        annotation.update({ type: 'FeatureCollection', features: [] })
+        expect(task.isComplete(annotation)).to.equal(true)
+      })
+    })
+
     describe('with multiple SegmentedLine tools', function () {
       const twoToolSnapshot = {
         strings: { instruction: 'Draw both kinds of lines.' },

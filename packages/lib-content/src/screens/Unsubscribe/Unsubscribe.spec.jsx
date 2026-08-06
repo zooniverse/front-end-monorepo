@@ -14,8 +14,13 @@ describe('Component > Unsubscribe Page', function () {
     })
 
     it('should show the Unsubscribe Form', function () {
-      const placeholder = screen.getByText('TODO: add form.')
-      expect(placeholder).to.exist
+      const unsubscribeText = screen.getByText('Unsubscribe from all Zooniverse emails, except Talk.')
+      const emailInput = screen.getByLabelText('Email address')
+      const submitButton = screen.getByText('Submit')
+
+      expect(unsubscribeText).to.exist
+      expect(emailInput).to.exist
+      expect(submitButton).to.exist
     })
   })
 

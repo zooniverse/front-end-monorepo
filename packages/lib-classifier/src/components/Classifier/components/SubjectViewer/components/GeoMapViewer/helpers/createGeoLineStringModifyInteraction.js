@@ -1,9 +1,19 @@
 import { primaryAction } from 'ol/events/condition'
 import Modify from 'ol/interaction/Modify'
 
+import { clampToSubjectExtent } from './extentConstraint'
+import isLineStringFeature from './isLineStringFeature'
+
 export function hasLineStringFeature(features) {
-  if (!features || features.length === 0) return false
-  return features.some((feature) => feature.getGeometry?.()?.getType?.() === 'LineString')
+  return Boolean(features?.some(isLineStringFeature))
+}
+
+function clampFeaturesToSubjectExtent(map, features) {
+  features.filter(isLineStringFeature).forEach((feature) => {
+    const geometry = feature.getGeometry()
+    geometry.setCoordinates(geometry.getCoordinates().map((coordinate) => clampToSubjectExtent(map, coordinate)))
+    feature.changed()
+  })
 }
 
 function createGeoLineStringModifyInteraction({
@@ -15,8 +25,7 @@ function createGeoLineStringModifyInteraction({
   let isModifying = false
 
   function getSelectedLineStringVertexCount() {
-    const feature = selectInteraction.getFeatures().getArray()
-      .find((f) => f.getGeometry?.()?.getType?.() === 'LineString')
+    const feature = selectInteraction.getFeatures().getArray().find(isLineStringFeature)
     if (!feature) return null
     return feature.getGeometry().getCoordinates().length
   }
@@ -35,8 +44,9 @@ function createGeoLineStringModifyInteraction({
   })
 
   const startKey = modify.on('modifystart', () => { isModifying = true })
-  const endKey = modify.on('modifyend', () => {
+  const endKey = modify.on('modifyend', (event) => {
     isModifying = false
+    clampFeaturesToSubjectExtent(map, event.features.getArray())
     onModifyEnd?.()
   })
 
