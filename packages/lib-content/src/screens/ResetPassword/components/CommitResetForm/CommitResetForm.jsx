@@ -46,9 +46,9 @@ function CommitResetForm ({
 
   const { t } = useTranslation()
   const [isBusy, setIsBusy] = useState(false)
+  const [isComplete, setIsComplete] = useState(false)
   const [inputError, setInputError] = useState(null)  // null, or Error object
   const [apiError, setApiError] = useState(null)  // null, or Error object
-  const [isComplete, setIsComplete] = useState(false)
   const inputPassword = useRef()  // New password
   const inputConfirmation = useRef()  // Confirm new password
 
@@ -154,7 +154,7 @@ function CommitResetForm ({
             />
           </Box>
 
-          {isBusy && <Loader />}
+          {isBusy && <Box align='center'><Loader /></Box>}
 
           <StatusMessage type={statusType} text={statusText} />
 
