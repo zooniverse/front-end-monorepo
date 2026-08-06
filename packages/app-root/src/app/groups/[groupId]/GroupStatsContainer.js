@@ -6,7 +6,7 @@ import { useContext, useEffect } from 'react'
 import { Loader } from '@zooniverse/react-components'
 import { Box } from 'grommet'
 
-import { PanoptesAuthContext } from '../../../contexts'
+import { PanoptesAuthContext } from '@/contexts'
 
 function updateQueryParams(newQueryParams) {
   const queryParams = new URLSearchParams(window.location.search)

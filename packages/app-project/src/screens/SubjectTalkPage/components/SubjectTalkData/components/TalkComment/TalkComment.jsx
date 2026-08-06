@@ -1,7 +1,7 @@
 import { Markdownz } from '@zooniverse/react-components'
 import { Anchor, Box, Paragraph, Text } from 'grommet'
 import { LikeFill, Share } from 'grommet-icons'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import styled from 'styled-components'
 
 import addQueryParams from '@helpers/addQueryParams'

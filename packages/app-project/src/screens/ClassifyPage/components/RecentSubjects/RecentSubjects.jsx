@@ -1,6 +1,6 @@
 import { SubjectCard } from '@zooniverse/react-components'
 import { Box } from 'grommet'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import { array, string } from 'prop-types'
 import styled from 'styled-components'
 

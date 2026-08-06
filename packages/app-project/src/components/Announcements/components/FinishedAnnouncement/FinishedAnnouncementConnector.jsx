@@ -1,6 +1,6 @@
 import { MobXProviderContext, observer } from 'mobx-react'
 import { useContext } from 'react'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 
 import NavLink from '@shared/components/NavLink'
 import GenericAnnouncement from '../GenericAnnouncement'

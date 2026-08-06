@@ -1,7 +1,7 @@
 import { Box, Grid, Heading } from 'grommet'
 import { arrayOf, bool, object, shape, string } from 'prop-types'
 import styled, { css } from 'styled-components'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 
 import StandardLayout from '@shared/components/StandardLayout'
 import ProjectAboutPageLayout from './ProjectAboutPageLayout'

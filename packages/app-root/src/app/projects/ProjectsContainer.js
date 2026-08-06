@@ -3,7 +3,7 @@
 import { Projects } from '@zooniverse/content'
 import { useContext } from 'react'
 
-import { PanoptesAuthContext } from '../../contexts'
+import { PanoptesAuthContext } from '@/contexts'
 
 function ProjectsContainer({
   featuredProjects,
