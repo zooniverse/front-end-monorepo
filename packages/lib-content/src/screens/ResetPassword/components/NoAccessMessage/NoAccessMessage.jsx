@@ -1,5 +1,6 @@
 import { Box, Heading, Paragraph } from 'grommet'
 import { useTranslation } from '@translations/i18n'
+import ResetPasswordHeader from '../ResetPasswordHeader/ResetPasswordHeader'
 
 export default function NoAccessMessage () {
   
@@ -7,9 +8,7 @@ export default function NoAccessMessage () {
 
   return (
     <Box>
-      <Heading level={1}>
-        {t('ResetPassword.common.header')}
-      </Heading>
+      <ResetPasswordHeader />
       <Paragraph>
         {t('ResetPassword.NoAccessMessage.body')}
       </Paragraph>
