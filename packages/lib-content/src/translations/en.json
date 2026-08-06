@@ -377,7 +377,7 @@
       "infoPassword": "Minimum 8 characters",
       "infoConfirmation": "Both fields must match",
       "status": {
-        "success": "",
+        "success": "Your password has been changed! Please log in with your new password.",
         "errorInvalidInput": "Error: invalid input",
         "errorPasswordsDoNotMatch": "Error: the passwords do not match, please try again."
       },
