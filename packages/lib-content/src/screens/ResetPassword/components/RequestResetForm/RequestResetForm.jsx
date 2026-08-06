@@ -16,8 +16,8 @@ function RequestResetForm () {
 
   const { t } = useTranslation()
   const [isBusy, setIsBusy] = useState(false)
-  const [apiError, setApiError] = useState(null)  // null, or Error object
   const [isComplete, setIsComplete] = useState(false)
+  const [apiError, setApiError] = useState(null)  // null, or Error object
   const inputEmail = useRef()
 
   // This only triggers if the email is valid.
@@ -83,7 +83,7 @@ function RequestResetForm () {
             />
           </Box>
             
-          {isBusy && <Loader />}
+          {isBusy && <Box align='center'><Loader /></Box>}
 
           <StatusMessage type={statusType} text={statusText} />
 
