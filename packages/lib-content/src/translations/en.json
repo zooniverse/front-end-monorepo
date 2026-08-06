@@ -373,8 +373,9 @@
       "body": "Enter your password twice to confirm it, then you'll be ready to get back to helping with real research.",
       "inputPassword": "New password",
       "inputConfirmation": "Confirm new password",
-      "helpInfoPassword": "Minimum 8 characters",
-      "helpInfoConfirmation": "Both fields must match",
+      "titleForInputPattern": "8 characters minimum",
+      "infoPassword": "Minimum 8 characters",
+      "infoConfirmation": "Both fields must match",
       "status": {
         "success": "",
         "errorInvalidInput": "Error: invalid input",
