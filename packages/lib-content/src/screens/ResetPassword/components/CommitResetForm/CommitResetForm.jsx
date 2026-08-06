@@ -24,12 +24,30 @@ const HelpInfo = styled('span')`
 
 `
 
+
+function isNewPasswordValid (password, confirmation, t) {
+  // If you see this message, a dev didn't code something correctly.
+  if (!t) { throw new Error('Missing translation function.') }
+
+  // Minimum length is checked via <input pattern=".{8+}" />
+
+  // Users shouldn't see this message since the browser should check for minimum length, and prevent a form submit.
+  if (!password || !confirmation) { return new Error(t('ResetPassword.CommitResetForm.status.errorInvalidInput')) }
+
+  // This is the most likely message a user would see.
+  if (!(password === confirmation)) { return new Error(t('ResetPassword.CommitResetForm.status.errorPasswordsDoNotMatch')) }
+
+  return 0
+}
+
+
 function CommitResetForm ({
   resetPasswordToken = ''
 }) {
 
   const { t } = useTranslation()
   const [isBusy, setIsBusy] = useState(false)
+  const [inputError, setInputError] = useState(null)  // null, or Error object
   const [apiError, setApiError] = useState(null)  // null, or Error object
   const [isComplete, setIsComplete] = useState(false)
   const inputPassword = useRef()  // New password
@@ -41,13 +59,19 @@ function CommitResetForm ({
   // This only triggers if the email is valid.
   // Email validation is performed via native HTML form controls.
   async function onSubmit () {
+    const password = inputPassword.current?.value || ''
+    const confirmation = inputConfirmation.current?.value || ''
+
+    // Check input
+    const preSubmitError = isNewPasswordValid(password, confirmation, t)
+    setInputError(preSubmitError || null)  // If new password is valid, preSubmitError is 0
+    if (preSubmitError) return
+
     // Prepare to submit!
     setIsBusy(true)
     setApiError(null)
 
     // Do the submit!
-    const password = inputPassword.current?.value || ''
-    const confirmation = inputConfirmation.current?.value || ''
     const submitError = await doCommitPasswordReset({
       password,
       confirmation,
@@ -66,6 +90,10 @@ function CommitResetForm ({
   if (apiError) {
     statusType = 'error'
     statusText = apiError.message?.toString() || apiError.toString?.()
+
+  } else if (inputError) {
+    statusType = 'error'
+    statusText = inputError.message?.toString() || inputError.toString?.()
 
   } else if (isComplete) {
     statusType = 'success'

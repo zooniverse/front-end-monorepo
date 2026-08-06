@@ -377,6 +377,7 @@
       "helpInfoConfirmation": "Both fields must match",
       "status": {
         "success": "",
+        "errorInvalidInput": "Error: invalid input",
         "errorPasswordsDoNotMatch": "Error: the passwords do not match, please try again."
       },
       "submit": "Submit"
