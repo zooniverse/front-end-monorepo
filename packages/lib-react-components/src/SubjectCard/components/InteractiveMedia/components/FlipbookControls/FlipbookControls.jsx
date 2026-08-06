@@ -19,6 +19,9 @@ const THUMBNAIL_SIZE = 30
 const FrameList = styled(Box)`
   box-sizing: border-box;
   min-height: 40px;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
   overflow-x: auto;
   overflow-y: hidden;
   padding: 2px 5px;
@@ -98,6 +101,13 @@ function hasAudioOrVideo(sources = []) {
   })
 }
 
+function allSourcesAreImages(sources = []) {
+  return sources.length > 0 && sources.every(source => {
+    const mediaType = getMediaType(source.mimeType)
+    return mediaType === 'image'
+  })
+}
+
 function FlipbookControls({
   currentFrame,
   onFrameChange,
@@ -107,15 +117,10 @@ function FlipbookControls({
 }) {
   const { t } = useTranslation()
   const selectedButtonRef = useRef(null)
-  const showPlayPause = !hasAudioOrVideo(sources)
+  const showPlayPause = allSourcesAreImages(sources)
 
-  // Scroll the selected frame button into view when it changes
+  // Focus the selected frame button when it changes
   useEffect(() => {
-    selectedButtonRef.current?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'nearest',
-      inline: 'center'
-    })
     selectedButtonRef.current?.focus()
   }, [currentFrame])
 
