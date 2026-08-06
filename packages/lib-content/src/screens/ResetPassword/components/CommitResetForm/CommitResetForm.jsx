@@ -24,12 +24,15 @@ const HelpInfo = styled('span')`
 
 `
 
+// This needs to be synced with the message in en.json
+const MINIMUM_PASSWORD_LENGTH = 8
+const PASSWORD_PATTERN = `.{${MINIMUM_PASSWORD_LENGTH},}`
 
 function isNewPasswordValid (password, confirmation, t) {
   // If you see this message, a dev didn't code something correctly.
   if (!t) { throw new Error('Missing translation function.') }
 
-  // Minimum length is checked via <input pattern=".{8+}" />
+  // Minimum length is checked via <input pattern=".{8,}" />
 
   // Users shouldn't see this message since the browser should check for minimum length, and prevent a form submit.
   if (!password || !confirmation) { return new Error(t('ResetPassword.CommitResetForm.status.errorInvalidInput')) }
@@ -39,7 +42,6 @@ function isNewPasswordValid (password, confirmation, t) {
 
   return 0
 }
-
 
 function CommitResetForm ({
   resetPasswordToken = ''
@@ -116,13 +118,15 @@ function CommitResetForm ({
           <InputBox>
             <InputLabelBox direction='row'>
               <label for={passwordInputId}>{t('ResetPassword.CommitResetForm.inputPassword')}</label>
-              <HelpInfo>{t('ResetPassword.CommitResetForm.helpInfoPassword')}</HelpInfo>
+              <HelpInfo>{t('ResetPassword.CommitResetForm.infoPassword')}</HelpInfo>
             </InputLabelBox>
             <TextInput
               id={passwordInputId}
               disabled={isBusy || isComplete}
+              pattern={PASSWORD_PATTERN}
               ref={inputPassword}
               required
+              title={t('ResetPassword.CommitResetForm.titleForInputPattern')}
               type='password'
             />
           </InputBox>
@@ -130,13 +134,15 @@ function CommitResetForm ({
           <InputBox>
             <InputLabelBox direction='row'>
               <label for={confirmationInputId}>{t('ResetPassword.CommitResetForm.inputConfirmation')}</label>
-              <HelpInfo>{t('ResetPassword.CommitResetForm.helpInfoConfirmation')}</HelpInfo>
+              <HelpInfo>{t('ResetPassword.CommitResetForm.infoConfirmation')}</HelpInfo>
             </InputLabelBox>
             <TextInput
               id={confirmationInputId}
               disabled={isBusy || isComplete}
+              pattern={PASSWORD_PATTERN}
               ref={inputConfirmation}
               required
+              title={t('ResetPassword.CommitResetForm.titleForInputPattern')}
               type='password'
             />
           </InputBox>
