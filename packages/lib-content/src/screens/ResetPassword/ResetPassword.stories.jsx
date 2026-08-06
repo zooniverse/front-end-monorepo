@@ -19,7 +19,7 @@ export const WithResetPasswordToken = {
   }
 }
 
-export const NoTokenButLoggedIn = {
+export const UserIsLoggedIn = {
   args: {
     isLoggedIn: true,
     resetPasswordToken: ''
