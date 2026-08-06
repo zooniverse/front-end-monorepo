@@ -5,7 +5,8 @@ import styled, { css } from 'styled-components'
 import { bool } from 'prop-types'
 import { Loader, StatusMessage } from '@zooniverse/react-components'
 import ResetPasswordHeader from '../ResetPasswordHeader/ResetPasswordHeader'
-import doCommitPasswordReset from '../../helpers/doCommitPasswordReset'
+import doCommitPasswordReset from '../../helpers/doCommitPasswordReset.js'
+import isNewPasswordValid from '../../helpers/isNewPasswordValid.js'
 import DarkTealPrimaryButton from '../../../Unsubscribe/components/DarkTealPrimaryButton/DarkTealPrimaryButton'
 
 const InputBoxes = styled(Box)`
@@ -14,34 +15,30 @@ const InputBoxes = styled(Box)`
 
 const InputBox = styled(Box)`
   gap: 0.5em;
+
+  input:user-invalid {
+    border-color: ${props => props.theme.global.colors['neutral-4']};
+  }
 `
 
 const InputLabelBox = styled(Box)`
+  align-items: baseline;
   gap: 0.5em;
 `
 
 const HelpInfo = styled('span')`
-
+  ${props => props.theme.dark
+    ? css`color: ${props.theme.global.colors['dark-4']}`
+    : css`color: ${props.theme.global.colors['light-2']}`
+  }
+  font-weight: 300;
+  font-size: 0.6666666667em;
+  line-height: 1em;
 `
 
 // This needs to be synced with the message in en.json
 const MINIMUM_PASSWORD_LENGTH = 8
 const PASSWORD_PATTERN = `.{${MINIMUM_PASSWORD_LENGTH},}`
-
-function isNewPasswordValid (password, confirmation, t) {
-  // If you see this message, a dev didn't code something correctly.
-  if (!t) { throw new Error('Missing translation function.') }
-
-  // Minimum length is checked via <input pattern=".{8,}" />
-
-  // Users shouldn't see this message since the browser should check for minimum length, and prevent a form submit.
-  if (!password || !confirmation) { return new Error(t('ResetPassword.CommitResetForm.status.errorInvalidInput')) }
-
-  // This is the most likely message a user would see.
-  if (!(password === confirmation)) { return new Error(t('ResetPassword.CommitResetForm.status.errorPasswordsDoNotMatch')) }
-
-  return 0
-}
 
 function CommitResetForm ({
   resetPasswordToken = ''
