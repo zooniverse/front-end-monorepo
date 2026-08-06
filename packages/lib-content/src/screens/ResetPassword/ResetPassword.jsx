@@ -23,15 +23,15 @@ function ResetPassword ({
         <MaxWidthContent
           color={{ light: 'black', dark: 'white' }}
         >
-          {!resetPasswordToken && !isLoggedIn && (
-            <RequestResetForm />
-          )}
-
-          {!resetPasswordToken && isLoggedIn && (
+          {isLoggedIn && (
             <NoAccessMessage />
           )}
 
-          {resetPasswordToken && (
+          {!isLoggedIn && !resetPasswordToken && (
+            <RequestResetForm />
+          )}
+
+          {!isLoggedIn && resetPasswordToken && (
             <CommitResetForm
               resetPasswordToken={resetPasswordToken}
             />
