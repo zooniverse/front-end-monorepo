@@ -27,30 +27,30 @@ export const LoggedOutLandscapeBusy = {
   render: () => <StoryRow subject={WILDWATCH_KENYA_SUBJECT} />
 }
 
-export const LoggedInLandscape = {
+export const Landscape = {
   render: () => <StoryRow login={'TestUser'} subject={RADIO_METEOR_ZOO_SUBJECT} />
 }
 
-export const LoggedInLandscapeBusy = {
+export const LandscapeBusy = {
   render: () => <StoryRow login={'TestUser'} subject={PENGUIN_WATCH_SUBJECT} />
 }
 
-export const LoggedInPortrait = {
+export const Portrait = {
   render: () => <StoryRow login={'TestUser'} subject={PRINT_SUBJECT} />
 }
 
-export const LoggedInPortraitBusy = {
+export const PortraitBusy = {
   render: () => <StoryRow login={'TestUser'} subject={DARK_ENERGY_EXPLORERS_SUBJECT} />
 }
 
-export const LoggedInSquare = {
+export const Square = {
   render: () => <StoryRow login={'TestUser'} subject={IGUANAS_FROM_ABOVE_SUBJECT} />
 }
 
-export const LoggedInSquareDark = {
+export const SquareDark = {
   render: () => <StoryRow login={'TestUser'} subject={GALAXY_ZOO_SUBJECT} />
 }
 
-export const LoggedInExternal = {
+export const External = {
   render: () => <StoryRow login={'TestUser'} subject={SQUIRREL_MAPPER_SUBJECT} />
 }
