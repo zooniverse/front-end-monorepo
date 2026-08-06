@@ -158,8 +158,6 @@ function CommitResetForm ({
 
           <StatusMessage type={statusType} text={statusText} />
 
-          {isComplete && <Paragraph>{t('ResetPassword.CommitResetForm.footer')}</Paragraph>}
-
         </InputBoxes>          
       </Form>
   )
