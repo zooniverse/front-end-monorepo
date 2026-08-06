@@ -3,6 +3,7 @@ import { node, number, string } from 'prop-types'
 import styled from 'styled-components'
 
 import MediaLink from '../../../MediaLink'
+import getSubjectThumbnailSrc from '../../../../helpers/getSubjectThumbnailSrc'
 
 const CONTROLS_HEIGHT = '64px'
 
@@ -27,6 +28,12 @@ function Video({
   width,
   url
 }) {
+  const thumbnailSrc = getSubjectThumbnailSrc({
+    height: previewHeight,
+    src: mediaSrc,
+    width
+  })
+
   return (
     <StyledBox
       flex='grow'
@@ -41,7 +48,8 @@ function Video({
         a11yTitle={subjectIdTitle}
         controls='below'
         fit='contain'
-        preload='metadata'
+        preload={thumbnailSrc ? 'none' : 'metadata'}
+        poster={thumbnailSrc}
         src={mediaSrc}
       />
     </StyledBox>
