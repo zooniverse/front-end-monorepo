@@ -1,17 +1,12 @@
 import { useId, useRef, useState } from 'react'
 import { Box, Form, FormField, Heading, Paragraph, TextInput } from 'grommet'
-import { Trans, useTranslation } from '@translations/i18n'
+import { useTranslation } from '@translations/i18n'
 import styled, { css } from 'styled-components'
 import { bool } from 'prop-types'
 import { Loader, StatusMessage } from '@zooniverse/react-components'
+import ResetPasswordHeader from '../ResetPasswordHeader/ResetPasswordHeader'
 import doCommitPasswordReset from '../../helpers/doCommitPasswordReset'
 import DarkTealPrimaryButton from '../../../Unsubscribe/components/DarkTealPrimaryButton/DarkTealPrimaryButton'
-
-const DecoDivider = styled('div')`
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #A6A7A9 49.62%, rgba(255, 255, 255, 0) 100%);
-`
 
 const InputBoxes = styled(Box)`
   gap: 1em;
@@ -82,15 +77,7 @@ function CommitResetForm ({
         className='CommitResetForm'
         onSubmit={onSubmit}
       >
-        <Heading
-          color={{ light: 'neutral-1', dark: 'accent-1' }}
-          level={1}
-          textAlign='center'
-        >
-          {t('ResetPassword.common.header')}
-        </Heading>
-
-        <DecoDivider />
+        <ResetPasswordHeader />
 
         <Paragraph>
           {t('ResetPassword.CommitResetForm.body')}
