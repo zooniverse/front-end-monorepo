@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { UNIT_OPTION_TO_SCALE_LINE_UNITS } from '../helpers/constants'
 import createGeoLineStringInteraction from '../helpers/createGeoLineStringInteraction'
 import createGeoLineStringModifyInteraction from '../helpers/createGeoLineStringModifyInteraction'
+import createGeoPointInteraction from '../helpers/createGeoPointInteraction'
 import createMeasureInteraction from '../helpers/createMeasureInteraction'
 import createModifyUncertaintyInteraction from '../helpers/createModifyUncertaintyInteraction'
 import createMoveToClickInteraction from '../helpers/createMoveToClickInteraction'
@@ -26,12 +27,15 @@ export default function useMapInteractions({
   const [interactions, setInteractions] = useState({
     draw: null,
     modify: null,
+    pointDraw: null,
     uncertaintyModify: null,
     moveToClick: null,
     measure: null
   })
   const activeToolType = geoDrawingTask?.activeTool?.type
   const activeToolIndex = geoDrawingTask?.activeToolIndex
+  const canCreatePoints = !!geoDrawingTask?.activeTool?.canCreate
+  const pointDrawRef = useRef(null)
 
   useEffect(() => {
     if (!map) return undefined
@@ -67,6 +71,25 @@ export default function useMapInteractions({
   }, [map, source, layer, select, geoDrawingTask, hasGeoDrawingTask, activeToolIndex])
 
   useEffect(() => {
+    if (!map || !source || !layer || !select || !hasGeoDrawingTask) return undefined
+    if (activeToolType !== 'Point' || !canCreatePoints) return undefined
+    const pointDraw = createGeoPointInteraction({
+      map,
+      source,
+      featuresLayer: layer,
+      geoDrawingTask,
+      selectInteraction: select
+    })
+    pointDrawRef.current = pointDraw
+    setInteractions((prev) => ({ ...prev, pointDraw }))
+    return () => {
+      pointDrawRef.current = null
+      pointDraw.destroy()
+      setInteractions((prev) => ({ ...prev, pointDraw: null }))
+    }
+  }, [map, source, layer, select, geoDrawingTask, hasGeoDrawingTask, activeToolType, activeToolIndex, canCreatePoints])
+
+  useEffect(() => {
     if (!map || !select || !translate || !layer || !hasGeoDrawingTask) return undefined
 
     const modify = createGeoLineStringModifyInteraction({
@@ -93,7 +116,11 @@ export default function useMapInteractions({
       map,
       selectInteraction: select,
       geoDrawingTask,
-      featuresLayer: layer
+      featuresLayer: layer,
+      isPointDrawBelowCap: () => {
+        const pointDraw = pointDrawRef.current
+        return !!pointDraw && !pointDraw.isCapped()
+      }
     })
 
     setInteractions((prev) => ({ ...prev, modify, uncertaintyModify, moveToClick }))
@@ -105,18 +132,19 @@ export default function useMapInteractions({
     }
   }, [map, select, translate, layer, geoDrawingTask, hasGeoDrawingTask])
 
-  const { draw, modify, uncertaintyModify, moveToClick, measure } = interactions
+  const { draw, modify, pointDraw, uncertaintyModify, moveToClick, measure } = interactions
 
   useEffect(() => {
-    const states = getInteractionStates({ activeToolType, isMeasureModeActive })
+    const states = getInteractionStates({ activeToolType, isMeasureModeActive, canCreatePoints })
     measure?.setActive(states.measure)
     draw?.setActive(states.lineStringDraw)
     modify?.setActive(states.lineStringModify)
+    pointDraw?.setActive(states.pointDraw)
     select?.setActive(states.select)
     translate?.setActive(states.translate)
     uncertaintyModify?.setActive(states.modifyUncertainty)
     moveToClick?.setActive(states.moveToClick)
-  }, [activeToolType, activeToolIndex, isMeasureModeActive, select, translate, draw, modify, uncertaintyModify, moveToClick, measure])
+  }, [activeToolType, activeToolIndex, canCreatePoints, isMeasureModeActive, select, translate, draw, modify, pointDraw, uncertaintyModify, moveToClick, measure])
 
   useEffect(() => {
     if (!scaleLine) return
@@ -146,5 +174,5 @@ export default function useMapInteractions({
     return () => container.removeEventListener('keydown', onKeyDown)
   }, [containerRef, draw])
 
-  return { draw, modify, moveToClick, measure }
+  return { draw, modify, moveToClick, pointDraw, measure }
 }

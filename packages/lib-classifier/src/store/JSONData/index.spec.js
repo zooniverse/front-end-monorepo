@@ -1,4 +1,4 @@
-import { getType } from 'mobx-state-tree'
+import { getSnapshot, getType } from 'mobx-state-tree'
 
 import JSONData from './'
 
@@ -79,6 +79,12 @@ describe('Models > JSONData', function () {
     const geoData = JSONData.create(geoJSONSnapshot)
     const dataType = getType(geoData).name
     expect(dataType).to.equal('GeoJSON')
+  })
+
+  it('should preserve the GeoJSON bbox', function () {
+    const bbox = [2.28, 48.85, 2.30, 48.86]
+    const geoData = JSONData.create({ ...geoJSONSnapshot, bbox })
+    expect(getSnapshot(geoData).bbox).to.deep.equal(bbox)
   })
 
   it('should load variable star data', async function () {

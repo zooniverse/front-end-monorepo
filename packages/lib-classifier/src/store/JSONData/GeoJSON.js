@@ -14,6 +14,7 @@ const Feature = types.model('GeoJSONFeature', {
 
 export default types.model('GeoJSON', {
 	type: types.literal('FeatureCollection'),
+	bbox: types.maybe(types.frozen()),
 	features: types.array(Feature),
 	reference_data: types.maybe(types.frozen())
 })

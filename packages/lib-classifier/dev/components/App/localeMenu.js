@@ -10,6 +10,7 @@ export default {
   el: 'Ελληνικά', // Greek
   en: 'English', // English
   es: 'Español', // Spanish
+  fa: 'فارسی', // Persian / Farsi
   fi: 'Suomi', // Finnish
   fr: 'Français', // French
   ha: 'Hausa', // Hausa

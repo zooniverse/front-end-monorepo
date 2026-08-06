@@ -2,6 +2,7 @@ import { isPixelNearDragHandle } from '@plugins/tasks/experimental/geoDrawing/fe
 
 import asMSTFeature from './asMSTFeature'
 import { FEATURE_HIT_TOLERANCE_PX } from './createGeoLineStringInteraction'
+import { isWithinSubjectExtent } from './extentConstraint'
 import getDrawModeCursor from './getDrawModeCursor'
 import getInteractionStates from './getInteractionStates'
 import getPixelDistance from './getPixelDistance'
@@ -113,6 +114,7 @@ export default function getCursorFromState({
   select,
   draw,
   modify,
+  pointDraw,
   geoDrawingTask,
   activeToolType,
   isMeasureModeActive,
@@ -121,12 +123,17 @@ export default function getCursorFromState({
   dragging,
   cachedFeatureHit
 }) {
-  const states = getInteractionStates({ activeToolType, isMeasureModeActive })
+  const canCreatePoints = !!geoDrawingTask?.activeTool?.canCreate
+  const states = getInteractionStates({ activeToolType, isMeasureModeActive, canCreatePoints })
 
   if (states.measure) return ''
   if (states.lineStringDraw) {
     return getDrawCursor({ map, layer, select, draw, modify, pixel, dragging })
   }
+
+  const pointerCoordinate = map.getCoordinateFromPixel?.(pixel) ?? null
+  const pointerInExtent = pointerCoordinate ? isWithinSubjectExtent(map, pointerCoordinate) : true
+  const pointDrawReady = !!(states.pointDraw && pointDraw && !pointDraw.isCapped()) && pointerInExtent
 
   const selected = select.getFeatures().item(0)
   if (selected) {
@@ -138,8 +145,12 @@ export default function getCursorFromState({
       isDraggingPoint
     })
     if (selectedCursor) return selectedCursor
-    return getOtherCenterCursor({ map, layer, selectedFeature: selected, pixel })
+    const otherCursor = getOtherCenterCursor({ map, layer, selectedFeature: selected, pixel })
+    if (otherCursor === 'default' && pointDrawReady) return dragging ? '' : 'crosshair'
+    return otherCursor
   }
 
-  return cachedFeatureHit ? 'pointer' : 'default'
+  if (cachedFeatureHit) return 'pointer'
+  if (pointDrawReady) return dragging ? '' : 'crosshair'
+  return 'default'
 }

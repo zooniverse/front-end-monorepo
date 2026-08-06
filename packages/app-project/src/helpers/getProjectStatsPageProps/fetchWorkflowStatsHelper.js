@@ -61,15 +61,26 @@ async function fetchWorkflowClassificationStats(workflowID, env) {
 
   const today = new Date()
 
-  // Subtract one day because today's stats bucket is still accumulating
-  const yesterday = new Date(today)
-  yesterday.setDate(yesterday.getDate() - 1)
-  const endDate = yesterday.toISOString().substring(0, 10)
+  // Subtract one day because today's stats bucket is still accumulating (always UTC)
+  const yesterdayUTC = new Date(
+    Date.UTC(
+      today.getUTCFullYear(),
+      today.getUTCMonth(),
+      today.getUTCDate() - 1
+    )
+  )
 
-  // Get date of two weeks ago
-  const twoWeeksAgo = new Date(today)
-  twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14)
-  const startDate = twoWeeksAgo.toISOString().substring(0, 10)
+  const endDate = yesterdayUTC.toISOString().substring(0, 10)
+
+  // Get date of two weeks ago (always UTC)
+  const twoWeeksAgoUTC = new Date(
+    Date.UTC(
+      today.getUTCFullYear(),
+      today.getUTCMonth(),
+      today.getUTCDate() - 14
+    )
+  )
+  const startDate = twoWeeksAgoUTC.toISOString().substring(0, 10)
 
   try {
     const statsResponse = await fetch(
@@ -88,7 +99,7 @@ async function fetchWorkflowClassificationStats(workflowID, env) {
  * Returns estimate number of days based on ERAS query excluding the current day because it's not over yet.
  */
 function calcDaysToCompletion(erasData, workflow) {
-  if (workflow.completeness === 1) return 0
+  if (workflow.completeness === 1) return null
 
   let numDays = undefined
 
@@ -96,21 +107,34 @@ function calcDaysToCompletion(erasData, workflow) {
   // multiplied by the number of classifications required to retire a subject
   const totalCount = workflow.subjects_count * workflow.retirement.options.count
 
-  const dataLength = erasData.length // number of days the workflow has stats for
+  const dataLength = erasData.data.length // number of days the workflow has stats for
 
-  if (dataLength > 1) {
-    const classificationCountsArray = erasData.map(statObject => statObject.count)
-    // Sum the classifications per day the workflow has been live (up to 14 days)
-    const rate = classificationCountsArray.reduce((a, b) => a + b)
-
+  if (dataLength > 0) {
     // Estimate number of days needed to achieve the classification counts to retire remaining subjects
     numDays = Math.max(
       0,
-      Math.ceil((dataLength * (totalCount - workflow.classifications_count)) / rate)
+      Math.ceil((dataLength * (totalCount - workflow.classifications_count)) / erasData.total_count)
     )
   }
 
   return numDays
+}
+
+function calcCompleteness(workflow) {
+  if (workflow.completeness === 1) return 1
+
+  let completeness = workflow.completeness // the value returned from panoptes API
+
+  const totalCount = workflow.subjects_count * workflow.retirement.options.count
+
+  // This config prop only applies to stats page UI. Configuring stats_completion_type in
+  // the project builder as "Completeness statistic" does not recalc workflow.completeness on the backend.
+  // The default stats_completeness_type is by retirement count, so we have to override here.
+  if (workflow.configuration.stats_completeness_type === 'classification') {
+    completeness = workflow.classifications_count / totalCount
+  }
+
+  return completeness
 }
 
 async function fetchWorkflowStatsHelper(language = 'en', workflowIDs, env, workflowOrder) {
@@ -143,9 +167,11 @@ async function fetchWorkflowStatsHelper(language = 'en', workflowIDs, env, workf
     const workflowERASData = await fetchWorkflowClassificationStats(workflow.id, env)
 
     if (workflowERASData?.data) {
-      const workflowETC = calcDaysToCompletion(workflowERASData.data, workflow) || null
+      const workflowETC = calcDaysToCompletion(workflowERASData, workflow) ?? null
+      const workflowCompleteness = calcCompleteness(workflow)
       const workflowWithETC = {
         ...workflow,
+        completeness: workflowCompleteness,
         etc: workflowETC
       }
       return workflowWithETC
