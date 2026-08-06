@@ -5,9 +5,9 @@ import styled from 'styled-components'
 
 import MediaLink from '../../../MediaLink'
 import FlipbookControls from '../FlipbookControls'
-import SubjectThumbnail from '../SubjectThumbnail'
-import Video from '../Video'
 import Audio from '../Audio'
+import Image from '../Image'
+import Video from '../Video'
 
 const FLIPBOOK_INTERVAL = 500
 export const MULTI_MEDIA_CONTROLS_HEIGHT = 45
@@ -84,7 +84,7 @@ function MultiMedia({
 						round={{ corner: 'top', size: '8px' }}
 						width={`${width}px`}
 					>
-						<SubjectThumbnail
+						<Image
 							alt={subjectIdTitle}
 							fit='contain'
 							height={previewHeight}
