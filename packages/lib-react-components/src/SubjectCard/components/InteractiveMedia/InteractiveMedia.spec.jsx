@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react'
 import { composeStory } from '@storybook/react'
 
-import ImageMeta, { LoggedInLandscape } from '../../stories/interactive/SubjectCard.image.stories'
-import MultiMediaMeta, { LoggedInMultiImage } from '../../stories/interactive/SubjectCard.multimedia.stories'
+import ImageMeta, { LoggedInLandscape } from '../../stories/interactive/singleMedia/SubjectCard.image.stories'
+import MultiMediaMeta, { LoggedInMultiImage } from '../../stories/interactive/multiMedia/SubjectCard.multimedia.stories'
 
 describe('InteractiveMedia', function () {
   describe('with single image location', function () {
