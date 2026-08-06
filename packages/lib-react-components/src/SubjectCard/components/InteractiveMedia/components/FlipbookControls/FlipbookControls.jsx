@@ -9,13 +9,10 @@ import { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
 import IconActionButton from '../../../../../IconActionButton'
+import getSubjectThumbnailSrc from '../../../../helpers/getSubjectThumbnailSrc'
 import { useTranslation } from '../../../../../translations/i18n'
 
 const THUMBNAIL_SIZE = 30
-const THUMBNAILER_SUPPORTED_HOSTS = [
-  'panoptes-uploads-staging.zooniverse.org',
-  'panoptes-uploads.zooniverse.org'
-]
 
 const FrameList = styled(Box)`
   box-sizing: border-box;
@@ -87,28 +84,6 @@ const FrameThumbnailIcon = styled(Box)`
     }};
   }
 `
-
-function canGenerateThumbnailFromSource(imageUrl) {
-  if (typeof imageUrl !== 'string' || imageUrl.length === 0) {
-    return false
-  }
-
-  try {
-    const parsedUrl = new URL(imageUrl)
-    return THUMBNAILER_SUPPORTED_HOSTS.includes(parsedUrl.hostname)
-  } catch {
-    return false
-  }
-}
-
-function getThumbnailUrl(imageUrl) {
-  if (canGenerateThumbnailFromSource(imageUrl)) {
-    const sourcePath = imageUrl.replace(/^https?:\/\//, '')
-    return `https://thumbnails.zooniverse.org/100x100/${sourcePath}`
-  }
-
-  return null
-}
 
 function FlipbookControls({
   currentFrame,
@@ -190,7 +165,7 @@ function FlipbookControls({
       >
         {imageSources.map((source, index) => {
           const selected = index === currentFrame
-          const thumbnailUrl = getThumbnailUrl(source)
+          const thumbnailUrl = getSubjectThumbnailSrc({ src: source })
 
           return (
             <FrameButton

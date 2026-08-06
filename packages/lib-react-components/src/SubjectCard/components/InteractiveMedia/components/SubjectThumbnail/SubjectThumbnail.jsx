@@ -2,7 +2,7 @@ import { Box, Image } from 'grommet'
 import { number, oneOf, string } from 'prop-types'
 import styled from 'styled-components'
 
-import getThumbnailSrc from '../../../../../Media/helpers/getThumbnailSrc'
+import getSubjectThumbnailSrc from '../../../../helpers/getSubjectThumbnailSrc'
 import useProgressiveImage from '../../../../../hooks/useProgressiveImage'
 
 const InlineBox = styled.span`
@@ -18,7 +18,7 @@ function SubjectThumbnail({
 	width,
 	...rest
 }) {
-	const thumbnailSrc = getThumbnailSrc({ height, origin, src, width })
+	const thumbnailSrc = getSubjectThumbnailSrc({ height, origin, src, width }) || src
 	const { error } = useProgressiveImage({ src: thumbnailSrc })
 	
   const imageSrc = error ? src : thumbnailSrc

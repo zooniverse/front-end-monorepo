@@ -1,8 +1,6 @@
-import mime from 'mime/lite'
 import { arrayOf, node, number, objectOf, shape, string } from 'prop-types'
 
-import SimpleMedia from '../SimpleMedia/SimpleMedia'
-import MediaLink from '../MediaLink'
+import SimpleMedia from '../SimpleMedia'
 import MultiMedia from './components/MultiMedia'
 import { MULTI_MEDIA_CONTROLS_HEIGHT } from './components/MultiMedia'
 
@@ -12,13 +10,15 @@ const SIMPLE_PREVIEW_MEDIA_TYPES = [
   'text'
 ]
 
-function getMediaType(source) {
-  const mimeType = mime.getType(source)
+function getMediaType(mimeType) {
   return mimeType?.split('/')[0]
 }
 
-function getSourceList(subject) {
-  return (subject?.locations || []).map(location => Object.values(location)[0]).filter(Boolean)
+function getSources(subject) {
+  return (subject?.locations || []).map(location => ({
+    mimeType: Object.keys(location)[0],
+    url: Object.values(location)[0]
+  })).filter(item => item.url)
 }
 
 function InteractiveMedia({
@@ -30,12 +30,13 @@ function InteractiveMedia({
   width,
   url
 }) {
-  const sourceList = getSourceList(subject)
-  const hasMultipleSources = sourceList.length > 1
-  const mediaSrc = sourceList.length === 1 ? sourceList[0] : null
-  const mediaType = getMediaType(mediaSrc)
-  const supportsSimplePreview = SIMPLE_PREVIEW_MEDIA_TYPES.includes(mediaType)
-  const showBackground = mediaType === 'image'
+  const sources = getSources(subject)
+  const hasMultipleSources = sources.length > 1
+  
+  const firstSource = sources.length === 1 ? sources[0] : null
+  const firstMediaType = getMediaType(firstSource?.mimeType)
+  const supportsSimplePreview = SIMPLE_PREVIEW_MEDIA_TYPES.includes(firstMediaType)
+  
   const resolvedPreviewHeight = hasMultipleSources
     ? previewHeight - MULTI_MEDIA_CONTROLS_HEIGHT
     : previewHeight
@@ -44,7 +45,7 @@ function InteractiveMedia({
     return (
       <MultiMedia
         linkTitle={linkTitle}
-        mediaSources={sourceList}
+        mediaSources={sources.map(source => source.url)}
         previewHeight={resolvedPreviewHeight}
         subjectIdTitle={subjectIdTitle}
         width={width}
@@ -55,20 +56,16 @@ function InteractiveMedia({
 
   if (supportsSimplePreview) {
     return (
-      <MediaLink
-        href={url}
-        title={linkTitle}
-      >
-        <SimpleMedia
-          mediaSrc={mediaSrc}
-          placeholder={placeholder}
-          previewHeight={resolvedPreviewHeight}
-          showBackground={showBackground}
-          showTitle={false}
-          subjectIdTitle={subjectIdTitle}
-          width={width}
-        />
-      </MediaLink>
+      <SimpleMedia
+        linkTitle={linkTitle}
+        placeholder={placeholder}
+        previewHeight={resolvedPreviewHeight}
+        showTitle={false}
+        subject={subject}
+        subjectIdTitle={subjectIdTitle}
+        width={width}
+        url={url}
+      />
     )
   }
 
