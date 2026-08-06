@@ -123,6 +123,7 @@ function CommitResetForm ({
             <TextInput
               id={passwordInputId}
               disabled={isBusy || isComplete}
+              name='password'
               pattern={PASSWORD_PATTERN}
               ref={inputPassword}
               required
@@ -139,6 +140,7 @@ function CommitResetForm ({
             <TextInput
               id={confirmationInputId}
               disabled={isBusy || isComplete}
+              name='confirmation'
               pattern={PASSWORD_PATTERN}
               ref={inputConfirmation}
               required

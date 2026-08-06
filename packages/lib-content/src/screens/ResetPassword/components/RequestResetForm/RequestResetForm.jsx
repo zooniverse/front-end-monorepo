@@ -69,6 +69,7 @@ function RequestResetForm () {
           <TextInput
             aria-label={t('ResetPassword.RequestResetForm.inputEmail')}
             disabled={isBusy || isComplete}
+            name='email'
             ref={inputEmail}
             required
             type='email'
