@@ -47,7 +47,7 @@ function InteractiveMedia({
     return (
       <MultiMedia
         linkTitle={linkTitle}
-        mediaSources={sources.map(source => source.url)}
+        sources={sources}
         previewHeight={resolvedPreviewHeight}
         subjectIdTitle={subjectIdTitle}
         width={width}
@@ -71,11 +71,11 @@ function InteractiveMedia({
     )
   }
 
-  if (mediaType === 'video') {
+  if (firstMediaType === 'video') {
     return (
       <Video
         linkTitle={linkTitle}
-        mediaSrc={mediaSrc}
+        mediaSrc={firstSource.url}
         placeholder={placeholder}
         previewHeight={resolvedPreviewHeight}
         subjectIdTitle={subjectIdTitle}
@@ -85,11 +85,11 @@ function InteractiveMedia({
     )
   }
 
-  if (mediaType === 'audio') {
+  if (firstMediaType === 'audio') {
     return (
       <Audio
         linkTitle={linkTitle}
-        mediaSrc={mediaSrc}
+        mediaSrc={firstSource.url}
         placeholder={placeholder}
         previewHeight={resolvedPreviewHeight}
         subjectIdTitle={subjectIdTitle}

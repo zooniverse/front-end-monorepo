@@ -22,7 +22,6 @@ const LinkBox = styled(Box)`
 function Video({
   linkTitle,
   mediaSrc,
-  placeholder,
   previewHeight,
   subjectIdTitle,
   width,
@@ -52,7 +51,6 @@ function Video({
 Video.propTypes = {
   linkTitle: string.isRequired,
   mediaSrc: string.isRequired,
-  placeholder: node,
   previewHeight: number.isRequired,
   subjectIdTitle: string.isRequired,
   width: number.isRequired,

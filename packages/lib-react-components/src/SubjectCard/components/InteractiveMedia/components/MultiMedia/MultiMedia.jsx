@@ -1,11 +1,13 @@
 import { Box } from 'grommet'
-import { number, arrayOf, string } from 'prop-types'
+import { number, arrayOf, string, shape, objectOf } from 'prop-types'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
+import MediaLink from '../../../MediaLink'
 import FlipbookControls from '../FlipbookControls'
 import SubjectThumbnail from '../SubjectThumbnail'
-import MediaLink from '../../../MediaLink'
+import Video from '../Video'
+import Audio from '../Audio'
 
 const FLIPBOOK_INTERVAL = 500
 export const MULTI_MEDIA_CONTROLS_HEIGHT = 45
@@ -14,9 +16,13 @@ const StyledPreview = styled(Box)`
 	overflow: hidden;
 `
 
+function getMediaType(mimeType) {
+	return mimeType?.split('/')[0]
+}
+
 function MultiMedia({
 	linkTitle,
-	mediaSources = [],
+	sources = [],
 	previewHeight,
 	subjectIdTitle,
 	width,
@@ -25,17 +31,18 @@ function MultiMedia({
 	const [currentFrame, setCurrentFrame] = useState(0)
 	const [playing, setPlaying] = useState(false)
 
-	const mediaSourcesLength = mediaSources.length
-	const currentMediaSrc = mediaSources[currentFrame]
+	const sourcesLength = sources.length
+	const currentSource = sources[currentFrame]
+	const currentMediaType = getMediaType(currentSource?.mimeType)
 
 	useEffect(() => {
-		if (!playing || mediaSourcesLength < 2) {
+		if (!playing || sourcesLength < 2) {
 			return undefined
 		}
 
 		const timer = window.setTimeout(() => {
 			setCurrentFrame(previousFrame => {
-				if (previousFrame < mediaSourcesLength - 1) {
+				if (previousFrame < sourcesLength - 1) {
 					return previousFrame + 1
 				}
 
@@ -46,9 +53,9 @@ function MultiMedia({
 		return () => {
 			window.clearTimeout(timer)
 		}
-	}, [currentFrame, mediaSourcesLength, playing])
+	}, [currentFrame, sourcesLength, playing])
 
-	if (!currentMediaSrc) return null
+	if (!currentSource) return null
 
 	function handleFrameChange(frameIndex) {
 		setPlaying(false)
@@ -59,33 +66,66 @@ function MultiMedia({
 		setPlaying(previousPlaying => !previousPlaying)
 	}
 
+	function renderMediaContent() {
+		const commonProps = {
+			linkTitle,
+			previewHeight,
+			subjectIdTitle,
+			width,
+			url
+		}
+
+		if (currentMediaType === 'image') {
+			return (
+				<MediaLink href={url} title={linkTitle}>
+					<StyledPreview
+						justify='center'
+						height={`${previewHeight}px`}
+						round={{ corner: 'top', size: '8px' }}
+						width={`${width}px`}
+					>
+						<SubjectThumbnail
+							alt={subjectIdTitle}
+							fit='contain'
+							height={previewHeight}
+							src={currentSource.url}
+							width={width}
+						/>
+					</StyledPreview>
+				</MediaLink>
+			)
+		}
+
+		if (currentMediaType === 'video') {
+			return (
+				<Video
+					{...commonProps}
+					mediaSrc={currentSource.url}
+				/>
+			)
+		}
+
+		if (currentMediaType === 'audio') {
+			return (
+				<Audio
+					{...commonProps}
+					mediaSrc={currentSource.url}
+				/>
+			)
+		}
+
+		return null
+	}
+
 	return (
 		<>
-			<MediaLink
-				href={url}
-				title={linkTitle}
-			>
-				<StyledPreview
-					justify='center'
-					height={`${previewHeight}px`}
-					round={{ corner: 'top', size: '8px' }}
-					width={`${width}px`}
-				>
-					<SubjectThumbnail
-						alt={subjectIdTitle}
-						fit='contain'
-						height={previewHeight}
-						src={currentMediaSrc}
-						width={width}
-					/>
-				</StyledPreview>
-			</MediaLink>
+			{renderMediaContent()}
 			<FlipbookControls
 				currentFrame={currentFrame}
-				imageSources={mediaSources}
 				onFrameChange={handleFrameChange}
 				onPlayPause={handlePlayPause}
 				playing={playing}
+				sources={sources}
 			/>
 		</>
 	)
@@ -93,7 +133,10 @@ function MultiMedia({
 
 MultiMedia.propTypes = {
 	linkTitle: string.isRequired,
-	mediaSources: arrayOf(string).isRequired,
+	sources: arrayOf(shape({
+		mimeType: string.isRequired,
+		url: string.isRequired
+	})).isRequired,
 	previewHeight: number.isRequired,
 	subjectIdTitle: string.isRequired,
 	width: number.isRequired,

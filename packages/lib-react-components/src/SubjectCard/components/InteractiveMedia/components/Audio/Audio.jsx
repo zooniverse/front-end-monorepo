@@ -19,7 +19,6 @@ const StyledBox = styled(Box)`
 function Audio({
   linkTitle,
   mediaSrc,
-  placeholder,
   previewHeight,
   subjectIdTitle,
   width,
@@ -50,7 +49,6 @@ function Audio({
 Audio.propTypes = {
   linkTitle: string.isRequired,
   mediaSrc: string.isRequired,
-  placeholder: node,
   previewHeight: number.isRequired,
   subjectIdTitle: string.isRequired,
   width: number.isRequired,
