@@ -25,7 +25,8 @@ Behaviours:
     - "busy" state: request is being sent to Panoptes. "Loader" (busy indicator) is shown. Form is disabled.
     - "success" state: request has successfully been processed. Success message is show. Form remains disabled.
     - "error" state: request has failed (API error). Error message is shown. Form is re-enabled.
-  - 🚧 TODO: after a successful reset, user should be redirected to a sign in page.
+  - After a successful reset, user is redirected to the/a Zooniverse Sign In page: https://www.zooniverse.org/accounts/sign-in
+    - Note that as of Aug 2026, this Sign In page is hosted on PFE.
 
 Security:
 
