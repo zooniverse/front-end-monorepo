@@ -1,13 +1,13 @@
 import { render, screen } from '@testing-library/react'
 import { composeStory } from '@storybook/react'
 
-import ImageMeta, { LoggedInLandscape } from '../../stories/interactive/singleMedia/SubjectCard.image.stories'
-import MultiMediaMeta, { LoggedInMultiImage } from '../../stories/interactive/multiMedia/SubjectCard.multiMedia.stories'
+import ImageMeta, { Landscape } from '../../stories/interactive/singleMedia/SubjectCard.image.stories'
+import MultiMediaMeta, { MultiImage } from '../../stories/interactive/multiMedia/SubjectCard.multiMedia.stories'
 
 describe('InteractiveMedia', function () {
   describe('with single image location', function () {
     it('should render a link wrapping the media', function () {
-      const Story = composeStory(LoggedInLandscape, ImageMeta)
+      const Story = composeStory(Landscape, ImageMeta)
       render(<Story />)
       const link = screen.getByRole('link')
       expect(link).toBeDefined()
@@ -15,7 +15,7 @@ describe('InteractiveMedia', function () {
     })
 
     it('should not render flipbook controls', function () {
-      const Story = composeStory(LoggedInLandscape, ImageMeta)
+      const Story = composeStory(Landscape, ImageMeta)
       render(<Story />)
       const buttons = screen.queryAllByTestId('flipbook-controls')
       expect(buttons.length).to.equal(0)
@@ -24,7 +24,7 @@ describe('InteractiveMedia', function () {
 
   describe('with multiple image locations', function () {
     it('should render a link wrapping the media', function () {
-      const Story = composeStory(LoggedInMultiImage, MultiMediaMeta)
+      const Story = composeStory(MultiImage, MultiMediaMeta)
       render(<Story />)
       const link = screen.getByRole('link')
       expect(link).toBeDefined()
@@ -32,7 +32,7 @@ describe('InteractiveMedia', function () {
     })
 
     it('should render flipbook controls', function () {
-      const Story = composeStory(LoggedInMultiImage, MultiMediaMeta)
+      const Story = composeStory(MultiImage, MultiMediaMeta)
       render(<Story />)
       const buttons = screen.getAllByTestId('flipbook-controls')
       expect(buttons).toBeDefined()

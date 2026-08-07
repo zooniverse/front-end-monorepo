@@ -3,14 +3,30 @@ import { useState } from 'react'
 
 import FlipbookControls from './FlipbookControls'
 import {
+  CHIMP_AND_SEE_VIDEO_IMAGES_SUBJECT,
+  NFN_IMAGE_TEXT_SUBJECT,
   SMITHSONIAN_WILDLIFE_MULTI_IMAGE_SUBJECT,
   SQUIRREL_MAPPER_MULTI_IMAGE_SUBJECT
 } from '../../../../stories/SubjectCardStoryData'
 
-const IMAGE_SOURCES = SMITHSONIAN_WILDLIFE_MULTI_IMAGE_SUBJECT.locations.map(location => Object.values(location)[0])
-const EXTERNAL_IMAGE_SOURCES = SQUIRREL_MAPPER_MULTI_IMAGE_SUBJECT.locations.map(location => Object.values(location)[0])
+const IMAGE_SOURCES = SMITHSONIAN_WILDLIFE_MULTI_IMAGE_SUBJECT.locations.map(location => ({
+  mimeType: Object.keys(location)[0],
+  url: Object.values(location)[0]
+}))
+const EXTERNAL_IMAGE_SOURCES = SQUIRREL_MAPPER_MULTI_IMAGE_SUBJECT.locations.map(location => ({
+  mimeType: Object.keys(location)[0],
+  url: Object.values(location)[0]
+}))
+const VIDEO_SOURCES = CHIMP_AND_SEE_VIDEO_IMAGES_SUBJECT.locations.map(location => ({
+  mimeType: Object.keys(location)[0],
+  url: Object.values(location)[0]
+}))
+const IMAGE_TEXT_SOURCES = NFN_IMAGE_TEXT_SUBJECT.locations.map(location => ({
+  mimeType: Object.keys(location)[0],
+  url: Object.values(location)[0]
+}))
 
-function FlipbookControlsPreview({ imageSources = IMAGE_SOURCES }) {
+function FlipbookControlsPreview({ sources = IMAGE_SOURCES }) {
   const [currentFrame, setCurrentFrame] = useState(0)
   const [playing, setPlaying] = useState(false)
 
@@ -18,10 +34,10 @@ function FlipbookControlsPreview({ imageSources = IMAGE_SOURCES }) {
     <Box width='300px'>
       <FlipbookControls
         currentFrame={currentFrame}
-        imageSources={imageSources}
         onFrameChange={setCurrentFrame}
         onPlayPause={() => setPlaying(previousPlaying => !previousPlaying)}
         playing={playing}
+        sources={sources}
       />
     </Box>
   )
@@ -39,5 +55,13 @@ export const Default = {
 }
 
 export const ExternalImages = {
-  render: () => <FlipbookControlsPreview imageSources={EXTERNAL_IMAGE_SOURCES} />
+  render: () => <FlipbookControlsPreview sources={EXTERNAL_IMAGE_SOURCES} />
+}
+
+export const VideoImages = {
+  render: () => <FlipbookControlsPreview sources={VIDEO_SOURCES} />
+}
+
+export const ImageText = {
+  render: () => <FlipbookControlsPreview sources={IMAGE_TEXT_SOURCES} />
 }
