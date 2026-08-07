@@ -6,12 +6,16 @@ import { createEditingStyle } from 'ol/style/Style'
 import { FEATURE_HIT_TOLERANCE_PX } from './createGeoLineStringInteraction'
 import { isWithinSubjectExtent } from './extentConstraint'
 import isPointFeature from './isPointFeature'
+import { selectCreatedFeature } from './mapSelection'
+import stampCreatedFeature from './stampCreatedFeature'
 
-// Subject-provided points carry no toolIndex, so they never count toward the cap.
+// Subject-provided points carry no toolIndex and count toward every tool's cap.
 function countPointFeaturesForTool(source, toolIndex) {
-  return source.getFeatures().filter((feature) => (
-    isPointFeature(feature) && feature.get?.('toolIndex') === toolIndex
-  )).length
+  return source.getFeatures().filter((feature) => {
+    if (!isPointFeature(feature)) return false
+    const featureToolIndex = feature.get?.('toolIndex')
+    return featureToolIndex === toolIndex || typeof featureToolIndex !== 'number'
+  }).length
 }
 
 export function createSketchStyle({ map }) {
@@ -79,21 +83,8 @@ function createGeoPointInteraction({
     const feature = event.feature
     if (!feature) return
 
-    if (typeof activeToolIndex === 'number') {
-      feature.set('toolIndex', activeToolIndex)
-    }
-
-    if (selectInteraction) {
-      Promise.resolve().then(() => {
-        selectInteraction.getFeatures().clear()
-        selectInteraction.getFeatures().push(feature)
-        selectInteraction.dispatchEvent({
-          type: 'select',
-          selected: [feature],
-          deselected: []
-        })
-      })
-    }
+    stampCreatedFeature(feature, { activeToolIndex, geoDrawingTask })
+    selectCreatedFeature(selectInteraction, feature)
 
     // drawend fires before source.addFeature, so include the in-flight feature.
     if (countPointFeaturesForTool(source, activeToolIndex) + 1 >= featureCountMax) {

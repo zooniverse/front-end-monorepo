@@ -67,6 +67,42 @@ describe('Model > ClassificationMetadata', function () {
     })
   })
 
+  describe('map context (geoDrawing)', function () {
+    it('accepts featureProjection and mapContext via update', function () {
+      const geoModel = ClassificationMetadata.create({
+        classifier_version: '2.0',
+        source: 'api',
+        userLanguage: 'en',
+        workflowVersion: '1.0'
+      })
+      geoModel.update({
+        featureProjection: 'EPSG:4326',
+        mapContext: {
+          activeLayerIndex: 1,
+          tileLayers: [{ type: 'osm', label: 'Base' }],
+          viewportBbox: [2.1, 48.7, 2.5, 49.0]
+        }
+      })
+      const geoSnapshot = getSnapshot(geoModel)
+      expect(geoSnapshot.featureProjection).to.equal('EPSG:4326')
+      expect(geoSnapshot.mapContext.activeLayerIndex).to.equal(1)
+      expect(geoSnapshot.mapContext.tileLayers).to.have.length(1)
+      expect(geoSnapshot.mapContext.viewportBbox).to.deep.equal([2.1, 48.7, 2.5, 49.0])
+    })
+
+    it('omits featureProjection and mapContext by default', function () {
+      const plainModel = ClassificationMetadata.create({
+        classifier_version: '2.0',
+        source: 'api',
+        userLanguage: 'en',
+        workflowVersion: '1.0'
+      })
+      const plainSnapshot = getSnapshot(plainModel)
+      expect(plainSnapshot.featureProjection).to.equal(undefined)
+      expect(plainSnapshot.mapContext).to.equal(undefined)
+    })
+  })
+
   describe('user language', function () {
     it('should match the locale', function () {
       const store = mockStore()

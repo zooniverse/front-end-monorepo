@@ -25,6 +25,7 @@ const Point = types
     }), {})
   })
   .preProcessSnapshot((snapshot) => {
+    if (snapshot == null) return snapshot
     const newSnapshot = Object.assign({}, snapshot, { type: 'Feature' })
     const newGeometry = newSnapshot.geometry || {}
 
