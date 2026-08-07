@@ -15,7 +15,7 @@ Behaviours:
   - The form will perform basic HTML checks for email validity.
   - When the user submits a valid email address, the form transitions from an initial "ready" state to the following states:
     - "busy" state: request is being sent to Panoptes. "Loader" (busy indicator) is shown. Form is disabled.
-    - "success" state: request has successfully been processed. Success message is show. Form should remain disabled?
+    - "success" state: request has successfully been processed. Success message is show. Form remains disabled.
     - "error" state: request has failed (API error). Error message is shown. Form is re-enabled.
 - **Mode 3: Commit Reset**
   - Entry point: user receives a password reset email, and clicks on the link in that email. They're taken to this Reset Password Page _with a token._

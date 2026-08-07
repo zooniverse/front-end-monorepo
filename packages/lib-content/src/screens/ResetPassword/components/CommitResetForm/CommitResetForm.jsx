@@ -1,5 +1,5 @@
 import { useId, useRef, useState } from 'react'
-import { Box, Form, FormField, Heading, Paragraph, TextInput } from 'grommet'
+import { Box, Form, Heading, Paragraph, TextInput } from 'grommet'
 import { useTranslation } from '@translations/i18n'
 import styled, { css } from 'styled-components'
 import { bool } from 'prop-types'
@@ -53,7 +53,9 @@ function CommitResetForm ({
   const inputConfirmation = useRef()  // Confirm new password
 
   const passwordInputId = useId()
+  const passwordHelpId = useId()
   const confirmationInputId = useId()
+  const confirmationHelpId = useId()
 
   // This only triggers if the email is valid.
   // Email validation is performed via native HTML form controls.
@@ -115,9 +117,10 @@ function CommitResetForm ({
           <InputBox>
             <InputLabelBox direction='row'>
               <label for={passwordInputId}>{t('ResetPassword.CommitResetForm.inputPassword')}</label>
-              <HelpInfo>{t('ResetPassword.CommitResetForm.infoPassword')}</HelpInfo>
+              <HelpInfo id={passwordHelpId}>{t('ResetPassword.CommitResetForm.infoPassword')}</HelpInfo>
             </InputLabelBox>
             <TextInput
+              aria-describedby={passwordHelpId}
               id={passwordInputId}
               disabled={isBusy || isComplete}
               name='password'
@@ -132,9 +135,10 @@ function CommitResetForm ({
           <InputBox>
             <InputLabelBox direction='row'>
               <label for={confirmationInputId}>{t('ResetPassword.CommitResetForm.inputConfirmation')}</label>
-              <HelpInfo>{t('ResetPassword.CommitResetForm.infoConfirmation')}</HelpInfo>
+              <HelpInfo id={confirmationHelpId}>{t('ResetPassword.CommitResetForm.infoConfirmation')}</HelpInfo>
             </InputLabelBox>
             <TextInput
+              aria-describedby={confirmationHelpId}
               id={confirmationInputId}
               disabled={isBusy || isComplete}
               name='confirmation'
