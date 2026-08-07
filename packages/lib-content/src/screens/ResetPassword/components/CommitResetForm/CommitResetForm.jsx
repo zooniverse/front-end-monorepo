@@ -8,6 +8,7 @@ import { Loader, StatusMessage } from '@zooniverse/react-components'
 import ResetPasswordHeader from '../ResetPasswordHeader/ResetPasswordHeader'
 import doCommitPasswordReset from '../../helpers/doCommitPasswordReset.js'
 import isNewPasswordValid from '../../helpers/isNewPasswordValid.js'
+import redirectToSignInPage from '../../helpers/redirectToSignInPage.js'
 import DarkTealPrimaryButton from '../../../Unsubscribe/components/DarkTealPrimaryButton/DarkTealPrimaryButton'
 
 const InputBoxes = styled(Box)`
@@ -42,7 +43,8 @@ const MINIMUM_PASSWORD_LENGTH = 8
 const PASSWORD_PATTERN = `.{${MINIMUM_PASSWORD_LENGTH},}`
 
 function CommitResetForm ({
-  resetPasswordToken = ''
+  resetPasswordToken = '',
+  onSuccess = redirectToSignInPage,
 }) {
 
   const { t } = useTranslation()
@@ -84,6 +86,7 @@ function CommitResetForm ({
     setIsBusy(false)
     setApiError(submitError)
     setIsComplete(!submitError)
+    if (!submitError) { onSuccess() }  // Trigger a redirect on success.
   }
 
   // Update StatusMessage
