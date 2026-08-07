@@ -10,8 +10,8 @@ and it sits on PFE. As a result, we're using a very simple redirect code to
 avoid any possible complications from traversing the FEM-PFE boundaries. 
  */
 
-const WAIT_TIME = 5000  // 5 seconds
-const SIGN_IN_URL = '/accounts/sign-in'
+const WAIT_TIME = 6000  // 6 seconds
+export const SIGN_IN_URL = '/accounts/sign-in'
 
 export default async function redirectToSignInPage () {
 

@@ -1,6 +1,6 @@
 import { useId, useRef, useState } from 'react'
-import { Box, Form, Heading, Paragraph, TextInput } from 'grommet'
-import { useTranslation } from '@translations/i18n'
+import { Anchor, Box, Form, Heading, Paragraph, TextInput } from 'grommet'
+import { Trans, useTranslation } from '@translations/i18n'
 import styled, { css } from 'styled-components'
 import { string } from 'prop-types'
 
@@ -8,7 +8,7 @@ import { Loader, StatusMessage } from '@zooniverse/react-components'
 import ResetPasswordHeader from '../ResetPasswordHeader/ResetPasswordHeader'
 import doCommitPasswordReset from '../../helpers/doCommitPasswordReset.js'
 import isNewPasswordValid from '../../helpers/isNewPasswordValid.js'
-import redirectToSignInPage from '../../helpers/redirectToSignInPage.js'
+import redirectToSignInPage, { SIGN_IN_URL } from '../../helpers/redirectToSignInPage.js'
 import DarkTealPrimaryButton from '../../../Unsubscribe/components/DarkTealPrimaryButton/DarkTealPrimaryButton'
 
 const InputBoxes = styled(Box)`
@@ -102,7 +102,17 @@ function CommitResetForm ({
 
   } else if (isComplete) {
     statusType = 'success'
-    statusText = t('ResetPassword.CommitResetForm.status.success')
+    statusText = (
+      <span>
+        <Trans
+          i18nKey='ResetPassword.CommitResetForm.status.success'
+          t={t}
+          components={[
+            <Anchor key='sign-in-link' href={SIGN_IN_URL} />
+          ]}
+        />
+      </span>
+    )
   }
 
   return (
