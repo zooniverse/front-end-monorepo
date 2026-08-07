@@ -1,35 +1,41 @@
 import { render, screen } from '@testing-library/react'
+import { composeStory } from '@storybook/react'
 
-import InteractiveMedia from './InteractiveMedia'
+import ImageMeta, { LoggedInLandscape } from '../../stories/interactive/singleMedia/SubjectCard.image.stories'
+import MultiMediaMeta, { LoggedInMultiImage } from '../../stories/interactive/multiMedia/SubjectCard.multiMedia.stories'
 
-describe('InteractiveMedia', function() {
-  it('renders nothing when mediaSrc is not provided', function() {
-    render(
-      <InteractiveMedia
-        previewHeight={200}
-        subjectIdTitle='Subject 1'
-        width={200}
-      />
-    )
+describe('InteractiveMedia', function () {
+  describe('with single image location', function () {
+    it('should render a link wrapping the media', function () {
+      const Story = composeStory(LoggedInLandscape, ImageMeta)
+      render(<Story />)
+      const link = screen.getByRole('link')
+      expect(link).toBeDefined()
+      expect(link.href).to.contain('/talk/subjects/75219502')
+    })
 
-    expect(screen.queryByRole('img')).toBeNull()
-    expect(screen.queryByText('Subject 1')).toBeNull()
+    it('should not render flipbook controls', function () {
+      const Story = composeStory(LoggedInLandscape, ImageMeta)
+      render(<Story />)
+      const buttons = screen.queryAllByTestId('flipbook-controls')
+      expect(buttons.length).to.equal(0)
+    })
   })
 
-  it('renders image media without the title overlay with mediaSrc', function() {
-    const { container } = render(
-      <InteractiveMedia
-        mediaSrc='https://example.org/test.png'
-        previewHeight={200}
-        showBackground={true}
-        subjectIdTitle='Subject 1'
-        width={200}
-      />
-    )
+  describe('with multiple image locations', function () {
+    it('should render a link wrapping the media', function () {
+      const Story = composeStory(LoggedInMultiImage, MultiMediaMeta)
+      render(<Story />)
+      const link = screen.getByRole('link')
+      expect(link).toBeDefined()
+      expect(link.href).to.contain('/talk/subjects/121787506')
+    })
 
-    const imageMedia = container.querySelector('.thumbnailImage, img, [aria-hidden="true"][tabindex="-1"]')
-
-    expect(imageMedia).toBeTruthy()
-    expect(screen.queryByText('Subject 1')).toBeNull()
+    it('should render flipbook controls', function () {
+      const Story = composeStory(LoggedInMultiImage, MultiMediaMeta)
+      render(<Story />)
+      const buttons = screen.getAllByTestId('flipbook-controls')
+      expect(buttons).toBeDefined()
+    })
   })
 })

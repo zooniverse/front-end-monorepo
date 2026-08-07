@@ -1,37 +1,87 @@
-import { bool, node, number, string } from 'prop-types'
+import { arrayOf, node, number, objectOf, shape, string } from 'prop-types'
 
-import SimpleMedia from '../SimpleMedia/SimpleMedia'
+import SimpleMedia from '../SimpleMedia'
+import MultiMedia from './components/MultiMedia'
+import { MULTI_MEDIA_CONTROLS_HEIGHT } from './components/MultiMedia'
+
+const SIMPLE_PREVIEW_MEDIA_TYPES = [
+  'application',
+  'image',
+  'text'
+]
+
+function getMediaType(mimeType) {
+  return mimeType?.split('/')[0]
+}
+
+function getSources(subject) {
+  return (subject?.locations || []).map(location => ({
+    mimeType: Object.keys(location)[0],
+    url: Object.values(location)[0]
+  })).filter(item => item.url)
+}
 
 function InteractiveMedia({
-  mediaSrc,
+  linkTitle,
   placeholder,
   previewHeight,
-  showBackground,
+  subject,
   subjectIdTitle,
-  width
+  width,
+  url
 }) {
-  if (!mediaSrc) return null
+  const sources = getSources(subject)
+  const hasMultipleSources = sources.length > 1
+  
+  const firstSource = sources.length === 1 ? sources[0] : null
+  const firstMediaType = getMediaType(firstSource?.mimeType)
+  const supportsSimplePreview = SIMPLE_PREVIEW_MEDIA_TYPES.includes(firstMediaType)
+  
+  const resolvedPreviewHeight = hasMultipleSources
+    ? previewHeight - MULTI_MEDIA_CONTROLS_HEIGHT
+    : previewHeight
 
-  return (
-    <SimpleMedia
-      mediaSrc={mediaSrc}
-      placeholder={placeholder}
-      previewHeight={previewHeight}
-      showBackground={showBackground}
-      showTitle={false}
-      subjectIdTitle={subjectIdTitle}
-      width={width}
-    />
-  )
+  if (hasMultipleSources) {
+    return (
+      <MultiMedia
+        linkTitle={linkTitle}
+        mediaSources={sources.map(source => source.url)}
+        previewHeight={resolvedPreviewHeight}
+        subjectIdTitle={subjectIdTitle}
+        width={width}
+        url={url}
+      />
+    )
+  }
+
+  if (supportsSimplePreview) {
+    return (
+      <SimpleMedia
+        linkTitle={linkTitle}
+        placeholder={placeholder}
+        previewHeight={resolvedPreviewHeight}
+        showTitle={false}
+        subject={subject}
+        subjectIdTitle={subjectIdTitle}
+        width={width}
+        url={url}
+      />
+    )
+  }
+
+  return null
 }
 
 InteractiveMedia.propTypes = {
-  mediaSrc: string,
+  linkTitle: string.isRequired,
   placeholder: node,
   previewHeight: number.isRequired,
-  showBackground: bool,
+  subject: shape({
+    locations: arrayOf(objectOf(string))
+  }),
   subjectIdTitle: string.isRequired,
-  width: number.isRequired
+  width: number.isRequired,
+  url: string.isRequired
 }
 
 export default InteractiveMedia
