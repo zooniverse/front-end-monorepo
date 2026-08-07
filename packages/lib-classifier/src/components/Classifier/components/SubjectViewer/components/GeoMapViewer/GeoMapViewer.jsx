@@ -18,8 +18,9 @@ import UnitSelect from './components/UnitSelect'
 import ZoomInButton from './components/ZoomInButton'
 import ZoomOutButton from './components/ZoomOutButton'
 import { GEOJSON_READ_OPTIONS, ZOOM_ANIMATION_DURATION_MS } from './helpers/constants'
+import getViewportBbox from './helpers/getViewportBbox'
 import loadGeoJSON from './helpers/loadGeoJSON'
-import { fitViewToExtent } from './helpers/mapSelection'
+import { clearSelectedFeature, fitViewToExtent } from './helpers/mapSelection'
 
 import useMapCursor from './hooks/useMapCursor'
 import useMapInteractions from './hooks/useMapInteractions'
@@ -152,6 +153,27 @@ function GeoMapViewer({
     if (!baseLayers.length) return
     baseLayers.forEach((tileLayer, index) => tileLayer.setVisible(index === currentLayerIndex))
   }, [baseLayers, currentLayerIndex])
+
+  const previousLayerIndexRef = useRef(currentLayerIndex)
+  useEffect(() => {
+    if (previousLayerIndexRef.current === currentLayerIndex) return
+    previousLayerIndexRef.current = currentLayerIndex
+    clearSelectedFeature(select)
+  }, [select, currentLayerIndex])
+
+  useEffect(() => {
+    geoDrawingTask?.updateMapContext?.({ activeLayerIndex: currentLayerIndex })
+  }, [geoDrawingTask, currentLayerIndex])
+
+  useEffect(() => {
+    if (!map || !geoDrawingTask?.updateMapContext) return undefined
+    function reportViewportBbox() {
+      geoDrawingTask.updateMapContext({ viewportBbox: getViewportBbox(map) })
+    }
+    reportViewportBbox()
+    const key = map.on('moveend', reportViewportBbox)
+    return () => unByKey(key)
+  }, [map, geoDrawingTask])
 
   useEffect(() => {
     loadGeoJSON({ map, source, select, measure, data: geoJSON, autoSelect })
