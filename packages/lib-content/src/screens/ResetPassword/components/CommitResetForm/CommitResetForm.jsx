@@ -2,7 +2,7 @@ import { useId, useRef, useState } from 'react'
 import { Anchor, Box, Form, Heading, Paragraph, Text, TextInput } from 'grommet'
 import { Trans, useTranslation } from '@translations/i18n'
 import styled, { css } from 'styled-components'
-import { string } from 'prop-types'
+import { func, string } from 'prop-types'
 
 import { Loader, StatusMessage } from '@zooniverse/react-components'
 import ResetPasswordHeading from '../ResetPasswordHeading/ResetPasswordHeading'
@@ -188,6 +188,7 @@ function CommitResetForm ({
 }
 
 CommitResetForm.propTypes = {
+  onSuccess: func,
   resetPasswordToken: string,
 }
 
