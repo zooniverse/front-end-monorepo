@@ -2,7 +2,7 @@ import { Media, SpacedText } from '@zooniverse/react-components'
 import { Box, Image, Paragraph, Text } from 'grommet'
 import { array, number, string } from 'prop-types'
 import styled, { css } from 'styled-components'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 
 const PossiblyTransparentBox = styled(Box)`
   ${props => css`opacity: ${(props.isComplete) ? '0.5' : '1.0'};`}

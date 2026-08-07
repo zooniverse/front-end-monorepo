@@ -2,7 +2,7 @@
 
 import { useContext } from 'react'
 import { Box } from 'grommet'
-import { PanoptesAuthContext } from '../contexts'
+import { PanoptesAuthContext } from '@/contexts'
 import { DefaultHome } from '@zooniverse/content'
 import { UserHome } from '@zooniverse/user'
 import { Loader } from '@zooniverse/react-components'

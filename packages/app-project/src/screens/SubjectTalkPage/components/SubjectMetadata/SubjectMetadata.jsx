@@ -1,7 +1,7 @@
 import { Markdownz, SpacedText } from '@zooniverse/react-components'
 import { Accordion, AccordionPanel, Anchor, Box, Grid, Heading, ThemeContext, Text } from 'grommet'
 import { CircleInformation } from 'grommet-icons'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import styled from 'styled-components'
 
 import { useSubjectMetadataPreference } from '@hooks'
@@ -51,7 +51,7 @@ function SubjectMetadata({
   const [isExpanded, handleToggle] = useSubjectMetadataPreference()
 
   const { t } = useTranslation('screens')
-  
+
   const filteredMetadata = Object.keys(metadata)
     .filter((label) => filterByLabel(label, filters))
   const entries = filteredMetadata.map(label => {

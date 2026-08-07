@@ -5,7 +5,7 @@ import { usePanoptesUser } from '@zooniverse/react-components/hooks'
 import { Grommet } from 'grommet'
 import { createGlobalStyle } from 'styled-components'
 
-import { PanoptesAuthContext, ThemeModeContext } from '../contexts'
+import { PanoptesAuthContext, ThemeModeContext } from '@/contexts'
 import { useAdminMode, usePreferredTheme } from '../hooks'
 
 const GlobalStyle = createGlobalStyle`

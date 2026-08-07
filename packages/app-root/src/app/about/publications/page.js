@@ -7,7 +7,7 @@ import {
   getPublicationsData,
   getUniqueProjectIds
 } from './processPublicationData.js'
-import client from '../../../utils/contentfulClient.js'
+import client from '@/utils/contentfulClient.js'
 import mockResponse from './response.mock.json'
 
 export const metadata = {

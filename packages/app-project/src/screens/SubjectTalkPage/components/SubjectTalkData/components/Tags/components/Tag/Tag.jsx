@@ -1,13 +1,13 @@
 import { Box, Button, Text, Tip } from 'grommet'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import { bool, func, shape, string } from 'prop-types'
 import styled from 'styled-components'
 
 const StyledButton = styled(Button)`
   background: ${props => props.$userVoted ?
     'linear-gradient(180deg, #4D2A8E 0%, #3C2F53 100%);'
-    : props.theme.dark ? 
-      props.theme.global.colors['dark-4'] 
+    : props.theme.dark ?
+      props.theme.global.colors['dark-4']
       : props.theme.global.colors['neutral-6']
     };
   border: none;

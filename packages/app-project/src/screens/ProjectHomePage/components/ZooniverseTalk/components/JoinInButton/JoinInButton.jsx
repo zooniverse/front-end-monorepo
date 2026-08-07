@@ -1,6 +1,6 @@
 import { Button } from 'grommet'
 import styled from 'styled-components'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import { useRouter } from 'next/router'
 
 import addQueryParams from '@helpers/addQueryParams'

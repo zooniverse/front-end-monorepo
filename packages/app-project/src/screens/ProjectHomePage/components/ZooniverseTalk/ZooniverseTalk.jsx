@@ -2,7 +2,7 @@ import withResponsiveContext from '@zooniverse/react-components/helpers/withResp
 import { Chat } from 'grommet-icons'
 import { Box, Grid, Paragraph, ResponsiveContext } from 'grommet'
 import { string } from 'prop-types'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import { useContext } from 'react'
 
 import ContentBox from '@shared/components/ContentBox'

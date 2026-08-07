@@ -1,5 +1,5 @@
-import { validateDateRangeParams } from '../../../../../utils/validateDateRangeParams'
-import { validateProjectIdParam } from '../../../../../utils/validateProjectIdParam'
+import { validateDateRangeParams } from '@/utils/validateDateRangeParams'
+import { validateProjectIdParam } from '@/utils/validateProjectIdParam'
 import CertificateContainer from './CertificateContainer'
 
 export const metadata = {

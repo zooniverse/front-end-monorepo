@@ -1,7 +1,7 @@
 import { Loader, SpacedHeading, SpacedText } from '@zooniverse/react-components'
 import { Box, Button } from 'grommet'
 import { Add, Tag as TagIcon } from 'grommet-icons'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import { arrayOf, bool, func, shape, string } from 'prop-types'
 import styled from 'styled-components'
 

@@ -4,13 +4,13 @@ import { Certificate, usePanoptesUser } from '@zooniverse/user'
 import { useRouter } from 'next/navigation'
 import { useContext, useEffect } from 'react'
 
-import AuthenticatedUsersPageContainer from '../../../../../components/AuthenticatedUsersPageContainer'
-import { PanoptesAuthContext } from '../../../../../contexts'
+import AuthenticatedUsersPageContainer from '@/components/AuthenticatedUsersPageContainer'
+import { PanoptesAuthContext } from '@/contexts'
 
 function updateQueryParams(newQueryParams) {
   const queryParams = new URLSearchParams(window.location.search)
 
-  for (const [key, value] of newQueryParams) {  
+  for (const [key, value] of newQueryParams) {
     if (!value) {
       queryParams.delete(key);
     } else {
@@ -40,9 +40,9 @@ function CertificateContainer({
     login,
     requiredUserProperty: 'created_at'
   })
-  
+
   const router = useRouter()
-  
+
   // set end date per query params or default to today
   let selectedEndDate = endDate
   if (selectedEndDate === undefined) {
