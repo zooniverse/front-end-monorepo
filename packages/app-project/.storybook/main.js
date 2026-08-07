@@ -7,8 +7,7 @@ function webpackFinal(config, options) {
     ...config.resolve,
     alias: {
       ...webpackConfig.resolve.alias,
-      ['@sentry/node']: '@sentry/browser',
-      'next-i18next': 'react-i18next'
+      ['@sentry/node']: '@sentry/browser'
     },
     extensions: ['.jsx', '.js', '...'],
     fallback: {
