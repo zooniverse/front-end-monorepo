@@ -2,7 +2,8 @@ import { useId, useRef, useState } from 'react'
 import { Box, Form, Heading, Paragraph, TextInput } from 'grommet'
 import { useTranslation } from '@translations/i18n'
 import styled, { css } from 'styled-components'
-import { bool } from 'prop-types'
+import { string } from 'prop-types'
+
 import { Loader, StatusMessage } from '@zooniverse/react-components'
 import ResetPasswordHeader from '../ResetPasswordHeader/ResetPasswordHeader'
 import doCommitPasswordReset from '../../helpers/doCommitPasswordReset.js'
@@ -165,6 +166,10 @@ function CommitResetForm ({
         </InputBoxes>          
       </Form>
   )
+}
+
+CommitResetForm.propTypes = {
+  resetPasswordToken: string,
 }
 
 export default CommitResetForm
