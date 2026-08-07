@@ -214,3 +214,24 @@ export function StoryRow({
     </Box>
   )
 }
+
+export function InteractiveStory({
+  login,
+  subject
+}) {
+  const projectSlug = 'team/example-project'
+  const userId = login ? '1234' : null
+
+  return (
+    <Box direction='row' gap='medium' pad='medium'>
+      <SubjectCard
+        interactive={true}
+        login={login}
+        projectId={subject.links.project}
+        projectSlug={projectSlug}
+        subject={subject}
+        userId={userId}
+      />
+    </Box>
+  )
+}
