@@ -3,6 +3,7 @@ import { number, arrayOf, string, shape, objectOf } from 'prop-types'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
+import Media from '../../../../../Media'
 import MediaLink from '../../../MediaLink'
 import FlipbookControls from '../FlipbookControls'
 import Audio from '../Audio'
@@ -111,6 +112,27 @@ function MultiMedia({
 					{...commonProps}
 					mediaSrc={currentSource.url}
 				/>
+			)
+		}
+
+		if (currentMediaType === 'text') {
+			return (
+				<MediaLink href={url} title={linkTitle}>
+					<StyledPreview
+						justify='center'
+						height={`${previewHeight}px`}
+						round={{ corner: 'top', size: '8px' }}
+						width={`${width}px`}
+					>
+						<Media
+							alt={subjectIdTitle}
+							defaultMimeType='text'
+							height={previewHeight}
+							src={currentSource.url}
+							width={width}
+						/>
+					</StyledPreview>
+				</MediaLink>
 			)
 		}
 
