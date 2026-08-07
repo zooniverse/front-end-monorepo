@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { composeStory } from '@storybook/react'
 
-import Meta, { LoggedInMultiImage } from '../../../../stories/interactive/multiMedia/SubjectCard.multimedia.stories'
+import Meta, { LoggedInMultiImage } from '../../../../stories/interactive/multiMedia/SubjectCard.multiMedia.stories'
 
 describe('MultiMedia', function () {
   it('should render the media link', function () {
