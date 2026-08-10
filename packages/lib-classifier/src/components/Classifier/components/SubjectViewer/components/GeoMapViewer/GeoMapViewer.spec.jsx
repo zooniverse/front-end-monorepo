@@ -2,7 +2,9 @@ import { composeStory } from '@storybook/react'
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import TileLayer from 'ol/layer/Tile'
+import VectorLayer from 'ol/layer/Vector'
 import Meta, { Default, WithGeoDrawingTask, WithoutGeoDrawingTask } from './GeoMapViewer.stories'
+import GeoMapViewer from './GeoMapViewer'
 
 const DefaultStory = composeStory(Default, Meta)
 const WithGeoDrawingTaskStory = composeStory(WithGeoDrawingTask, Meta)
@@ -174,6 +176,133 @@ describe('Component > GeoMapViewer', function () {
 
       expect(vectorLayer.getVisible()).to.equal(true)
       expect(vectorLayer.getSource()?.getFeatures().length ?? 0).to.equal(featureCountBefore)
+    })
+  })
+
+  describe('configured overlay layers', function () {
+    const overlayDescriptors = [
+      {
+        type: 'wfs',
+        label: 'NHD Hydrography',
+        url: 'https://hydro.nationalmap.gov/arcgis/services/nhd/MapServer/WFSServer',
+        typeName: 'nhd:NHDFlowline',
+        attributions: 'Source: U.S. Geological Survey, National Hydrography Dataset'
+      },
+      {
+        type: 'geojson',
+        label: 'Project area',
+        url: 'https://example.org/static/project-area.geojson'
+      }
+    ]
+
+    // overlay layers have url-loading sources; the features + selection layers do not
+    function overlayLayers (map) {
+      return map.getLayers().getArray().filter(layer => (
+        layer instanceof VectorLayer && !!layer.getSource().getUrl()
+      ))
+    }
+
+    it('declares overlayLayers in propTypes', function () {
+      expect(GeoMapViewer.propTypes).to.have.property('overlayLayers')
+    })
+
+    it('builds no overlay layers when none are configured', async function () {
+      let map = null
+      render(<DefaultStory onMapReady={(olMap) => { map = olMap }} />)
+      await waitFor(() => expect(map).to.exist)
+      expect(overlayLayers(map)).to.have.lengthOf(0)
+    })
+
+    it('builds one overlay layer per descriptor, between the base layers and the features layer', async function () {
+      let map = null
+      render(<DefaultStory overlayLayers={overlayDescriptors} onMapReady={(olMap) => { map = olMap }} />)
+      await waitFor(() => expect(map).to.exist)
+      const overlays = overlayLayers(map)
+      expect(overlays).to.have.lengthOf(2)
+
+      const layers = map.getLayers().getArray()
+      expect(layers[0]).to.be.an.instanceOf(TileLayer)
+      expect(layers[1]).to.equal(overlays[0])
+      expect(layers[2]).to.equal(overlays[1])
+      expect(layers[3]).to.be.an.instanceOf(VectorLayer)
+      expect(layers[3].getSource().getUrl()).to.not.exist
+    })
+
+    it('scopes the Select interaction strictly to the features layer when overlays are configured', async function () {
+      // Select keeps its layer scope as the private layerFilter_ fn
+      let map = null
+      render(
+        <WithGeoDrawingTaskStory
+          overlayLayers={overlayDescriptors}
+          onMapReady={(olMap) => { map = olMap }}
+        />
+      )
+      await waitFor(() => expect(map).to.exist)
+      const select = map.getInteractions().getArray().find(i => i.constructor.name === 'Select')
+      expect(select, 'Select interaction is registered').to.exist
+      expect(select.layerFilter_, 'Select layerFilter_ is callable').to.be.a('function')
+
+      const layers = map.getLayers().getArray()
+      const overlays = overlayLayers(map)
+      expect(overlays).to.have.lengthOf(2)
+      const featuresLayer = layers.find(layer => (
+        layer instanceof VectorLayer && !layer.getSource().getUrl()
+      ))
+
+      expect(select.layerFilter_(featuresLayer)).to.equal(true)
+      overlays.forEach(overlay => expect(select.layerFilter_(overlay)).to.equal(false))
+      expect(select.layerFilter_(layers[0])).to.equal(false)
+    })
+
+    it('renders an OverlayLayerControl checkbox per overlay when overlays are configured', async function () {
+      let map = null
+      render(<DefaultStory overlayLayers={overlayDescriptors} onMapReady={(olMap) => { map = olMap }} />)
+      await waitFor(() => expect(map).to.exist)
+      expect(screen.getByRole('group', { name: /overlay/i })).to.exist
+      expect(screen.getByRole('checkbox', { name: /NHD Hydrography/i })).to.exist
+      expect(screen.getByRole('checkbox', { name: /Project area/i })).to.exist
+    })
+
+    it('does not render the OverlayLayerControl when no overlays are configured', async function () {
+      let map = null
+      render(<DefaultStory onMapReady={(olMap) => { map = olMap }} />)
+      await waitFor(() => expect(map).to.exist)
+      expect(screen.queryByRole('group', { name: /overlay/i })).to.not.exist
+    })
+
+    it('toggling an overlay checkbox flips that VectorLayer visibility (and only that one)', async function () {
+      const user = userEvent.setup()
+      let map = null
+      render(<DefaultStory overlayLayers={overlayDescriptors} onMapReady={(olMap) => { map = olMap }} />)
+      await waitFor(() => expect(map).to.exist)
+      const overlays = overlayLayers(map)
+      expect(overlays.map(overlay => overlay.getVisible())).to.deep.equal([true, true])
+
+      await user.click(screen.getByRole('checkbox', { name: /Project area/i }))
+      expect(overlays.map(overlay => overlay.getVisible())).to.deep.equal([true, false])
+
+      await user.click(screen.getByRole('checkbox', { name: /Project area/i }))
+      expect(overlays.map(overlay => overlay.getVisible())).to.deep.equal([true, true])
+    })
+
+    it('filters incomplete overlay descriptors so half-edited Lab drafts do not crash the viewer', async function () {
+      let map = null
+      render(
+        <DefaultStory
+          overlayLayers={[
+            { type: 'wfs' },
+            { type: 'geojson' },
+            {
+              type: 'wfs',
+              url: 'https://hydro.nationalmap.gov/arcgis/services/nhd/MapServer/WFSServer',
+              typeName: 'nhd:NHDFlowline'
+            }
+          ]}
+          onMapReady={(olMap) => { map = olMap }}
+        />
+      )
+      await waitFor(() => expect(map).to.exist)
+      expect(overlayLayers(map)).to.have.lengthOf(1)
     })
   })
 
