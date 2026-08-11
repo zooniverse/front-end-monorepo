@@ -163,13 +163,13 @@ describe('helpers > createGeoPointInteraction', function () {
     interaction.destroy()
   })
 
-  it('isCapped() ignores subject-provided points (no toolIndex)', function () {
+  it('isCapped() counts subject-provided points (no toolIndex) toward the max', function () {
     source.addFeature(taggedPoint([0, 0]))
 
     const taskWithCap = { activeToolIndex: 0, activeTool: { type: 'Point', max: 1 } }
     const interaction = createGeoPointInteraction({ map, source, geoDrawingTask: taskWithCap, selectInteraction })
 
-    expect(interaction.isCapped()).to.equal(false)
+    expect(interaction.isCapped()).to.equal(true)
     interaction.destroy()
   })
 
@@ -201,6 +201,68 @@ describe('helpers > createGeoPointInteraction', function () {
     expect(map.getInteractions().getArray().some(i => i.constructor.name === 'Draw')).to.equal(true)
     interaction.destroy()
     expect(map.getInteractions().getArray().some(i => i.constructor.name === 'Draw')).to.equal(false)
+  })
+
+  describe('subject-supplied points occupying capacity', function () {
+    function findDraw() {
+      return map.getInteractions().getArray().find(i => i.constructor.name === 'Draw')
+    }
+
+    it('frees a drawing slot when the seed point is deleted', function () {
+      const seed = taggedPoint([0, 0])
+      source.addFeature(seed)
+      const taskWithCap = { activeToolIndex: 0, activeTool: { type: 'Point', max: 1 } }
+      const interaction = createGeoPointInteraction({ map, source, geoDrawingTask: taskWithCap, selectInteraction })
+      interaction.setActive(true)
+
+      expect(findDraw().getActive()).to.equal(false)
+      source.removeFeature(seed)
+      expect(findDraw().getActive()).to.equal(true)
+
+      source.addFeature(taggedPoint([1, 1], 0))
+      expect(findDraw().getActive()).to.equal(false)
+      interaction.destroy()
+    })
+
+    it('caps a full workflow until the seed is deleted, then allows max total points', function () {
+      const seed = taggedPoint([0, 0])
+      source.addFeature(seed)
+      source.addFeature(taggedPoint([1, 1], 0))
+      source.addFeature(taggedPoint([2, 2], 0))
+      const taskWithCap = { activeToolIndex: 0, activeTool: { type: 'Point', max: 3 } }
+      const interaction = createGeoPointInteraction({ map, source, geoDrawingTask: taskWithCap, selectInteraction })
+      interaction.setActive(true)
+
+      expect(findDraw().getActive()).to.equal(false)
+      source.removeFeature(seed)
+      expect(findDraw().getActive()).to.equal(true)
+
+      source.addFeature(taggedPoint([3, 3], 0))
+      expect(interaction.isCapped()).to.equal(true)
+      expect(findDraw().getActive()).to.equal(false)
+      interaction.destroy()
+    })
+
+    it('never activates when max is 0, even after the seed is deleted', function () {
+      const seed = taggedPoint([0, 0])
+      source.addFeature(seed)
+      const moveOnlyTask = { activeToolIndex: 0, activeTool: { type: 'Point', max: 0 } }
+      const interaction = createGeoPointInteraction({ map, source, geoDrawingTask: moveOnlyTask, selectInteraction })
+      interaction.setActive(true)
+
+      source.removeFeature(seed)
+      expect(findDraw().getActive()).to.equal(false)
+      interaction.destroy()
+    })
+
+    it('ignores subject LineStrings for point capacity', function () {
+      source.addFeature(new Feature({ geometry: new LineStringGeom([[0, 0], [1, 1]]) }))
+      const taskWithCap = { activeToolIndex: 0, activeTool: { type: 'Point', max: 1 } }
+      const interaction = createGeoPointInteraction({ map, source, geoDrawingTask: taskWithCap, selectInteraction })
+
+      expect(interaction.isCapped()).to.equal(false)
+      interaction.destroy()
+    })
   })
 
   describe('createDrawCondition', function () {

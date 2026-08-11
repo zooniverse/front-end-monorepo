@@ -1,8 +1,8 @@
 import { composeStory } from '@storybook/react'
-import { render, screen, waitFor } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import TileLayer from 'ol/layer/Tile'
-import Meta, { Default, WithGeoDrawingTask, WithoutGeoDrawingTask } from './GeoMapViewer.stories'
+import Meta, { Default, WithGeoDrawingTask, WithGeoDrawingPointCreationTask, WithoutGeoDrawingTask } from './GeoMapViewer.stories'
 
 const DefaultStory = composeStory(Default, Meta)
 const WithGeoDrawingTaskStory = composeStory(WithGeoDrawingTask, Meta)
@@ -174,6 +174,63 @@ describe('Component > GeoMapViewer', function () {
 
       expect(vectorLayer.getVisible()).to.equal(true)
       expect(vectorLayer.getSource()?.getFeatures().length ?? 0).to.equal(featureCountBefore)
+    })
+  })
+
+  describe('subject-supplied point delete and replace', function () {
+    const PointCreationStory = composeStory(WithGeoDrawingPointCreationTask, Meta)
+
+    // jsdom gives the map no size, so OL keeps overlays hidden; assert on overlay position instead.
+    function deleteOverlay(map) {
+      return map?.getOverlays().getArray().find((overlay) => (
+        overlay.getElement()?.querySelector('button[aria-label="Delete selected feature"]')
+      ))
+    }
+
+    it('positions the delete affordance on the auto-selected subject point in a move-only task', async function () {
+      let map = null
+      render(<PointCreationStory min={0} max={0} seedSubjectPoint onMapReady={(olMap) => { map = olMap }} />)
+
+      await waitFor(() => {
+        expect(deleteOverlay(map)?.getPosition()).to.exist
+      })
+    })
+
+    it('removes the subject point and clears the selection on delete', async function () {
+      let map = null
+      render(<PointCreationStory min={0} max={0} seedSubjectPoint onMapReady={(olMap) => { map = olMap }} />)
+
+      let overlay
+      await waitFor(() => {
+        overlay = deleteOverlay(map)
+        expect(overlay?.getPosition()).to.exist
+      })
+      fireEvent.click(overlay.getElement().querySelector('button'))
+
+      await waitFor(() => {
+        expect(window.__geoFeatureCount).to.equal(0)
+      })
+      expect(overlay.getPosition()).to.not.exist
+    })
+
+    it('blocks point drawing while the seed occupies the only slot', async function () {
+      let map = null
+      render(<PointCreationStory min={0} max={1} seedSubjectPoint onMapReady={(olMap) => { map = olMap }} />)
+
+      function activeDraws() {
+        return map.getInteractions().getArray().filter((interaction) => (
+          interaction.constructor.name === 'Draw' && interaction.getActive()
+        ))
+      }
+
+      await waitFor(() => expect(map).to.exist)
+      await waitFor(() => {
+        const vectorSources = map.getLayers().getArray()
+          .map((layer) => layer.getSource?.())
+          .filter((layerSource) => layerSource?.getFeatures)
+        expect(vectorSources.some((layerSource) => layerSource.getFeatures().length > 0)).to.equal(true)
+      })
+      expect(activeDraws()).to.have.lengthOf(0)
     })
   })
 

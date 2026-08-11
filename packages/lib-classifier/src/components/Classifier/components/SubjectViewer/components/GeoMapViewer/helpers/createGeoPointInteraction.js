@@ -7,11 +7,13 @@ import { FEATURE_HIT_TOLERANCE_PX } from './createGeoLineStringInteraction'
 import { isWithinSubjectExtent } from './extentConstraint'
 import isPointFeature from './isPointFeature'
 
-// Subject-provided points carry no toolIndex, so they never count toward the cap.
+// Subject-provided points carry no toolIndex; they occupy capacity until deleted.
 function countPointFeaturesForTool(source, toolIndex) {
-  return source.getFeatures().filter((feature) => (
-    isPointFeature(feature) && feature.get?.('toolIndex') === toolIndex
-  )).length
+  return source.getFeatures().filter((feature) => {
+    if (!isPointFeature(feature)) return false
+    const featureToolIndex = feature.get?.('toolIndex')
+    return featureToolIndex === toolIndex || typeof featureToolIndex !== 'number'
+  }).length
 }
 
 export function createSketchStyle({ map }) {
