@@ -1,9 +1,9 @@
 import { Box, Image } from 'grommet'
 import { number, oneOf, string } from 'prop-types'
+import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 import getSubjectThumbnailSrc from '../../../../helpers/getSubjectThumbnailSrc'
-import useProgressiveImage from '../../../../../hooks/useProgressiveImage'
 
 const InlineBox = styled.span`
 	display: inline-flex;
@@ -19,9 +19,19 @@ function SubjectThumbnail({
 	...rest
 }) {
 	const thumbnailSrc = getSubjectThumbnailSrc({ height, origin, src, width }) || src
-	const { error } = useProgressiveImage({ src: thumbnailSrc })
-	
-  const imageSrc = error ? src : thumbnailSrc
+	const [imageSrc, setImageSrc] = useState(thumbnailSrc)
+
+	useEffect(() => {
+		setImageSrc(thumbnailSrc)
+		const image = new window.Image()
+		image.src = thumbnailSrc
+		image.onerror = () => setImageSrc(src)
+
+		return () => {
+			image.onerror = null
+		}
+	}, [src, thumbnailSrc])
+
 	const cssHeight = height > 0 ? `${height}px` : height
 	const cssWidth = width > 0 ? `${width}px` : width
 	const fallbackStyle = {
