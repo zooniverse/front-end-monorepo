@@ -95,14 +95,13 @@ function FlipbookControls({
   const { t } = useTranslation()
   const selectedButtonRef = useRef(null)
 
-  // Scroll the selected frame button into view when it changes
+  // Scroll the selected frame button into view when it changes without stealing focus
   useEffect(() => {
     selectedButtonRef.current?.scrollIntoView({
       behavior: 'smooth',
       block: 'nearest',
       inline: 'center'
     })
-    selectedButtonRef.current?.focus()
   }, [currentFrame])
 
   function handlePlayPause(event) {
