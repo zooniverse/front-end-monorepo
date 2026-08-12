@@ -65,6 +65,7 @@ const PFE_SLUGS = [
   'msbrhonclif/science-scribbler-key2cat', // Subject image sizes difficult in FEM's classifier layout
   'msbrhonclif/science-scribbler-placenta-profiles', // Subject image sizes difficult in FEM's classifier layout
   'mschwamb/planet-four', // Uses experimental "fan tool"
+  'newberry/postcard-tag',
   'nora-dot-eisner/planet-hunters-tess-mobile',
   'panettafordham/shadows-on-stone-identifying-sing-sings-incarcerated',
   'penguintom79/penguin-watch', // Uses experimental "shortcut"
