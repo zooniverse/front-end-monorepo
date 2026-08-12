@@ -1,5 +1,5 @@
 import { Button } from 'grommet'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
 const StyledTab = styled(Button)`
   background-color: ${props => props.theme.dark ? props.theme.global.colors['dark-3'] : props.theme.global.colors['neutral-6']};
