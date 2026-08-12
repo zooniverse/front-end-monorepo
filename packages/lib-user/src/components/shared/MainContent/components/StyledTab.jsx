@@ -9,18 +9,18 @@ const StyledTab = styled(Button)`
   text-align: center;
   text-transform: uppercase;
 
-  ${props => props.active && css`
-    border-bottom: 4px solid ${props.theme.global.colors['neutral-1']};
+  &[aria-selected='true'] {
+    border-bottom: 4px solid ${props => props.theme.global.colors['neutral-1']};
     font-weight: 700;
     color: ${props => props.theme.dark ? props.theme.global.colors.white : props.theme.global.colors.black};
-  `}
+  }
 
-  ${props => !props.active && css`
+  &[aria-selected='false'] {
     &:focus, &:hover {
-      border-bottom: 4px solid ${props.theme.dark ? props.theme.global.colors['light-3'] : props.theme.global.colors['neutral-7']};
-      color: ${props.theme.dark ? props.theme.global.colors['light-3'] : props.theme.global.colors['neutral-7']};
+      border-bottom: 4px solid ${props => props.theme.dark ? props.theme.global.colors['light-3'] : props.theme.global.colors['neutral-7']};
+      color: ${props => props.theme.dark ? props.theme.global.colors['light-3'] : props.theme.global.colors['neutral-7']};
     }
-  `}
+  }
 `
 
 export default StyledTab
