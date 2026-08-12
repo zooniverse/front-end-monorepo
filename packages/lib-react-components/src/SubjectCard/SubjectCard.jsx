@@ -1,4 +1,4 @@
-import { Anchor, Box } from 'grommet'
+import { Box } from 'grommet'
 import { arrayOf, bool, node, object, objectOf, oneOf, shape, string } from 'prop-types'
 import styled from 'styled-components'
 
@@ -17,16 +17,6 @@ const METATOOLS_HEIGHT = 45
 
 const StyledSubjectCard = styled(Box)`
   position: relative;
-`
-
-const StyledMediaLink = styled(Anchor)`
-  display: block;
-  text-decoration: none;
-  width: 100%;
-
-  &:hover {
-    text-decoration: none;
-  }
 `
 
 function cardWidth(size) {
@@ -73,7 +63,7 @@ function SubjectCard({
 }) {
   const { t } = useTranslation()
   const subjectIdTitle = t('SubjectCard.subjectId', { id: subject.id })
-  const linkTitle = t('SubjectCard.linkTitle', { id: subject.id })
+  const linkTitle = t('SubjectCard.linkTitle', { subjectId: subjectIdTitle })
 
   // layout
   const width = interactive ? INTERACTIVE_WIDTH : cardWidth(size)
@@ -95,28 +85,27 @@ function SubjectCard({
       round='8px'
       width={`${width}px`}
     >
-      <StyledMediaLink
-        a11yTitle={linkTitle}
-        href={subjectTalkHref}
-      >
-        {interactive ? (
-          <InteractiveMedia
-            placeholder={placeholder}
-            previewHeight={previewHeight}
-            subject={subject}
-            subjectIdTitle={subjectIdTitle}
-            width={width}
-          />
-        ) : (
-          <SimpleMedia
-            placeholder={placeholder}
-            previewHeight={previewHeight}
-            subject={subject}
-            subjectIdTitle={subjectIdTitle}
-            width={width}
-          />
-        )}
-      </StyledMediaLink>
+      {interactive ? (
+        <InteractiveMedia
+          linkTitle={linkTitle}
+          placeholder={placeholder}
+          previewHeight={previewHeight}
+          subject={subject}
+          subjectIdTitle={subjectIdTitle}
+          width={width}
+          url={subjectTalkUrl}
+        />
+      ) : (
+        <SimpleMedia
+          linkTitle={linkTitle}
+          placeholder={placeholder}
+          previewHeight={previewHeight}
+          subject={subject}
+          subjectIdTitle={subjectIdTitle}
+          width={width}
+          url={subjectTalkUrl}
+        />
+      )}
       <Box
         align='center'
         background={{ dark: 'dark-3', light: 'white' }}

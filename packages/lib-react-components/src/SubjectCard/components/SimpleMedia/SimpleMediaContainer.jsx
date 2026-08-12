@@ -1,41 +1,59 @@
-import mime from 'mime/lite'
-import { node, number, shape, string, arrayOf, objectOf } from 'prop-types'
+import { bool, node, number, shape, string, arrayOf, objectOf } from 'prop-types'
 
+import MediaLink from '../MediaLink'
 import SimpleMedia from './SimpleMedia'
 
+function getMediaType(mimeType) {
+	return mimeType?.split('/')[0]
+}
+
 function SimpleMediaContainer({
+	linkTitle,
 	placeholder,
 	previewHeight,
+	showTitle = true,
 	subject,
 	subjectIdTitle,
-	width
+	width,
+	url
 }) {
 	const locations = subject?.locations || []
-	const mediaSrc = locations[0] ? Object.values(locations[0])[0] : null
-	const mimeType = mediaSrc ? mime.getType(mediaSrc) : null
-	const mediaType = mimeType ? mimeType.split('/')[0] : null
+	const firstLocation = locations[0]
+	const mimeType = firstLocation ? Object.keys(firstLocation)[0] : null
+	const mediaType = getMediaType(mimeType)
+	const mediaSrc = firstLocation ? Object.values(firstLocation)[0] : null
 	const showBackground = mediaType === 'image' || mediaType === 'video'
 
 	return (
-		<SimpleMedia
-			mediaSrc={mediaSrc}
-			placeholder={placeholder}
-			previewHeight={previewHeight}
-			showBackground={showBackground}
-			subjectIdTitle={subjectIdTitle}
-			width={width}
-		/>
+		<MediaLink
+			href={url}
+			title={linkTitle}
+		>
+			<SimpleMedia
+				defaultMimeType={mediaType}
+				mediaSrc={mediaSrc}
+				placeholder={placeholder}
+				previewHeight={previewHeight}
+				showBackground={showBackground}
+				showTitle={showTitle}
+				subjectIdTitle={subjectIdTitle}
+				width={width}
+			/>
+		</MediaLink>
 	)
 }
 
 SimpleMediaContainer.propTypes = {
+	linkTitle: string.isRequired,
 	placeholder: node,
 	previewHeight: number.isRequired,
+	showTitle: bool,
 	subject: shape({
 		locations: arrayOf(objectOf(string))
 	}),
 	subjectIdTitle: string.isRequired,
-	width: number.isRequired
+	width: number.isRequired,
+	url: string.isRequired
 }
 
 export default SimpleMediaContainer
