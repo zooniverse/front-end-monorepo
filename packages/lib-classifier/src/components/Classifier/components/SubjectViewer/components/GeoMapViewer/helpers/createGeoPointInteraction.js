@@ -85,6 +85,10 @@ function createGeoPointInteraction({
       feature.set('toolIndex', activeToolIndex)
     }
 
+    if (activeTool?.uncertainty_circle === true) {
+      feature.set('uncertainty_radius', 0)
+    }
+
     if (selectInteraction) {
       Promise.resolve().then(() => {
         selectInteraction.getFeatures().clear()

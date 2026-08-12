@@ -81,6 +81,29 @@ describe('helpers > createGeoPointInteraction', function () {
     interaction.destroy()
   })
 
+  it('initializes uncertainty_radius to 0 on drawend when the tool has uncertainty circles', function () {
+    const task = { activeToolIndex: 0, activeTool: { type: 'Point', max: 3, uncertainty_circle: true } }
+    const interaction = createGeoPointInteraction({ map, source, geoDrawingTask: task, selectInteraction })
+    const drawInteraction = map.getInteractions().getArray().find(i => i.constructor.name === 'Draw')
+
+    const feature = new Feature({ geometry: new PointGeom([5, 5]) })
+    drawInteraction.dispatchEvent({ type: 'drawend', feature })
+
+    expect(feature.get('uncertainty_radius')).to.equal(0)
+    interaction.destroy()
+  })
+
+  it('leaves uncertainty_radius unset on drawend when the tool has no uncertainty circles', function () {
+    const interaction = createGeoPointInteraction({ map, source, geoDrawingTask, selectInteraction })
+    const drawInteraction = map.getInteractions().getArray().find(i => i.constructor.name === 'Draw')
+
+    const feature = new Feature({ geometry: new PointGeom([5, 5]) })
+    drawInteraction.dispatchEvent({ type: 'drawend', feature })
+
+    expect(feature.get('uncertainty_radius')).to.equal(undefined)
+    interaction.destroy()
+  })
+
   it('dispatches select on the new feature after drawend (microtask)', async function () {
     const interaction = createGeoPointInteraction({ map, source, geoDrawingTask, selectInteraction })
     const drawInteraction = map.getInteractions().getArray().find(i => i.constructor.name === 'Draw')
