@@ -107,8 +107,14 @@
     }
   },
   "SubjectCard": {
-    "linkTitle": "Subject {{id}} Talk page",
-    "subjectId": "Subject {{id}}"
+    "linkTitle": "{{subjectId}} Talk page",
+    "subjectId": "Subject {{id}}",
+    "FlipbookControls": {
+      "frames": "Flipbook frames",
+      "pause": "Pause flipbook",
+      "play": "Play flipbook",
+      "viewFrame": "View frame {{frame}}"
+    }
   },
   "ZooFooter": {
     "aboutLabels": {

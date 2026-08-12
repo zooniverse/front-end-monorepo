@@ -7,7 +7,7 @@ const StyledBox = styled(Box)`
 `
 
 const StyledPre = styled.pre`
-  white-space: pre-wrap;
+  flex: 1 1 auto;
   color: ${props => props.theme.dark ? 'white' : 'black'};
   font-family: 'Anonymous Pro', monospace;
   font-weight: 400;
@@ -22,8 +22,12 @@ const StyledPre = styled.pre`
       format('woff2');
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
   }
+  height: 100%;
+  margin: 0;
+  min-height: 0;
   overflow-x: clip;
-  overflow-y: scroll;
+  overflow-y: auto;
+  white-space: pre-wrap;
 `
 
 function PreDisplay({
@@ -44,7 +48,7 @@ function PreDisplay({
       height='100%'
       maxHeight={maxHeight}
       maxWidth={maxWidth}
-      pad={{ horizontal: 'xsmall', top: 'xsmall', bottom: 'medium' }}
+      pad='xsmall'
       width='100%'
       {...rest}
     >
