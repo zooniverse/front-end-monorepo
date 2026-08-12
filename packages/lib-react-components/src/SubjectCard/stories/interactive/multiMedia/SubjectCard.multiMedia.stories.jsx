@@ -4,6 +4,7 @@ import {
   CHIMP_AND_SEE_VIDEO_IMAGES_SUBJECT,
   NFN_IMAGE_TEXT_SUBJECT,
   SMITHSONIAN_WILDLIFE_MULTI_IMAGE_SUBJECT,
+  SQUIRREL_MAPPER_MULTI_IMAGE_FAILED_SUBJECT,
   SQUIRREL_MAPPER_MULTI_IMAGE_SUBJECT
 } from '../../SubjectCardStoryData'
 
@@ -22,10 +23,13 @@ export const MultiImageExternal = {
   render: () => <InteractiveStory login={'TestUser'} subject={SQUIRREL_MAPPER_MULTI_IMAGE_SUBJECT} />
 }
 
+export const MultiImageExternalFailed = {
+  render: () => <InteractiveStory login={'TestUser'} subject={SQUIRREL_MAPPER_MULTI_IMAGE_FAILED_SUBJECT} />
+}
+  
 export const MultiVideoImages = {
   render: () => <InteractiveStory login={'TestUser'} subject={CHIMP_AND_SEE_VIDEO_IMAGES_SUBJECT} />
 }
 
 export const MultiImageText = {
   render: () => <InteractiveStory login={'TestUser'} subject={NFN_IMAGE_TEXT_SUBJECT} />
-}

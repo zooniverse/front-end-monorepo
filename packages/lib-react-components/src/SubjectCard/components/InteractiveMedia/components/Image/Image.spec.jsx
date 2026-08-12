@@ -10,11 +10,24 @@ describe('Image', function () {
     constructor() {
       this.naturalHeight = 200
       this.naturalWidth = 400
-      const fakeLoadEvent = {
-        ...new Event('load'),
-        target: this
-      }
-      setTimeout(() => this.onload(fakeLoadEvent), 0)
+    }
+
+    set src(value) {
+      this._src = value
+      // Trigger onload if it's set
+      setTimeout(() => {
+        if (typeof this.onload === 'function') {
+          const fakeLoadEvent = {
+            ...new Event('load'),
+            target: this
+          }
+          this.onload(fakeLoadEvent)
+        }
+      }, 0)
+    }
+
+    get src() {
+      return this._src
     }
   }
 

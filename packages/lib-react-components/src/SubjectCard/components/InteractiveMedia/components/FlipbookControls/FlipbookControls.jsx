@@ -120,9 +120,13 @@ function FlipbookControls({
   const selectedButtonRef = useRef(null)
   const showPlayPause = allSourcesAreImages(sources)
 
-  // Focus the selected frame button when it changes
+  // Scroll the selected frame button into view when it changes without stealing focus
   useEffect(() => {
-    selectedButtonRef.current?.focus()
+    selectedButtonRef.current?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'nearest',
+      inline: 'center'
+    })
   }, [currentFrame])
 
   function handlePlayPause(event) {

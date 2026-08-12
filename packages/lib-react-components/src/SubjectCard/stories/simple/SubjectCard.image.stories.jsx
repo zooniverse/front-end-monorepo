@@ -7,6 +7,7 @@ import {
   PENGUIN_WATCH_SUBJECT,
   PRINT_SUBJECT,
   RADIO_METEOR_ZOO_SUBJECT,
+  SQUIRREL_MAPPER_FAILED_SUBJECT,
   SQUIRREL_MAPPER_SUBJECT,
   StoryRow,
   WILDWATCH_KENYA_SUBJECT
@@ -53,4 +54,8 @@ export const SquareDark = {
 
 export const External = {
   render: () => <StoryRow login={'TestUser'} subject={SQUIRREL_MAPPER_SUBJECT} />
+}
+
+export const LoggedInExternalFailed = {
+  render: () => <StoryRow login={'TestUser'} subject={SQUIRREL_MAPPER_FAILED_SUBJECT} />
 }
