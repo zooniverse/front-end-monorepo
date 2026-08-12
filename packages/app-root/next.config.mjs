@@ -1,6 +1,8 @@
 import withBundleAnalyzer from '@next/bundle-analyzer'
 import { execSync } from 'child_process'
 
+import redirectPaths from './src/utils/redirectPaths.js'
+
 const bundleAnalyzer = withBundleAnalyzer({
   enabled: process.env.ANALYZE === 'true'
 })
@@ -30,6 +32,9 @@ const nextConfig = {
       'grommet',
       'grommet-icons'
     ]
+  },
+  redirects() {
+    return redirectPaths
   },
   webpack: (config, options) => {
     config.resolve = {
