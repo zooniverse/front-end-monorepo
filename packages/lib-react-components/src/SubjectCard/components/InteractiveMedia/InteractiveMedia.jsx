@@ -34,11 +34,11 @@ function InteractiveMedia({
 }) {
   const sources = getSources(subject)
   const hasMultipleSources = sources.length > 1
-  
-  const firstSource = sources.length === 1 ? sources[0] : null
-  const firstMediaType = getMediaType(firstSource?.mimeType)
-  const supportsSimplePreview = SIMPLE_PREVIEW_MEDIA_TYPES.includes(firstMediaType)
-  
+
+  const singleSource = sources.length === 1 ? sources[0] : null
+  const singleMediaType = getMediaType(singleSource?.mimeType)
+  const supportsSimplePreview = SIMPLE_PREVIEW_MEDIA_TYPES.includes(singleMediaType)
+
   const resolvedPreviewHeight = hasMultipleSources
     ? previewHeight - MULTI_MEDIA_CONTROLS_HEIGHT
     : previewHeight
@@ -71,11 +71,11 @@ function InteractiveMedia({
     )
   }
 
-  if (firstMediaType === 'video') {
+  if (singleMediaType === 'video') {
     return (
       <Video
         linkTitle={linkTitle}
-        mediaSrc={firstSource.url}
+        mediaSrc={singleSource.url}
         placeholder={placeholder}
         previewHeight={resolvedPreviewHeight}
         subjectIdTitle={subjectIdTitle}
@@ -85,11 +85,11 @@ function InteractiveMedia({
     )
   }
 
-  if (firstMediaType === 'audio') {
+  if (singleMediaType === 'audio') {
     return (
       <Audio
         linkTitle={linkTitle}
-        mediaSrc={firstSource.url}
+        mediaSrc={singleSource.url}
         placeholder={placeholder}
         previewHeight={resolvedPreviewHeight}
         subjectIdTitle={subjectIdTitle}

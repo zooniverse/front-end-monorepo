@@ -322,20 +322,6 @@ export const CHIMP_AND_SEE_VIDEO_IMAGES_SUBJECT = {
         "image/jpeg": "https://panoptes-uploads.zooniverse.org/subject_location/4cb6053e-e520-40fc-b6b4-7f250c155d0a.jpeg"
     }
 ],
-export const SQUIRREL_MAPPER_MULTI_IMAGE_FAILED_SUBJECT = {
-  id: '9876543210',
-  links: { project: '8149' },
-  locations: [
-    {
-      'image/jpeg': 'https://static.inaturalist.org/photos/does-not-exist-1/original.jpg'
-    },
-    {
-      'image/jpeg': 'https://static.inaturalist.org/photos/does-not-exist-2/original.jpg'
-    },
-    {
-      'image/jpeg': 'https://static.inaturalist.org/photos/does-not-exist-3/original.jpg'
-    }
-  ],
   metadata: DEFAULT_METADATA
 }
 
