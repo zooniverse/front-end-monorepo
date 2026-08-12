@@ -33,3 +33,4 @@ export const MultiVideoImages = {
 
 export const MultiImageText = {
   render: () => <InteractiveStory login={'TestUser'} subject={NFN_IMAGE_TEXT_SUBJECT} />
+}

@@ -95,13 +95,6 @@ function getMediaType(mimeType) {
   return mimeType?.split('/')[0]
 }
 
-function hasAudioOrVideo(sources = []) {
-  return sources.some(source => {
-    const mediaType = getMediaType(source.mimeType)
-    return mediaType === 'audio' || mediaType === 'video'
-  })
-}
-
 function allSourcesAreImages(sources = []) {
   return sources.length > 0 && sources.every(source => {
     const mediaType = getMediaType(source.mimeType)
