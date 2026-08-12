@@ -56,6 +56,6 @@ export const External = {
   render: () => <StoryRow login={'TestUser'} subject={SQUIRREL_MAPPER_SUBJECT} />
 }
 
-export const LoggedInExternalFailed = {
+export const ExternalFailed = {
   render: () => <StoryRow login={'TestUser'} subject={SQUIRREL_MAPPER_FAILED_SUBJECT} />
 }

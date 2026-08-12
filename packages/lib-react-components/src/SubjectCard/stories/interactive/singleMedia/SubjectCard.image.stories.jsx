@@ -57,6 +57,6 @@ export const External = {
   render: () => <InteractiveStory login={'TestUser'} subject={SQUIRREL_MAPPER_SUBJECT} />
 }
 
-export const LoggedInExternalFailed = {
+export const ExternalFailed = {
   render: () => <InteractiveStory login={'TestUser'} subject={SQUIRREL_MAPPER_FAILED_SUBJECT} />
 }
