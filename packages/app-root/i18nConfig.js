@@ -45,7 +45,7 @@ const i18nConfig = {
   locales,
   defaultLocale: 'en',
   localeDetector: false, // Don't detect locale preference in req headers
-  prefixDefault: false, // When 'en' dont' show prefix in URL
+  prefixDefault: false, // When 'en' don't show prefix in URL
   serverSetCookie: 'never'
 }
 
