@@ -2,6 +2,7 @@ import SubjectCard from '../../../SubjectCard'
 import {
   InteractiveStory,
   SMITHSONIAN_WILDLIFE_MULTI_IMAGE_SUBJECT,
+  SQUIRREL_MAPPER_MULTI_IMAGE_FAILED_SUBJECT,
   SQUIRREL_MAPPER_MULTI_IMAGE_SUBJECT
 } from '../../SubjectCardStoryData'
 
@@ -22,4 +23,8 @@ export const LoggedInMultiImage = {
 
 export const LoggedInMultiImageExternal = {
   render: () => <InteractiveStory login={'TestUser'} subject={SQUIRREL_MAPPER_MULTI_IMAGE_SUBJECT} />
+}
+
+export const LoggedInMultiImageExternalFailed = {
+  render: () => <InteractiveStory login={'TestUser'} subject={SQUIRREL_MAPPER_MULTI_IMAGE_FAILED_SUBJECT} />
 }

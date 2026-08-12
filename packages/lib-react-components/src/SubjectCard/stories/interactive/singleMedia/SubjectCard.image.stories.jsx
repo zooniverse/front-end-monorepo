@@ -9,6 +9,7 @@ import {
   PRINT_SUBJECT,
   RADIO_METEOR_ZOO_SUBJECT,
   SMITHSONIAN_WILDLIFE_MULTI_IMAGE_SUBJECT,
+  SQUIRREL_MAPPER_FAILED_SUBJECT,
   SQUIRREL_MAPPER_SUBJECT,
   WILDWATCH_KENYA_SUBJECT,
 } from '../../SubjectCardStoryData'
@@ -54,4 +55,8 @@ export const LoggedInSquareDark = {
 
 export const LoggedInExternal = {
   render: () => <InteractiveStory login={'TestUser'} subject={SQUIRREL_MAPPER_SUBJECT} />
+}
+
+export const LoggedInExternalFailed = {
+  render: () => <InteractiveStory login={'TestUser'} subject={SQUIRREL_MAPPER_FAILED_SUBJECT} />
 }
