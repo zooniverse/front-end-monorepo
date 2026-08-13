@@ -1,12 +1,12 @@
-import SubjectCard from '../../SubjectCard'
+import SubjectCard from '../../../SubjectCard'
 import {
   FLORIDA_KEYS_SUBJECT,
   WOODPECKER_CAVITY_CAM_SUBJECT,
   InteractiveStory
-} from '../SubjectCardStoryData'
+} from '../../SubjectCardStoryData'
 
 const meta = {
-  title: 'Components / SubjectCard / Interactive / Video',
+  title: 'Components / SubjectCard / Interactive / SingleMedia / Video',
   component: SubjectCard
 }
 

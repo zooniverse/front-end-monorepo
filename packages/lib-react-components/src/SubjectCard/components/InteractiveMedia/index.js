@@ -1,1 +1,1 @@
-export { default } from './InteractiveMediaContainer'
+export { default } from './InteractiveMedia'
