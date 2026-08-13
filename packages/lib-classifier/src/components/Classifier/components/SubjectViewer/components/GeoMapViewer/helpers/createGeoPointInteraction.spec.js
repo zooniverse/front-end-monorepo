@@ -196,6 +196,28 @@ describe('helpers > createGeoPointInteraction', function () {
     interaction.destroy()
   })
 
+  it('counts subject-provided points only toward the first Point tool', function () {
+    source.addFeature(taggedPoint([0, 0], 0))
+
+    const taskWithSecondPointTool = {
+      activeToolIndex: 1,
+      activeTool: { type: 'Point', max: 1 },
+      tools: [
+        { type: 'Point', max: 1 },
+        { type: 'Point', max: 1 }
+      ]
+    }
+    const interaction = createGeoPointInteraction({
+      map,
+      source,
+      geoDrawingTask: taskWithSecondPointTool,
+      selectInteraction
+    })
+
+    expect(interaction.isCapped()).to.equal(false)
+    interaction.destroy()
+  })
+
   it('isCapped() ignores features tagged for another tool', function () {
     source.addFeature(taggedPoint([0, 0], 1))
     source.addFeature(taggedPoint([1, 1], 1))
