@@ -1,6 +1,7 @@
 import { Box, Button } from 'grommet'
 import {
   DocumentSound,
+  DocumentStore,
   DocumentText,
   Image,
   Pause,
@@ -209,6 +210,7 @@ function FlipbookControls({
                 <FrameThumbnailIcon $selected={selected} data-testid='frame-thumbnail-icon'>
                   {mediaType === 'audio' && <DocumentSound size='16px' />}
                   {mediaType === 'image' && <Image size='16px' />}
+                  {mediaType === 'application' && <DocumentStore size='16px' />}
                   {mediaType === 'text' && <DocumentText size='16px' />}
                   {mediaType === 'video' && <Video size='16px' />}
                 </FrameThumbnailIcon>
