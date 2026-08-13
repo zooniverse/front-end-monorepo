@@ -342,6 +342,26 @@ export const CHIMP_AND_SEE_VIDEO_IMAGES_SUBJECT = {
   metadata: DEFAULT_METADATA
 }
 
+export const DATA_IMAGES_SUBJECT = {
+  id: '117885353',
+  links: { project: '8749' },
+  locations: [
+    {
+      "application/json": "https://panoptes-uploads.zooniverse.org/subject_location/0e939261-5e70-4be2-b168-8c4b34321fb3.json"
+    },
+    {
+      "image/png": "https://panoptes-uploads.zooniverse.org/subject_location/a704707d-9afe-4451-b505-d99b5cd2e2dc.png"
+    },
+    {
+      "image/png": "https://panoptes-uploads.zooniverse.org/subject_location/fbc390b4-054e-449f-b068-0aa54df9bb9d.png"
+    },
+    {
+      "image/png": "https://panoptes-uploads.zooniverse.org/subject_location/46d7d9ec-79ec-4ecc-8e71-9fa2a240a3b7.png"
+    }
+  ],
+  metadata: DEFAULT_METADATA
+}
+
 export function StoryRow({
   login,
   subject
