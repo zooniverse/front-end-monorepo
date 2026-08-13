@@ -136,6 +136,27 @@ function MultiMedia({
 			)
 		}
 
+		if (currentMediaType === 'application') {
+			return (
+				<MediaLink href={url} title={linkTitle}>
+					<StyledPreview
+						justify='center'
+						height={`${previewHeight}px`}
+						round={{ corner: 'top', size: '8px' }}
+						width={`${width}px`}
+					>
+						<Media
+							alt={subjectIdTitle}
+							defaultMimeType='application'
+							height={previewHeight}
+							src={currentSource.url}
+							width={width}
+						/>
+					</StyledPreview>
+				</MediaLink>
+			)
+		}
+
 		return null
 	}
 
