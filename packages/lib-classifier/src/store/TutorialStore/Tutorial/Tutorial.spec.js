@@ -6,10 +6,7 @@ import { TutorialFactory, UPPFactory } from '@test/factories'
 import mockStore from '@test/mockStore'
 import Tutorial from './Tutorial'
 
-
-// Tests scope should be refactored. The tests in describe('hasNotBeenSeen')
-// are reliant on each other rather than being isolated in scope
-describe.skip('Model > Tutorial', function () {
+describe('Model > Tutorial', function () {
   it('should exist', function () {
     expect(Tutorial).to.be.an('object')
   })
@@ -19,6 +16,8 @@ describe.skip('Model > Tutorial', function () {
 
     beforeEach(async function () {
       store = mockStore()
+      await store.tutorials.fetchTutorials()
+      store.workflows.reset()
       const tutorialSnapshot = TutorialFactory.build()
       store.tutorials.setTutorials([tutorialSnapshot])
     })
@@ -29,28 +28,29 @@ describe.skip('Model > Tutorial', function () {
     })
 
     it('should be true for anonymous users', async function () {
-      let tutorial = store.tutorials.active
+      const tutorial = store.tutorials.active
+      expect(tutorial.hasNotBeenSeen).to.equal(false)
       store.userProjectPreferences.clear()
-      tutorial = store.tutorials.active
       expect(tutorial.hasNotBeenSeen).to.equal(true)
     })
 
     it('should be true after the user has loaded', async function () {
-      let tutorial = store.tutorials.active
+      const tutorial = store.tutorials.active
+      expect(tutorial.hasNotBeenSeen).to.equal(false)
       const upp = UPPFactory.build()
       store.userProjectPreferences.setUPP(upp)
-      tutorial = store.tutorials.active
       expect(tutorial.hasNotBeenSeen).to.equal(true)
     })
 
     it('should be false after a user has seen the tutorial', async function () {
-      let tutorial = store.tutorials.active
+      const tutorial = store.tutorials.active
+      expect(tutorial.hasNotBeenSeen).to.equal(false)
       const upp = UPPFactory.build()
       store.userProjectPreferences.setUPP(upp)
+      expect(tutorial.hasNotBeenSeen).to.equal(true)
       store.userProjectPreferences.setHeaders({
         etag: 'mockETagForTests'
       })
-      tutorial = store.tutorials.active
       tutorial.setSeenTime()
       expect(tutorial.hasNotBeenSeen).to.equal(false)
     })
