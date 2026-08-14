@@ -34,6 +34,16 @@ describe('Model > Tutorial', function () {
       expect(tutorial.hasNotBeenSeen).to.equal(true)
     })
 
+
+    it('should be false after an anonymous user has seen the tutorial', async function () {
+      const tutorial = store.tutorials.active
+      expect(tutorial.hasNotBeenSeen).to.equal(false)
+      store.userProjectPreferences.clear()
+      expect(tutorial.hasNotBeenSeen).to.equal(true)
+      tutorial.setSeenTime()
+      expect(tutorial.hasNotBeenSeen).to.equal(false)
+    })
+
     it('should be true after the user has loaded', async function () {
       const tutorial = store.tutorials.active
       expect(tutorial.hasNotBeenSeen).to.equal(false)
