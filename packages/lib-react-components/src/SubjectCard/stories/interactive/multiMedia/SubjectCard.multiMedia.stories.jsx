@@ -4,6 +4,7 @@ import {
   CHIMP_AND_SEE_VIDEO_IMAGES_SUBJECT,
   DATA_IMAGES_SUBJECT,
   NFN_IMAGE_TEXT_SUBJECT,
+  PLANET_HUNTERS_TESS_SUBJECT,
   SMITHSONIAN_WILDLIFE_MULTI_IMAGE_SUBJECT,
   SQUIRREL_MAPPER_MULTI_IMAGE_FAILED_SUBJECT,
   SQUIRREL_MAPPER_MULTI_IMAGE_SUBJECT
@@ -34,6 +35,10 @@ export const MultiVideoImages = {
 
 export const MultiImageText = {
   render: () => <InteractiveStory login={'TestUser'} subject={NFN_IMAGE_TEXT_SUBJECT} />
+}
+
+export const MultiImageData = {
+  render: () => <InteractiveStory login={'TestUser'} subject={PLANET_HUNTERS_TESS_SUBJECT} />
 }
 
 export const MultiDataImages = {
