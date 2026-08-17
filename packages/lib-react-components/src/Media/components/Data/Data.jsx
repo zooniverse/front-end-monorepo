@@ -14,6 +14,8 @@ export default function Data({
   controls = defaultProps.controls,
   flex = defaultProps.flex,
   height = defaultProps.height,
+  showAxes = defaultProps.showAxes,
+  showLegend = defaultProps.showLegend,
   src = defaultProps.src,
   width = defaultProps.width,
   ...rest
@@ -28,11 +30,13 @@ export default function Data({
   if (error) {
     content = <p>{error.message}</p>
   }
-
+  
   if (jsonData) {
-    const Viewer = Viewers[type] || Viewers.JSONViewer
+    const viewerType = type === 'TESSLightCurve' ? 'DataSeriesPlot' : type
+    const viewerData = type === 'TESSLightCurve' ? { data: jsonData } : jsonData
+    const Viewer = Viewers[viewerType] || Viewers.JSONViewer
 
-    content = <Viewer alt={alt} jsonData={jsonData} />
+    content = <Viewer alt={alt} jsonData={viewerData} showAxes={showAxes} showLegend={showLegend} />
   }
 
   return (
