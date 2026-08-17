@@ -33,7 +33,20 @@ export default function Data({
   
   if (jsonData) {
     const viewerType = type === 'TESSLightCurve' ? 'DataSeriesPlot' : type
-    const viewerData = type === 'TESSLightCurve' ? { data: jsonData } : jsonData
+    const viewerData = type === 'TESSLightCurve'
+      ? {
+        data: jsonData,
+        chartOptions: {
+          xAxisLabel: 'Days',
+          xAxisLabelOffset: -10,
+          yAxisLabel: 'Brightness',
+          yAxisLabelOffset: 10
+        },
+        seriesOptions: {
+          color: 'white'
+        }
+      }
+      : jsonData
     const Viewer = Viewers[viewerType] || Viewers.JSONViewer
 
     content = <Viewer alt={alt} jsonData={viewerData} showAxes={showAxes} showLegend={showLegend} />
