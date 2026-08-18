@@ -4,7 +4,7 @@ import { FormDown } from 'grommet-icons'
 import styled, { css } from 'styled-components'
 import { observer } from 'mobx-react'
 import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 
 import { localeMenu } from '@helpers'
 import { useStores } from '../../hooks'

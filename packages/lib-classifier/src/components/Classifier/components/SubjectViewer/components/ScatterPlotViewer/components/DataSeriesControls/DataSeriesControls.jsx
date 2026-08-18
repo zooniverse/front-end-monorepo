@@ -1,7 +1,7 @@
 import { Box, CheckBox } from 'grommet'
 import PropTypes from 'prop-types'
 import Label from '../Label'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from '@translations/i18n'
 
 const DEFAULT_HANDLER = () => {}
 
@@ -30,10 +30,10 @@ function DataSeriesControls ({
 
         const label = dataSeries.seriesOptions?.label
         const labelToDisplay = label?.trim() || t('SubjectViewer.ScatterPlotViewer.DataSeriesControls.label', { id: index + 1 })
-        
+
         // Checkbox is checked if highlightedSeries is undefined (which means
         // _everything_ is checked), or if label is included in the
-        // highlightedSeries array. 
+        // highlightedSeries array.
         const checked = !highlightedSeries || highlightedSeries.includes(label)
 
         return (

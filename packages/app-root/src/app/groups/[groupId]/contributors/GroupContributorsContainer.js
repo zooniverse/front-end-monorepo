@@ -5,7 +5,7 @@ import { useContext } from 'react'
 import { Loader } from '@zooniverse/react-components'
 import { Box } from 'grommet'
 
-import { PanoptesAuthContext } from '../../../../contexts'
+import { PanoptesAuthContext } from '@/contexts'
 
 function ContributorsContainer({ groupId, joinToken }) {
   const { adminMode, isLoading, user } = useContext(PanoptesAuthContext)

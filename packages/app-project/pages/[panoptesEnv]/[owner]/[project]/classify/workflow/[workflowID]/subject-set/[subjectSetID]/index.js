@@ -1,7 +1,7 @@
 import getDefaultPageProps from '@helpers/getDefaultPageProps'
 import fetchSubjectSets from '@helpers/fetchSubjectSets'
 export { default } from '@screens/ClassifyPage'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations'
 
 export async function getStaticProps({ locale, params }) {
   const { notFound, props: defaultProps } = await getDefaultPageProps({ locale, params })

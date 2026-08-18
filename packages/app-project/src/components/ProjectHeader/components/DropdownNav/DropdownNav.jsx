@@ -5,7 +5,7 @@ import NavLink from '@shared/components/NavLink'
 import { arrayOf, object, oneOfType, shape, string } from 'prop-types'
 import { useState } from 'react'
 import styled, { css } from 'styled-components'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import { useRouter } from 'next/router'
 
 import { useProjectNavigation } from '../../hooks'
@@ -126,7 +126,7 @@ function DropdownNav({
               <StyledOrganizationHeading color='white' size='xsmall'>
                 {t('ProjectHeader.organization')}
               </StyledOrganizationHeading>
-              {organizations.map(org => 
+              {organizations.map(org =>
                 <OrganizationAnchor
                   key={org.slug}
                   href={`/organizations/${org.slug}`}

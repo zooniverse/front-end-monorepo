@@ -1,5 +1,5 @@
 import { Box, Heading } from 'grommet'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import { string } from 'prop-types'
 import { useState } from 'react'
 import styled from 'styled-components'

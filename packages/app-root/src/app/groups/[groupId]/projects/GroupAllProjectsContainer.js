@@ -5,7 +5,7 @@ import { Contributors, GroupAllProjects } from '@zooniverse/user'
 import { useContext } from 'react'
 import { Box } from 'grommet'
 
-import { PanoptesAuthContext } from '../../../../contexts'
+import { PanoptesAuthContext } from '@/contexts'
 
 function GroupAllProjectsContainer({ groupId, joinToken }) {
   const { adminMode, isLoading, user } = useContext(PanoptesAuthContext)

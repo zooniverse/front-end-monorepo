@@ -4,7 +4,7 @@ import { MobXProviderContext, observer } from 'mobx-react'
 import { Button, Box, CheckBox } from 'grommet'
 import { Modal, PrimaryButton, SpacedText } from '@zooniverse/react-components'
 import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import Link from 'next/link'
 import addQueryParams from '@helpers/addQueryParams'
 

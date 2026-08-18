@@ -1,7 +1,7 @@
 import { Anchor, Box } from 'grommet'
 import { arrayOf, shape, string } from 'prop-types'
 import styled from 'styled-components'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import { SpacedText } from '@zooniverse/react-components'
 import OrganizationAvatar from '../OrganizationAvatar'
 

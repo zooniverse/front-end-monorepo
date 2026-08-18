@@ -3,8 +3,8 @@
 import { MyGroups } from '@zooniverse/user'
 import { useContext } from 'react'
 
-import { PanoptesAuthContext } from '../../../../contexts'
-import AuthenticatedUsersPageContainer from '../../../../components/AuthenticatedUsersPageContainer'
+import { PanoptesAuthContext } from '@/contexts'
+import AuthenticatedUsersPageContainer from '@/components/AuthenticatedUsersPageContainer'
 
 function MyGroupsContainer({
   login

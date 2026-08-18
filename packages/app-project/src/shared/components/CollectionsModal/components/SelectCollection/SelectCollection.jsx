@@ -1,7 +1,7 @@
 import { Box, Button, FormField, Grid, Select } from 'grommet'
 import { observer } from 'mobx-react'
 import { bool, shape } from 'prop-types'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import { useState } from 'react'
 
 /*

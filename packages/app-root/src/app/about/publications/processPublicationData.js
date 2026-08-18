@@ -1,6 +1,6 @@
 import get from 'lodash/get'
 import { projects } from '@zooniverse/panoptes-js'
-import client from '../../../utils/contentfulClient.js'
+import client from '@/utils/contentfulClient.js'
 
 export function getUniqueProjectIds(publications) {
   const allProjectIds = publications.reduce((acc, publication) => {

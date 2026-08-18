@@ -1,4 +1,4 @@
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import { arrayOf, number, shape, string } from 'prop-types'
 import { Box, Button, Heading, ResponsiveContext, Text, Tip } from 'grommet'
 import { useContext } from 'react'

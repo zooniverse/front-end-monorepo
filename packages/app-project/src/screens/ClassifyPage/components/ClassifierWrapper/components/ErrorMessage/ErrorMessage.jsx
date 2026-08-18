@@ -1,7 +1,7 @@
 import { Box, Heading, Text } from 'grommet'
 import { shape, string } from 'prop-types'
 import styled from 'styled-components'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 
 const Pre = styled.pre`
   margin: 0;

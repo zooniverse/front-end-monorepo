@@ -4,7 +4,7 @@ import { Next } from 'grommet-icons'
 import NavLink from '@shared/components/NavLink'
 import { object, string } from 'prop-types'
 import styled from 'styled-components'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 
 // Selecting the div here to resize the gap between label and icon
 const StyledAnchor = styled(Anchor)`

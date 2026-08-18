@@ -4,7 +4,7 @@ import { useUnreadMessages, useUnreadNotifications } from '@zooniverse/react-com
 import auth from 'panoptes-client/lib/auth'
 import { useContext, useState } from 'react'
 
-import { PanoptesAuthContext, ThemeModeContext } from '../contexts'
+import { PanoptesAuthContext, ThemeModeContext } from '@/contexts'
 
 export default function PageHeader() {
   const { adminMode, user } = useContext(PanoptesAuthContext)

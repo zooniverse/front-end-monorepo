@@ -15,7 +15,7 @@ The `/locales` folder contains json dictionary files for translatable strings in
 Import `useTranslation()` hook. Use `.` to indicate nested object keys. Alternatively, [react-i18next docs](https://react.i18next.com/latest/withtranslation-hoc) show how to translate a class component.
 
 ```js
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 const MyComponent = () => {
   const { t } = useTranslation()
   return (

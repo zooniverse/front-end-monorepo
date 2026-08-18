@@ -2,7 +2,7 @@ import { Markdownz, SpacedText } from '@zooniverse/react-components'
 import { Box, Button, Paragraph, Image } from 'grommet'
 import { string } from 'prop-types'
 import styled from 'styled-components'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 
 import ContentBox from '@shared/components/ContentBox'
 

@@ -2,7 +2,7 @@ import { MobXProviderContext, observer } from 'mobx-react'
 import { bool, string } from 'prop-types'
 import { useContext } from 'react'
 import useSWR from 'swr'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 
 import RecentSubjects from './RecentSubjects'
 import MessageBox from './components/MessageBox'

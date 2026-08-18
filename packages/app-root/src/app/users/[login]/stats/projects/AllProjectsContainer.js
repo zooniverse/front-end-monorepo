@@ -5,7 +5,7 @@ import { UserStatsAllProjects } from '@zooniverse/user'
 import { useRouter } from 'next/navigation'
 
 import { PanoptesAuthContext } from '@/contexts'
-import AuthenticatedUsersPageContainer from '../../../../../components/AuthenticatedUsersPageContainer.js'
+import AuthenticatedUsersPageContainer from '@/components/AuthenticatedUsersPageContainer.js'
 
 function AllProjectsContainer({ login, searchParams }) {
   const { adminMode, isLoading, user } = useContext(PanoptesAuthContext)

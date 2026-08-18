@@ -2,7 +2,7 @@ import { SpacedText } from '@zooniverse/react-components'
 import { Anchor, Box } from 'grommet'
 import { useRouter } from 'next/router'
 import styled, { css } from 'styled-components'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 
 import NavLink from '@shared/components/NavLink'
 import { useProjectNavigation } from '../../hooks'

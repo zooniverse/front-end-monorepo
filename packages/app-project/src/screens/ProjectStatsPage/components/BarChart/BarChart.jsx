@@ -2,7 +2,7 @@
 
 import { DataChart, ResponsiveContext, Text } from 'grommet'
 import styled from 'styled-components'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import { useContext } from 'react'
 
 import getDateRangeLabel from './getDateRangeLabel'

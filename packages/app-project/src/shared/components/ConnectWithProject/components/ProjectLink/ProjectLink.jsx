@@ -1,7 +1,7 @@
 import { SpacedText } from '@zooniverse/react-components'
 import { Anchor, Box, Text } from 'grommet'
 import { shape, string } from 'prop-types'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 
 import formatUrlObject from './helpers/formatUrlObject'
 

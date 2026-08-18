@@ -1,6 +1,6 @@
 import NextHead from 'next/head'
 import { string } from 'prop-types'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 
 function Head (props) {
   const { t } = useTranslation('components')
