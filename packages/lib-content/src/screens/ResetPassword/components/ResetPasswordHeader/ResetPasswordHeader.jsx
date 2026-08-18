@@ -5,7 +5,7 @@ import { useTranslation } from '@translations/i18n'
 const DecoDivider = styled('div')`
   width: 100%;
   height: 2px;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #A6A7A9 49.62%, rgba(255, 255, 255, 0) 100%);
+  background: linear-gradient(90deg, #ffffff 0%, #A6A7A9 50%, #ffffff 100%);
 `
 
 export default function ResetPasswordHeader () {
