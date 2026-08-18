@@ -1,7 +1,7 @@
 import { composeStory } from '@storybook/react'
 import { render } from '@testing-library/react'
 
-import ImageMeta, { LoggedInLandscape } from '../../stories/simple/SubjectCard.image.stories'
+import ImageMeta, { Landscape } from '../../stories/simple/SubjectCard.image.stories'
 import VideoMeta, { FloridaKeys } from '../../stories/simple/SubjectCard.video.stories'
 import AudioMeta, { FrogFind } from '../../stories/simple/SubjectCard.audio.stories'
 import ApplicationMeta, { NotesFromNatureGeoJSON } from '../../stories/simple/SubjectCard.application.stories'
@@ -9,7 +9,7 @@ import TextMeta, { NotesFromNature } from '../../stories/simple/SubjectCard.text
 
 describe('SimpleMedia', function () {
   it('renders image media', function () {
-    const Story = composeStory(LoggedInLandscape, ImageMeta)
+    const Story = composeStory(Landscape, ImageMeta)
 
     render(<Story />)
 
