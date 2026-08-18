@@ -6,9 +6,10 @@ import { svgAudioIcon } from '../../../../../Media/components/Audio/Audio'
 import MediaLink from '../../../MediaLink'
 
 const CONTROLS_HEIGHT = '54px'
+const encodedSvgAudioIcon = encodeURIComponent(svgAudioIcon)
 
 const StyledBox = styled(Box)`
-  background-image: url("data:image/svg+xml;base64,${btoa(svgAudioIcon)}");
+  background-image: url("data:image/svg+xml;charset=utf-8,${encodedSvgAudioIcon}");
   background-size: 120px 120px;
   background-repeat: no-repeat;
   background-position: center;

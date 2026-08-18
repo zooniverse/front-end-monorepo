@@ -13,10 +13,12 @@ export const svgAudioIcon = `<svg width="162" height="162" viewBox="0 0 162 162"
   </g>
 </svg>`
 
+const encodedSvgAudioIcon = encodeURIComponent(svgAudioIcon)
+
 const StyledBox = styled(Box)`
   ${props => props.maxHeight && css`max-height: ${props.maxHeight}px;`}
   ${props => props.maxWidth && css`max-width: ${props.maxWidth}px;`}
-  background-image: url("data:image/svg+xml;base64,${btoa(svgAudioIcon)}");
+  background-image: url("data:image/svg+xml;charset=utf-8,${encodedSvgAudioIcon}");
   background-size: 80%;
   background-repeat: no-repeat;
   background-position: center 20%;
