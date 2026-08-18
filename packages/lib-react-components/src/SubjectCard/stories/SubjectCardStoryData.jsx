@@ -272,6 +272,76 @@ export const SQUIRREL_MAPPER_MULTI_IMAGE_FAILED_SUBJECT = {
   metadata: DEFAULT_METADATA
 }
 
+export const NFN_IMAGE_TEXT_SUBJECT = {
+  id: '104364217',
+  links: { project: '9485' },
+  locations: [
+    {
+      "image/jpeg": "https://panoptes-uploads.zooniverse.org/subject_location/d455b3e2-0296-4ce8-a933-a3c60f4c458d.jpeg"
+    },
+    {
+      "text/plain": "https://panoptes-uploads.zooniverse.org/subject_location/2dccef54-7a03-463a-abb8-fdf2c5049b2e.txt"
+    }
+],
+  metadata: DEFAULT_METADATA
+}
+
+export const CHIMP_AND_SEE_VIDEO_IMAGES_SUBJECT = {
+  id: '32814952',
+  links: { project: '7850' },
+  locations: [
+    {
+        "video/mp4": "https://panoptes-uploads.zooniverse.org/subject_location/27970e45-573d-4e07-90bc-563ec3c7677a.mp4"
+    },
+    {
+        "image/jpeg": "https://panoptes-uploads.zooniverse.org/subject_location/77b8c193-2655-457a-bbad-192a3479b3f5.jpeg"
+    },
+    {
+        "image/jpeg": "https://panoptes-uploads.zooniverse.org/subject_location/b9d2d364-391b-4e4c-8770-e8cb8a8daed8.jpeg"
+    },
+    {
+        "image/jpeg": "https://panoptes-uploads.zooniverse.org/subject_location/cc5b9e6c-965f-4212-9643-0f1b96c71c60.jpeg"
+    },
+    {
+        "image/jpeg": "https://panoptes-uploads.zooniverse.org/subject_location/6c35a7fd-c4c1-4685-b138-4904afda502d.jpeg"
+    },
+    {
+        "image/jpeg": "https://panoptes-uploads.zooniverse.org/subject_location/bd0ff7aa-2007-4ff7-9270-3302fe01300f.jpeg"
+    },
+    {
+        "image/jpeg": "https://panoptes-uploads.zooniverse.org/subject_location/b65a4b03-65c9-4c2a-995c-2f5b59b48f5f.jpeg"
+    },
+    {
+        "image/jpeg": "https://panoptes-uploads.zooniverse.org/subject_location/430037fc-26da-44ad-be61-c8702e205a36.jpeg"
+    },
+    {
+        "image/jpeg": "https://panoptes-uploads.zooniverse.org/subject_location/2bba3a6e-5297-48e2-9175-a01de9307f91.jpeg"
+    },
+    {
+        "image/jpeg": "https://panoptes-uploads.zooniverse.org/subject_location/5d16b560-6e71-4230-8f10-0e4345a35109.jpeg"
+    },
+    {
+        "image/jpeg": "https://panoptes-uploads.zooniverse.org/subject_location/12dc3eaa-78dc-41af-a52a-8fdd9bf05213.jpeg"
+    },
+    {
+        "image/jpeg": "https://panoptes-uploads.zooniverse.org/subject_location/1d74c304-d827-4f81-8f52-99c8829a251e.jpeg"
+    },
+    {
+        "image/jpeg": "https://panoptes-uploads.zooniverse.org/subject_location/99b70992-10f5-4b5b-9133-75d4b76bf1f4.jpeg"
+    },
+    {
+        "image/jpeg": "https://panoptes-uploads.zooniverse.org/subject_location/8b523ec3-bddc-4ed9-a01c-0f5b193da412.jpeg"
+    },
+    {
+        "image/jpeg": "https://panoptes-uploads.zooniverse.org/subject_location/85bbd4f4-937f-4195-b802-806f98f9fa13.jpeg"
+    },
+    {
+        "image/jpeg": "https://panoptes-uploads.zooniverse.org/subject_location/4cb6053e-e520-40fc-b6b4-7f250c155d0a.jpeg"
+    }
+],
+  metadata: DEFAULT_METADATA
+}
+
 export function StoryRow({
   login,
   subject

@@ -19,10 +19,8 @@ function isFirstVertexStyle(style, feature) {
   return coord[0] === first[0] && coord[1] === first[1]
 }
 
-// Volunteer-created features carry a toolIndex; subject-provided features don't and stay undeletable.
 function isDeletableFeature(feature) {
-  if (isLineStringFeature(feature)) return true
-  return isPointFeature(feature) && typeof feature.get?.('toolIndex') === 'number'
+  return isLineStringFeature(feature) || isPointFeature(feature)
 }
 
 export default function useSelectionLayer({
