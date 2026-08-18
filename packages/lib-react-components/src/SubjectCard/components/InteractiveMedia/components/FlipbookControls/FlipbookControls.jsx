@@ -1,7 +1,6 @@
 import { Box, Button } from 'grommet'
 import {
   DocumentSound,
-  DocumentStore,
   DocumentText,
   Image,
   Pause,
@@ -15,6 +14,7 @@ import styled from 'styled-components'
 import IconActionButton from '../../../../../IconActionButton'
 import getSubjectThumbnailSrc from '../../../../helpers/getSubjectThumbnailSrc'
 import { useTranslation } from '../../../../../translations/i18n'
+import { SegmentedLineIcon } from './components'
 
 const THUMBNAIL_SIZE = 30
 
@@ -210,7 +210,7 @@ function FlipbookControls({
                 <FrameThumbnailIcon $selected={selected} data-testid='frame-thumbnail-icon'>
                   {mediaType === 'audio' && <DocumentSound size='16px' />}
                   {mediaType === 'image' && <Image size='16px' />}
-                  {mediaType === 'application' && <DocumentStore size='16px' />}
+                  {mediaType === 'application' && <SegmentedLineIcon size='16px' />}
                   {mediaType === 'text' && <DocumentText size='16px' />}
                   {mediaType === 'video' && <Video size='16px' />}
                 </FrameThumbnailIcon>
