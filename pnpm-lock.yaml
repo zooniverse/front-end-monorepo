@@ -210,6 +210,9 @@ importers:
       grommet-icons:
         specifier: ~4.12.0
         version: 4.12.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(styled-components@6.1.19(react-dom@19.2.0(react@19.2.0))(react@19.2.0))
+      i18next:
+        specifier: ~26.3.6
+        version: 26.3.6(typescript@5.9.3)
       lodash:
         specifier: ~4.18.1
         version: 4.18.1
@@ -222,6 +225,9 @@ importers:
       next:
         specifier: ~15.5.21
         version: 15.5.21(@babel/core@7.29.7)(@opentelemetry/api@1.9.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      next-i18n-router:
+        specifier: ~5.5.8
+        version: 5.5.8(next@15.5.21(@opentelemetry/api@1.9.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))
       nuqs:
         specifier: ^2.8.5
         version: 2.8.5(next@15.5.21(@babel/core@7.29.7)(@opentelemetry/api@1.9.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react@19.2.0)
@@ -234,6 +240,9 @@ importers:
       react-dom:
         specifier: ~19.2.0
         version: 19.2.0(react@19.2.0)
+      react-i18next:
+        specifier: ~17.0.11
+        version: 17.0.11(i18next@26.3.6(typescript@5.9.3))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(typescript@5.9.3)
       styled-components:
         specifier: ~6.1.13
         version: 6.1.19(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -1971,6 +1980,9 @@ packages:
   '@eslint/js@8.57.1':
     resolution: {integrity: sha512-d9zaMRSTIKDLhctzH12MtXvJKSSUhaHcjV+2Z+GK+EEY7XKpP5yR4x+N3TAcHTcu963nIr+TMcCb4DBCYX1z6Q==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+
+  '@formatjs/intl-localematcher@0.6.2':
+    resolution: {integrity: sha512-XOMO2Hupl0wdd172Y06h6kLpBz6Dv+J4okPLl4LPtzbr8f66WbIoy4ev98EBuZ6ZK4h5ydTN6XneT4QVpD7cdA==}
 
   '@graphql-typed-document-node/core@3.2.0':
     resolution: {integrity: sha512-mB9oAsNCm9aM3/SOv4YtBMqZbYj10R7dkq8byBqxGY/ncFwhf2oQzMV+LCRlWoDSEBJ3COiR1yeDvMtsoOsuFQ==}
@@ -6810,6 +6822,11 @@ packages:
     engines: {node: '>=20', npm: '>=6.0.0'}
     hasBin: true
 
+  next-i18n-router@5.5.8:
+    resolution: {integrity: sha512-m6wFayccaeUBjvTmaWoBovinHchqgmzqnTJHVdmfvwBjKiS8oPQDogGZyNmZBhFeFtWSjI9UOEoxL9lzodw3lg==}
+    peerDependencies:
+      next: ^13 || ^14 || ^15 || ^16
+
   next-i18next@16.0.10:
     resolution: {integrity: sha512-nUcp2rL5Y2Iy6IxayF/qY+rrYdQzuvxD+wWHMjabXvFA9i+L8kFXmFkbXI2/4RQ/HwW/MfVEro116Tm0W3vbYA==}
     engines: {node: '>=20'}
@@ -10800,6 +10817,10 @@ snapshots:
       - supports-color
 
   '@eslint/js@8.57.1': {}
+
+  '@formatjs/intl-localematcher@0.6.2':
+    dependencies:
+      tslib: 2.8.1
 
   '@graphql-typed-document-node/core@3.2.0(graphql@16.10.0)':
     dependencies:
@@ -16702,6 +16723,12 @@ snapshots:
       - debug
       - supports-color
       - utf-8-validate
+
+  next-i18n-router@5.5.8(next@15.5.21(@opentelemetry/api@1.9.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)):
+    dependencies:
+      '@formatjs/intl-localematcher': 0.6.2
+      negotiator: 1.0.0
+      next: 15.5.21(@babel/core@7.29.7)(@opentelemetry/api@1.9.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
 
   next-i18next@16.0.10(@types/react@19.2.7)(i18next@26.3.6(typescript@5.9.3))(next@15.5.21(@babel/core@7.29.7)(@opentelemetry/api@1.9.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-i18next@17.0.11(i18next@26.3.6(typescript@5.9.3))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(typescript@5.9.3))(react@19.2.0):
     dependencies:

@@ -1,6 +1,9 @@
 import RootLayout from '@/components/RootLayout'
 import StyledComponentsRegistry from './style-registry'
 import { GoogleTagManager } from '@next/third-parties/google'
+import { notFound } from 'next/navigation'
+
+import i18nConfig from '../../../i18nConfig'
 
 export const metadata = {
   title: {
@@ -28,12 +31,19 @@ export const metadata = {
 
 const isProduction = process.env.NODE_ENV === 'production'
 
-export default function NextLayout({ children }) {
+export default async function NextLayout(props) {
+  const { locale } = await props.params // pass this locale from the dynamic URL subpath to ZooFooter because that client component is on every webpage
+
+  if (!i18nConfig.locales.includes(locale)) {
+    notFound()
+  }
+  const sanitizedLocale = locale === 'test' ? 'en' : locale
+
   return (
-    <html lang='en'>
+    <html lang={sanitizedLocale}>
       {isProduction && <GoogleTagManager gtmId='GTM-WDW6V4' />}
       <StyledComponentsRegistry>
-        <RootLayout>{children}</RootLayout>
+        <RootLayout locale={locale}>{props.children}</RootLayout>
       </StyledComponentsRegistry>
     </html>
   )
