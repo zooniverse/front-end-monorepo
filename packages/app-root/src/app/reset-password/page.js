@@ -8,7 +8,7 @@ export const metadata = {
 export default async function ResetPasswordPage (props) {
 
   // Check if there's a ?reset_password_token=1234567890 in the URL's query
-  // string. If yes, it means the user clicked a link in an "Unsubscribe Me Pls"
+  // string. If yes, it means the user clicked a link in an "Reset password instructions"
   // email sent by Panoptes.
 
   const searchParams = await props.searchParams
