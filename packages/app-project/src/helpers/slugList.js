@@ -49,6 +49,7 @@ const PFE_SLUGS = [
   'lcjohnso/lcj-pfe-project', // LCJ PFE Reference Test Project
   'low-sky/bubblezoo-v1', // Oval drawing tool is a worse experience in FEM
   'mappingprejudice/mapping-prejudice',
+  'md68135/diode', // Dependent dropdowns aren't supported in FEM
   'md68135/notes-from-nature-big-bee-bonanza',
   'md68135/notes-from-nature-calbug', // Dependent dropdowns aren't supported in FEM
   'md68135/notes-from-nature-capturing-californias-flowers', // Dependent dropdowns aren't supported in FEM
