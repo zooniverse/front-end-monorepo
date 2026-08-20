@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components'
 import { string } from 'prop-types'
 
 import { Loader, StatusMessage } from '@zooniverse/react-components'
-import ResetPasswordHeader from '../ResetPasswordHeader/ResetPasswordHeader'
+import ResetPasswordHeading from '../ResetPasswordHeading/ResetPasswordHeading'
 import doCommitPasswordReset from '../../helpers/doCommitPasswordReset.js'
 import isNewPasswordValid from '../../helpers/isNewPasswordValid.js'
 import DarkTealPrimaryButton from '../../../Unsubscribe/components/DarkTealPrimaryButton/DarkTealPrimaryButton'
@@ -107,7 +107,7 @@ function CommitResetForm ({
         className='CommitResetForm'
         onSubmit={onSubmit}
       >
-        <ResetPasswordHeader />
+        <ResetPasswordHeading />
 
         <Paragraph>
           {t('ResetPassword.CommitResetForm.body')}

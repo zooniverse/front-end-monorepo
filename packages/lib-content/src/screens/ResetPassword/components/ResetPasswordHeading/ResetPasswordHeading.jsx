@@ -8,7 +8,7 @@ const DecoDivider = styled('div')`
   background: linear-gradient(90deg, #ffffff 0%, #A6A7A9 50%, #ffffff 100%);
 `
 
-export default function ResetPasswordHeader () {
+export default function ResetPasswordHeading () {
   const { t } = useTranslation()
   return (
     <>

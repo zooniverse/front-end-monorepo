@@ -4,7 +4,7 @@ import { useTranslation } from '@translations/i18n'
 import styled, { css } from 'styled-components'
 import { bool } from 'prop-types'
 import { Loader, StatusMessage } from '@zooniverse/react-components'
-import ResetPasswordHeader from '../ResetPasswordHeader/ResetPasswordHeader'
+import ResetPasswordHeading from '../ResetPasswordHeading/ResetPasswordHeading'
 import doRequestPasswordReset from '../../helpers/doRequestPasswordReset'
 import DarkTealPrimaryButton from '../../../Unsubscribe/components/DarkTealPrimaryButton/DarkTealPrimaryButton'
 
@@ -62,7 +62,7 @@ function RequestResetForm () {
         className='RequestResetForm'
         onSubmit={onSubmit}
       >
-        <ResetPasswordHeader />
+        <ResetPasswordHeading />
 
         <Paragraph>
           {t('ResetPassword.RequestResetForm.body')}
