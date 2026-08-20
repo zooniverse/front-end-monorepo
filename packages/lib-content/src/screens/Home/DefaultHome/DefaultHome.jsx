@@ -4,7 +4,7 @@ import { Box } from 'grommet'
 import { SpacedHeading } from '@zooniverse/react-components'
 import styled from 'styled-components'
 
-import { useTranslation } from '@translations/i18n'
+import { useTranslation } from 'react-i18next'
 import ContainerBox from '@components/PageLayout/ContainerBox'
 import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent'
 import SubHeading from '@components/HeadingForAboutNav/SubHeading'

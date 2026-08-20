@@ -5,7 +5,7 @@ import { Anchor, Box, Paragraph } from 'grommet'
 import { array, arrayOf, bool, func, number, shape, string } from 'prop-types'
 import styled from 'styled-components'
 
-import { useTranslation } from '@translations/i18n'
+import { useTranslation } from 'react-i18next'
 import DropdownNav from '@components/DropdownNav/DropdownNav'
 import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent'
 import AboutLayout from '@components/PageLayout/AboutLayout'

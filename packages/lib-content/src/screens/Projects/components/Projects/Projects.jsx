@@ -7,7 +7,7 @@ import { Box, CheckBox, Paragraph, ResponsiveContext, Text } from 'grommet'
 import { useContext, useState } from 'react'
 import { useQueryState } from 'nuqs'
 
-import { useTranslation, Trans } from '@translations/i18n'
+import { useTranslation, Trans } from 'react-i18next'
 import StyledCardsContainer from '../StyledCardsContainer'
 import useProjects from './hooks/useProjects'
 import useDebounce from './hooks/useDebounce'

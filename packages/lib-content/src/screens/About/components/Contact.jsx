@@ -1,5 +1,5 @@
 import { Anchor, Box, Button, Paragraph, Text } from 'grommet'
-import { Trans, useTranslation } from '@translations/i18n'
+import { Trans, useTranslation } from 'react-i18next'
 import { Edit, Group, Help } from 'grommet-icons'
 import styled from 'styled-components'
 

@@ -2,7 +2,7 @@ import { Anchor, Box, Heading, ResponsiveContext } from 'grommet'
 import { SpacedHeading } from '@zooniverse/react-components'
 import { useContext } from 'react'
 
-import { useTranslation } from '@translations/i18n'
+import { useTranslation } from 'react-i18next'
 import Article from '@components/Article/Article'
 import SubHeading from '@components/HeadingForAboutNav/SubHeading'
 

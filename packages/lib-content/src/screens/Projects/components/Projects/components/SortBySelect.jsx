@@ -8,7 +8,7 @@ import { useContext } from 'react'
 import styled from 'styled-components'
 import { SpacedText } from '@zooniverse/react-components'
 
-import { useTranslation } from '@translations/i18n'
+import { useTranslation } from 'react-i18next'
 import selectTheme from './selectTheme'
 
 const DEFAULT_HANDLER = () => true

@@ -4,7 +4,7 @@ import { ZooniverseLogo } from '@zooniverse/react-components'
 import { FormPrevious, FormNext } from 'grommet-icons'
 import { useRef } from 'react'
 
-import { useTranslation } from '@translations/i18n'
+import { useTranslation } from 'react-i18next'
 
 const Relative = styled(Box)`
   position: relative;

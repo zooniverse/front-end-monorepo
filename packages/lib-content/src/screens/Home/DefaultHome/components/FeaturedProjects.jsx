@@ -4,7 +4,7 @@ import useSWR from 'swr'
 import { projects } from '@zooniverse/panoptes-js'
 import { ProjectCard, SpacedHeading } from '@zooniverse/react-components'
 
-import { useTranslation } from '@translations/i18n'
+import { useTranslation } from 'react-i18next'
 import HorizontalRuleLogo from '@components/HorizontalRuleLogo/HorizontalRuleLogo'
 
 const SWROptions = {
