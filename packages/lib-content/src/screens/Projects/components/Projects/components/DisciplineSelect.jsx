@@ -115,6 +115,8 @@ const DisciplineButton = ({ option, handleDiscipline, value }) => (
     label={
       <Box direction='row' align='center' gap='5px'>
         <Image
+          aria-hidden='true'
+          alt=''
           src={`https://static.zooniverse.org/fem-assets/discipline-icons/${
             option.value === 'social science'
               ? 'social-science'
@@ -231,6 +233,7 @@ function DisciplineSelect({ handleDiscipline, value }) {
               <Box direction='row' align='center' gap='5px'>
                 <ZooniverseLogo
                   id='all-disciplines-projects-page'
+                  aria-hidden='true'
                   size='35px'
                   color={dark ? global.colors['accent-1'] : 'black'}
                 />
