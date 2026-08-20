@@ -3,7 +3,7 @@ import { arrayOf, bool, number, shape, string } from 'prop-types'
 import { useContext } from 'react'
 import styled from 'styled-components'
 import { Loader, ProjectCard, SpacedText } from '@zooniverse/react-components'
-import { useTranslation, Trans } from '@translations/i18n'
+import { useTranslation, Trans } from 'react-i18next'
 
 import { ContentBox } from '@components/shared'
 

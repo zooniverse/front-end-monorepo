@@ -1,7 +1,7 @@
 import { SpacedText } from '@zooniverse/react-components'
 import { Box } from 'grommet'
 import { string, number } from 'prop-types'
-import { useTranslation } from '@translations/i18n'
+import { useTranslation } from 'react-i18next'
 
 function ProjectStats({
   classifications = 0,

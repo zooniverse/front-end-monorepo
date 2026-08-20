@@ -2,7 +2,7 @@ import { initialize, mswLoader } from 'msw-storybook-addon'
 import { INITIAL_VIEWPORTS } from 'storybook/viewport'
 import zooTheme from '@zooniverse/grommet-theme'
 import { Grommet } from 'grommet'
-import i18n from '../src/translations/i18n'
+import i18n from './i18n'
 
 const background = {
   dark: 'dark-1',

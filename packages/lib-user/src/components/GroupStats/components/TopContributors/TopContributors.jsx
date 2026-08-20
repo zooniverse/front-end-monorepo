@@ -2,7 +2,7 @@ import { Loader, SpacedText } from '@zooniverse/react-components'
 import { Box, Grid, ResponsiveContext } from 'grommet'
 import { arrayOf, bool, number, shape, string } from 'prop-types'
 import { useContext } from 'react'
-import { useTranslation } from '@translations/i18n'
+import { useTranslation } from 'react-i18next'
 
 import {
   ContentBox,

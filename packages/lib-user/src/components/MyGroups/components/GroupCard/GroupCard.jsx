@@ -3,7 +3,7 @@ import { Box } from 'grommet'
 import Link from 'next/link'
 import { number, string } from 'prop-types'
 import styled, { css } from 'styled-components'
-import { useTranslation } from '@translations/i18n'
+import { useTranslation } from 'react-i18next'
 
 import { TitledStat } from '@components/shared'
 

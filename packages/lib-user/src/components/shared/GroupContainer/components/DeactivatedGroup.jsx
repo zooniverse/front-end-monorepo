@@ -2,7 +2,7 @@ import { Loader, SpacedText } from '@zooniverse/react-components'
 import { Box } from 'grommet'
 import { SubtractCircle } from 'grommet-icons'
 import { bool, func, string } from 'prop-types'
-import { useTranslation } from '@translations/i18n'
+import { useTranslation } from 'react-i18next'
 
 import { HeaderButton } from '@components/shared'
 
