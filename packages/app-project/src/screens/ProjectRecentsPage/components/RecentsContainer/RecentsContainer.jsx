@@ -2,7 +2,8 @@ import { Loader } from '@zooniverse/react-components'
 import { MobXProviderContext, observer } from 'mobx-react'
 import { useContext } from 'react'
 
-import useRecents from '@hooks/useRecents'
+import { useRecents } from '@hooks'
+
 import EmptyPlaceholder from '../Placeholders/EmptyPlaceholder'
 import ErrorPlaceholder from '../Placeholders/ErrorPlaceholder'
 import SignedOutPlaceholder from '../Placeholders/SignedOutPlaceholder'
@@ -38,13 +39,16 @@ function RecentsContainer() {
 
 
   return (
-    <RecentsList
-      login={login}
-      projectId={projectId}
-      projectSlug={projectSlug}
-      recents={recents}
-      userId={userId}
-    />
+    <>
+      <h2>Recent Classifications</h2>    
+      <RecentsList
+        login={login}
+        projectId={projectId}
+        projectSlug={projectSlug}
+        recents={recents}
+        userId={userId}
+      />
+    </>
   )
 }
 

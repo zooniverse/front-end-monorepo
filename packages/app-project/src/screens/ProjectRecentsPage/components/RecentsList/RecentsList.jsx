@@ -1,6 +1,30 @@
 import { Grid } from 'grommet'
 import { SubjectCard } from '@zooniverse/react-components'
 import { arrayOf, shape, string } from 'prop-types'
+import styled from 'styled-components'
+
+const StyledGrid = styled(Grid)`
+  width: 100%;
+  justify-items: center;
+
+  /* Default for screens <= 430px: 1 column */
+  grid-template-columns: repeat(1, 1fr);
+
+  /* 768px and wider: 2 columns */
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* 1024px and wider: 3 columns */
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* 1920px and wider: 4 columns */
+  @media (min-width: 1920px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+`
 
 function RecentsList({
   login,
@@ -10,11 +34,9 @@ function RecentsList({
   userId
 }) {
   return (
-    <Grid
-      columns={{ count: 'fit', size: '300px' }}
-      fill="horizontal"
+    <StyledGrid
+      fill='horizontal'
       gap={{ column: '20px', row: '30px' }}
-      margin={{ horizontal: 'small', vertical: 'xsmall' }}
     >
       {recents.map(recent => (
         <SubjectCard
@@ -27,7 +49,7 @@ function RecentsList({
           userId={userId}
         />
       ))}
-    </Grid>
+    </StyledGrid>
   )
 }
 

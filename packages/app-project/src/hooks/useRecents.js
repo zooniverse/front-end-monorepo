@@ -23,7 +23,6 @@ async function fetchRecents({ projectId, token, userId }) {
   return panoptes.get(`/users/${userId}/recents`, query, { authorization })
     .then(response => {
       const { recents = [] } = response?.body ?? {}
-      console.log('useRecents recents', recents);
       const linkedSubjects = response?.body?.linked?.subjects || []
       const subjectsById = new Map(linkedSubjects.map(subject => [subject.id, subject]))
       return recents.map(recent => ({
