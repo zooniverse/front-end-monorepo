@@ -1,5 +1,5 @@
 import { useId, useRef, useState } from 'react'
-import { Box, Form, Heading, Paragraph, TextInput } from 'grommet'
+import { Box, Form, Heading, Paragraph, Text, TextInput } from 'grommet'
 import { useTranslation } from '@translations/i18n'
 import styled, { css } from 'styled-components'
 import { string } from 'prop-types'
@@ -25,16 +25,6 @@ const InputBox = styled(Box)`
 const InputLabelBox = styled(Box)`
   align-items: baseline;
   gap: 0.5em;
-`
-
-const HelpInfo = styled('span')`
-  ${props => props.theme.dark
-    ? css`color: ${props.theme.global.colors['dark-4']}`
-    : css`color: ${props.theme.global.colors['light-2']}`
-  }
-  font-weight: 300;
-  font-size: 0.6666666667em;
-  line-height: 1em;
 `
 
 // This needs to be synced with the message in en.json
@@ -118,7 +108,13 @@ function CommitResetForm ({
           <InputBox>
             <InputLabelBox direction='row'>
               <label for={passwordInputId}>{t('ResetPassword.CommitResetForm.inputPassword')}</label>
-              <HelpInfo id={passwordHelpId}>{t('ResetPassword.CommitResetForm.infoPassword')}</HelpInfo>
+              <Text
+                id={passwordHelpId}
+                color={{ light: 'dark-4', dark: 'light-2' }}
+                size='0.67rem'
+              >
+                {t('ResetPassword.CommitResetForm.infoPassword')}
+              </Text>
             </InputLabelBox>
             <TextInput
               aria-describedby={passwordHelpId}
@@ -136,7 +132,13 @@ function CommitResetForm ({
           <InputBox>
             <InputLabelBox direction='row'>
               <label for={confirmationInputId}>{t('ResetPassword.CommitResetForm.inputConfirmation')}</label>
-              <HelpInfo id={confirmationHelpId}>{t('ResetPassword.CommitResetForm.infoConfirmation')}</HelpInfo>
+              <Text
+                id={confirmationHelpId}
+                color={{ light: 'dark-4', dark: 'light-2' }}
+                size='0.67rem'
+              >
+                {t('ResetPassword.CommitResetForm.infoConfirmation')}
+              </Text>
             </InputLabelBox>
             <TextInput
               aria-describedby={confirmationHelpId}
