@@ -14,7 +14,7 @@ import { ResetPassword } from '@zooniverse/content'
 import { useContext } from 'react'
 import { Box } from 'grommet'
 import { Loader } from '@zooniverse/react-components'
-import { PanoptesAuthContext } from '../../contexts'
+import { PanoptesAuthContext } from '../../../contexts'
 
 export default function ResetPasswordContainer ({
   resetPasswordToken = ''
