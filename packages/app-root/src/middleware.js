@@ -7,5 +7,5 @@ export function middleware(req) {
 
 // runs this function only on requests to pages in our app directory
 export const config = {
-  matcher: '/((?!api|static|.*\\..*|_next).*)'
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)']
 }
