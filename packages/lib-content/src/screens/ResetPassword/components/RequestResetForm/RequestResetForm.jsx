@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useId, useRef, useState } from 'react'
 import { Box, Form, Heading, Paragraph, TextInput } from 'grommet'
 import { useTranslation } from '@translations/i18n'
 import styled, { css } from 'styled-components'
@@ -16,6 +16,16 @@ const InputBoxes = styled(Box)`
   }
 `
 
+const VisuallyHiddenLabel = styled('label')`
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+`
+
 function RequestResetForm () {
 
   const { t } = useTranslation()
@@ -23,6 +33,7 @@ function RequestResetForm () {
   const [isComplete, setIsComplete] = useState(false)
   const [apiError, setApiError] = useState(null)  // null, or Error object
   const inputEmail = useRef()
+  const inputEmailId = useId()
 
   // This only triggers if the email is valid.
   // Email validation is performed via native HTML form controls.
@@ -69,10 +80,15 @@ function RequestResetForm () {
         </Paragraph>
 
         <InputBoxes>
+
+          <VisuallyHiddenLabel htmlFor={inputEmailId}>
+            {t('ResetPassword.RequestResetForm.inputEmail')}
+          </VisuallyHiddenLabel>
         
           <TextInput
             aria-label={t('ResetPassword.RequestResetForm.inputEmail')}
             disabled={isBusy || isComplete}
+            id={inputEmailId}
             name='email'
             ref={inputEmail}
             required
