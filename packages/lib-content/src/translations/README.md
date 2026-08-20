@@ -1,6 +1,6 @@
 # react-i18next for Translations
 
-The `/translations` folder contains json dictionary files for translatable strings in lib-content. The i18n instance lives in app-root when lib-content is imported and run in that app. In lib-content's Storybook env, the i18n instance is in the /test folder.
+The `/translations` folder contains json dictionary files for translatable strings in lib-content. The i18n instance lives in app-root when lib-content components are imported and used in that app. In lib-content's Storybook env, the `i18n` instance is in the /.storybook folder, and in the /test folder for Vitest.
 
 
 ## Adding New Dictionary Keys
