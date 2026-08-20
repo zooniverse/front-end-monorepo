@@ -54,14 +54,18 @@ function CommitResetForm ({
     const password = inputPassword.current?.value || ''
     const confirmation = inputConfirmation.current?.value || ''
 
-    // Check input
-    const preSubmitError = isNewPasswordValid(password, confirmation, t)
-    setInputError(preSubmitError || null)  // If new password is valid, preSubmitError is 0
-    if (preSubmitError) return
-
     // Prepare to submit!
     setIsBusy(true)
     setApiError(null)
+    setInputError(null)
+
+    // Check input
+    const passwordIsValid = isNewPasswordValid(password, confirmation)
+    if (!passwordIsValid) {
+      setInputError(new Error(t('ResetPassword.CommitResetForm.status.errorPasswordsDoNotMatch')))
+      setIsBusy(false)
+      return
+    }
 
     // Do the submit!
     const submitError = await doCommitPasswordReset({
