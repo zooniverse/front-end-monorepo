@@ -56,7 +56,7 @@ const StyledButton = styled(Button)`
   border-style: solid;
   border-width: 1px;
 
-  &[aria-selected='true'] {
+  &[aria-pressed='true'] {
     background: ${props =>
       props.theme.dark
         ? props.theme.global.colors['neutral-1']
@@ -69,7 +69,7 @@ const StyledButton = styled(Button)`
     border-color: ${props =>
       props.theme.dark ? 'white' : props.theme.global.colors['neutral-1']};
 
-    &:not([aria-selected='true']) {
+    &:not([aria-pressed='true']) {
       background: ${props =>
         props.theme.dark
           ? props.theme.global.colors['dark-5']
@@ -106,7 +106,7 @@ const RightButton = styled(Button)`
 
 const DisciplineButton = ({ option, handleDiscipline, value }) => (
   <StyledButton
-    aria-selected={
+    aria-pressed={
       value === 'space' && option.value === 'astronomy'
         ? true
         : value === option.value
@@ -226,7 +226,7 @@ function DisciplineSelect({ handleDiscipline, value }) {
       <StyledList ref={scrollContainer}>
         <li>
           <StyledButton
-            aria-selected={value === null}
+            aria-pressed={value === null}
             label={
               <Box direction='row' align='center' gap='5px'>
                 <ZooniverseLogo
