@@ -68,7 +68,12 @@ export default function ClassifierWrapper({
     addRecents({
       favorite: subject.favorite,
       subjectId: subject.id,
-      locations: subject.locations
+      locations: subject.locations,
+      subject: {
+        id: subject.id,
+        locations: subject.locations,
+        metadata: subject.metadata
+      }
     })
   }, [addRecents, projectID, userID])
 

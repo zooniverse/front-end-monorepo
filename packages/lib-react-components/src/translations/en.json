@@ -99,8 +99,22 @@
     "copied": "URL copied to clipboard",
     "share": "Share"
   },
+  "StatusMessage": {
+    "icons": {
+      "success": "Success",
+      "error": "Error",
+      "warning": "Warning"
+    }
+  },
   "SubjectCard": {
-    "subjectId": "Subject {{id}}"
+    "linkTitle": "{{subjectId}} Talk page",
+    "subjectId": "Subject {{id}}",
+    "FlipbookControls": {
+      "frames": "Flipbook frames",
+      "pause": "Pause flipbook",
+      "play": "Play flipbook",
+      "viewFrame": "View frame {{frame}}"
+    }
   },
   "ZooFooter": {
     "aboutLabels": {

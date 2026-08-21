@@ -1,5 +1,5 @@
 import { SpacedText } from '@zooniverse/react-components'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import { Box } from 'grommet'
 
 import WorkflowSelectButton from '../WorkflowSelectButton'

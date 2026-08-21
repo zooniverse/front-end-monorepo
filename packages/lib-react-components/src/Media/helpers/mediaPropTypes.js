@@ -8,6 +8,7 @@ export const propTypes = {
   height: number,
   origin: string,
   placeholder: oneOfType([node, object]),
+  showPoster: bool,
   src: string.isRequired,
   width: number
 }
@@ -19,5 +20,6 @@ export const defaultProps = {
   fit: 'cover',
   flex: 'grow',
   origin: 'https://thumbnails.zooniverse.org',
+  showPoster: false,
   placeholder: null
 }

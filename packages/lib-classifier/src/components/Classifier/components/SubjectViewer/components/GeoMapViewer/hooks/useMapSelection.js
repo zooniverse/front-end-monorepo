@@ -5,6 +5,7 @@ import { unByKey } from 'ol/Observable'
 
 import asMSTFeature from '../helpers/asMSTFeature'
 import { FEATURE_HIT_TOLERANCE_PX } from '../helpers/createGeoLineStringInteraction'
+import { clampToSubjectExtent } from '../helpers/extentConstraint'
 import { isPixelNearPointCenter, POINT_CENTER_HIT_RADIUS_PIXELS, getFeaturePixelsAcrossWorldCopies } from '../helpers/hitTesting'
 import { clearSelectedFeature, selectFirstFeature } from '../helpers/mapSelection'
 
@@ -42,11 +43,24 @@ export default function useMapSelection({
       }
     })
 
+    const translateEndKey = translate.on('translateend', (event) => {
+      event.features.forEach((feature) => {
+        const geometry = feature.getGeometry?.()
+        if (geometry?.getType?.() !== 'Point') return
+        geometry.setCoordinates(clampToSubjectExtent(map, geometry.getCoordinates()))
+        feature.changed()
+        if (geoDrawingTask?.setActiveFeatureGeometry) {
+          geoDrawingTask.setActiveFeatureGeometry(geometry)
+        }
+      })
+    })
+
     map.addInteraction(select)
     map.addInteraction(translate)
     setInteractions({ select, translate })
 
     return () => {
+      unByKey(translateEndKey)
       map.removeInteraction(translate)
       map.removeInteraction(select)
       setInteractions({ select: null, translate: null })

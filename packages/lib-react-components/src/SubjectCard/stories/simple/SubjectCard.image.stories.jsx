@@ -1,0 +1,61 @@
+import SubjectCard from '../../SubjectCard'
+import {
+  BELUGA_BITS_SUBJECT,
+  DARK_ENERGY_EXPLORERS_SUBJECT,
+  GALAXY_ZOO_SUBJECT,
+  IGUANAS_FROM_ABOVE_SUBJECT,
+  PENGUIN_WATCH_SUBJECT,
+  PRINT_SUBJECT,
+  RADIO_METEOR_ZOO_SUBJECT,
+  SQUIRREL_MAPPER_FAILED_SUBJECT,
+  SQUIRREL_MAPPER_SUBJECT,
+  StoryRow,
+  WILDWATCH_KENYA_SUBJECT
+} from '../SubjectCardStoryData'
+
+const meta = {
+  title: 'Components / SubjectCard / Simple / Image',
+  component: SubjectCard
+}
+
+export default meta
+
+export const LoggedOutLandscape = {
+  render: () => <StoryRow subject={BELUGA_BITS_SUBJECT} />
+}
+
+export const LoggedOutLandscapeBusy = {
+  render: () => <StoryRow subject={WILDWATCH_KENYA_SUBJECT} />
+}
+
+export const Landscape = {
+  render: () => <StoryRow login={'TestUser'} subject={RADIO_METEOR_ZOO_SUBJECT} />
+}
+
+export const LandscapeBusy = {
+  render: () => <StoryRow login={'TestUser'} subject={PENGUIN_WATCH_SUBJECT} />
+}
+
+export const Portrait = {
+  render: () => <StoryRow login={'TestUser'} subject={PRINT_SUBJECT} />
+}
+
+export const PortraitBusy = {
+  render: () => <StoryRow login={'TestUser'} subject={DARK_ENERGY_EXPLORERS_SUBJECT} />
+}
+
+export const Square = {
+  render: () => <StoryRow login={'TestUser'} subject={IGUANAS_FROM_ABOVE_SUBJECT} />
+}
+
+export const SquareDark = {
+  render: () => <StoryRow login={'TestUser'} subject={GALAXY_ZOO_SUBJECT} />
+}
+
+export const External = {
+  render: () => <StoryRow login={'TestUser'} subject={SQUIRREL_MAPPER_SUBJECT} />
+}
+
+export const ExternalFailed = {
+  render: () => <StoryRow login={'TestUser'} subject={SQUIRREL_MAPPER_FAILED_SUBJECT} />
+}

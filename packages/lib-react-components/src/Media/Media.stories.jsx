@@ -32,6 +32,8 @@ const TEXT_URL =
   'https://panoptes-uploads.zooniverse.org/subject_location/f5506d1c-a0e9-4aba-a418-6a6c46a7731a.txt'
 const VIDEO_URL =
   'https://static.zooniverse.org/fem-assets/home-video.mp4'
+const VIDEO_ZOONIVERSE_URL =
+  'https://panoptes-uploads.zooniverse.org/subject_location/6d83e7bd-14d1-41cb-8245-8d70a4d3921a.mp4'
 const VOLUMETRIC_URL = 
   'https://panoptes-uploads-staging.zooniverse.org/subject_location/3c56e6a7-be27-4ab3-93a7-c41a3c867baf.json'
 
@@ -97,6 +99,10 @@ export function Video() {
       <Box width='540px' height='540px'>
         <Media alt='Zooniverse in a nutshell' fit='cover' src={VIDEO_URL} />
       </Box>
+      <Text>Zooniverse video src with showPoster</Text>
+      <Media alt='Zooniverse src with showPoster' controls={false} showPoster src={VIDEO_ZOONIVERSE_URL} width={270} />
+      <Text>External video src with showPoster, fallback to default video behavior</Text>
+      <Media alt='External src with showPoster' controls={false} showPoster src={VIDEO_URL} width={270} />
     </Box>
   )
 }

@@ -8,120 +8,105 @@ export default {
   title: 'Project App / Screens / Classify / Recent Subjects',
   component: RecentSubjects,
   args: {
-    isLoggedIn: true
+    login: 'testuser',
+    projectId: '2000',
+    userId: '1326053'
   }
 }
 
-export function Plain({ isLoggedIn }) {
+export function Plain({ login, projectId, userId }) {
   return (
     <Provider store={CollectionsStoreMock}>
       <RecentSubjects
-        isLoggedIn={isLoggedIn}
+        login={login}
+        projectId={projectId}
         recents={RecentsMock}
         slug='zooniverse/snapshot-serengeti'
+        userId={userId}
       />
     </Provider>
   )
 }
 
-export function Placeholder({ isLoggedIn }) {
+export function Transcription({ login, projectId, userId }) {
   return (
     <Provider store={CollectionsStoreMock}>
       <RecentSubjects
-        isLoggedIn={isLoggedIn}
-        recents={RecentsMock.slice(1)}
-        slug='zooniverse/snapshot-serengeti'
-      />
-    </Provider>
-  )
-}
-
-export function NarrowScreens({ isLoggedIn }) {
-  return (
-    <Provider store={CollectionsStoreMock}>
-      <RecentSubjects
-        isLoggedIn={isLoggedIn}
-        recents={RecentsMock}
-        size={1}
-        slug='zooniverse/snapshot-serengeti'
-      />
-    </Provider>
-  )
-}
-
-NarrowScreens.parameters = {
-  viewport: {
-    defaultViewport: 'iphone5'
-  }
-}
-
-export function Transcription({ isLoggedIn }) {
-  return (
-    <Provider store={CollectionsStoreMock}>
-      <RecentSubjects
-        isLoggedIn={isLoggedIn}
+        login={login}
+        projectId={projectId}
         recents={PortraitSubjectsMock}
         slug='zooniverse/notes-from-nature'
+        userId={userId}
       />
     </Provider>
   )
 }
 
-export function Video({ isLoggedIn }) {
+export function Video({ login, projectId, userId }) {
   return (
     <Provider store={CollectionsStoreMock}>
       <RecentSubjects
-        isLoggedIn={isLoggedIn}
+        login={login}
+        projectId={projectId}
         recents={VideoSubjectsMock}
         slug='spotteron/nestcams'
+        userId={userId}
       />
     </Provider>
   )
 }
 
-export function Data({ isLoggedIn }) {
+export function Data({ login, projectId, userId }) {
   return (
     <Provider store={CollectionsStoreMock}>
       <RecentSubjects
-        isLoggedIn={isLoggedIn}
+        login={login}
+        projectId={projectId}
         recents={DataSubjectsMock}
         slug='hughdickinson/superwasp-black-hole-hunters'
+        userId={userId}
       />
     </Provider>
   )
 }
 
-export function Text({ isLoggedIn }) {
+export function Text({ login, projectId, userId }) {
   return (
     <Provider store={CollectionsStoreMock}>
       <RecentSubjects
-        isLoggedIn={isLoggedIn}
+        login={login}
+        projectId={projectId}
         recents={TextSubjectsMock}
         slug='zooniverse/notes-from-nature'
+        userId={userId}
       />
     </Provider>
   )
 }
 
-export function OneSubject({ isLoggedIn }) {
+export function OneSubject({ login, projectId, userId }) {
   return (
     <Provider store={CollectionsStoreMock}>
       <RecentSubjects
-        isLoggedIn={isLoggedIn}
+        login={login}
+        projectId={projectId}
         recents={RecentsMock.slice(0, 1)}
         slug='spotteron/nestcams'
+        userId={userId}
       />
     </Provider>
   )
 }
 
-export function NoSubjects({ isLoggedIn }) {
+export function NoSubjects({ login, projectId, userId }) {
   return (
     <Provider store={CollectionsStoreMock}>
       <RecentSubjects
-        isLoggedIn={isLoggedIn}
+        login={login}
+        projectId={projectId}
         recents={[]}
         slug='zooniverse/snapshot-serengeti'
+        userId={userId}
       />
     </Provider>
   )

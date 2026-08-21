@@ -2,7 +2,7 @@ import { SpacedText } from '@zooniverse/react-components'
 import { Box, Button } from 'grommet'
 import { Add, Chat } from 'grommet-icons'
 import { arrayOf, shape, string } from 'prop-types'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import { useState } from 'react'
 import styled from 'styled-components'
 

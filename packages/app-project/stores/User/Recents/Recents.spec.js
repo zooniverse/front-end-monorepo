@@ -26,7 +26,21 @@ describe('Stores > Recents', function () {
               subject: '345'
             }
           }
-        ]
+        ],
+        linked: {
+          subjects: [
+            {
+              id: '345',
+              locations: [
+                { 'image/jpeg': 'subject.jpeg' }
+              ],
+              metadata: {
+                title: 'Subject 345',
+                type: ['image/jpeg']
+              }
+            }
+          ]
+        }
       }
     }
     rootStore = initStore(true, { project })
@@ -49,22 +63,28 @@ describe('Stores > Recents', function () {
   })
 
   describe('with a project and user', function () {
-    before(function () {
+    before(async function () {
+      sinon.stub(auth, 'checkBearerToken').resolves('test-token')
       const user = {
         id: '123',
         login: 'test.user'
       }
       rootStore.user.set(user)
+      // Wait for async operations to complete
+      await new Promise(resolve => setTimeout(resolve, 100))
     })
 
     after(function () {
+      auth.checkBearerToken.restore()
       rootStore.client.panoptes.get.resetHistory()
     })
 
     it('should request recent subjects from Panoptes', function () {
-      const authorization = 'Bearer '
+      const authorization = 'Bearer test-token'
       const endpoint = '/users/123/recents'
       const query = {
+        include: 'subject',
+        page_size: 4,
         project_id: '2',
         sort: '-created_at'
       }
@@ -78,6 +98,8 @@ describe('Stores > Recents', function () {
       expect(recents[0].locations).to.eql([
         { 'image/jpeg': 'subject.jpeg' }
       ])
+      expect(recents[0].subject).toBeDefined()
+      expect(recents[0].subject.id).to.equal('345')
     })
 
     describe('adding a subject', function () {

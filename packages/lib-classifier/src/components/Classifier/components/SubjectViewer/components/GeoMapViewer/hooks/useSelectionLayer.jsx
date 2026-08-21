@@ -6,6 +6,7 @@ import Overlay from 'ol/Overlay'
 import DeleteIcon from '@plugins/drawingTools/components/DeleteButton/DeleteIcon'
 import getFeatureStyle from '../helpers/getFeatureStyle'
 import isLineStringFeature from '../helpers/isLineStringFeature'
+import isPointFeature from '../helpers/isPointFeature'
 import { clearSelectedFeature } from '../helpers/mapSelection'
 
 const ICON_RADIUS = 8
@@ -16,6 +17,10 @@ function isFirstVertexStyle(style, feature) {
   if (!coord) return false
   const first = feature.getGeometry().getFirstCoordinate()
   return coord[0] === first[0] && coord[1] === first[1]
+}
+
+function isDeletableFeature(feature) {
+  return isLineStringFeature(feature) || isPointFeature(feature)
 }
 
 export default function useSelectionLayer({
@@ -56,7 +61,7 @@ export default function useSelectionLayer({
 
     function handleDelete() {
       const current = select.getFeatures()?.item(0)
-      if (!isLineStringFeature(current)) return
+      if (!isDeletableFeature(current)) return
       source.removeFeature(current)
       clearSelectedFeature(select)
     }
@@ -95,7 +100,7 @@ export default function useSelectionLayer({
       layer.changed()
 
       const selected = event.selected?.[0]
-      if (isLineStringFeature(selected)) {
+      if (isDeletableFeature(selected)) {
         overlay.setPosition(selected.getGeometry().getFirstCoordinate())
         element.style.display = ''
         changeKey = selected.on('change', () => {

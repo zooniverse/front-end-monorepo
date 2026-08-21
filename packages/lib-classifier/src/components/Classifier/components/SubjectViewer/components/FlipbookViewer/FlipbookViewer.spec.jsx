@@ -43,6 +43,12 @@ describe('Component > FlipbookViewer', function () {
 
       const newButtonStyle = window.getComputedStyle(thumbnailButtons[1])
       expect(newButtonStyle.border).to.equal('2px solid rgb(0, 93, 105)')
+
+      // Reset
+      await user.pointer({
+        keys: '[MouseLeft]',
+        target: thumbnailButtons[0]
+      })
     })
 
     it('should handle using arrow keys on the tablist', async function () {

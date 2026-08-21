@@ -7,8 +7,8 @@ import {
   ResponsiveContext,
   ThemeContext
 } from 'grommet'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { useTranslation, Trans } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations'
+import { useTranslation, Trans } from 'next-i18next/pages'
 import { ZooFooter } from '@zooniverse/react-components'
 import styled from 'styled-components'
 import { useContext } from 'react'

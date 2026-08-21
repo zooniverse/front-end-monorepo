@@ -6,7 +6,7 @@ import styled from 'styled-components'
 
 import ContentBox from '@shared/components/ContentBox'
 import RequireUser from '@shared/components/RequireUser/RequireUser'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 
 // See the same breakpoint in ClassifyPage.js
 const StyledBox = styled(Box)`

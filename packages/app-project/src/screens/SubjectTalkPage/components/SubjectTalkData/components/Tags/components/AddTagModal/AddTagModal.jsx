@@ -1,6 +1,6 @@
 import { Loader, Modal, SpacedText } from '@zooniverse/react-components'
 import { Box, Button, Form, FormField, TextInput } from 'grommet'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import { arrayOf, bool, func, shape, string } from 'prop-types'
 import { useState } from 'react'
 import styled from 'styled-components'
@@ -10,7 +10,7 @@ import TagList from '../TagList'
 const StyledButton = styled(Button)`
   border-radius: 4px;
   border: ${props => props.theme.dark ?
-    `0.5px solid #E0D4F6` 
+    `0.5px solid #E0D4F6`
     : `0.5px solid #4D2A8E`
   };
   color: ${props => props.theme.dark ?

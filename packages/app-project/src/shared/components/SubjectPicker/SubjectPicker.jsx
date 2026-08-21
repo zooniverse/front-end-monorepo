@@ -5,7 +5,7 @@ import { array, bool, number, shape, string } from 'prop-types'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Box, DataTable, Heading, Paragraph } from 'grommet'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 
 import addQueryParams from '@helpers/addQueryParams'
 import { columns, fetchStatuses, fetchSubjects, searchParams } from './helpers'

@@ -1,6 +1,7 @@
 import { Box } from 'grommet'
 import PropTypes from 'prop-types'
 import { useEffect, useState } from 'react'
+import styled, { css } from 'styled-components'
 
 import { useKeyZoom, useSubjectImageOrVideo } from '@hooks'
 
@@ -13,11 +14,16 @@ const DEFAULT_HANDLER = () => true
 const DEFAULT_WIDTH = 800
 const DEFAULT_HEIGHT = 600
 
+const StyledVideo = styled.video`
+  ${props => props.invert && css`filter: invert(1)`}
+`
+
 const FlipbookViewer = ({
   defaultFrame = 0,
   enableInteractionLayer = false,
   enableRotation = DEFAULT_HANDLER,
   flipbookAutoplay = false,
+  frame = 0,
   invert = false,
   limitSubjectHeight = false,
   move = false,
@@ -25,13 +31,23 @@ const FlipbookViewer = ({
   onReady = DEFAULT_HANDLER,
   playIterations,
   rotation = 0,
+  setFrame = DEFAULT_HANDLER,
   setOnPan = DEFAULT_HANDLER,
   setOnZoom = DEFAULT_HANDLER,
   subject,
   zoomControlFn = undefined,
   zooming = true
 }) => {
-  const [currentFrame, setCurrentFrame] = useState(defaultFrame)
+  // Prior to Apr 2026, FlipbookViewer used to store the "current frame" value
+  // in local state, but this caused issues with the image toolbar which
+  // expected synced with the Subject Viewer Store's "current frame".
+  
+  // Also, Subject Viewer Store's resetSubject() ensures that the first `frame`
+  // fed to the FlipbookViewer will either be 0, or the default_frame as set by
+  // subject.metadata. As a result, the defaultFrame prop of FlipbookViewer is
+  // now mainly used to determine the dimensions of the "subject frame". (i.e.
+  // to keep all images & videos displayed in a consistent width & height)
+
   const [playing, setPlaying] = useState(false)
 
   useEffect(() => {
@@ -66,8 +82,8 @@ const FlipbookViewer = ({
   // only for the sake of determining a consistent viewer width/height for
   // all media files. 
   // --------------------------------
-  const currentMediaType = subject?.locations[currentFrame]?.type
-  const currentMediaUrl = subject?.locations[currentFrame]?.url
+  const currentMediaType = subject?.locations[frame]?.type
+  const currentMediaUrl = subject?.locations[frame]?.url
   // --------------------------------
 
   const onPlayPause = () => {
@@ -82,7 +98,7 @@ const FlipbookViewer = ({
         <SingleImageViewer
           enableInteractionLayer={enableInteractionLayer}
           enableRotation={enableRotation}
-          frame={currentFrame}
+          frame={frame}
           imgRef={mediaElementRef}
           invert={invert}
           limitSubjectHeight={limitSubjectHeight}
@@ -100,9 +116,11 @@ const FlipbookViewer = ({
         />
       )}
       {currentMediaType === 'video' && (
-        <video
+        <StyledVideo
           autoPlay={false}
           controls={true}
+          $invert={invert}
+          preload='metadata'
           ref={mediaElementRef}
           src={currentMediaUrl}
           width={viewerWidth}
@@ -114,9 +132,9 @@ const FlipbookViewer = ({
         />
       )}
       <FlipbookControls
-        currentFrame={currentFrame}
+        currentFrame={frame}
         locations={subject.locations}
-        onFrameChange={setCurrentFrame}
+        onFrameChange={setFrame}
         onPlayPause={onPlayPause}
         playing={playing}
         playIterations={playIterations}
@@ -126,12 +144,14 @@ const FlipbookViewer = ({
 }
 
 FlipbookViewer.propTypes = {
-  /** Fetched from metadata.default_frame or initialized to zero */
+  /** Fetched from metadata.default_frame or initialized to zero. Mainly used to determine size of "subject frame" */
   defaultFrame: PropTypes.number,
   /** Determined per mobx store WorkflowStepStore via SubjectViewer. */
   enableInteractionLayer: PropTypes.bool,
   /** Function passed from Subject Viewer Store */
   enableRotation: PropTypes.func,
+  /** Passed from the subject viewer store. Determins the current frame of the Subject */
+  frame: PropTypes.number,
   /** Fetched from workflow configuration. Determines whether to autoplay the loop on viewer load */
   flipbookAutoplay: PropTypes.bool,
   /** Passed from Subject Viewer Store */
@@ -149,6 +169,8 @@ FlipbookViewer.propTypes = {
   /** Passed from the subject viewer store. Needed in SingleImageViewer to handle transforming (rotating) the image */
   rotation: PropTypes.number,
   /** Usually passed from the Subject Viewer Store. Can be overridden, such as when the FlipbookViewer is used in the DataImageViewer.  */
+  setFrame: PropTypes.func,
+  /** Passed from the Subject Viewer Store */
   setOnPan: PropTypes.func,
   /** Usually passed from the Subject Viewer Store. Can be overridden, such as when the FlipbookViewer is used in the DataImageViewer. */
   setOnZoom: PropTypes.func,

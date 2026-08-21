@@ -7,9 +7,12 @@ A preview card for subjects.
 - Three sizes: `large`, `medium`, and `small`
 - Clickable subject media area links to the subject talk page
 - Bottom toolbar for metadata, favorite, collect, and share actions
+- Simple version (default) for user homepage, project homepage, and classify page
+- Interactive version (`interactive={true}`) for collections, favorites, and recents
 
 ## Props
 
+- `interactive` (boolean): Whether the card has interactive media or not.
 - `login` (string): The login of the current user for enabling favorite action.
 - `placeholder` (node): Placeholder passed to `Media`.
 - `projectId` (string): Project ID used for favoriting and collecting the subject.

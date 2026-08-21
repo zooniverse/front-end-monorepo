@@ -365,6 +365,38 @@
     "sidebarLabel": "Discipline",
     "title": "Publications"
   },
+  "ResetPassword": {
+    "common": {
+      "header": "Reset Password"
+    },
+    "CommitResetForm": {
+      "body": "Enter your password twice to confirm it, then you'll be ready to get back to helping with real research.",
+      "inputPassword": "New password",
+      "inputConfirmation": "Confirm new password",
+      "titleForInputPattern": "8 characters minimum",
+      "infoPassword": "Minimum 8 characters",
+      "infoConfirmation": "Both fields must match",
+      "status": {
+        "success": "Your password has been changed! Please log in with your new password.",
+        "errorInvalidInput": "Error: invalid input",
+        "errorPasswordsDoNotMatch": "Error: the passwords do not match, please try again."
+      },
+      "submit": "Submit"
+    },
+    "RequestResetForm": {
+      "body": "Enter your email address and we'll send you a link to reset your password.",
+      "footer": "If the reset email hasn't arrived, take a look in your spam folder. If it's not there, try another email address you might've used to join the Zooniverse.",
+      "inputEmail": "Email address",
+      "status": {
+        "success": "We've just sent an email with a link to reset your password.",
+        "errorTooManyRequests": "Error: too many password reset requests. Please try again later."
+      },
+      "submit": "Send"
+    },
+    "NoAccessMessage": {
+      "body": "You are currently logged in. Please log out if you would like to reset your password."
+    }
+  },
   "Resources": {
     "brand": {
       "heading": "Brand Resources",
@@ -395,6 +427,25 @@
   },
   "Sidebar": {
     "all": "All"
+  },
+  "Unsubscribe": {
+    "form": {
+      "header": "Unsubscribe from all Zooniverse emails, except Talk.",
+      "body": {
+        "p1": "We get it - no one likes to keep receiving email they don't want.",
+        "p2": "Just enter your email address here and we'll unsubscribe you from all our email lists."
+      },
+      "inputEmail": "Email address",
+      "submit": "Submit",
+      "errors": {
+        "general": "Something went wrong. Please check the email address and try again."
+      }
+    },
+    "processed": {
+      "header": "Unsubscribe successful",
+      "body": "If you change your mind, visit your account settings to <0>update your email preferences</0>."
+    }
+
   },
   "Volunteer": {
     "beta": {
