@@ -9,7 +9,7 @@ async function updateUserProperty(userProperty, value, userId) {
   const authorization = `Bearer ${token}`
 
   // PUT to panoptes /users endpoint requires an If-Match header, this is how to get it
-  // and unfortuantely means an extra network request
+  // and unfortunately means an extra network request
   const getResponse = await panoptes.get(`/users/${userId}`, {}, { authorization })
   const headers = {
     authorization,
