@@ -13,8 +13,8 @@ function Settings({ authUser, login }) {
 
   return (
     <Box gap='large' margin='xlarge'>
-      <FormWithTextField authUser={authUser} login={login}/>
-      <FormWithCheckbox authUser={authUser} login={login} />
+      <FormWithTextField authUser={authUser} />
+      <FormWithCheckbox authUser={authUser} />
     </Box>
   )
 }

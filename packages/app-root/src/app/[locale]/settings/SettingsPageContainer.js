@@ -27,7 +27,7 @@ export default function ResetPasswordContainer() {
       <Loader />
     </Box>
   ) : isLoggedIn ? (
-    <UserSettings authUser={user} login={user?.login} />
+    <UserSettings authUser={user} />
   ) : (
     <p>Please log in.</p>
   )

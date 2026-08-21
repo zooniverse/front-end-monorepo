@@ -6,14 +6,14 @@ import useUserData from '../useUserData'
 import updateUserProperty from '../updateUserProperty'
 
 /* Example of a client-side React component with a text field that when submitted, it does a PUT request to panoptes and updates UI optimistically */
-function FormWithTextField({ authUser, login }) {
+function FormWithTextField({ authUser }) {
   const creditedNameInputId = useId()
   const creditedNameRef = useRef()
 
-  // Pass this hook the `authUser` and `login` props from the app-root page.
-  // The UI component's TextInputis "hooked in" to data: user as "state", so
+  // Pass this hook the `authUser`'s login prop from the app-root page.
+  // The UI component's TextInputis "hooked in" to `data` as "state", so
   // this is a replacement for a [value, setValue] = useState() pattern.
-  const { data: user, loading, error, isValidating, mutate } = useUserData({ login })
+  const { data: user, loading, error, isValidating, mutate } = useUserData({ login: authUser?.login })
 
   const handleChange = e => {
     const newValue = e.target.value

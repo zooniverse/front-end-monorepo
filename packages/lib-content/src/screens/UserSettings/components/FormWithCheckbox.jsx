@@ -5,12 +5,12 @@ import useUserData from '../useUserData'
 import updateUserProperty from '../updateUserProperty'
 
 /* Example of a client-side React component with a checkbox that when updated, it does a PUT request to panoptes and updates UI optimistically */
-function FormWithCheckbox({ authUser, login }) {
-  // Pass this hook the `authUser` and `login` props from the app-root page.
-  // The UI component's Checkbox is "hooked in" to data: user as "state" that's returned here.
+function FormWithCheckbox({ authUser }) {
+  // Pass this hook the `authUser`'s login prop from the app-root page.
+  // The UI component's Checkbox is "hooked in" to `data` that's returned here as state.
   // It's a replacement for a [isChecked, setIsChecked] = useState() pattern, and it handles all
   // loading, error, and revalidating states too.
-  const { data: user, loading, error, isValidating, mutate } = useUserData({ login })
+  const { data: user, loading, error, isValidating, mutate } = useUserData({ login: authUser?.login })
 
   const handleChange = e => {
     // This mutate function is bound to useUserData() SWR hook. It updates the client-side cache
