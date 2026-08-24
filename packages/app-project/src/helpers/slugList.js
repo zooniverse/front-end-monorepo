@@ -61,7 +61,6 @@ const PFE_SLUGS = [
   'md68135/notes-from-nature-wedigflplants',
   'md68135/notes-from-nature-natural-history-at-rom-revealed',
   'meteonetwork/redata',
-  'mikewalmsley/galaxy-zoo-mobile',
   'mollysimon/galaxy-zoo-crowdsourcing-activity', // Classrooms
   'msbrhonclif/science-scribbler-key2cat', // Subject image sizes difficult in FEM's classifier layout
   'msbrhonclif/science-scribbler-placenta-profiles', // Subject image sizes difficult in FEM's classifier layout
@@ -74,6 +73,7 @@ const PFE_SLUGS = [
   'projectenigma/enigmatic-near-earth-visitors', // Video in a flipbook isn't supported in FEM
   'rsengar/einstein-at-home-pulsar-seekers', // Feedback per step isn't supported in FEM
   'sassydumbledore/chimp-and-see', // Video in a flipbook isn't supported in FEM
+  'sandorkruk/istrox', // Uses mini-course
   'tawakitom/penguins-from-above', // Subject image sizes difficult in FEM's classifier layout
   'tingard/galaxy-builder', // custom slider interface on finished project
   'watchablewildlife/nebraska-wildlife-watch',
@@ -84,19 +84,6 @@ const PFE_SLUGS = [
   'zooniverse/intro2astro-hubbles-law', // Classrooms
   'zooniverse/measuring-the-anzacs', // Classrooms
   'zooniverse/zooniverse-in-schools', // Classrooms
-  // Audio + Spectrogram Projects
-  'ceaeay/seabird-sounds',
-  'creisdorf/fire-and-birds',
-  'creisdorf/savanna-spy-sound',
-  'cslab-upm/sky-sounds',
-  'hannah-dot-slesinski/chirp-check',
-  'laaczooniverse/what-do-babies-say',
-  'lydiakatsis/forest-sounds',
-  'marywestwood/the-cricket-wing',
-  'sandorkruk/istrox',
-  'sladeaa/audioclassification',
-  'uw-leap/tots-and-tunes',
-  'yli/humbug'
 ]
 
 export default PFE_SLUGS
