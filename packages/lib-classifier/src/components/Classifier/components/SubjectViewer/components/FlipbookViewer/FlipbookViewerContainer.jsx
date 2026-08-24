@@ -140,7 +140,7 @@ FlipbookViewerContainer.propTypes = {
   loadingState: PropTypes.string,
   /** Passed from SubjectViewer and called if `useSubjectImage()` hook fails. */
   onError: PropTypes.func,
-  /** Passed from SubjectViewer and dimensions are added to classification metadata. Called after svg layers successfully load with `defaultFrameSrc`. */
+  /** Passed from SubjectViewer and dimensions are added to classification metadata. Called after svg layers successfully load with `defaultMediaUrl`. */
   onReady: PropTypes.func,
   /** OPTIONAL: only supply this function if you want to override the setOnPan function from the store. (As of Apr 2026, only used by DataImageViewer.) */
   setOnPan: PropTypes.func,
