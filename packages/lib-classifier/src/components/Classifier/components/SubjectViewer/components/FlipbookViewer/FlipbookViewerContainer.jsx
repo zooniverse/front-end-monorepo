@@ -92,7 +92,7 @@ function FlipbookViewerContainer({
   // be overridden by Subject metadata.
   // This code matches SubjectViewerStore.js's resetSubject()
   let defaultFrame = 0
-  if (subject?.metadata?.default_frame > 0) {
+  if (subject?.metadata?.default_frame > 0 && subject?.locations.length >= subject.metadata.default_frame) {
     // To the research teams who set the default_frame value, the first item in a list is "1". Hence, we need to change that to Array index "0".
     defaultFrame = parseInt(subject.metadata.default_frame - 1)
   }
@@ -140,7 +140,7 @@ FlipbookViewerContainer.propTypes = {
   loadingState: PropTypes.string,
   /** Passed from SubjectViewer and called if `useSubjectImage()` hook fails. */
   onError: PropTypes.func,
-  /** Passed from SubjectViewer and dimensions are added to classification metadata. Called after svg layers successfully load with `defaultFrameSrc`. */
+  /** Passed from SubjectViewer and dimensions are added to classification metadata. Called after svg layers successfully load with `defaultMediaUrl`. */
   onReady: PropTypes.func,
   /** OPTIONAL: only supply this function if you want to override the setOnPan function from the store. (As of Apr 2026, only used by DataImageViewer.) */
   setOnPan: PropTypes.func,
