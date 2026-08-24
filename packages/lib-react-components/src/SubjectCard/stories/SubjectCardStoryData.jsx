@@ -376,6 +376,23 @@ export const DATA_IMAGES_SUBJECT = {
   metadata: DEFAULT_METADATA
 }
 
+export const ZWICKYS_STELLAR_SLEUTHS_SUBJECT = {
+  id: '50787291',
+  links: { project: '4878' },
+  locations: [
+    {
+      'image/png': 'https://panoptes-uploads.zooniverse.org/subject_location/bd133b31-b045-416b-9384-1c12480c9a00.png'
+    },
+    {
+      'application/json': 'https://panoptes-uploads.zooniverse.org/subject_location/715ec21d-5a04-4f32-b072-b8e04868af20.json'
+    },
+    {
+      'image/png': 'https://panoptes-uploads.zooniverse.org/subject_location/0340d7ea-e958-437e-9361-73e2339f6274.png'
+    }
+  ],
+  metadata: DEFAULT_METADATA
+}
+
 export function StoryRow({
   login,
   subject

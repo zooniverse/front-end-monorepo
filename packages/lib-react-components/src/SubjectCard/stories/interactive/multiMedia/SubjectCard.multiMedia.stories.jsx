@@ -7,7 +7,8 @@ import {
   PLANET_HUNTERS_TESS_SUBJECT,
   SMITHSONIAN_WILDLIFE_MULTI_IMAGE_SUBJECT,
   SQUIRREL_MAPPER_MULTI_IMAGE_FAILED_SUBJECT,
-  SQUIRREL_MAPPER_MULTI_IMAGE_SUBJECT
+  SQUIRREL_MAPPER_MULTI_IMAGE_SUBJECT,
+  ZWICKYS_STELLAR_SLEUTHS_SUBJECT
 } from '../../SubjectCardStoryData'
 
 const meta = {
@@ -43,4 +44,7 @@ export const MultiImageData = {
 
 export const MultiDataImages = {
   render: () => <InteractiveStory login={'TestUser'} subject={DATA_IMAGES_SUBJECT} />
+}
+export const VariableStarViewer = {
+  render: () => <InteractiveStory login={'TestUser'} subject={ZWICKYS_STELLAR_SLEUTHS_SUBJECT} />
 }
