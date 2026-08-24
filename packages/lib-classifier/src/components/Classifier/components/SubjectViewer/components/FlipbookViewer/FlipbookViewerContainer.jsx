@@ -92,7 +92,7 @@ function FlipbookViewerContainer({
   // be overridden by Subject metadata.
   // This code matches SubjectViewerStore.js's resetSubject()
   let defaultFrame = 0
-  if (subject?.metadata?.default_frame > 0) {
+  if (subject?.metadata?.default_frame > 0 && subject?.locations.length >= subject.metadata.default_frame) {
     // To the research teams who set the default_frame value, the first item in a list is "1". Hence, we need to change that to Array index "0".
     defaultFrame = parseInt(subject.metadata.default_frame - 1)
   }
