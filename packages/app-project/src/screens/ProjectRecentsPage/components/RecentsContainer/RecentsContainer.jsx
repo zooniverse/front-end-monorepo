@@ -7,6 +7,7 @@ import { useRecents } from '@hooks'
 import EmptyPlaceholder from '../Placeholders/EmptyPlaceholder'
 import ErrorPlaceholder from '../Placeholders/ErrorPlaceholder'
 import SignedOutPlaceholder from '../Placeholders/SignedOutPlaceholder'
+import RecentsHeading from '../RecentsHeading'
 import RecentsList from '../RecentsList'
 
 function useStores() {
@@ -40,7 +41,7 @@ function RecentsContainer() {
 
   return (
     <>
-      <h2>Recent Classifications</h2>    
+      <RecentsHeading />    
       <RecentsList
         login={login}
         projectId={projectId}
