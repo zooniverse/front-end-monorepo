@@ -9,10 +9,12 @@ const SubjectDimensions = types.model('SubjectDimensions', {
   naturalWidth: types.integer
 })
 
+export const SubjectDimensionsArray = types.array(types.maybe(SubjectDimensions))
+
 const SubjectViewer = types
   .model('SubjectViewer', {
     annotate: types.optional(types.boolean, true),
-    dimensions: types.array(types.maybe(SubjectDimensions)),
+    dimensions: SubjectDimensionsArray,
     flipbookSpeed: types.optional(types.number, 1),
     frame: types.optional(types.integer, 0),
     fullscreen: types.optional(types.boolean, false),
