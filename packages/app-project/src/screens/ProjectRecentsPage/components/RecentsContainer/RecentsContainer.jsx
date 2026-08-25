@@ -24,7 +24,8 @@ function useStores() {
 function RecentsContainer() {
   const { login, projectId, projectSlug, userId } = useStores()
   const { data: recents = [], error, isLoading } = useRecents({ projectId, userId })
-  
+  const validRecents = recents.filter(recent => recent?.subject)
+
   if (!userId) {
     return <SignedOutPlaceholder />
   }
@@ -34,19 +35,18 @@ function RecentsContainer() {
   if (error) {
     return <ErrorPlaceholder />
   }
-  if (recents.length < 1) {
+  if (validRecents.length < 1) {
     return <EmptyPlaceholder />
   }
 
-
   return (
     <>
-      <RecentsHeading />    
+      <RecentsHeading />
       <RecentsList
         login={login}
         projectId={projectId}
         projectSlug={projectSlug}
-        recents={recents}
+        recents={validRecents}
         userId={userId}
       />
     </>
