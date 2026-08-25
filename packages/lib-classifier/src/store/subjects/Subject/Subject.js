@@ -61,6 +61,15 @@ const Subject = types
         if (!viewer && self.project?.isVolumetricViewer)
           viewer = subjectViewers.volumetric
 
+        // GeoMapViewer is implied when subject_viewer_config declares tile_layers or overlay_layers
+        const { tile_layers, overlay_layers } = configuration.subject_viewer_config || {}
+        if (!viewer && (
+          (Array.isArray(tile_layers) && tile_layers.length > 0) ||
+          (Array.isArray(overlay_layers) && overlay_layers.length > 0)
+        )) {
+          viewer = subjectViewers.geoMap
+        }
+
         if (!viewer && counts.total === 1) {
           if (counts.audio) {
             viewer = subjectViewers.singleAudio

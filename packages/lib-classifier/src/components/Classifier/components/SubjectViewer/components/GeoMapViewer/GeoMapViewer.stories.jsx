@@ -56,6 +56,40 @@ export const WithMultipleLayers = {
   render: () => <MultiLayerStory />,
 }
 
+export const WithOverlayLayers = {
+  args: {
+    tileLayers: [
+      { type: 'osm', label: 'OpenStreetMap' }
+    ],
+    overlayLayers: [
+      {
+        // bbox-templated ArcGIS REST endpoint with open CORS, so the story loads in the browser
+        type: 'geojson',
+        label: 'NHD Hydrography (NHDFlowline)',
+        url: 'https://hydro.nationalmap.gov/arcgis/rest/services/nhd/MapServer/6/query?where=1%3D1&geometry={bbox}&geometryType=esriGeometryEnvelope&inSR=3857&outSR=4326&f=geojson&resultRecordCount=200',
+        attributions: 'Source: U.S. Geological Survey, National Hydrography Dataset',
+        style: { stroke: { color: 'rgba(20, 80, 180, 0.85)', width: 1.5 } }
+      }
+    ],
+    geoJSON: {
+      type: 'FeatureCollection',
+      bbox: [-91.05, 47.96, -90.97, 48.01],
+      features: [
+        {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [-91.0125, 47.9847]
+          },
+          properties: {
+            name: 'Knife Lake — center pin (test seed)'
+          }
+        }
+      ]
+    }
+  }
+}
+
 export const WithGeoDrawingTask = {
   args: {
     geoDrawingTask: GeoDrawingTask.create({
