@@ -2,15 +2,17 @@ import asyncStates from '@zooniverse/async-states'
 import { autorun } from 'mobx'
 import { addDisposer, getRoot, isValidReference, tryReference, types } from 'mobx-state-tree'
 
+const SubjectDimensions = types.model('SubjectDimensions', {
+  clientHeight: types.integer,
+  clientWidth: types.integer,
+  naturalHeight: types.integer,
+  naturalWidth: types.integer
+})
+
 const SubjectViewer = types
   .model('SubjectViewer', {
     annotate: types.optional(types.boolean, true),
-    dimensions: types.array(types.frozen({
-      clientHeight: types.integer,
-      clientWidth: types.integer,
-      naturalHeight: types.integer,
-      naturalWidth: types.integer
-    })),
+    dimensions: types.array(types.maybe(SubjectDimensions)),
     flipbookSpeed: types.optional(types.number, 1),
     frame: types.optional(types.integer, 0),
     fullscreen: types.optional(types.boolean, false),
@@ -162,7 +164,12 @@ const SubjectViewer = types
           naturalHeight = 0,
           naturalWidth = 0
         } = target || {}
-        self.dimensions[frameIndex] = { clientHeight, clientWidth, naturalHeight, naturalWidth }
+        self.dimensions[frameIndex] = {
+          clientHeight: parseInt(clientHeight),
+          clientWidth: parseInt(clientWidth),
+          naturalHeight: parseInt(naturalHeight),
+          naturalWidth: parseInt(naturalWidth)
+        }
         self.rotation = 0
         self.loadingState = asyncStates.success
       },

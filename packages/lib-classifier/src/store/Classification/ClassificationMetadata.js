@@ -1,6 +1,13 @@
 import { autorun } from 'mobx'
 import { addDisposer, getRoot, types } from 'mobx-state-tree'
 
+const SubjectDimensions = types.model('SubjectDimensions', {
+  clientHeight: types.integer,
+  clientWidth: types.integer,
+  naturalHeight: types.integer,
+  naturalWidth: types.integer
+})
+
 const ClassificationMetadata = types.model('ClassificationMetadata', {
   classifier_version: types.literal('2.0'),
   feedback: types.frozen({}),
@@ -9,12 +16,7 @@ const ClassificationMetadata = types.model('ClassificationMetadata', {
   session: types.maybe(types.string),
   source: types.enumeration(['api', 'sugar']),
   startedAt: types.optional(types.string, ''),
-  subjectDimensions: types.array(types.frozen({
-    clientHeight: types.integer,
-    clientWidth: types.integer,
-    naturalHeight: types.integer,
-    naturalWidth: types.integer
-  })),
+  subjectDimensions: types.array(types.maybe(SubjectDimensions)),
   subjectSelectionState: types.frozen({
     already_seen: types.optional(types.boolean, false),
     finished_workflow: types.optional(types.boolean, false),
