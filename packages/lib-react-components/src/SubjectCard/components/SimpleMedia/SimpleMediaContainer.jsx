@@ -11,6 +11,8 @@ function SimpleMediaContainer({
 	linkTitle,
 	placeholder,
 	previewHeight,
+	showAxes = false,
+	showLegend = false,
 	showTitle = true,
 	subject,
 	subjectIdTitle,
@@ -35,6 +37,8 @@ function SimpleMediaContainer({
 				placeholder={placeholder}
 				previewHeight={previewHeight}
 				showBackground={showBackground}
+				showAxes={showAxes}
+				showLegend={showLegend}
 				showTitle={showTitle}
 				subjectIdTitle={subjectIdTitle}
 				width={width}
@@ -47,6 +51,8 @@ SimpleMediaContainer.propTypes = {
 	linkTitle: string.isRequired,
 	placeholder: node,
 	previewHeight: number.isRequired,
+	showAxes: bool,
+	showLegend: bool,
 	showTitle: bool,
 	subject: shape({
 		locations: arrayOf(objectOf(string))
