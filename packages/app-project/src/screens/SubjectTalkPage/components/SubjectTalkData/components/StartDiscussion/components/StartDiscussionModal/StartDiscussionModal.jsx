@@ -1,7 +1,7 @@
 import { Loader, Modal, SpacedText } from '@zooniverse/react-components'
 import { Box, Button, Form, FormField, RadioButtonGroup, Text, TextArea, TextInput, ThemeContext } from 'grommet'
 import { CircleInformation } from 'grommet-icons'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import { arrayOf, bool, func, shape, string } from 'prop-types'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'

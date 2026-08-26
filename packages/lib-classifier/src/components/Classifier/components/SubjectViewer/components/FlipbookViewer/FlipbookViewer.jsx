@@ -41,7 +41,7 @@ const FlipbookViewer = ({
   // Prior to Apr 2026, FlipbookViewer used to store the "current frame" value
   // in local state, but this caused issues with the image toolbar which
   // expected synced with the Subject Viewer Store's "current frame".
-  
+
   // Also, Subject Viewer Store's resetSubject() ensures that the first `frame`
   // fed to the FlipbookViewer will either be 0, or the default_frame as set by
   // subject.metadata. As a result, the defaultFrame prop of FlipbookViewer is
@@ -80,7 +80,7 @@ const FlipbookViewer = ({
   // that we want to display.
   // Believe it or not, all that hullabaloo above 👆 with the "default media" is
   // only for the sake of determining a consistent viewer width/height for
-  // all media files. 
+  // all media files.
   // --------------------------------
   const currentMediaType = subject?.locations[frame]?.type
   const currentMediaUrl = subject?.locations[frame]?.url
@@ -162,7 +162,7 @@ FlipbookViewer.propTypes = {
   move: PropTypes.bool,
   /** Passed from SubjectViewer and called if media-fetching hook fails. */
   onError: PropTypes.func,
-  /** Passed from SubjectViewer and dimensions are added to classification metadata. Called after svg layers successfully load with `defaultFrameSrc`. */
+  /** Passed from SubjectViewer and dimensions are added to classification metadata. Called after svg layers successfully load with `defaultMediaUrl`. */
   onReady: PropTypes.func,
   /** Fetched from workflow configuration. Number preference for how many loops to play */
   playIterations: PropTypes.number,

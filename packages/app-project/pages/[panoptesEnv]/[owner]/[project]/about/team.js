@@ -1,7 +1,7 @@
 import fetchProjectPage from '@helpers/fetchProjectPage'
 import getDefaultPageProps from '@helpers/getDefaultPageProps'
 export { default } from '@screens/ProjectAboutPage'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations'
 import fetchTeam from '@helpers/fetchTeam'
 
 export async function getStaticProps({ locale, params }) {

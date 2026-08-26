@@ -1,7 +1,7 @@
 import { Markdownz } from '@zooniverse/react-components'
 import { string } from 'prop-types'
 import { Paragraph } from 'grommet'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 
 import ContentBox from '@shared/components/ContentBox'
 

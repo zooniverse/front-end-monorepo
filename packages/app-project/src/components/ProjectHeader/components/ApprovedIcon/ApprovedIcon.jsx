@@ -4,7 +4,7 @@ import { observer, MobXProviderContext} from 'mobx-react'
 import { useContext } from 'react'
 import { string } from 'prop-types'
 import styled from 'styled-components'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 
 const StyledBox = styled(Box)`
   border-radius: 100%;

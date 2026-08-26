@@ -1,6 +1,6 @@
 import { Grid } from 'grommet'
 import { arrayOf, shape, string } from 'prop-types'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 
 import ProjectLink from './components/ProjectLink'
 import ContentBox from '../ContentBox'

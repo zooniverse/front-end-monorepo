@@ -2,7 +2,7 @@ import { Media, SpacedText } from '@zooniverse/react-components'
 import { Accordion, AccordionPanel, Box, Heading, ResponsiveContext, Text, ThemeContext, Tip } from 'grommet'
 import { CircleInformation, Multiple } from 'grommet-icons'
 import { useContext, useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import styled from 'styled-components'
 
 const HoverContent = styled(Box)`
@@ -110,8 +110,8 @@ function AncillaryDatum({ datum }) {
           }
         }}
       >
-        <Accordion 
-          activeIndex={isExpanded ? [0] : []} 
+        <Accordion
+          activeIndex={isExpanded ? [0] : []}
           onActive={handleExpand}
         >
           <AccordionPanel label={headerLabel}>

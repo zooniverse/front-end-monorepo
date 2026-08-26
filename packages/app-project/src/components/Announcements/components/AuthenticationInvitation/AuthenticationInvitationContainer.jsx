@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import PlainButton from '@zooniverse/react-components/PlainButton'
 import { bool, func } from 'prop-types'
 

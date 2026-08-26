@@ -1,7 +1,7 @@
 import { Box, Button, CheckBox, FormField, Grid, TextInput } from 'grommet'
 import  { bool, func, shape, string } from 'prop-types'
 import { useRef } from 'react'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 
 const defaultCollection = {
   display_name: '',
