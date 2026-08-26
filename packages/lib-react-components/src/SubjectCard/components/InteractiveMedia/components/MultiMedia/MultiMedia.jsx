@@ -1,5 +1,5 @@
 import { Box } from 'grommet'
-import { number, arrayOf, string, shape, objectOf } from 'prop-types'
+import { bool, number, arrayOf, string, shape, objectOf } from 'prop-types'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
@@ -128,6 +128,29 @@ function MultiMedia({
 							alt={subjectIdTitle}
 							defaultMimeType='text'
 							height={previewHeight}
+							src={currentSource.url}
+							width={width}
+						/>
+					</StyledPreview>
+				</MediaLink>
+			)
+		}
+
+		if (currentMediaType === 'application') {
+			return (
+				<MediaLink href={url} title={linkTitle}>
+					<StyledPreview
+						justify='center'
+						height={`${previewHeight}px`}
+						round={{ corner: 'top', size: '8px' }}
+						width={`${width}px`}
+					>
+						<Media
+							alt={subjectIdTitle}
+							defaultMimeType='application'
+							height={previewHeight}
+							showAxes={true}
+							showLegend={true}
 							src={currentSource.url}
 							width={width}
 						/>

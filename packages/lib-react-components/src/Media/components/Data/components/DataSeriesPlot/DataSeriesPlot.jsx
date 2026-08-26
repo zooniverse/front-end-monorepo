@@ -1,4 +1,5 @@
 import { arrayOf, bool, number, shape, oneOfType, object, string, } from 'prop-types'
+import { AxisBottom, AxisLeft } from '@visx/axis'
 import { Group } from '@visx/group'
 import { withParentSize } from '@visx/responsive'
 import cuid from 'cuid'
@@ -20,12 +21,26 @@ const INVERT_AXES = {
   y: false
 }
 
-const MARGIN = {
+// The compact (default) layout has no margin, since there are no axes or legend to make room for.
+const NO_MARGIN = {
   bottom: 0,
   left: 0,
   right: 0,
   top: 0
 }
+
+// Used as a fallback margin (i.e. when the subject JSON doesn't specify one)
+// so there's enough space to render axis ticks and labels when showAxes is true.
+const AXES_MARGIN = {
+  bottom: 40,
+  left: 50,
+  right: 10,
+  top: 10
+}
+
+const LEGEND_ITEM_HEIGHT = 20
+const LEGEND_ITEM_WIDTH = 120
+const LEGEND_SWATCH_SIZE = 10
 
 const PADDING = {
   bottom: 0,
@@ -45,7 +60,7 @@ const TRANSFORM_MATRIX = {
 
 const CHART_OPTIONS = {
   invertAxes: INVERT_AXES,
-  margin: MARGIN,
+  margin: NO_MARGIN,
   padding: PADDING
 }
 
@@ -121,28 +136,52 @@ function DataSeriesPlot({
   dataPointSize = 25,
   parentHeight,
   parentWidth,
+  showAxes = false,
+  showLegend = false,
   transformMatrix = TRANSFORM_MATRIX,
   transform
 }) {
   const {
     dark,
     global: {
-      colors = {}
+      colors = {},
+      font = {}
     }
   } = useTheme()
 
   // Destructure data and chartOptions from jsonData
-  const { data, chartOptions = CHART_OPTIONS } = jsonData || {}
+  const { data, seriesOptions } = jsonData || {}
+  const chartOptions = jsonData?.chartOptions || {
+    ...CHART_OPTIONS,
+    margin: showAxes ? AXES_MARGIN : NO_MARGIN
+  }
 
   const {
     invertAxes = INVERT_AXES,
-    margin = MARGIN,
     padding = PADDING,
     xAxisLabel,
     xAxisLabelOffset,
     yAxisLabel,
     yAxisLabelOffset
   } = chartOptions
+
+  const dataSeries = getDataPoints(data)
+  const legendEntries = dataSeries
+    .map((series, seriesIndex) => ({ label: series?.seriesOptions?.label, seriesIndex }))
+    .filter(entry => Boolean(entry.label))
+  const hasLegend = showLegend && legendEntries.length > 0
+
+  // Fall back to a larger default margin when axes are shown, so there's
+  // enough space to render the axis ticks and labels. The subject JSON's
+  // chartOptions.margin, when provided, always takes precedence.
+  const baseMargin = chartOptions.margin || (showAxes ? AXES_MARGIN : NO_MARGIN)
+  const legendColumns = Math.max(1, Math.floor((parentWidth - baseMargin.left - baseMargin.right) / LEGEND_ITEM_WIDTH))
+  const legendRows = hasLegend ? Math.ceil(legendEntries.length / legendColumns) : 0
+  const legendHeight = legendRows * LEGEND_ITEM_HEIGHT
+  const margin = {
+    ...baseMargin,
+    top: baseMargin.top + legendHeight
+  }
 
   const rangeParameters = {
     invertAxes,
@@ -163,7 +202,7 @@ function DataSeriesPlot({
     background = getZoomBackgroundColor(dark, false, colors)
   }
 
-  const sortedDataPoints = getDataPoints(data)
+  const sortedDataPoints = dataSeries
   const xScaleTransformed = transformXScale(data, transformMatrix, rangeParameters, BUFFER_PERCENTAGE_FOR_DATA_EXTENT)
 
   const yScaleTransformed = transformYScale(data, transformMatrix, rangeParameters, BUFFER_PERCENTAGE_FOR_DATA_EXTENT)
@@ -171,6 +210,30 @@ function DataSeriesPlot({
   const clipPathId = cuid()
   const plotHeight = parentHeight - margin.bottom - margin.top
   const plotWidth = parentWidth - margin.right - margin.left
+
+  const axisColor = dark ? colors['light-1'] : colors['dark-5']
+  const fontFamily = font.family
+  const axisFontSize = 12
+
+  function getSeriesColor(series, seriesIndex) {
+    if (seriesOptions) {
+      return getDataSeriesColor({
+        defaultColors: Object.values(colors.drawingTools),
+        seriesOptions,
+        seriesIndex,
+        themeColors: colors,
+        highlighted: true
+      })
+    }
+
+    return getDataSeriesColor({
+      defaultColors: Object.values(colors.drawingTools),
+      seriesOptions: series?.seriesOptions,
+      seriesIndex,
+      themeColors: colors,
+      highlighted: true
+    })
+  }
 
   return (
     <svg
@@ -201,13 +264,7 @@ function DataSeriesPlot({
           width={plotWidth}
         />
         {sortedDataPoints.map((series, seriesIndex) => {
-          const glyphColor = getDataSeriesColor({
-            defaultColors: Object.values(colors.drawingTools),
-            seriesOptions: series?.seriesOptions,
-            seriesIndex,
-            themeColors: colors,
-            highlighted: true
-          })
+          const glyphColor = getSeriesColor(series, seriesIndex)
           const GlyphComponent = getDataSeriesSymbol({ seriesOptions: series?.seriesOptions, seriesIndex })
 
           return series.seriesData.map((point, pointIndex) => {
@@ -224,9 +281,93 @@ function DataSeriesPlot({
           })
         })}
       </Group>
+      {showAxes &&
+        <Group
+          className='dataSeriesPlotAxes'
+          left={leftPosition}
+          top={topPosition}
+        >
+          <AxisLeft
+            label={yAxisLabel}
+            labelOffset={yAxisLabelOffset ? yAxisLabelOffset : 10}
+            labelProps={{
+              fill: axisColor,
+              fontFamily,
+              fontSize: axisFontSize
+            }}
+            stroke={axisColor}
+            tickLabelProps={value => ({
+              fill: axisColor,
+              fontFamily,
+              fontSize: axisFontSize,
+              dx: '-0.25em',
+              dy: yScaleTransformed(value) <= plotHeight / 2 ? '0.25em' : '-0.25em',
+              textAnchor: 'end'
+            })}
+            tickStroke={axisColor}
+            scale={yScaleTransformed}
+            tickValues={yScaleTransformed.domain()}
+          />
+          <AxisBottom
+            label={xAxisLabel}
+            labelOffset={xAxisLabelOffset ? xAxisLabelOffset : -10}
+            labelProps={{
+              fill: axisColor,
+              fontFamily,
+              fontSize: axisFontSize
+            }}
+            stroke={axisColor}
+            tickLabelProps={value => ({
+              fill: axisColor,
+              fontFamily,
+              fontSize: axisFontSize,
+              textAnchor: xScaleTransformed(value) <= plotWidth / 2 ? 'start' : 'end'
+            })}
+            tickStroke={axisColor}
+            scale={xScaleTransformed}
+            tickValues={xScaleTransformed.domain()}
+            top={plotHeight}
+          />
+        </Group>}
+      {hasLegend &&
+        <Group className='dataSeriesPlotLegend' left={leftPosition} top={0}>
+          {legendEntries.map(({ label, seriesIndex }, legendIndex) => {
+            const series = sortedDataPoints[seriesIndex]
+            const swatchColor = getSeriesColor(series, seriesIndex)
+            const GlyphComponent = getDataSeriesSymbol({ seriesOptions: series?.seriesOptions, seriesIndex })
+            const itemColumn = legendIndex % legendColumns
+            const itemRow = Math.floor(legendIndex / legendColumns)
+            const itemLeft = itemColumn * LEGEND_ITEM_WIDTH
+            const itemTop = itemRow * LEGEND_ITEM_HEIGHT
+            const swatchCenter = LEGEND_ITEM_HEIGHT / 2
+
+            return (
+              <g key={`legend-item-${seriesIndex}`}>
+                <GlyphComponent
+                  fill={swatchColor}
+                  left={itemLeft + LEGEND_SWATCH_SIZE / 2}
+                  size={LEGEND_SWATCH_SIZE * (LEGEND_SWATCH_SIZE / 2)}
+                  stroke='black'
+                  top={itemTop + swatchCenter}
+                />
+                <text
+                  dy='0.9em'
+                  fill={axisColor}
+                  fontFamily={fontFamily}
+                  fontSize={axisFontSize}
+                  x={itemLeft + LEGEND_SWATCH_SIZE + 6}
+                  y={itemTop}
+                >
+                  {label}
+                </text>
+              </g>
+            )
+          })}
+        </Group>}
     </svg>
   )
 }
+
 
 
 
@@ -273,6 +414,8 @@ DataSeriesPlot.propTypes = {
   dataPointSize: number,
   parentHeight: number.isRequired,
   parentWidth: number.isRequired,
+  showAxes: bool,
+  showLegend: bool,
   theme: object,
   transformMatrix: shape({
     scaleX: number,
@@ -283,5 +426,7 @@ DataSeriesPlot.propTypes = {
     translateY: number
   })
 }
+
+export { DataSeriesPlot }
 
 export default withParentSize(DataSeriesPlot)
