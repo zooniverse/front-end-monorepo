@@ -9,7 +9,9 @@ const SubjectDimensions = types.model('SubjectDimensions', {
   naturalWidth: types.integer
 })
 
-export const SubjectDimensionsArray = types.array(types.maybe(SubjectDimensions))
+const ImmutableSubjectDimensions = types.frozen(SubjectDimensions)
+
+export const SubjectDimensionsArray = types.array(types.maybe(ImmutableSubjectDimensions))
 
 const SubjectViewer = types
   .model('SubjectViewer', {
