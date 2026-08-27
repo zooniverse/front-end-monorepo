@@ -44,8 +44,9 @@ function OverlayLayerControl ({ overlays = [], visibility = [], onToggle }) {
         const label = overlay?.label
           || `${t('SubjectViewer.GeoMapViewer.OverlayLayerControl.fallbackLabel')} ${idx + 1}`
         return (
-          <Row key={`${idx}-${overlay?.label || overlay?.type}`}>
+          <Row key={`${idx}-${overlay?.label || overlay?.type}`} htmlFor={`overlay-${idx}`}>
             <input
+              id={`overlay-${idx}`}
               type='checkbox'
               checked={checked}
               onChange={(event) => onToggle?.(idx, event.target.checked)}
