@@ -5,6 +5,8 @@ import { createEditingStyle } from 'ol/style/Style'
 
 import { isWithinSubjectExtent } from './extentConstraint'
 import isLineStringFeature from './isLineStringFeature'
+import { selectCreatedFeature } from './mapSelection'
+import stampCreatedFeature from './stampCreatedFeature'
 
 export const FEATURE_HIT_TOLERANCE_PX = 8
 
@@ -100,31 +102,23 @@ function createGeoLineStringInteraction({
   const sourceAddKey = source.on('addfeature', syncActive)
   const sourceRemoveKey = source.on('removefeature', syncActive)
 
+  let startLayerIndex = null
+
   const drawStartKey = draw.on('drawstart', function handleDrawStart() {
     isDrawing = true
+    startLayerIndex = geoDrawingTask?.mapContext?.activeLayerIndex ?? null
   })
 
   const drawEndKey = draw.on('drawend', function handleDrawEnd(event) {
     isDrawing = false
+    const layerIndex = startLayerIndex
+    startLayerIndex = null
 
     const feature = event.feature
     if (!feature) return
 
-    if (typeof activeToolIndex === 'number') {
-      feature.set('toolIndex', activeToolIndex)
-    }
-
-    if (selectInteraction) {
-      Promise.resolve().then(() => {
-        selectInteraction.getFeatures().clear()
-        selectInteraction.getFeatures().push(feature)
-        selectInteraction.dispatchEvent({
-          type: 'select',
-          selected: [feature],
-          deselected: []
-        })
-      })
-    }
+    stampCreatedFeature(feature, { activeToolIndex, geoDrawingTask, layerIndex })
+    selectCreatedFeature(selectInteraction, feature)
 
     // drawend fires before source.addFeature, so include the in-flight feature.
     if (typeof featureCountMax === 'number' && countLineStringFeaturesForTool(source, activeToolIndex) + 1 >= featureCountMax) {
@@ -134,6 +128,7 @@ function createGeoLineStringInteraction({
 
   const drawAbortKey = draw.on('drawabort', function handleDrawAbort() {
     isDrawing = false
+    startLayerIndex = null
   })
 
   function isCapped() {

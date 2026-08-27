@@ -3,8 +3,10 @@ import { addDisposer, getRoot, types } from 'mobx-state-tree'
 
 const ClassificationMetadata = types.model('ClassificationMetadata', {
   classifier_version: types.literal('2.0'),
+  featureProjection: types.maybe(types.string),
   feedback: types.frozen({}),
   finishedAt: types.maybe(types.string),
+  mapContext: types.maybe(types.frozen()),
   revision: types.frozen(process.env.COMMIT_ID),
   session: types.maybe(types.string),
   source: types.enumeration(['api', 'sugar']),
