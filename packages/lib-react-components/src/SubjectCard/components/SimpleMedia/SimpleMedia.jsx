@@ -28,7 +28,7 @@ const StyledTitle = styled(Box)`
 	bottom: 0;
 	height: 72px;
 	left: 0;
-	padding: 20px 10px;
+	padding: 15px 5px;
 	position: absolute;
 	right: 0;
 	text-align: center;
@@ -37,11 +37,11 @@ const StyledTitle = styled(Box)`
 
 const StyledTitleText = styled.span`
 	color: ${props => props.theme.global.colors.white};
-	font-size: 1rem;
+	font-size: 0.9rem;
 	font-weight: 400;
 	letter-spacing: 0.8px;
 	line-height: 1.2;
-	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+	text-shadow: 0 1px 2px rgba(0, 0, 0, 1);
 `
 
 function SimpleMedia({
