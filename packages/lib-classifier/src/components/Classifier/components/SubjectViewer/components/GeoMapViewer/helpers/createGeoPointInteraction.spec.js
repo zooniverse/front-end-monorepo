@@ -104,6 +104,22 @@ describe('helpers > createGeoPointInteraction', function () {
     interaction.destroy()
   })
 
+  it('tags new features with the active map layer on drawend', function () {
+    const task = {
+      activeToolIndex: 0,
+      activeTool: { type: 'Point', max: 3 },
+      mapContext: { activeLayerIndex: 1, viewportBbox: null }
+    }
+    const interaction = createGeoPointInteraction({ map, source, geoDrawingTask: task, selectInteraction })
+    const drawInteraction = map.getInteractions().getArray().find(i => i.constructor.name === 'Draw')
+
+    const feature = new Feature({ geometry: new PointGeom([5, 5]) })
+    drawInteraction.dispatchEvent({ type: 'drawend', feature })
+
+    expect(feature.get('layer')).to.equal(1)
+    interaction.destroy()
+  })
+
   it('dispatches select on the new feature after drawend (microtask)', async function () {
     const interaction = createGeoPointInteraction({ map, source, geoDrawingTask, selectInteraction })
     const drawInteraction = map.getInteractions().getArray().find(i => i.constructor.name === 'Draw')
@@ -215,6 +231,36 @@ describe('helpers > createGeoPointInteraction', function () {
     })
 
     expect(interaction.isCapped()).to.equal(false)
+    interaction.destroy()
+  })
+
+  it('refuses to activate when subject-provided and drawn points together meet the max', function () {
+    source.addFeature(taggedPoint([0, 0]))
+    source.addFeature(taggedPoint([1, 1], 0))
+
+    const taskWithCap = { activeToolIndex: 0, activeTool: { type: 'Point', max: 2 } }
+    const interaction = createGeoPointInteraction({ map, source, geoDrawingTask: taskWithCap, selectInteraction })
+
+    interaction.setActive(true)
+
+    const drawInteraction = map.getInteractions().getArray().find(i => i.constructor.name === 'Draw')
+    expect(drawInteraction.getActive()).to.equal(false)
+    interaction.destroy()
+  })
+
+  it('deactivates when drawend on top of a subject-provided point brings the count to activeTool.max', function () {
+    source.addFeature(taggedPoint([0, 0]))
+    const taskWithCap = { activeToolIndex: 0, activeTool: { type: 'Point', max: 2 } }
+    const interaction = createGeoPointInteraction({ map, source, geoDrawingTask: taskWithCap, selectInteraction })
+    interaction.setActive(true)
+
+    const drawInteraction = map.getInteractions().getArray().find(i => i.constructor.name === 'Draw')
+    expect(drawInteraction.getActive()).to.equal(true)
+
+    const feature = new Feature({ geometry: new PointGeom([5, 5]) })
+    drawInteraction.dispatchEvent({ type: 'drawend', feature })
+
+    expect(drawInteraction.getActive()).to.equal(false)
     interaction.destroy()
   })
 

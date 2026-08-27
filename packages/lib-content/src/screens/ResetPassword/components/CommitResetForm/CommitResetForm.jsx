@@ -1,13 +1,14 @@
 import { useId, useRef, useState } from 'react'
-import { Box, Form, Heading, Paragraph, Text, TextInput } from 'grommet'
-import { useTranslation } from '@translations/i18n'
+import { Anchor, Box, Form, Heading, Paragraph, Text, TextInput } from 'grommet'
+import { Trans, useTranslation } from '@translations/i18n'
 import styled, { css } from 'styled-components'
-import { string } from 'prop-types'
+import { func, string } from 'prop-types'
 
 import { Loader, StatusMessage } from '@zooniverse/react-components'
 import ResetPasswordHeading from '../ResetPasswordHeading/ResetPasswordHeading'
 import doCommitPasswordReset from '../../helpers/doCommitPasswordReset.js'
 import isNewPasswordValid from '../../helpers/isNewPasswordValid.js'
+import redirectToSignInPage, { SIGN_IN_URL } from '../../helpers/redirectToSignInPage.js'
 import DarkTealPrimaryButton from '../../../Unsubscribe/components/DarkTealPrimaryButton/DarkTealPrimaryButton'
 
 const InputBoxes = styled(Box)`
@@ -32,7 +33,8 @@ const MINIMUM_PASSWORD_LENGTH = 8
 const PASSWORD_PATTERN = `.{${MINIMUM_PASSWORD_LENGTH},}`
 
 function CommitResetForm ({
-  resetPasswordToken = ''
+  resetPasswordToken = '',
+  onSuccess = redirectToSignInPage,
 }) {
 
   const { t } = useTranslation()
@@ -78,6 +80,7 @@ function CommitResetForm ({
     setIsBusy(false)
     setApiError(submitError)
     setIsComplete(!submitError)
+    if (!submitError) { onSuccess() }  // Trigger a redirect on success.
   }
 
   // Update StatusMessage
@@ -93,7 +96,17 @@ function CommitResetForm ({
 
   } else if (isComplete) {
     statusType = 'success'
-    statusText = t('ResetPassword.CommitResetForm.status.success')
+    statusText = (
+      <span>
+        <Trans
+          i18nKey='ResetPassword.CommitResetForm.status.success'
+          t={t}
+          components={[
+            <Anchor key='sign-in-link' href={SIGN_IN_URL} />
+          ]}
+        />
+      </span>
+    )
   }
 
   return (
@@ -175,6 +188,7 @@ function CommitResetForm ({
 }
 
 CommitResetForm.propTypes = {
+  onSuccess: func,
   resetPasswordToken: string,
 }
 
