@@ -2,13 +2,13 @@ import PageContextProviders from './PageContextProviders.js'
 import PageHeader from './PageHeader.js'
 import PageFooter from './PageFooter.js'
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children, locale }) {
   return (
     <body>
       <PageContextProviders>
         <PageHeader />
         {children}
-        <PageFooter />
+        <PageFooter locale={locale} />
       </PageContextProviders>
     </body>
   )

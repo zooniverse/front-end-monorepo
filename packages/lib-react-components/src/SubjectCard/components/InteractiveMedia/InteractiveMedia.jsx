@@ -1,7 +1,9 @@
-import { arrayOf, node, number, objectOf, shape, string } from 'prop-types'
+import { arrayOf, bool, node, number, objectOf, shape, string } from 'prop-types'
 
 import SimpleMedia from '../SimpleMedia'
+import Audio from './components/Audio'
 import MultiMedia from './components/MultiMedia'
+import Video from './components/Video'
 import { MULTI_MEDIA_CONTROLS_HEIGHT } from './components/MultiMedia'
 
 const SIMPLE_PREVIEW_MEDIA_TYPES = [
@@ -32,11 +34,11 @@ function InteractiveMedia({
 }) {
   const sources = getSources(subject)
   const hasMultipleSources = sources.length > 1
-  
-  const firstSource = sources.length === 1 ? sources[0] : null
-  const firstMediaType = getMediaType(firstSource?.mimeType)
-  const supportsSimplePreview = SIMPLE_PREVIEW_MEDIA_TYPES.includes(firstMediaType)
-  
+
+  const singleSource = sources.length === 1 ? sources[0] : null
+  const singleMediaType = getMediaType(singleSource?.mimeType)
+  const supportsSimplePreview = SIMPLE_PREVIEW_MEDIA_TYPES.includes(singleMediaType)
+
   const resolvedPreviewHeight = hasMultipleSources
     ? previewHeight - MULTI_MEDIA_CONTROLS_HEIGHT
     : previewHeight
@@ -45,7 +47,7 @@ function InteractiveMedia({
     return (
       <MultiMedia
         linkTitle={linkTitle}
-        mediaSources={sources.map(source => source.url)}
+        sources={sources}
         previewHeight={resolvedPreviewHeight}
         subjectIdTitle={subjectIdTitle}
         width={width}
@@ -60,8 +62,38 @@ function InteractiveMedia({
         linkTitle={linkTitle}
         placeholder={placeholder}
         previewHeight={resolvedPreviewHeight}
+        showAxes={true}
+        showLegend={true}
         showTitle={false}
         subject={subject}
+        subjectIdTitle={subjectIdTitle}
+        width={width}
+        url={url}
+      />
+    )
+  }
+
+  if (singleMediaType === 'video') {
+    return (
+      <Video
+        linkTitle={linkTitle}
+        mediaSrc={singleSource.url}
+        placeholder={placeholder}
+        previewHeight={resolvedPreviewHeight}
+        subjectIdTitle={subjectIdTitle}
+        width={width}
+        url={url}
+      />
+    )
+  }
+
+  if (singleMediaType === 'audio') {
+    return (
+      <Audio
+        linkTitle={linkTitle}
+        mediaSrc={singleSource.url}
+        placeholder={placeholder}
+        previewHeight={resolvedPreviewHeight}
         subjectIdTitle={subjectIdTitle}
         width={width}
         url={url}

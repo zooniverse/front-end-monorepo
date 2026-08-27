@@ -122,6 +122,17 @@ const ClassificationStore = types
           metadata.feedback = getSnapshot(feedback.rules)
         }
 
+        const geoDrawingTask = getRoot(self).workflowSteps?.activeStepTasks?.find(task => task.type === 'geoDrawing')
+        if (geoDrawingTask) {
+          const tileLayers = getRoot(self).workflows?.active?.configuration?.subject_viewer_config?.tile_layers ?? []
+          metadata.featureProjection = 'EPSG:4326'
+          metadata.mapContext = {
+            activeLayerIndex: geoDrawingTask.mapContext.activeLayerIndex,
+            tileLayers,
+            viewportBbox: geoDrawingTask.mapContext.viewportBbox
+          }
+        }
+
         // TODO store intervention metadata if we have a user...
         classification.metadata.update(metadata)
 

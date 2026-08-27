@@ -49,8 +49,10 @@ function SimpleMedia({
 	mediaSrc,
 	placeholder,
 	previewHeight,
-	showTitle = true,
+	showAxes = false,
+	showTitle = false,
 	showBackground,
+	showLegend = false,
 	subjectIdTitle,
 	width
 }) {
@@ -85,6 +87,8 @@ function SimpleMedia({
 					fit='contain'
 					height={previewHeight}
 					placeholder={placeholder}
+					showAxes={showAxes}
+					showLegend={showLegend}
 					showPoster={true}
 					src={mediaSrc}
 					width={width}
@@ -111,8 +115,10 @@ SimpleMedia.propTypes = {
 	mediaSrc: string,
 	placeholder: node,
 	previewHeight: number.isRequired,
+	showAxes: bool,
 	showTitle: bool,
 	showBackground: bool,
+	showLegend: bool,
 	subjectIdTitle: string.isRequired,
 	width: number.isRequired
 }

@@ -1,5 +1,5 @@
 import { Box, Paragraph } from 'grommet'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 
 function EmptyPlaceholder() {
   const { t } = useTranslation('screens')

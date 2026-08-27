@@ -1,7 +1,7 @@
 import { Loader, SpacedText } from '@zooniverse/react-components'
 import { Anchor, Box, Text } from 'grommet'
 import { Down, FormNext, Up } from 'grommet-icons'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import { number, shape, string } from 'prop-types'
 import { useState } from 'react'
 import styled from 'styled-components'
@@ -36,7 +36,7 @@ function Discussion({ discussion, login }) {
     sort,
     page_size: 10,
   }
-  
+
   const {
     data: comments,
     isLoading,
@@ -46,7 +46,7 @@ function Discussion({ discussion, login }) {
   const userIds = comments?.map(comment => comment.user_id)
   const uniqueUserIds = [...new Set(userIds)]
   const userIdsString = uniqueUserIds.join(',')
-  
+
   const {
     data: users,
     isLoading: usersLoading,
@@ -62,7 +62,7 @@ function Discussion({ discussion, login }) {
     section: `zooniverse,${discussion.section}`,
     user_id: userIdsString
   })
-  
+
   const showChronologicalSort = discussion.comments_count > 1
   const sortButtonLabel = sort === 'created_at' ? t('Talk.Discussions.sortedOldestFirst') : t('Talk.Discussions.sortedNewestFirst')
 

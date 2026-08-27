@@ -47,6 +47,38 @@ export const Default = {
   }
 }
 
+export const WithManyBoards = {
+  args: {
+    active: true,
+    boards: [
+      ...boards,
+      {
+        id: '5',
+        subject_default: false,
+        title: 'Team + Zooniverse Private Board'
+      },
+      {
+        id: '6',
+        subject_default: false,
+        title: 'Announcements and Project Updates'
+      },
+      {
+        id: '7',
+        subject_default: false,
+        title: 'Science Questions & Conversations'
+      },
+      {
+        id: '8',
+        subject_default: false,
+        title: 'Getting Started, Training Examples, and Scientific Information'
+      }
+    ],
+    onClose: () => console.log('closing modal'),
+    onSubmit: (data) => { console.log('submitted data', data)},
+    subjectId: '12345'
+  }
+}
+
 export const WithCommentMessage = {
   args: {
     active: true,

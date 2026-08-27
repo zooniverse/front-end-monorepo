@@ -6,12 +6,18 @@ import { createEditingStyle } from 'ol/style/Style'
 import { FEATURE_HIT_TOLERANCE_PX } from './createGeoLineStringInteraction'
 import { isWithinSubjectExtent } from './extentConstraint'
 import isPointFeature from './isPointFeature'
+import { selectCreatedFeature } from './mapSelection'
+import stampCreatedFeature from './stampCreatedFeature'
 
-// Subject-provided points carry no toolIndex, so they never count toward the cap.
-function countPointFeaturesForTool(source, toolIndex) {
-  return source.getFeatures().filter((feature) => (
-    isPointFeature(feature) && feature.get?.('toolIndex') === toolIndex
-  )).length
+// Subject-provided points carry no toolIndex; assign them to the first Point tool.
+function countPointFeaturesForTool(source, toolIndex, subjectPointToolIndex) {
+  return source.getFeatures().filter((feature) => {
+    if (!isPointFeature(feature)) return false
+    const featureToolIndex = feature.get?.('toolIndex')
+    return featureToolIndex === toolIndex || (
+      typeof featureToolIndex !== 'number' && toolIndex === subjectPointToolIndex
+    )
+  }).length
 }
 
 export function createSketchStyle({ map }) {
@@ -48,6 +54,10 @@ function createGeoPointInteraction({
   const activeTool = geoDrawingTask?.activeTool
   const activeToolIndex = geoDrawingTask?.activeToolIndex
   const featureCountMax = activeTool?.type === 'Point' ? activeTool.max : 0
+  const configuredSubjectPointToolIndex = geoDrawingTask?.tools?.findIndex(tool => tool?.type === 'Point')
+  const subjectPointToolIndex = configuredSubjectPointToolIndex >= 0
+    ? configuredSubjectPointToolIndex
+    : activeTool?.type === 'Point' ? activeToolIndex : undefined
 
   const draw = new Draw({
     source,
@@ -64,7 +74,7 @@ function createGeoPointInteraction({
 
   function isCapped() {
     if (featureCountMax <= 0) return true
-    return countPointFeaturesForTool(source, activeToolIndex) >= featureCountMax
+    return countPointFeaturesForTool(source, activeToolIndex, subjectPointToolIndex) >= featureCountMax
   }
 
   function syncActive() {
@@ -79,24 +89,16 @@ function createGeoPointInteraction({
     const feature = event.feature
     if (!feature) return
 
-    if (typeof activeToolIndex === 'number') {
-      feature.set('toolIndex', activeToolIndex)
+    stampCreatedFeature(feature, { activeToolIndex, geoDrawingTask })
+
+    if (activeTool?.uncertainty_circle === true) {
+      feature.set('uncertainty_radius', 0)
     }
 
-    if (selectInteraction) {
-      Promise.resolve().then(() => {
-        selectInteraction.getFeatures().clear()
-        selectInteraction.getFeatures().push(feature)
-        selectInteraction.dispatchEvent({
-          type: 'select',
-          selected: [feature],
-          deselected: []
-        })
-      })
-    }
+    selectCreatedFeature(selectInteraction, feature)
 
     // drawend fires before source.addFeature, so include the in-flight feature.
-    if (countPointFeaturesForTool(source, activeToolIndex) + 1 >= featureCountMax) {
+    if (countPointFeaturesForTool(source, activeToolIndex, subjectPointToolIndex) + 1 >= featureCountMax) {
       draw.setActive(false)
     }
   })

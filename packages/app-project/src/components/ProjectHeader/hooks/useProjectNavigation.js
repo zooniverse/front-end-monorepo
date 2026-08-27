@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 
 import PanoptesAuthContext from '@shared/contexts/PanoptesAuthContext.js'
 import { useHasLabAccess, useStores } from '.'

@@ -3,7 +3,7 @@ import { Anchor, Box, Grid, Heading, Paragraph } from 'grommet'
 import Link from 'next/link'
 import { array, bool, number, shape, string } from 'prop-types'
 import styled from 'styled-components'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 
 import addQueryParams from '@helpers/addQueryParams'
 import SubjectSetCard from './components/SubjectSetCard'

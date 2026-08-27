@@ -1,5 +1,5 @@
 import { Box } from 'grommet'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 
 export default function RequireUser() {
   const { t } = useTranslation('components')

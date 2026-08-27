@@ -1,7 +1,7 @@
 import { Nav } from 'grommet'
 import { useRouter } from 'next/router'
 import { arrayOf, string } from 'prop-types'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 
 import AboutNavLink from '../AboutNavLink'
 

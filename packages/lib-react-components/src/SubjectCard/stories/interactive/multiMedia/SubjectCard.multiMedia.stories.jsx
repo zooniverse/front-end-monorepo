@@ -1,9 +1,14 @@
 import SubjectCard from '../../../SubjectCard'
 import {
   InteractiveStory,
+  CHIMP_AND_SEE_VIDEO_IMAGES_SUBJECT,
+  DATA_IMAGES_SUBJECT,
+  NFN_IMAGE_TEXT_SUBJECT,
+  PLANET_HUNTERS_TESS_SUBJECT,
   SMITHSONIAN_WILDLIFE_MULTI_IMAGE_SUBJECT,
   SQUIRREL_MAPPER_MULTI_IMAGE_FAILED_SUBJECT,
-  SQUIRREL_MAPPER_MULTI_IMAGE_SUBJECT
+  SQUIRREL_MAPPER_MULTI_IMAGE_SUBJECT,
+  ZWICKYS_STELLAR_SLEUTHS_SUBJECT
 } from '../../SubjectCardStoryData'
 
 const meta = {
@@ -13,18 +18,33 @@ const meta = {
 
 export default meta
 
-export const LoggedOutMultiImage = {
-  render: () => <InteractiveStory subject={SMITHSONIAN_WILDLIFE_MULTI_IMAGE_SUBJECT} />
-}
-
-export const LoggedInMultiImage = {
+export const MultiImage = {
   render: () => <InteractiveStory login={'TestUser'} subject={SMITHSONIAN_WILDLIFE_MULTI_IMAGE_SUBJECT} />
 }
 
-export const LoggedInMultiImageExternal = {
+export const MultiImageExternal = {
   render: () => <InteractiveStory login={'TestUser'} subject={SQUIRREL_MAPPER_MULTI_IMAGE_SUBJECT} />
 }
 
-export const LoggedInMultiImageExternalFailed = {
+export const MultiImageExternalFailed = {
   render: () => <InteractiveStory login={'TestUser'} subject={SQUIRREL_MAPPER_MULTI_IMAGE_FAILED_SUBJECT} />
+}
+  
+export const MultiVideoImages = {
+  render: () => <InteractiveStory login={'TestUser'} subject={CHIMP_AND_SEE_VIDEO_IMAGES_SUBJECT} />
+}
+
+export const MultiImageText = {
+  render: () => <InteractiveStory login={'TestUser'} subject={NFN_IMAGE_TEXT_SUBJECT} />
+}
+
+export const MultiImageData = {
+  render: () => <InteractiveStory login={'TestUser'} subject={PLANET_HUNTERS_TESS_SUBJECT} />
+}
+
+export const MultiDataImages = {
+  render: () => <InteractiveStory login={'TestUser'} subject={DATA_IMAGES_SUBJECT} />
+}
+export const VariableStarViewer = {
+  render: () => <InteractiveStory login={'TestUser'} subject={ZWICKYS_STELLAR_SLEUTHS_SUBJECT} />
 }

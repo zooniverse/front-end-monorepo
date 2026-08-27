@@ -10,6 +10,8 @@ const GenericFeature = types.union(...featureModels)
 const toolModels = Object.values(tools)
 const GenericTool = types.union(...toolModels)
 
+const DEFAULT_MAP_CONTEXT = { activeLayerIndex: 0, viewportBbox: null }
+
 const GeoDrawing = types
   .model('GeoDrawing', {
     activeFeature: types.maybeNull(GenericFeature),
@@ -22,6 +24,7 @@ const GeoDrawing = types
   })
   .volatile(() => ({
     activeOlFeature: null,
+    mapContext: DEFAULT_MAP_CONTEXT,
     mapExtentMeters: null
   }))
   .views(self => ({
@@ -34,8 +37,19 @@ const GeoDrawing = types
       return annotation?.value?.features ?? []
     },
 
+    // Subject-supplied features carry no toolIndex; infer their tool from geometry type.
+    getToolIndexForFeature (feature) {
+      const explicitToolIndex = feature?.properties?.toolIndex
+      if (typeof explicitToolIndex === 'number') return explicitToolIndex
+
+      const geometryType = feature?.geometry?.type
+      const inferredToolType = geometryType === 'Point' ? 'Point' : geometryType === 'LineString' ? 'SegmentedLine' : undefined
+      const toolIndex = self.tools.findIndex(tool => tool.type === inferredToolType)
+      return toolIndex === -1 ? undefined : toolIndex
+    },
+
     drawnCountForTool (toolIndex) {
-      return self.drawnFeatures.filter(feature => feature?.properties?.toolIndex === toolIndex).length
+      return self.drawnFeatures.filter(feature => self.getToolIndexForFeature(feature) === toolIndex).length
     },
 
     defaultAnnotation(id = cuid()) {
@@ -56,7 +70,7 @@ const GeoDrawing = types
         const minLines = tool.min
         if (typeof minLines === 'number' && minLines > 0) {
           const matchingCount = features.filter((feature) => (
-            feature?.properties?.toolIndex === toolIndex
+            self.getToolIndexForFeature(feature) === toolIndex
           )).length
           if (matchingCount < minLines) return false
         }
@@ -121,6 +135,10 @@ const GeoDrawing = types
         self.mapExtentMeters = extentInfo
       },
 
+      updateMapContext(partialContext) {
+        self.mapContext = { ...self.mapContext, ...partialContext }
+      },
+
       setUnit(newUnit) {
         self.unit = newUnit
       },
@@ -131,6 +149,7 @@ const GeoDrawing = types
         self.activeToolIndex = 0
         // volatile state
         self.activeOlFeature = null
+        self.mapContext = DEFAULT_MAP_CONTEXT
         self.mapExtentMeters = null
         self.unit = 'meters'
       }

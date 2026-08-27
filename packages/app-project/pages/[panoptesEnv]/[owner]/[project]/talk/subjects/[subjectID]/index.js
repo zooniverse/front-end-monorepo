@@ -1,4 +1,4 @@
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations'
 
 import getDefaultPageProps from '@helpers/getDefaultPageProps'
 export { default } from '@screens/SubjectTalkPage'

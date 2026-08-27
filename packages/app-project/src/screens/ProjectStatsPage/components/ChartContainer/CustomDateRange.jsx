@@ -1,6 +1,6 @@
 import { Modal, MovableModal } from '@zooniverse/react-components'
 import { useContext, useState } from 'react'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import { Box, Button, ResponsiveContext } from 'grommet'
 import { bool, func, string } from 'prop-types'
 import styled from 'styled-components'

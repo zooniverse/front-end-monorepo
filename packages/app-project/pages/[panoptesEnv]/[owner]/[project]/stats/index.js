@@ -1,4 +1,4 @@
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations'
 
 import getProjectStatsPageProps from '@helpers/getProjectStatsPageProps'
 export { default } from '@screens/ProjectStatsPage'
