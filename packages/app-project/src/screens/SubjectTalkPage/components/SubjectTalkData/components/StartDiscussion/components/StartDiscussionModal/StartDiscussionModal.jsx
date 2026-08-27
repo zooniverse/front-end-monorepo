@@ -7,9 +7,14 @@ import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 const StyledRadioButtonGroup = styled(RadioButtonGroup)`
+  & > label {
+    flex-shrink: 0;
+  }
   & > label > div {
     margin-right: 5px;
   }
+  flex-wrap: wrap;
+  row-gap: 15px;
 `
 
 const StyledTextArea = styled(TextArea)`

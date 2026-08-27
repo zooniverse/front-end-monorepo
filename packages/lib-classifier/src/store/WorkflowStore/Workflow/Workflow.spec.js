@@ -155,6 +155,95 @@ describe('Model > Workflow', function () {
     })
   })
 
+  describe('with subject_viewer_config.overlay_layers', function () {
+    const overlayLayers = [
+      {
+        type: 'wfs',
+        label: 'NHD Hydrography',
+        url: 'https://hydro.nationalmap.gov/arcgis/services/nhd/MapServer/WFSServer',
+        typeName: 'nhd:NHDFlowline',
+        attributions: 'Source: U.S. Geological Survey, National Hydrography Dataset'
+      },
+      {
+        type: 'geojson',
+        label: 'Project area outline',
+        url: 'https://example.org/static/project-area.geojson'
+      }
+    ]
+
+    it('should round-trip a populated overlay_layers array on a geoMap workflow', function () {
+      const workflowSnapshot = WorkflowFactory.build({
+        id: 'workflow1',
+        configuration: {
+          subject_viewer: 'geoMap',
+          subject_viewer_config: {
+            overlay_layers: overlayLayers
+          }
+        },
+        display_name: 'A test geoMap workflow with configured overlay layers',
+        version: '0.0'
+      })
+      const workflow = Workflow.create(workflowSnapshot)
+      expect(workflow.configuration.subject_viewer_config.overlay_layers).to.deep.equal(overlayLayers)
+    })
+
+    it('should accept an empty overlay_layers array', function () {
+      const workflowSnapshot = WorkflowFactory.build({
+        id: 'workflow1',
+        configuration: {
+          subject_viewer: 'geoMap',
+          subject_viewer_config: {
+            overlay_layers: []
+          }
+        },
+        display_name: 'A test geoMap workflow with no configured overlay layers',
+        version: '0.0'
+      })
+      const workflow = Workflow.create(workflowSnapshot)
+      expect(workflow.configuration.subject_viewer_config.overlay_layers).to.deep.equal([])
+    })
+
+    it('should be valid when overlay_layers is omitted entirely (back-compat)', function () {
+      const workflowSnapshot = WorkflowFactory.build({
+        id: 'workflow1',
+        configuration: {
+          subject_viewer: 'geoMap',
+          subject_viewer_config: {
+            zoomConfiguration: {
+              direction: 'both',
+              minZoom: 1,
+              maxZoom: 10,
+              zoomInValue: 1.2,
+              zoomOutValue: 0.8
+            }
+          }
+        },
+        display_name: 'A test geoMap workflow without overlay_layers',
+        version: '0.0'
+      })
+      const workflow = Workflow.create(workflowSnapshot)
+      expect(workflow.configuration.subject_viewer_config.overlay_layers).to.equal(undefined)
+    })
+
+    it('should round-trip overlay_layers alongside tile_layers', function () {
+      const workflowSnapshot = WorkflowFactory.build({
+        id: 'workflow1',
+        configuration: {
+          subject_viewer: 'geoMap',
+          subject_viewer_config: {
+            tile_layers: [{ type: 'osm', label: 'OpenStreetMap' }],
+            overlay_layers: overlayLayers
+          }
+        },
+        display_name: 'A test geoMap workflow with both tile and overlay layers',
+        version: '0.0'
+      })
+      const workflow = Workflow.create(workflowSnapshot)
+      expect(workflow.configuration.subject_viewer_config.tile_layers).to.deep.equal([{ type: 'osm', label: 'OpenStreetMap' }])
+      expect(workflow.configuration.subject_viewer_config.overlay_layers).to.deep.equal(overlayLayers)
+    })
+  })
+
   describe('workflow steps', function () {
     let step
     const task = MultipleChoiceTaskFactory.build({ taskKey: 'T1' })
