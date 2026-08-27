@@ -13,12 +13,8 @@ const StyledRadioButtonGroup = styled(RadioButtonGroup)`
   & > label > div {
     margin-right: 5px;
   }
-  & > label > span {
-    margin-right: 10px;
-    max-width: 150px;
-  }
   flex-wrap: wrap;
-  row-gap: 1rem;
+  row-gap: 15px;
 `
 
 const StyledTextArea = styled(TextArea)`
