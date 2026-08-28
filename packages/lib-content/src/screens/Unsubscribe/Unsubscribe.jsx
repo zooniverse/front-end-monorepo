@@ -11,19 +11,14 @@ function Unsubscribe ({
 }) {
   return (
     <OtherLayout>
-      <Box
-        align='center'
+      <MaxWidthContent
         className='Unsubscribe-Page'
-        pad={{ horizontal: 'medium', top: 'large', bottom: 'large' }}
+        color={{ light: 'black', dark: 'white' }}
       >
-        <MaxWidthContent
-          color={{ light: 'black', dark: 'white' }}
-        >
-          <UnsubscribeForm
-            processed={processed}
-          />
-        </MaxWidthContent>
-      </Box>
+        <UnsubscribeForm
+          processed={processed}
+        />
+      </MaxWidthContent>
     </OtherLayout>
   )
 }
