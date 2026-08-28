@@ -3,6 +3,7 @@ import {
   InteractiveStory,
   CHIMP_AND_SEE_VIDEO_IMAGES_SUBJECT,
   DATA_IMAGES_SUBJECT,
+  MULTI_FRAME_UNSUPPORTED_MIME_TYPE_SUBJECT,
   NFN_IMAGE_TEXT_SUBJECT,
   PLANET_HUNTERS_TESS_SUBJECT,
   SMITHSONIAN_WILDLIFE_MULTI_IMAGE_SUBJECT,
@@ -48,3 +49,8 @@ export const MultiDataImages = {
 export const VariableStarViewer = {
   render: () => <InteractiveStory login={'TestUser'} subject={ZWICKYS_STELLAR_SLEUTHS_SUBJECT} />
 }
+
+export const MultiFrameUnsupportedMimeType = {
+  render: () => <InteractiveStory login={'TestUser'} subject={MULTI_FRAME_UNSUPPORTED_MIME_TYPE_SUBJECT} />
+}
+
