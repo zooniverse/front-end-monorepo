@@ -6,6 +6,10 @@ import { ZooniverseLogotype } from '@zooniverse/react-components'
 import ContainerBox from './ContainerBox'
 
 const HeaderBreakpoint = '36rem'
+
+// The DecorativePseudoHeader isn't an actual `<header>` because it has no
+// actual content or navigation elements. See Github:
+// https://github.com/zooniverse/front-end-monorepo/pull/7514#discussion_r3630704741
 const DecorativePseudoHeader = styled(Box)`
   min-height: 2em;
 `
@@ -35,7 +39,7 @@ function OtherLayout({ children }) {
         direction='row'
         background='neutral-1'
         justify='end'
-        pad={{ horizontal: 'medium' }}
+        pad={{ horizontal: '20px' }}
       >
         <StyledLogo id='zooniverse-logo-other-page' color='white' />
       </DecorativePseudoHeader>
@@ -52,6 +56,8 @@ function OtherLayout({ children }) {
               align='center'
               background={{ dark: 'dark-3', light: 'neutral-6' }}
               width='min(100%, 90rem)'
+              height={{ min: '80vh' }}
+              pad={{ horizontal: '20px', top: '60px', bottom: '60px' }}
             >
               {children}
             </ContainerBox>
