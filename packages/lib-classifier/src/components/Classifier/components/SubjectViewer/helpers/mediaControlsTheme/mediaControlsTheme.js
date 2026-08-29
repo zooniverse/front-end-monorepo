@@ -1,4 +1,4 @@
-const controlsTheme = {
+const mediaControlsTheme = {
   global: {
     input: {
       display: 'block',
@@ -30,4 +30,4 @@ const controlsTheme = {
   }
 }
 
-export default controlsTheme
+export default mediaControlsTheme
