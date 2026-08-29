@@ -1,4 +1,5 @@
 import { forwardRef, useState } from 'react'
+import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import styled, { withTheme } from 'styled-components'
 import { Tooltip } from '@zooniverse/react-components'
@@ -199,6 +200,16 @@ const LineControls = forwardRef(function LineControls({
 
   const buttons = (showDeleteButtons) ? deleteButtons : defaultButtons
 
+  /*
+   * Hide the controls if the user is drawing.
+   * This is handled here rather than in LineControlsContainer to preserve
+   * the position of the controls.
+  */
+  
+  if (mark.isDragging) {
+    return null
+  }
+
   return (
     <StyledSVG 
       width={`${WIDTH}`} 
@@ -253,10 +264,11 @@ const LineControls = forwardRef(function LineControls({
 LineControls.propTypes = {
   mark: PropTypes.shape({
     close: PropTypes.func,
+    isDragging: PropTypes.bool,
     redo: PropTypes.func,
     undo: PropTypes.func
   }),
   onDelete: PropTypes.func
 }
 
-export default withTheme(LineControls)
+export default withTheme(observer(LineControls))
