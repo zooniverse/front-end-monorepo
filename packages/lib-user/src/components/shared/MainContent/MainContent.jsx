@@ -1,9 +1,10 @@
 import { Loader, Modal, MovableModal, SpacedText } from '@zooniverse/react-components'
 import { Anchor, Box, Calendar, ResponsiveContext, Text } from 'grommet'
 import { arrayOf, bool, func, number, shape, string } from 'prop-types'
-import { useCallback, useContext, useEffect, useState } from 'react'
+import { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { useTranslation, Trans } from '@translations/i18n'
+import { polyfill } from '@microsoft/focusgroup-polyfill'
 
 import {
   convertStatsSecondsToHours,
@@ -51,9 +52,21 @@ function MainContent({
   totalProjects = 0
 }) {
   const { t } = useTranslation()
+  const tabList = useRef(null)
   const [activeTab, setActiveTab] = useState(0)
   const [showCalendar, setShowCalendar] = useState(false)
   const [customDateRange, setCustomDateRange] = useState([selectedDateRange.startDate, selectedDateRange.endDate])
+
+  useEffect(function addFocusgroup() {
+    if (!tabList.current) return
+    // React 18 doesn't support the focusGroup DOM property, so we add the attribute manually to the tablist.
+    tabList.current.setAttribute('focusgroup', 'tablist')
+    // polyfill focusgroup in Safari, Firefox and Edge.
+    polyfill(tabList.current)
+    if (!tabList.current.focusGroup) {
+      tabList.current.focusGroup = 'tablist'
+    }
+  }, [])
 
   const handleActiveTab = useCallback((tabIndex) => {
     setActiveTab(tabIndex)
@@ -189,26 +202,22 @@ function MainContent({
             gap='xsmall'
           >
             <Box
-              role='tablist'
+              ref={tabList}
               direction='row'
               fill={size === 'small' ? 'horizontal' : false}
               gap='medium'
             >
               <StyledTab
-                role='tab'
-                aria-expanded={activeTab === 0}
                 aria-selected={activeTab === 0}
-                active={activeTab === 0}
+                aria-expanded={activeTab === 0}
                 label={t('common.classifications')}
                 onClick={() => handleActiveTab(0)}
                 plain
                 fill={size === 'small' ? 'horizontal' : false}
               />
               <StyledTab
-                role='tab'
-                aria-expanded={activeTab === 1}
                 aria-selected={activeTab === 1}
-                active={activeTab === 1}
+                aria-expanded={activeTab === 1}
                 label={t('common.hours')}
                 onClick={() => handleActiveTab(1)}
                 plain
@@ -246,6 +255,7 @@ function MainContent({
         </Box>
         <Box
           role='tabpanel'
+          tabIndex={0}
           aria-label={activeTab === 0 ? `${t('common.classifications')} ${t('MainContent.tabContents')}` : `${t('common.hours')} ${t('MainContent.tabContents')}`}
           height='15rem'
           width='100%'

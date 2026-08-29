@@ -901,6 +901,9 @@ importers:
 
   packages/lib-user:
     dependencies:
+      '@microsoft/focusgroup-polyfill':
+        specifier: ~1.6.0
+        version: 1.6.0
       '@zooniverse/async-states':
         specifier: ~0.1.0
         version: link:../lib-async-states
@@ -2343,6 +2346,9 @@ packages:
   '@mapbox/hast-util-table-cell-style@0.2.1':
     resolution: {integrity: sha512-LyQz4XJIdCdY/+temIhD/Ed0x/p4GAOUycpFSEK2Ads1CPKZy6b7V/2ROEtQiLLQ8soIs0xe/QAoR6kwpyW/yw==}
     engines: {node: '>=12'}
+
+  '@microsoft/focusgroup-polyfill@1.6.0':
+    resolution: {integrity: sha512-SlJO8FKrdFdSEXtNTNPTlCeqyqbpyLf6suYHTK7G8WYXZf8/BWK0ucERiPgrUIpNewfQjV82BahSOW/p8YNJ1A==}
 
   '@mswjs/interceptors@0.37.6':
     resolution: {integrity: sha512-wK+5pLK5XFmgtH3aQ2YVvA3HohS3xqV/OxuVOdNx9Wpnz7VE/fnC+e1A7ln6LFYeck7gOJ/dsZV6OLplOtAJ2w==}
@@ -11153,6 +11159,8 @@ snapshots:
   '@mapbox/hast-util-table-cell-style@0.2.1':
     dependencies:
       unist-util-visit: 1.4.1
+
+  '@microsoft/focusgroup-polyfill@1.6.0': {}
 
   '@mswjs/interceptors@0.37.6':
     dependencies:
