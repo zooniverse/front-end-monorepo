@@ -6,6 +6,8 @@ import { createEditingStyle } from 'ol/style/Style'
 import { FEATURE_HIT_TOLERANCE_PX } from './createGeoLineStringInteraction'
 import { isWithinSubjectExtent } from './extentConstraint'
 import isPointFeature from './isPointFeature'
+import { selectCreatedFeature } from './mapSelection'
+import stampCreatedFeature from './stampCreatedFeature'
 
 // Subject-provided points carry no toolIndex; assign them to the first Point tool.
 function countPointFeaturesForTool(source, toolIndex, subjectPointToolIndex) {
@@ -87,25 +89,13 @@ function createGeoPointInteraction({
     const feature = event.feature
     if (!feature) return
 
-    if (typeof activeToolIndex === 'number') {
-      feature.set('toolIndex', activeToolIndex)
-    }
+    stampCreatedFeature(feature, { activeToolIndex, geoDrawingTask })
 
     if (activeTool?.uncertainty_circle === true) {
       feature.set('uncertainty_radius', 0)
     }
 
-    if (selectInteraction) {
-      Promise.resolve().then(() => {
-        selectInteraction.getFeatures().clear()
-        selectInteraction.getFeatures().push(feature)
-        selectInteraction.dispatchEvent({
-          type: 'select',
-          selected: [feature],
-          deselected: []
-        })
-      })
-    }
+    selectCreatedFeature(selectInteraction, feature)
 
     // drawend fires before source.addFeature, so include the in-flight feature.
     if (countPointFeaturesForTool(source, activeToolIndex, subjectPointToolIndex) + 1 >= featureCountMax) {

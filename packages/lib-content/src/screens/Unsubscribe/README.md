@@ -1,6 +1,6 @@
 # Unsubscribe Page
 
-The Unsubscrube Page is where users go to when they want to unsubscribe from all Zooniverse newsletters. Or, in some cases, this is where they _end up_ after successfully unsubscribing from all Zooniverse. (See Behaviours below.)
+The Unsubscribe Page is where users go to when they want to unsubscribe from all Zooniverse newsletters. Or, in some cases, this is where they _end up_ after successfully unsubscribing from all Zooniverse. (See Behaviours below.)
 
 Zooniverse URL: https://www.zooniverse.org/unsubscribe
 

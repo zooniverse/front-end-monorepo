@@ -5,6 +5,7 @@ import FlipbookControls from './FlipbookControls'
 import {
   CHIMP_AND_SEE_VIDEO_IMAGES_SUBJECT,
   NFN_IMAGE_TEXT_SUBJECT,
+  PLANET_HUNTERS_TESS_SUBJECT,
   SMITHSONIAN_WILDLIFE_MULTI_IMAGE_SUBJECT,
   SQUIRREL_MAPPER_MULTI_IMAGE_SUBJECT
 } from '../../../../stories/SubjectCardStoryData'
@@ -22,6 +23,10 @@ const VIDEO_SOURCES = CHIMP_AND_SEE_VIDEO_IMAGES_SUBJECT.locations.map(location 
   url: Object.values(location)[0]
 }))
 const IMAGE_TEXT_SOURCES = NFN_IMAGE_TEXT_SUBJECT.locations.map(location => ({
+  mimeType: Object.keys(location)[0],
+  url: Object.values(location)[0]
+}))
+const IMAGE_DATA_SOURCES = PLANET_HUNTERS_TESS_SUBJECT.locations.map(location => ({
   mimeType: Object.keys(location)[0],
   url: Object.values(location)[0]
 }))
@@ -64,4 +69,8 @@ export const VideoImages = {
 
 export const ImageText = {
   render: () => <FlipbookControlsPreview sources={IMAGE_TEXT_SOURCES} />
+}
+
+export const ImageData = {
+  render: () => <FlipbookControlsPreview sources={IMAGE_DATA_SOURCES} />
 }

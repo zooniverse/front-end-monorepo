@@ -5,6 +5,15 @@ export function selectFirstFeature(select, features) {
   select.dispatchEvent({ type: 'select', selected: [features[0]], deselected: [] })
 }
 
+export function selectCreatedFeature(select, feature) {
+  if (!select) return
+  Promise.resolve().then(() => {
+    select.getFeatures().clear()
+    select.getFeatures().push(feature)
+    select.dispatchEvent({ type: 'select', selected: [feature], deselected: [] })
+  })
+}
+
 export function clearSelectedFeature(select) {
   if (!select) return
   const deselected = [...select.getFeatures().getArray()]
