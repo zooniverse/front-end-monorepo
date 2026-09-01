@@ -65,6 +65,50 @@ describe('helpers > createGeoLineStringInteraction', function () {
     interaction.destroy()
   })
 
+  it('tags new features with the active map layer', function () {
+    const task = { activeToolIndex: 0, mapContext: { activeLayerIndex: 1, viewportBbox: null } }
+    const interaction = createGeoLineStringInteraction({ map, source, geoDrawingTask: task, selectInteraction })
+    const drawInteraction = map.getInteractions().getArray().find(i => i.constructor.name === 'Draw')
+
+    const feature = new Feature({ geometry: new LineStringGeom([[0, 0], [10, 10]]) })
+    drawInteraction.dispatchEvent({ type: 'drawstart' })
+    drawInteraction.dispatchEvent({ type: 'drawend', feature })
+
+    expect(feature.get('layer')).to.equal(1)
+    interaction.destroy()
+  })
+
+  it('captures the layer at drawstart; a mid-draw layer switch does not change the stamp', function () {
+    const task = { activeToolIndex: 0, mapContext: { activeLayerIndex: 0, viewportBbox: null } }
+    const interaction = createGeoLineStringInteraction({ map, source, geoDrawingTask: task, selectInteraction })
+    const drawInteraction = map.getInteractions().getArray().find(i => i.constructor.name === 'Draw')
+
+    drawInteraction.dispatchEvent({ type: 'drawstart' })
+    task.mapContext = { activeLayerIndex: 2, viewportBbox: null }
+    const feature = new Feature({ geometry: new LineStringGeom([[0, 0], [10, 10]]) })
+    drawInteraction.dispatchEvent({ type: 'drawend', feature })
+
+    expect(feature.get('layer')).to.equal(0)
+    interaction.destroy()
+  })
+
+  it('re-captures the layer on each drawstart after an aborted sketch', function () {
+    const task = { activeToolIndex: 0, mapContext: { activeLayerIndex: 0, viewportBbox: null } }
+    const interaction = createGeoLineStringInteraction({ map, source, geoDrawingTask: task, selectInteraction })
+    const drawInteraction = map.getInteractions().getArray().find(i => i.constructor.name === 'Draw')
+
+    drawInteraction.dispatchEvent({ type: 'drawstart' })
+    drawInteraction.dispatchEvent({ type: 'drawabort' })
+
+    task.mapContext = { activeLayerIndex: 2, viewportBbox: null }
+    drawInteraction.dispatchEvent({ type: 'drawstart' })
+    const feature = new Feature({ geometry: new LineStringGeom([[0, 0], [10, 10]]) })
+    drawInteraction.dispatchEvent({ type: 'drawend', feature })
+
+    expect(feature.get('layer')).to.equal(2)
+    interaction.destroy()
+  })
+
   it('dispatches select on the new feature after drawend (microtask)', async function () {
     const interaction = createGeoLineStringInteraction({ map, source, geoDrawingTask, selectInteraction })
     const drawInteraction = map.getInteractions().getArray().find(i => i.constructor.name === 'Draw')

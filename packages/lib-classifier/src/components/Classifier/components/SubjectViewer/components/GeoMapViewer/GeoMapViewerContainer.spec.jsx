@@ -71,6 +71,56 @@ describe('Component > GeoMapViewerContainer > storeMapper', function () {
     expect(result.tileLayers).to.deep.equal([])
   })
 
+  it('forwards overlay_layers from subject_viewer_config as the overlayLayers prop', function () {
+    const overlayLayers = [
+      {
+        type: 'wfs',
+        label: 'NHD Hydrography',
+        url: 'https://hydro.nationalmap.gov/arcgis/services/nhd/MapServer/WFSServer',
+        typeName: 'nhd:NHDFlowline',
+        attributions: 'Source: U.S. Geological Survey, National Hydrography Dataset'
+      },
+      {
+        type: 'geojson',
+        label: 'Project area',
+        url: 'https://example.org/static/project-area.geojson'
+      }
+    ]
+    const store = buildStore({
+      workflows: {
+        active: {
+          configuration: {
+            subject_viewer: 'geoMap',
+            subject_viewer_config: { overlay_layers: overlayLayers }
+          }
+        }
+      }
+    })
+    const result = storeMapper(store)
+    expect(result.overlayLayers).to.deep.equal(overlayLayers)
+  })
+
+  it('returns an empty overlayLayers array when subject_viewer_config has no overlay_layers', function () {
+    const result = storeMapper(buildStore())
+    expect(result.overlayLayers).to.deep.equal([])
+  })
+
+  it('returns an empty overlayLayers array when subject_viewer_config is missing', function () {
+    const result = storeMapper(buildStore({
+      workflows: {
+        active: {
+          configuration: { subject_viewer: 'geoMap' }
+        }
+      }
+    }))
+    expect(result.overlayLayers).to.deep.equal([])
+  })
+
+  it('returns an empty overlayLayers array when no workflow is active', function () {
+    const result = storeMapper(buildStore({ workflows: { active: undefined } }))
+    expect(result.overlayLayers).to.deep.equal([])
+  })
+
   it('preserves the existing storeMapper outputs (subject, loadingState, activeStepTasks, latest)', function () {
     const subject = { id: 'subject-2', stepHistory: { latest: { foo: 'bar' } } }
     const activeStepTasks = [{ type: 'geoDrawing' }]

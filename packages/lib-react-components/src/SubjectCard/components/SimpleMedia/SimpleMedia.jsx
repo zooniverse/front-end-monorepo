@@ -23,10 +23,12 @@ const StyledForegroundMedia = styled(Media)`
 `
 
 const StyledTitle = styled(Box)`
+	align-items: flex-end;
 	background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 100%);
 	bottom: 0;
 	height: 72px;
 	left: 0;
+	padding: 15px 5px;
 	position: absolute;
 	right: 0;
 	text-align: center;
@@ -35,10 +37,11 @@ const StyledTitle = styled(Box)`
 
 const StyledTitleText = styled.span`
 	color: ${props => props.theme.global.colors.white};
-	font-size: 1rem;
+	font-size: 0.9rem;
 	font-weight: 400;
 	letter-spacing: 0.8px;
-	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+	line-height: 1.2;
+	text-shadow: 0 1px 2px rgba(0, 0, 0, 1);
 `
 
 function SimpleMedia({
@@ -46,8 +49,10 @@ function SimpleMedia({
 	mediaSrc,
 	placeholder,
 	previewHeight,
-	showTitle = true,
+	showAxes = false,
+	showTitle = false,
 	showBackground,
+	showLegend = false,
 	subjectIdTitle,
 	width
 }) {
@@ -82,6 +87,8 @@ function SimpleMedia({
 					fit='contain'
 					height={previewHeight}
 					placeholder={placeholder}
+					showAxes={showAxes}
+					showLegend={showLegend}
 					showPoster={true}
 					src={mediaSrc}
 					width={width}
@@ -90,11 +97,9 @@ function SimpleMedia({
 
 			{showTitle ? (
 				<StyledTitle
-					align='center'
 					direction='row'
 					gap='xsmall'
 					justify='center'
-					pad={{ horizontal: 'small', vertical: 'medium' }}
 				>
 					<StyledTitleText>
 						{subjectIdTitle}
@@ -110,8 +115,10 @@ SimpleMedia.propTypes = {
 	mediaSrc: string,
 	placeholder: node,
 	previewHeight: number.isRequired,
+	showAxes: bool,
 	showTitle: bool,
 	showBackground: bool,
+	showLegend: bool,
 	subjectIdTitle: string.isRequired,
 	width: number.isRequired
 }

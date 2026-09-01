@@ -9,6 +9,7 @@ import GeoMapViewer from './GeoMapViewer'
 import ReferenceData from './components/ReferenceData'
 
 const EMPTY_TILE_LAYERS = []
+const EMPTY_OVERLAY_LAYERS = []
 
 export function storeMapper(classifierStore) {
   const {
@@ -25,6 +26,8 @@ export function storeMapper(classifierStore) {
 
   const configuredTileLayers = classifierStore.workflows?.active?.configuration?.subject_viewer_config?.tile_layers
   const tileLayers = Array.isArray(configuredTileLayers) ? configuredTileLayers : EMPTY_TILE_LAYERS
+  const configuredOverlayLayers = classifierStore.workflows?.active?.configuration?.subject_viewer_config?.overlay_layers
+  const overlayLayers = Array.isArray(configuredOverlayLayers) ? configuredOverlayLayers : EMPTY_OVERLAY_LAYERS
 
   const latest = subject?.stepHistory.latest
 
@@ -32,6 +35,7 @@ export function storeMapper(classifierStore) {
     activeStepTasks,
     latest,
     loadingState,
+    overlayLayers,
     subject,
     tileLayers
   }
@@ -47,6 +51,7 @@ function GeoMapViewerContainer ({
     activeStepTasks,
     latest,
     loadingState,
+    overlayLayers,
     subject,
     tileLayers
   } = useStores(storeMapper)
@@ -120,6 +125,7 @@ function GeoMapViewerContainer ({
       <GeoMapViewer
         geoDrawingTask={geoDrawingTask}
         geoJSON={geoJSONData}
+        overlayLayers={overlayLayers}
         subjectId={subject.id}
         tileLayers={tileLayers}
         onFeaturesChange={handleFeaturesChange}

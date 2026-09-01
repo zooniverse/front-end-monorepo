@@ -191,6 +191,10 @@
         "label": "Map layer",
         "fallbackLabel": "Layer"
       },
+      "OverlayLayerControl": {
+        "label": "Overlay layers",
+        "fallbackLabel": "Overlay"
+      },
       "MeasureButton": {
         "ariaLabel": "Measure distance"
       },

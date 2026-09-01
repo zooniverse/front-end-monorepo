@@ -1,4 +1,4 @@
-import { arrayOf, node, number, objectOf, shape, string } from 'prop-types'
+import { arrayOf, bool, node, number, objectOf, shape, string } from 'prop-types'
 
 import SimpleMedia from '../SimpleMedia'
 import Audio from './components/Audio'
@@ -62,6 +62,8 @@ function InteractiveMedia({
         linkTitle={linkTitle}
         placeholder={placeholder}
         previewHeight={resolvedPreviewHeight}
+        showAxes={true}
+        showLegend={true}
         showTitle={false}
         subject={subject}
         subjectIdTitle={subjectIdTitle}

@@ -23,6 +23,9 @@ Output:
 - true on success, false on error.
  */
 
+// 🚧 TODO: keep consistent pattern with doRequestPasswordReset().
+// Return 0 on success, return error object.
+
 import auth from 'panoptes-client/lib/auth'
 
 export default async function doUnsubscribe ({ email }) {
