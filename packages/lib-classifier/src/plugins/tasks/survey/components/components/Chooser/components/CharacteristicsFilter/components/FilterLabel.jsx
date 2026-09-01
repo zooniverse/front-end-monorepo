@@ -2,12 +2,12 @@ import { Box, Image } from 'grommet'
 import { FormClose } from 'grommet-icons'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '@translations/i18n'
 
 export const StyledFilter = styled(Box)`
   box-shadow: ${
-    props => props.focus || props.hover ? 
-      `0 0 2px 2px ${props.theme.global.colors.brand};` 
+    props => props.focus || props.hover ?
+      `0 0 2px 2px ${props.theme.global.colors.brand};`
       : '1px 1px 4px 0px rgba(0, 0, 0, 0.10);'
   };
 `

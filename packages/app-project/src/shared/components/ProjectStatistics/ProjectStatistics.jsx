@@ -1,7 +1,7 @@
 import { Box, Paragraph, Text } from 'grommet'
 import { bool, number, object, string } from 'prop-types'
 import styled from 'styled-components'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import { useRouter } from 'next/router'
 import { SpacedHeading } from '@zooniverse/react-components'
 

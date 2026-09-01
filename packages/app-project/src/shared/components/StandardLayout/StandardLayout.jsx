@@ -5,7 +5,7 @@ import { useContext } from 'react'
 import { ZooFooter } from '@zooniverse/react-components'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 
 import PanoptesAuthContext from '@shared/contexts/PanoptesAuthContext.js'
 import { AdminContainer, Announcements, ProjectHeader } from '@components'

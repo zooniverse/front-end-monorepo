@@ -7,6 +7,7 @@ describe('helpers > getInteractionStates', function () {
         measure: false,
         lineStringDraw: true,
         lineStringModify: true,
+        pointDraw: false,
         select: true,
         translate: false,
         modifyUncertainty: false,
@@ -21,6 +22,7 @@ describe('helpers > getInteractionStates', function () {
         measure: true,
         lineStringDraw: false,
         lineStringModify: false,
+        pointDraw: false,
         select: false,
         translate: false,
         modifyUncertainty: false,
@@ -29,10 +31,11 @@ describe('helpers > getInteractionStates', function () {
     })
 
     it('disables every feature interaction even when the tool is not SegmentedLine', function () {
-      expect(getInteractionStates({ activeToolType: 'Point', isMeasureModeActive: true })).to.deep.equal({
+      expect(getInteractionStates({ activeToolType: 'Point', isMeasureModeActive: true, canCreatePoints: true })).to.deep.equal({
         measure: true,
         lineStringDraw: false,
         lineStringModify: false,
+        pointDraw: false,
         select: false,
         translate: false,
         modifyUncertainty: false,
@@ -41,12 +44,28 @@ describe('helpers > getInteractionStates', function () {
     })
   })
 
-  describe('when the active tool is not SegmentedLine and measure mode is off', function () {
+  describe('when the Point tool is active with creation enabled and measure mode is off', function () {
+    it('activates PointDraw alongside the point-feature interactions', function () {
+      expect(getInteractionStates({ activeToolType: 'Point', isMeasureModeActive: false, canCreatePoints: true })).to.deep.equal({
+        measure: false,
+        lineStringDraw: false,
+        lineStringModify: false,
+        pointDraw: true,
+        select: true,
+        translate: true,
+        modifyUncertainty: true,
+        moveToClick: true
+      })
+    })
+  })
+
+  describe('when the Point tool is active with creation disabled (move-only) and measure mode is off', function () {
     it('enables Select and the point-feature interactions; disables Draw, Modify, Measure', function () {
       expect(getInteractionStates({ activeToolType: 'Point', isMeasureModeActive: false })).to.deep.equal({
         measure: false,
         lineStringDraw: false,
         lineStringModify: false,
+        pointDraw: false,
         select: true,
         translate: true,
         modifyUncertainty: true,
@@ -59,10 +78,24 @@ describe('helpers > getInteractionStates', function () {
         measure: false,
         lineStringDraw: false,
         lineStringModify: false,
+        pointDraw: false,
         select: true,
         translate: true,
         modifyUncertainty: true,
         moveToClick: true
+      })
+    })
+
+    it('does not activate PointDraw for a non-Point tool even when canCreatePoints is passed', function () {
+      expect(getInteractionStates({ activeToolType: 'SegmentedLine', isMeasureModeActive: false, canCreatePoints: true })).to.deep.equal({
+        measure: false,
+        lineStringDraw: true,
+        lineStringModify: true,
+        pointDraw: false,
+        select: true,
+        translate: false,
+        modifyUncertainty: false,
+        moveToClick: false
       })
     })
   })

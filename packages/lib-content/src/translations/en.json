@@ -365,6 +365,38 @@
     "sidebarLabel": "Discipline",
     "title": "Publications"
   },
+  "ResetPassword": {
+    "common": {
+      "header": "Reset Password"
+    },
+    "CommitResetForm": {
+      "body": "Enter your password twice to confirm it, then you'll be ready to get back to helping with real research.",
+      "inputPassword": "New password",
+      "inputConfirmation": "Confirm new password",
+      "titleForInputPattern": "8 characters minimum",
+      "infoPassword": "Minimum 8 characters",
+      "infoConfirmation": "Both fields must match",
+      "status": {
+        "success": "Your password has been changed! You'll be redirected to the <0>sign in page</0> in a few seconds, please use your new password.",
+        "errorInvalidInput": "Error: invalid input",
+        "errorPasswordsDoNotMatch": "Error: the passwords do not match, please try again."
+      },
+      "submit": "Submit"
+    },
+    "RequestResetForm": {
+      "body": "Enter your email address and we'll send you a link to reset your password.",
+      "footer": "If the reset email hasn't arrived, take a look in your spam folder. If it's not there, try another email address you might've used to join the Zooniverse.",
+      "inputEmail": "Email address",
+      "status": {
+        "success": "We've just sent an email with a link to reset your password.",
+        "errorTooManyRequests": "Error: too many password reset requests. Please try again later."
+      },
+      "submit": "Send"
+    },
+    "NoAccessMessage": {
+      "body": "You are currently logged in. Please log out if you would like to reset your password."
+    }
+  },
   "Resources": {
     "brand": {
       "heading": "Brand Resources",

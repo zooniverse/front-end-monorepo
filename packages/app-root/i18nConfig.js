@@ -1,0 +1,52 @@
+const locales = [
+  'ar', // Arabic
+  'bn', // Bengali
+  'ca', // Catalan
+  'cs', // Czech
+  'da', // Danish
+  'de', // German
+  'el', // Greek
+  'en', // English
+  'es', // Spanish
+  'fa', // Persian / Farsi
+  'fi', // Finnish
+  'fr', // French
+  'ha', // Hausa
+  'he', // Hebrew
+  'hi', // Hindi
+  'hr', // Croatian
+  'hu', // Hungarian
+  'hy', // Armenian
+  'id', // Indonesian
+  'it', // Italian
+  'ja', // Japanese
+  'kn', // Kannada
+  'ko', // Korean
+  'mr', // Marathi
+  'nl', // Dutch
+  'pl', // Polish
+  'pt', // Portuguese
+  'ru', // Russian
+  'sw', // Swahili
+  'sv', // Swedish
+  'ta', // Tamil
+  'te', // Telugu
+  'test', // Test Language
+  'tr', // Turkish
+  'uk', // Ukrainian
+  'ur', // Urdu
+  've', // Venda
+  'vi', // Vietnamese
+  'zh-CN', // Chinese Simplified
+  'zh-TW' // Chinese Traditional
+]
+
+const i18nConfig = {
+  locales,
+  defaultLocale: 'en',
+  localeDetector: false, // Don't detect locale preference in req headers
+  prefixDefault: false, // When 'en' don't show prefix in URL
+  serverSetCookie: 'never'
+}
+
+export default i18nConfig

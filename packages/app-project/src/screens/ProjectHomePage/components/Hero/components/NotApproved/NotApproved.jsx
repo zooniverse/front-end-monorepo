@@ -1,4 +1,4 @@
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import { Box, Paragraph } from 'grommet'
 import styled from 'styled-components'
 

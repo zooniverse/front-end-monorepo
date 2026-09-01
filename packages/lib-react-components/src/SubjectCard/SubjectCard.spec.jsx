@@ -10,10 +10,10 @@ vi.mock('../ShareIconButton', function() {
   }
 })
 
-import Meta, { LoggedInLandscape } from './stories/SubjectCard.image.stories'
+import Meta, { Landscape } from './stories/simple/SubjectCard.image.stories'
 
 describe('SubjectCard', function() {
-  const DefaultStory = composeStory(LoggedInLandscape, Meta)
+  const DefaultStory = composeStory(Landscape, Meta)
   const originalUrl = window.location.href
 
   afterEach(function() {

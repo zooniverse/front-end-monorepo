@@ -2,7 +2,7 @@ import asyncStates from '@zooniverse/async-states'
 import { Loader, Markdownz, SpacedText } from '@zooniverse/react-components'
 import { Box, Paragraph, Text } from 'grommet'
 import { arrayOf, bool, shape, string } from 'prop-types'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 
 import WorkflowSelectButtons from './components/WorkflowSelectButtons'
 

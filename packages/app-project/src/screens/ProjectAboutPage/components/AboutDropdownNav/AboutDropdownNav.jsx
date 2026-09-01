@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { arrayOf, string } from 'prop-types'
 import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import styled, { css } from 'styled-components'
 import Link from 'next/link'
 

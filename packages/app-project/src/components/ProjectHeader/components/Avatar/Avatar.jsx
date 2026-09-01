@@ -2,7 +2,7 @@ import { string } from 'prop-types'
 import { observer, MobXProviderContext} from 'mobx-react'
 import { useContext } from 'react'
 import styled, { css } from 'styled-components'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 
 const StyledAvatar = styled.img`
   border-radius: 100%;

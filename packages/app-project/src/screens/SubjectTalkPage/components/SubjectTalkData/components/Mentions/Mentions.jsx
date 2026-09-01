@@ -1,6 +1,6 @@
 import { Box } from 'grommet'
 import { BlockQuote } from 'grommet-icons'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import { arrayOf, shape, string } from 'prop-types'
 import styled from 'styled-components'
 
@@ -58,7 +58,7 @@ function Mentions({
             const author = users?.find(user => user.id === mention.user_id)
 
             const authorRoles = roles?.filter(role => role.user_id === author?.id)
-            
+
             return (
               <li key={mention.id}>
                 <TalkComment

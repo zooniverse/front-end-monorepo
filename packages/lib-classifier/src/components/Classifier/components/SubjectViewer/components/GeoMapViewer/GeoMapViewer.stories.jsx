@@ -56,6 +56,40 @@ export const WithMultipleLayers = {
   render: () => <MultiLayerStory />,
 }
 
+export const WithOverlayLayers = {
+  args: {
+    tileLayers: [
+      { type: 'osm', label: 'OpenStreetMap' }
+    ],
+    overlayLayers: [
+      {
+        // bbox-templated ArcGIS REST endpoint with open CORS, so the story loads in the browser
+        type: 'geojson',
+        label: 'NHD Hydrography (NHDFlowline)',
+        url: 'https://hydro.nationalmap.gov/arcgis/rest/services/nhd/MapServer/6/query?where=1%3D1&geometry={bbox}&geometryType=esriGeometryEnvelope&inSR=3857&outSR=4326&f=geojson&resultRecordCount=200',
+        attributions: 'Source: U.S. Geological Survey, National Hydrography Dataset',
+        style: { stroke: { color: 'rgba(20, 80, 180, 0.85)', width: 1.5 } }
+      }
+    ],
+    geoJSON: {
+      type: 'FeatureCollection',
+      bbox: [-91.05, 47.96, -90.97, 48.01],
+      features: [
+        {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [-91.0125, 47.9847]
+          },
+          properties: {
+            name: 'Knife Lake — center pin (test seed)'
+          }
+        }
+      ]
+    }
+  }
+}
+
 export const WithGeoDrawingTask = {
   args: {
     geoDrawingTask: GeoDrawingTask.create({
@@ -154,6 +188,70 @@ export const WithGeoDrawingLineStringTask = {
       type: 'geoDrawing'
     })
     return <GeoMapViewer {...rest} geoDrawingTask={geoDrawingTask} />
+  }
+}
+
+export const WithGeoDrawingPointCreationTask = {
+  argTypes: {
+    min: {
+      control: { type: 'number', min: 0, step: 1 },
+      description: 'Minimum number of points a volunteer must create for the task to report complete. 0 = no minimum.'
+    },
+    max: {
+      control: { type: 'number', min: 0, step: 1 },
+      description: 'Maximum number of points a volunteer can create. 0 or blank = creation disabled (move-only).'
+    },
+    seedSubjectPoint: {
+      control: 'boolean',
+      description: 'Include a point in the subject GeoJSON (auto-drawn, excluded from min/max counts).'
+    }
+  },
+  args: {
+    min: 1,
+    max: 3,
+    seedSubjectPoint: false,
+    onFeaturesChange: (featureCollection) => {
+      if (typeof window !== 'undefined') {
+        window.__geoFeatureCount = featureCollection?.features?.length ?? 0
+        window.__geoFeatures = featureCollection?.features ?? []
+      }
+    }
+  },
+  render: ({ min, max, seedSubjectPoint, ...rest }) => {
+    const pointTool = {
+      type: 'Point',
+      label: 'Point',
+      color: '#E65252'
+    }
+    if (min !== undefined && min !== '') pointTool.min = min
+    if (max !== undefined && max !== '') pointTool.max = max
+
+    const geoDrawingTask = GeoDrawingTask.create({
+      taskKey: 'T0',
+      activeToolIndex: 0,
+      tools: [pointTool],
+      type: 'geoDrawing'
+    })
+
+    const geoJSON = {
+      type: 'FeatureCollection',
+      bbox: [-91.05, 47.96, -90.97, 48.01],
+      features: seedSubjectPoint
+        ? [
+            {
+              type: 'Feature',
+              geometry: {
+                type: 'Point',
+                coordinates: [-91.0125, 47.9847]
+              },
+              properties: {
+                name: 'Knife Lake center pin (test seed)'
+              }
+            }
+          ]
+        : []
+    }
+    return <GeoMapViewer {...rest} geoDrawingTask={geoDrawingTask} geoJSON={geoJSON} />
   }
 }
 

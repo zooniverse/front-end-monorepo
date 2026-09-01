@@ -139,7 +139,7 @@ describe('Model > GeoDrawingTask', function () {
       expect(task.isComplete(annotation)).to.equal(true)
     })
 
-    it('returns false when features lack properties.toolIndex even if tool count would otherwise be met', function () {
+    it('counts untagged LineStrings toward the first SegmentedLine tool min', function () {
       const task = GeoDrawingTask.create(lineStringTaskSnapshot)
       const annotation = task.defaultAnnotation()
       annotation.update({
@@ -148,7 +148,81 @@ describe('Model > GeoDrawingTask', function () {
           { type: 'Feature', geometry: { type: 'LineString', coordinates: [[0, 0], [1, 1]] } }
         ]
       })
-      expect(task.isComplete(annotation)).to.equal(false)
+      expect(task.isComplete(annotation)).to.equal(true)
+    })
+
+    describe('with a creatable Point tool', function () {
+      const pointTaskSnapshot = {
+        strings: { instruction: 'Mark the points.' },
+        taskKey: 'T0',
+        tools: [
+          { label: 'Point', type: 'Point', min: 2, max: 3 }
+        ],
+        type: 'geoDrawing'
+      }
+
+      function pointFeature(coordinates, properties) {
+        return { type: 'Feature', geometry: { type: 'Point', coordinates }, properties }
+      }
+
+      it('returns false when fewer than tool.min points are tagged for that tool', function () {
+        const task = GeoDrawingTask.create(pointTaskSnapshot)
+        const annotation = task.defaultAnnotation()
+        annotation.update({
+          type: 'FeatureCollection',
+          features: [pointFeature([0, 0], { toolIndex: 0 })]
+        })
+        expect(task.isComplete(annotation)).to.equal(false)
+      })
+
+      it('returns true when at least tool.min points are tagged for that tool', function () {
+        const task = GeoDrawingTask.create(pointTaskSnapshot)
+        const annotation = task.defaultAnnotation()
+        annotation.update({
+          type: 'FeatureCollection',
+          features: [
+            pointFeature([0, 0], { toolIndex: 0 }),
+            pointFeature([1, 1], { toolIndex: 0 })
+          ]
+        })
+        expect(task.isComplete(annotation)).to.equal(true)
+      })
+
+      it('counts subject-provided points (no toolIndex) toward the min count', function () {
+        const task = GeoDrawingTask.create(pointTaskSnapshot)
+        const annotation = task.defaultAnnotation()
+        annotation.update({
+          type: 'FeatureCollection',
+          features: [
+            pointFeature([0, 0], {}),
+            pointFeature([1, 1], { toolIndex: 0 })
+          ]
+        })
+        expect(task.isComplete(annotation)).to.equal(true)
+      })
+
+      it('is complete when a seed point occupies a min: 1, max: 1 workflow', function () {
+        const task = GeoDrawingTask.create({
+          ...pointTaskSnapshot,
+          tools: [{ label: 'Point', type: 'Point', min: 1, max: 1 }]
+        })
+        const annotation = task.defaultAnnotation()
+        annotation.update({
+          type: 'FeatureCollection',
+          features: [pointFeature([0, 0], { uncertainty_radius: 100 })]
+        })
+        expect(task.isComplete(annotation)).to.equal(true)
+      })
+
+      it('does not enforce a min for a move-only Point tool (defaults min 0, max 0)', function () {
+        const task = GeoDrawingTask.create({
+          ...pointTaskSnapshot,
+          tools: [{ label: 'Point', type: 'Point' }]
+        })
+        const annotation = task.defaultAnnotation()
+        annotation.update({ type: 'FeatureCollection', features: [] })
+        expect(task.isComplete(annotation)).to.equal(true)
+      })
     })
 
     describe('with multiple SegmentedLine tools', function () {
@@ -208,6 +282,45 @@ describe('Model > GeoDrawingTask', function () {
         expect(task.isComplete(annotation)).to.equal(false)
       })
 
+    })
+  })
+
+  describe('Views > getToolIndexForFeature', function () {
+    const mixedToolSnapshot = {
+      strings: { instruction: 'Draw lines and points.' },
+      taskKey: 'T0',
+      tools: [
+        { label: 'Dam crest', type: 'SegmentedLine' },
+        { label: 'Point', type: 'Point' }
+      ],
+      type: 'geoDrawing'
+    }
+
+    it('returns the explicit properties.toolIndex when present', function () {
+      const task = GeoDrawingTask.create(mixedToolSnapshot)
+      const feature = { type: 'Feature', geometry: { type: 'Point', coordinates: [0, 0] }, properties: { toolIndex: 0 } }
+      expect(task.getToolIndexForFeature(feature)).to.equal(0)
+    })
+
+    it('infers the first Point tool for untagged Point features', function () {
+      const task = GeoDrawingTask.create(mixedToolSnapshot)
+      const feature = { type: 'Feature', geometry: { type: 'Point', coordinates: [0, 0] }, properties: {} }
+      expect(task.getToolIndexForFeature(feature)).to.equal(1)
+    })
+
+    it('infers the first SegmentedLine tool for untagged LineString features', function () {
+      const task = GeoDrawingTask.create(mixedToolSnapshot)
+      const feature = { type: 'Feature', geometry: { type: 'LineString', coordinates: [[0, 0], [1, 1]] }, properties: {} }
+      expect(task.getToolIndexForFeature(feature)).to.equal(0)
+    })
+
+    it('returns undefined when no tool matches the geometry type', function () {
+      const task = GeoDrawingTask.create({
+        ...mixedToolSnapshot,
+        tools: [{ label: 'Dam crest', type: 'SegmentedLine' }]
+      })
+      const feature = { type: 'Feature', geometry: { type: 'Point', coordinates: [0, 0] }, properties: {} }
+      expect(task.getToolIndexForFeature(feature)).to.equal(undefined)
     })
   })
 

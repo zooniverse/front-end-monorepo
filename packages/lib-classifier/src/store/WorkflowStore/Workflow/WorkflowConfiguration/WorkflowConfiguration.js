@@ -37,7 +37,8 @@ const WorkflowConfiguration = types.snapshotProcessor(
             zoomOutValue: types.number
           })
         ),
-        tile_layers: types.maybe(types.frozen([]))
+        tile_layers: types.maybe(types.frozen([])),
+        overlay_layers: types.maybe(types.frozen([]))
       })
     )
   })

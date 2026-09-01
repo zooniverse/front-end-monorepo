@@ -5,7 +5,7 @@ import { Next } from 'grommet-icons'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { bool, number, object, shape, string } from 'prop-types'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 
 import addQueryParams from '@helpers/addQueryParams'
 import theme from './theme'
@@ -76,7 +76,7 @@ function WorkflowSelectButton ({
 
 WorkflowSelectButton.propTypes = {
   disabled: bool,
-  /** 
+  /**
     Optional custom router. Overrides the default NextJS.
     Useful for mocking the router in stories and shallow tests.
   */

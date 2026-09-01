@@ -1,7 +1,7 @@
 import { Box } from 'grommet'
 import { observer } from 'mobx-react'
-import { arrayOf, bool, func, shape, string } from 'prop-types'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { arrayOf, bool, func, number, shape, string } from 'prop-types'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import styled from 'styled-components'
 import GeoJSON from 'ol/format/GeoJSON'
 import throttle from 'lodash/throttle'
@@ -12,19 +12,21 @@ import { useTranslation } from '@translations/i18n'
 import CoordinateInput from './components/CoordinateInput'
 import LayerControl from './components/LayerControl'
 import MeasureButton from './components/MeasureButton'
+import OverlayLayerControl from './components/OverlayLayerControl'
 import RecenterButton from './components/RecenterButton'
 import ResetButton from './components/ResetButton'
 import UnitSelect from './components/UnitSelect'
 import ZoomInButton from './components/ZoomInButton'
 import ZoomOutButton from './components/ZoomOutButton'
 import { GEOJSON_READ_OPTIONS, ZOOM_ANIMATION_DURATION_MS } from './helpers/constants'
+import getViewportBbox from './helpers/getViewportBbox'
 import loadGeoJSON from './helpers/loadGeoJSON'
-import { fitViewToFeatures } from './helpers/mapSelection'
+import { clearSelectedFeature, fitViewToExtent } from './helpers/mapSelection'
 
 import useMapCursor from './hooks/useMapCursor'
 import useMapInteractions from './hooks/useMapInteractions'
 import useMapSelection from './hooks/useMapSelection'
-import useOLMap from './hooks/useOLMap'
+import useOLMap, { isUsableOverlayDescriptor } from './hooks/useOLMap'
 import useSelectionLayer from './hooks/useSelectionLayer'
 
 const StyledBox = styled(Box)`
@@ -67,6 +69,7 @@ function sanitizeProperties(properties = {}) {
 }
 
 const EMPTY_TILE_LAYERS = []
+const EMPTY_OVERLAY_LAYERS = []
 
 function GeoMapViewer({
   geoDrawingTask,
@@ -75,6 +78,7 @@ function GeoMapViewer({
   onMapExtentChange = undefined,
   onMapReady = undefined,
   onSelectedFeatureChange = undefined,
+  overlayLayers = EMPTY_OVERLAY_LAYERS,
   tileLayers = EMPTY_TILE_LAYERS
 }) {
   const [isMeasureModeActive, setIsMeasureModeActive] = useState(false)
@@ -89,8 +93,14 @@ function GeoMapViewer({
 
   const hasGeoDrawingTask = !!(geoDrawingTask && geoDrawingTask.tools.length > 0)
   const activeToolType = geoDrawingTask?.activeTool?.type
+  // Subject features are only auto-selected in move-only workflows (no creatable point tool).
+  const autoSelect = !geoDrawingTask?.tools?.some(tool => tool.canCreate)
 
-  const { map, source, layer, scaleLine, baseLayers } = useOLMap(containerRef, tileLayers)
+  const usableOverlayLayers = useMemo(() => overlayLayers.filter(isUsableOverlayDescriptor), [overlayLayers])
+  // Sparse boolean[] keyed by overlay index; undefined means visible.
+  const [overlayVisibility, setOverlayVisibility] = useState([])
+
+  const { map, source, layer, scaleLine, baseLayers, overlays } = useOLMap(containerRef, tileLayers, overlayLayers)
 
   const { select, translate } = useMapSelection({
     map,
@@ -102,7 +112,7 @@ function GeoMapViewer({
     onSelectedFeatureChange
   })
 
-  const { draw, modify, moveToClick, measure } = useMapInteractions({
+  const { draw, modify, moveToClick, pointDraw, measure } = useMapInteractions({
     map,
     source,
     layer,
@@ -135,6 +145,7 @@ function GeoMapViewer({
     draw,
     modify,
     moveToClick,
+    pointDraw,
     geoDrawingTask,
     hasGeoDrawingTask,
     activeToolType,
@@ -151,8 +162,41 @@ function GeoMapViewer({
   }, [baseLayers, currentLayerIndex])
 
   useEffect(() => {
-    loadGeoJSON({ map, source, select, measure, data: geoJSON })
-  }, [map, source, select, measure, geoJSON])
+    overlays.forEach((overlayLayer, index) => overlayLayer.setVisible(overlayVisibility[index] !== false))
+  }, [overlays, overlayVisibility])
+
+  const handleOverlayToggle = useCallback((index, visible) => {
+    setOverlayVisibility((current) => {
+      const next = current.slice()
+      next[index] = visible
+      return next
+    })
+  }, [])
+
+  const previousLayerIndexRef = useRef(currentLayerIndex)
+  useEffect(() => {
+    if (previousLayerIndexRef.current === currentLayerIndex) return
+    previousLayerIndexRef.current = currentLayerIndex
+    clearSelectedFeature(select)
+  }, [select, currentLayerIndex])
+
+  useEffect(() => {
+    geoDrawingTask?.updateMapContext?.({ activeLayerIndex: currentLayerIndex })
+  }, [geoDrawingTask, currentLayerIndex])
+
+  useEffect(() => {
+    if (!map || !geoDrawingTask?.updateMapContext) return undefined
+    function reportViewportBbox() {
+      geoDrawingTask.updateMapContext({ viewportBbox: getViewportBbox(map) })
+    }
+    reportViewportBbox()
+    const key = map.on('moveend', reportViewportBbox)
+    return () => unByKey(key)
+  }, [map, geoDrawingTask])
+
+  useEffect(() => {
+    loadGeoJSON({ map, source, select, measure, data: geoJSON, autoSelect })
+  }, [map, source, select, measure, geoJSON, autoSelect])
 
   useEffect(() => {
     if (!source || !onFeaturesChange) return undefined
@@ -197,14 +241,14 @@ function GeoMapViewer({
 
   const handleRecenter = useCallback(() => {
     if (!map || !source || source.getFeatures().length === 0) return
-    fitViewToFeatures(map, source, ZOOM_ANIMATION_DURATION_MS)
+    fitViewToExtent(map, map.get('subjectExtent') || source.getExtent(), ZOOM_ANIMATION_DURATION_MS)
   }, [map, source])
 
   const handleReset = useCallback(() => {
     if (!map || !source || !geoJSON) return
     setIsMeasureModeActive(false)
-    loadGeoJSON({ map, source, select, measure, data: geoJSON })
-  }, [map, source, select, measure, geoJSON])
+    loadGeoJSON({ map, source, select, measure, data: geoJSON, autoSelect })
+  }, [map, source, select, measure, geoJSON, autoSelect])
 
   const handleZoom = useCallback((delta) => {
     if (!map) return
@@ -241,6 +285,11 @@ function GeoMapViewer({
           activeIndex={currentLayerIndex}
           onChange={setCurrentLayerIndex}
         />
+        <OverlayLayerControl
+          overlays={usableOverlayLayers}
+          visibility={overlayVisibility}
+          onToggle={handleOverlayToggle}
+        />
         {geoJSON && (
           <>
             <RecenterButton onClick={handleRecenter} />
@@ -273,6 +322,17 @@ GeoMapViewer.propTypes = {
   onMapExtentChange: func,
   onMapReady: func,
   onSelectedFeatureChange: func,
+  overlayLayers: arrayOf(shape({
+    type: string.isRequired,
+    label: string,
+    url: string,
+    typeName: string,
+    attributions: string,
+    style: shape({
+      stroke: shape({ color: string, width: number }),
+      fill: shape({ color: string })
+    })
+  })),
   tileLayers: arrayOf(shape({
     type: string.isRequired,
     label: string,

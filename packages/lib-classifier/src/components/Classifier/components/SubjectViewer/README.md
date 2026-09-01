@@ -79,13 +79,3 @@ The state container component should:
 The return render should be the child subject viewer that has the needed required props passed to it.
 
 The container components for the complex subject viewers like the `VariableStarViewer` and the `DataImageViewer` handle the load of multiple media types as well as may handle data transformations and other component states relevant to the composite, i.e. if pan and zoom is enabled or disabled for one of them. The complex viewers should also have a grid layout defined for how to render all the individual viewers together.
-
-## Future Enhancements
-
-Some immediate enhancements can be:
-
-- An audio media viewer
-- A spectrogram viewer containing audio, an image, and additional controller functionality.
-- Media support to the `MultiFrameViewer` beyond images
-- Refactoring `SingleImageViewer` to use `VisXZoom`
-- Implementing the additional layouts design including full screen.

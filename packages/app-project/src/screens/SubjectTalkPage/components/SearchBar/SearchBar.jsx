@@ -1,7 +1,7 @@
 import { IconActionButton } from '@zooniverse/react-components'
 import { Box, Text, TextInput } from 'grommet'
 import { Search } from 'grommet-icons'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import { useState } from 'react'
 import styled from 'styled-components'
 
@@ -18,10 +18,10 @@ function SearchBar({ projectSlug }) {
   const [searchTerm, setSearchTerm] = useState('')
 
   const { t } = useTranslation('screens')
-  
+
   const trimmedSearchTerm = searchTerm.trim()
   const disabled = trimmedSearchTerm.length === 0
-  
+
   function handleInputChange(event) {
     setSearchTerm(event.target.value)
   }

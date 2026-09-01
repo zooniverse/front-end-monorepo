@@ -1,6 +1,6 @@
 import { Box, Text } from 'grommet'
 import { Chat, User } from 'grommet-icons'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import { number } from 'prop-types'
 
 function ParticipantsAndComments({ commentsCount, usersCount }) {
@@ -27,7 +27,7 @@ function ParticipantsAndComments({ commentsCount, usersCount }) {
       >
         {usersCount}
       </Text>
-      <span 
+      <span
         id='comments-icon'
         aria-hidden='true'
       >

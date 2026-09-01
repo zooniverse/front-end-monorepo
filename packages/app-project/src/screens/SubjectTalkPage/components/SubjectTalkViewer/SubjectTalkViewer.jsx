@@ -4,7 +4,7 @@ import {
 } from '@zooniverse/react-components'
 import { Box } from 'grommet'
 import dynamic from 'next/dynamic'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import { shape, string } from 'prop-types'
 import { useState } from 'react'
 import styled from 'styled-components'
@@ -43,7 +43,7 @@ function SubjectTalkViewer({
   const [playing, setPlaying] = useState(false)
 
   const { t } = useTranslation('screens')
-  
+
   const subjectId = subject?.id
   const processedLocations = processSubjectLocations(subject?.locations)
 

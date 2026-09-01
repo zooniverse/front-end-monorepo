@@ -1,6 +1,6 @@
 import { bool, func } from 'prop-types'
 import { Modal } from '@zooniverse/react-components'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 
 function CollectionsModal ({
   active = false,

@@ -1,52 +1,30 @@
-// Note that when internationalization is introduced to app-root,
-// this file may need refactoring to handle locale in pathname
-
+import { i18nRouter } from 'next-i18n-router'
 import { NextResponse } from 'next/server'
+import i18nConfig from '../i18nConfig'
 
 export function middleware(req) {
-  /*
-    Redirect legacy PFE /about and /get-involved paths to new FEM paths
-  */
-  if (
-    req.nextUrl.pathname.startsWith('/about/acknowledgments') ||
-    req.nextUrl.pathname.startsWith('/about/acknowledgements')
-  ) {
-    return NextResponse.redirect(new URL('/about/resources', req.url))
+  // ignore the commit_id.txt for deployment actions
+  if (req.nextUrl.pathname.startsWith('/commit_id.txt')) {
+    return NextResponse.next()
   }
 
-  if (req.nextUrl.pathname.startsWith('/about/contact')) {
-    return NextResponse.redirect(new URL('/about#contact', req.url))
+  // ignore the favicons
+  if (req.nextUrl.pathname.startsWith('/favicon.ico')) {
+    return NextResponse.next()
+  }
+  if (req.nextUrl.pathname.startsWith('/icon.svg')) {
+    return NextResponse.next()
+  }
+  if (req.nextUrl.pathname.startsWith('/apple-icon.png')) {
+    return NextResponse.next()
   }
 
-  if (req.nextUrl.pathname.startsWith('/about/highlights')) {
-    return NextResponse.redirect(new URL('/about#highlights', req.url))
-  }
-
-  if (req.nextUrl.pathname.startsWith('/about/mobile-app')) {
-    return NextResponse.redirect(new URL('/about#mobile', req.url))
-  }
-
-  if (req.nextUrl.pathname.startsWith('/about/donate')) {
-    return NextResponse.redirect(new URL('/get-involved/donate', req.url))
-  }
-
-  if (req.nextUrl.pathname.startsWith('/get-involved/call-for-projects')) {
-    return NextResponse.redirect(new URL('/get-involved/collaborate', req.url))
-  }
-
-  if (req.nextUrl.pathname.startsWith('/get-involved/education')) {
-    return NextResponse.redirect(new URL('/get-involved/educate', req.url))
-  }
-
-  // There is no root Get Involved page
-  if (req.nextUrl.pathname === '/get-involved') {
-    return NextResponse.redirect(new URL('/get-involved/volunteer', req.url))
-  }
-
-  return NextResponse.next()
+  // handle locale prefix
+  return i18nRouter(req, i18nConfig)
 }
 
-/* Only care about /about and /get-involved routes */
+// runs this function only on requests to pages in our app directory
+// ignore _next internals
 export const config = {
-  matcher: ['/about/:path*', '/get-involved/:paths*']
+  matcher: ['/((?!api|_next/static|_next/image).*)']
 }
