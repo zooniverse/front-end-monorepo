@@ -123,7 +123,7 @@ function InteractionLayer({
       Improvements to isInBounds() would be helpful in the future, but for now the check for activeMark.frame
       is a fix for https://github.com/zooniverse/front-end-monorepo/issues/7195.
     */
-    if (activeMark.frame !== frame) {
+    if (activeMark?.frame !== frame) {
       return
     }
 

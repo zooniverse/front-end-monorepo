@@ -62,6 +62,7 @@ const Mark = forwardRef(function Mark(
     onDelete = defaultHandler,
     onFinish = defaultHandler,
     onSelect = defaultHandler,
+    onDeselect = defaultHandler,
     pointerEvents = 'painted',
   },
   ref
@@ -99,6 +100,7 @@ const Mark = forwardRef(function Mark(
   useEffect(function onCloseSubTasks() {
     if (isActive && mark.finished && !mark.subTaskVisibility) {
       focusMark(markRoot.current)
+      onDeselect(mark)
     }
   }, [isActive, mark.finished, mark.subTaskVisibility])
 
@@ -114,6 +116,7 @@ const Mark = forwardRef(function Mark(
       case 'Enter': {
         event.preventDefault()
         event.stopPropagation()
+        onSelect(mark)
         openSubTaskPopup()
         onFinish(event)
         return false
