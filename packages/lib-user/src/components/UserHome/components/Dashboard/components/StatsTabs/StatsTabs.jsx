@@ -9,7 +9,7 @@ import {
 import { number, shape } from 'prop-types'
 import { useContext, useState } from 'react'
 import styled from 'styled-components'
-import { useTranslation } from '@translations/i18n'
+import { useTranslation } from 'react-i18next'
 
 import { Tip } from '@components/shared'
 

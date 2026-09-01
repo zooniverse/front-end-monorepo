@@ -1,6 +1,6 @@
 import { Select } from '@components/shared'
 import { func, string } from 'prop-types'
-import { useTranslation } from '@translations/i18n'
+import { useTranslation } from 'react-i18next'
 import { Box, ResponsiveContext } from 'grommet'
 import styled from 'styled-components'
 import { SpacedText } from '@zooniverse/react-components'

@@ -2,7 +2,7 @@ import { SpacedText, ZooniverseLogo } from '@zooniverse/react-components'
 import { Box, ResponsiveContext } from 'grommet'
 import { number, string } from 'prop-types'
 import { useContext } from 'react'
-import { useTranslation } from '@translations/i18n'
+import { useTranslation } from 'react-i18next'
 
 import {
   Avatar,

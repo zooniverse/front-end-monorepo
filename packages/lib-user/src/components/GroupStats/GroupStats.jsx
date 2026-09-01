@@ -2,7 +2,7 @@ import { Grid, ResponsiveContext } from 'grommet'
 import { arrayOf, bool, func, shape, string } from 'prop-types'
 import { useContext, useEffect, useState } from 'react'
 import useSWRMutation from 'swr/mutation'
-import { useTranslation } from '@translations/i18n'
+import { useTranslation } from 'react-i18next'
 
 import {
   usePanoptesProjects,

@@ -3,6 +3,7 @@ import { initReactI18next } from 'react-i18next/initReactI18next'
 import i18nConfig from '../../i18nConfig'
 
 import { enKeys, testKeys } from '@zooniverse/content'
+import { enUserTranslations, testUserTranslations } from '@zooniverse/user'
 
 export default async function initTranslations(locale, i18nInstance) {
   i18nInstance = i18nInstance || createInstance()
@@ -20,7 +21,10 @@ export default async function initTranslations(locale, i18nInstance) {
     // fallbackNS: 'common',
     // ns: ['common']
     // preload: resources ? [] : i18nConfig.locales
-    resources: { en: { translation: enKeys }, test: { translation: testKeys } }
+    resources: {
+      en: { translation: { ...enKeys, ...enUserTranslations } },
+      test: { translation: { ...testKeys, ...testUserTranslations } }
+    }
   })
 
   return {

@@ -157,7 +157,8 @@
     },
     "RecentSubjects": {
       "error": "Translated",
-      "noSubjects": "Translated"
+      "noSubjects": "Translated",
+      "title": "Translated"
     }
   }
 }

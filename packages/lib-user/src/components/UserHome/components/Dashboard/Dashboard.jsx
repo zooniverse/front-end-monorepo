@@ -10,7 +10,7 @@ import { useContext } from 'react'
 import styled, { css, useTheme } from 'styled-components'
 import { bool, shape, string } from 'prop-types'
 import { SpacedHeading, SpacedText } from '@zooniverse/react-components'
-import { useTranslation } from '@translations/i18n'
+import { useTranslation } from 'react-i18next'
 
 import DashboardLink from './components/DashboardLink'
 import StatsTabsContainer from './components/StatsTabs/StatsTabsContainer'

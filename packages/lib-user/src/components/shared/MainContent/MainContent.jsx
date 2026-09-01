@@ -3,7 +3,7 @@ import { Anchor, Box, Calendar, ResponsiveContext, Text } from 'grommet'
 import { arrayOf, bool, func, number, shape, string } from 'prop-types'
 import { useCallback, useContext, useEffect, useState } from 'react'
 import Link from 'next/link'
-import { useTranslation, Trans } from '@translations/i18n'
+import { useTranslation, Trans } from 'react-i18next'
 
 import {
   convertStatsSecondsToHours,
