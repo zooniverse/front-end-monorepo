@@ -1,9 +1,9 @@
 import { Box, Heading, Paragraph } from 'grommet'
-import { useTranslation } from '@translations/i18n'
+import { useTranslation } from 'react-i18next'
 import ResetPasswordHeading from '../ResetPasswordHeading/ResetPasswordHeading'
 
 export default function NoAccessMessage () {
-  
+
   const { t } = useTranslation()
 
   return (
