@@ -38,12 +38,12 @@
     "swr": "~2.3.2"
   },
   "peerDependencies": {
-    "@next/third-parties": "~14.2.26",
+    "@next/third-parties": "~15.5.6",
     "@zooniverse/grommet-theme": "4.x.x",
     "@zooniverse/react-components": "~1.16.0",
     "grommet": "2.x.x",
     "grommet-icons": "4.x.x",
-    "next": "~14.2.26",
+    "next": "~15.5.21",
     "react": "~19.2.0",
     "react-dom": "~19.2.0",
     "styled-components": "6.x.x"

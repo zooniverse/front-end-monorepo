@@ -3,7 +3,7 @@
 import { Anchor, Box, Paragraph, Text } from 'grommet'
 import styled from 'styled-components'
 
-import { Trans, useTranslation } from '@translations/i18n'
+import { Trans, useTranslation } from 'react-i18next'
 import AboutLayout from '@components/PageLayout/AboutLayout'
 import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent'
 import {

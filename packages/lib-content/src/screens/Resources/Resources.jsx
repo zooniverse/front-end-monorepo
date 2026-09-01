@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components'
 import SpacedHeading from '@zooniverse/react-components/SpacedHeading'
 import ZooniverseLogo from '@zooniverse/react-components/ZooniverseLogo'
 
-import { Trans, useTranslation } from '@translations/i18n'
+import { Trans, useTranslation } from 'react-i18next'
 import AboutLayout from '@components/PageLayout/AboutLayout'
 import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent'
 import {

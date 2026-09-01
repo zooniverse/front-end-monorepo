@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import SpacedHeading from '@zooniverse/react-components/SpacedHeading'
 import { BarChart, Certificate, Chat } from 'grommet-icons'
 
-import { Trans, useTranslation } from '@translations/i18n'
+import { Trans, useTranslation } from 'react-i18next'
 import GetInvolvedLayout from '@components/PageLayout/GetInvolvedLayout'
 import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent'
 import {

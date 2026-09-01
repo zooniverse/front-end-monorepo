@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { Anchor, Box, Form, FormField, Heading, Paragraph, TextInput } from 'grommet'
-import { Trans, useTranslation } from '@translations/i18n'
+import { Trans, useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 import { bool } from 'prop-types'
 import { Loader, StatusMessage } from '@zooniverse/react-components'
@@ -138,9 +138,9 @@ function UnsubscribeForm ({
                 label={t('Unsubscribe.form.submit')}
                 type='submit'
               />
-              
+
               {isBusy && <Loader />}
-              
+
             </ReadyStateInputBox>
           </ReadyStateForm>
         )}

@@ -5,7 +5,7 @@ import Script from 'next/script'
 import { useState } from 'react'
 import styled from 'styled-components'
 
-import { useTranslation } from '@translations/i18n'
+import { useTranslation } from 'react-i18next'
 import AboutLayout from '@components/PageLayout/AboutLayout'
 import DropdownNav from '@components/DropdownNav/DropdownNav'
 import HeadingForAboutNav from '@components/HeadingForAboutNav/HeadingForAboutNav'

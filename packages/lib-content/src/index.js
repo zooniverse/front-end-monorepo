@@ -13,3 +13,6 @@ export { default as ResetPassword } from './screens/ResetPassword/ResetPassword'
 export { default as Resources } from './screens/Resources/Resources'
 export { default as Unsubscribe } from './screens/Unsubscribe/Unsubscribe'
 export { default as Volunteer } from './screens/Volunteer/Volunteer'
+
+export { default as enKeys } from './translations/en.json'
+export { default as testKeys } from './translations/test.json'

@@ -1,6 +1,6 @@
 import { useId, useRef, useState } from 'react'
 import { Anchor, Box, Form, Heading, Paragraph, Text, TextInput } from 'grommet'
-import { Trans, useTranslation } from '@translations/i18n'
+import { Trans, useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 import { func, string } from 'prop-types'
 
@@ -182,7 +182,7 @@ function CommitResetForm ({
 
           <StatusMessage type={statusType} text={statusText} />
 
-        </InputBoxes>          
+        </InputBoxes>
       </Form>
   )
 }
