@@ -100,9 +100,9 @@ const Mark = forwardRef(function Mark(
   useEffect(function onCloseSubTasks() {
     if (isActive && usesSubTasks && !mark.subTaskVisibility) {
       focusMark(markRoot.current)
-      onDeselect(mark)
+      onDeselect()
     }
-  }, [usesSubTasks, isActive, mark.subTaskVisibility])
+  }, [usesSubTasks, isActive, mark.subTaskVisibility, onDeselect])
 
   function onKeyDown(event) {
     switch (event.key) {
@@ -180,13 +180,32 @@ const Mark = forwardRef(function Mark(
 })
 
 Mark.propTypes = {
+  disabled: PropTypes.bool,
   dragging: PropTypes.bool,
   children: PropTypes.node.isRequired,
   isActive: PropTypes.bool,
   label: PropTypes.string.isRequired,
+  mark: PropTypes.shape({
+    angle: PropTypes.number,
+    finished: PropTypes.bool,
+    id: PropTypes.string.isRequired,
+    isValid: PropTypes.bool,
+    setSubTaskVisibility: PropTypes.func,
+    subTaskVisibility: PropTypes.bool,
+    tasks: PropTypes.arrayOf(PropTypes.string),
+    tool: PropTypes.shape({
+      color: PropTypes.string
+    }),
+    x: PropTypes.number,
+    x_rotate: PropTypes.number,
+    y: PropTypes.number,
+    y_rotate: PropTypes.number
+  }).isRequired,
   onDelete: PropTypes.func,
   onDeselect: PropTypes.func,
+  onFinish: PropTypes.func,
   onSelect: PropTypes.func,
+  pointerEvents: PropTypes.string,
   tool: PropTypes.shape({
     color: PropTypes.string
   })
