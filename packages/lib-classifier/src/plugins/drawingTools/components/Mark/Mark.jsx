@@ -76,7 +76,7 @@ const Mark = forwardRef(function Mark(
     stroke: tool && tool.color ? tool.color : 'green'
   }
   const focusColor = theme?.global.colors[theme?.global.colors.focus]
-  const usesSubTasks = mark.finished &&mark.isValid && mark.tasks.length > 0
+  const usesSubTasks = mark.finished && mark.isValid && mark.tasks.length > 0
 
   function openSubTaskPopup() {
     if (!mark.subTaskVisibility) {
