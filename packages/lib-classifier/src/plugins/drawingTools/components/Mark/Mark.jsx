@@ -76,7 +76,7 @@ const Mark = forwardRef(function Mark(
     stroke: tool && tool.color ? tool.color : 'green'
   }
   const focusColor = theme?.global.colors[theme?.global.colors.focus]
-  const usesSubTasks = mark.isValid && mark.tasks.length > 0
+  const usesSubTasks = mark.finished &&mark.isValid && mark.tasks.length > 0
 
   function openSubTaskPopup() {
     if (!mark.subTaskVisibility) {
@@ -92,17 +92,17 @@ const Mark = forwardRef(function Mark(
   }, [isActive, mark.finished])
 
   useEffect(function onFinishMarkWithSubTasks() {
-    if (usesSubTasks && mark.finished) {
+    if (usesSubTasks) {
       openSubTaskPopup()
     }
-  }, [usesSubTasks, mark.finished])
+  }, [usesSubTasks])
 
   useEffect(function onCloseSubTasks() {
-    if (isActive && mark.finished && !mark.subTaskVisibility) {
+    if (isActive && usesSubTasks && !mark.subTaskVisibility) {
       focusMark(markRoot.current)
       onDeselect(mark)
     }
-  }, [isActive, mark.finished, mark.subTaskVisibility])
+  }, [usesSubTasks, isActive, mark.subTaskVisibility])
 
   function onKeyDown(event) {
     switch (event.key) {
