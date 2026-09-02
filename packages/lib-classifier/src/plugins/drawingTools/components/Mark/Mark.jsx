@@ -139,6 +139,12 @@ const Mark = forwardRef(function Mark(
     markRoot.current?.scrollIntoView?.()
   }
 
+  function onBlur() {
+    if (!mark.subTaskVisibility) {
+      onDeselect()
+    }
+  }
+
   let transform = ''
   transform =
     mark.x && mark.y
@@ -166,6 +172,7 @@ const Mark = forwardRef(function Mark(
       focusable
       focusColor={focusColor}
       onFocus={onFocus}
+      onBlur={onBlur}
       onKeyDown={onKeyDown}
       onPointerUp={onPointerUp}
       pointerEvents={pointerEvents}
