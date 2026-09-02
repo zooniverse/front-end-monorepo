@@ -128,6 +128,7 @@ const Mark = forwardRef(function Mark(
   }
 
   function onPointerUp() {
+    onSelect(mark)
     if (usesSubTasks) {
       openSubTaskPopup()
     }
