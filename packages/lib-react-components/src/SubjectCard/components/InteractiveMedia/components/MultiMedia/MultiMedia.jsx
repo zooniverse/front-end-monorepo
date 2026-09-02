@@ -1,10 +1,11 @@
 import { Box } from 'grommet'
-import { bool, number, arrayOf, string, shape, objectOf } from 'prop-types'
+import { node, number, arrayOf, string, shape } from 'prop-types'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 import Media from '../../../../../Media'
 import MediaLink from '../../../MediaLink'
+import MediaFallback from '../../../MediaFallback'
 import FlipbookControls from '../FlipbookControls'
 import Audio from '../Audio'
 import Image from '../Image'
@@ -23,6 +24,7 @@ function getMediaType(mimeType) {
 
 function MultiMedia({
 	linkTitle,
+	placeholder,
 	sources = [],
 	previewHeight,
 	subjectIdTitle,
@@ -159,7 +161,16 @@ function MultiMedia({
 			)
 		}
 
-		return null
+		return (
+			<MediaLink href={url} title={linkTitle}>
+				<MediaFallback
+					alt={subjectIdTitle}
+					placeholder={placeholder}
+					previewHeight={previewHeight}
+					width={width}
+				/>
+			</MediaLink>
+		)
 	}
 
 	return (
@@ -178,6 +189,7 @@ function MultiMedia({
 
 MultiMedia.propTypes = {
 	linkTitle: string.isRequired,
+	placeholder: node,
 	sources: arrayOf(shape({
 		mimeType: string.isRequired,
 		url: string.isRequired

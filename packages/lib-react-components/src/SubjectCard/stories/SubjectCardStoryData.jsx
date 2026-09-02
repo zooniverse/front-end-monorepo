@@ -192,6 +192,31 @@ export const NOTES_FROM_NATURE_TEXT_SUBJECT = {
   metadata: DEFAULT_METADATA
 }
 
+export const UNSUPPORTED_MIME_TYPE_SUBJECT = {
+  id: '99999999',
+  links: { project: '1' },
+  locations: [
+    {
+      'model/gltf-binary': 'https://panoptes-uploads.zooniverse.org/subject_location/unsupported-mime-type.glb'
+    }
+  ],
+  metadata: DEFAULT_METADATA
+}
+
+export const MULTI_FRAME_UNSUPPORTED_MIME_TYPE_SUBJECT = {
+  id: '99999998',
+  links: { project: '1' },
+  locations: [
+    {
+      'image/jpeg': 'https://panoptes-uploads.zooniverse.org/subject_location/91a4df56-4cd8-429f-9193-d2d8481f74e5.jpeg'
+    },
+    {
+      'model/gltf-binary': 'https://panoptes-uploads.zooniverse.org/subject_location/unsupported-mime-type.glb'
+    }
+  ],
+  metadata: DEFAULT_METADATA
+}
+
 export const SMITHSONIAN_WILDLIFE_MULTI_IMAGE_SUBJECT = {
   id: '121787506',
   links: { project: '31959' },
