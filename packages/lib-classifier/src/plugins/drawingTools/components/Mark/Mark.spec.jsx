@@ -30,7 +30,6 @@ describe('Drawing tools > Mark', function () {
   const onDelete = sinon.stub()
   const onFinish = sinon.stub()
   const onSelect = sinon.stub()
-  const onDeselect = sinon.stub()
   let svgPoint
 
   describe('default behaviour', function () {
