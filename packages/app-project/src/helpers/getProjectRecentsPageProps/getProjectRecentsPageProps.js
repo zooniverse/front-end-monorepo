@@ -30,7 +30,7 @@ export default async function getProjectRecentsPageProps({ locale, params }) {
   /*
     Fetch the project and apply a snapshot to the store.
     ProjectHeader looks for a defaultWorkflow so we must hydrate the store
-    with a
+    with a project
   */
   if (params.owner && params.project) {
     const projectSlug = `${params.owner}/${params.project}`

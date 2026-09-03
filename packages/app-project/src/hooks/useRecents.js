@@ -6,7 +6,7 @@ import usePanoptesAuthToken from '@hooks/usePanoptesAuthToken'
 const SWROptions = {
   revalidateIfStale: true,
   revalidateOnMount: true,
-  revalidateOnFocus: false,
+  revalidateOnFocus: true,
   revalidateOnReconnect: true,
   refreshInterval: 0,
   keepPreviousData: true

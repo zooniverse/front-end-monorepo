@@ -51,7 +51,7 @@ function RecentsHeading() {
       >
         <StyledHeading
           color={{ dark: 'accent-1', light: 'neutral-1' }}
-          level='1'
+          level={1}
           margin='none'
         >
           {t('ProjectRecents.title')}
