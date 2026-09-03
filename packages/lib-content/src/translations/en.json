@@ -120,6 +120,24 @@
     "sidebarLabel": "Section",
     "title": "About the Zooniverse"
   },
+  "AIEthics": {
+    "heading": {
+      "first" : "Preamble",
+      "second": "Table of Contents",
+      "third": "Key Principles",
+      "fourth": "Internal Actions",
+      "fourthext": "Internal Actions Taken by Zooniverse",
+      "fifth": "Project Recommendations",
+      "fifthext": "Recommendations for Project Teams",
+      "sixth": "The 5 Ws of AI/ML-Engaged Projects",
+      "seventh": "AI and Machine Learning on Zooniverse",
+      "eighth": "Resources",
+      "ninth": "Frequently Asked Questions",
+      "tenth": "About this Framework"
+    },
+    "sidebarLabel": "Section",
+    "title": "Zooniverse AI Ethics Framework"
+  },
   "Article": {
     "url": "Read more"
   },
