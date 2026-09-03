@@ -65,12 +65,12 @@ export default function TableOfContents() {
             <Paragraph margin={{ top: '0' }} color={{ light: 'black', dark: 'white' }}>
               {t('AIEthics.toc.descriptions.nineth')}
             </Paragraph>
-            <StyledItem>
-              <Anchor plain label={t('AIEthics.heading.tenth')} href='#about-this-framework' />
-              <Paragraph margin={{ top: '0' }} color={{ light: 'black', dark: 'white' }}>
-                {t('AIEthics.toc.descriptions.tenth')}
-              </Paragraph>
-            </StyledItem>
+          </StyledItem>
+          <StyledItem>
+            <Anchor plain label={t('AIEthics.heading.tenth')} href='#about-this-framework' />
+            <Paragraph margin={{ top: '0' }} color={{ light: 'black', dark: 'white' }}>
+              {t('AIEthics.toc.descriptions.tenth')}
+            </Paragraph>
           </StyledItem>
         </StyledList>
       </nav>

@@ -18,7 +18,7 @@ import {
   StyledHeading
 } from '@components/SharedStyledComponents/SharedStyledComponents'
 
-import { KeyPrinciples, Preamble, TableOfContents } from './components'
+import { InternalActions, KeyPrinciples, Preamble, TableOfContents } from './components'
 
 const StyledAIEthicsHeading = styled(Heading)`
   position: relative;
@@ -111,17 +111,16 @@ function AIEthics() {
           {/* Internal Actions Taken by Zooniverse */}
           <HeadingForAboutNav
             color={{ light: 'black', dark: 'white' }}
-            pad={{ top: '40px', bottom: '10px' }}
             sectionIndex={3}
             sectionName={t('AIEthics.heading.fourthext')}
             setActiveSection={setActiveSection}
             slug={sidebarSections[3].slug}
           />
+          <InternalActions />
 
           {/* Recommendations for Project Teams */}
           <HeadingForAboutNav
             color={{ light: 'black', dark: 'white' }}
-            pad={{ top: '40px', bottom: '10px' }}
             sectionIndex={4}
             sectionName={t('AIEthics.heading.fifthext')}
             setActiveSection={setActiveSection}

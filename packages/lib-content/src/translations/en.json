@@ -121,6 +121,12 @@
     "title": "About the Zooniverse"
   },
   "AIEthics": {
+    "actions": {
+      "first": "<0>Adopt or adapt a </0><1>standard mode of describing AI/ML use</1> <0>(in alignment with prevailing language or existing categorization) within the Zooniverse platform.</0> Many other proposed recommendations hinge on the development and roll-out of this categorization, including approaches to transparency, agency, and consistent signaling.",
+      "second": "<0>Dedicate a page of the Zooniverse website to information and resources related to AI/ML and its use on Zooniverse.</0> This is that page! It hosts the above categorization, our project team recommendations, as well as more information about how this technology is (and has been) used on Zooniverse, what are the benefits and concerns, and how to recognize when a project is using it.",
+      "third": "<0>Incorporate guidelines into the Zooniverse internal project review process.</0> As of the launch of this page, our internal review processes have been updated to reflect the recommendations listed here. This will ensure standard practice for project leads to share information about any project-related AI/ML use and data governance commitments, to ensure potential volunteers have access to this information.",
+      "fourth": "<0>Annual review of policy by the Zooniverse leadership team.</0> Establish a regular pace at which these resources will be evaluated and/or updated, e.g. annually. We have committed to an annual review and will publish a blog post or other written update to coincide with any updates made to this framework as part of this review."
+    },
     "heading": {
       "first" : "Preamble",
       "second": "Table of Contents",
