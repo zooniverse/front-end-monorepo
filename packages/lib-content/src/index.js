@@ -1,4 +1,5 @@
 export { default as About } from './screens/About/About'
+export { default as AccountSettings } from './screens/Settings/AccountSettings'
 export { default as AIEthics } from './screens/AIEthics/AIEthics'
 export { default as Collaborate } from './screens/Collaborate/Collaborate'
 export { default as CommunityContainer } from './screens/Home/Community/CommunityContainer'
