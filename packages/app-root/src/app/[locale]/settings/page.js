@@ -1,4 +1,4 @@
-import UserSettingsContainer from './UserSettingsContainer'
+import AccountSettingsContainer from './AccountSettingsContainer'
 
 export const metadata = {
   title: 'Settings',
@@ -7,7 +7,7 @@ export const metadata = {
 
 export default async function SettingsPage () {
   return (
-    <UserSettingsContainer
+    <AccountSettingsContainer
       subPageComponent={undefined}
     />
   )
