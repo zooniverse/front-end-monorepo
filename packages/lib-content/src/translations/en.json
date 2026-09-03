@@ -147,6 +147,13 @@
         "third": "Creating, maintaining, and using this framework requires distinct responsibilities—for the Zooniverse platform, project teams, and volunteers, to ensure that the integration of AI/ML in participatory research remains transparent, ethical, and community-driven."
       }
     },
+    "principles": {
+      "first": "Build <0>transparency</0> into AI/ML-related platform governance, project development, and delivery.",
+      "second": "Design for volunteer experience and prioritize <0>agency and consent</0> for volunteers in the act of selecting projects; consider <0>benefits to</0> and <0>motivations of</0> volunteers in AI/ML-involved projects.",
+      "third": "Facilitate <0>accountability</0> by demonstrating adherence to clear guidelines as a prerequisite for launching an official Zooniverse project.",
+      "fourth": "Commit to ongoing dialogue and project and platform <0>responsiveness</0> to evolving attitudes and conversations about AI/ML.",
+      "fifth": "Utilize and align with <0>existing related AI/ML framing resources</0> and continue to engage with wider communities and stakeholders to <0>develop and adopt best practices</0> around AI/ML-engaged participatory research."
+    },
     "toc": {
       "descriptions": {
         "third": "Our organizing principles behind this framework. They summarize overarching goals that will help address the risks and concerns raised by our community members about AI/ML.",

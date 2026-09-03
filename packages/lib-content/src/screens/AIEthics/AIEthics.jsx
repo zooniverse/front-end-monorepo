@@ -18,7 +18,7 @@ import {
   StyledHeading
 } from '@components/SharedStyledComponents/SharedStyledComponents'
 
-import { Preamble, TableOfContents } from './components'
+import { KeyPrinciples, Preamble, TableOfContents } from './components'
 
 const StyledAIEthicsHeading = styled(Heading)`
   position: relative;
@@ -106,6 +106,7 @@ function AIEthics() {
             setActiveSection={setActiveSection}
             slug={sidebarSections[2].slug}
           />
+          <KeyPrinciples />
 
           {/* Internal Actions Taken by Zooniverse */}
           <HeadingForAboutNav

@@ -1,12 +1,11 @@
 import { Anchor, Box, Paragraph, Text } from 'grommet'
-import { Trans, useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 const StyledList = styled.ul`
   margin-block-start: 0;
   margin-block-end: 0;
   list-style-type: none;
-  padding-inline-start: 0;
 `
 
 const StyledItem = styled.li`
