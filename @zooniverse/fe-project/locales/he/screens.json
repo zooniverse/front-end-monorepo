@@ -1,0 +1,79 @@
+{
+  "About": {
+    "PageHeading": {
+      "title": {
+        "education": "מידע חינוכי",
+        "faq": "שאלות נפוצות",
+        "research": "מחקר",
+        "results": "תוצאות",
+        "team": "צוות"
+      }
+    },
+    "PageNav": {
+      "title": "אודות הפרויקט"
+    },
+    "SidebarHeading": "אודות",
+    "TeamMember": {
+      "collaborator": "משתף פעולה",
+      "expert": "מומחה",
+      "moderator": "מנהל",
+      "museum": "מוזיאון",
+      "owner": "בעל",
+      "researcher": "חוקר",
+      "tester": "בוחן",
+      "translator": "מתרגם"
+    }
+  },
+  "Classify": {
+    "ClassifierWrapper": {
+      "ErrorMessage": {
+        "title": "אירעה שגיאה במסווג :("
+      }
+    },
+    "RecentSubjects": {
+      "text": "אתם יכולים לדון על נושא ב-Talk, או להוסיף אותו למועדפים או לאוסף.",
+      "title": "הקיטלוגים האחרונים שלך"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "לא, תודה",
+      "confirm": "העבר אותי לשלב הבא בתהליך העבודה!",
+      "content": "כל הכבוד! מכיוון שאתם עושים עבודה כל כך טובה, כעת יש לכם  גישה למערכת עבודה נוספת. אם תרצו להמשיך לעבוד עם המערכת הנוכחית, אתם יכולים לבחור להישאר איתה.",
+      "dismiss": "אל תראה את זה שוב בסשן הזה",
+      "title": "זרימת עבודה חדשה זמינה"
+    },
+    "YourStats": {
+      "allTime": "כל הזמן",
+      "lastSeven": "7 הימים האחרונים",
+      "link": "למידע נוסף",
+      "title": "סטטיסטיקות"
+    }
+  },
+  "Home": {
+    "AboutProject": {
+      "title": "על הפרויקט {{projectName}}"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "למידע נוסף"
+      },
+      "NotApproved": {
+        "paragraph": "פרויקט זה נבנה באמצעות בונה הפרויקטים של Zooniverse אך עדיין אינו פרויקט רשמי של Zooniverse. ייתכן ששאלות ובעיות הקשורות לפרויקט זה המופנות לצוות Zooniverse לא יקבלו מענה."
+      }
+    },
+    "MessageFromResearcher": {
+      "noMessage": "צרו קשר עם צוות המחקר של Talk כדי ללמוד עוד על הפרויקט!",
+      "noMessageButton": "עבור אל Talk",
+      "title": "הודעה מהחוקר"
+    },
+    "ZooniverseTalk": {
+      "RecentSubjects": {
+        "error": "הייתה שגיאה בטעינת הנושאים :(",
+        "noSubjects": "עוד לא הגיבו על הנושא הזה. עבור אל Talk והיה הראשון להגיב!",
+        "subjectLabel": "נושא {{id}}"
+      },
+      "button": "הצטרפו לשיחה",
+      "message": "הצטרפו לשיחה עם צוות המחקר ומתנדבים נוספים!",
+      "title": "שיחה"
+    }
+  }
+}
