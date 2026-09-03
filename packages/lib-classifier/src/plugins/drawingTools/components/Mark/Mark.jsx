@@ -92,12 +92,20 @@ const Mark = forwardRef(function Mark(
   }, [isActive, mark.finished])
 
   useEffect(function onFinishMarkWithSubTasks() {
+    /* usesSubTasks flips from false => true when a mark is
+      - finished.
+      - valid.
+      - has subtasks.
+    */
     if (usesSubTasks) {
       openSubTaskPopup()
     }
   }, [usesSubTasks])
 
   useEffect(function onCloseSubTasks() {
+    /* This runs for each drawn mark when the subtask popup is closed.
+    Return keyboard focus to the mark that opened the popup, then deselect it.
+    */
     if (isActive && usesSubTasks && !mark.subTaskVisibility) {
       focusMark(markRoot.current)
       onDeselect()
