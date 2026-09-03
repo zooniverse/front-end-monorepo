@@ -147,6 +147,18 @@
         "third": "Creating, maintaining, and using this framework requires distinct responsibilities—for the Zooniverse platform, project teams, and volunteers, to ensure that the integration of AI/ML in participatory research remains transparent, ethical, and community-driven."
       }
     },
+    "toc": {
+      "descriptions": {
+        "third": "Our organizing principles behind this framework. They summarize overarching goals that will help address the risks and concerns raised by our community members about AI/ML.",
+        "fourth": "Actions our team is taking that facilitate the recommendations for project teams.",
+        "fifth": "Recommendation for teams who are running, or want to run, a Zooniverse project involving AI/ML.",
+        "sixth": "The questions that all researchers running AI/ML-engaged Zooniverse projects should be prepared to answer.",
+        "seventh": "Information about AI/ML and how it is (and has been) used on Zooniverse. Includes discussion of why project teams need or want to use AI/ML, how to know when a project is using AI/ML, and more.",
+        "eighth": "Links to more information, including external publications and policies, and examples from Zooniverse projects including AI/ML explanations and responsibility statements.",
+        "nineth": "For volunteers.",
+        "tenth": "More information about the framework and how it was developed, including information about who was involved in creating it, and how this work was funded."
+      }
+    },
     "sidebarLabel": "Section",
     "title": "Zooniverse AI Ethics Framework"
   },

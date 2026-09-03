@@ -18,7 +18,7 @@ import {
   StyledHeading
 } from '@components/SharedStyledComponents/SharedStyledComponents'
 
-import { Preamble } from './components'
+import { Preamble, TableOfContents } from './components'
 
 const StyledAIEthicsHeading = styled(Heading)`
   position: relative;
@@ -38,7 +38,7 @@ function AIEthics() {
   const sidebarSections = [
     { name: t('AIEthics.heading.first'), slug: 'preamble' },
     { name: t('AIEthics.heading.second'), slug: 'table-of-contents' },
-    { name: t('AIEthics.heading.third'), slug: 'key-principle' },
+    { name: t('AIEthics.heading.third'), slug: 'key-principles' },
     { name: t('AIEthics.heading.fourth'), slug: 'internal-actions' },
     { name: t('AIEthics.heading.fifth'), slug: 'project-recommendations' },
     { name: t('AIEthics.heading.sixth'), slug: '5-ws' },
@@ -96,6 +96,7 @@ function AIEthics() {
             setActiveSection={setActiveSection}
             slug={sidebarSections[1].slug}
           />
+          <TableOfContents />
 
           {/* Key Principles */}
           <HeadingForAboutNav
@@ -161,7 +162,7 @@ function AIEthics() {
             color={{ light: 'black', dark: 'white' }}
             pad={{ top: '40px', bottom: '10px' }}
             sectionIndex={8}
-            sectionName={t('AIEthics.heading.ninth')}
+            sectionName={t('AIEthics.heading.nineth')}
             setActiveSection={setActiveSection}
             slug={sidebarSections[8].slug}
           />
