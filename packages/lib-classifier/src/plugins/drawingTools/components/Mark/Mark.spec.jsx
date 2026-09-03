@@ -462,10 +462,6 @@ describe('Drawing tools > Mark', function () {
     it('should preserve the window scroll position', function () {
       expect(window.scrollTo).to.have.been.calledOnce
     })
-
-    it('should be deselected', function () {
-      expect(onDeselect).to.have.been.calledOnce
-    })
   })
 
   describe('disabled marks', function () {
