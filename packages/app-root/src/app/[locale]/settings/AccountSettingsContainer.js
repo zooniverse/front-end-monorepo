@@ -1,5 +1,7 @@
 'use client'
 
+import { AccountSettings } from '@zooniverse/content'
+
 import { useContext } from 'react'
 
 import { PanoptesAuthContext } from '@/contexts'
@@ -21,9 +23,9 @@ function UserSettingsContainer() {
       login={login}
       user={user}
     >
-      <div>
-        PLACEHOLDER
-      </div>
+      <AccountSettings
+        user={user}
+      />
     </AuthenticatedUsersPageContainer>
   )
 }
