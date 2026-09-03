@@ -197,9 +197,9 @@ Mark.propTypes = {
     finished: PropTypes.bool,
     id: PropTypes.string.isRequired,
     isValid: PropTypes.bool,
-    setSubTaskVisibility: PropTypes.func,
+    setSubTaskVisibility: PropTypes.func.isRequired,
     subTaskVisibility: PropTypes.bool,
-    tasks: PropTypes.arrayOf(PropTypes.string),
+    tasks: PropTypes.arrayOf(PropTypes.object).isRequired,
     tool: PropTypes.shape({
       color: PropTypes.string
     }),
