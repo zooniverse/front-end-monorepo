@@ -104,11 +104,10 @@ const Mark = forwardRef(function Mark(
 
   useEffect(function onCloseSubTasks() {
     /* This runs for each drawn mark when the subtask popup is closed.
-    Return keyboard focus to the mark that opened the popup, then deselect it.
+    Return keyboard focus to the mark that opened the popup.
     */
     if (isActive && usesSubTasks && !mark.subTaskVisibility) {
       focusMark(markRoot.current)
-      onDeselect()
     }
   }, [usesSubTasks, isActive, mark.subTaskVisibility, onDeselect])
 
