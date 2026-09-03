@@ -132,8 +132,20 @@
       "sixth": "The 5 Ws of AI/ML-Engaged Projects",
       "seventh": "AI and Machine Learning on Zooniverse",
       "eighth": "Resources",
-      "ninth": "Frequently Asked Questions",
+      "nineth": "Frequently Asked Questions",
       "tenth": "About this Framework"
+    },
+    "preamble": {
+      "list": {
+        "first": "The Zooniverse platform is responsible for <0>developing</0> and <0>upholding</0> these recommendations.",
+        "second": "Project teams are responsible for <0>interpreting</0> and <0>implementing</0> recommendations. ",
+        "third": "Volunteers are empowered to <0>confirm</0> or <0>question</0> implementation through feedback or exercising agency (e.g. choosing not to participate in a project)."
+      },
+      "paragraphs": {
+        "first": "This page presents the Zooniverse AI Ethics Framework, including recommendations for running projects on Zooniverse that engage with artificial intelligence (AI) and/or machine learning (ML). This is a living framework, and we are committed to improving and iterating as we receive feedback and as the technological, social, and cultural contexts continue to evolve. This page is primarily intended to provide information to Zooniverse volunteers. Project teams can read <0>specific guidance in our Zooniverse documentation</0>.",
+        "second": "While the application of ‘AI’ technology on Zooniverse has traditionally been through specific ML processes (“algorithmic tools and technologies that learn from existing data to solve tasks”), the term ‘AI’ has become a catch-all for describing this type of automation. AI broadly refers to “computers that can emulate human thought,” and machine learning is a subset of this concept. In this framework, we will use ‘AI/ML’ throughout  to refer to these processes, in order to be broadly inclusive of a range of methods, as well as to retain some distinction between these two terms.",
+        "third": "Creating, maintaining, and using this framework requires distinct responsibilities—for the Zooniverse platform, project teams, and volunteers, to ensure that the integration of AI/ML in participatory research remains transparent, ethical, and community-driven."
+      }
     },
     "sidebarLabel": "Section",
     "title": "Zooniverse AI Ethics Framework"

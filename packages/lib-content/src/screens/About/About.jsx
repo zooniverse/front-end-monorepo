@@ -76,7 +76,7 @@ function AboutPage() {
         }}
       />
       <AboutLayout>
-        <MobileHeading level='1' size='1.5rem'>
+        <MobileHeading level={1} size='1.5rem'>
           {t('AboutPage.title')}
         </MobileHeading>
         <StickyBox background={{ dark: 'dark-3', light: 'neutral-6' }}>
@@ -90,7 +90,7 @@ function AboutPage() {
         <MaxWidthContent>
           <StyledAboutHeading
             color={{ light: 'neutral-1', dark: 'accent-1' }}
-            level='1'
+            level={1}
             size='small'
           >
             {t('AboutPage.title')}

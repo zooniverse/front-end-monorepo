@@ -1,7 +1,7 @@
 import AIEthics from './AIEthics'
 
 export default {
-  title: 'AIEthics / AIEthics',
+  title: 'About / AIEthics',
   component: AIEthics
 }
 

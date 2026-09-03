@@ -14,8 +14,11 @@ import {
   MobileHeading,
   StickyBox,
   StickySidebar,
-  StyledGrid
+  StyledGrid,
+  StyledHeading
 } from '@components/SharedStyledComponents/SharedStyledComponents'
+
+import { Preamble } from './components'
 
 const StyledAIEthicsHeading = styled(Heading)`
   position: relative;
@@ -28,7 +31,7 @@ const StyledAIEthicsHeading = styled(Heading)`
   }
 `
 
-function AboutPage() {
+function AIEthics() {
   const { t } = useTranslation()
   const [activeSection, setActiveSection] = useState(0)
 
@@ -47,7 +50,7 @@ function AboutPage() {
 
   return (
     <AboutLayout>
-      <MobileHeading level='1' size='1.5rem'>
+      <MobileHeading level={1} size='1.5rem'>
         {t('AIEthics.title')}
       </MobileHeading>
       <StickyBox background={{ dark: 'dark-3', light: 'neutral-6' }}>
@@ -59,13 +62,13 @@ function AboutPage() {
         />
       </StickyBox>
       <MaxWidthContent>
-        <StyledAboutHeading color={{ light: 'neutral-1', dark: 'accent-1' }} level='1' size='small'>
+        <StyledHeading color={{ light: 'neutral-1', dark: 'accent-1' }} level={1} size='small'>
           {t('AIEthics.title')}
-        </StyledAboutHeading>
+        </StyledHeading>
       </MaxWidthContent>
 
       <StyledGrid>
-        <Box as='aside' align='center'>
+        <Box as='aside' align='center' pad={{ right: 'small'}}>
           <StickySidebar
             activeSection={activeSection}
             ariaLabel={t('AIEthics.sidebarLabel')}
@@ -77,18 +80,17 @@ function AboutPage() {
         <article>
           {/* Preamble */}
           <HeadingForAboutNav
-            color={{ light: 'neutral-1', dark: 'accent-1' }}
-            pad={{ top: '40px', bottom: '10px' }}
+            color={{ light: 'black', dark: 'white' }}
             sectionIndex={0}
             sectionName={t('AIEthics.heading.first')}
             setActiveSection={setActiveSection}
             slug={sidebarSections[0].slug}
           />
+          <Preamble />
 
           {/* Clickable Table of Contents */}
           <HeadingForAboutNav
-            color={{ light: 'neutral-1', dark: 'accent-1' }}
-            pad={{ top: '40px', bottom: '10px' }}
+            color={{ light: 'black', dark: 'white' }}
             sectionIndex={1}
             sectionName={t('AIEthics.heading.second')}
             setActiveSection={setActiveSection}
@@ -97,8 +99,7 @@ function AboutPage() {
 
           {/* Key Principles */}
           <HeadingForAboutNav
-            color={{ light: 'neutral-1', dark: 'accent-1' }}
-            pad={{ top: '40px', bottom: '10px' }}
+            color={{ light: 'black', dark: 'white' }}
             sectionIndex={2}
             sectionName={t('AIEthics.heading.third')}
             setActiveSection={setActiveSection}
@@ -107,7 +108,7 @@ function AboutPage() {
 
           {/* Internal Actions Taken by Zooniverse */}
           <HeadingForAboutNav
-            color={{ light: 'neutral-1', dark: 'accent-1' }}
+            color={{ light: 'black', dark: 'white' }}
             pad={{ top: '40px', bottom: '10px' }}
             sectionIndex={3}
             sectionName={t('AIEthics.heading.fourthext')}
@@ -117,7 +118,7 @@ function AboutPage() {
 
           {/* Recommendations for Project Teams */}
           <HeadingForAboutNav
-            color={{ light: 'neutral-1', dark: 'accent-1' }}
+            color={{ light: 'black', dark: 'white' }}
             pad={{ top: '40px', bottom: '10px' }}
             sectionIndex={4}
             sectionName={t('AIEthics.heading.fifthext')}
@@ -127,7 +128,7 @@ function AboutPage() {
 
           {/* The 5 Ws of AI/ML-Engaged Projects */}
           <HeadingForAboutNav
-            color={{ light: 'neutral-1', dark: 'accent-1' }}
+            color={{ light: 'black', dark: 'white' }}
             pad={{ top: '40px', bottom: '10px' }}
             sectionIndex={5}
             sectionName={t('AIEthics.heading.sixth')}
@@ -137,7 +138,7 @@ function AboutPage() {
 
           {/* AI and Machine Learning on Zooniverse */}
           <HeadingForAboutNav
-            color={{ light: 'neutral-1', dark: 'accent-1' }}
+            color={{ light: 'black', dark: 'white' }}
             pad={{ top: '40px', bottom: '10px' }}
             sectionIndex={6}
             sectionName={t('AIEthics.heading.seventh')}
@@ -147,7 +148,7 @@ function AboutPage() {
 
           {/* Resources */}
           <HeadingForAboutNav
-            color={{ light: 'neutral-1', dark: 'accent-1' }}
+            color={{ light: 'black', dark: 'white' }}
             pad={{ top: '40px', bottom: '10px' }}
             sectionIndex={7}
             sectionName={t('AIEthics.heading.eighth')}
@@ -157,7 +158,7 @@ function AboutPage() {
 
           {/* Frequently Asked Questions */}
           <HeadingForAboutNav
-            color={{ light: 'neutral-1', dark: 'accent-1' }}
+            color={{ light: 'black', dark: 'white' }}
             pad={{ top: '40px', bottom: '10px' }}
             sectionIndex={8}
             sectionName={t('AIEthics.heading.ninth')}
@@ -167,7 +168,7 @@ function AboutPage() {
 
           {/* About this Framework */}
           <HeadingForAboutNav
-            color={{ light: 'neutral-1', dark: 'accent-1' }}
+            color={{ light: 'black', dark: 'white' }}
             pad={{ top: '40px', bottom: '10px' }}
             sectionIndex={9}
             sectionName={t('AIEthics.heading.tenth')}
@@ -175,7 +176,10 @@ function AboutPage() {
             slug={sidebarSections[9].slug}
           />
         </article>
+        <Box />
       </StyledGrid>
     </AboutLayout>
   )
 }
+
+export default AIEthics
