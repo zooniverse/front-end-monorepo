@@ -92,7 +92,6 @@ function DrawingToolMarks({
               label={`Delete ${tool.type}`}
               mark={mark}
               onDelete={deleteMark}
-              onDeselect={deselectMark}
             />
           )}
         </Mark>
