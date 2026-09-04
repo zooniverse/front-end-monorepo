@@ -3,10 +3,20 @@ import { Group, Lock } from 'grommet-icons'
 import { object, string } from 'prop-types'
 import styled from 'styled-components'
 
+import Media from '../Media'
+
+const COVER_WIDTH = 280
+const COVER_HEIGHT = 200
+
 const StyledCollectionCard = styled(Box)`
   overflow: hidden;
   position: relative;
   text-decoration: none;
+`
+
+const CoverPreview = styled(Box)`
+  overflow: hidden;
+  position: relative;
 `
 
 const CollectionDetails = styled(Box)`
@@ -39,6 +49,9 @@ const CollectionDescription = styled(Text)`
 
 const Header = styled(Box)`
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), transparent);
+  position: absolute;
+  top: 0;
+  z-index: 1;
 `
 
 const Badge = styled(Text)`
@@ -53,7 +66,7 @@ const Badge = styled(Text)`
 
 function CollectionCard({ collection, userId }) {
   const {
-    default_subject_src: imageSrc,
+    default_subject_src: mediaSrc,
     description,
     display_name: displayName,
     links,
@@ -76,19 +89,31 @@ function CollectionCard({ collection, userId }) {
       round='8px'
       width='280px'
     >
-      <Box
-        background={imageSrc
-          ? { image: `url(${imageSrc})`, position: 'center', size: 'cover' }
-          : { dark: 'dark-3', light: 'light-3' }}
+      <CoverPreview
         flex={false}
         height='200px'
         round={{ corner: 'top', size: '8px' }}
+        width={`${COVER_WIDTH}px`}
       >
+        {mediaSrc ? (
+          <Media
+            alt=''
+            aria-hidden='true'
+            controls={false}
+            defaultMimeType='image'
+            fit='cover'
+            height={COVER_HEIGHT}
+            showPoster={true}
+            src={mediaSrc}
+            width={COVER_WIDTH}
+          />
+        ) : null}
         <Header
           direction='row'
           height='45px'
           justify='between'
           pad={{ horizontal: 'xsmall', vertical: 'xsmall' }}
+          width='100%'
         >
           <Badge
             color='white'
@@ -101,7 +126,7 @@ function CollectionCard({ collection, userId }) {
             {subjectCount.toLocaleString()}
           </Badge>
         </Header>
-      </Box>
+      </CoverPreview>
       <CollectionDetails
         align='center'
         background={{ dark: 'dark-3', light: 'white' }}
