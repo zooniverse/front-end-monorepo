@@ -620,7 +620,8 @@
   },
   "Settings": {
     "common": {
-      "title": "Settings",
+      "title": "User Settings",
+      "sidebar": "Settings",
       "backHome": "Back Home"
     },
     "AccountSettings": {
