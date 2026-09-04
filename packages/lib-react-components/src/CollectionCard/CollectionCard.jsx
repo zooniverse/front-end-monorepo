@@ -47,7 +47,7 @@ const Badge = styled(Text)`
   border-radius: 60px;
   box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.25);
   height: fit-content;
-  max-width: 80%;
+  max-width: 70%;
   padding: 6px 5px;
 `
 
@@ -98,7 +98,7 @@ function CollectionCard({ collection, userId }) {
             {owner?.display_name}
           </Badge>
           <Badge color='white' size='0.75rem'>
-            {subjectCount}
+            {subjectCount.toLocaleString()}
           </Badge>
         </Header>
       </Box>
@@ -114,10 +114,10 @@ function CollectionCard({ collection, userId }) {
           direction='row'
           fill='horizontal'
           height={{ max: '45px' }}
-          justify='between'
+          justify={!isPrivate && !hasCollaborators ? 'center' : 'between'}
           pad='xsmall'
         >
-          {isPrivate ? <Lock aria-label='Private collection' size='12px' /> : <span />}
+          {isPrivate ? <Lock aria-label='Private collection' size='12px' /> : null}
           <Text
             color={{ dark: 'neutral-6', light: 'dark-5' }}
             size='0.875rem'
