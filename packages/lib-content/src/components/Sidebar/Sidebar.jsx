@@ -49,7 +49,10 @@ function Sidebar({
           <StyledLi key={section.name}>
             <StyledButton
               aria-current={index === activeSection ? 'true' : 'false'}
-              href={section.slug ? `#${section.slug}` : ''}
+              href={
+                section.href ||
+                (section.slug ? `#${section.slug}` : '')
+              }
               onClick={() => setActiveSection(index)}
             >
               <SpacedText
@@ -75,6 +78,7 @@ Sidebar.propTypes = {
   sections: arrayOf(
     shape({
       name: string,
+      href: string,  // Use either slug OR href. href takes precedence.
       slug: string
     })
   ),
