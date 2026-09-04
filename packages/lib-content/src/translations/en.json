@@ -425,6 +425,12 @@
     },
     "title": "Resources"
   },
+  "Settings": {
+    "common": {
+      "title": "Settings",
+      "backHome": "Back Home"
+    }
+  },
   "Sidebar": {
     "all": "All"
   },
