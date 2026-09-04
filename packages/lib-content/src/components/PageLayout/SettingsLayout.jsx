@@ -1,6 +1,7 @@
 import { Anchor, Box, Text, ThemeContext } from 'grommet'
 import { FormPrevious as BackLinkIcon } from 'grommet-icons'
 import styled, { css } from 'styled-components'
+import { useTranslation } from 'react-i18next'
 import Link from 'next/link'
 
 import { ZooniverseLogotype } from '@zooniverse/react-components'
@@ -52,13 +53,10 @@ const customTheme = {
 }
 
 function SettingsLayout({ children }) {
-  // Note: the the Decorative Pseudo-Header looks visually similar to the
-  // AboutLayout's AboutHeader (used on About pages), except the DPH isn't a
-  // <header> element and has no <nav> elements. It's purely decorative.
-
-  // TODO: add to en.json
-  const navTitle = 'Settings'
-  const backLinkLabel = 'Back Home'
+  
+  const { t } = useTranslation()
+  const navTitle = t('Settings.common.title')
+  const backLinkLabel = t('Settings.common.backHome')
   const backLinkUrl = '/'
 
   return (
