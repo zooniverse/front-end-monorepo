@@ -4,6 +4,7 @@ import { object, string } from 'prop-types'
 import styled from 'styled-components'
 
 import Media from '../Media'
+import { useTranslation } from '../translations/i18n'
 
 const COVER_WIDTH = 280
 const COVER_HEIGHT = 200
@@ -65,6 +66,7 @@ const Badge = styled(Text)`
 `
 
 function CollectionCard({ collection, userId }) {
+  const { t } = useTranslation()
   const {
     default_subject_src: mediaSrc,
     description,
@@ -80,7 +82,7 @@ function CollectionCard({ collection, userId }) {
 
   return (
     <StyledCollectionCard
-      a11yTitle={`${displayName}, ${owner?.display_name}, ${subjectCount} subjects`}
+      a11yTitle={t('CollectionCard.a11yTitle', { collectionName: displayName, ownerName: owner?.display_name, subjectCount })}
       elevation='small'
       flex={false}
       forwardedAs='a'
@@ -142,7 +144,7 @@ function CollectionCard({ collection, userId }) {
           justify={!isPrivate && !hasCollaborators ? 'center' : 'between'}
           pad='xsmall'
         >
-          {isPrivate ? <Lock aria-label='Private collection' size='12px' /> : null}
+          {isPrivate ? <Lock aria-label={t('CollectionCard.private')} size='12px' /> : null}
           <Text
             color={{ dark: 'neutral-6', light: 'dark-5' }}
             size='0.875rem'
@@ -151,7 +153,7 @@ function CollectionCard({ collection, userId }) {
           >
             {displayName}
           </Text>
-          {hasCollaborators ? <Group aria-label='Collection has collaborators' size='12px' /> : null}
+          {hasCollaborators ? <Group aria-label={t('CollectionCard.collaborators')} size='12px' /> : null}
         </Box>
         {description ? (
           <CollectionDescription
