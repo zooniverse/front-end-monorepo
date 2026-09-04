@@ -1,6 +1,6 @@
 'use client'
 
-import OtherLayout from '@components/PageLayout/OtherLayout'
+import SettingsLayout from '@components/PageLayout/SettingsLayout'
 import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent'
 import { arrayOf, shape, string } from 'prop-types'
 
@@ -10,7 +10,7 @@ function AccountSettings ({
   if (!user) return null
 
   return (
-    <OtherLayout>
+    <SettingsLayout>
       <MaxWidthContent
         className='Unsubscribe-Page'
         color={{ light: 'black', dark: 'white' }}
@@ -18,7 +18,7 @@ function AccountSettings ({
         <h1>Account Settings Placeholder</h1>
         <p>User is {user.login}</p>
       </MaxWidthContent>
-    </OtherLayout>
+    </SettingsLayout>
   )
 }
 
