@@ -429,6 +429,15 @@
     "common": {
       "title": "Settings",
       "backHome": "Back Home"
+    },
+    "AccountSettings": {
+      "title": "Account"
+    },
+    "ProfileSettings": {
+      "title": "Profile"
+    },
+    "EmailSettings": {
+      "title": "Email"
     }
   },
   "Sidebar": {
