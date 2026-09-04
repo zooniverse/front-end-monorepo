@@ -35,9 +35,9 @@ function AccountSettings ({
 
   const activeSection = 0
   const sidebarSections = [
-    { name: t('Settings.AccountSettings.title'), slug: 'TODO1' },
-    { name: t('Settings.ProfileSettings.title'), slug: 'TODO2' },
-    { name: t('Settings.EmailSettings.title'), slug: 'TODO3' }
+    { name: t('Settings.AccountSettings.title'), href: '/settings' },
+    { name: t('Settings.ProfileSettings.title'), href: '/settings/profile' },
+    { name: t('Settings.EmailSettings.title'), href: '/settings/email' }
   ]
 
   return (
