@@ -45,7 +45,7 @@ function AccountSettings ({
       <StickyBox background={{ dark: 'dark-3', light: 'neutral-6' }}>
         <DropdownNav
           activeSection={activeSection}
-          sidebarLabel={t('AboutPage.sidebarLabel')}
+          sidebarLabel={t('Settings.common.sidebar')}
           sections={sidebarSections}
           // setActiveSection={setActiveSection}
         />
@@ -55,7 +55,7 @@ function AccountSettings ({
         <Box as='aside' align='center'>
           <StickySidebar
             activeSection={activeSection}
-            ariaLabel={t('AboutPage.sidebarLabel')}
+            ariaLabel={t('Settings.common.sidebar')}
             sections={sidebarSections}
             //setActiveSection={setActiveSection}
           />
