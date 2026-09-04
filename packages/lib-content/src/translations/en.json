@@ -425,6 +425,22 @@
     },
     "title": "Resources"
   },
+  "Settings": {
+    "common": {
+      "title": "User Settings",
+      "sidebar": "Settings",
+      "backHome": "Back Home"
+    },
+    "AccountSettings": {
+      "title": "Account"
+    },
+    "ProfileSettings": {
+      "title": "Profile"
+    },
+    "EmailSettings": {
+      "title": "Email"
+    }
+  },
   "Sidebar": {
     "all": "All"
   },

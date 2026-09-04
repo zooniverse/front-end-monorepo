@@ -15,29 +15,24 @@ function ResetPassword ({
 }) {
   return (
     <OtherLayout>
-      <Box
-        align='center'
+      <MaxWidthContent
         className='Reset-Password-Page'
-        pad={{ horizontal: 'medium', top: 'large', bottom: 'large' }}
+        color={{ light: 'black', dark: 'white' }}
       >
-        <MaxWidthContent
-          color={{ light: 'black', dark: 'white' }}
-        >
-          {isLoggedIn && (
-            <NoAccessMessage />
-          )}
+        {isLoggedIn && (
+          <NoAccessMessage />
+        )}
 
-          {!isLoggedIn && !resetPasswordToken && (
-            <RequestResetForm />
-          )}
+        {!isLoggedIn && !resetPasswordToken && (
+          <RequestResetForm />
+        )}
 
-          {!isLoggedIn && resetPasswordToken && (
-            <CommitResetForm
-              resetPasswordToken={resetPasswordToken}
-            />
-          )}
-        </MaxWidthContent>
-      </Box>
+        {!isLoggedIn && resetPasswordToken && (
+          <CommitResetForm
+            resetPasswordToken={resetPasswordToken}
+          />
+        )}
+      </MaxWidthContent>
     </OtherLayout>
   )
 }

@@ -1,4 +1,5 @@
 export { default as About } from './screens/About/About'
+export { default as AccountSettings } from './screens/Settings/AccountSettings'
 export { default as Collaborate } from './screens/Collaborate/Collaborate'
 export { default as CommunityContainer } from './screens/Home/Community/CommunityContainer'
 export { default as Default404 } from './screens/404/Default404'
