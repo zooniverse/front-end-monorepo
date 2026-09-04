@@ -8,6 +8,8 @@ export default {
 export const Default = {
   args: {
     user: {
+      display_name: 'Zooniverse Test User',
+      id: '1000',
       login: 'zootester'
     }
   }
