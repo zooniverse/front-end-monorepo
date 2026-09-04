@@ -55,6 +55,11 @@
   "CollectIconButton": {
     "collect": "Add to collection"
   },
+  "CollectionCard": {
+    "a11yTitle": "{{collectionName}}, {{ownerName}}, {{subjectCount}} subjects",
+    "collaborators": "Collection has collaborators",
+    "private": "Private collection"
+  },
   "CollectionsModal": {
     "title": "Manage Collections",
     "CreateCollection": {
