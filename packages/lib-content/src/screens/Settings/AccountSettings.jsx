@@ -12,11 +12,11 @@ function AccountSettings ({
   return (
     <SettingsLayout>
       <MaxWidthContent
-        className='Unsubscribe-Page'
+        className='Account-Settings-Page'
         color={{ light: 'black', dark: 'white' }}
       >
         <h1>Account Settings Placeholder</h1>
-        <p>User is {user.login}</p>
+        <p>User is {user.login} aka {user.display_name}</p>
       </MaxWidthContent>
     </SettingsLayout>
   )
@@ -24,11 +24,9 @@ function AccountSettings ({
 
 AccountSettings.propTypes = {
   user: shape({
-    // avatar_src: string,
-    // display_name: string,
-    // id: string.isRequired,
+    display_name: string,
+    id: string.isRequired,
     login: string,
-    // roles: arrayOf(string)
   })
 }
 
