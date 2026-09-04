@@ -1,11 +1,8 @@
 import { Box, ThemeContext } from 'grommet'
-import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
 import { ZooniverseLogotype } from '@zooniverse/react-components'
 import ContainerBox from './ContainerBox'
-
-const HeaderBreakpoint = '36rem'
 
 // The DecorativePseudoHeader isn't an actual `<header>` because it has no
 // actual content or navigation elements. See Github:
