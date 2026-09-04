@@ -1,14 +1,6 @@
-import { Box, Heading, Paragraph } from 'grommet'
+import { SpacedHeading } from '@zooniverse/react-components'
+import { Box, Paragraph } from 'grommet'
 import { useTranslation } from 'next-i18next/pages'
-import styled from 'styled-components'
-
-const StyledTitle = styled(Heading)`
-  font-size: 24px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 1.2px;
-  line-height: normal;
-`
 
 function EmptyPlaceholder() {
   const { t } = useTranslation('screens')
@@ -25,14 +17,16 @@ function EmptyPlaceholder() {
         direction='column'
         gap='medium'
       >
-        <StyledTitle
+        <SpacedHeading
           color={{ dark: 'light-1', light: 'dark-4' }}
           level={2}
           margin='none'
+          size='1.5rem'
           textAlign='center'
+          weight='normal'
         >
           {t('ProjectRecents.emptyTitle')}
-        </StyledTitle>
+        </SpacedHeading>
         <Paragraph margin='none' textAlign='center'>
           {t('ProjectRecents.empty')}
         </Paragraph>
