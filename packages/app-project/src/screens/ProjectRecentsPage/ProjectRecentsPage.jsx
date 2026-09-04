@@ -12,8 +12,7 @@ function ProjectRecentsPage() {
     <StandardLayout>
       <ProjectAboutPageLayout>
         <Box
-          pad={size === 'small' ? 'none' : 'medium'}
-          gap={size === 'small' ? 'none' : 'medium'}
+          pad={{ horizontal: '20px' }}
           margin={{ bottom: 'large' }}
           width={{ width: '100%', max: '85rem' }}
         >
