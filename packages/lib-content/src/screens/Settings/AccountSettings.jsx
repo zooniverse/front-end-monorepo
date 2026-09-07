@@ -1,30 +1,19 @@
 'use client'
 
-import { Box, Heading } from 'grommet'
-import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent'
+import { Box } from 'grommet'
 import { shape, string } from 'prop-types'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
 
 import {
-  mobileBreakpoint,
   StickyBox,
   StickySidebar,
   StyledGrid
 } from '@components/SharedStyledComponents/SharedStyledComponents'
 import DropdownNav from '@components/DropdownNav/DropdownNav'
 import FormLayout from '@components/PageLayout/FormLayout'
+import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent'
 
-const StyledAboutHeading = styled(Heading)`
-  position: relative;
-  padding: 44px 0;
-  margin: 0;
-  text-align: center;
-
-  @media (width <= ${mobileBreakpoint}) {
-    display: none;
-  }
-`
+import SettingsHeading from './components/SettingsHeading/SettingsHeading'
 
 function AccountSettings ({
   user
@@ -65,9 +54,8 @@ function AccountSettings ({
         <MaxWidthContent
           className='Account-Settings-Page'
           color={{ light: 'black', dark: 'white' }}
-          background='#f0e0e0'
         >
-          <h1>Account Settings Placeholder</h1>
+          <SettingsHeading section='AccountSettings' />
           <p>User is {user.login} aka {user.display_name}</p>
         </MaxWidthContent>
       </StyledGrid>
