@@ -11,8 +11,11 @@ const DecoDivider = styled('div')`
   }
 `
 
-export default function ResetPasswordHeading () {
+export default function SettingsHeading ({ section = 'AccountSettings' }) {
   const { t } = useTranslation()
+
+  const title = t(`Settings.${section}.title`)
+
   return (
     <>
         <Heading
@@ -20,7 +23,7 @@ export default function ResetPasswordHeading () {
           level={1}
           textAlign='center'
         >
-          {t('ResetPassword.common.header')}
+          {title}
         </Heading>
         <DecoDivider />
     </>
