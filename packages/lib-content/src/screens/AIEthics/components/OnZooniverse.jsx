@@ -168,7 +168,7 @@ export default function OnZooniverse() {
               t={t}
               components={[
                 <Anchor
-                  href='/publications'
+                  href='/about/publications'
                   key='zooniverse-publications-page'
                   style={{ display: 'inline' }}
                 />
@@ -217,6 +217,21 @@ export default function OnZooniverse() {
                 <Anchor
                   href='https://blog.zooniverse.org/2026/09/09/a-new-ai-ethics-framework-for-zooniverse'
                   key='link-to-zooniverse-blog-post'
+                  style={{ display: 'inline' }}
+                />,
+                <Anchor
+                  href='#key-principles'
+                  key='link-to-key-principles'
+                  style={{ display: 'inline' }}
+                />,
+                <Anchor
+                  href='#internal-actions'
+                  key='link-to-internal-actions'
+                  style={{ display: 'inline' }}
+                />,
+                <Anchor
+                  href='#project-recommendations'
+                  key='link-to-project-recommendations'
                   style={{ display: 'inline' }}
                 />
               ]}

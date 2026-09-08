@@ -13,7 +13,7 @@ export default function Preamble() {
 
   return (
     <Box>
-      <Paragraph margin='0'>
+      <Paragraph margin='none'>
         <Trans
           i18nKey={'AIEthics.preamble.paragraphs.first'}
           t={t}
@@ -27,7 +27,7 @@ export default function Preamble() {
         />
       </Paragraph>
       <Paragraph>{t('AIEthics.preamble.paragraphs.second')}</Paragraph>
-      <Paragraph>{t('AIEthics.preamble.paragraphs.third')}</Paragraph>
+      <Paragraph margin={{ top: 'none' }}>{t('AIEthics.preamble.paragraphs.third')}</Paragraph>
       <StyledList>
         <li>
           <Text size='1rem' color={{ light: 'black', dark: 'white' }}>
