@@ -25,6 +25,10 @@ export default {
       {
         href: '/about/faq',
         label: 'FAQ'
+      },
+      {
+        href: '/about/ai-ethics',
+        label: 'AI Ethics'
       }
     ]
   }

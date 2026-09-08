@@ -34,14 +34,14 @@ function FAQPage() {
   return (
     <>
       <AboutLayout>
-        <MobileHeading level='1' size='1.5rem'>
+        <MobileHeading level={1} size='1.5rem'>
           {t('FAQ.title')}
         </MobileHeading>
         <Box pad={{ horizontal: 'medium' }} align='center'>
           <MaxWidthContent>
             <StyledHeading
               color={{ light: 'neutral-1', dark: 'accent-1' }}
-              level='1'
+              level={1}
               size='small'
             >
               {t('FAQ.title')}
