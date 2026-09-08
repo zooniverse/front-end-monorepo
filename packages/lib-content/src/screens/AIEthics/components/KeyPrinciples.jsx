@@ -15,7 +15,7 @@ export default function KeyPrinciples() {
     <Box>
       <StyledList>
         <li>
-          <Paragraph>
+          <Paragraph margin='none'>
             <Trans i18nKey={'AIEthics.principles.first'} t={t} components={[<strong />]} />
           </Paragraph>
         </li>
@@ -35,7 +35,7 @@ export default function KeyPrinciples() {
           </Paragraph>
         </li>
         <li>
-          <Paragraph>
+          <Paragraph margin='none'>
             <Trans i18nKey={'AIEthics.principles.fifth'} t={t} components={[<strong />]} />
           </Paragraph>
         </li>

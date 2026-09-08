@@ -20,7 +20,13 @@ export default function Resources() {
         <Trans
           i18nKey={'AIEthics.about.paragraphs.first'}
           t={t}
-          components={[<Anchor href='' key='need-link-blog' />]}
+          components={[
+            <Anchor
+              href='https://blog.zooniverse.org/2026/09/09/a-new-ai-ethics-framework-for-zooniverse'
+              key='link-to-zooniverse-blog-post2'
+              style={{ display: 'inline' }}
+            />
+          ]}
         />
       </Paragraph>
       <Paragraph>{t('AIEthics.about.paragraphs.second')}</Paragraph>

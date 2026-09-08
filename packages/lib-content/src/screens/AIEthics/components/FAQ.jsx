@@ -8,18 +8,28 @@ const StyledList = styled.ul`
   padding-inline-start: 20px;
 `
 
+const ItalicParagraph = styled(Paragraph)`
+  font-style: italic;
+`
+
 export default function Resources() {
   const { t } = useTranslation()
 
   return (
     <Box>
-      <Paragraph margin='none'>
+      <ItalicParagraph margin='none'>
         <Trans
           i18nKey='AIEthics.faq.paragraph'
           t={t}
-          components={[<Anchor href='mailto:contact@zooniverse.org' key='mail-us-one' />]}
+          components={[
+            <Anchor
+              href='mailto:contact@zooniverse.org'
+              key='mail-us-one'
+              style={{ display: 'inline' }}
+            />
+          ]}
         />
-      </Paragraph>
+      </ItalicParagraph>
       <StyledList>
         <li>
           <Paragraph margin={{ bottom: 'none' }}>{t('AIEthics.faq.first.question')}</Paragraph>

@@ -17,7 +17,13 @@ export default function Preamble() {
         <Trans
           i18nKey={'AIEthics.preamble.paragraphs.first'}
           t={t}
-          components={[<Anchor key='ai-ethics-blogpost' href='' />]}
+          components={[
+            <Anchor
+              key='link-to-zoo-help-page'
+              href='https://help.zooniverse.org/next-steps/ai-ethics'
+              style={{ display: 'inline' }}
+            />
+          ]}
         />
       </Paragraph>
       <Paragraph>{t('AIEthics.preamble.paragraphs.second')}</Paragraph>

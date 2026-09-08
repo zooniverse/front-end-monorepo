@@ -36,6 +36,7 @@ export default function OnZooniverse() {
                 <Anchor
                   href='https://www.nasa.gov/what-is-artificial-intelligence'
                   key='nasa-article-what-is-ai'
+                  style={{ display: 'inline' }}
                 />
               ]}
             />
@@ -165,7 +166,13 @@ export default function OnZooniverse() {
             <Trans
               i18nKey='AIEthics.onZooniverse.fourthQ.list.second'
               t={t}
-              components={[<Anchor href='/publications' key='zooniverse-publications-page' />]}
+              components={[
+                <Anchor
+                  href='/publications'
+                  key='zooniverse-publications-page'
+                  style={{ display: 'inline' }}
+                />
+              ]}
             />
           </Paragraph>
         </li>
@@ -202,16 +209,22 @@ export default function OnZooniverse() {
       </Heading>
       <StyledList>
         <li>
-          <Paragraph margin='none'>{t('AIEthics.onZooniverse.sixthQ.list.first')}</Paragraph>
-        </li>
-        <li>
-          <Paragraph>
+          <Paragraph margin='none'>
             <Trans
-              i18nKey='AIEthics.onZooniverse.sixthQ.list.second'
+              i18nKey='AIEthics.onZooniverse.sixthQ.list.first'
               t={t}
-              components={[<Anchor href='' key='need-zooniverse-blog-post' />]}
+              components={[
+                <Anchor
+                  href='https://blog.zooniverse.org/2026/09/09/a-new-ai-ethics-framework-for-zooniverse'
+                  key='link-to-zooniverse-blog-post'
+                  style={{ display: 'inline' }}
+                />
+              ]}
             />
           </Paragraph>
+        </li>
+        <li>
+          <Paragraph>{t('AIEthics.onZooniverse.sixthQ.list.second')}</Paragraph>
         </li>
       </StyledList>
       <Heading
@@ -235,6 +248,7 @@ export default function OnZooniverse() {
                 <Anchor
                   href='https://help.zooniverse.org/getting-started/lab-policies/#zooniverse-policies'
                   key='link-to-project-builder-policies'
+                  style={{ display: 'inline' }}
                 />
               ]}
             />
@@ -261,7 +275,9 @@ export default function OnZooniverse() {
           <Paragraph margin='none'>{t('AIEthics.onZooniverse.seventhQ.list.fifth')}</Paragraph>
         </li>
         <li>
-          <Paragraph>{t('AIEthics.onZooniverse.seventhQ.list.sixth')}</Paragraph>
+          <Paragraph margin={{ bottom: 'none' }}>
+            {t('AIEthics.onZooniverse.seventhQ.list.sixth')}
+          </Paragraph>
         </li>
       </StyledList>
     </Box>

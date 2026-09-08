@@ -13,7 +13,7 @@ export default function Resources() {
 
   return (
     <Box>
-      <Heading level={3} color={{ light: 'black', dark: 'white' }} size='1rem'>
+      <Heading level={3} color={{ light: 'black', dark: 'white' }} size='1rem' margin={{ top: 'none' }}>
         {t('AIEthics.resources.first.heading')}
       </Heading>
       <StyledList>

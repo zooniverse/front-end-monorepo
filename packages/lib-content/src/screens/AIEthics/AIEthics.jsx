@@ -45,10 +45,10 @@ const StyledAIEthicsHeading = styled(Heading)`
 const Section = styled.section`
   display: flex;
   flex-direction: column;
-  margin-bottom: 40px;
 
-  @media (max-width: 768px) {
-    margin-bottom: 20px;
+  // add some padding before ZooFooter without edited AboutLayout
+  &:last-child {
+    padding-bottom: 50px;
   }
 `
 

@@ -15,8 +15,19 @@ export default function InternalActions() {
     <Box>
       <StyledList>
         <li>
-          <Paragraph>
-            <Trans i18nKey={'AIEthics.actions.first'} t={t} components={[<strong />, <Anchor href='' key='link-to-blog-post'/>]} />
+          <Paragraph margin='none'>
+            <Trans
+              i18nKey={'AIEthics.actions.first'}
+              t={t}
+              components={[
+                <strong />,
+                <Anchor
+                  href='#5-ws'
+                  key='link-to-five-questions-section'
+                  style={{ display: 'inline' }}
+                />
+              ]}
+            />
           </Paragraph>
         </li>
         <li>
@@ -30,7 +41,7 @@ export default function InternalActions() {
           </Paragraph>
         </li>
         <li>
-          <Paragraph>
+          <Paragraph margin='none'>
             <Trans i18nKey={'AIEthics.actions.fourth'} t={t} components={[<strong />]} />
           </Paragraph>
         </li>

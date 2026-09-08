@@ -15,7 +15,7 @@ export default function ProjectRecs() {
     <Box>
       <StyledList>
         <li>
-          <Paragraph>
+          <Paragraph margin='none'>
             <Trans i18nKey={'AIEthics.recs.first'} t={t} components={[<strong />]} />
           </Paragraph>
         </li>
@@ -55,7 +55,7 @@ export default function ProjectRecs() {
           </Paragraph>
         </li>
         <li>
-          <Paragraph>
+          <Paragraph margin='none'>
             <Trans i18nKey={'AIEthics.recs.nineth'} t={t} components={[<strong />]} />
           </Paragraph>
         </li>

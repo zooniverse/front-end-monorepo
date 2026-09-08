@@ -10,6 +10,7 @@
   "AboutHeader": {
     "links": {
       "about": "About",
+      "aiethics": "AI Ethics",
       "collaborate": "Collaborate",
       "contact": "Contact Us",
       "donate": "Donate",
@@ -245,7 +246,7 @@
       "sixthQ": {
         "heading": "How does Zooniverse ensure these technologies are used safely and ethically?",
         "list": {
-          "first": "Zooniverse carried out an 18-month effort with stakeholders and experts [ADD LINK TO BLOG POST] to define what this means for the platform. The resulting Key Principles, Internal Actions Taken by Zooniverse, and Recommendations for Project Teams represent our approach.",
+          "first": "Zooniverse carried out an <0>18-month effort with stakeholders and experts</0> to define what this means for the platform. The resulting Key Principles, Internal Actions Taken by Zooniverse, and Recommendations for Project Teams represent our approach.",
           "second": "We are committed to ongoing assessment of these structures to ensure that they are effective, especially as technologies and potential use cases on Zooniverse continue to expand. Our recommendations include an annual review of our own AI ethics policies to ensure that they remain relevant to our volunteer and researcher communities."
         }
       },
