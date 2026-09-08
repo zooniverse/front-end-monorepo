@@ -210,7 +210,7 @@
           "fourth": {
             "sublist": "Some examples:",
             "subFirst": "<0>No AI/ML.</0> Volunteers classify subjects. There is no prior or intended AI/ML role.",
-            "subSecond": "<0>AI/ML pre-sorts subjects.</0> Volunteers classify subjects that have been pre-sorted or filtered by machines. Examples include removing blanks (images with no relevant subject), and making high level classifications so volunteers can focus their efforts on more challenging tasks.",
+            "subSecond": "<0>AI/ML pre-sorts subjects.</0> Volunteers classify subjects that have been pre-sorted or filtered by machines. Examples include removing blanks (images with no relevant content), and making high level classifications so volunteers can focus their efforts on more challenging tasks.",
             "subThird": "<0>AI/ML training.</0> Volunteers classify subjects and machines learn from the patterns with the goal that AI/ML will take on the tasks.",
             "subFourth": "<0>AI/ML is quality checked.</0> Volunteers review and make corrections to machine-generated classifications, helping to improve AI/ML over time.",
             "subFifth": "<0>Volunteers review</0> unusual or anomalous subjects that stumped the machine."
@@ -246,7 +246,7 @@
       "sixthQ": {
         "heading": "How does Zooniverse ensure these technologies are used safely and ethically?",
         "list": {
-          "first": "Zooniverse carried out an <0>18-month effort with stakeholders and experts</0> to define what this means for the platform. The resulting Key Principles, Internal Actions Taken by Zooniverse, and Recommendations for Project Teams represent our approach.",
+          "first": "Zooniverse carried out an <0>18-month effort with stakeholders and experts</0> to define what this means for the platform. The resulting <1>Key Principles</1>, <2>Internal Actions Taken by Zooniverse</2>, and <3>Recommendations for Project Teams</3> represent our approach.",
           "second": "We are committed to ongoing assessment of these structures to ensure that they are effective, especially as technologies and potential use cases on Zooniverse continue to expand. Our recommendations include an annual review of our own AI ethics policies to ensure that they remain relevant to our volunteer and researcher communities."
         }
       },
@@ -254,7 +254,7 @@
         "heading": "What about AI and Machine Learning outside of Zooniverse? Are my classifications making their way into non-Zooniverse AI/ML initiatives?",
         "list": {
           "first": "We, as a Zooniverse community, have control of how we do or don’t use AI/ML on the platform and in projects. However, we have little control of how others might use project data, particularly once it is released to the public.",
-          "second": "Zooniverse’s current <0>Project Builder Policies</0> state that project teams must “make their classification data open after a proprietary period, normally lasting two years from project launch”.",
+          "second": "Zooniverse’s current <0>Project Builder Policies</0> state that project teams must “make their classification data open after a proprietary period, normally lasting two years from project launch.”",
           "third": "Open data allows for reciprocity, immediate gratification, and quick use of the data to make decisions or take actions. It can also help with data preservation, as data are less likely to be lost if held in a repository or if others have made copies. However, it also means that other people, organizations, or companies may use data produced through Zooniverse projects for reasons other than the stated research aims.",
           "fourth": "To reduce unintended use of project data (e.g. for commercial purposes), some teams choose to apply data licensing agreements to their project data (such as e.g. <0>Creative Commons</0>), or share it by request only.",
           "fifth": "Project teams are expected to share their plans for data use and storage on the project About page.",
@@ -293,29 +293,10 @@
       "nineth": "<0>Consider both the opportunities and potential risks of running an AI/ML-engaged project.</0> We encourage researchers to understand potential risks—alongside opportunities—before launching projects and point them to vetted tools and published scholarship such as Ceccaroni et al. (2019), which presents a survey of risks and opportunities related to AI use in citizen science, and recommendations for risk mitigation."
     },
     "resources": {
-      "first": {
-        "heading": "Learn more about AI/ML",
-        "linkOne": "Opportunities and Risks for Citizen Science in the Age of Artificial Intelligence",
-        "linkTwo": "Collection: The Future of Artificial Intelligence and Citizen Science",
-        "linkThree": "AI Literacy (InformationLiteracy.gov)"
-      },
-      "second": {
-        "heading": "Learn more about ethics and participatory science",
-        "linkOne": "Data Ethics in the Participatory Sciences Toolkit",
-        "linkTwo": "Collection: Ethical Issues in Citizen Science"
-      },
-      "third": {
-        "heading": "Examples of Zooniverse projects with detailed explanations of AI/ML use",
-        "linkOne": "Clump Scout II",
-        "linkTwo": "Dark Energy Explorers",
-        "linkThree": "Field Journal Fix-Up",
-        "linkFour": "The Material Culture of Wills: England 1540-1790"
-      },
-      "fourth": {
-        "heading": "Examples of Zooniverse project AI/ML responsibility statements",
-        "linkOne": "Citizen Readers’ Commitment to Responsible AI",
-        "linkTwo": "Responsible Use of Machine Learning in Kilonova Seekers"
-      }
+      "first": "Learn more about AI/ML",
+      "second": "Learn more about ethics and participatory science",
+      "third": "Examples of Zooniverse projects with detailed explanations of AI/ML use",
+      "fourth": "Examples of Zooniverse project AI/ML responsibility statements"
     },
     "toc": {
       "descriptions": {
