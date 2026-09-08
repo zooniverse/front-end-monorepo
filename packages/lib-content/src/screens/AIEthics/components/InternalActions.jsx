@@ -5,13 +5,14 @@ import styled from 'styled-components'
 const StyledList = styled.ol`
   margin-block-start: 0;
   margin-block-end: 0;
+  padding-inline-start: 20px;
 `
 
 export default function InternalActions() {
   const { t } = useTranslation()
 
   return (
-    <Box as='section'>
+    <Box>
       <StyledList>
         <li>
           <Paragraph>

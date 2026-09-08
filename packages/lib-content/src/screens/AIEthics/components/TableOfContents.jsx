@@ -6,6 +6,7 @@ const StyledList = styled.ul`
   margin-block-start: 0;
   margin-block-end: 0;
   list-style-type: none;
+  padding-inline-start: 0;
 `
 
 const StyledItem = styled.li`
@@ -21,7 +22,7 @@ export default function TableOfContents() {
   const { t } = useTranslation()
 
   return (
-    <Box as='section'>
+    <Box>
       <nav>
         <StyledList>
           <StyledItem>

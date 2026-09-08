@@ -5,13 +5,14 @@ import styled from 'styled-components'
 const StyledList = styled.ul`
   margin-block-start: 0;
   margin-block-end: 0;
+  padding-inline-start: 20px;
 `
 
 export default function Resources() {
   const { t } = useTranslation()
 
   return (
-    <Box as='section'>
+    <Box>
       <Heading level={3} color={{ light: 'black', dark: 'white' }} size='1rem'>
         {t('AIEthics.resources.first.heading')}
       </Heading>
@@ -61,7 +62,7 @@ export default function Resources() {
           <Anchor href='' label={t('AIEthics.resources.third.linkThree')} size='1rem' />
         </li>
         <li>
-          <Anchor href='' label={t('AIEthics.resources.first.linkFour')} size='1rem' />
+          <Anchor href='' label={t('AIEthics.resources.third.linkFour')} size='1rem' />
         </li>
       </StyledList>
       <Heading

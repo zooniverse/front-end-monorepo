@@ -42,6 +42,16 @@ const StyledAIEthicsHeading = styled(Heading)`
   }
 `
 
+const Section = styled.section`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 40px;
+
+  @media (max-width: 768px) {
+    margin-bottom: 20px;
+  }
+`
+
 function AIEthics() {
   const { t } = useTranslation()
   const [activeSection, setActiveSection] = useState(0)
@@ -79,7 +89,7 @@ function AIEthics() {
       </MaxWidthContent>
 
       <StyledGrid>
-        <Box as='aside' align='center' pad={{ right: 'small' }}>
+        <Box as='aside' align='center'>
           <StickySidebar
             activeSection={activeSection}
             ariaLabel={t('AIEthics.sidebarLabel')}
@@ -90,104 +100,124 @@ function AIEthics() {
 
         <article>
           {/* Preamble */}
-          <HeadingForAboutNav
-            color={{ light: 'black', dark: 'white' }}
-            sectionIndex={0}
-            sectionName={t('AIEthics.heading.first')}
-            setActiveSection={setActiveSection}
-            slug={sidebarSections[0].slug}
-          />
-          <Preamble />
+          <Section>
+            <HeadingForAboutNav
+              color={{ light: 'black', dark: 'white' }}
+              sectionIndex={0}
+              sectionName={t('AIEthics.heading.first')}
+              setActiveSection={setActiveSection}
+              slug={sidebarSections[0].slug}
+            />
+            <Preamble />
+          </Section>
 
           {/* Clickable Table of Contents */}
-          <HeadingForAboutNav
-            color={{ light: 'black', dark: 'white' }}
-            sectionIndex={1}
-            sectionName={t('AIEthics.heading.second')}
-            setActiveSection={setActiveSection}
-            slug={sidebarSections[1].slug}
-          />
-          <TableOfContents />
+          <Section>
+            <HeadingForAboutNav
+              color={{ light: 'black', dark: 'white' }}
+              sectionIndex={1}
+              sectionName={t('AIEthics.heading.second')}
+              setActiveSection={setActiveSection}
+              slug={sidebarSections[1].slug}
+            />
+            <TableOfContents />
+          </Section>
 
           {/* Key Principles */}
-          <HeadingForAboutNav
-            color={{ light: 'black', dark: 'white' }}
-            sectionIndex={2}
-            sectionName={t('AIEthics.heading.third')}
-            setActiveSection={setActiveSection}
-            slug={sidebarSections[2].slug}
-          />
-          <KeyPrinciples />
+          <Section>
+            <HeadingForAboutNav
+              color={{ light: 'black', dark: 'white' }}
+              sectionIndex={2}
+              sectionName={t('AIEthics.heading.third')}
+              setActiveSection={setActiveSection}
+              slug={sidebarSections[2].slug}
+            />
+            <KeyPrinciples />
+          </Section>
 
           {/* Internal Actions Taken by Zooniverse */}
-          <HeadingForAboutNav
-            color={{ light: 'black', dark: 'white' }}
-            sectionIndex={3}
-            sectionName={t('AIEthics.heading.fourthext')}
-            setActiveSection={setActiveSection}
-            slug={sidebarSections[3].slug}
-          />
-          <InternalActions />
+          <Section>
+            <HeadingForAboutNav
+              color={{ light: 'black', dark: 'white' }}
+              sectionIndex={3}
+              sectionName={t('AIEthics.heading.fourthext')}
+              setActiveSection={setActiveSection}
+              slug={sidebarSections[3].slug}
+            />
+            <InternalActions />
+          </Section>
 
           {/* Recommendations for Project Teams */}
-          <HeadingForAboutNav
-            color={{ light: 'black', dark: 'white' }}
-            sectionIndex={4}
-            sectionName={t('AIEthics.heading.fifthext')}
-            setActiveSection={setActiveSection}
-            slug={sidebarSections[4].slug}
-          />
-          <ProjectRecs />
+          <Section>
+            <HeadingForAboutNav
+              color={{ light: 'black', dark: 'white' }}
+              sectionIndex={4}
+              sectionName={t('AIEthics.heading.fifthext')}
+              setActiveSection={setActiveSection}
+              slug={sidebarSections[4].slug}
+            />
+            <ProjectRecs />
+          </Section>
 
           {/* The 5 Ws of AI/ML-Engaged Projects */}
-          <HeadingForAboutNav
-            color={{ light: 'black', dark: 'white' }}
-            sectionIndex={5}
-            sectionName={t('AIEthics.heading.sixthext')}
-            setActiveSection={setActiveSection}
-            slug={sidebarSections[5].slug}
-          />
-          <FiveWs />
+          <Section>
+            <HeadingForAboutNav
+              color={{ light: 'black', dark: 'white' }}
+              sectionIndex={5}
+              sectionName={t('AIEthics.heading.sixthext')}
+              setActiveSection={setActiveSection}
+              slug={sidebarSections[5].slug}
+            />
+            <FiveWs />
+          </Section>
 
           {/* AI and Machine Learning on Zooniverse */}
-          <HeadingForAboutNav
-            color={{ light: 'black', dark: 'white' }}
-            sectionIndex={6}
-            sectionName={t('AIEthics.heading.seventhext')}
-            setActiveSection={setActiveSection}
-            slug={sidebarSections[6].slug}
-          />
-          <OnZooniverse />
+          <Section>
+            <HeadingForAboutNav
+              color={{ light: 'black', dark: 'white' }}
+              sectionIndex={6}
+              sectionName={t('AIEthics.heading.seventhext')}
+              setActiveSection={setActiveSection}
+              slug={sidebarSections[6].slug}
+            />
+            <OnZooniverse />
+          </Section>
 
           {/* Resources */}
-          <HeadingForAboutNav
-            color={{ light: 'black', dark: 'white' }}
-            sectionIndex={7}
-            sectionName={t('AIEthics.heading.eighth')}
-            setActiveSection={setActiveSection}
-            slug={sidebarSections[7].slug}
-          />
-          <Resources />
+          <Section>
+            <HeadingForAboutNav
+              color={{ light: 'black', dark: 'white' }}
+              sectionIndex={7}
+              sectionName={t('AIEthics.heading.eighth')}
+              setActiveSection={setActiveSection}
+              slug={sidebarSections[7].slug}
+            />
+            <Resources />
+          </Section>
 
           {/* Frequently Asked Questions */}
-          <HeadingForAboutNav
-            color={{ light: 'black', dark: 'white' }}
-            sectionIndex={8}
-            sectionName={t('AIEthics.heading.ninethext')}
-            setActiveSection={setActiveSection}
-            slug={sidebarSections[8].slug}
-          />
-          <FAQ />
+          <Section>
+            <HeadingForAboutNav
+              color={{ light: 'black', dark: 'white' }}
+              sectionIndex={8}
+              sectionName={t('AIEthics.heading.ninethext')}
+              setActiveSection={setActiveSection}
+              slug={sidebarSections[8].slug}
+            />
+            <FAQ />
+          </Section>
 
           {/* About this Framework */}
-          <HeadingForAboutNav
-            color={{ light: 'black', dark: 'white' }}
-            sectionIndex={9}
-            sectionName={t('AIEthics.heading.tenth')}
-            setActiveSection={setActiveSection}
-            slug={sidebarSections[9].slug}
-          />
-          <AboutFramework />
+          <Section>
+            <HeadingForAboutNav
+              color={{ light: 'black', dark: 'white' }}
+              sectionIndex={9}
+              sectionName={t('AIEthics.heading.tenth')}
+              setActiveSection={setActiveSection}
+              slug={sidebarSections[9].slug}
+            />
+            <AboutFramework />
+          </Section>
         </article>
         <Box />
       </StyledGrid>

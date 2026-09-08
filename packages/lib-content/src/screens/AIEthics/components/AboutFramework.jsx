@@ -15,7 +15,7 @@ export default function Resources() {
   const { t } = useTranslation()
 
   return (
-    <Box as='section' margin={{ bottom: '40px' }}>
+    <Box>
       <Paragraph margin='none'>
         <Trans
           i18nKey={'AIEthics.about.paragraphs.first'}

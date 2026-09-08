@@ -5,13 +5,14 @@ import styled from 'styled-components'
 const StyledList = styled.ul`
   margin-block-start: 0;
   margin-block-end: 0;
+  padding-inline-start: 20px;
 `
 
 export default function Preamble() {
   const { t } = useTranslation()
 
   return (
-    <Box as='section'>
+    <Box>
       <Paragraph margin='0'>
         <Trans
           i18nKey={'AIEthics.preamble.paragraphs.first'}

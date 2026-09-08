@@ -5,13 +5,14 @@ import styled from 'styled-components'
 const StyledList = styled.ul`
   margin-block-start: 0;
   margin-block-end: 0;
+  padding-inline-start: 20px;
 `
 
 export default function Resources() {
   const { t } = useTranslation()
 
   return (
-    <Box as='section'>
+    <Box>
       <Paragraph margin='none'>
         <Trans
           i18nKey='AIEthics.faq.paragraph'

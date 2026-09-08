@@ -5,14 +5,15 @@ import styled from 'styled-components'
 const StyledList = styled.ul`
   margin-block-start: 0;
   margin-block-end: 0;
+  padding-inline-start: 20px;
 `
 
 export default function FiveWs() {
   const { t } = useTranslation()
 
   return (
-    <Box as='section'>
-      <Paragraph>{t('AIEthics.fivews.paragraph')}</Paragraph>
+    <Box>
+      <Paragraph margin={{ top: 'none' }}>{t('AIEthics.fivews.paragraph')}</Paragraph>
       <StyledList>
         <li>
           <Text size='1rem' color={{ light: 'black', dark: 'white' }}>
