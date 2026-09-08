@@ -41,6 +41,10 @@ Both tool types support:
 
 - _label (string)_ display name for the tool
 - _color (string)_ stroke/fill color for features drawn with the tool
+- _min (number = 0)_ minimum number of features that must be created before the task is complete
+- _max (number)_ maximum number of features that can be created; creation is disabled once reached
+
+For `Point` tools, creation is enabled only when `max` is greater than 0; without it, volunteers can only reposition subject-provided points, which do not count toward `min` or `max`.
 
 `Point` tools additionally support:
 
@@ -48,8 +52,6 @@ Both tool types support:
 
 `SegmentedLine` tools additionally support:
 
-- _min (number = 0)_ minimum number of lines that must be drawn before the task is complete
-- _max (number)_ maximum number of lines that can be drawn; drawing is disabled once reached
 - _min_vertices (number = 2)_ minimum vertices per line
 - _max_vertices (number)_ maximum vertices per line, enforced while drawing and editing
 
@@ -59,7 +61,7 @@ Panoptes may serve the count fields as strings; the tool models coerce them to n
 
 The annotation `value` is a GeoJSON `FeatureCollection` written by the map viewer as features are moved, drawn, or modified. It is `null` until the subject data is loaded.
 
-`isComplete` returns `true` when `value !== null` and every tool's `min` line count has been met.
+`isComplete` returns `true` when `value !== null` and every tool's `min` created-feature count has been met.
 
 Feature coordinates in the annotation are longitude/latitude (`EPSG:4326`), matching the subject GeoJSON. The map renders internally in web mercator (`EPSG:3857`), and features are reprojected back to `EPSG:4326` when the annotation is serialized. Features drawn by a tool carry `properties.toolIndex` identifying which tool created them.
 
