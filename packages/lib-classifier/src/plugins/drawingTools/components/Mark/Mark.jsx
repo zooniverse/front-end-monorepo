@@ -62,6 +62,7 @@ const Mark = forwardRef(function Mark(
     onDelete = defaultHandler,
     onFinish = defaultHandler,
     onSelect = defaultHandler,
+    onDeselect = defaultHandler,
     pointerEvents = 'painted',
   },
   ref
@@ -75,7 +76,7 @@ const Mark = forwardRef(function Mark(
     stroke: tool && tool.color ? tool.color : 'green'
   }
   const focusColor = theme?.global.colors[theme?.global.colors.focus]
-  const usesSubTasks = mark.isValid && mark.tasks.length > 0
+  const usesSubTasks = mark.finished && mark.isValid && mark.tasks.length > 0
 
   function openSubTaskPopup() {
     if (!mark.subTaskVisibility) {
@@ -91,16 +92,24 @@ const Mark = forwardRef(function Mark(
   }, [isActive, mark.finished])
 
   useEffect(function onFinishMarkWithSubTasks() {
-    if (usesSubTasks && mark.finished) {
+    /* usesSubTasks flips from false => true when a mark is
+      - finished.
+      - valid.
+      - has subtasks.
+    */
+    if (usesSubTasks) {
       openSubTaskPopup()
     }
-  }, [usesSubTasks, mark.finished])
+  }, [usesSubTasks])
 
   useEffect(function onCloseSubTasks() {
-    if (isActive && mark.finished && !mark.subTaskVisibility) {
+    /* This runs for each drawn mark when the subtask popup is closed.
+    Return keyboard focus to the mark that opened the popup.
+    */
+    if (isActive && usesSubTasks && !mark.subTaskVisibility) {
       focusMark(markRoot.current)
     }
-  }, [isActive, mark.finished, mark.subTaskVisibility])
+  }, [usesSubTasks, isActive, mark.subTaskVisibility, onDeselect])
 
   function onKeyDown(event) {
     switch (event.key) {
@@ -114,6 +123,7 @@ const Mark = forwardRef(function Mark(
       case 'Enter': {
         event.preventDefault()
         event.stopPropagation()
+        onSelect(mark)
         openSubTaskPopup()
         onFinish(event)
         return false
@@ -125,6 +135,7 @@ const Mark = forwardRef(function Mark(
   }
 
   function onPointerUp() {
+    onSelect(mark)
     if (usesSubTasks) {
       openSubTaskPopup()
     }
@@ -133,6 +144,12 @@ const Mark = forwardRef(function Mark(
   function onFocus() {
     onSelect(mark)
     markRoot.current?.scrollIntoView?.()
+  }
+
+  function onBlur() {
+    if (!mark.subTaskVisibility) {
+      onDeselect()
+    }
   }
 
   let transform = ''
@@ -162,6 +179,7 @@ const Mark = forwardRef(function Mark(
       focusable
       focusColor={focusColor}
       onFocus={onFocus}
+      onBlur={onBlur}
       onKeyDown={onKeyDown}
       onPointerUp={onPointerUp}
       pointerEvents={pointerEvents}
@@ -176,13 +194,32 @@ const Mark = forwardRef(function Mark(
 })
 
 Mark.propTypes = {
+  disabled: PropTypes.bool,
   dragging: PropTypes.bool,
   children: PropTypes.node.isRequired,
   isActive: PropTypes.bool,
   label: PropTypes.string.isRequired,
+  mark: PropTypes.shape({
+    angle: PropTypes.number,
+    finished: PropTypes.bool,
+    id: PropTypes.string.isRequired,
+    isValid: PropTypes.bool,
+    setSubTaskVisibility: PropTypes.func.isRequired,
+    subTaskVisibility: PropTypes.bool,
+    tasks: PropTypes.arrayOf(PropTypes.object).isRequired,
+    tool: PropTypes.shape({
+      color: PropTypes.string
+    }),
+    x: PropTypes.number,
+    x_rotate: PropTypes.number,
+    y: PropTypes.number,
+    y_rotate: PropTypes.number
+  }).isRequired,
   onDelete: PropTypes.func,
   onDeselect: PropTypes.func,
+  onFinish: PropTypes.func,
   onSelect: PropTypes.func,
+  pointerEvents: PropTypes.string,
   tool: PropTypes.shape({
     color: PropTypes.string
   })
