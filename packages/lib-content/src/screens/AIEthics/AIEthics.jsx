@@ -19,12 +19,15 @@ import {
 } from '@components/SharedStyledComponents/SharedStyledComponents'
 
 import {
+  AboutFramework,
+  FAQ,
   FiveWs,
   InternalActions,
   KeyPrinciples,
   OnZooniverse,
   Preamble,
   ProjectRecs,
+  Resources,
   TableOfContents
 } from './components'
 
@@ -164,6 +167,7 @@ function AIEthics() {
             setActiveSection={setActiveSection}
             slug={sidebarSections[7].slug}
           />
+          <Resources />
 
           {/* Frequently Asked Questions */}
           <HeadingForAboutNav
@@ -173,6 +177,7 @@ function AIEthics() {
             setActiveSection={setActiveSection}
             slug={sidebarSections[8].slug}
           />
+          <FAQ />
 
           {/* About this Framework */}
           <HeadingForAboutNav
@@ -182,6 +187,7 @@ function AIEthics() {
             setActiveSection={setActiveSection}
             slug={sidebarSections[9].slug}
           />
+          <AboutFramework />
         </article>
         <Box />
       </StyledGrid>
