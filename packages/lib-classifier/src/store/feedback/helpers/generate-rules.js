@@ -37,7 +37,13 @@ function generateRules (subject, workflow) {
 
       if (matchingSubjectRule) {
         const ruleStrategy = workflowRule.strategy
-        const ruleGenerator = strategies[ruleStrategy].createRule
+        const ruleGenerator = strategies[ruleStrategy]?.createRule
+        if (!ruleGenerator) {
+          if (process.browser) {
+            console.warn(`Feedback: unknown strategy ${ruleStrategy}, skipping rule ${workflowRule.id}`)
+          }
+          return result
+        }
         return result.concat([ruleGenerator(matchingSubjectRule, workflowRule)])
       } else {
         return result
