@@ -127,19 +127,100 @@
       "third": "<0>Incorporate guidelines into the Zooniverse internal project review process.</0> As of the launch of this page, our internal review processes have been updated to reflect the recommendations listed here. This will ensure standard practice for project leads to share information about any project-related AI/ML use and data governance commitments, to ensure potential volunteers have access to this information.",
       "fourth": "<0>Annual review of policy by the Zooniverse leadership team.</0> Establish a regular pace at which these resources will be evaluated and/or updated, e.g. annually. We have committed to an annual review and will publish a blog post or other written update to coincide with any updates made to this framework as part of this review."
     },
+    "fivews": {
+      "paragraph": "When developing a new Zooniverse project that involves AI/ML, researchers should reflect on and be prepared to answer the following questions. Ideally, the answers to these questions will be available somewhere in the project copy (e.g. the About page, FAQ, etc.).",
+      "list": {
+        "first": "<0>Who</0> is responsible for ensuring data quality and integrity? ",
+        "second": "<0>What</0> AI/ML techniques are being applied?",
+        "third": "<0>When</0> and <0>Where</0> in the lifecycle of data collection, processing, and analysis is AI/ML being used? At what point(s) are volunteers entering the lifecycle? Do the two ever interact? If so, how?",
+        "fourth": "<0>Why</0> is AI/ML being used? What is it helping to accomplish and who benefits? What would the research look like if AI/ML was not used?"
+      }
+    },
     "heading": {
-      "first" : "Preamble",
+      "first": "Preamble",
       "second": "Table of Contents",
       "third": "Key Principles",
       "fourth": "Internal Actions",
       "fourthext": "Internal Actions Taken by Zooniverse",
       "fifth": "Project Recommendations",
       "fifthext": "Recommendations for Project Teams",
-      "sixth": "The 5 Ws of AI/ML-Engaged Projects",
-      "seventh": "AI and Machine Learning on Zooniverse",
+      "sixth": "The 5 Ws",
+      "sixthext": "The 5 Ws of AI/ML-Engaged Projects",
+      "seventh": "AI/ML on Zooniverse",
+      "seventhext": "AI and Machine Learning on Zooniverse",
       "eighth": "Resources",
-      "nineth": "Frequently Asked Questions",
+      "nineth": "FAQ",
+      "ninethext": "Frequently Asked Questions",
       "tenth": "About this Framework"
+    },
+    "onZooniverse": {
+      "firstQ": {
+        "heading": "What is AI? What is Machine Learning?",
+        "list": {
+          "first": "There is no simple, single definition, but AI broadly refers to computer systems that are designed to emulate human thought. AI is a broad term that encompasses a wide range of technologies and applications. The terms are often used interchangeably, but ML is a subset of AI that uses data and algorithms to train computers to make classifications, generate predictions, and uncover similarities or trends across large datasets. (Definition adapted from Fortson et al. (2024) and https://www.nasa.gov/what-is-artificial-intelligence).",
+          "second": "There are a number of ways AI/ML methods and approaches are categorized based on the technology used and the capabilities of that technology.",
+          "third": "In part because the technology is advancing so quickly, it is easy to be unclear about what AI is doing. Transparency within Zooniverse projects around what exactly this technology is contributing, and why, can help to avoid misunderstanding or confusion, while also creating accountability measures for project teams."
+        }
+      },
+      "secondQ": {
+        "heading": "",
+        "list": {
+          "first": "",
+          "second": "",
+          "third": "",
+          "fourth": {
+            "subFirst": "",
+            "subSecond": "",
+            "subThird": "",
+            "subFourth": "",
+            "subFifth": ""
+          },
+          "fifth": ""
+        }
+      },
+      "thirdQ": {
+        "heading": "",
+        "list": {
+          "first": "",
+          "second": "",
+          "third": "",
+          "fourth": ""
+        }
+      },
+      "fourthQ": {
+        "heading": "",
+        "list": {
+          "first": "",
+          "second": ""
+        }
+      },
+      "fifthQ": {
+        "heading": "",
+        "list": {
+          "first": "",
+          "second": "",
+          "third": "",
+          "fourth": ""
+        }
+      },
+      "sixthQ": {
+        "heading": "",
+        "list": {
+          "first": "",
+          "second": ""
+        }
+      },
+      "seventhQ": {
+        "heading": "",
+        "list": {
+          "first": "",
+          "second": "",
+          "third": "",
+          "fourth": "",
+          "fifth": "",
+          "sixth": ""
+        }
+      }
     },
     "preamble": {
       "list": {
@@ -159,6 +240,17 @@
       "third": "Facilitate <0>accountability</0> by demonstrating adherence to clear guidelines as a prerequisite for launching an official Zooniverse project.",
       "fourth": "Commit to ongoing dialogue and project and platform <0>responsiveness</0> to evolving attitudes and conversations about AI/ML.",
       "fifth": "Utilize and align with <0>existing related AI/ML framing resources</0> and continue to engage with wider communities and stakeholders to <0>develop and adopt best practices</0> around AI/ML-engaged participatory research."
+    },
+    "recs": {
+      "first": "<0>Design your project with volunteer agency (choice) in mind.</0> This requires transparency and clear communication for volunteers to make informed decisions about whether they want to take part in your project. If you are incorporating AI/ML at any stage of your work (pre- or post-processing, human-in-the-loop classification systems, etc.), you need to provide specific details about how these processes work, and why they are necessary. For example, saying “we will use the resulting data to train a model” is insufficient detail.",
+      "second": "<0>Show volunteers where/when/why AI/ML is incorporated in your project.</0> Some workflows within a project may be AI/ML involved/assisted and others not. These should be clearly labeled in the Workflow Name field, or Workflow Description area, so volunteers can choose accordingly (if they have a preference). If you used AI/ML to pre-process your data, describe what your quality control metrics are (including if this is your reasoning for running a validation workflow on Zooniverse).",
+      "third": "<0>Consider the consequences of optimization.</0> When considering ‘offloading’ easy tasks to AI/ML and having humans do harder/more complex tasks, be mindful that more advanced workflows may narrow who is able/qualified to participate, unless there is an onramp. Training tasks may be needed to gain proficiency to do tasks that AI/ML cannot do. Any onramp process or training workflow should be clearly labeled, including workflows using the Zooniverse Feedback feature.",
+      "fourth": "<0>Retain context.</0> For projects inviting volunteers to engage with or review machine-generated output, consider whether and how context can impact the task—including both the quality of the data and the quality of the volunteer experience. For example, if a task asks volunteers to review the quality of machine transcriptions but only includes a portion of the document (e.g. a single word or phrase), including a link to the full image or document will ensure that volunteers can continue to interact with the source material and its meaning, if desired. This information can be included within a subject’s metadata.",
+      "fifth": "<0>Follow up.</0> Provide feedback on the degree of success achieved as AI/ML models are trained. The method will be determined by the project team, and may include e.g. a Talk post, email newsletter, etc.",
+      "sixth": "<0>Create pathways for feedback.</0> Any project with an AI/ML component should have a route for volunteers to share their feedback with project team members. For example, teams may wish to create a dedicated Talk Board to describe the use of AI/ML, respond to questions, and provide updates on any training or outputs.",
+      "seventh": "<0>Address quality.</0> Describe how you are evaluating and addressing any potential impact on data quality within your project due to AI/ML usage. ",
+      "eighth": "<0>When disclosing your intended use of project results/data, consider how your intended use could shift over time.</0> Volunteers may choose to take part in your project based on the project goals and intended uses of results/data indicated in the About page. Later, what are the chances that you will expand those uses? ",
+      "nineth": "<0>Consider both the opportunities and potential risks of running an AI/ML-engaged project.</0> We encourage researchers to understand potential risks—alongside opportunities—before launching projects and point them to vetted tools and published scholarship such as Ceccaroni et al. (2019), which presents a survey of risks and opportunities related to AI use in citizen science, and recommendations for risk mitigation."
     },
     "toc": {
       "descriptions": {
@@ -500,7 +592,6 @@
       "header": "Unsubscribe successful",
       "body": "If you change your mind, visit your account settings to <0>update your email preferences</0>."
     }
-
   },
   "Volunteer": {
     "beta": {

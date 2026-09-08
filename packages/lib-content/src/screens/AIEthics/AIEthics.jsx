@@ -18,7 +18,15 @@ import {
   StyledHeading
 } from '@components/SharedStyledComponents/SharedStyledComponents'
 
-import { InternalActions, KeyPrinciples, Preamble, TableOfContents } from './components'
+import {
+  FiveWs,
+  InternalActions,
+  KeyPrinciples,
+  OnZooniverse,
+  Preamble,
+  ProjectRecs,
+  TableOfContents
+} from './components'
 
 const StyledAIEthicsHeading = styled(Heading)`
   position: relative;
@@ -68,7 +76,7 @@ function AIEthics() {
       </MaxWidthContent>
 
       <StyledGrid>
-        <Box as='aside' align='center' pad={{ right: 'small'}}>
+        <Box as='aside' align='center' pad={{ right: 'small' }}>
           <StickySidebar
             activeSection={activeSection}
             ariaLabel={t('AIEthics.sidebarLabel')}
@@ -126,31 +134,31 @@ function AIEthics() {
             setActiveSection={setActiveSection}
             slug={sidebarSections[4].slug}
           />
+          <ProjectRecs />
 
           {/* The 5 Ws of AI/ML-Engaged Projects */}
           <HeadingForAboutNav
             color={{ light: 'black', dark: 'white' }}
-            pad={{ top: '40px', bottom: '10px' }}
             sectionIndex={5}
-            sectionName={t('AIEthics.heading.sixth')}
+            sectionName={t('AIEthics.heading.sixthext')}
             setActiveSection={setActiveSection}
             slug={sidebarSections[5].slug}
           />
+          <FiveWs />
 
           {/* AI and Machine Learning on Zooniverse */}
           <HeadingForAboutNav
             color={{ light: 'black', dark: 'white' }}
-            pad={{ top: '40px', bottom: '10px' }}
             sectionIndex={6}
-            sectionName={t('AIEthics.heading.seventh')}
+            sectionName={t('AIEthics.heading.seventhext')}
             setActiveSection={setActiveSection}
             slug={sidebarSections[6].slug}
           />
+          <OnZooniverse />
 
           {/* Resources */}
           <HeadingForAboutNav
             color={{ light: 'black', dark: 'white' }}
-            pad={{ top: '40px', bottom: '10px' }}
             sectionIndex={7}
             sectionName={t('AIEthics.heading.eighth')}
             setActiveSection={setActiveSection}
@@ -160,9 +168,8 @@ function AIEthics() {
           {/* Frequently Asked Questions */}
           <HeadingForAboutNav
             color={{ light: 'black', dark: 'white' }}
-            pad={{ top: '40px', bottom: '10px' }}
             sectionIndex={8}
-            sectionName={t('AIEthics.heading.nineth')}
+            sectionName={t('AIEthics.heading.ninethext')}
             setActiveSection={setActiveSection}
             slug={sidebarSections[8].slug}
           />
@@ -170,7 +177,6 @@ function AIEthics() {
           {/* About this Framework */}
           <HeadingForAboutNav
             color={{ light: 'black', dark: 'white' }}
-            pad={{ top: '40px', bottom: '10px' }}
             sectionIndex={9}
             sectionName={t('AIEthics.heading.tenth')}
             setActiveSection={setActiveSection}
