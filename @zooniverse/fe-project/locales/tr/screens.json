@@ -1,0 +1,79 @@
+{
+  "About": {
+    "PageHeading": {
+      "title": {
+        "education": "Eğitim",
+        "faq": "SSS",
+        "research": "Araştırma",
+        "results": "Sonuçlar",
+        "team": "Proje Ekibi"
+      }
+    },
+    "PageNav": {
+      "title": "Proje hakkında"
+    },
+    "SidebarHeading": "Hakkımızda",
+    "TeamMember": {
+      "collaborator": "Proje Ortakları",
+      "expert": "Uzman",
+      "moderator": "Moderatör",
+      "museum": "Müze",
+      "owner": "Proje Yürütücüsü",
+      "researcher": "Araştırmacı",
+      "tester": "Test eden",
+      "translator": "Çevirmen"
+    }
+  },
+  "Classify": {
+    "ClassifierWrapper": {
+      "ErrorMessage": {
+        "title": "Sınıflandırıcıda bir hata oluştu :("
+      }
+    },
+    "RecentSubjects": {
+      "text": "Sohbet'te bir konuyu tartışın veya Favorilerinize ya da bir koleksiyona ekleyin.",
+      "title": "En son sınıflandırmalarınız"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "Hayır, teşekkürler",
+      "confirm": "Bir sonraki iş akışına geç!",
+      "content": "Tebrikler! Bir sonraki iş akışının kilidini açtınız. Eğer isterseniz bu iş akışında kalmayı tercih edebilirsiniz.",
+      "dismiss": "Bu oturumda bunu tekrar gösterme",
+      "title": "Yeni İş Akışı Mevcut"
+    },
+    "YourStats": {
+      "allTime": "Tüm Zamanlar",
+      "lastSeven": "Son 7 Gün",
+      "link": "Daha fazlasını gör",
+      "title": "İstatistiğiniz"
+    }
+  },
+  "Home": {
+    "AboutProject": {
+      "title": "{{projectName}} Hakkında"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "Daha fazla bilgi edin"
+      },
+      "NotApproved": {
+        "paragraph": "Bu proje Zooniverse Project Builder kullanılarak oluşturulmuştur ancak henüz resmi bir Zooniverse projesi değildir. Zooniverse Ekibine, bu proje ile ilgili yöneltilen sorular ve sorunlar herhangi bir yanıt almayabilir."
+      }
+    },
+    "MessageFromResearcher": {
+      "noMessage": "Bu proje hakkında daha fazla bilgi edinmek için Sohbet üzerinden araştırma ekibiyle bağlantı kurun!",
+      "noMessageButton": "Sohbet'e git",
+      "title": "Araştırmacının Mesajı"
+    },
+    "ZooniverseTalk": {
+      "RecentSubjects": {
+        "error": "Yükleme sırasında bir hata oluştu.",
+        "noSubjects": "Görünüşe göre henüz kimse bir görüntü hakkında yorum yapmamış. Sohbet'e gidin ve ilk yorumu yazan siz olun!",
+        "subjectLabel": "Görüntü {{id}}"
+      },
+      "button": "Katıl",
+      "message": "Araştırma ekibi ve diğer gönüllülerle sohbet edin!",
+      "title": "Zooniverse Sohbet"
+    }
+  }
+}
