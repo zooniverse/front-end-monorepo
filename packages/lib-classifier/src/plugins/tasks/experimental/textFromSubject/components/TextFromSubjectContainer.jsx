@@ -2,7 +2,7 @@ import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import asyncStates from '@zooniverse/async-states'
 
-import { useSubjectText } from '@hooks'
+import useSubjectText from '@hooks/useSubjectText'
 import TextFromSubjectTask from './TextFromSubjectTask'
 
 function TextFromSubjectContainer ({
