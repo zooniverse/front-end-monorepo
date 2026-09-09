@@ -1,6 +1,6 @@
 import asyncStates from '@zooniverse/async-states'
 import { autorun } from 'mobx'
-import { addDisposer, getRoot, isValidReference, tryReference, types } from 'mobx-state-tree'
+import { addDisposer, getRoot, isAlive, isValidReference, tryReference, types } from 'mobx-state-tree'
 
 const SubjectViewer = types
   .model('SubjectViewer', {
@@ -155,6 +155,8 @@ const SubjectViewer = types
       },
 
       onSubjectReady (event, frameIndex = 0) {
+        // Media can finish loading after the store is torn down.
+        if (!isAlive(self)) return
         const { target = {} } = event || {}
         const {
           clientHeight = 0,

@@ -1,1 +1,1 @@
-export { default } from './Step'
+export { default, isSupportedTaskSnapshot } from './Step'
