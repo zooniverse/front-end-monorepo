@@ -34,7 +34,7 @@ function Task ({
   task,
   ...props
 }) {
-  const TaskPlugin = task.type === 'dropdown-simple'? tasks.dropdownSimple : tasks[task.type]
+  const TaskPlugin = task.type === 'dropdown-simple' ? tasks.dropdownSimple : tasks[task.type]
   const TaskComponent = TaskPlugin?.TaskComponent
   let annotation
   let suggestions
