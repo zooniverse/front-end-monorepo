@@ -42,8 +42,12 @@ const SubjectViewer = types
   .views(self => ({
     get disableImageToolbar () {
       const subject = tryReference(() => getRoot(self).subjects?.active)
+      const viewer = subject?.viewer
+
       const frameType = subject?.locations[self.frame].type
       if (frameType === 'text' || frameType === 'video' || frameType === 'audio') {
+        return true
+      } else if (viewer === 'audioSpectrogram') {
         return true
       }
       return false
@@ -51,8 +55,12 @@ const SubjectViewer = types
 
     get disableInvertButton () {
       const subject = tryReference(() => getRoot(self).subjects?.active)
+      const viewer = subject?.viewer
+
       const frameType = subject?.locations[self.frame].type
       if (frameType === 'text') {
+        return true
+      } else if (viewer === 'audioSpectrogram') {
         return true
       }
       return false
