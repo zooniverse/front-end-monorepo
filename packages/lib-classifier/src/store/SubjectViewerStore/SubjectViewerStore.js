@@ -60,8 +60,6 @@ const SubjectViewer = types
       const frameType = subject?.locations[self.frame].type
       if (frameType === 'text') {
         return true
-      } else if (viewer === 'audioSpectrogram') {
-        return true
       }
       return false
     },

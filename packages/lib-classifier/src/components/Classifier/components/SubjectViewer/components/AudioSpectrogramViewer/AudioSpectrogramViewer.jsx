@@ -16,6 +16,7 @@ const SpectrogramContainer = styled.div`
 const SubjectImage = styled.img`
   display: block;
   width: 100%;
+  filter: invert(${props => (props.$invert ? 1 : 0)});
 `
 
 const ProgressMarker = styled.div`
@@ -41,6 +42,7 @@ const DEFAULT_HANDLER = () => {}
 
 function AudioSpectrogramViewer({
   enableInteractionLayer = true,
+  invert = false,
   onError = DEFAULT_HANDLER,
   onReady = DEFAULT_HANDLER,
   subject
@@ -93,6 +95,7 @@ function AudioSpectrogramViewer({
           alt={`Subject ${subject.id}`}
           src={imageLocation.url}
           onLoad={handleImageLoad}
+          $invert={invert}
         />
         <ProgressMarker
           data-testid='spectrogram-progress-marker'
@@ -126,6 +129,7 @@ function AudioSpectrogramViewer({
 
 AudioSpectrogramViewer.propTypes = {
   enableInteractionLayer: bool,
+  invert: bool,
   onError: func,
   onReady: func,
   subject: shape({
