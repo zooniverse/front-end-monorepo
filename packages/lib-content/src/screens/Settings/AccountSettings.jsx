@@ -14,6 +14,7 @@ import FormLayout from '@components/PageLayout/FormLayout'
 import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent'
 
 import SettingsHeading from './components/SettingsHeading/SettingsHeading'
+import AccountNameForm from './components/AccountNameForm/AccountNameForm'
 
 function AccountSettings ({
   user
@@ -56,7 +57,10 @@ function AccountSettings ({
           color={{ light: 'black', dark: 'white' }}
         >
           <SettingsHeading section='AccountSettings' />
-          <p>User is {user.login} aka {user.display_name}</p>
+
+          <AccountNameForm
+            user={user}
+          />
         </MaxWidthContent>
       </StyledGrid>
 
