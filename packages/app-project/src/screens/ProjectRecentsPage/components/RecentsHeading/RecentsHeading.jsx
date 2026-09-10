@@ -1,7 +1,11 @@
-import { SpacedHeading } from '@zooniverse/react-components'
-import { Box } from 'grommet'
+import { Box, Heading } from 'grommet'
 import { useTranslation } from 'next-i18next/pages'
 import styled from 'styled-components'
+
+const StyledHeading = styled(Heading)`
+  margin: 0;
+  text-align: center;
+`
 
 // Styled container with gradient break as pseudo-element
 const HeadingContainer = styled(Box)`
@@ -39,14 +43,13 @@ function RecentsHeading() {
         align='center'
         width='90%'
       >
-        <SpacedHeading
+        <StyledHeading
           color={{ dark: 'accent-1', light: 'neutral-1' }}
-          level={1}
-          margin='none'
+          level={2}
           size='2rem'
         >
           {t('ProjectRecents.title')}
-        </SpacedHeading>
+        </StyledHeading>
       </HeadingContainer>
     </Box>
   )
