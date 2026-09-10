@@ -1,4 +1,4 @@
-import { arrayOf, bool, func, number, shape } from 'prop-types'
+import { arrayOf, bool, func, shape } from 'prop-types'
 import { Box } from 'grommet'
 import { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'

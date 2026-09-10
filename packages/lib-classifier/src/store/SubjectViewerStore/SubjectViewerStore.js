@@ -55,8 +55,6 @@ const SubjectViewer = types
 
     get disableInvertButton () {
       const subject = tryReference(() => getRoot(self).subjects?.active)
-      const viewer = subject?.viewer
-
       const frameType = subject?.locations[self.frame].type
       if (frameType === 'text') {
         return true
