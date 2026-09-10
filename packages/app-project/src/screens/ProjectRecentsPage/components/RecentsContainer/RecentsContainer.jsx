@@ -1,4 +1,5 @@
 import { Loader } from '@zooniverse/react-components'
+import { Box } from 'grommet'
 import { MobXProviderContext, observer } from 'mobx-react'
 import { useContext } from 'react'
 
@@ -24,31 +25,34 @@ function useStores() {
 function RecentsContainer() {
   const { login, projectId, projectSlug, userId } = useStores()
   const { data: recents = [], error, isLoading } = useRecents({ projectId, userId })
+  // Filter the recents to only include those with an attached valid subject.
+  // A valid subject attached to the recent is required for the recent to be displayed in RecentsList using the SubjectCard component.
   const validRecents = recents.filter(recent => recent?.subject)
-
-  if (!userId) {
-    return <SignedOutPlaceholder />
-  }
-  if (isLoading) {
-    return <Loader />
-  }
-  if (error) {
-    return <ErrorPlaceholder />
-  }
-  if (validRecents.length < 1) {
-    return <EmptyPlaceholder />
-  }
 
   return (
     <>
       <RecentsHeading />
-      <RecentsList
-        login={login}
-        projectId={projectId}
-        projectSlug={projectSlug}
-        recents={validRecents}
-        userId={userId}
-      />
+      <Box
+        align='center'
+        fill
+        justify='center'
+        height={{ min: '50vh' }}
+      >
+        {!userId ? <SignedOutPlaceholder /> 
+          : isLoading ? <Loader />
+          : error ? <ErrorPlaceholder /> 
+          : validRecents.length < 1 ? <EmptyPlaceholder /> 
+          : (
+            <RecentsList
+              login={login}
+              projectId={projectId}
+              projectSlug={projectSlug}
+              recents={validRecents}
+              userId={userId}
+            />
+          )
+        }
+      </Box>
     </>
   )
 }

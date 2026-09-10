@@ -8,29 +8,22 @@ function EmptyPlaceholder() {
   return (
     <Box
       align='center'
-      justify='center'
-      fill
-      pad={{ vertical: 'large', horizontal: 'medium' }}
+      direction='column'
+      gap='medium'
     >
-      <Box
-        align='center'
-        direction='column'
-        gap='medium'
+      <SpacedHeading
+        color={{ dark: 'light-1', light: 'dark-4' }}
+        level={2}
+        margin='none'
+        size='1.5rem'
+        textAlign='center'
+        weight='normal'
       >
-        <SpacedHeading
-          color={{ dark: 'light-1', light: 'dark-4' }}
-          level={2}
-          margin='none'
-          size='1.5rem'
-          textAlign='center'
-          weight='normal'
-        >
-          {t('ProjectRecents.emptyTitle')}
-        </SpacedHeading>
-        <Paragraph margin='none' textAlign='center'>
-          {t('ProjectRecents.empty')}
-        </Paragraph>
-      </Box>
+        {t('ProjectRecents.emptyTitle')}
+      </SpacedHeading>
+      <Paragraph margin='none' textAlign='center'>
+        {t('ProjectRecents.empty')}
+      </Paragraph>
     </Box>
   )
 }
