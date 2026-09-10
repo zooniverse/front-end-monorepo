@@ -1,14 +1,21 @@
-import { arrayOf, func, shape } from 'prop-types'
+import { arrayOf, bool, func, number, shape } from 'prop-types'
 import { Box } from 'grommet'
 import { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
+import asyncStates from '@zooniverse/async-states'
 import { useTranslation } from '@translations/i18n'
 
 import locationValidator from '../../helpers/locationValidator'
+import InteractionLayer from '../InteractionLayer'
 
-const SpectrogramContainer = styled(Box)`
+const SpectrogramContainer = styled.div`
   position: relative;
   overflow: hidden;
+`
+
+const SubjectImage = styled.img`
+  display: block;
+  width: 100%;
 `
 
 const ProgressMarker = styled.div`
@@ -22,9 +29,18 @@ const ProgressMarker = styled.div`
   z-index: 1;
 `
 
+const InteractionLayerContainer = styled(Box)`
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+`
+
 const DEFAULT_HANDLER = () => {}
 
 function AudioSpectrogramViewer({
+  enableInteractionLayer = true,
   onError = DEFAULT_HANDLER,
   onReady = DEFAULT_HANDLER,
   subject
@@ -73,16 +89,23 @@ function AudioSpectrogramViewer({
   return (
     <Box width='100%'>
       <SpectrogramContainer>
-        <img
-          alt='Spectrogram'
-          onLoad={handleImageLoad}
+        <SubjectImage
+          alt={`Subject ${subject.id}`}
           src={imageLocation.url}
-          style={{ display: 'block', width: '100%', height: 'auto' }}
+          onLoad={handleImageLoad}
         />
         <ProgressMarker
           data-testid='spectrogram-progress-marker'
           style={{ left: `${played * 100}%` }}
         />
+        {enableInteractionLayer && (
+          <InteractionLayerContainer>
+            <svg height='100%'>
+              {/* InteractionLayer is just a <rect/> so has to be a child of <svg /> */}
+              <InteractionLayer height='100%' width='100%' />
+            </svg>
+          </InteractionLayerContainer>
+        )}
       </SpectrogramContainer>
       <audio
         ref={audioRef}
@@ -102,6 +125,7 @@ function AudioSpectrogramViewer({
 }
 
 AudioSpectrogramViewer.propTypes = {
+  enableInteractionLayer: bool,
   onError: func,
   onReady: func,
   subject: shape({
