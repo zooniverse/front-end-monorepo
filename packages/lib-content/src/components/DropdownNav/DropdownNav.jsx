@@ -115,7 +115,10 @@ function DropdownNav({
           <StyledLi key={section.name}>
             <StyledButton
               aria-current={index === activeSection ? 'true' : 'false'}
-              href={section.slug ? `#${section.slug}` : ''}
+              href={
+                section.href ||
+                (section.slug ? `#${section.slug}` : '')
+              }
               onClick={() => handleSectionSelect(index)}
             >
               <SpacedText size='0.875rem' color='white' weight='bold'>
@@ -165,6 +168,7 @@ DropdownNav.propTypes = {
       active: bool,
       name: string,
       setActive: func,
+      href: string,  // Use either slug OR href. href takes precedence.
       slug: string
     })
   ),
