@@ -111,6 +111,13 @@
       "title": "Workflows"
     }
   },
+  "ProjectRecents": {
+    "empty": "The 20 most recent subjects you've classified from the last 90 days are shown here.",
+    "error": "There was an error loading your recents.",
+    "emptyTitle": "No Recent Classifications Found",
+    "signedOut": "Sign in to see the subjects you've recently classified.",
+    "title": "Recent Classifications"
+  },
   "Talk": {
     "ancillaryData": "Ancillary Data",
     "ancillaryDataTip": "This is ancillary data about the subject you're viewing. For more information on this, please see the About page.",

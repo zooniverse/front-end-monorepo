@@ -45,14 +45,19 @@ function NavItem({ navLink }) {
 
   let isCurrentPage
   if (router?.isReady) {
-    const routerPath = router.asPath.split('/')
-    const hrefPath = navLink.href.split('/')
+    const routerPath = router.asPath
+      .split(/[?#]/)[0] // remove query params and hash
+      .split('/')
+    const hrefPath = navLink.href
+      .split(/[?#]/)[0] // remove query params and hash
+      .split('/')
     /*
       Client-side routerPath will be ['', owner, project, section, ...rest].
       The link hrefPath will be ['', owner, project, section, ...rest].
       The section is always the fourth item in the array.
+      Query params and hash are removed because they are not relevant to determining if the link is the current page.
     */
-    isCurrentPage = !!routerPath[3] && !!hrefPath[3] && routerPath[3] === hrefPath[3]
+   isCurrentPage = !!routerPath[3] && !!hrefPath[3] && routerPath[3] === hrefPath[3]
   }
 
   return (
