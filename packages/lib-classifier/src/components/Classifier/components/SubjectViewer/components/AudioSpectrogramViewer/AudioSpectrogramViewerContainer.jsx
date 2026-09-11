@@ -9,8 +9,6 @@ import AudioSpectrogramViewer from './AudioSpectrogramViewer'
 const DEFAULT_HANDLER = () => {}
 
 function storeMapper(store) {
-  const drawingTasks = store.workflowSteps.findTasksByType('drawing')
-
   const {
     subjectViewer: { invert }
   } = store
@@ -32,6 +30,7 @@ function AudioSpectrogramViewerContainer({
   return (
     <AudioSpectrogramViewer
       enableInteractionLayer={enableInteractionLayer}
+      loadingState={loadingState}
       invert={invert}
       onError={onError}
       onReady={onReady}
