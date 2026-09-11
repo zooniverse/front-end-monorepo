@@ -1,20 +1,37 @@
-import { arrayOf, func, shape, string } from 'prop-types'
+import { arrayOf, bool, func, shape, string } from 'prop-types'
 import asyncStates from '@zooniverse/async-states'
 import { observer } from 'mobx-react'
 
+import { useStores } from '@hooks'
 import locationValidator from '../../helpers/locationValidator'
 import AudioSpectrogramViewer from './AudioSpectrogramViewer'
 
 const DEFAULT_HANDLER = () => {}
 
+function storeMapper(store) {
+  const {
+    subjectViewer: { invert }
+  } = store
+
+  return {
+    invert
+  }
+}
+
 function AudioSpectrogramViewerContainer({
+  enableInteractionLayer = false, // rare for project teams to combine drawing tools with this subject type
   loadingState = asyncStates.initialized,
   onError = DEFAULT_HANDLER,
   onReady = DEFAULT_HANDLER,
   subject
 }) {
+  const { invert } = useStores(storeMapper)
+
   return (
     <AudioSpectrogramViewer
+      enableInteractionLayer={enableInteractionLayer}
+      loadingState={loadingState}
+      invert={invert}
       onError={onError}
       onReady={onReady}
       subject={subject}
@@ -23,6 +40,7 @@ function AudioSpectrogramViewerContainer({
 }
 
 AudioSpectrogramViewerContainer.propTypes = {
+  enableInteractionLayer: bool,
   loadingState: string,
   onError: func,
   onReady: func,

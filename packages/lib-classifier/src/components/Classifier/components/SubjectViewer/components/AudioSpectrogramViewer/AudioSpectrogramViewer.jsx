@@ -1,14 +1,26 @@
-import { arrayOf, func, shape } from 'prop-types'
+import { arrayOf, bool, func, shape, string } from 'prop-types'
 import { Box } from 'grommet'
 import { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { useTranslation } from '@translations/i18n'
+import { useResizeDetector } from 'react-resize-detector'
+import asyncStates from '@zooniverse/async-states'
 
 import locationValidator from '../../helpers/locationValidator'
+import InteractionLayer from '../InteractionLayer'
+import SVGCanvas from '../SVGComponents/SVGCanvas/SVGCanvas'
+import ControlsLayer from '../ControlsLayer'
+import { getViewportScale } from '@plugins/drawingTools/shared/SVGContext'
 
-const SpectrogramContainer = styled(Box)`
+const SpectrogramContainer = styled.div`
   position: relative;
   overflow: hidden;
+`
+
+const SubjectImage = styled.img`
+  display: block;
+  width: 100%;
+  filter: invert(${props => (props.$invert ? 1 : 0)});
 `
 
 const ProgressMarker = styled.div`
@@ -22,14 +34,35 @@ const ProgressMarker = styled.div`
   z-index: 1;
 `
 
+const DrawingLayer = styled.div`
+  position: absolute;
+  top: 0;
+  width: 100%;
+`
+
 const DEFAULT_HANDLER = () => {}
 
 function AudioSpectrogramViewer({
+  enableInteractionLayer = true,
+  loadingState = asyncStates.initialized,
+  invert = false,
   onError = DEFAULT_HANDLER,
   onReady = DEFAULT_HANDLER,
   subject
 }) {
   const { t } = useTranslation('components')
+
+  /* For Drawing Tools */
+  const [imgHeight, setImgHeight] = useState(0)
+  const [imgWidth, setImgWidth] = useState(0)
+
+  const enableDrawing = loadingState === asyncStates.success && enableInteractionLayer
+
+  // Set up resize detector for calculation of scale in SVGContext
+  const { width: svgWidth, ref: svgRef } = useResizeDetector()
+  const viewportScale = getViewportScale(svgWidth, imgWidth)
+
+  /* Spectrogram Progress */
   const audioRef = useRef(null)
   const rafRef = useRef(null)
   const [played, setPlayed] = useState(0)
@@ -46,6 +79,8 @@ function AudioSpectrogramViewer({
   function handleImageLoad(e) {
     const { naturalHeight, naturalWidth, clientHeight, clientWidth } = e.target
     onReady({ target: { clientHeight, clientWidth, naturalHeight, naturalWidth } })
+    setImgHeight(naturalHeight)
+    setImgWidth(naturalWidth)
   }
 
   function syncMarker() {
@@ -73,16 +108,28 @@ function AudioSpectrogramViewer({
   return (
     <Box width='100%'>
       <SpectrogramContainer>
-        <img
-          alt='Spectrogram'
-          onLoad={handleImageLoad}
+        <SubjectImage
+          alt={`Subject ${subject.id}`}
           src={imageLocation.url}
-          style={{ display: 'block', width: '100%', height: 'auto' }}
+          onLoad={handleImageLoad}
+          $invert={invert}
         />
         <ProgressMarker
           data-testid='spectrogram-progress-marker'
           style={{ left: `${played * 100}%` }}
         />
+        {enableDrawing && (
+          <DrawingLayer>
+            <Box overflow='hidden'>
+              <svg ref={svgRef} viewBox={`0 0 ${imgWidth} ${imgHeight}`}>
+                <SVGCanvas scale={viewportScale} transform=''>
+                  <InteractionLayer height={imgHeight} width={imgWidth} />
+                </SVGCanvas>
+              </svg>
+            </Box>
+          </DrawingLayer>
+        )}
+        <ControlsLayer enableInteractionLayer={enableInteractionLayer} />
       </SpectrogramContainer>
       <audio
         ref={audioRef}
@@ -102,6 +149,9 @@ function AudioSpectrogramViewer({
 }
 
 AudioSpectrogramViewer.propTypes = {
+  enableInteractionLayer: bool,
+  loadingState: string,
+  invert: bool,
   onError: func,
   onReady: func,
   subject: shape({

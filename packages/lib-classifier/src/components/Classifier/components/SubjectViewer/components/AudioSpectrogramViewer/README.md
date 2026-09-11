@@ -11,3 +11,4 @@ The Audio Spectrogram Viewer displays an audio file and an image file (a spectro
 - The image file has a time/progress bar that's synced to the progress of the played audio.
   - When the audio starts playing, the time/progress bar starts at the left of the image. When the audio finishes playing, the time/progress bar finishes at the right of the image.
 - The image file can't be interacted with (i.e. no pan or zoom). Only the audio player provides any interactions.
+- However, you can combine drawing tools with this subject type, which enables the InteractionLayer on top of the spectrogram.
