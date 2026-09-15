@@ -121,7 +121,7 @@ function GeoDrawingTask({
         <Markdownz>{task.instruction}</Markdownz>
       </StyledText>
       
-      {task.activeFeature && task.activeOlFeature && (
+      {task.activeTool?.type === 'Point' && task.activeFeature && task.activeOlFeature && (
         <FeatureCard
           lat={featureLat}
           lon={featureLon}
