@@ -1,6 +1,8 @@
 import { arrayOf, bool, node, number, objectOf, shape, string } from 'prop-types'
 
+import MediaLink from '../MediaLink'
 import SimpleMedia from '../SimpleMedia'
+import MediaFallback from '../MediaFallback'
 import Audio from './components/Audio'
 import MultiMedia from './components/MultiMedia'
 import Video from './components/Video'
@@ -47,6 +49,7 @@ function InteractiveMedia({
     return (
       <MultiMedia
         linkTitle={linkTitle}
+        placeholder={placeholder}
         sources={sources}
         previewHeight={resolvedPreviewHeight}
         subjectIdTitle={subjectIdTitle}
@@ -98,6 +101,19 @@ function InteractiveMedia({
         width={width}
         url={url}
       />
+    )
+  }
+
+  if (singleSource) {
+    return (
+      <MediaLink href={url} title={linkTitle}>
+        <MediaFallback
+          alt={subjectIdTitle}
+          placeholder={placeholder}
+          previewHeight={resolvedPreviewHeight}
+          width={width}
+        />
+      </MediaLink>
     )
   }
 
