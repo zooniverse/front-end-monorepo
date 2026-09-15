@@ -4,10 +4,10 @@ import sinon from 'sinon'
 import { Grommet } from 'grommet'
 
 import formatTimeStamp from '@helpers/formatTimeStamp'
-import VideoController from './VideoController'
+import AudioController from './AudioController'
 import controlsTheme from '../../../../helpers/mediaControlsTheme'
 
-describe('Component > VideoController', function () {
+describe('Component > AudioController', function () {
   let onPlayPauseSpy, onSpeedChangeSpy
   const subjectDuration = 10.0
   const subjectTimeStamp = 0.2
@@ -17,10 +17,10 @@ describe('Component > VideoController', function () {
     onSpeedChangeSpy = sinon.spy()
   })
 
-  it('should display the video subject timestamp and duration', function () {
+  it('should display the audio subject timestamp and duration', function () {
     render(
       <Grommet theme={controlsTheme}>
-        <VideoController
+        <AudioController
           duration={subjectDuration}
           played={subjectTimeStamp}
         />
@@ -38,7 +38,7 @@ describe('Component > VideoController', function () {
     const user = userEvent.setup({ delay: null })
     const { rerender } = render(
       <Grommet theme={controlsTheme}>
-        <VideoController
+        <AudioController
           duration={subjectDuration}
           isPlaying={false}
           onPlayPause={onPlayPauseSpy}
@@ -47,7 +47,7 @@ describe('Component > VideoController', function () {
       </Grommet>
     )
     const playButton = screen.getByLabelText(
-      'Play video'
+      'Play audio'
     )
     await user.pointer({
       keys: '[MouseLeft]',
@@ -57,7 +57,7 @@ describe('Component > VideoController', function () {
 
     rerender(
       <Grommet theme={controlsTheme}>
-        <VideoController
+        <AudioController
           duration={subjectDuration}
           isPlaying
           onPlayPause={onPlayPauseSpy}
@@ -67,7 +67,7 @@ describe('Component > VideoController', function () {
     )
 
     const pauseButton = screen.getByLabelText(
-      'Pause video'
+      'Pause audio'
     )
     await user.pointer({
       keys: '[MouseLeft]',
@@ -80,7 +80,7 @@ describe('Component > VideoController', function () {
     sinon.stub(window, 'scrollTo')
     render(
       <Grommet theme={controlsTheme}>
-        <VideoController
+        <AudioController
           duration={subjectDuration}
           played={subjectTimeStamp}
           onSpeedChange={onSpeedChangeSpy}
@@ -89,14 +89,11 @@ describe('Component > VideoController', function () {
     )
 
     const speedInput = screen.getByLabelText(
-      'Video playback speed selection; Selected: 1x' // button is labeled "Video playback speed selection; Selected: 1x"
+      'Audio playback speed selection; Selected: 1x'
     )
 
     fireEvent.change(speedInput, { target: { value: '0.25x' } })
     expect(speedInput.value).to.equal('0.25x')
-
-    // The following assertion does not work with a Grommet Select ¯\_(ツ)_/¯
-    // expect(onSpeedChangeSpy).to.have.been.calledOnce
 
     window.scrollTo.restore()
   })
@@ -106,7 +103,7 @@ describe('Component > VideoController', function () {
 
     const { rerender } = render(
       <Grommet theme={controlsTheme}>
-        <VideoController
+        <AudioController
           duration={subjectDuration}
           played={subjectTimeStamp}
           volumeOpen={false}
@@ -125,7 +122,7 @@ describe('Component > VideoController', function () {
 
     rerender(
       <Grommet theme={controlsTheme}>
-        <VideoController
+        <AudioController
           duration={subjectDuration}
           played={subjectTimeStamp}
           volumeOpen
@@ -133,17 +130,15 @@ describe('Component > VideoController', function () {
       </Grommet>
     )
 
-    const volumeRangeInput = screen.getByLabelText('Volume')
+    const volumeRangeInput = screen.getByLabelText('Volume Slider')
     expect(volumeRangeInput).to.exist
   })
 
-  // Skipped while improving styling and accessibility of the custom controls
-  it.skip('should not have a fullscreen button if drawing tools are enabled', async function () {
+  it('should not have a fullscreen button', function () {
     render(
       <Grommet theme={controlsTheme}>
-        <VideoController
+        <AudioController
           duration={subjectDuration}
-          enableDrawing
           played={subjectTimeStamp}
         />
       </Grommet>
