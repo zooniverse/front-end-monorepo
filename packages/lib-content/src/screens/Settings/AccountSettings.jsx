@@ -41,7 +41,7 @@ function AccountSettings ({
   ]
 
   return (
-    <SettingsLayout>
+    <ContentLayout>
       <StickyBox background={{ dark: 'dark-3', light: 'neutral-6' }}>
         <DropdownNav
           activeSection={activeSection}
@@ -72,7 +72,7 @@ function AccountSettings ({
       </StyledGrid>
 
 
-    </SettingsLayout>
+    </ContentLayout>
   )
 }
 

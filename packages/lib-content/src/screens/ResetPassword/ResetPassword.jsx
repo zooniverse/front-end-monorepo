@@ -1,7 +1,7 @@
 'use client'
 
 import { Box } from 'grommet'
-import OtherLayout from '@components/PageLayout/OtherLayout'
+import ContentLayout from '@components/PageLayout/ContentLayout'
 import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent'
 import { bool, string } from 'prop-types'
 
@@ -14,7 +14,7 @@ function ResetPassword ({
   resetPasswordToken = '',
 }) {
   return (
-    <OtherLayout>
+    <ContentLayout>
       <MaxWidthContent
         className='Reset-Password-Page'
         color={{ light: 'black', dark: 'white' }}
@@ -33,7 +33,7 @@ function ResetPassword ({
           />
         )}
       </MaxWidthContent>
-    </OtherLayout>
+    </ContentLayout>
   )
 }
 
