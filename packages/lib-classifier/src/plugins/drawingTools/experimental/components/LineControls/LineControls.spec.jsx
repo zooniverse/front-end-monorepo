@@ -13,6 +13,7 @@ describe('LineControls', () => {
   beforeEach(() => {
     mark = {
       id: 'test',
+      isDragging: false,
       undo: sinon.stub(),
       redo: sinon.stub(),
       close: sinon.stub()
@@ -109,5 +110,30 @@ describe('LineControls', () => {
     fireEvent.pointerDown(button)
     
     expect(svg.className.baseVal).not.to.equal(className)
+  })
+})
+
+describe('LineControls with isDragging = true', () => {
+  it('should render nothing', () => {
+    const mark = {
+      id: 'test',
+      isDragging: true,
+      undo: sinon.stub(),
+      redo: sinon.stub(),
+      close: sinon.stub()
+    }    
+    const onDelete = sinon.stub()
+
+    render(
+      <Grommet theme={zooTheme}>
+        <LineControls 
+          mark={mark}
+          onDelete={onDelete}
+        />
+      </Grommet>
+    )
+
+    const svg = document.querySelector('svg')
+    expect(svg).not.to.be.ok
   })
 })
