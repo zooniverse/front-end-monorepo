@@ -1,7 +1,6 @@
 'use client'
 
 import { Box, Heading } from 'grommet'
-import SettingsLayout from '@components/PageLayout/SettingsLayout'
 import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent'
 import { shape, string } from 'prop-types'
 import { useTranslation } from 'react-i18next'
@@ -14,6 +13,7 @@ import {
   StyledGrid
 } from '@components/SharedStyledComponents/SharedStyledComponents'
 import DropdownNav from '@components/DropdownNav/DropdownNav'
+import FormLayout from '@components/PageLayout/FormLayout'
 
 const StyledAboutHeading = styled(Heading)`
   position: relative;
@@ -41,7 +41,7 @@ function AccountSettings ({
   ]
 
   return (
-    <ContentLayout>
+    <FormLayout>
       <StickyBox background={{ dark: 'dark-3', light: 'neutral-6' }}>
         <DropdownNav
           activeSection={activeSection}
@@ -72,7 +72,7 @@ function AccountSettings ({
       </StyledGrid>
 
 
-    </ContentLayout>
+    </FormLayout>
   )
 }
 
