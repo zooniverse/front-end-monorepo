@@ -28,6 +28,21 @@ function renderTask(task) {
   )
 }
 
+function setActiveFeature(task, geometryType = 'Point') {
+  const coordinates = geometryType === 'Point' ? [0, 0] : [[0, 0], [1, 1]]
+  task.setActiveFeature({
+    geometry: { coordinates, type: geometryType },
+    properties: {},
+    type: 'Feature'
+  })
+  task.setActiveOlFeature({
+    get: () => null,
+    getGeometry: () => ({ getCoordinates: () => coordinates }),
+    on: () => {},
+    un: () => {}
+  })
+}
+
 describe('Component > GeoDrawingTask', function () {
   describe('tool input status (shared InputStatus)', function () {
     it('no min + no max → "0 drawn"', function () {
@@ -73,6 +88,31 @@ describe('Component > GeoDrawingTask', function () {
       expect(screen.getByText('0 of 1 required, 3 maximum drawn')).to.exist
       expect(screen.getByText('0 drawn')).to.exist
       expect(screen.getByText('Segmented Line 2')).to.exist
+    })
+  })
+
+  describe('selected feature card', function () {
+    it('only renders for the active Point tool', function () {
+      const lineTask = buildLineStringTask()
+      setActiveFeature(lineTask, 'LineString')
+      renderTask(lineTask)
+      expect(screen.queryByText('Selected feature:')).to.equal(null)
+
+      const pointTask = GeoDrawingTaskModel.create({
+        activeToolIndex: 0,
+        strings: {
+          instruction: 'Select',
+          'tools.0.label': 'Point'
+        },
+        taskKey: 'T1',
+        tools: [
+          { color: '#E65252', label: 'Point', type: 'Point' }
+        ],
+        type: 'geoDrawing'
+      })
+      setActiveFeature(pointTask)
+      renderTask(pointTask)
+      expect(screen.getByText('Selected feature:')).to.exist
     })
   })
 })
