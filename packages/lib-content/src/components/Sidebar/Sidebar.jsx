@@ -1,6 +1,7 @@
 import { arrayOf, func, number, shape, string } from 'prop-types'
 import styled, { css } from 'styled-components'
 import { Button, Nav } from 'grommet'
+import Link from 'next/link'
 import { SpacedText } from '@zooniverse/react-components'
 
 const StyledUl = styled.ul`
@@ -18,6 +19,23 @@ const StyledButton = styled(Button)`
   width: 100%;
 
   &[aria-current='true'] {
+    ${props =>
+      props.theme.dark
+        ? css`
+            background: ${props.theme.global.colors['neutral-1']};
+          `
+        : css`
+            background: ${props.theme.global.colors['accent-1']};
+          `}
+  }
+`
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  padding: 5px 20px; // Same as Project About page sidebar
+  width: 100%;
+
+  &[aria-current='page'] {
     ${props =>
       props.theme.dark
         ? css`
@@ -47,21 +65,34 @@ function Sidebar({
       <StyledUl>
         {sections.map((section, index) => (
           <StyledLi key={section.name}>
-            <StyledButton
-              aria-current={index === activeSection ? 'true' : 'false'}
-              href={
-                section.href ||
-                (section.slug ? `#${section.slug}` : '')
-              }
-              onClick={() => setActiveSection(index)}
-            >
-              <SpacedText
-                color={{ light: 'black', dark: 'white' }}
-                weight={index === activeSection ? 'bold' : 'normal'}
+            {section.slug ? (
+              <StyledButton
+                aria-current={index === activeSection ? 'true' : 'false'}
+                href={`#${section.slug}`}
+                onClick={() => setActiveSection(index)}
               >
-                {section.name}
-              </SpacedText>
-            </StyledButton>
+                <SpacedText
+                  color={{ light: 'black', dark: 'white' }}
+                  weight={index === activeSection ? 'bold' : 'normal'}
+                >
+                  {section.name}
+                </SpacedText>
+              </StyledButton>
+            ) : (
+              <StyledLink
+                aria-current={index === activeSection ? 'page' : ''}
+                href={section.href || ''}
+                onClick={() => setActiveSection(index)}
+              >
+                <SpacedText
+                  color={{ light: 'black', dark: 'white' }}
+                  weight={index === activeSection ? 'bold' : 'normal'}
+                >
+                  {section.name}
+                </SpacedText>
+              </StyledLink>
+            )}
+
           </StyledLi>
         ))}
       </StyledUl>
