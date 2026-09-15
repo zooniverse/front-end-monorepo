@@ -5,7 +5,7 @@ import { arrayOf, bool, func, number, shape, string } from 'prop-types'
 import ProjectCard from '@zooniverse/react-components/ProjectCard'
 import Loader from '@zooniverse/react-components/Loader'
 
-import { useTranslation } from '@translations/i18n'
+import { useTranslation } from 'react-i18next'
 import { Pagination } from '@components/shared'
 
 const StyledBox = styled(Box)`

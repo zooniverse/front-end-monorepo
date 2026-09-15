@@ -2,7 +2,7 @@ import { Loader, SpacedText } from '@zooniverse/react-components'
 import { Anchor, Box, Paragraph } from 'grommet'
 import { arrayOf, bool, func, shape, string } from 'prop-types'
 import Link from 'next/link'
-import { useTranslation, Trans } from '@translations/i18n'
+import { useTranslation, Trans } from 'react-i18next'
 
 import { ContentBox } from '@components/shared'
 import GroupCardContainer from '../GroupCard/GroupCardContainer'

@@ -1,6 +1,6 @@
 import { bool, func, node, shape, string } from 'prop-types'
 import useSWRMutation from 'swr/mutation'
-import { useTranslation } from '@translations/i18n'
+import { useTranslation } from 'react-i18next'
 
 import {
   deletePanoptesUserGroup,

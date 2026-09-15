@@ -2,7 +2,7 @@ import { Box, Button, Paragraph } from 'grommet'
 import styled from 'styled-components'
 import { SpacedHeading } from '@zooniverse/react-components'
 
-import { useTranslation, Trans } from '@translations/i18n'
+import { useTranslation, Trans } from 'react-i18next'
 
 export function ErrorPlaceholder() {
   const { t } = useTranslation()

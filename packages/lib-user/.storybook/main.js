@@ -4,6 +4,7 @@ const config = {
   stories: ['../src/**/*.stories.jsx'],
   addons: [
     '@storybook/addon-a11y',
+    'storybook-react-i18next'
   ],
   framework: {
     name: '@storybook/nextjs',

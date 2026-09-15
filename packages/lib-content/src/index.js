@@ -1,4 +1,5 @@
 export { default as About } from './screens/About/About'
+export { default as AIEthics } from './screens/AIEthics/AIEthics'
 export { default as Collaborate } from './screens/Collaborate/Collaborate'
 export { default as CommunityContainer } from './screens/Home/Community/CommunityContainer'
 export { default as Default404 } from './screens/404/Default404'
@@ -13,3 +14,6 @@ export { default as ResetPassword } from './screens/ResetPassword/ResetPassword'
 export { default as Resources } from './screens/Resources/Resources'
 export { default as Unsubscribe } from './screens/Unsubscribe/Unsubscribe'
 export { default as Volunteer } from './screens/Volunteer/Volunteer'
+
+export { default as enKeys } from './translations/en.json'
+export { default as testKeys } from './translations/test.json'

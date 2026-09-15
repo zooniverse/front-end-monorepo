@@ -49,6 +49,6 @@ On viewports smaller than 768px, the vertical layout displays the subject area s
 
 ## GeoMapLayout
 
-This layout is assigned to workflows with `configuration.subject_viewer` set as `geoMap`. The viewer container has a fixed height of 600px (400px on mobile). The task area is sticky positioned with a width of 20rem.
+This layout is assigned to workflows with `configuration.subject_viewer` set as `geoMap`. The viewer container has a height of 90vh (70vh on viewports smaller than 768px). The task area is sticky positioned with a width of 20rem.
 
 On viewports smaller than 768px, the vertical layout displays the subject area stacked above the task area.

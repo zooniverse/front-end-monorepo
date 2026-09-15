@@ -9,7 +9,7 @@ import {
 } from 'grommet'
 import { CircleInformation } from 'grommet-icons'
 import styled from 'styled-components'
-import { Trans, useTranslation } from '@translations/i18n'
+import { Trans, useTranslation } from 'react-i18next'
 
 const Relative = styled(Box)`
   // This is necessary so the Contact Us section's header margin doesn't overlap the interactive icon in this section

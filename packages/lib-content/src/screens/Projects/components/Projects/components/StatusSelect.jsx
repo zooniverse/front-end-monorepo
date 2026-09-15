@@ -2,7 +2,7 @@ import { Select as GrommetSelect, ResponsiveContext, ThemeContext } from 'gromme
 import styled from 'styled-components'
 import { useContext } from 'react'
 
-import { useTranslation } from '@translations/i18n'
+import { useTranslation } from 'react-i18next'
 import selectTheme from './selectTheme'
 
 const DEFAULT_HANDLER = () => true

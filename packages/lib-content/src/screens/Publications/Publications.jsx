@@ -5,7 +5,7 @@ import { Anchor, Box, Paragraph } from 'grommet'
 import { array, arrayOf, bool, func, number, shape, string } from 'prop-types'
 import styled from 'styled-components'
 
-import { useTranslation } from '@translations/i18n'
+import { useTranslation } from 'react-i18next'
 import DropdownNav from '@components/DropdownNav/DropdownNav'
 import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent'
 import AboutLayout from '@components/PageLayout/AboutLayout'
@@ -52,7 +52,7 @@ function Publications({ publicationsData = [], sections = [] }) {
         </StickyBox>
         <MaxWidthContent>
           <StyledSection>
-            <StyledHeading level='1' color={{ light: 'neutral-1', dark: 'accent-1' }} size='small'>
+            <StyledHeading level={1} color={{ light: 'neutral-1', dark: 'accent-1' }} size='small'>
               {t('Publications.title')}
             </StyledHeading>
             <Paragraph textAlign='center' margin={{ top: '30px' }}>

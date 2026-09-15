@@ -46,3 +46,7 @@ export { getDateInterval } from './utils/getDateInterval.js'
 export { getStatsDateString } from './utils/getStatsDateString.js'
 export { updatePanoptesMembership } from './utils/updatePanoptesMembership.js'
 export { updatePanoptesUserGroup } from './utils/updatePanoptesUserGroup.js'
+
+// translation dictionaries
+export { default as enUserTranslations } from './translations/en.json'
+export { default as testUserTranslations } from './translations/test.json'

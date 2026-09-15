@@ -3,7 +3,7 @@ import { arrayOf, bool, shape, string } from 'prop-types'
 import { useContext } from 'react'
 import styled from 'styled-components'
 import { Loader, SpacedText, SubjectCard } from '@zooniverse/react-components'
-import { useTranslation, Trans } from '@translations/i18n'
+import { useTranslation, Trans } from 'react-i18next'
 
 import { ContentBox } from '@components/shared'
 
@@ -28,7 +28,7 @@ function RecentSubjects({
 
   return (
     <ContentBox
-      title='Recent Classifications'
+      title={t('UserHome.RecentSubjects.title')}
       titleId='recent-subjects'
       screenSize={size}
     >

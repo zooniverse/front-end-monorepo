@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { useEffect, useState } from 'react'
 import useDebounce from '../hooks/useDebounce'
 
-import { useTranslation } from '@translations/i18n'
+import { useTranslation } from 'react-i18next'
 
 const StyledBox = styled(Box)`
   position: relative;

@@ -1,5 +1,5 @@
 import { arrayOf, bool, shape, string } from 'prop-types'
-import { useTranslation } from '@translations/i18n'
+import { useTranslation } from 'react-i18next'
 import { Heading } from 'grommet'
 import SpacedText from '@zooniverse/react-components/SpacedText'
 

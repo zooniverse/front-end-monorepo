@@ -2,7 +2,7 @@ import { SpacedText } from '@zooniverse/react-components'
 import { Box } from 'grommet'
 import { number, string } from 'prop-types'
 import styled from 'styled-components'
-import { useTranslation } from '@translations/i18n'
+import { useTranslation } from 'react-i18next'
 
 const StyledBox = styled(Box)`
   box-shadow: 8px 0px 6px -6px rgba(0, 0, 0, 0.25);

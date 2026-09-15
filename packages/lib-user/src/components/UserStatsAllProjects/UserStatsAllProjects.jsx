@@ -15,7 +15,7 @@ import {
   SortDropdown
 } from '@components/shared'
 import { getDateInterval, getStatsDateString } from '@utils'
-import { useTranslation } from '@translations/i18n'
+import { useTranslation } from 'react-i18next'
 
 const STATS_ENDPOINT = '/classifications/users'
 const DEFAULT_HANDLER = () => true

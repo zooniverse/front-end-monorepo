@@ -1,6 +1,6 @@
 # react-i18next for Translations
 
-The `/translations` folder contains json dictionary files for translatable strings in lib-content. There's an i18n instance for each library in FEM.
+The `/translations` folder contains json dictionary files for translatable strings in lib-user. The i18n instance lives in app-root when lib-user components are imported and used in that app. In lib-user's Storybook env, the `i18n` instance is in the /.storybook folder, and in the /test folder for Vitest.
 
 
 ## Adding New Dictionary Keys
@@ -27,8 +27,4 @@ const MyComponent = () => {
 
 FEM is integrated with [Lokalise](https://app.lokalise.com) for translations management. Any dictionary other than `en.json` should be managed through the Lokalise Dashboard. Instructions on how to import and export dictionary files can be found in the how-to-zooniverse [Translations](https://github.com/zooniverse/how-to-zooniverse/tree/master/Translations) folder.
 
-New languages must be added into the `supportedLngs` array in i18n.js.
-
-```js
-const supportedLngs = ['en', 'fr']
-```
+New languages can be added to this folder following the `[locale].json` naming. Add the locale to Storybook's or Vitest's i18n.js if you want to see them in the those env. All dictionaries should be exported in order to be imported into app-root.

@@ -15,7 +15,7 @@ import styled from 'styled-components'
 import { useContext } from 'react'
 import { YouTubeEmbed } from '@next/third-parties/google'
 
-import { Trans, useTranslation } from '@translations/i18n'
+import { Trans, useTranslation } from 'react-i18next'
 import Stats from '@components/Stats/Stats'
 
 const VideoWrapper = styled(Box)`

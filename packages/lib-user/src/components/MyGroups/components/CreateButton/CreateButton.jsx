@@ -2,7 +2,7 @@ import { PlainButton } from '@zooniverse/react-components'
 import { Add } from 'grommet-icons'
 import { func, string } from 'prop-types'
 import styled from 'styled-components'
-import { useTranslation } from '@translations/i18n'
+import { useTranslation } from 'react-i18next'
 
 const StyledButton = styled(PlainButton)`
   width: fit-content;

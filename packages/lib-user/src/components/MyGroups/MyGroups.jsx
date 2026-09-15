@@ -2,7 +2,7 @@ import { Loader, SpacedText } from '@zooniverse/react-components'
 import { Box, Grid, Paragraph } from 'grommet'
 import { arrayOf, bool, shape, string } from 'prop-types'
 import styled from 'styled-components'
-import { useTranslation, Trans } from '@translations/i18n'
+import { useTranslation, Trans } from 'react-i18next'
 
 import GroupCardList from './components/GroupCardList'
 

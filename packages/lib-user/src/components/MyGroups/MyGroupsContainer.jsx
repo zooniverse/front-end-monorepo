@@ -4,7 +4,7 @@ import { SpacedText } from '@zooniverse/react-components'
 import { Anchor, Box } from 'grommet'
 import { bool, shape, string } from 'prop-types'
 import { useState } from 'react'
-import { useTranslation } from '@translations/i18n'
+import { useTranslation } from 'react-i18next'
 
 import {
   usePanoptesMemberships,
