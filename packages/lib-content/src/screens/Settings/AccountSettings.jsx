@@ -42,6 +42,7 @@ function AccountSettings ({
 
   return (
     <FormLayout>
+      
       <StickyBox background={{ dark: 'dark-3', light: 'neutral-6' }}>
         <DropdownNav
           activeSection={activeSection}
@@ -70,7 +71,6 @@ function AccountSettings ({
           <p>User is {user.login} aka {user.display_name}</p>
         </MaxWidthContent>
       </StyledGrid>
-
 
     </FormLayout>
   )

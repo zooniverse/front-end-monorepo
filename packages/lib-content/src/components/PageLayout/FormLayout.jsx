@@ -6,6 +6,7 @@ import Link from 'next/link'
 
 import { ZooniverseLogotype } from '@zooniverse/react-components'
 import ContainerBox from './ContainerBox'
+import HeaderLink from '../HeaderLinkAndButton/HeaderLink'
 
 const HeaderBreakpoint = '36rem'
 
@@ -17,30 +18,6 @@ const StyledLogo = styled(ZooniverseLogotype)`
     display: none;
   }
 `
-
-const StyledBox = styled(Box)`
-  justify-content: left;
-
-  @media (width < ${HeaderBreakpoint}) {
-    justify-content: center;
-  }
-`
-
-const StyledAnchor = styled(Anchor)`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 40px;
-
-  border-bottom: 2px solid transparent;
-  text-decoration: none;
-  text-transform: uppercase;
-
-  &:hover {
-    border-bottom-color: white;
-  }
-`
-
 
 const customTheme = {
   paragraph: {
@@ -61,10 +38,7 @@ function FormLayout({ children }) {
 
   return (
     <>
-      <header
-        // This header is a variant of <AboutHeader> with one unique nav link.
-        // If AboutHeader is changed, this should be too.
-      >
+      <header>
         <Box
           align='center'
           aria-label={navTitle}
@@ -72,21 +46,22 @@ function FormLayout({ children }) {
           as='nav'
           background='neutral-1'
           pad={{ horizontal: 'medium' }}
+          height={{ min: '3.5rem' }}
         >
-          <StyledBox
+          <Box
             forwardedAs='ul'
             direction='row'
-            pad={{ left: 'none' }}
             width='100%'
             wrap
           >
             <Box as='li' pad={{ right: 'small' }}>
-              <StyledAnchor as={Link} href={backLinkUrl}>
-                <BackLinkIcon color='white' />
-                <Text color='white'>{backLinkLabel}</Text>
-              </StyledAnchor>
+              <HeaderLink
+                href={backLinkUrl}
+                label={backLinkLabel}
+                primaryItem={true}
+              />
             </Box>
-          </StyledBox>
+          </Box>
           <StyledLogo id='zooniverse-logo-settings-page' color='white' />
         </Box>
       </header>
