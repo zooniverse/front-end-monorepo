@@ -25,7 +25,7 @@ const customTheme = {
   }
 }
 
-function OtherLayout({ children }) {
+function ContentLayout({ children }) {
   // Note: the the Decorative Pseudo-Header looks visually similar to the
   // AboutLayout's AboutHeader (used on About pages), except the DPH isn't a
   // <header> element and has no <nav> elements. It's purely decorative.
@@ -65,4 +65,4 @@ function OtherLayout({ children }) {
   )
 }
 
-export default OtherLayout
+export default ContentLayout

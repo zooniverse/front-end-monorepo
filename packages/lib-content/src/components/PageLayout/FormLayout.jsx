@@ -52,7 +52,7 @@ const customTheme = {
   }
 }
 
-function SettingsLayout({ children }) {
+function ContentLayout({ children }) {
   
   const { t } = useTranslation()
   const navTitle = t('Settings.common.title')
@@ -115,4 +115,4 @@ function SettingsLayout({ children }) {
   )
 }
 
-export default SettingsLayout
+export default ContentLayout
