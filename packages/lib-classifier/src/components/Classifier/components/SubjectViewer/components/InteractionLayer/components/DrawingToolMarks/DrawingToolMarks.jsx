@@ -78,6 +78,7 @@ function DrawingToolMarks({
           onDelete={deleteMark}
           onFinish={onFinish}
           onSelect={selectMark}
+          onDeselect={deselectMark}
           pointerEvents={isActive ? 'painted' : pointerEvents}
         >
           <MarkingComponent
@@ -91,7 +92,6 @@ function DrawingToolMarks({
               label={`Delete ${tool.type}`}
               mark={mark}
               onDelete={deleteMark}
-              onDeselect={deselectMark}
             />
           )}
         </Mark>

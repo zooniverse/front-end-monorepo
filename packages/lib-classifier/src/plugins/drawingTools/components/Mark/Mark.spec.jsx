@@ -67,10 +67,18 @@ describe('Drawing tools > Mark', function () {
     })
   })
 
-  describe('on focus', function () {
-    before(async function () {
-      const user = userEvent.setup({ delay: 'none' })
-      point = pointTool.createMark({
+  describe('keyboard focus', function () {
+    let user
+    const onSelect = sinon.stub()
+    const onDeselect = sinon.stub()
+  
+    beforeEach(async function () {
+      const pointTool = PointTool.create({
+        type: 'point',
+        tasks: []
+      })
+      user = userEvent.setup({ delay: 'none' })
+      const point = pointTool.createMark({
         id: 'point1'
       })
       point.finish()
@@ -82,16 +90,23 @@ describe('Drawing tools > Mark', function () {
             onDelete={onDelete}
             onFinish={onFinish}
             onSelect={onSelect}
+            onDeselect={onDeselect}
           >
             <Point mark={point} />
           </Mark>
         </svg>, { wrapper: withGrommetWrapper() }
       )
-      await user.tab()
     })
 
-    it('should be selected', function () {
+    it('should be selected on focus', async function () {
+      await user.tab()
       expect(onSelect).to.have.been.calledOnce
+    })
+
+    it('should be deselected on blur', async function () {
+      await user.tab()
+      await user.tab()
+      expect(onDeselect).to.have.been.calledOnce
     })
   })
 
@@ -349,6 +364,10 @@ describe('Drawing tools > Mark', function () {
   })
 
   describe('when the active mark is finished', function () {
+    const onSelect = sinon.stub()
+    const onDeselect = sinon.stub()
+    const onFinish = sinon.stub()
+
     function markWrapper(mark) {
       return (
         <Grommet theme={zooTheme}>
@@ -360,6 +379,7 @@ describe('Drawing tools > Mark', function () {
               onDelete={onDelete}
               onFinish={onFinish}
               onSelect={onSelect}
+              onDeselect={onDeselect}
             >
               <Point mark={mark} />
             </Mark>
@@ -368,7 +388,7 @@ describe('Drawing tools > Mark', function () {
       )
     }
 
-    describe('when subtasks are closed', function () {
+    describe('when a new mark is finished', function () {
       let newMark
 
       before(function () {
@@ -385,10 +405,18 @@ describe('Drawing tools > Mark', function () {
       it('should open the subtask popup', async function () {
         expect(newMark.subTaskVisibility).to.equal(true)
       })
+
+      it('should be selected', function () {
+        expect(onSelect).to.have.been.calledOnce
+        expect(onDeselect).to.not.have.been.called
+      })
     })
   })
 
   describe('when subtasks are closed', function () {
+    const onSelect = sinon.stub()
+    const onDeselect = sinon.stub()
+
     function markWrapper(mark) {
       return (
         <Grommet theme={zooTheme}>
@@ -400,6 +428,7 @@ describe('Drawing tools > Mark', function () {
               onDelete={onDelete}
               onFinish={onFinish}
               onSelect={onSelect}
+              onDeselect={onDeselect}
             >
               <Point mark={mark} />
             </Mark>
