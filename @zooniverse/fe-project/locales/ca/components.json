@@ -1,0 +1,141 @@
+{
+  "404": {
+    "findNewProject": "Troba un nou projecte per explorar",
+    "heading": "No hi ha res aquí.",
+    "message": "La pàgina que busques ja no existeix.",
+    "returnHome": "Torna a la pàgina d'inici"
+  },
+  "Announcements": {
+    "AuthenticationInvitation": {
+      "announcement": "Si us plau, inicia sessió o registra’t per fer el seguiment de les teves contribucions.",
+      "register": "Registra’t",
+      "signIn": "iniciar sessió"
+    },
+    "FinishedAnnouncement": {
+      "announcement": "Acabat! Sembla que aquest projecte no té dades en aquest moment!",
+      "seeResults": "Veure resultats"
+    }
+  },
+  "CollectionsModal": {
+    "CreateCollection": {
+      "createButton": "Crea i afegeix",
+      "label": "Crea una col·lecció nova",
+      "private": "Col·lecció privada"
+    },
+    "SelectCollection": {
+      "addButton": "Afegeix",
+      "label": "Afegeix a una col·lecció existent"
+    },
+    "title": "Afegeix a la col·lecció"
+  },
+  "ConnectWithProject": {
+    "ProjectLink": {
+      "types": {
+        "bitbucket": "Bitbucket",
+        "bluesky": "BlueSky",
+        "facebook": "Facebook",
+        "github": "GitHub",
+        "instagram": "Instagram",
+        "mastodon": "Mastodon",
+        "medium": "Medium",
+        "pinterest": "Pinterest",
+        "reddit": "Reddit",
+        "tumblr": "Tumblr",
+        "twitter": "Twitter",
+        "website": "Lloc web",
+        "weibo": "Weibo",
+        "wordpress": "WordPress",
+        "youtube": "YouTube"
+      }
+    },
+    "title": "Connecta amb {{projectName}}"
+  },
+  "Head": {
+    "defaultDescription": "Zooniverse és la plataforma més gran i popular del món per a la recerca impulsada per persones.",
+    "defaultTitle": "Projectes",
+    "siteName": "Zooniverse - Recerca impulsada per persones"
+  },
+  "ProjectHeader": {
+    "ApprovedIcon": {
+      "title": "Aprovat per Zooniverse"
+    },
+    "Avatar": {
+      "alt": "Avatar del projecte per a {{project}}"
+    },
+    "LocaleSwitcher": {
+      "label": "Canvia l'idioma"
+    },
+    "ProjectNav": {
+      "ariaLabel": "Projecte"
+    },
+    "UnderReviewLabel": {
+      "underReview": "En revisió"
+    },
+    "about": "Quant a",
+    "admin": "Pàgina d'administració",
+    "classify": "Classificar",
+    "collect": "Recull",
+    "exploreProject": "Explora el projecte",
+    "organization": "Des de l'organització:",
+    "recents": "Recents",
+    "talk": "Parla"
+  },
+  "ProjectStatistics": {
+    "byTheNumbers": "Per xifres",
+    "classifications": "Classificacions",
+    "completedSubjects": "Objectes completats",
+    "percentComplete": "Percentatge complet",
+    "subjects": "Objectes",
+    "subtitle": "Fes un seguiment del progrés que tu i la resta de voluntaris heu fet en aquest projecte.",
+    "text": "Cada clic compta! Uneix-te a la comunitat de {{projectName}} per completar aquest projecte i ajudar els investigadors a obtenir resultats importants. Fes clic a “Veure més estadístiques” per veure encara més dades.",
+    "title": "{{projectName}} Estadístiques",
+    "viewMoreStats": "Veure més estadístiques",
+    "volunteers": "Voluntaris"
+  },
+  "RequireUser": {
+    "text": "Cal que inicieu la sessió!"
+  },
+  "StandardLayout": {
+    "headerLabel": "Capçalera del lloc de Zooniverse"
+  },
+  "SubjectPicker": {
+    "alreadySeen": "Ja vist",
+    "back": "Tria un conjunt d’objectes diferent",
+    "byline": "Ordena la llista fent clic als noms de les columnes. Veuràs els objectes seqüencialment, començant pel que triïs.",
+    "fetching": "Si us plau, espera...",
+    "heading": "Tria un objecte per començar",
+    "retired": "Retirat",
+    "unclassified": "Disponible"
+  },
+  "SubjectPreview": {
+    "CollectionsButton": {
+      "add": "Afegeix a col·leccions"
+    },
+    "TalkLink": {
+      "label": "Debateix a Talk"
+    }
+  },
+  "SubjectSetPicker": {
+    "SubjectSetCard": {
+      "isComplete": "Acabat"
+    },
+    "back": "Tria un flux de treball diferent",
+    "byline": "Tria un conjunt d’objectes per començar a transcriure.",
+    "heading": "Tria per on començar"
+  },
+  "WorkflowSelector": {
+    "WorkflowSelectButton": {
+      "complete": "{{completeness}}% completat",
+      "setSelection": "Trieu selecció",
+      "subjectSelection": "selecció d'objectes"
+    },
+    "WorkflowSelectButtons": {
+      "locked": "bloquejat",
+      "unlocked": "desbloquejat"
+    },
+    "error": "S’ha produït un error en obtenir els fluxos de treball :(",
+    "getStarted": "Comença!",
+    "message": "Pots fer una investigació real fent clic aquí per començar.",
+    "noWorkflows": "Res per classificar"
+  }
+}
