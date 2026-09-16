@@ -188,5 +188,28 @@ describe('feedback: generateRules', function () {
         expect(Object.keys(generateRules(subject, workflow)).length).to.equal(0)
       })
     })
+
+    describe('when the workflow rule names an unknown strategy', function () {
+      const workflow = {
+        tasks: {
+          T0: {
+            feedback: {
+              enabled: true,
+              rules: [{
+                id: '51',
+                strategy: 'notARegisteredStrategy',
+                failureEnabled: true,
+                successEnabled: true
+              }]
+            }
+          }
+        }
+      }
+
+      it('should skip the rule instead of throwing', function () {
+        const subject = mockSubjectWithRule('51')
+        expect(Object.keys(generateRules(subject, workflow)).length).to.equal(0)
+      })
+    })
   })
 })

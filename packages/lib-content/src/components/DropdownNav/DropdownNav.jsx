@@ -3,6 +3,7 @@ import { arrayOf, bool, func, number, shape, string } from 'prop-types'
 import styled, { css } from 'styled-components'
 import { Box, Button, DropButton, Nav } from 'grommet'
 import { FormDown } from 'grommet-icons'
+import Link from 'next/link'
 import { SpacedText } from '@zooniverse/react-components'
 
 const StyledButton = styled(Button)`
@@ -20,6 +21,27 @@ const StyledButton = styled(Button)`
   }
 
   &[aria-current='true'] {
+    & > span {
+      border-bottom: 2px solid white;
+    }
+  }
+`
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  padding: 10px 15px;
+  width: 100%;
+  text-shadow: 0 2px 2px rgba(0, 0, 0, 0.22);
+
+  &:hover,
+  :focus {
+    ${props =>
+      css`
+        background: ${props.theme.global.colors['neutral-1']};
+      `}
+  }
+
+  &[aria-current='page'] {
     & > span {
       border-bottom: 2px solid white;
     }
@@ -113,15 +135,26 @@ function DropdownNav({
       <StyledUl>
         {sections.map((section, index) => (
           <StyledLi key={section.name}>
-            <StyledButton
-              aria-current={index === activeSection ? 'true' : 'false'}
-              href={section.slug ? `#${section.slug}` : ''}
-              onClick={() => handleSectionSelect(index)}
-            >
-              <SpacedText size='0.875rem' color='white' weight='bold'>
-                {section.name}
-              </SpacedText>
-            </StyledButton>
+            {section.slug ? (
+              <StyledButton
+                aria-current={index === activeSection ? 'true' : 'false'}
+                href={`#${section.slug}`}
+                onClick={() => handleSectionSelect(index)}
+              >
+                <SpacedText size='0.875rem' color='white' weight='bold'>
+                  {section.name}
+                </SpacedText>
+              </StyledButton>
+            ) : (
+              <StyledLink
+                aria-current={index === activeSection ? 'page' : ''}
+                href={section.href || ''}
+              >
+                <SpacedText size='0.875rem' color='white' weight='bold'>
+                  {section.name}
+                </SpacedText>
+              </StyledLink>
+            )}
           </StyledLi>
         ))}
       </StyledUl>
@@ -165,6 +198,7 @@ DropdownNav.propTypes = {
       active: bool,
       name: string,
       setActive: func,
+      href: string,  // Use either slug OR href. href takes precedence.
       slug: string
     })
   ),
