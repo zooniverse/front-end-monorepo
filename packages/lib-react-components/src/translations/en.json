@@ -114,6 +114,9 @@
       "pause": "Pause flipbook",
       "play": "Play flipbook",
       "viewFrame": "View frame {{frame}}"
+    },
+    "MediaFallback": {
+      "message": "Preview not available"
     }
   },
   "ZooFooter": {
