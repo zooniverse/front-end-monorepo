@@ -16,10 +16,15 @@ import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent'
 import SettingsHeading from './components/SettingsHeading/SettingsHeading'
 import AccountNameForm from './components/AccountNameForm/AccountNameForm'
 
+import useUserData from './helpers/useUserData'
+import updateUserData from './helpers/updateUserData'
+
 function AccountSettings ({
-  user
+  authUser
 }) {
-  if (!user) return null
+  if (!authUser) return null
+
+  const { data: user, isLoading, error, isValidating, mutate } = useUserData({ login: authUser.login })
 
   const { i18n, t } = useTranslation()
   const locale = i18n.language
@@ -31,6 +36,18 @@ function AccountSettings ({
     { name: t('Settings.ProfileSettings.title'), href: `${localePrefix}/settings/profile` },
     { name: t('Settings.EmailSettings.title'), href: `${localePrefix}/settings/email` }
   ]
+
+  if (isLoading || isValidating) {
+    return 'loading...'  // TODO
+  }
+
+  if (!user) {
+    return 'How did this happen?' // TODO
+  }
+
+  if (error) {
+    return null  // TODO
+  }
 
   return (
     <FormLayout>
@@ -59,6 +76,11 @@ function AccountSettings ({
           color={{ light: 'black', dark: 'white' }}
         >
           <SettingsHeading section='AccountSettings' />
+
+          <div>
+            <h2>DEBUG</h2>
+            <p>User: {user?.login}</p>
+          </div>
 
           <AccountNameForm
             user={user}
