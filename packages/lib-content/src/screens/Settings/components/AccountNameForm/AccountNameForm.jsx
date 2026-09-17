@@ -1,5 +1,6 @@
 import { useId, useRef } from 'react'
 import { Box, Form, Text, TextInput } from 'grommet'
+import { Loader } from '@zooniverse/react-components'
 import styled from 'styled-components'
 import DarkTealPrimaryButton from '../../../Unsubscribe/components/DarkTealPrimaryButton/DarkTealPrimaryButton'
 
@@ -44,10 +45,12 @@ export default function AccountNameForm ({
     // is "hooked in" to data returned from useUserData() as "state", this pattern is a replacement
     // for a [value, setValue] = useState() pattern.
     // No network requests until the user clicks "Save".
-    mutateUser(prevData => ({
-      ...prevData,
-      [field]: value
-    }), { revalidate: false })  // Don't revalidate, the returned object is the new "state"
+    mutateUser(prevData => {
+      return {
+        ...prevData,
+        [field]: value
+      }
+    }, { revalidate: false })  // Don't revalidate, the returned object is the new "state"
   }
 
   function onSubmit () {
@@ -99,8 +102,9 @@ export default function AccountNameForm ({
           </Box>
           <TextInput
             id={displayNameInputId}
-            name='example_input'
+            name='display_name'
             ref={displayNameInputRef}
+            data-field='display_name'
             value={user.display_name || ''}
             onChange={onInputChange}
           />
@@ -108,6 +112,7 @@ export default function AccountNameForm ({
         </InputField>
 
         <Box>
+          {(isLoading || isValidating) && <Loader />}
           <DarkTealPrimaryButton
             type='submit'
             disabled={disableInput}
