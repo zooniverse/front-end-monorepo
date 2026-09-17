@@ -10,10 +10,12 @@ async function updateUserData(newData = {}, userId) {
   // PUT to panoptes /users endpoint requires an If-Match header, this is how to get it
   // and unfortunately means an extra network request
   const getResponse = await panoptes.get(`/users/${userId}`, {}, { authorization })
+  
   const headers = {
     authorization,
     etag: getResponse?.headers?.etag
   }
+
   const putData = {
     users: newData
   }
