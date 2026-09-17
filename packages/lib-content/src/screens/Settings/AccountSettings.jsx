@@ -28,7 +28,7 @@ function AccountSettings ({
 
   const { t } = useTranslation()
 
-  const activeSection = 0
+  const ACTIVE_SECTION = 0
   const sidebarSections = [
     { name: t('Settings.AccountSettings.title'), href: '/settings' },
     { name: t('Settings.ProfileSettings.title'), href: '/settings/profile' },
@@ -52,20 +52,18 @@ function AccountSettings ({
 
       <StickyBox background={{ dark: 'dark-3', light: 'neutral-6' }}>
         <DropdownNav
-          activeSection={activeSection}
+          activeSection={ACTIVE_SECTION}
           sidebarLabel={t('Settings.common.sidebar')}
           sections={sidebarSections}
-          // setActiveSection={setActiveSection}
         />
       </StickyBox>
 
       <StyledGrid>
         <Box as='aside' align='center'>
           <StickySidebar
-            activeSection={activeSection}
+            activeSection={ACTIVE_SECTION}
             ariaLabel={t('Settings.common.sidebar')}
             sections={sidebarSections}
-            //setActiveSection={setActiveSection}
           />
         </Box>
 
@@ -82,7 +80,13 @@ function AccountSettings ({
 
           <AccountNameForm
             user={user}
+            mutateUser={mutate}
+            updateUserData={updateUserData}
+            authUser={authUser}
+            isLoading={isLoading}
+            isValidating={isValidating}
           />
+          
         </MaxWidthContent>
       </StyledGrid>
 
