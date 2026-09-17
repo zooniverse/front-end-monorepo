@@ -6,7 +6,13 @@ import StandardLayout from '@shared/components/StandardLayout'
 import CollectTabs from './components/CollectTabs'
 import CollectionsListContainer from './components/CollectionsListContainer'
 
-function ProjectCollectPage({ activeTab, collections, loginParam }) {
+function ProjectCollectPage({
+  activeTab,
+  collections,
+  loginParam,
+  projectDisplayName,
+  projectSlug
+}) {
   const { t } = useTranslation('screens')
 
   return (
@@ -19,7 +25,12 @@ function ProjectCollectPage({ activeTab, collections, loginParam }) {
           <Anchor href='https://www.zooniverse.org/collections'>
             {t('Collect.exploreLink')}
           </Anchor>
-          <CollectTabs activeTab={activeTab} loginParam={loginParam} />
+          <CollectTabs
+            activeTab={activeTab}
+            loginParam={loginParam}
+            projectSlug={projectSlug}
+            projectDisplayName={projectDisplayName}
+          />
           <CollectionsListContainer
             activeTab={activeTab}
             collections={collections}
@@ -34,7 +45,9 @@ function ProjectCollectPage({ activeTab, collections, loginParam }) {
 ProjectCollectPage.propTypes = {
   activeTab: string.isRequired,
   collections: arrayOf(shape({})),
-  loginParam: string
+  loginParam: string,
+  projectDisplayName: string.isRequired,
+  projectSlug: string.isRequired
 }
 
 export default ProjectCollectPage

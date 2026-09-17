@@ -21,38 +21,39 @@ export default async function getProjectCollectPageProps({ locale, params, activ
   const isServer = true
   const store = initStore(isServer)
   const env = params.panoptesEnv
+  const { owner, project } = params
 
-  if (params.owner && params.project) {
-    const projectSlug = `${params.owner}/${params.project}`
-    const project = await fetchProjectData(projectSlug, { env })
+  if (owner && project) {
+    const projectData = await fetchProjectData(`${owner}/${project}`, { env })
 
-    if (!project.id) {
+    if (!projectData.id) {
       return {
         notFound: true,
         props: {}
       }
     }
 
-    project.about_pages = await fetchProjectPageTitles(project, env)
-    applySnapshot(store.project, project)
+    projectData.about_pages = await fetchProjectPageTitles(projectData, env)
+    applySnapshot(store.project, projectData)
   }
 
-  const { project } = getSnapshot(store)
-  const language = locale || project.primary_language
+  const { project: projectData } = getSnapshot(store)
+  const projectSlug = projectData.slug
+  const language = locale || projectData.primary_language
   const translations = await fetchTranslations({
-    translated_id: project.id,
+    translated_id: projectData.id,
     translated_type: 'project',
     language,
-    fallback: project.primary_language,
+    fallback: projectData.primary_language,
     env
   })
-  const strings = translations?.strings ?? project.strings
-  const linkedOrganizations = await fetchLinkedOrganizations(project, language, env)
+  const strings = translations?.strings ?? projectData.strings
+  const linkedOrganizations = await fetchLinkedOrganizations(projectData, language, env)
   applySnapshot(store.organizations, linkedOrganizations)
 
   const initialState = {
     project: {
-      ...project,
+      ...projectData,
       strings
     },
     organizations: linkedOrganizations
@@ -71,6 +72,8 @@ export default async function getProjectCollectPageProps({ locale, params, activ
         host,
         initialState,
         activeTab,
+        projectDisplayName: strings.display_name,
+        projectSlug,
         loginParam
       }
     }
@@ -86,7 +89,7 @@ export default async function getProjectCollectPageProps({ locale, params, activ
     favorite: activeTab === 'favorites',
     min_subjects: 2,
     page_size: 20,
-    project_ids: [project.id],
+    project_ids: [projectData.id],
     sort: 'display_name'
   }
   const { headers, host: apiHost } = getServerSideAPIHost(env)
@@ -98,6 +101,8 @@ export default async function getProjectCollectPageProps({ locale, params, activ
       host,
       initialState,
       activeTab,
+      projectDisplayName: strings.display_name,
+      projectSlug,
       collections: response?.body?.collections ?? []
     }
   }

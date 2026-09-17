@@ -1,44 +1,49 @@
 import { Box, Nav } from 'grommet'
-import { useContext } from 'react'
-import { MobXProviderContext } from 'mobx-react'
-import { useRouter } from 'next/router'
+import { string } from 'prop-types'
+import { MobXProviderContext, observer } from 'mobx-react'
 import { useTranslation } from 'next-i18next/pages'
+import { useContext } from 'react'
 
-import PanoptesAuthContext from '@shared/contexts/PanoptesAuthContext.js'
 import CollectTabLink from '../CollectTabLink'
 
-function CollectTabs({ activeTab, loginParam }) {
-  const { user } = useContext(PanoptesAuthContext)
+function useStores() {
   const { store } = useContext(MobXProviderContext)
-  const router = useRouter()
-  const { owner, project } = router.query
+  const { isLoggedIn, login } = store.user
+  return { isLoggedIn, login }
+}
+
+function CollectTabs({
+  activeTab,
+  loginParam,
+  projectDisplayName,
+  projectSlug
+}) {
   const { t } = useTranslation('screens')
-  const baseUrl = `/${owner}/${project}`
-  const projectName = store?.project?.display_name
+  const { isLoggedIn, login } = useStores()
 
   return (
     <Nav aria-label={t('Collect.tabs.title')} direction='row' gap='small'>
       <CollectTabLink
         active={activeTab === 'favorites' && !loginParam}
-        href={`${baseUrl}/favorites`}
+        href={`/${projectSlug}/favorites`}
         text={t('Collect.tabs.favorites')}
       />
       <CollectTabLink
         active={activeTab === 'collections' && !loginParam}
-        href={`${baseUrl}/collections`}
+        href={`/${projectSlug}/collections`}
         text={t('Collect.tabs.collections')}
       />
-      {user && (
+      {isLoggedIn && (
         <Box direction='row' gap='small'>
           <CollectTabLink
             active={activeTab === 'favorites' && !!loginParam}
-            href={`${baseUrl}/favorites/${user.login}`}
-            text={t('Collect.tabs.myFavorites', { projectName })}
+            href={`/${projectSlug}/favorites/${login}`}
+            text={t('Collect.tabs.myFavorites', { projectName: projectDisplayName })}
           />
           <CollectTabLink
             active={activeTab === 'collections' && !!loginParam}
-            href={`${baseUrl}/collections/${user.login}`}
-            text={t('Collect.tabs.myCollections', { projectName })}
+            href={`/${projectSlug}/collections/${login}`}
+            text={t('Collect.tabs.myCollections', { projectName: projectDisplayName })}
           />
         </Box>
       )}
@@ -46,4 +51,12 @@ function CollectTabs({ activeTab, loginParam }) {
   )
 }
 
-export default CollectTabs
+CollectTabs.propTypes = {
+  activeTab: string.isRequired,
+  loginParam: string,
+  projectDisplayName: string.isRequired,
+  projectSlug: string.isRequired
+}
+
+export default observer(CollectTabs)
+export { CollectTabs }
