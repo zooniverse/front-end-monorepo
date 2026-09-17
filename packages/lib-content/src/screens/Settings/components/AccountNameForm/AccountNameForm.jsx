@@ -1,6 +1,7 @@
+import { useId, useRef } from 'react'
 import { Box, Form, Text, TextInput } from 'grommet'
-import { SpacedText } from '@zooniverse/react-components'
 import styled from 'styled-components'
+import DarkTealPrimaryButton from '../../../Unsubscribe/components/DarkTealPrimaryButton/DarkTealPrimaryButton'
 
 const FormFieldsContainer = styled(Box)`
   gap: 1em;
@@ -20,10 +21,65 @@ const BigLabel = styled(Text)`
   text-transform: uppercase;
 `
 
-export default function AccountNameForm ({ user }) {
+async function DEFAULT_FUNCTION () {}
+
+export default function AccountNameForm ({
+  user,
+  mutateUser = DEFAULT_FUNCTION,
+  updateUserData = DEFAULT_FUNCTION,
+  authUser,
+  isLoading = false,
+  isValidating = false,
+}) {
+  const displayNameInputId = useId()
+  const displayNameInputRef = useRef()
+
   if (!user) return null
 
-  function onSubmit () {}
+  function onInputChange (e) {
+    const value = e.target.value
+    const field = e.target.dataset.field
+
+    // This mutates the data returned from useUserData(). Because the UI component's TextInput
+    // is "hooked in" to data returned from useUserData() as "state", this pattern is a replacement
+    // for a [value, setValue] = useState() pattern.
+    // No network requests until the user clicks "Save".
+    mutateUser(prevData => ({
+      ...prevData,
+      [field]: value
+    }), { revalidate: false })  // Don't revalidate, the returned object is the new "state"
+  }
+
+  function onSubmit () {
+
+    // TODO: validate input.
+    const displayName = displayNameInputRef.current.value
+
+    mutateUser(
+      async prevData => {
+        await updateUserData({
+          ['display_name']: displayName
+        }, authUser.id)
+        // this async function must return something for the cache
+        return prevData // already updated by onInputChange mutate
+      },
+      {
+        optimisticData: prevData => {
+          return prevData // already updated by onInputChange mutate
+        },
+        // don't need to revalidate because optimisticData updates {data: user} returned
+        // from useUserData().
+        revalidate: false,
+        // rollbackOnError responds to an error thrown by updateCreditedName(). So make sure to throw in that helper function.
+        rollbackOnError(err) {
+          console.error(err)
+          return true
+        }
+      }
+    )
+  }
+
+  const disableInput = isLoading || isValidating
 
   return (
     <Form
@@ -35,18 +91,35 @@ export default function AccountNameForm ({ user }) {
           <Box direction='row' gap='1em' align='center'>
             <BigLabel
               as='label'
-              htmlFor='example_input'
+              htmlFor={displayNameInputId}
             >
               Example Input
             </BigLabel>
             <Text>Optional</Text>
           </Box>
           <TextInput
-            id='example_input'
+            id={displayNameInputId}
             name='example_input'
+            ref={displayNameInputRef}
+            value={user.display_name || ''}
+            onChange={onInputChange}
           />
           <Text>Extra information</Text>
         </InputField>
+
+        <Box>
+          <DarkTealPrimaryButton
+            type='submit'
+            disabled={disableInput}
+          >
+            Save
+          </DarkTealPrimaryButton>
+          <DarkTealPrimaryButton
+            disabled={disableInput}
+            label={'TODO: SAVE'}
+            type='submit'
+          />
+        </Box>
       </FormFieldsContainer>
     </Form>
   )
