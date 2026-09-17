@@ -38,6 +38,20 @@ const VideoSubjectMock = {
   ],
 }
 
+const AudioSpectrogramSubjectMock = {
+  id: '112321080',
+  locations: [
+    {
+      'audio/mpeg':
+        'https://panoptes-uploads.zooniverse.org/subject_location/8ae1583c-008f-4c4d-9697-efd3257626ec.mpga'
+    },
+    {
+      'image/png':
+        'https://panoptes-uploads.zooniverse.org/subject_location/3ae42d57-b01d-4ee1-820e-d3c7904de42d.png'
+    }
+  ]
+}
+
 export default {
   title: 'Project App / Screens / Subject Talk / SubjectTalkViewer',
   component: SubjectTalkViewer
@@ -61,6 +75,13 @@ export const VideoSubject = {
   args: {
     login: 'zootester1',
     subject: VideoSubjectMock
+  }
+}
+
+export const AudioSpectrogramSubject = {
+  args: {
+    login: 'zootester1',
+    subject: AudioSpectrogramSubjectMock
   }
 }
 
