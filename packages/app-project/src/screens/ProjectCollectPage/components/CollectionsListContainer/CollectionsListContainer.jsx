@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import { arrayOf, shape, string } from 'prop-types'
 import { MobXProviderContext } from 'mobx-react'
 
-// import { useProjectCollections } from '@hooks'
+import { useProjectCollections } from '@hooks'
 import CollectionsList from '../CollectionsList'
 import EmptyPlaceholder from '../Placeholders/EmptyPlaceholder'
 import ErrorPlaceholder from '../Placeholders/ErrorPlaceholder'
@@ -13,20 +13,20 @@ function CollectionsListContainer({ activeTab, collections, loginParam }) {
   const { store } = useContext(MobXProviderContext)
   const { isLoggedIn } = store.user
   const isUserScoped = !!loginParam
-  // const {
-  //   data: userCollections,
-  //   error,
-  //   isLoading
-  // } = useProjectCollections({
-  //   favorite: activeTab === 'favorites',
-  //   login: loginParam,
-  //   projectId: store?.project?.id
-  // })
-  const data = isUserScoped ? [] : collections
-  const loading = isUserScoped && false
+  const {
+    data: userCollections,
+    error,
+    isLoading
+  } = useProjectCollections({
+    favorite: activeTab === 'favorites',
+    login: loginParam,
+    projectId: store?.project?.id
+  })
+  const data = isUserScoped ? userCollections : collections
+  const loading = isUserScoped && isLoading
 
   if (isUserScoped && !isLoggedIn) return <SignInRequiredPlaceholder />
-  if (false) return <ErrorPlaceholder />
+  if (error) return <ErrorPlaceholder />
   if (loading || !data) return <LoadingPlaceholder />
   if (!data.length) return <EmptyPlaceholder />
 

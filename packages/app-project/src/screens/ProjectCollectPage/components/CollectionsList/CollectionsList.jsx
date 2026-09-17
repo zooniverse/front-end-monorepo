@@ -15,7 +15,7 @@ function CollectionsList({ collections }) {
   return (
     <List>
       {collections.map(collection => (
-        <li key={collection.id || collection.slug}>
+        <li key={collection.id}>
           <CollectionCard collection={collection} />
         </li>
       ))}

@@ -14,7 +14,7 @@ function CollectTabs({ activeTab, loginParam }) {
   const { owner, project } = router.query
   const { t } = useTranslation('screens')
   const baseUrl = `/${owner}/${project}`
-  const projectName = store?.project?.display_name || project
+  const projectName = store?.project?.display_name
 
   return (
     <Nav aria-label={t('Collect.tabs.title')} direction='row' gap='small'>
