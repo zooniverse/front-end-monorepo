@@ -28,13 +28,31 @@ const collection = {
   }
 }
 
-const basicCollection = {
+const publicSingle = {
   ...collection,
   default_subject_src: 'https://panoptes-uploads.zooniverse.org/subject_location/91a4df56-4cd8-429f-9193-d2d8481f74e5.jpeg',
   private: false,
   links: {
     ...collection.links,
     collection_roles: ['736999'],
+  }
+}
+
+const privateSingle = {
+  ...collection,
+  private: true,
+  links: {
+    ...collection.links,
+    collection_roles: ['736999'],
+  }
+}
+
+const publicCollaborators = {
+  ...collection,
+  private: false,
+  links: {
+    ...collection.links,
+    collection_roles: ['736999', '755009'],
   }
 }
 
@@ -69,7 +87,21 @@ export const Default = {
 
 export const PublicSingle = {
   args: {
-    collection: basicCollection,
+    collection: publicSingle,
+    userId: '1234'
+  }
+}
+
+export const PrivateSingle = {
+  args: {
+    collection: privateSingle,
+    userId: '1234'
+  }
+}
+
+export const PublicCollaborators = {
+  args: {
+    collection: publicCollaborators,
     userId: '1234'
   }
 }
