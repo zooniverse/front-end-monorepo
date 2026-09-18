@@ -2,7 +2,7 @@
 
 import { Box } from 'grommet'
 import UnsubscribeForm from './components/UnsubscribeForm/UnsubscribeForm'
-import OtherLayout from '@components/PageLayout/OtherLayout'
+import ContentLayout from '@components/PageLayout/ContentLayout'
 import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent'
 import { bool } from 'prop-types'
 
@@ -10,21 +10,16 @@ function Unsubscribe ({
   processed = false,   // If processed is true, it means user was sent here from the Panoptes /unsubscribe route
 }) {
   return (
-    <OtherLayout>
-      <Box
-        align='center'
+    <ContentLayout>
+      <MaxWidthContent
         className='Unsubscribe-Page'
-        pad={{ horizontal: 'medium', top: 'large', bottom: 'large' }}
+        color={{ light: 'black', dark: 'white' }}
       >
-        <MaxWidthContent
-          color={{ light: 'black', dark: 'white' }}
-        >
-          <UnsubscribeForm
-            processed={processed}
-          />
-        </MaxWidthContent>
-      </Box>
-    </OtherLayout>
+        <UnsubscribeForm
+          processed={processed}
+        />
+      </MaxWidthContent>
+    </ContentLayout>
   )
 }
 

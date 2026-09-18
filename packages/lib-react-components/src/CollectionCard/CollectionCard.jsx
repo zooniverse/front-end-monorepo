@@ -34,6 +34,11 @@ const CollectionDetails = styled(Box)`
   }
 `
 
+const IconPlaceholder = styled.span`
+  height: 12px;
+  width: 12px;
+`
+
 const CollectionDescription = styled(Text)`
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -141,10 +146,10 @@ function CollectionCard({ collection, userId }) {
           direction='row'
           fill='horizontal'
           height={{ max: '45px' }}
-          justify={!isPrivate && !hasCollaborators ? 'center' : 'between'}
+          justify='between'
           pad='xsmall'
         >
-          {isPrivate ? <Lock aria-label={t('CollectionCard.private')} size='12px' /> : null}
+          {isPrivate ? <Lock aria-label={t('CollectionCard.private')} size='12px' /> : <IconPlaceholder aria-hidden='true' />}
           <Text
             color={{ dark: 'neutral-6', light: 'dark-5' }}
             size='0.875rem'
@@ -153,7 +158,7 @@ function CollectionCard({ collection, userId }) {
           >
             {displayName}
           </Text>
-          {hasCollaborators ? <Group aria-label={t('CollectionCard.collaborators')} size='12px' /> : null}
+          {hasCollaborators ? <Group aria-label={t('CollectionCard.collaborators')} size='12px' /> : <IconPlaceholder aria-hidden='true' />}
         </Box>
         {description ? (
           <CollectionDescription
