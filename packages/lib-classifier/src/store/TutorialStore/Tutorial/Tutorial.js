@@ -13,6 +13,10 @@ const Tutorial = types
     }))
   })
 
+  .volatile(() => ({
+    userHasSeen: false
+  }))
+
   .views( self => ({
     get hasNotBeenSeen() {
       const uppStore = getRoot(self).userProjectPreferences
@@ -29,7 +33,7 @@ const Tutorial = types
       /*
         Otherwise, wait for UPP to load, then return true for anonymous users.
       */
-      return (uppStore?.loadingState === asyncStates.success)
+      return (uppStore?.loadingState === asyncStates.success) && !self.userHasSeen
     },
   }))
 
@@ -38,6 +42,7 @@ const Tutorial = types
       setSeenTime() {
         const uppStore = getRoot(self).userProjectPreferences
         const upp = tryReference(() => uppStore.active)
+        self.userHasSeen = true
 
         const seen = new Date().toISOString()
         if (self.kind === 'tutorial' || self.kind === null) {

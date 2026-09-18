@@ -40,6 +40,10 @@ function AboutLayout({ children }) {
     {
       href: '/about/faq',
       label: t('AboutHeader.links.faq')
+    },
+    {
+      href: '/about/ai-ethics',
+      label: t('AboutHeader.links.aiethics')
     }
   ]
 

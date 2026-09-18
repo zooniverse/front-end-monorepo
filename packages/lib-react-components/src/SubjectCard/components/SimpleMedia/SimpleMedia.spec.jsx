@@ -6,6 +6,7 @@ import VideoMeta, { FloridaKeys } from '../../stories/simple/SubjectCard.video.s
 import AudioMeta, { FrogFind } from '../../stories/simple/SubjectCard.audio.stories'
 import ApplicationMeta, { NotesFromNatureGeoJSON } from '../../stories/simple/SubjectCard.application.stories'
 import TextMeta, { NotesFromNature } from '../../stories/simple/SubjectCard.text.stories'
+import UnsupportedMeta, { UnsupportedMimeType } from '../../stories/simple/SubjectCard.unsupported.stories'
 
 describe('SimpleMedia', function () {
   it('renders image media', function () {
@@ -51,5 +52,14 @@ describe('SimpleMedia', function () {
 
     const textBlock = document.querySelector('pre')
     expect(textBlock).toBeTruthy()
+  })
+
+  it('renders a fallback for an unsupported mime type', function () {
+    const Story = composeStory(UnsupportedMimeType, UnsupportedMeta)
+
+    render(<Story />)
+
+    const fallback = document.querySelector('[aria-label="Subject 99999999"]')
+    expect(fallback).toBeTruthy()
   })
 })
