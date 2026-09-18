@@ -45,8 +45,9 @@ export default function useProjectNavigation() {
 
   if (isLoggedIn) {
     links.push({
-      href: `/${slug}/recents`,
-      text: t('ProjectHeader.recents')
+      href: `/projects/${slug}/recents`,
+      text: t('ProjectHeader.recents'),
+      externalLink: true // code is in PFE
     })
   }
 
