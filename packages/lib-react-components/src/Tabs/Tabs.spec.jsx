@@ -24,6 +24,11 @@ describe('Component > Tabs', function () {
     expect(tabsContainer).toBeDefined()
   })
 
+  it('should be a focusgroup', function () {
+    const tabsContainer = screen.getByRole('tablist')
+    expect(tabsContainer.getAttribute('focusgroup')).to.equal('tablist')
+  })
+
   it('should render the correct number of tabs', function () {
     const arrayOfTabs = screen.getAllByRole('tab')
     expect(arrayOfTabs).to.have.length(3)
@@ -32,6 +37,11 @@ describe('Component > Tabs', function () {
   it('should have exactly one active panel', function () {
     const tabPanel = screen.getAllByRole('tabpanel')
     expect(tabPanel).to.have.length(1)
+  })
+
+  it('should have a focusable tab panel', function () {
+    const tabPanel = screen.getByRole('tabpanel')
+    expect(tabPanel.getAttribute('tabindex')).to.equal('0')
   })
 
   it('should change the active tab panel when a tab button is clicked', async function () {
