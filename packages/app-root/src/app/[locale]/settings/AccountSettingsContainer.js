@@ -24,7 +24,7 @@ function UserSettingsContainer() {
       user={user}
     >
       <AccountSettings
-        user={user}
+        authUser={user}
       />
     </AuthenticatedUsersPageContainer>
   )
