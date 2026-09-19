@@ -3,8 +3,12 @@ import useSWR from 'swr'
 
 import { usePanoptesAuthToken } from '@zooniverse/react-components/hooks'
 
-// Use default SWR options.
-const SWROptions = {}
+// Use default SWR settings, except for...
+const SWROptions = {
+   // Don't revalidate when window (re-)gains focus, because it will reset any
+   // unsaved changes whenever the user checks a different tab/window.
+  revalidateOnFocus: false,
+}
 
 async function fetchUserData({ login, token }) {
   const authorization = `Bearer ${token}`
