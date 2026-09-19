@@ -3,24 +3,9 @@ import useSWR from 'swr'
 
 import { usePanoptesAuthToken } from '@zooniverse/react-components/hooks'
 
-const SWROptions = {
-  // This is the whole purpose of using a library like SWR.
-  revalidateIfStale: true,
-  // When the component mounts.
-  revalidateOnMount: true,
-  // Focus as in when users switch between browser tabs. Can be false because
-  // its unlikely a user will change their own user settings in multiple browser tabs.
-  // (Unless you're a dev testing out this PR)
-  revalidateOnFocus: false,
-  // If the network goes offline then back online.
-  revalidateOnReconnect: true,
-  // This would be useful if a user a looking at the same page for
-  // awhile and data is updated in the background (like project stats or something)
-  // but no need to refresh on an interval here.
-  refreshInterval: 0
-}
+// Use default SWR options.
+const SWROptions = {}
 
-/* Helper function to get info about a user resource. */
 async function fetchUserData({ login, token }) {
   const authorization = `Bearer ${token}`
   const query = { login }
@@ -36,16 +21,13 @@ async function fetchUserData({ login, token }) {
 }
 
 export default function useUserData({ login }) {
+  // Use login and authentication token as SWR key.
+  // ⚠️ WARNING: Panoptes Auth Token can change if user is logged in long
+  // enough to trigger an automatic refresh. This MAY lead to shenanigans.
   const token = usePanoptesAuthToken()
-  let key = null
+  const key = (token && login)
+    ? { login, token }
+    : null
 
-  // Each SWR key is unique. In addition to other checks above for the authenticated user,
-  // there's no risk of someone looking at /settings and seeing someone else's user settings by accident
-  // because the browser requests are marked by the unique key.
-  if (token && login) {
-    key = { login, token }
-  }
-
-  // The key is passed to the helper function fetchUserData()
   return useSWR(key, fetchUserData, SWROptions)
 }

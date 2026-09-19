@@ -7,10 +7,9 @@ async function updateUserData(newData = {}, userId) {
 
   const authorization = `Bearer ${token}`
 
-  // PUT to panoptes /users endpoint requires an If-Match header, this is how to get it
-  // and unfortunately means an extra network request
+  // Fetch latest copy of user, to get deatils for If-Match header, to make PUT changes.
   const getResponse = await panoptes.get(`/users/${userId}`, {}, { authorization })
-  
+
   const headers = {
     authorization,
     etag: getResponse?.headers?.etag
