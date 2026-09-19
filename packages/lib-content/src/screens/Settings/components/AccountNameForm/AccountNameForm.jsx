@@ -45,12 +45,10 @@ export default function AccountNameForm ({
     // is "hooked in" to data returned from useUserData() as "state", this pattern is a replacement
     // for a [value, setValue] = useState() pattern.
     // No network requests until the user clicks "Save".
-    mutateUser(prevData => {
-      return {
-        ...prevData,
-        [field]: value
-      }
-    }, { revalidate: false })  // Don't revalidate, the returned object is the new "state"
+    mutateUser(prevData => ({
+      ...prevData,
+      [field]: value
+    }), { revalidate: false })  // Don't revalidate, the returned object is the new "state"
   }
 
   function onSubmit () {
