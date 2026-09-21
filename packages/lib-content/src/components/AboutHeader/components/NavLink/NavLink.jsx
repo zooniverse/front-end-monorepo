@@ -12,6 +12,8 @@ import styled from 'styled-components'
 import { usePathname } from 'next/navigation'
 import { useTranslation } from 'react-i18next'
 
+import getHrefWithLocale from '../../../../helpers/getHrefWithLocale'
+
 const StyledAnchor = styled(Link)`
   border-bottom: 2px solid transparent;
   text-decoration: none;
@@ -31,7 +33,7 @@ function NavLink({ color, href = null, label = '' }) {
   const { i18n } = useTranslation()
   const locale = i18n.language
 
-  const hrefWithLocale = locale !== 'en' ? `/${locale}${href}` : href
+  const hrefWithLocale = getHrefWithLocale(href, locale)
   const isActive = pathname === hrefWithLocale
 
   return (
