@@ -1,5 +1,6 @@
 import { useId, useRef, useState } from 'react'
 import { Box, Button, Form, Text, TextInput } from 'grommet'
+import { CircleInformation } from 'grommet-icons'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
@@ -24,6 +25,11 @@ const BigLabel = styled(Text)`
   font-weight: 700;
   font-style: bold;
   text-transform: uppercase;
+`
+
+const StyledHelpIcon = styled(CircleInformation)`
+  margin-top: 4px;
+  margin-right: 0.5em;
 `
 
 async function DEFAULT_FUNCTION () {}
@@ -83,6 +89,7 @@ export default function AccountNameForm ({
           setIsSaving(false)
           setSaveSuccess(true)
           setSaveError(null)
+          setHasUnsavedChanges(false)
           shouldRevalidate = true
 
           return prevData  // Return existing data with no changes.
@@ -145,13 +152,13 @@ export default function AccountNameForm ({
             direction='row'
             align='center'
           >
-            {(isLoading || isValidating || isSaving) && <Loader />}
-
             <StatusMessage
               text={statusMessage}
               type={statusType}
             />
           </Box>
+
+          {(isLoading || isValidating || isSaving) && <Loader />}
 
           {hasUnsavedChanges && (
             <Button
@@ -200,8 +207,14 @@ function FormInputField ({
         value={user?.[fieldName] || ''}
         onChange={onInputChange}
       />
-      
-      <Text>{helpText}</Text>
+      {helpText && (
+        <Box
+          direction='row'
+        >
+          <StyledHelpIcon size='small' />
+          <Text>{helpText}</Text>
+        </Box>
+      )}      
     </InputFieldContainer>
   )
 }
