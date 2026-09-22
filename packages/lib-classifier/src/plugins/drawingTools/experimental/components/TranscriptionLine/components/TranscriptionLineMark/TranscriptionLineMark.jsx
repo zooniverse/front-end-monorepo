@@ -53,12 +53,17 @@ const TranscriptionLineMark = forwardRef(({
     onHandleDrag({ x1, y1, x2: x2 + d.x, y2: y2 + d.y })
   }
 
+  // undo transform in parent to draw line in global coordinates
+  const { x, y } = mark.coords
+  const transform = `translate(${-x}, ${-y})`
+
   return (
     <g
       color={color}
       fill={color}
       ref={ref}
       stroke={color}
+      transform={transform}
     >
       <line x1={x1 + offsetX} y1={y1 + offsetY} x2={x2} y2={y2} strokeWidth={2} vectorEffect={'non-scaling-stroke'} />
       <line x1={x1} y1={y1} x2={x2} y2={y2} strokeWidth={GRAB_STROKE_WIDTH} strokeOpacity='0' vectorEffect={'non-scaling-stroke'} />
