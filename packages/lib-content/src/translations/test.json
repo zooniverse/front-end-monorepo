@@ -7,9 +7,202 @@
       "returnHome": "Translated"
     }
   },
+  "AIEthics": {
+    "about": {
+      "acknowledgements": {
+        "heading": "Translated",
+        "paragraph": "Translated"
+      },
+      "advisors": {
+        "heading": "Translated"
+      },
+      "funding": {
+        "heading": "Translated",
+        "paragraph": "Translated"
+      },
+      "paragraphs": {
+        "first": "Translated",
+        "fourth": "Translated",
+        "second": "Translated",
+        "third": "Translated"
+      },
+      "projectTeamList": {
+        "coord": "Translated",
+        "eval": "Translated",
+        "heading": "Translated",
+        "pi": "Translated",
+        "ra": "Translated"
+      }
+    },
+    "actions": {
+      "first": "<0>Translated</0> Translated",
+      "fourth": "<0>Translated</0> Translated",
+      "second": "<0>Translated</0> Translated",
+      "third": "<0>Translated</0> Translated"
+    },
+    "faq": {
+      "first": {
+        "answer": "Translated",
+        "question": "Translated"
+      },
+      "paragraph": "Translated <0>Translated</0>",
+      "second": {
+        "answerOne": "Translated",
+        "answerTwo": "Translated",
+        "question": "Translated"
+      }
+    },
+    "fivews": {
+      "list": {
+        "first": "<0>Translated</0> Translated",
+        "fourth": "<0>Translated</0> Translated",
+        "second": "<0>Translated</0> Translated",
+        "third": "<0>Translated</0> Translated"
+      },
+      "paragraph": "Translated"
+    },
+    "heading": {
+      "eighth": "Translated",
+      "fifth": "Translated",
+      "fifthext": "Translated",
+      "first": "Translated",
+      "fourth": "Translated",
+      "fourthext": "Translated",
+      "nineth": "Translated",
+      "ninethext": "Translated",
+      "second": "Translated",
+      "seventh": "Translated",
+      "seventhext": "Translated",
+      "sixth": "Translated",
+      "sixthext": "Translated",
+      "tenth": "Translated",
+      "third": "Translated"
+    },
+    "onZooniverse": {
+      "fifthQ": {
+        "heading": "Translated",
+        "list": {
+          "first": "Translated",
+          "fourth": "Translated",
+          "second": "Translated",
+          "third": "Translated"
+        }
+      },
+      "firstQ": {
+        "heading": "Translated",
+        "list": {
+          "first": "Translated <0>Translated</0>",
+          "second": "Translated",
+          "third": "Translated"
+        }
+      },
+      "fourthQ": {
+        "heading": "Translated",
+        "list": {
+          "first": "Translated",
+          "second": "Translated <0>Translated</0>"
+        }
+      },
+      "secondQ": {
+        "heading": "Translated",
+        "list": {
+          "fifth": "Translated",
+          "first": "Translated",
+          "fourth": {
+            "subFifth": "<0>Translated</0> Translated",
+            "subFirst": "<0>Translated</0> Translated",
+            "subFourth": "<0>Translated</0> Translated",
+            "subSecond": "<0>Translated</0> Translated",
+            "subThird": "<0>Translated</0> Translated",
+            "sublist": "Translated"
+          },
+          "second": "Translated",
+          "third": "Translated"
+        }
+      },
+      "seventhQ": {
+        "heading": "Translated",
+        "list": {
+          "fifth": "Translated",
+          "first": "Translated",
+          "fourth": "Translated <0>Translated</0>",
+          "second": "Translated <0>Translated</0>",
+          "sixth": "Translated",
+          "third": "Translated"
+        }
+      },
+      "sixthQ": {
+        "heading": "Translated",
+        "list": {
+          "first": "Translated <0>Translated</0> <1>Translated</1> <2>Translated</2> <3>Translated</3>",
+          "second": "Translated"
+        }
+      },
+      "thirdQ": {
+        "heading": "Translated",
+        "list": {
+          "first": "Translated",
+          "fourth": "Translated",
+          "second": "Translated",
+          "third": "Translated"
+        }
+      }
+    },
+    "preamble": {
+      "list": {
+        "first": "Translated <0>Translated</0>",
+        "second": "Translated <0>Translated</0>",
+        "third": "Translated <0>Translated</0>"
+      },
+      "paragraphs": {
+        "first": "Translated <0>Translated</0>",
+        "second": "Translated",
+        "third": "Translated"
+      }
+    },
+    "principles": {
+      "fifth": "<0>Translated</0> Translated",
+      "first": "Translated <0>Translated</0>",
+      "fourth": "Translated <0>Translated</0>",
+      "second": "Translated <0>Translated</0>",
+      "third": "Translated <0>Translated</0>"
+    },
+    "recs": {
+      "eighth": "<0>Translated</0> Translated",
+      "fifth": "<0>Translated</0> Translated",
+      "first": "<0>Translated</0> Translated",
+      "fourth": "<0>Translated</0> Translated",
+      "nineth": "<0>Translated</0> Translated",
+      "second": "<0>Translated</0> Translated",
+      "seventh": "<0>Translated</0> Translated",
+      "sixth": "<0>Translated</0> Translated",
+      "third": "<0>Translated</0> Translated"
+    },
+    "resources": {
+      "first": "Translated",
+      "fourth": "Translated",
+      "second": "Translated",
+      "third": "Translated"
+    },
+    "sidebarLabel": "Translated",
+    "title": "Translated",
+    "toc": {
+      "descriptions": {
+        "eighth": "Translated",
+        "fifth": "Translated",
+        "fourth": "Translated",
+        "nineth": "Translated",
+        "seventh": "Translated",
+        "sixth": "Translated",
+        "tenth": "Translated",
+        "third": "Translated"
+      }
+    }
+  },
   "AboutHeader": {
     "links": {
       "about": "Translated",
+      "aiethics": "Translated",
       "collaborate": "Translated",
       "contact": "Translated",
       "donate": "Translated",
@@ -140,7 +333,8 @@
       "first": "Translated",
       "fourth": "Translated",
       "second": "Translated",
-      "third": "Translated"
+      "third": "Translated",
+      "tools": "Translated"
     },
     "title": "Translated"
   },
@@ -364,6 +558,38 @@
     "sidebarLabel": "Translated",
     "title": "Translated"
   },
+  "ResetPassword": {
+    "CommitResetForm": {
+      "body": "Translated",
+      "infoConfirmation": "Translated",
+      "infoPassword": "Translated",
+      "inputConfirmation": "Translated",
+      "inputPassword": "Translated",
+      "status": {
+        "errorInvalidInput": "Translated",
+        "errorPasswordsDoNotMatch": "Translated",
+        "success": "Translated <0>Translated</0>"
+      },
+      "submit": "Translated",
+      "titleForInputPattern": "Translated"
+    },
+    "NoAccessMessage": {
+      "body": "Translated"
+    },
+    "RequestResetForm": {
+      "body": "Translated",
+      "footer": "Translated",
+      "inputEmail": "Translated",
+      "status": {
+        "errorTooManyRequests": "Translated",
+        "success": "Translated"
+      },
+      "submit": "Translated"
+    },
+    "common": {
+      "header": "Translated"
+    }
+  },
   "Resources": {
     "brand": {
       "heading": "Translated",
@@ -392,8 +618,42 @@
     },
     "title": "Translated"
   },
+  "Settings": {
+    "AccountSettings": {
+      "title": "Translated"
+    },
+    "EmailSettings": {
+      "title": "Translated"
+    },
+    "ProfileSettings": {
+      "title": "Translated"
+    },
+    "common": {
+      "backHome": "Translated",
+      "sidebar": "Translated",
+      "title": "Translated"
+    }
+  },
   "Sidebar": {
     "all": "Translated"
+  },
+  "Unsubscribe": {
+    "form": {
+      "body": {
+        "p1": "Translated",
+        "p2": "Translated"
+      },
+      "errors": {
+        "general": "Translated"
+      },
+      "header": "Translated",
+      "inputEmail": "Translated",
+      "submit": "Translated"
+    },
+    "processed": {
+      "body": "Translated <0>Translated</0>",
+      "header": "Translated"
+    }
   },
   "Volunteer": {
     "beta": {
