@@ -1,11 +1,10 @@
 import { useId, useRef, useState } from 'react'
-import { Box, Form, Text, TextInput } from 'grommet'
+import { Box, Button, Form, Text, TextInput } from 'grommet'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { Loader } from '@zooniverse/react-components'
+import { Loader, StatusMessage } from '@zooniverse/react-components'
 
-import DarkTealPrimaryButton from '../../../Unsubscribe/components/DarkTealPrimaryButton/DarkTealPrimaryButton'
 import useUserData from '../../helpers/useUserData'
 import updateUserData from '../../helpers/updateUserData'
 
@@ -32,6 +31,7 @@ async function DEFAULT_FUNCTION () {}
 export default function AccountNameForm ({
   authUser,
 }) {
+  const { t } = useTranslation()
   const { data: user, isLoading, error: loadError, isValidating, mutate } = useUserData({ login: authUser.login })
   const [ isSaving, setIsSaving ] = useState(false)
   const [ saveSuccess, setSaveSuccess ] = useState(false)
@@ -107,7 +107,16 @@ export default function AccountNameForm ({
   }
 
   const disableInput = isLoading || isValidating || isSaving
-
+  const errorMessage = saveError?.errors?.[0]?.message || saveError?.toString() || (saveError && 'Unknown error')  // We don't worry about loading errors.
+  const statusType =
+    saveSuccess ? 'success'
+    : saveError ? 'error'
+    : ''
+  const statusMessage =
+    saveSuccess ? t('Settings.forms.saveSuccess')
+    : saveError ? errorMessage
+    : ''
+  
   return (
     <Form
       className='AccountNameForm'
@@ -127,21 +136,30 @@ export default function AccountNameForm ({
         />
         <Box
           direction='row'
+          align='center'
+          justify='between'
+          gap='1em'
         >
-          {hasUnsavedChanges ? (
-            <DarkTealPrimaryButton
+          <Box
+            flex='grow'
+            direction='row'
+            align='center'
+          >
+            {(isLoading || isValidating || isSaving) && <Loader />}
+
+            <StatusMessage
+              text={statusMessage}
+              type={statusType}
+            />
+          </Box>
+
+          {hasUnsavedChanges && (
+            <Button
               disabled={disableInput}
-              label={'TODO: SAVE'}
+              label={t('Settings.forms.save')}
               type='submit'
-            /> ) : (
-            <Text>No unsaved changes</Text>
+            />
           )}
-
-          {(isLoading || isValidating || isSaving) && <Loader />}
-
-          {saveSuccess && '✅'}
-
-          {saveError?.errors?.[0]?.message || saveError?.toString() || (saveError && 'Unknown error')}
         </Box>
       </FormFieldsContainer>
     </Form>
