@@ -1,6 +1,8 @@
-import { Anchor, Box, Heading, Paragraph, Text } from 'grommet'
+import { Anchor, Box, Heading, Paragraph } from 'grommet'
 import { Trans, useTranslation } from 'react-i18next'
 import styled from 'styled-components'
+
+import getHrefWithLocale from '@utils/getHrefWithLocale'
 
 const StyledList = styled.ul`
   margin-block-start: 0;
@@ -14,7 +16,8 @@ const ItalicUnderlined = styled.span`
 `
 
 export default function OnZooniverse() {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+  const locale = i18n.language
 
   return (
     <Box>
@@ -168,7 +171,7 @@ export default function OnZooniverse() {
               t={t}
               components={[
                 <Anchor
-                  href='/about/publications'
+                  href={getHrefWithLocale('/about/publications', locale)}
                   key='zooniverse-publications-page'
                   style={{ display: 'inline' }}
                 />

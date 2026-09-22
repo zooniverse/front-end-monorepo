@@ -12,6 +12,7 @@ import {
   MobileHeading,
   StyledHeading
 } from '@components/SharedStyledComponents/SharedStyledComponents'
+import getHrefWithLocale from '@utils/getHrefWithLocale'
 
 const headingColor = { light: 'black', dark: 'white' }
 
@@ -53,7 +54,8 @@ const StyledBeta = styled(Anchor)`
 `
 
 function Volunteer() {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+  const locale = i18n.language
 
   return (
     <GetInvolvedLayout>
@@ -97,7 +99,7 @@ function Volunteer() {
             <Trans
               i18nKey='Volunteer.classify.paragraphs.second'
               t={t}
-              components={[<Anchor key='zooniverse-homepage' href='/' />]}
+              components={[<Anchor key='zooniverse-homepage' href={getHrefWithLocale('/', locale)} />]}
             />
           </Paragraph>
 
@@ -249,7 +251,7 @@ function Volunteer() {
             <Trans
               i18nKey='Volunteer.moderate.paragraphs.second'
               t={t}
-              components={[<Anchor key='contact-us' href='/about#contact' />]}
+              components={[<Anchor key='contact-us' href={getHrefWithLocale('/about#contact', locale)} />]}
             />
           </Paragraph>
         </MaxWidthContent>

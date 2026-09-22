@@ -11,9 +11,11 @@ import {
   StyledHeading
 } from '@components/SharedStyledComponents/SharedStyledComponents'
 import { Supporters, SelectedCollaborators, SelectedTools } from './Logos'
+import getHrefWithLocale from '@utils/getHrefWithLocale'
 
 function Collaborate() {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+  const locale = i18n.language
 
   return (
     <GetInvolvedLayout>
@@ -68,7 +70,7 @@ function Collaborate() {
             <Trans
               i18nKey='Collaborate.paragraphs.fifth'
               t={t}
-              components={[<Anchor key='contact-us' href='/about#contact' />]}
+              components={[<Anchor key='contact-us' href={getHrefWithLocale('/about#contact', locale)} />]}
             />
           </Paragraph>
 
@@ -115,7 +117,7 @@ function Collaborate() {
             <Trans
               i18nKey='Collaborate.paragraphs.nineth'
               t={t}
-              components={[<Anchor key='contact-us' href='/about#contact' />]}
+              components={[<Anchor key='contact-us' href={getHrefWithLocale('/about#contact', locale)} />]}
             />
           </Paragraph>
         </MaxWidthContent>

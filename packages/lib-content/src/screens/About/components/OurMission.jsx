@@ -17,6 +17,7 @@ import { YouTubeEmbed } from '@next/third-parties/google'
 
 import { Trans, useTranslation } from 'react-i18next'
 import Stats from '@components/Stats/Stats'
+import getHrefWithLocale from '@utils/getHrefWithLocale'
 
 const VideoWrapper = styled(Box)`
   border-radius: 8px; // same as Stat component
@@ -53,7 +54,8 @@ const Discovery = ({ href, src, labelString }) => (
 )
 
 export default function OurMission() {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+  const locale = i18n.language
   const size = useContext(ResponsiveContext)
 
   return (
@@ -63,7 +65,7 @@ export default function OurMission() {
           i18nKey='AboutPage.ourMission.paragraphs.first'
           t={t}
           components={[
-            <Anchor key='publications-page' href='/about/publications' />
+            <Anchor key='publications-page' href={getHrefWithLocale('/about/publications', locale)} />
           ]}
         />
       </Paragraph>
@@ -77,8 +79,8 @@ export default function OurMission() {
           components={[
             <Anchor
               key='projects-page'
-              href='https://www.zooniverse.org/projects'
-            /> // hardcoded while /projects exists in a separate app
+              href={getHrefWithLocale('/projects', locale)}
+            />
           ]}
         />
       </Paragraph>
