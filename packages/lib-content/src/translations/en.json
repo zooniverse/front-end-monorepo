@@ -644,7 +644,9 @@
           "help": "This is the name we'll use to give acknowledgement in publications, posters, volunteer certificates, and other materials."
         }
       },
-      "optional": "Optional"
+      "optional": "Optional",
+      "save": "Change",
+      "saveSuccess": "Changes saved."
     }
   },
   "Sidebar": {
