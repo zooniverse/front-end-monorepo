@@ -1,3 +1,26 @@
+import { render } from '@testing-library/react'
+import Ellipse from './Ellipse'
+
+describe('Drawing tools > Ellipse', () => {
+  it('should render active mark without crashing', function () {
+    const mark = {
+      x_center: 100,
+      y_center: 200,
+      rx: 10,
+      ry: 20
+    }
+
+    render(
+      <svg xmlns='http://www.w3.org/2000/svg'>
+        <Ellipse active mark={mark} />
+      </svg>
+    )
+    
+    const ellipse = document.querySelector('g')
+    expect(ellipse).to.exist
+  })
+})
+
 // Old enzyme tests are here for reference, but enzyme is no longer used in this library (Aug’ 25)
 
 describe.skip('Components > Drawing marks > Ellipse tool', function () {})

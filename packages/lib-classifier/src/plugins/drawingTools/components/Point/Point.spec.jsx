@@ -2,7 +2,7 @@ import { render } from '@testing-library/react'
 import Point from './Point'
 
 describe('Drawing tools > Point', () => {
-  it('should render without crashing', function () {
+  it('should render active mark without crashing', function () {
     render(
       <svg xmlns='http://www.w3.org/2000/svg'>
         <Point active />
