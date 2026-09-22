@@ -36,7 +36,9 @@ describe('Drawing tools > Mark', function () {
     before(function () {
       sinon.stub(window, 'scrollTo')
       point = pointTool.createMark({
-        id: 'point1'
+        id: 'point1',
+        x: 10,
+        y: 5
       })
       point.finish()
       render(
@@ -63,7 +65,12 @@ describe('Drawing tools > Mark', function () {
     })
 
     it('should render a child drawing tool', function () {
+      console.log(svgPoint.getAttribute('transform'))
       expect(svgPoint).to.exist
+    })
+
+    it('should render child with a translate transform', function () {
+      expect(svgPoint.getAttribute('transform')).to.equal('translate(10, 5)')
     })
   })
 
