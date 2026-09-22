@@ -1,3 +1,26 @@
+import { render } from '@testing-library/react'
+import RotateRectangle from './RotateRectangle'
+
+describe('Drawing tools > RotateRectangle', () => {
+  it('should render active mark without crashing', function () {
+    const mark = {
+      x_center: 45,
+      y_center: 10,
+      width: 30,
+      height: 15
+    }
+
+    render(
+      <svg xmlns='http://www.w3.org/2000/svg'>
+        <RotateRectangle active mark={mark} />
+      </svg>
+    )
+    
+    const rectangle = document.querySelector('g')
+    expect(rectangle).to.exist
+  })
+})
+
 // Old enzyme tests are here for reference, but enzyme is no longer used in this library (Aug’ 25)
 
 describe.skip('Drawing Tools > RotateRectangle tool', function () {})
