@@ -3,6 +3,26 @@ import userEvent from '@testing-library/user-event'
 import Circle from './Circle'
 // import { default as CircleMark } from '../../models/marks/Circle'
 
+describe('Drawing tools > Circle', () => {
+  it('should render active mark without crashing', function () {
+    const mark = {
+      x_center: 100,
+      y_center: 200,
+      r: 10
+    }
+
+    render(
+      <svg xmlns='http://www.w3.org/2000/svg'>
+        <Circle active mark={mark} />
+      </svg>
+    )
+
+    const circle = document.querySelector('g')
+    expect(circle).to.exist
+  })
+})
+
+
 // Must be skipped because the above import isn't handled as expected in Vitest's env
 // https://github.com/zooniverse/front-end-monorepo/issues/7018
 describe.skip('Circle tool', function () {
