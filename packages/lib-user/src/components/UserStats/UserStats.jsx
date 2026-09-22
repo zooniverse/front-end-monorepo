@@ -7,6 +7,7 @@ import {
   MainContent,
   TopProjects
 } from '@components/shared'
+import { getHrefWithLocale } from '@utils'
 
 const DEFAULT_HANDLER = () => true
 const DEFAULT_STATS = {
@@ -40,19 +41,20 @@ function UserStats({
   setSelectedProject = DEFAULT_HANDLER,
   user = DEFAULT_USER
 }) {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+  const locale = i18n.language
 
   // set stats based on selected project
   const stats = selectedProject ? projectStats : allProjectsStats
   const totalProjects = allProjectsStats?.project_contributions?.length
 
-  const linkProps = { href: `/users/${user?.login}/stats/projects?sort=top`}
+  const linkProps = { href: getHrefWithLocale(`/users/${user?.login}/stats/projects?sort=top`, locale)}
 
   return (
     <Layout
       primaryHeaderItem={
         <HeaderLink
-          href='/'
+          href={getHrefWithLocale('/', locale)}
           label={t('common.back')}
           primaryItem={true}
         />
