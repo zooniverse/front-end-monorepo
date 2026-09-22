@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import Link from 'next/link'
 
 import HeaderButton from './HeaderButton'
-import getHrefWithLocale from '../../helpers/getHrefWithLocale'
+import getHrefWithLocale from '@utils/getHrefWithLocale'
 
 function HeaderLink({ href, label, ...rest }) {
   const { i18n } = useTranslation()

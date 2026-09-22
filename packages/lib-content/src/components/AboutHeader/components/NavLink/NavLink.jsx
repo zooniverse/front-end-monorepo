@@ -12,7 +12,7 @@ import styled from 'styled-components'
 import { usePathname } from 'next/navigation'
 import { useTranslation } from 'react-i18next'
 
-import getHrefWithLocale from '../../../../helpers/getHrefWithLocale'
+import getHrefWithLocale from '@utils/getHrefWithLocale'
 
 const StyledAnchor = styled(Link)`
   border-bottom: 2px solid transparent;

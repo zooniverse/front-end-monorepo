@@ -14,7 +14,8 @@
       {
         "alias": {
           "@components": "./src/components",
-          "@translations": "./src/translations"
+          "@translations": "./src/translations",
+          "@utils": "./src/utils"
         }
       }
     ]
