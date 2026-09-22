@@ -1,3 +1,30 @@
+import { render } from '@testing-library/react'
+import Line from './Line'
+
+describe('Drawing tools > Line', () => {
+  it('should render active mark without crashing', function () {
+    const mark = {
+      x1: 50,
+      y1: 10,
+      x2: 4,
+      y2: 20,
+      coords: {
+        x: 50,
+        y: 10
+      }
+    }
+
+    render(
+      <svg xmlns='http://www.w3.org/2000/svg'>
+        <Line active mark={mark} />
+      </svg>
+    )
+    
+    const line = document.querySelector('g')
+    expect(line).to.exist
+  })
+})
+
 // Old enzyme tests are here for reference, but enzyme is no longer used in this library (Aug’ 25)
 
 describe.skip('Components > Drawing marks > Line tool', function () {})
