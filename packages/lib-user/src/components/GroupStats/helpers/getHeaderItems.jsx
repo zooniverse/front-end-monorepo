@@ -6,6 +6,7 @@ import {
   HeaderLink,
   HeaderToast
 } from '@components/shared'
+import { getHrefWithLocale } from '@utils'
 
 const DEFAULT_HANDLER = () => true
 
@@ -15,6 +16,7 @@ function getHeaderItems({
   group,
   handleGroupMembershipLeave = DEFAULT_HANDLER,
   handleGroupModalActive = DEFAULT_HANDLER,
+  locale,
   membership,
   t
 }) {
@@ -42,7 +44,7 @@ function getHeaderItems({
   } else {
     headerItems.PrimaryHeaderItem = (
       <HeaderLink
-        href={`/users/${authUser?.login}/groups`}
+        href={getHrefWithLocale(`/users/${authUser?.login}/groups`, locale)}
         label={t('GroupStats.headerItems.all')}
         primaryItem={true}
       />
