@@ -632,6 +632,19 @@
     },
     "EmailSettings": {
       "title": "Email"
+    },
+    "forms": {
+      "fields": {
+        "display_name": {
+          "label": "Display Name",
+          "help": "How your name will appear to others throughout the platform."
+        },
+        "credited_name": {
+          "label": "Real Name",
+          "help": "This is the name we'll use to give acknowledgement in publications, posters, volunteer certificates, and other materials."
+        }
+      },
+      "optional": "Optional"
     }
   },
   "Sidebar": {
