@@ -61,6 +61,7 @@ export default function AccountNameForm ({
     })  
 
     setHasUnsavedChanges(true)
+    setSaveSuccess(false)
   }
 
   async function onSubmit () {
@@ -131,15 +132,17 @@ export default function AccountNameForm ({
     >
       <FormFieldsContainer margin={{ vertical: 'small' }}>
         <FormInputField
-          onInputChange={onInputChange}
+          disabled={disableInput}
           fieldName='display_name'
+          onInputChange={onInputChange}
           user={user}
         />
         <FormInputField
-          onInputChange={onInputChange}
+          disabled={disableInput}
           fieldName='credited_name'
-          user={user}
+          onInputChange={onInputChange}
           optional
+          user={user}
         />
         <Box
           direction='row'
@@ -174,10 +177,11 @@ export default function AccountNameForm ({
 }
 
 function FormInputField ({
-  onInputChange = DEFAULT_FUNCTION,
+  disabled = false,
   fieldName = '',
-  user,
+  onInputChange = DEFAULT_FUNCTION,
   optional = false,
+  user,
 }) {
   const { t } = useTranslation()
   const inputId = useId()
@@ -200,12 +204,13 @@ function FormInputField ({
         }
       </Box>
       <TextInput
+        data-field={fieldName}
+        disabled={disabled}
         id={inputId}
         name={fieldName}
-        ref={inputRef}
-        data-field={fieldName}
-        value={user?.[fieldName] || ''}
         onChange={onInputChange}
+        ref={inputRef}
+        value={user?.[fieldName] || ''}
       />
       {helpText && (
         <Box
