@@ -3,6 +3,26 @@ import userEvent from '@testing-library/user-event'
 import Rectangle from './Rectangle'
 // import { default as RectangleMark } from '../../models/marks/Rectangle'
 
+describe('Drawing tools > Rectangle', () => {
+  it('should render active mark without crashing', function () {
+    const mark = {
+      x_center: 45,
+      y_center: 10,
+      width: 30,
+      height: 15
+    }
+
+    render(
+      <svg xmlns='http://www.w3.org/2000/svg'>
+        <Rectangle active mark={mark} />
+      </svg>
+    )
+    
+    const rectangle = document.querySelector('g')
+    expect(rectangle).to.exist
+  })
+})
+
 // Must be skipped because the above import isn't handled as expected in Vitest's env
 // https://github.com/zooniverse/front-end-monorepo/issues/7018
 describe.skip('Rectangle tool', () => {
