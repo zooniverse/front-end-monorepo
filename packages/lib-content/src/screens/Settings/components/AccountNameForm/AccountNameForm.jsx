@@ -1,9 +1,11 @@
 import { useId, useRef, useState } from 'react'
 import { Box, Form, Text, TextInput } from 'grommet'
-import { Loader } from '@zooniverse/react-components'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
-import DarkTealPrimaryButton from '../../../Unsubscribe/components/DarkTealPrimaryButton/DarkTealPrimaryButton'
 
+import { Loader } from '@zooniverse/react-components'
+
+import DarkTealPrimaryButton from '../../../Unsubscribe/components/DarkTealPrimaryButton/DarkTealPrimaryButton'
 import useUserData from '../../helpers/useUserData'
 import updateUserData from '../../helpers/updateUserData'
 
@@ -15,7 +17,7 @@ const FormFieldsContainer = styled(Box)`
   }
 `
 
-const InputField = styled(Box)`
+const InputFieldContainer = styled(Box)`
   gap: 0.5em;
 `
 
@@ -30,14 +32,11 @@ async function DEFAULT_FUNCTION () {}
 export default function AccountNameForm ({
   authUser,
 }) {
-  const { data: user, isLoading, error, isValidating, mutate } = useUserData({ login: authUser.login })
+  const { data: user, isLoading, error: loadError, isValidating, mutate } = useUserData({ login: authUser.login })
   const [ isSaving, setIsSaving ] = useState(false)
   const [ saveSuccess, setSaveSuccess ] = useState(false)
   const [ saveError, setSaveError ] = useState(null)
   const [ hasUnsavedChanges, setHasUnsavedChanges ] = useState(false)
-
-  const displayNameInputId = useId()
-  const displayNameInputRef = useRef()
 
   if (!user) return null
 
@@ -61,7 +60,10 @@ export default function AccountNameForm ({
   async function onSubmit () {
 
     // TODO: validate input.
-    const displayName = displayNameInputRef.current.value
+    // Fun fact: did you know that display_name and credited_name can both accept emojis?
+    // credited_name can be empty, but not display_name.
+    const displayName = user.display_name
+    const creditedName = user.credited_name
 
     try {
       let shouldRevalidate = false
@@ -74,6 +76,7 @@ export default function AccountNameForm ({
           setSaveError(null)
 
           await updateUserData({
+            ['credited_name']: creditedName,
             ['display_name']: displayName
           }, authUser.id)
 
@@ -111,27 +114,17 @@ export default function AccountNameForm ({
       onSubmit={onSubmit}
     >
       <FormFieldsContainer margin={{ vertical: 'small' }}>
-        <InputField>
-          <Box direction='row' gap='1em' align='center'>
-            <BigLabel
-              as='label'
-              htmlFor={displayNameInputId}
-            >
-              Example Input
-            </BigLabel>
-            <Text>Optional</Text>
-          </Box>
-          <TextInput
-            id={displayNameInputId}
-            name='display_name'
-            ref={displayNameInputRef}
-            data-field='display_name'
-            value={user.display_name || ''}
-            onChange={onInputChange}
-          />
-          <Text>Extra information</Text>
-        </InputField>
-
+        <FormInputField
+          onInputChange={onInputChange}
+          fieldName='display_name'
+          user={user}
+        />
+        <FormInputField
+          onInputChange={onInputChange}
+          fieldName='credited_name'
+          user={user}
+          optional
+        />
         <Box
           direction='row'
         >
@@ -152,5 +145,45 @@ export default function AccountNameForm ({
         </Box>
       </FormFieldsContainer>
     </Form>
+  )
+}
+
+function FormInputField ({
+  onInputChange = DEFAULT_FUNCTION,
+  fieldName = '',
+  user,
+  optional = false,
+}) {
+  const { t } = useTranslation()
+  const inputId = useId()
+  const inputRef = useRef()
+
+  const labelText = t(`Settings.forms.fields.${fieldName}.label`) || ''
+  const helpText = t(`Settings.forms.fields.${fieldName}.help`) || ''
+
+  return (
+    <InputFieldContainer>
+      <Box direction='row' gap='1em' align='center'>
+        <BigLabel
+          as='label'
+          htmlFor={inputId}
+        >
+          {labelText}
+        </BigLabel>
+        {optional &&
+          <Text>{t('Settings.forms.optional')}</Text>
+        }
+      </Box>
+      <TextInput
+        id={inputId}
+        name={fieldName}
+        ref={inputRef}
+        data-field={fieldName}
+        value={user?.[fieldName] || ''}
+        onChange={onInputChange}
+      />
+      
+      <Text>{helpText}</Text>
+    </InputFieldContainer>
   )
 }
