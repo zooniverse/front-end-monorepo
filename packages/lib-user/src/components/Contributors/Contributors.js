@@ -17,6 +17,7 @@ import {
   Layout,
   Pagination
 } from '@components/shared'
+import { getHrefWithLocale } from '@utils'
 
 import ContributorsList from './components/ContributorsList'
 import ExportStats from './components/ExportStats'
@@ -33,7 +34,8 @@ function Contributors({
   const [showExport, setShowExport] = useState(false)
   const [page, setPage] = useState(1)
 
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+  const locale = i18n.language
 
   const showContributors = adminMode
     || membership?.roles.includes('group_admin')
@@ -120,7 +122,7 @@ function Contributors({
       <Layout
         primaryHeaderItem={
           <HeaderLink
-            href={`/groups/${group.id}`}
+            href={getHrefWithLocale(`/groups/${group.id}`, locale)}
             label={t('common.back')}
             primaryItem={true}
           />
