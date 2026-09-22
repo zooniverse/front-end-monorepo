@@ -5,6 +5,7 @@ import { bool, func, string } from 'prop-types'
 import { useTranslation } from 'react-i18next'
 
 import { HeaderButton } from '@components/shared'
+import { getHrefWithLocale } from '@utils'
 
 const DEFAULT_HANDLER = () => true
 
@@ -13,7 +14,8 @@ function DeactivatedGroup({
   deleteMembershipLoading = false,
   membershipId
 }) {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+  const locale = i18n.language
   async function handleGroupMembershipLeave ({
     membershipId
   }) {
@@ -21,7 +23,7 @@ function DeactivatedGroup({
       revalidate: true
     })
 
-    window.location.href = '/'
+    window.location.href = getHrefWithLocale('/', locale)
   }
 
   return (

@@ -7,6 +7,7 @@ import { useTranslation, Trans } from 'react-i18next'
 
 import {
   convertStatsSecondsToHours,
+  getHrefWithLocale,
   getStatsDateString
 } from '@utils'
 
@@ -50,7 +51,8 @@ function MainContent({
   source = DEFAULT_SOURCE,
   totalProjects = 0
 }) {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+  const locale = i18n.language
   const [activeTab, setActiveTab] = useState(0)
   const [showCalendar, setShowCalendar] = useState(false)
   const [customDateRange, setCustomDateRange] = useState([selectedDateRange.startDate, selectedDateRange.endDate])
@@ -296,7 +298,7 @@ function MainContent({
                   components={[
                     <Anchor
                       key='projects-page'
-                      href='https://www.zooniverse.org/projects'
+                      href={getHrefWithLocale('/projects', locale)}
                     />
                   ]}
                 />
