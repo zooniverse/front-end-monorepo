@@ -2,9 +2,9 @@
 
 Determines whether a volunteer's geoDrawing point falls inside a rectangular target region on the map, within a given tolerance.
 
-The box follows the Rectangle and RotateRectangle mark convention: a center point plus width, height, and rotation. `x` is the center longitude and `y` the center latitude (`EPSG:4326`, matching the geoDrawing annotation). `width`, `height`, and `tolerance` are **meters**, matching the geoDrawing task's units (`task.unit`, `uncertainty_radius`); the point is projected onto a local tangent frame at the box center before the test. `theta` is the box rotation in **clockwise** degrees, the same convention as the pointInEllipse strategy.
+The box follows the Rectangle and RotateRectangle mark convention: a center point plus width, height, and rotation. `x` is the center longitude and `y` the center latitude (`EPSG:4326`, matching the geoDrawing annotation). `width`, `height`, and `tolerance` are **meters**, matching the geoDrawing task's units (`task.unit`, `uncertainty_radius`). The box is grown by `tolerance` on every side (with rounded corners) and the point must fall inside the result; see the [geo grader](../grader/README.md). `theta` is the box rotation in **clockwise** degrees, the same convention as the pointInEllipse strategy.
 
-Only `Point` features are considered. `SegmentedLine` features are ignored.
+Only `Point` features are considered. `SegmentedLine` features are ignored; use the [Geo Line](../line/README.md) strategy for those.
 
 ## Subject metadata fields
 

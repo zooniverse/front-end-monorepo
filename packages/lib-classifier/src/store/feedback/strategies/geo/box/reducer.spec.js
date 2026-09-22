@@ -1,6 +1,13 @@
-import geoBoxReducer from './reducer'
+import strategy from './index'
+import grader from '../grader'
+
+const geoBoxReducer = strategy.reducer
 
 describe('feedback geo box reducer', function () {
+  before(async function () {
+    await grader.load()
+  })
+
   function buildRule () {
     return {
       height: '2000',

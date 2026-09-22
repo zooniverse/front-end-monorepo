@@ -13,8 +13,19 @@ A feedback strategy **must** export the following:
 
 Optionally, it can also export:
 
+- `load` [function] - returns a promise that resolves once the strategy's grader is resident. `FeedbackStore.createRules` awaits it before building rules, so a strategy can keep a heavy dependency in its own chunk (see the [geo grader](./geo/grader/README.md)).
 - `labComponent` - a form component used to configure additional default options in the Project Builder.
 - `validations` [array] - an array of functions, each of which accept the feedback definition as an argument, and which return a boolean. Define this if you're going to add extra default options using `labComponent`.
+
+### Rules and targets
+
+A workflow rule describes one kind of target: its strategy, its messages, and its
+default options. A subject says how many of that target it holds and where, with one
+`#feedback_N_*` block each, all naming the same rule id. Every matching block becomes
+its own rule, so the volunteer is told about each target separately.
+
+Where a subject holds several of the same feature but a single verdict is wanted, some
+strategies accept them as one target instead; see `geo/line`.
 
 ### Caveats
 

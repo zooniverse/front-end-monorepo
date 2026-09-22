@@ -1,5 +1,5 @@
 import { autorun } from 'mobx'
-import { addDisposer, addMiddleware, getRoot, isValidReference, tryReference, types } from 'mobx-state-tree'
+import { addDisposer, addMiddleware, flow, getRoot, isValidReference, tryReference, types } from 'mobx-state-tree'
 import { flatten } from 'lodash'
 
 import helpers from './feedback/helpers'
@@ -80,13 +80,27 @@ const FeedbackStore = types
       }
     }
 
-    function createRules (subject) {
+    // Strategies that ship their grader as a separate chunk expose load(); rules
+    // only exist once every referenced grader is resident, so update() stays sync.
+    function strategyLoaders (workflow) {
+      const taskRules = Object.values(helpers.getFeedbackFromTasks(workflow.tasks))
+      const ids = new Set(flatten(taskRules).map(rule => rule.strategy))
+      return [...ids].map(id => strategies[id]?.load?.()).filter(Boolean)
+    }
+
+    const createRules = flow(function * createRules (subject) {
       const validWorkflowReference = isValidReference(() => getRoot(self).workflows.active)
 
       if (validWorkflowReference && subject) {
         const workflow = getRoot(self).workflows.active
 
         if (self.isActive) {
+          const loaders = strategyLoaders(workflow)
+          if (loaders.length) {
+            yield Promise.all(loaders)
+            const activeSubject = tryReference(() => getRoot(self).subjects.active)
+            if (activeSubject?.id !== subject.id) return
+          }
           self.rules = helpers.generateRules(subject, workflow)
         }
       } else {
@@ -94,7 +108,7 @@ const FeedbackStore = types
           console.error('Cannot create feedback rules without project, workflow, and/or subject')
         }
       }
-    }
+    })
 
     function setOnHide (onHide) {
       self.onHide = onHide

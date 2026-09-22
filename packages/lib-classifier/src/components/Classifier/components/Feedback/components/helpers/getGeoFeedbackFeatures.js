@@ -1,13 +1,17 @@
 import { Feature } from 'ol'
+import GeoJSON from 'ol/format/GeoJSON'
+import LineString from 'ol/geom/LineString'
 import Point from 'ol/geom/Point'
-import Polygon, { circular } from 'ol/geom/Polygon'
 import { fromLonLat } from 'ol/proj'
 import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style'
 
+import grader from '@store/feedback/strategies/geo/grader'
+import strategies from '@store/feedback/strategies'
 import { FEEDBACK_COLORS } from '../RadialFeedback'
-import boxCornersLonLat from './boxCornersLonLat'
 
 const FILL_ALPHA = '33'
+const format = new GeoJSON()
+const READ_OPTIONS = { dataProjection: 'EPSG:4326', featureProjection: 'EPSG:3857' }
 
 function ruleStyle (color) {
   return new Style({
@@ -26,22 +30,23 @@ function pointStyle (color) {
   })
 }
 
-function ruleGeometry (rule) {
-  if (rule.strategy === 'geoRadial') {
-    const geometry = circular([parseFloat(rule.x), parseFloat(rule.y)], parseFloat(rule.tolerance), 64)
-    return geometry.transform('EPSG:4326', 'EPSG:3857')
-  }
-  if (rule.strategy === 'geoBox') {
-    const ring = boxCornersLonLat(rule).map(corner => fromLonLat(corner))
-    return new Polygon([[...ring, ring[0]]])
-  }
-  return null
+function lineStyle (color) {
+  return new Style({ stroke: new Stroke({ color, width: 4 }) })
 }
 
-function isSuccessfulPoint (coordinates, applicableRules) {
+// The rule's target grown by its tolerance, as drawn on the map.
+function ruleGeometry (rule) {
+  const toGeometry = strategies[rule.strategy]?.geometry
+  if (!toGeometry || !grader.isLoaded()) return null
+  const geometry = grader.targetGeometry({ geometry: toGeometry(rule), tolerance: rule.tolerance })
+  return format.readGeometry(geometry, READ_OPTIONS)
+}
+
+function isSuccessful (geometry, applicableRules) {
+  const key = JSON.stringify(geometry.coordinates)
   return applicableRules.some(rule =>
     rule.successfulClassifications?.some(result =>
-      result.coordinates?.[0] === coordinates[0] && result.coordinates?.[1] === coordinates[1]
+      result.type === geometry.type && JSON.stringify(result.coordinates) === key
     )
   )
 }
@@ -50,7 +55,21 @@ function feedbackColor (success) {
   return success ? FEEDBACK_COLORS.success : FEEDBACK_COLORS.failure
 }
 
-// Target regions and volunteer points as styled OL features, colored by success.
+function volunteerFeature (geometry, color) {
+  if (geometry.type === 'Point') {
+    const feature = new Feature(new Point(fromLonLat([...geometry.coordinates])))
+    feature.setStyle(pointStyle(color))
+    return feature
+  }
+  if (geometry.type === 'LineString') {
+    const feature = new Feature(new LineString(geometry.coordinates.map(coordinates => fromLonLat([...coordinates]))))
+    feature.setStyle(lineStyle(color))
+    return feature
+  }
+  return null
+}
+
+// Target regions and volunteer marks as styled OL features, colored by success.
 function getGeoFeedbackFeatures (annotations = [], applicableRules = []) {
   const features = []
 
@@ -64,13 +83,12 @@ function getGeoFeedbackFeatures (annotations = [], applicableRules = []) {
 
   annotations.forEach(annotation => {
     if (annotation.taskType !== 'geoDrawing') return
-    const points = (annotation.value?.features || [])
-      .filter(feature => feature?.geometry?.type === 'Point')
-    points.forEach(point => {
-      const coordinates = point.geometry.coordinates
-      const feature = new Feature(new Point(fromLonLat([...coordinates])))
-      feature.setStyle(pointStyle(feedbackColor(isSuccessfulPoint(coordinates, applicableRules))))
-      features.push(feature)
+    const geometries = (annotation.value?.features || [])
+      .map(feature => feature?.geometry)
+      .filter(Boolean)
+    geometries.forEach(geometry => {
+      const feature = volunteerFeature(geometry, feedbackColor(isSuccessful(geometry, applicableRules)))
+      if (feature) features.push(feature)
     })
   })
 
