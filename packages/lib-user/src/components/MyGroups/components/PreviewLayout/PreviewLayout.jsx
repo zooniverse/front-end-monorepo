@@ -7,6 +7,7 @@ import { useTranslation, Trans } from 'react-i18next'
 import { ContentBox } from '@components/shared'
 import GroupCardContainer from '../GroupCard/GroupCardContainer'
 import CreateButton from '../CreateButton'
+import { getHrefWithLocale } from '@utils'
 
 const DEFAULT_HANDLER = () => true
 
@@ -16,11 +17,13 @@ export default function PreviewLayout({
   loading = false,
   handleGroupModal = DEFAULT_HANDLER
 }) {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+  const locale = i18n.language
+
   return (
     <ContentBox
       linkLabel={t('common.seeAll')}
-      linkProps={{ as: Link, href: `/users/${authUser?.login}/groups` }}
+      linkProps={{ as: Link, href: getHrefWithLocale(`/users/${authUser?.login}/groups`, locale) }}
       title={t('MyGroups.title')}
     >
       {loading && (
