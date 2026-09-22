@@ -9,7 +9,11 @@ describe('Drawing tools > TranscriptionLineMark', () => {
       y1: 200,
       x2: 300,
       y2: 400,
-      length: 200 * Math.sqrt(2)
+      length: 200 * Math.sqrt(2),
+      coords: {
+        x: 100,
+        y: 200
+      }
     }
 
     render(

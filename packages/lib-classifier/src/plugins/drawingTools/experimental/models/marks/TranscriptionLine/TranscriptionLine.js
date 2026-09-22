@@ -28,11 +28,11 @@ const TranscriptionLineModel = types
       const xBuffer = dx ? BUFFER * (dx / self.length) : BUFFER
       const yBuffer = dy ? BUFFER * (dy / self.length) : 0
       const x = deleteButtonPlacement === 'before'
-        ? self.x1 - xBuffer / scale // Before the start point.
-        : self.x2 + xBuffer / scale // After the end point.
+        ? -xBuffer / scale // Before the start point.
+        : dx + xBuffer / scale // After the end point.
       const y = deleteButtonPlacement === 'before'
-        ? self.y1 - yBuffer / scale // Before the start point.
-        : self.y2 + yBuffer / scale // After the end point.
+        ? -yBuffer / scale // Before the start point.
+        : dy + yBuffer / scale // After the end point.
       return { x, y }
     },
 
