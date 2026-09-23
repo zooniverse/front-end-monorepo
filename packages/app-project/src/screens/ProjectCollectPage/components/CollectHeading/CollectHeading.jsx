@@ -4,7 +4,7 @@ import { useTranslation } from 'next-i18next/pages'
 import styled from 'styled-components'
 
 const HeadingContainer = styled(Box)`
-  margin: 30px 0;
+  margin: 35px 0;
 
   &::after {
     content: '';

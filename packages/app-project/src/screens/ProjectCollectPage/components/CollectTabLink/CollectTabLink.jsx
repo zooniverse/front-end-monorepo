@@ -1,29 +1,51 @@
 import Link from 'next/link'
 import { Anchor } from 'grommet'
 import { bool, string } from 'prop-types'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 import addQueryParams from '@helpers/addQueryParams'
 
 const StyledAnchor = styled(Anchor)`
+  border-bottom: 3px solid transparent;
+  padding: 6px 0;
+  text-align: center;
+  text-transform: uppercase;
+
   &:hover {
     text-decoration: none;
   }
+
+  ${props => props.$active && css`
+    border-bottom: 3px solid currentColor;
+  `}
+
+  ${props => !props.$active && css`
+    &:focus, &:hover {
+      border-bottom: 3px solid ${props => props.theme.global.colors['neutral-7']};
+      color: ${props => props.theme.global.colors['neutral-7']};
+    }
+  `}
 `
 
-function CollectTabLink({ active, href, text }) {
+function CollectTabLink({ 
+  active,
+  href,
+  icon,
+  text 
+}) {
   return (
-    <Link href={addQueryParams(href)}>
-      <StyledAnchor
-        aria-current={active ? 'page' : undefined}
-        background={active ? 'accent-1' : { light: 'neutral-6', dark: '' }}
-        color={{ dark: 'neutral-6', light: 'dark-3' }}
-        pad={{ horizontal: '20px', vertical: '5px' }}
-        weight={active ? 'bold' : 'normal'}
-      >
-        {text}
-      </StyledAnchor>
-    </Link>
+    <StyledAnchor
+      $active={active}
+      aria-current={active ? 'page' : undefined}
+      color={active ? 'neutral-1' : { dark: 'neutral-6', light: 'dark-5' }}
+      forwardedAs={Link}
+      gap='8px'
+      href={addQueryParams(href)}
+      icon={icon}
+      label={text}
+      size='1rem'
+      weight={active ? 'bold' : 'normal'}
+    />
   )
 }
 
