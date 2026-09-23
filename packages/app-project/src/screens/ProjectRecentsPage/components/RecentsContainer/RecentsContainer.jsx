@@ -4,6 +4,7 @@ import { MobXProviderContext, observer } from 'mobx-react'
 import { useContext } from 'react'
 
 import { useRecents } from '@hooks'
+import PanoptesAuthContext from '@shared/contexts/PanoptesAuthContext.js'
 
 import EmptyPlaceholder from '../Placeholders/EmptyPlaceholder'
 import ErrorPlaceholder from '../Placeholders/ErrorPlaceholder'
@@ -13,17 +14,17 @@ import RecentsList from '../RecentsList'
 
 function useStores() {
   const stores = useContext(MobXProviderContext)
-  const { project, user } = stores.store
+  const { project } = stores.store
   return {
-    login: user?.login,
     projectId: project?.id,
-    projectSlug: project?.slug,
-    userId: user?.id
+    projectSlug: project?.slug
   }
 }
 
 function RecentsContainer() {
-  const { login, projectId, projectSlug, userId } = useStores()
+  const { projectId, projectSlug } = useStores()
+  const { isLoading: userIsLoading, user } = useContext(PanoptesAuthContext)
+  const { id: userId, login } = user || {}
   const { data: recents = [], error, isLoading } = useRecents({ projectId, userId })
   // Filter the recents to only include those with an attached valid subject.
   // A valid subject attached to the recent is required for the recent to be displayed in RecentsList using the SubjectCard component.
@@ -38,7 +39,8 @@ function RecentsContainer() {
         justify='center'
         height={{ min: '50vh' }}
       >
-        {!userId ? <SignedOutPlaceholder /> 
+        {userIsLoading ? <Loader />
+          : !userId ? <SignedOutPlaceholder />
           : isLoading ? <Loader />
           : error ? <ErrorPlaceholder /> 
           : validRecents.length < 1 ? <EmptyPlaceholder /> 
