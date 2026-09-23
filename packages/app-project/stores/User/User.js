@@ -1,6 +1,5 @@
 import asyncStates from '@zooniverse/async-states'
-import { applySnapshot, flow, getSnapshot, types } from 'mobx-state-tree'
-import auth from 'panoptes-client/lib/auth'
+import { applySnapshot, getSnapshot, types } from 'mobx-state-tree'
 
 import Collections from './Collections'
 import Recents from './Recents'
