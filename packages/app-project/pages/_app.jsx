@@ -1,3 +1,4 @@
+import { usePanoptesUser } from '@zooniverse/react-components/hooks'
 import { enableStaticRendering, Provider } from 'mobx-react'
 import Error from 'next/error'
 import { useEffect, useMemo } from 'react'
@@ -11,7 +12,7 @@ import 'ol/ol.css'
 
 import Head from '@components/Head'
 import { addSentryUser, logToSentry } from '@helpers/logger'
-import { useAdminMode, usePanoptesUser, usePreferredTheme, useSugarProject, useUserFavourites } from '@hooks'
+import { useAdminMode, usePreferredTheme, useSugarProject, useUserFavourites } from '@hooks'
 import initStore from '@stores'
 import PanoptesAuthContext from '@shared/contexts/PanoptesAuthContext.js'
 import ThemeModeContext from '@shared/contexts/ThemeModeContext.js'
@@ -62,26 +63,25 @@ function MyApp({ Component, pageProps }) {
     [store.ui]
   )
 
-  const userKey = store.user?.id || 'no-user'
-  const user = usePanoptesUser(userKey)
+  const { data: user, error, isLoading } = usePanoptesUser()
   const { adminMode, toggleAdmin } = useAdminMode()
-  const authContext = { adminMode, toggleAdmin, user }
+  const authContext = { adminMode, error, isLoading, toggleAdmin, user }
   const project = store.project
   const favourites = useUserFavourites({ user, project })
   useSugarProject(project)
 
   useEffect(
     function onUserChange() {
+      if (isLoading) return
+      // the shared hook resolves to a userless {} when logged out
       if (user?.id) {
         store.user.set(user)
-      }
-      // logged-out users are null
-      if (user === null) {
+      } else {
         store.user.clear()
       }
       addSentryUser(user)
     },
-    [user, store.user]
+    [user, isLoading, store.user]
   )
 
   useEffect(
