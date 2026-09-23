@@ -78,7 +78,7 @@
     }
   },
   "Collect": {
-    "heading": "Collect",
+    "title": "Collect",
     "exploreLink": "Explore all Zooniverse collections",
     "tabs": {
       "title": "Collection pages",
@@ -89,8 +89,7 @@
     },
     "placeholders": {
       "empty": "No collections found.",
-      "error": "There was an error loading collections.",
-      "loading": "Loading collections..."
+      "error": "There was an error loading collections."
     }
   },
   "ProjectStats": {

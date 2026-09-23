@@ -1,8 +1,10 @@
-import { Anchor, Box, Heading } from 'grommet'
-import { useTranslation } from 'next-i18next/pages'
+import { Box } from 'grommet'
 import { arrayOf, shape, string } from 'prop-types'
 
 import StandardLayout from '@shared/components/StandardLayout'
+import ProjectAboutPageLayout from '../ProjectAboutPage/ProjectAboutPageLayout'
+
+import CollectHeading from './components/CollectHeading'
 import CollectTabs from './components/CollectTabs'
 import CollectionsListContainer from './components/CollectionsListContainer'
 
@@ -13,18 +15,15 @@ function ProjectCollectPage({
   projectDisplayName,
   projectSlug
 }) {
-  const { t } = useTranslation('screens')
-
   return (
     <StandardLayout>
-      <Box align='center' pad={{ horizontal: 'medium', vertical: 'large' }}>
-        <Box gap='medium' width={{ width: '100%', max: '85rem' }}>
-          <Heading level={2} margin='none'>
-            {t('Collect.heading')}
-          </Heading>
-          <Anchor href='https://www.zooniverse.org/collections'>
-            {t('Collect.exploreLink')}
-          </Anchor>
+      <ProjectAboutPageLayout>
+        <Box
+          pad={{ horizontal: '20px' }}
+          margin={{ bottom: 'large' }}
+          width={{ width: '100%', max: '85rem' }}
+        >
+          <CollectHeading />
           <CollectTabs
             activeTab={activeTab}
             loginParam={loginParam}
@@ -37,7 +36,7 @@ function ProjectCollectPage({
             loginParam={loginParam}
           />
         </Box>
-      </Box>
+      </ProjectAboutPageLayout>
     </StandardLayout>
   )
 }
