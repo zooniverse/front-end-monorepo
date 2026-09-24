@@ -34,10 +34,10 @@ Account Setting pages, "Account Name" form:
   - On error, an error message will appear.
   - Data validation is primarily performed on the Panoptes API side, with relevant error messages returned from the API.
 - Notable input rules:
-  - Display name cannot be empty. (Returns an error message from API.)
+  - Display name cannot be empty. (Validated on both server-side and client-side.)
   - Strangely, the display name can have spaces before and after.
   - Display name and credited name can include Unicode characters.
-  - e.g. `"    "` and `""` are invalid, but `"    zootester 1 (例子 😜)   "` is legit.
+  - e.g. for display name, `"    "` and `""` are invalid, but `"    zootester 1 (例子 😜)   "` is legit.
 
 🛠️ TODO: Account Settings page, "Change Password" form":
 
