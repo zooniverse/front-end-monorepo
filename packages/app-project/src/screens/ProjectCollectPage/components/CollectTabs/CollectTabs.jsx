@@ -32,13 +32,13 @@ function CollectTabs({
       <CollectTabLink
         active={activeTab === 'favorites' && !loginParam}
         href={`/${projectSlug}/favorites`}
-        icon={<Favorite size='20px' />}
+        icon={<Favorite aria-hidden='true' size='20px' />}
         text={t('Collect.tabs.favorites')}
       />
       <CollectTabLink
         active={activeTab === 'collections' && !loginParam}
         href={`/${projectSlug}/collections`}
-        icon={<Bookmark size='16px' />}
+        icon={<Bookmark aria-hidden='true' size='16px' />}
         text={t('Collect.tabs.collections')}
       />
       {isLoggedIn && (
@@ -46,13 +46,13 @@ function CollectTabs({
           <CollectTabLink
             active={activeTab === 'favorites' && !!loginParam}
             href={`/${projectSlug}/favorites/${login}`}
-            icon={<Favorite size='20px' />}
+            icon={<Favorite aria-hidden='true' size='20px' />}
             text={t('Collect.tabs.myFavorites', { projectName: projectDisplayName })}
           />
           <CollectTabLink
             active={activeTab === 'collections' && !!loginParam}
             href={`/${projectSlug}/collections/${login}`}
-            icon={<Bookmark size='16px' />}
+            icon={<Bookmark aria-hidden='true' size='16px' />}
             text={t('Collect.tabs.myCollections', { projectName: projectDisplayName })}
           />
         </Box>
