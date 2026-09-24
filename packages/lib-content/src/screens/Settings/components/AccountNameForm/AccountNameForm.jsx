@@ -1,11 +1,12 @@
-import { useId, useRef, useState } from 'react'
-import { Box, Button, Form, Text, TextInput } from 'grommet'
-import { CircleInformation } from 'grommet-icons'
+import { useState } from 'react'
+import { Box, Button, Form } from 'grommet'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
+import { shape, string } from 'prop-types'
 
 import { Loader, StatusMessage } from '@zooniverse/react-components'
 
+import FormInputField from '../FormInputField/FormInputField'
 import useUserData from '../../helpers/useUserData'
 import updateUserData from '../../helpers/updateUserData'
 
@@ -17,24 +18,7 @@ const FormFieldsContainer = styled(Box)`
   }
 `
 
-const InputFieldContainer = styled(Box)`
-  gap: 0.5em;
-`
-
-const BigLabel = styled(Text)`
-  font-weight: 700;
-  font-style: bold;
-  text-transform: uppercase;
-`
-
-const StyledHelpIcon = styled(CircleInformation)`
-  margin-top: 4px;
-  margin-right: 0.5em;
-`
-
-async function DEFAULT_FUNCTION () {}
-
-export default function AccountNameForm ({
+function AccountNameForm ({
   authUser,
 }) {
   const { t } = useTranslation()
@@ -176,50 +160,11 @@ export default function AccountNameForm ({
   )
 }
 
-function FormInputField ({
-  disabled = false,
-  fieldName = '',
-  onInputChange = DEFAULT_FUNCTION,
-  optional = false,
-  user,
-}) {
-  const { t } = useTranslation()
-  const inputId = useId()
-  const inputRef = useRef()
-
-  const labelText = t(`Settings.forms.fields.${fieldName}.label`) || ''
-  const helpText = t(`Settings.forms.fields.${fieldName}.help`) || ''
-
-  return (
-    <InputFieldContainer>
-      <Box direction='row' gap='1em' align='center'>
-        <BigLabel
-          as='label'
-          htmlFor={inputId}
-        >
-          {labelText}
-        </BigLabel>
-        {optional &&
-          <Text>{t('Settings.forms.optional')}</Text>
-        }
-      </Box>
-      <TextInput
-        data-field={fieldName}
-        disabled={disabled}
-        id={inputId}
-        name={fieldName}
-        onChange={onInputChange}
-        ref={inputRef}
-        value={user?.[fieldName] || ''}
-      />
-      {helpText && (
-        <Box
-          direction='row'
-        >
-          <StyledHelpIcon size='small' />
-          <Text>{helpText}</Text>
-        </Box>
-      )}      
-    </InputFieldContainer>
-  )
+AccountNameForm.propTypes = {
+  authUser: shape({
+    id: string,
+    login: string
+  }).isRequired,
 }
+
+export default AccountNameForm
