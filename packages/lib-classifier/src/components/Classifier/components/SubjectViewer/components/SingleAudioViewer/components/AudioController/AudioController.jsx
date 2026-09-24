@@ -1,5 +1,5 @@
 import { useContext, useMemo, useState } from 'react'
-import { bool, func, number, string } from 'prop-types'
+import { bool, func, number, object, shape, string } from 'prop-types'
 import {
   Box,
   Button,
@@ -11,13 +11,12 @@ import {
   ThemeContext
 } from 'grommet'
 import {
-  CirclePlay,
-  Expand,
   FormDown,
+  Pause,
+  Play,
   Volume,
   VolumeLow,
-  VolumeMute,
-  Pause
+  VolumeMute
 } from 'grommet-icons'
 import styled, { css } from 'styled-components'
 import { useTranslation } from '@translations/i18n'
@@ -81,34 +80,31 @@ const VolumeRange = styled(RangeInput)`
 
 const DEFAULT_HANDLER = () => {}
 
-const VideoController = ({
+const AudioController = ({
   duration = 0,
-  enableDrawing = false,
   isPlaying = false,
-  handleFullscreen = DEFAULT_HANDLER,
   handleSeekChange = DEFAULT_HANDLER,
   handleSeekMouseDown = DEFAULT_HANDLER,
   handleSeekMouseUp = DEFAULT_HANDLER,
   onPlayPause = DEFAULT_HANDLER,
   onSpeedChange = DEFAULT_HANDLER,
   playbackSpeed = '1x',
-  played = 0, // A percentage between 0 and 1
-  playerRef,
+  played = 0,
+  audioRef,
   setVolume = DEFAULT_HANDLER,
   volume = 1,
-  volumeDisabled = false,
 }) => {
   const size = useContext(ResponsiveContext)
   const { t } = useTranslation('components')
   const [volumeOpen, setVolumeOpen] = useState(false)
 
   const playPauseLabel = isPlaying
-    ? 'SubjectViewer.VideoController.pause'
-    : 'SubjectViewer.VideoController.play'
+    ? 'SubjectViewer.AudioController.pause'
+    : 'SubjectViewer.AudioController.play'
 
   const volumeButtonLabel = volumeOpen
-    ? 'SubjectViewer.VideoController.closeVolume'
-    : 'SubjectViewer.VideoController.openVolume'
+    ? 'SubjectViewer.AudioController.closeVolume'
+    : 'SubjectViewer.AudioController.openVolume'
 
   const secondsPlayed = played * duration
 
@@ -116,25 +112,23 @@ const VideoController = ({
     return formatTimeStamp(duration)
   }, [duration])
 
-  /* NOTE: Safari desktop is an outlier in that it does not transfer focus to a clicked button or input */
   const handleSliderKeys = e => {
     if (e.code === 'Space' || e.code === 'Enter') {
       e.preventDefault()
       e.stopPropagation()
       onPlayPause()
-      // Sensitivity of left/right keys can be adjusted if needed
     } else if (e.code === 'ArrowLeft') {
       e.preventDefault()
       e.stopPropagation()
       if (played === 0) return
-      else if (0 < played && played <= 0.05) playerRef?.current?.seekTo(0)
-      else playerRef?.current?.seekTo(played - 0.05)
+      const newPlayed = played <= 0.05 ? 0 : played - 0.05
+      handleSeekChange({ target: { value: newPlayed } })
     } else if (e.code === 'ArrowRight') {
       e.preventDefault()
       e.stopPropagation()
       if (played === 1) return
-      else if (1 > played && played >= 0.95) playerRef?.current?.seekTo(duration)
-      else playerRef?.current?.seekTo(played + 0.05)
+      const newPlayed = played >= 0.95 ? 1 : played + 0.05
+      handleSeekChange({ target: { value: newPlayed } })
     }
   }
 
@@ -142,7 +136,6 @@ const VideoController = ({
     setVolume(parseFloat(e.target.value))
   }
 
-  /* NOTE: Safari desktop is an outlier in that it does not transfer focus to a clicked button or slider */
   const handleVolumeKeys = e => {
     if (e.key === 'ArrowUp' && volume < 1) {
       e.preventDefault()
@@ -180,7 +173,7 @@ const VideoController = ({
         <Grid
           columns={['min-content', 'flex', 'min-content']}
           rows={['1fr']}
-          data-testid='video subject viewer custom controls'
+          data-testid='audio subject viewer custom controls'
         >
           <Box direction='row'>
             {/* Play/Pause */}
@@ -191,7 +184,7 @@ const VideoController = ({
                 isPlaying ? (
                   <Pause size={iconSize} color={color} />
                 ) : (
-                  <CirclePlay size={iconSize} color={color} />
+                  <Play size={iconSize} color={color} />
                 )
               }
               plain
@@ -199,7 +192,7 @@ const VideoController = ({
 
             {/* Speed */}
             <SpeedSelect
-              a11yTitle={t('SubjectViewer.VideoController.playbackSpeed')}
+              a11yTitle={t('SubjectViewer.AudioController.playbackSpeed')}
               options={['0.25x', '0.5x', '1x']}
               value={playbackSpeed}
               onChange={({ option }) => onSpeedChange(option)}
@@ -214,10 +207,10 @@ const VideoController = ({
             <Box
               direction='row'
               align='center'
-              width={{ min: '3.7rem', max: '3.7rem'}}
-              margin={{ horizontal: size === 'small' ? '10px' : '20px' }}
+              flex={false}
+              margin={{ horizontal: size === 'small' ? '5px' : '10px' }}
             >
-              <Text size='0.75rem' color={color}>
+              <Text size='0.75rem' color={color} style={{ whiteSpace: 'nowrap' }}>
                 <time dateTime={`P${Math.round(secondsPlayed)}S`}>
                   {formatTimeStamp(secondsPlayed)}
                 </time>
@@ -232,9 +225,9 @@ const VideoController = ({
           {/* Slider */}
           <Box direction='row' align='center' margin={{ right: '10px' }}>
             <RangeInput
-              a11yTitle={t('SubjectViewer.VideoController.scrubber')}
+              a11yTitle={t('SubjectViewer.AudioController.scrubber')}
               min={0}
-              max={0.999999} // not sure why, this was in the react-player example
+              max={0.999999}
               step={0.01}
               value={played}
               onChange={handleSeekChange}
@@ -249,9 +242,8 @@ const VideoController = ({
               {/* Volume */}
               <StyledButton
                 a11yTitle={t(volumeButtonLabel)}
-                disabled={volumeDisabled}
                 icon={
-                  volume <= 0 || volumeDisabled ? (
+                  volume <= 0 ? (
                     <VolumeMute size={iconSize} color={color} />
                   ) : volume <= 0.5 ? (
                     <VolumeLow size={iconSize} color={color} />
@@ -265,8 +257,7 @@ const VideoController = ({
               />
               {volumeOpen && (
                 <VolumeRange
-                  a11yTitle={t('SubjectViewer.VideoController.volumeSlider')}
-                  disabled={volumeDisabled}
+                  a11yTitle={t('SubjectViewer.AudioController.volumeSlider')}
                   min={0}
                   max={1}
                   step={0.25}
@@ -276,15 +267,6 @@ const VideoController = ({
                 />
               )}
             </VolumeContainer>
-
-            {/* Full Screen */}
-            {/* {!enableDrawing && ( */}
-            <StyledButton
-              a11yTitle={t('SubjectViewer.VideoController.fullscreen')}
-              icon={<Expand size={iconSize} color={color} />}
-              plain
-              onClick={handleFullscreen}
-            />
           </Box>
         </Grid>
       </ThemeContext.Extend>
@@ -292,21 +274,19 @@ const VideoController = ({
   )
 }
 
-VideoController.propTypes = {
-  duration: number, // in seconds
-  enableDrawing: bool,
+AudioController.propTypes = {
+  audioRef: shape({ current: object }),
+  duration: number,
   isPlaying: bool,
-  handleFullscreen: func,
   handleSeekChange: func,
   handleSeekMouseDown: func,
   handleSeekMouseUp: func,
   onPlayPause: func,
   onSpeedChange: func,
   playbackSpeed: string,
-  played: number, // percentage
+  played: number,
   setVolume: func,
   volume: number,
-  volumeDisabled: bool
 }
 
-export default VideoController
+export default AudioController
