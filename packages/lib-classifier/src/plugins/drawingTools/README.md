@@ -8,7 +8,7 @@ Experimental tools should be added to `drawingTools/experimental`.
 
 `import { Point } from '@plugins/drawingTools/components'`
 
-A React component for a mark takes a Mark model and renders it as SVG. The basic shape is:
+A React component for a mark takes a Mark model and renders it as SVG. Mark components should either render in a local coordinate system relative to the origin returned from `mark.coords`, or transform back into global coordinates first. The basic shape is:
 
 ```jsx
 const MarkComponent = mark.toolComponent
@@ -67,17 +67,20 @@ The [base Mark model](https://github.com/zooniverse/front-end-monorepo/tree/main
 
 All marks should extend the Mark model by implementing the following views and actions:
 
-- _coords (Object { x, y })_ Read only. Returns the `{ x, y }` coords for this mark.
-- _deleteButtonPosition(scale) (Object { x, y })_ Given the image scale, return the `{ x, y }` position for this mark's delete button.
+- _coords (Object { x, y })_ Read only. Returns the origin of the local `{ x, y }` coordinates for this mark. Return `null` if the mark doesn't render anything, for example if it initially contains no points.
+- _deleteButtonPosition(scale) (Object { x, y })_ Given the image scale, return the `{ x, y }` position for this mark's delete button in local coordinates relative to the origin returned by `coords`.
 - _toolComponent (React.Component)_ Read only. Returns the React component used to render this mark.
 - _initialDrag({ x, y })_ Called on drag when first creating the mark. `{ x, y }` are the new position of the dragged pointer in the frame of the subject image.
 - _initialPosition({ x, y })_ Called on initial click/tap when creating the mark. `{ x, y }` are the position of the pointer in the frame of the subject image.
 - _move(difference)_ Called on drag when moving the mark. `difference` is the change in position since the last move: `{ x, y }`.
 - _setCoordinates(Object)_ Passes in a new set of coordinates for the current shape. The object passed in will depend on the type of shape being described (eg. `{ x1, y1, x2, y2 }` for an SVG line.)
 
-In addition, mark models should extend the base Mark model with any properties specific to the new shape. These mark properties will be passed to Panoptes as the annotation for this mark. Marks may specify the following properties, which have a special meaning when rendering marks.
+In addition, mark models should extend the base Mark model with any properties specific to the new shape. These mark properties will be passed to Panoptes as the annotation for this mark. Marks may specify the following property, which has a special meaning when rendering marks.
 
 - _angle (number)_ Rotation angle of the mark in degrees, measure clockwise from the positive x-axis.
+
+For compatibility with [radial feedback](https://github.com/zooniverse/front-end-monorepo/blob/main/packages/lib-classifier/src/store/feedback/strategies/drawing/radial/README.md) marks need to define the following properties.
+
 - _x (number)_ x position of the mark's centre of rotation, in SVG coordinates relative to the subject image.
 - _y (number)_ y position of the mark's centre of rotation, in SVG coordinates relative to the subject image.
 
