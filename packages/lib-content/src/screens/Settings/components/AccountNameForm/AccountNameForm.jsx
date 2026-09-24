@@ -119,6 +119,8 @@ function AccountNameForm ({
           disabled={disableInput}
           fieldName='display_name'
           onInputChange={onInputChange}
+          pattern='.*\S.*'  // display_name must be at least 1 character long. Unicode characters are allowed. Trailing & leading whitespaces are allowed by Panoptes, apparently. 🤨
+          required
           user={user}
         />
         <FormInputField
