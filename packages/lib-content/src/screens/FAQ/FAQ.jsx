@@ -10,6 +10,7 @@ import {
   MobileHeading,
   StyledHeading
 } from '@components/SharedStyledComponents/SharedStyledComponents'
+import getHrefWithLocale from '@utils/getHrefWithLocale'
 
 const StyledList = styled.ul`
   margin-block-start: 0;
@@ -29,7 +30,8 @@ const Answer = ({ children }) => (
 )
 
 function FAQPage() {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+  const locale = i18n.language
 
   return (
     <>
@@ -59,7 +61,7 @@ function FAQPage() {
                     key='talk-page'
                     href='https://www.zooniverse.org/talk'
                   />,
-                  <Anchor key='contact-us' href='/about#contact' />
+                  <Anchor key='contact-us' href={getHrefWithLocale('/about#contact', locale)} />
                 ]}
               />
             </Paragraph>
@@ -140,7 +142,7 @@ function FAQPage() {
                         key='FEM-github-issues'
                         href='https://github.com/zooniverse'
                       />,
-                      <Anchor key='contact-us' href='/about#contact' />
+                      <Anchor key='contact-us' href={getHrefWithLocale('/about#contact', locale)} />
                     ]}
                   />
                 </Answer>
@@ -180,7 +182,7 @@ function FAQPage() {
                     i18nKey='FAQ.item8.answer2'
                     t={t}
                     components={[
-                      <Anchor key='donate-link' href='/get-involved/donate' />
+                      <Anchor key='donate-link' href={getHrefWithLocale('/get-involved/donate', locale)} />
                     ]}
                   />
                 </Answer>
@@ -192,7 +194,7 @@ function FAQPage() {
                     i18nKey='FAQ.item9.answer'
                     t={t}
                     components={[
-                      <Anchor key='resources-page' href='/about/resources' />
+                      <Anchor key='resources-page' href={getHrefWithLocale('/about/resources', locale)} />
                     ]}
                   />
                 </Answer>
