@@ -19,11 +19,12 @@ General:
 
 - When a user isn't logged in to a Zooniverse account, these pages _should_ blocked with a "please log in" message. 
   - (In practice, this is enforced by `<AuthenticatedUsersPageContainer>` in app-root, not in this component.)
+- When logged in, the User Settings page will show details of the logged in user. (Of course.)
 
 Account Setting pages, "Account Name" form:
 
 - The "Account Name" form displays, and allows users to edit, their Display Name and their Credited Name.
-  - There are two text input fields: Display Name, and Credited Name.
+  - There are two text input fields: Display Name (for `user.display_name`), and Credited Name (for `user.credited_name`).
   - There is a Save/Submit button (which might be labelled "Change"), that's only visible when there are unsaved changes.
   - There is a status message component, that's only visible when there's a success message, or error message. 
   - There is a loader component, that's only visible when loading data (in practice, only seen when data is revalidating) and when saving data.
@@ -33,7 +34,10 @@ Account Setting pages, "Account Name" form:
   - On error, an error message will appear.
   - Data validation is primarily performed on the Panoptes API side, with relevant error messages returned from the API.
 - Notable input rules:
-  - `user.display_name` cannot be empty. (Returns an error message from API.)
+  - Display name cannot be empty. (Returns an error message from API.)
+  - Strangely, the display name can have spaces before and after.
+  - Display name and credited name can include Unicode characters.
+  - e.g. `"    "` and `""` are invalid, but `"    zootester 1 (例子 😜)   "` is legit.
 
 🛠️ TODO: Account Settings page, "Change Password" form":
 
@@ -49,6 +53,7 @@ Account Setting pages, "Account Name" form:
 - Notable input rules:
   - New Password and Confirm Password must match. (This must be enforced BEFORE submitting to API.)
   - Current Password and New Password can't be blank.
+  - New Password requires a minimum of 8 characters.
 
 Accounts Settings page, misc:
 
