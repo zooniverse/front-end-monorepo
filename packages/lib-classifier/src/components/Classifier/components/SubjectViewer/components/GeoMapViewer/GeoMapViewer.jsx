@@ -93,8 +93,20 @@ function GeoMapViewer({
 
   const hasGeoDrawingTask = !!(geoDrawingTask && geoDrawingTask.tools.length > 0)
   const activeToolType = geoDrawingTask?.activeTool?.type
-  // Subject features are only auto-selected in move-only workflows (no creatable point tool).
-  const autoSelect = !geoDrawingTask?.tools?.some(tool => tool.canCreate)
+  // Subject features are only auto-selected when no tool can still accept a newly drawn
+  // feature. A tool's static canCreate ignores drawn count, so a subject-seeded feature that
+  // already fills a tool's max (e.g. max: 1, 1 seeded) would otherwise never get auto-selected.
+  // Count against the subject's own geoJSON (not the annotation, which may not be
+  // initialized yet) so this is correct on the very first render.
+  const subjectGeoJSONFeatures = geoJSON?.features ?? []
+  const autoSelect = !geoDrawingTask?.tools?.some((tool, index) => {
+    if (!tool.canCreate) return false
+    const seededCount = subjectGeoJSONFeatures.filter((feature) => (
+      geoDrawingTask.getToolIndexForFeature(feature) === index
+    )).length
+    return seededCount < tool.max
+  })
+
 
   const usableOverlayLayers = useMemo(() => overlayLayers.filter(isUsableOverlayDescriptor), [overlayLayers])
   // Sparse boolean[] keyed by overlay index; undefined means visible.
