@@ -7,6 +7,10 @@ import { bool, func, shape, string } from 'prop-types'
 
 const InputFieldContainer = styled(Box)`
   gap: 0.5em;
+
+  input:user-invalid {
+    border-color: ${props => props.theme.global.colors['neutral-4']};
+  }
 `
 
 const BigLabel = styled(Text)`
@@ -25,8 +29,10 @@ async function DEFAULT_FUNCTION () {}
 function FormInputField ({
   disabled = false,
   fieldName = '',
+  pattern = undefined,
   onInputChange = DEFAULT_FUNCTION,
   optional = false,
+  required = false,
   user,
 }) {
   const { t } = useTranslation()
@@ -55,7 +61,9 @@ function FormInputField ({
         id={inputId}
         name={fieldName}
         onChange={onInputChange}
+        pattern={pattern}
         ref={inputRef}
+        required={required}
         value={user?.[fieldName] || ''}
       />
       {helpText && (
@@ -73,6 +81,7 @@ function FormInputField ({
 FormInputField.propTypes = {
   disabled: bool,
   fieldName: string,
+  inputPattern: string,
   onInputChange: func,
   optional: bool,
   user: shape({
