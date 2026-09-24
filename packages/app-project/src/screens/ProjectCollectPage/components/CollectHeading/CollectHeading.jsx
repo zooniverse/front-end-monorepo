@@ -3,8 +3,10 @@ import { Box, Grid, Heading } from 'grommet'
 import { useTranslation } from 'next-i18next/pages'
 import styled from 'styled-components'
 
+const mobileBreakpoint = '76rem'
+
 const HeadingContainer = styled(Box)`
-  margin: 35px 0;
+  margin: 30px 0;
 
   &::after {
     content: '';
@@ -29,6 +31,21 @@ const HeadingContainer = styled(Box)`
   }
 `
 
+const StyledGrid = styled(Grid)`
+  @media (width <= ${mobileBreakpoint}) {
+    grid-template-columns: 1fr;
+    justify-items: center;
+
+    & > div:first-child {
+      display: none;
+    }
+
+    & > div:last-child {
+      justify-content: center;
+    }
+  }
+`
+
 const StyledHeading = styled(Heading)`
   margin: 0;
   text-align: center;
@@ -38,12 +55,13 @@ function CollectHeading() {
   const { t } = useTranslation('screens')
 
   return (
-    <HeadingContainer>
-      <Grid
-        alignSelf='center'
+    <HeadingContainer
+      alignSelf='center'
+      fill='horizontal'
+      width={{ max: '1210px' }}
+    >
+      <StyledGrid
         columns={['flex', 'auto', 'flex']}
-        fill='horizontal'
-        width={{ max: '1210px' }}
       >
         <div></div>
         <StyledHeading
@@ -63,7 +81,7 @@ function CollectHeading() {
             text={t('Collect.exploreLink')}
           />
         </Box>
-      </Grid>
+      </StyledGrid>
     </HeadingContainer>
   )
 }

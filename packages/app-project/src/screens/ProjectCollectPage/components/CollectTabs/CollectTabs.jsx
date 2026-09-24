@@ -4,8 +4,21 @@ import { string } from 'prop-types'
 import { MobXProviderContext, observer } from 'mobx-react'
 import { useTranslation } from 'next-i18next/pages'
 import { useContext } from 'react'
+import styled from 'styled-components'
 
 import CollectTabLink from '../CollectTabLink'
+
+const StyledNav = styled(Nav)`
+  flex-wrap: nowrap;
+  justify-content: safe center;
+  overflow-x: auto;
+  white-space: nowrap;
+`
+
+const StyledLoggedInTabs = styled(Box)`
+  flex-shrink: 0;
+  white-space: nowrap;
+`
 
 function useStores() {
   const { store } = useContext(MobXProviderContext)
@@ -23,11 +36,12 @@ function CollectTabs({
   const { isLoggedIn, login } = useStores()
 
   return (
-    <Nav
+    <StyledNav
       aria-label={t('Collect.tabs.title')}
       direction='row'
       justify='center'
       margin={{ bottom: 'small' }}
+      pad='2px'
     >
       <CollectTabLink
         active={activeTab === 'favorites' && !loginParam}
@@ -42,7 +56,7 @@ function CollectTabs({
         text={t('Collect.tabs.collections')}
       />
       {isLoggedIn && (
-        <Box direction='row' gap='medium'>
+        <StyledLoggedInTabs direction='row' gap='medium'>
           <CollectTabLink
             active={activeTab === 'favorites' && !!loginParam}
             href={`/${projectSlug}/favorites/${login}`}
@@ -55,9 +69,9 @@ function CollectTabs({
             icon={<Bookmark aria-hidden='true' size='16px' />}
             text={t('Collect.tabs.myCollections', { projectName: projectDisplayName })}
           />
-        </Box>
+        </StyledLoggedInTabs>
       )}
-    </Nav>
+    </StyledNav>
   )
 }
 

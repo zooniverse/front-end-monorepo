@@ -1,15 +1,18 @@
 import Link from 'next/link'
 import { Anchor } from 'grommet'
 import { bool, string } from 'prop-types'
+import { useEffect, useRef } from 'react'
 import styled, { css } from 'styled-components'
 
 import addQueryParams from '@helpers/addQueryParams'
 
 const StyledAnchor = styled(Anchor)`
   border-bottom: 3px solid transparent;
+  flex-shrink: 0;
   padding: 6px 0;
   text-align: center;
   text-transform: uppercase;
+  white-space: nowrap;
 
   &:hover {
     text-decoration: none;
@@ -33,8 +36,20 @@ function CollectTabLink({
   icon,
   text 
 }) {
+  const linkRef = useRef(null)
+
+  useEffect(function scrollActiveTabIntoView() {
+    if (active) {
+      linkRef.current?.scrollIntoView?.({
+        block: 'nearest',
+        inline: 'nearest'
+      })
+    }
+  }, [active])
+
   return (
     <StyledAnchor
+      ref={linkRef}
       $active={active}
       aria-current={active ? 'page' : undefined}
       color={active ? 'neutral-1' : { dark: 'neutral-6', light: 'dark-5' }}
