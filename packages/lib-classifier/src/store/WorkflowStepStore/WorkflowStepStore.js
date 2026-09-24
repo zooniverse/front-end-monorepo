@@ -9,7 +9,7 @@ import {
   types 
 } from 'mobx-state-tree'
 
-import Step from './Step'
+import Step, { isSupportedTaskSnapshot } from './Step'
 
 const WorkflowStepStore = types
   .model('WorkflowStepStore', {
@@ -46,6 +46,10 @@ const WorkflowStepStore = types
       }
 
       return false
+    },
+
+    get hasUnsupportedTasks() {
+      return Array.from(self.steps.values()).some(step => step.hasUnsupportedTasks)
     },
 
     findTasksByType (type) {
@@ -177,11 +181,17 @@ const WorkflowStepStore = types
       self.steps.forEach(function (step) {
         step.taskKeys.forEach((taskKey) => {
           const taskToStore = { ...tasks[taskKey], taskKey }
+          if (!isSupportedTaskSnapshot(taskToStore)) {
+            console.error(`${taskKey} ${taskToStore.type} is not a supported task type`)
+            step.addUnsupportedTaskKey(taskKey)
+            return
+          }
           try {
             step.tasks.push(taskToStore)
           } catch (error) {
-            console.error(`${taskKey} ${taskToStore.type} is not a supported task type`)
+            console.error(`${taskKey} ${taskToStore.type} could not be added to the store`)
             console.error(error)
+            step.addUnsupportedTaskKey(taskKey)
           }
         })
       })
