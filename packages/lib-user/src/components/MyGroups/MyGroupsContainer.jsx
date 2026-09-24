@@ -18,6 +18,7 @@ import {
   Layout,
   Pagination
 } from '@components/shared'
+import { getHrefWithLocale } from '@utils'
 
 import { getActiveGroupsWithRoles } from './helpers/getActiveGroupsWithRoles.js'
 
@@ -27,7 +28,8 @@ import GroupCreateFormContainer from './components/GroupCreateFormContainer'
 import PreviewLayout from './components/PreviewLayout'
 
 function MyGroupsContainer({ authUser, login, previewLayout = false }) {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+  const locale = i18n.language
   const [groupModalActive, setGroupModalActive] = useState(false)
   const [page, setPage] = useState(1)
 
@@ -78,7 +80,7 @@ function MyGroupsContainer({ authUser, login, previewLayout = false }) {
         <Layout
           primaryHeaderItem={
             <HeaderLink
-              href='/'
+              href={getHrefWithLocale('/', locale)}
               label={t('common.back')}
               primaryItem={true}
             />

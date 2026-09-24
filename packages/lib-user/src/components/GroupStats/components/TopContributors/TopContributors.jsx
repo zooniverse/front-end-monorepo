@@ -8,6 +8,7 @@ import {
   ContentBox,
   Tip
 } from '@components/shared'
+import { getHrefWithLocale } from '@utils'
 
 import MemberCard from '../MemberCard'
 
@@ -18,7 +19,8 @@ function TopContributors({
   stats,
   topContributors
 }) {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+  const locale = i18n.language
   const size = useContext(ResponsiveContext)
   const gridAutoFlow = size === 'small' ? 'row' : 'column'
 
@@ -35,7 +37,7 @@ function TopContributors({
     <ContentBox
       linkLabel={t('GroupStats.TopContributors.linkLabel')}
       linkProps={{
-        href: `/groups/${groupId}/contributors`
+        href: getHrefWithLocale(`/groups/${groupId}/contributors`, locale)
       }}
       title={t('GroupStats.TopContributors.title')}
       toolTip={
