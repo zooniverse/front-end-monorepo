@@ -77,6 +77,21 @@
       "title": "Your Stats"
     }
   },
+  "Collect": {
+    "title": "Collect",
+    "exploreLink": "Explore all Zooniverse collections",
+    "tabs": {
+      "title": "Collection pages",
+      "collections": "Collections",
+      "favorites": "Favorites",
+      "myCollections": "My {{projectName}} Collections",
+      "myFavorites": "My {{projectName}} Favorites"
+    },
+    "placeholders": {
+      "empty": "No collections found.",
+      "error": "There was an error loading collections."
+    }
+  },
   "ProjectStats": {
     "BarChart": {
       "a11y": "Bar chart of {{typeLabel}} by {{countLabel}} from {{startDate}} to {{endDate}}",
