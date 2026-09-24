@@ -51,6 +51,22 @@ function onKeyDown(event, callback, line) {
   }
 }
 
+function getMarkFromLine(line) {
+  const [{ x: x1, y: y1 }, { x: x2, y: y2 }] = line.points
+  const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
+  return {
+    coords: {
+      x: x1,
+      y: y1
+    },
+    length, 
+    x1, 
+    y1, 
+    x2, 
+    y2
+  }
+}
+
 function TranscribedLines() {
   const {
     /** is the transcription task active? */
@@ -155,9 +171,10 @@ function TranscribedLines() {
     <g>
       {completedLines
         .map((line, index) => {
-          const [{ x: x1, y: y1 }, { x: x2, y: y2 }] = line.points
-          const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
-          const mark = { length, x1, y1, x2, y2 }
+          const mark = getMarkFromLine(line)
+          // marks are drawn in local coordinates
+          const { x, y } = mark.coords
+          const transform = `translate(${x}, ${y})`
           const id = `complete-${index}`
           const disabled = invalidMark
           let lineProps = {}
@@ -181,6 +198,7 @@ function TranscribedLines() {
                 focusColor={focusColor}
                 pointerEvents={disabled ? 'none' : 'painted'}
                 tabIndex={disabled ? -1 : 0}
+                transform={transform}
                 {...lineProps}
               >
                 <TranscriptionLine
@@ -196,9 +214,10 @@ function TranscribedLines() {
         .map((line, index) => {
           const [ existingMark ] = marks.filter(mark => mark.id === line.id)
           const disabled = invalidTranscriptionTask || invalidMark || !!existingMark
-          const [{ x: x1, y: y1 }, { x: x2, y: y2 }] = line.points
-          const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
-          const mark = { length, x1, y1, x2, y2 }
+          const mark = getMarkFromLine(line)
+          // marks are drawn in local coordinates
+          const { x, y } = mark.coords
+          const transform = `translate(${x}, ${y})`
           const id = `transcribed-${index}`
           const lineProps = {}
           if (!disabled) {
@@ -222,6 +241,7 @@ function TranscribedLines() {
                 focusColor={focusColor}
                 pointerEvents={disabled ? 'none' : 'painted'}
                 tabIndex={disabled ? -1 : 0}
+                transform={transform}
                 {...lineProps}
               >
                 <TranscriptionLine
