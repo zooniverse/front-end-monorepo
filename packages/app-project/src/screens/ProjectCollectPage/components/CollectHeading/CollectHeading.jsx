@@ -40,8 +40,10 @@ function CollectHeading() {
   return (
     <HeadingContainer>
       <Grid
-        align='center'
+        alignSelf='center'
         columns={['flex', 'auto', 'flex']}
+        fill='horizontal'
+        width={{ max: '1210px' }}
       >
         <div></div>
         <StyledHeading

@@ -19,8 +19,8 @@ function ProjectCollectPage({
     <StandardLayout>
       <ProjectAboutPageLayout>
         <Box
-          pad={{ horizontal: '20px' }}
           margin={{ bottom: 'large' }}
+          pad={{ horizontal: '20px' }}
           width={{ width: '100%', max: '85rem' }}
         >
           <CollectHeading />
