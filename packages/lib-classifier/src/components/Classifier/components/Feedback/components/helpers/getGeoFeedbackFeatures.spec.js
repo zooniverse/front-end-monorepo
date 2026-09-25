@@ -1,7 +1,12 @@
 import getGeoFeedbackFeatures from './getGeoFeedbackFeatures'
+import grader from '@store/feedback/strategies/geo/grader'
 import { FEEDBACK_COLORS } from '../RadialFeedback'
 
 describe('feedback getGeoFeedbackFeatures', function () {
+  before(async function () {
+    await grader.load()
+  })
+
   const radialRule = {
     id: 'dam-radial',
     strategy: 'geoRadial',
@@ -59,6 +64,28 @@ describe('feedback getGeoFeedbackFeatures', function () {
     const [, hit, miss] = features
     expect(hit.getStyle().getImage().getStroke().getColor()).to.equal(FEEDBACK_COLORS.success)
     expect(miss.getStyle().getImage().getStroke().getColor()).to.equal(FEEDBACK_COLORS.failure)
+  })
+
+  it('should draw volunteer lines and color them by membership in successfulClassifications', function () {
+    const trace = [[-91.0, 48.0], [-90.99, 48.0]]
+    const lineRule = {
+      ...radialRule,
+      successfulClassifications: [{ coordinates: trace, type: 'LineString' }]
+    }
+    const annotation = {
+      taskType: 'geoDrawing',
+      value: {
+        type: 'FeatureCollection',
+        features: [
+          { type: 'Feature', geometry: { type: 'LineString', coordinates: trace }, properties: {} },
+          { type: 'Feature', geometry: { type: 'LineString', coordinates: [[-90.9, 48.1], [-90.8, 48.1]] }, properties: {} }
+        ]
+      }
+    }
+    const [, hit, miss] = getGeoFeedbackFeatures([annotation], [lineRule])
+    expect(hit.getGeometry().getType()).to.equal('LineString')
+    expect(hit.getStyle().getStroke().getColor()).to.equal(FEEDBACK_COLORS.success)
+    expect(miss.getStyle().getStroke().getColor()).to.equal(FEEDBACK_COLORS.failure)
   })
 
   it('should ignore annotations from other task types', function () {

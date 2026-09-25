@@ -2,9 +2,9 @@
 
 Determines whether a volunteer's geoDrawing point is within a given distance of a target lon/lat.
 
-This is the `radial` strategy carried into geographic coordinates. The geoDrawing annotation is a GeoJSON `FeatureCollection` in `EPSG:4326`, so `x` is longitude and `y` is latitude. The tolerance is a radius in **meters**, matching the geoDrawing task's units (`task.unit`, `uncertainty_radius`); distance is computed on a local tangent frame at the target's latitude, because degree-space arithmetic overstates east-west distances by roughly 1/cos(latitude).
+This is the `radial` strategy carried into geographic coordinates. The geoDrawing annotation is a GeoJSON `FeatureCollection` in `EPSG:4326`, so `x` is longitude and `y` is latitude. The tolerance is a radius in **meters**, matching the geoDrawing task's units (`task.unit`, `uncertainty_radius`); the point must fall inside the target grown by that radius, see the [geo grader](../grader/README.md).
 
-Only `Point` features are considered. `SegmentedLine` features are ignored.
+Only `Point` features are considered. `SegmentedLine` features are ignored; use the [Geo Line](../line/README.md) strategy for those.
 
 ## Subject metadata fields
 

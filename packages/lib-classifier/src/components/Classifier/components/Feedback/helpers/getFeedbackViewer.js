@@ -4,6 +4,8 @@ import RadialFeedback from '../components/RadialFeedback'
 
 const viewers = {
   geoBox: GeoFeedback,
+  geoLine: GeoFeedback,
+  geoPolygon: GeoFeedback,
   geoRadial: GeoFeedback,
   graph2drange: Graph2dRangeFeedback,
   radial: RadialFeedback
