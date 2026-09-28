@@ -29,6 +29,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@microsoft/focusgroup-polyfill": "~1.6.0",
     "@zooniverse/async-states": "~0.1.0",
     "@zooniverse/content": "~0.0.1",
     "@zooniverse/panoptes-js": "~1.0.0",
