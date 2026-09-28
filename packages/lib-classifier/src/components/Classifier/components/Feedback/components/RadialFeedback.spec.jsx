@@ -4,6 +4,7 @@ import { vi } from 'vitest'
 
 import RadialFeedback, { FEEDBACK_COLORS } from './RadialFeedback'
 import { Point } from '@plugins/drawingTools/components'
+import { RectangleTool, RotateRectangleTool } from '@plugins/drawingTools/models/tools'
 
 vi.mock('../../SubjectViewer/components/SingleImageViewer/SingleImageViewerContainer', () => {
   return {
@@ -80,5 +81,37 @@ describe('Component > RadialFeedback', function () {
     expect(document.querySelectorAll(`g[stroke="${FEEDBACK_COLORS.success}"][transform="translate(20, 30)"]`)).to.have.lengthOf(0)
     expect(document.querySelectorAll(`g[stroke="${FEEDBACK_COLORS.failure}"][transform="translate(100, 150)"]`)).to.have.lengthOf(0)
     expect(document.querySelector('[transform="translate(999, 999)"]')).to.not.equal(null)
+  })
+
+  describe('with marks that draw in subject coordinates', function () {
+    function drawingStore(mark) {
+      return {
+        classifications: { currentAnnotations: [{ taskType: 'drawing', value: [mark] }] },
+        feedback: { applicableRules: [] },
+        subjectViewer: { frame: 0, loadingState: 'success' }
+      }
+    }
+
+    it('should render a rectangle without translating it', function () {
+      const mark = RectangleTool.create({ type: 'rectangle' }).createMark({ id: 'rectangle1' })
+      mark.setCoordinates({ x_left: 85, x_right: 115, y_top: 180, y_bottom: 220 })
+
+      renderComponent(drawingStore(mark))
+
+      const rect = document.querySelector('[data-testid="rectangle-element"]')
+      expect(rect.getAttribute('x')).to.equal('85')
+      expect(rect.closest('g[stroke]').getAttribute('transform')).to.equal(null)
+    })
+
+    it('should render a rotateRectangle without translating it', function () {
+      const mark = RotateRectangleTool.create({ type: 'rotateRectangle' }).createMark({ id: 'rotateRectangle1' })
+      mark.setCoordinates({ x_left: 85, x_right: 115, y_top: 180, y_bottom: 220, angle: 0 })
+
+      renderComponent(drawingStore(mark))
+
+      const rect = document.querySelector('[data-testid="radial-feedback-viewer"] rect')
+      expect(rect.getAttribute('x')).to.equal('85')
+      expect(rect.closest('g[stroke]').getAttribute('transform')).to.equal(null)
+    })
   })
 })

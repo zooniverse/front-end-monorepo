@@ -42,14 +42,6 @@ const RectangleModel = types
 
     get toolComponent() {
       return RectangleComponent
-    },
-
-    get x() {
-      return self.x_center
-    },
-
-    get y() {
-      return self.y_center
     }
   }))
   .actions((self) => ({

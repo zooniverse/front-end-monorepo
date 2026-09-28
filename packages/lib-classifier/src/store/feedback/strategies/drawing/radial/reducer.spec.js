@@ -13,18 +13,15 @@ describe('feedback drawing radial reducer', function () {
   }
 
   const annotationSuccess = {
-    x: 200,
-    y: 300
+    coords: { x: 200, y: 300 }
   }
 
   const annotationTolerance = {
-    x: 225,
-    y: 325
+    coords: { x: 225, y: 325 }
   }
 
   const annotationFailure = {
-    x: 400,
-    y: 500
+    coords: { x: 400, y: 500 }
   }
 
   it('should return result with failure', function () {
