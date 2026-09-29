@@ -1,13 +1,14 @@
 import createGeoRule from '../create-rule'
 import geometry from './geometry'
 import grader from '../grader'
+import parseCoordinates from '../parse-coordinates'
 import createGeoReducer from '../reducer'
 
 export default {
-  createRule: createGeoRule(({ height, theta, width, x, y }) => ({ height, theta: theta || '0', width, x, y })),
+  createRule: createGeoRule(({ coordinates }) => ({ coordinates: parseCoordinates(coordinates, 3) })),
   geometry,
-  id: 'geoBox',
+  id: 'geoPolygon',
   load: grader.load,
   reducer: createGeoReducer(geometry, ['Point']),
-  title: 'Geo Box'
+  title: 'Geo Polygon'
 }

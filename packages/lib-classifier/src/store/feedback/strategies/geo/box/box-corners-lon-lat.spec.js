@@ -1,4 +1,4 @@
-import boxCornersLonLat from './boxCornersLonLat'
+import boxCornersLonLat from './box-corners-lon-lat'
 
 describe('feedback boxCornersLonLat', function () {
   const rule = {
