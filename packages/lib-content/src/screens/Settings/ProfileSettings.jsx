@@ -23,7 +23,7 @@ function ProfileSettings ({
 
   const { t } = useTranslation()
 
-  const ACTIVE_SECTION = 0
+  const ACTIVE_SECTION = 1
   const sidebarSections = [
     { name: t('Settings.AccountSettings.title'), href: '/settings' },
     { name: t('Settings.ProfileSettings.title'), href: '/settings/profile' },
