@@ -3,6 +3,7 @@ import { composeStory } from '@storybook/react'
 
 import ImageMeta, { Landscape } from '../../stories/interactive/singleMedia/SubjectCard.image.stories'
 import MultiMediaMeta, { MultiImage } from '../../stories/interactive/multiMedia/SubjectCard.multiMedia.stories'
+import UnsupportedMeta, { UnsupportedMimeType } from '../../stories/interactive/singleMedia/SubjectCard.unsupported.stories'
 
 describe('InteractiveMedia', function () {
   describe('with single image location', function () {
@@ -38,4 +39,17 @@ describe('InteractiveMedia', function () {
       expect(buttons).toBeDefined()
     })
   })
+
+  describe('with an unsupported mime type', function () {
+    it('should render a fallback wrapped in a link', function () {
+      const Story = composeStory(UnsupportedMimeType, UnsupportedMeta)
+      render(<Story />)
+      const link = screen.getByRole('link')
+      expect(link).toBeDefined()
+      expect(link.href).to.contain('/talk/subjects/99999999')
+      const fallback = screen.getByLabelText('Subject 99999999')
+      expect(fallback).toBeTruthy()
+    })
+  })
 })
+

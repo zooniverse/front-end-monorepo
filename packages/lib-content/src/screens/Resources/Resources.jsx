@@ -12,6 +12,7 @@ import {
   MobileHeading,
   StyledHeading
 } from '@components/SharedStyledComponents/SharedStyledComponents'
+import getHrefWithLocale from '@utils/getHrefWithLocale'
 
 const StyledList = styled.ul`
   margin-block-start: 0;
@@ -42,7 +43,8 @@ const ResourceLogo = styled(Box)`
 `
 
 function Resources() {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+  const locale = i18n.language
 
   return (
     <>
@@ -109,7 +111,7 @@ function Resources() {
                   components={[
                     <Anchor
                       key='zooniverse-home-page'
-                      href='https://www.zooniverse.org'
+                      href={getHrefWithLocale('/', locale)}
                     />
                   ]}
                 />
@@ -126,7 +128,7 @@ function Resources() {
                   />,
                   <Anchor
                     key='publications-page'
-                    href='/about/publications'
+                    href={getHrefWithLocale('/about/publications', locale)}
                   />
                 ]}
               />
@@ -138,7 +140,7 @@ function Resources() {
                 components={[
                   <Anchor
                     key='contact-us'
-                    href='/about#contact'
+                    href={getHrefWithLocale('/about#contact', locale)}
                   />
                 ]}
               />
@@ -165,7 +167,7 @@ function Resources() {
                 components={[
                   <Anchor
                     key='contact-us'
-                    href='/about#contact'
+                    href={getHrefWithLocale('/about#contact', locale)}
                   />
                 ]}
               />

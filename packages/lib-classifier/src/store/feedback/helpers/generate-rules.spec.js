@@ -188,5 +188,60 @@ describe('feedback: generateRules', function () {
         expect(Object.keys(generateRules(subject, workflow)).length).to.equal(0)
       })
     })
+
+    describe('when the workflow rule names an unknown strategy', function () {
+      const workflow = {
+        tasks: {
+          T0: {
+            feedback: {
+              enabled: true,
+              rules: [{
+                id: '51',
+                strategy: 'notARegisteredStrategy',
+                failureEnabled: true,
+                successEnabled: true
+              }]
+            }
+          }
+        }
+      }
+
+      it('should skip the rule instead of throwing', function () {
+        const subject = mockSubjectWithRule('51')
+        expect(Object.keys(generateRules(subject, workflow)).length).to.equal(0)
+      })
+    })
+  })
+
+  // A workflow rule describes one kind of target; a subject says how many of them
+  // it holds and where. A subject that names several is answered with one rule each.
+  describe('with several subject rules sharing a workflow rule id', function () {
+    const workflow = { tasks: { T0: mockTaskWithRule('51') } }
+    const subject = {
+      metadata: {
+        '#feedback_1_id': '51',
+        '#feedback_1_answer': '0',
+        '#feedback_2_id': '51',
+        '#feedback_2_answer': '1',
+        '#feedback_3_id': '51',
+        '#feedback_3_answer': '2'
+      }
+    }
+
+    it('should generate a rule for every matching subject rule', function () {
+      expect(generateRules(subject, workflow).T0).to.have.lengthOf(3)
+    })
+
+    it('should keep each subject rule its own values', function () {
+      const answers = generateRules(subject, workflow).T0.map(rule => rule.answer)
+      expect(answers).to.deep.equal(['0', '1', '2'])
+    })
+
+    it('should give every rule the workflow rule\'s strategy and messages', function () {
+      generateRules(subject, workflow).T0.forEach(rule => {
+        expect(rule.strategy).to.equal('singleAnswerQuestion')
+        expect(rule.successMessage).to.equal('"Correct"')
+      })
+    })
   })
 })

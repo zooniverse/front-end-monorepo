@@ -3,8 +3,9 @@ import styled from 'styled-components'
 import { SpacedText, ZooniverseLogotype } from '@zooniverse/react-components'
 import { useHasMounted } from '@zooniverse/react-components/hooks'
 import { useContext, useRef } from 'react'
-
 import { useTranslation } from 'react-i18next'
+
+import getHrefWithLocale from '@utils/getHrefWithLocale'
 
 const Relative = styled(Box)`
   position: relative;
@@ -71,7 +72,8 @@ const StyledLink = styled(Anchor)`
 
 export default function Hero() {
   const videoRef = useRef(null)
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+  const locale = i18n.language
   const size = useContext(ResponsiveContext)
   const hasMounted = useHasMounted()
 
@@ -120,7 +122,7 @@ export default function Hero() {
           {t('Home.DefaultHome.heroText')}
         </StyledParagraph>
         <StyledLink
-          href='https://www.zooniverse.org/projects'
+          href={getHrefWithLocale('/projects', locale)}
           label={t('Home.DefaultHome.projects')}
         />
       </HeroCopy>
