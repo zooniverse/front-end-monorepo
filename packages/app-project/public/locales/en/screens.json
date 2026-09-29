@@ -59,6 +59,10 @@
         "title": "There was an error in the classifier :("
       }
     },
+    "ExternalWorkflow": {
+      "button": "Continue to external workflow",
+      "fallback": "This workflow is hosted on an external site. Select the button below to continue there."
+    },
     "RecentSubjects": {
       "title": "Your recent classifications",
       "noSubjects": "The most recent subjects you've classified are shown here."
