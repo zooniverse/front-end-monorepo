@@ -14,6 +14,7 @@ import {
 import { useTranslation } from 'react-i18next'
 import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent'
 import HeadingForAboutNav from '@components/HeadingForAboutNav/HeadingForAboutNav'
+import getHrefWithLocale from '@utils/getHrefWithLocale'
 
 const GradientBox = styled(Box)`
   position: relative;
@@ -172,7 +173,8 @@ const Step = ({ children }) => (
 )
 
 export default function HowItWorks({ setActiveSection = () => {} }) {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+  const locale = i18n.language
   const { global } = useTheme()
   const customButtonBorder = global.colors.brand
 
@@ -275,7 +277,7 @@ export default function HowItWorks({ setActiveSection = () => {} }) {
             as={Anchor}
             color='black'
             plain
-            href='https://www.zooniverse.org/projects'
+            href={getHrefWithLocale('/projects', locale)}
             label={t('AboutPage.howItWorks.participants.link')}
             weight='normal'
           />
