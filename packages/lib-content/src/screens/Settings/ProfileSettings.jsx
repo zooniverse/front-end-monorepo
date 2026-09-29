@@ -14,7 +14,7 @@ import FormLayout from '@components/PageLayout/FormLayout'
 import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent'
 
 import SettingsHeading from './components/SettingsHeading/SettingsHeading'
-import AccountNameForm from './components/AccountNameForm/AccountNameForm'
+import ProfileAvatarForm from './components/ProfileAvatarForm/ProfileAvatarForm'
 
 function ProfileSettings ({
   authUser
@@ -56,7 +56,7 @@ function ProfileSettings ({
         >
           <SettingsHeading section='ProfileSettings' />
 
-          <AccountNameForm
+          <ProfileAvatarForm
             authUser={authUser}
           />
           
