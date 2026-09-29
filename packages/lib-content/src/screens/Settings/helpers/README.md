@@ -39,6 +39,21 @@ Regarding SWR:
 
 Why yes, we do actually have the full User resource already, passed in via authUser, but we treat that as a read-only object and we're only interested in its `login` value.
 
+## useUserMedia()
+
+Hook for fetching Panoptes user data related to _media files._ Specifically, you can get either the user's Profile Avatar or Profile Header.
+
+```
+// Example
+const { data: avatar, isLoading, isValidating, error, mutate } = useUserMedia({ userId: '12345', mediaType: 'avatar' })
+
+if (avatar) {
+  return (
+    <img src={avatar.src} />
+  )
+}
+```
+
 ## updateUserData()
 
 Function for _saving_ changes to Panoptes.
