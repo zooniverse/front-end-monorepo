@@ -1,5 +1,8 @@
 import { JSDOM } from 'jsdom'
+import nock from 'nock'
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest'
+
+nock.disableNetConnect()
 
 const jsdom = new JSDOM('<!doctype html><html><body></body></html>', { url: 'https://localhost' })
 const { window } = jsdom
