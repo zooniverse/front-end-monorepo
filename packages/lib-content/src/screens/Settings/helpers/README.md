@@ -35,6 +35,21 @@ Regarding SWR:
   - We also _manually_ trigger a revalidate when we do a mutate() + updateUserData() combo to save data to Panoptes.
   - We do NOT automatically revalidate when the window (re-)gains focus, because it will reset any local changes/changes not saved to Panoptes caused by mutate(). And boy, this is a very annoying experience if you're, say, tabbing into another window to check some details.
 
+## useUserMedia()
+
+Hook for fetching Panoptes user data related to _media files._ Specifically, you can get either the user's Profile Avatar or Profile Header.
+
+```
+// Example
+const { data: avatar, isLoading, isValidating, error, mutate } = useUserMedia({ userId: '12345', mediaType: 'avatar' })
+
+if (avatar) {
+  return (
+    <img src={avatar.src} />
+  )
+}
+```
+
 ## updateUserData()
 
 Function for _saving_ changes to Panoptes.
