@@ -1,6 +1,5 @@
 function isAnnotationWithinTolerance (rule, annotation) {
-  const annotationX = annotation.x
-  const annotationY = annotation.y
+  const { x: annotationX, y: annotationY } = annotation.coords ?? {}
   const feedbackX = rule.x
   const feedbackY = rule.y
   const tolerance = rule.tolerance
