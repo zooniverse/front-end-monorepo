@@ -1,12 +1,13 @@
 import { Box, Grid, ResponsiveContext } from 'grommet'
 import dynamic from 'next/dynamic'
-import { arrayOf, func, object, shape, string } from 'prop-types'
+import { arrayOf, bool, func, object, shape, string } from 'prop-types'
 import { useCallback, useContext, useState } from 'react'
 import styled from 'styled-components'
 
 import CollectionsModal from '@shared/components/CollectionsModal'
 import ConnectWithProject from '@shared/components/ConnectWithProject'
 import ProjectStatistics from '@shared/components/ProjectStatistics'
+import ExternalWorkflow from './components/ExternalWorkflow'
 import RecentSubjects from './components/RecentSubjects'
 import YourProjectStatsContainer from './components/YourProjectStats/YourProjectStatsContainer'
 import StandardLayout from '@shared/components/StandardLayout'
@@ -29,6 +30,7 @@ const StatsAndRecentsGrid = styled(Grid)`
 
 function ClassifyPage({
   appLoadingState,
+  externalWorkflowEnabled = false,
   onSubjectReset,
   subjectID,
   subjectSetID,
@@ -37,6 +39,12 @@ function ClassifyPage({
   workflows = [],
 }) {
   const size = useContext(ResponsiveContext)
+
+  const {
+    external_workflow_description: externalWorkflowDescription,
+    external_workflow_url: externalWorkflowUrl
+  } = workflowFromUrl?.configuration ?? {}
+  const isExternalWorkflow = externalWorkflowEnabled && !!externalWorkflowUrl?.trim()
 
   /*
     Enable session caching in the classifier for projects with ordered subject selection.
@@ -70,7 +78,7 @@ function ClassifyPage({
   const subjectChanged = classifierProps.subjectID !== subjectID
   const URLChanged = workflowChanged || subjectSetChanged || subjectChanged
 
-  if (canClassify && URLChanged) {
+  if (canClassify && URLChanged && !isExternalWorkflow) {
     setClassifierProps({
       workflowID,
       subjectSetID,
@@ -99,20 +107,29 @@ function ClassifyPage({
           pad='medium'
         >
           <Box as='main' height={{ min: '400px'}} width='100%'>
-            {!canClassify && appLoadingState === asyncStates.success && (
-              <WorkflowMenuModal
-                subjectSetFromUrl={subjectSetFromUrl}
-                workflowFromUrl={workflowFromUrl}
-                workflows={workflows}
+            {isExternalWorkflow ? (
+              <ExternalWorkflow
+                description={externalWorkflowDescription}
+                url={externalWorkflowUrl}
               />
+            ) : (
+              <>
+                {!canClassify && appLoadingState === asyncStates.success && (
+                  <WorkflowMenuModal
+                    subjectSetFromUrl={subjectSetFromUrl}
+                    workflowFromUrl={workflowFromUrl}
+                    workflows={workflows}
+                  />
+                )}
+                <ClassifierWrapper
+                  cachePanoptesData={cachePanoptesData}
+                  onAddToCollection={onAddToCollection}
+                  onSubjectReset={onSubjectReset}
+                  showTutorial={showTutorial}
+                  {...classifierProps}
+                />
+              </>
             )}
-            <ClassifierWrapper
-              cachePanoptesData={cachePanoptesData}
-              onAddToCollection={onAddToCollection}
-              onSubjectReset={onSubjectReset}
-              showTutorial={showTutorial}
-              {...classifierProps}
-            />
             {workflowFromUrl && (
               <WorkflowAssignmentModal currentWorkflowID={workflowID} />
             )}
@@ -133,6 +150,8 @@ function ClassifyPage({
 }
 
 ClassifyPage.propTypes = {
+  /** True if the project has the external workflow experimental tool. With workflow.configuration.external_workflow_url set, the departure screen replaces the classifier. */
+  externalWorkflowEnabled: bool,
   /** Sets subjectID state in ClassifyPageContainer to undefined */
   onSubjectReset: func,
   /** This subjectID is a state variable in ClassifyPageContainer */

@@ -1,116 +1,60 @@
-// Old enzyme tests are here for reference, but we no longer use enzyme in this app (Aug '25)
+import { composeStories } from '@storybook/react'
+import { render, screen } from '@testing-library/react'
 
-describe.skip('Component > WorkflowSelector', function () {})
+import * as Stories from './WorkflowSelector.stories'
+const { Default, Error, Loading, WithExternalWorkflow } = composeStories(Stories)
 
-// import asyncStates from '@zooniverse/async-states'
-// import { mount } from 'enzyme'
-// import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
+describe('Component > WorkflowSelector', function () {
+  describe('workflow description', function () {
+    it('should use the workflowDescription prop', function () {
+      render(<Default />)
+      expect(screen.getByText(/Choose your own adventure/)).toBeDefined()
+    })
 
-// import WorkflowSelector from './WorkflowSelector'
-// import WorkflowSelectButtons from './components/WorkflowSelectButtons'
+    it('should use the default message when workflowDescription is empty', function () {
+      render(<Default workflowDescription='' />)
+      expect(screen.getByText('WorkflowSelector.message')).toBeDefined()
+    })
+  })
 
-// describe('Component > WorkflowSelector', function () {
-//   const mockRouter = {
-//     asPath: '/zooniverse/snapshot-serengeti/about/team',
-//     basePath: '/projects',
-//     locale: 'en',
-//     push() {},
-//     prefetch: () => new Promise((resolve, reject) => {}),
-//     query: {
-//       owner: 'zooniverse',
-//       project: 'snapshot-serengeti'
-//     }
-//   }
+  describe('when the user and their project preferences have loaded', function () {
+    it('should render a link for each workflow', function () {
+      render(<Default />)
+      expect(screen.getAllByRole('link')).to.have.lengthOf(3)
+    })
+  })
 
-//   const THEME = {
-//     global: {
-//       colors: {
-//         brand: '#000'
-//       }
-//     }
-//   }
+  describe('when the user is still loading', function () {
+    it('should not render workflow links', function () {
+      render(<Loading />)
+      expect(screen.queryAllByRole('link')).to.have.lengthOf(0)
+    })
+  })
 
-//   const WORKFLOWS = [
-//     {
-//       id: '1234',
-//       displayName: 'a test workflow'
-//     },
-//     {
-//       id: '3456',
-//       displayName: 'another test workflow'
-//     }
-//   ]
+  describe('when the user failed to load', function () {
+    it('should render an error message', function () {
+      render(<Error />)
+      expect(screen.getByText('WorkflowSelector.error')).toBeDefined()
+    })
+  })
 
-//   const WORKFLOW_DESCRIPTION = 'Sit nulla mi metus tellus aenean lobortis litora'
-//   const DEFAULT_WORKFLOW_DESCRIPTION = 'WorkflowSelector.message'
-//   /** The translation function will simply return keys in a testing env */
+  describe('when the project has an external workflow', function () {
+    beforeEach(function () {
+      render(<WithExternalWorkflow />)
+    })
 
-//   it('should render without crashing', function () {
-//     const wrapper = mount(
-//       <RouterContext.Provider value={mockRouter}>
-//         <WorkflowSelector
-//           theme={THEME}
-//           workflows={WORKFLOWS}
-//           workflowDescription={WORKFLOW_DESCRIPTION}
-//         />
-//       </RouterContext.Provider>
-//     )
-//     expect(wrapper).to.be.ok()
-//   })
+    it('should label only the external workflow', function () {
+      expect(screen.getAllByText(/WorkflowSelector.WorkflowSelectButton.externalWorkflow/)).to.have.lengthOf(1)
+    })
 
-//   describe('workflow description', function () {
-//     it('should use the `workflowDescription` prop if available', function () {
-//       const wrapper = mount(
-//         <RouterContext.Provider value={mockRouter}>
-//           <WorkflowSelector
-//             theme={THEME}
-//             workflows={WORKFLOWS}
-//             workflowDescription={WORKFLOW_DESCRIPTION}
-//           />
-//         </RouterContext.Provider>
-//       )
-//       expect(wrapper.contains(WORKFLOW_DESCRIPTION)).to.be.true()
-//     })
+    it('should keep the external workflow linked to the classify page', function () {
+      const status = screen.getByText(/WorkflowSelector.WorkflowSelectButton.externalWorkflow/)
+      const link = screen.getAllByRole('link').find(el => el.contains(status))
+      expect(link.getAttribute('href')).to.equal('/test-owner/test-project/classify/workflow/3456')
+    })
 
-//     it('should use the default message if the `workflowDescription` prop is unset', function () {
-//       const wrapper = mount(
-//         <RouterContext.Provider value={mockRouter}>
-//           <WorkflowSelector
-//             theme={THEME}
-//             workflows={WORKFLOWS}
-//           />
-//         </RouterContext.Provider>
-//       )
-//       expect(wrapper.contains(DEFAULT_WORKFLOW_DESCRIPTION)).to.be.true()
-//     })
-
-//     it('should use the default message if the `workflowDescription` prop is an empty string', function () {
-//       const wrapper = mount(
-//         <RouterContext.Provider value={mockRouter}>
-//           <WorkflowSelector
-//             theme={THEME}
-//             workflows={WORKFLOWS}
-//             workflowDescription=''
-//           />
-//         </RouterContext.Provider>
-//       )
-//       expect(wrapper.contains(DEFAULT_WORKFLOW_DESCRIPTION)).to.be.true()
-//     })
-//   })
-
-//   describe('when successfully loaded the user state and loaded the user project preferences', function () {
-//     it('should render workflow select buttons', function () {
-//       const wrapper = mount(
-//         <RouterContext.Provider value={mockRouter}>
-//           <WorkflowSelector
-//             uppLoaded={true}
-//             userReadyState={asyncStates.success}
-//             theme={THEME}
-//             workflows={WORKFLOWS}
-//           />
-//         </RouterContext.Provider>
-//       )
-//       expect(wrapper.find(WorkflowSelectButtons)).to.have.lengthOf(1)
-//     })
-//   })
-// })
+    it('should still render the standard workflows', function () {
+      expect(screen.getAllByRole('link')).to.have.lengthOf(4)
+    })
+  })
+})

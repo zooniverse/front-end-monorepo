@@ -12,6 +12,7 @@ const markdownzComponents = {
 
 function WorkflowSelector ({
   assignedWorkflowID = '',
+  externalWorkflowEnabled = false,
   uppLoaded = false,
   userReadyState,
   workflowAssignmentEnabled = false,
@@ -51,6 +52,7 @@ function WorkflowSelector ({
         >
           <WorkflowSelectButtons
             assignedWorkflowID={assignedWorkflowID}
+            externalWorkflowEnabled={externalWorkflowEnabled}
             workflowAssignmentEnabled={workflowAssignmentEnabled}
             workflows={workflows}
           />
@@ -78,6 +80,8 @@ function WorkflowSelector ({
 WorkflowSelector.propTypes = {
   /** assigned workflow for projects that use workflow assignment. */
   assignedWorkflowID: string,
+  /** True if this project has the external workflow experimental tool. */
+  externalWorkflowEnabled: bool,
   /** Have the user project preferences loaded? */
   uppLoaded: bool,
   /** User loading state */

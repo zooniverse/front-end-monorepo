@@ -133,6 +133,7 @@
     "noWorkflows": "Nothing to classify",
     "WorkflowSelectButton": {
       "complete": "{{completeness}}% complete",
+      "externalWorkflow": "external workflow",
       "setSelection": "set selection",
       "subjectSelection": "subject selection"
     },
