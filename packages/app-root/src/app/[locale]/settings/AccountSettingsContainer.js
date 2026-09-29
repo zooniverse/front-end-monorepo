@@ -7,7 +7,7 @@ import { useContext } from 'react'
 import { PanoptesAuthContext } from '@/contexts'
 import AuthenticatedUsersPageContainer from '@/components/AuthenticatedUsersPageContainer'
 
-function UserSettingsContainer() {
+function AccountSettingsContainer() {
   const { adminMode, isLoading, user } = useContext(PanoptesAuthContext)
 
   // AuthenticatedUsersPageContainer was built for pages like /users, to
@@ -30,4 +30,4 @@ function UserSettingsContainer() {
   )
 }
 
-export default UserSettingsContainer
+export default AccountSettingsContainer
