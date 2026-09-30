@@ -1,10 +1,14 @@
 import { v4 as uuidv4 } from 'uuid'
+import { useTranslation } from 'react-i18next'
 
-import { createPanoptesUserGroup } from '@utils'
+import { createPanoptesUserGroup, getHrefWithLocale } from '@utils'
 
 import { GroupForm } from '@components/shared'
 
 function GroupCreateFormContainer() {
+  const { i18n }  = useTranslation()
+  const locale = i18n.language
+
   async function onSubmit(event) {
     const { display_name, stats_visibility } = event.value
     const name = uuidv4()
@@ -20,7 +24,7 @@ function GroupCreateFormContainer() {
       if (!newGroupResponse.ok) return console.error(newGroupResponse)
       const newGroup = newGroupResponse.body.user_groups[0]
       if (!newGroup.id) return window.location.reload()
-      window.location.href = `/groups/${newGroup.id}`
+      window.location.href = getHrefWithLocale(`/groups/${newGroup.id}`, locale)
     } catch (error) {
       console.error(error)
     }
