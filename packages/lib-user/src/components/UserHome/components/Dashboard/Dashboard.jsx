@@ -11,10 +11,11 @@ import styled, { css, useTheme } from 'styled-components'
 import { bool, shape, string } from 'prop-types'
 import { SpacedHeading, SpacedText } from '@zooniverse/react-components'
 import { useTranslation } from 'react-i18next'
+import Link from 'next/link'
 
 import DashboardLink from './components/DashboardLink'
 import StatsTabsContainer from './components/StatsTabs/StatsTabsContainer'
-import Link from 'next/link'
+import { getHrefWithLocale } from '@utils'
 
 const Relative = styled(Box)`
   position: relative;
@@ -105,9 +106,12 @@ const border = {
 }
 
 export default function Dashboard({ user, userLoading }) {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+  const locale = i18n.language
   const size = useContext(ResponsiveContext)
   const { dark } = useTheme()
+
+  const statsHref = getHrefWithLocale(`/users/${user?.login}/stats`, locale)
 
   return (
     <Box align='center' round={size === 'small' ? false : '16px 16px 8px 8px'}>
@@ -207,7 +211,7 @@ export default function Dashboard({ user, userLoading }) {
             <StyledStatsLink
               alignSelf={size === 'small' ? 'center' : 'end'}
               forwardedAs={Link}
-              href={`/users/${user?.login}/stats`}
+              href={statsHref}
               label={<SpacedText>{t('UserHome.Dashboard.moreStats')}</SpacedText>}
               icon={<FormNext />}
               reverse
