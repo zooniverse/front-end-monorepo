@@ -30,7 +30,6 @@ setProjectAnnotations(preview)
 
 // require all net requests to be mocked.
 nock.disableNetConnect()
-nock.enableNetConnect('panoptes-uploads.zooniverse.org')
 
 const jsdom = new JSDOM('<!doctype html><html><body></body></html>', {
   url: 'https://localhost'

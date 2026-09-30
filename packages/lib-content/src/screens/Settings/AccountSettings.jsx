@@ -31,18 +31,20 @@ function AccountSettings ({
 }) {
   if (!user) return null
 
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+  const locale = i18n.language
+  const localePrefix = locale === 'en' ? '' : `/${locale}`
 
   const activeSection = 0
   const sidebarSections = [
-    { name: t('Settings.AccountSettings.title'), href: '/settings' },
-    { name: t('Settings.ProfileSettings.title'), href: '/settings/profile' },
-    { name: t('Settings.EmailSettings.title'), href: '/settings/email' }
+    { name: t('Settings.AccountSettings.title'), href: `${localePrefix}/settings` },
+    { name: t('Settings.ProfileSettings.title'), href: `${localePrefix}/settings/profile` },
+    { name: t('Settings.EmailSettings.title'), href: `${localePrefix}/settings/email` }
   ]
 
   return (
     <FormLayout>
-      
+
       <StickyBox background={{ dark: 'dark-3', light: 'neutral-6' }}>
         <DropdownNav
           activeSection={activeSection}

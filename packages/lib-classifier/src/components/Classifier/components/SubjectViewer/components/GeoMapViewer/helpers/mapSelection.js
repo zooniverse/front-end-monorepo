@@ -1,3 +1,5 @@
+import { MAX_FIT_ZOOM } from './constants'
+
 export function selectFirstFeature(select, features) {
   if (!select || features.length === 0) return
   select.getFeatures().clear()
@@ -25,7 +27,7 @@ export function clearSelectedFeature(select) {
 export function fitViewToExtent(map, extent, duration) {
   map.getView().fit(extent, {
     padding: [32, 32, 32, 32],
-    maxZoom: 12,
+    maxZoom: MAX_FIT_ZOOM,
     duration
   })
 }
