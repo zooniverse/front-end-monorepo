@@ -13,6 +13,13 @@ TL;DR:
 
 Hook for _fetching_ Panoptes user data.
 
+Input: (single arg)
+- `login` (string): user's login (username).
+- `token` (string): user's Panoptes authentication token.
+
+Output:
+- Standard useSWR() output. See example.
+
 ```
 // Example
 const { data: user, isLoading, isValidating, error, mutate } = useUserData({ login: 'zootester1' })
@@ -43,6 +50,13 @@ Why yes, we do actually have the full User resource already, passed in via authU
 
 Hook for fetching Panoptes user data related to _media files._ Specifically, you can get either the user's Profile Avatar or Profile Header.
 
+Input: (single arg)
+- `userId` (string): user's ID.
+- `mediaType` (string): type of media we're interested in. Either `"avatar"` or `"profile_header"`
+
+Output:
+- Standard useSWR() output. See example.
+
 ```
 // Example
 const { data: avatar, isLoading, isValidating, error, mutate } = useUserMedia({ userId: '12345', mediaType: 'avatar' })
@@ -58,8 +72,19 @@ if (avatar) {
 
 Function for _saving_ changes to Panoptes.
 
+Input: (separate args)
+1. (object): an object with key-value pairs that we want to change.
+2. (string): user's ID.
+
+Output:
+- Updated User resource, on success.
+
+Potentially throws:
+- API errors from Panoptes.
+
+Notes:
 - Performs a GET to Panoptes (to get some validation data for the header), then a PUT with the new data.
-- ⚠️ WARNING: unlike useUserData, there's no built-in "isLoading" equivalent so you'll need to manually keep track of the processing/saving state.
+- Protip: this isn't an SWR hook, so you'll need to manually keep track of the processing/saving state.
 
 ```
 // Example
@@ -82,3 +107,21 @@ mutate(prevData => {
 ### Dev Notes
 
 For future work, consider using [`useSWRMutation()`](https://swr.vercel.app/docs/mutation#useswrmutation) if we really, really want to sync our local data to whatever Panoptes responds with.
+
+## deleteUserMedia()
+
+Function for _deleting_ Panoptes user data related to _media files._ (Either the Profile Avatar or Profile Header.)
+
+Input: (separate args)
+1. (string): user's ID.
+2. (string): type of media we're interested in. Either `"avatar"` or `"profile_header"`
+
+Output:
+- `true` on successful delete.
+
+Potentially throws:
+- API errors from Panoptes.
+
+Notes:
+- Performs a GET to Panoptes (to get some validation data for the header), then a DELETE.
+- Protip: this isn't an SWR hook, so you'll need to manually keep track of the processing/saving state.
