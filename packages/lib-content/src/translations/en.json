@@ -645,6 +645,8 @@
         }
       },
       "optional": "Optional",
+      "delete": "Delete",
+      "deleteSuccess": "Media removed.",
       "save": "Change",
       "saveSuccess": "Changes saved."
     }
