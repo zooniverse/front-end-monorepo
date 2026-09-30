@@ -94,3 +94,30 @@ Tablet.args = {
     display_name: 'Transcribe Text (Main Workflow)'
   }
 }
+
+export function SearchAPIError(args) {
+  const { ...props } = args
+  return <SubjectPicker {...props} />
+}
+SearchAPIError.parameters = {
+  msw: {
+    handlers: [
+      http.get('https://subject-set-search-api.zooniverse.org/subjects/:subjectSetID.json', () => {
+        return HttpResponse.json(
+          { ok: false, error: 'Table not found', status: 404, title: null },
+          { status: 404 }
+        )
+      })
+    ]
+  }
+}
+SearchAPIError.args = {
+  ...Default.args,
+  subjectSet: {
+    id: '99999',
+    display_name: 'Unindexed subject set',
+    metadata: {
+      indexFields: 'date,page'
+    }
+  }
+}
