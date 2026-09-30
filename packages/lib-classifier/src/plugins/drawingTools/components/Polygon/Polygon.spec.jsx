@@ -3,7 +3,7 @@ import Polygon from './Polygon'
 
 describe('Drawing tools > Polygon', () => {
   it('should render active finished mark without crashing', function () {
-    const mark = {
+    const mockMark = {
       path: '10,20 90,10 45,60',
       points: [
         { x: 10, y: 20 },
@@ -17,7 +17,7 @@ describe('Drawing tools > Polygon', () => {
 
     render(
       <svg xmlns='http://www.w3.org/2000/svg'>
-        <Polygon active mark={mark} />
+        <Polygon active mark={mockMark} />
       </svg>
     )
     

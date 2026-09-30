@@ -3,7 +3,7 @@ import Line from './Line'
 
 describe('Drawing tools > Line', () => {
   it('should render active mark without crashing', function () {
-    const mark = {
+    const mockMark = {
       x1: 50,
       y1: 10,
       x2: 4,
@@ -16,7 +16,7 @@ describe('Drawing tools > Line', () => {
 
     render(
       <svg xmlns='http://www.w3.org/2000/svg'>
-        <Line active mark={mark} />
+        <Line active mark={mockMark} />
       </svg>
     )
     

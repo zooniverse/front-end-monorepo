@@ -5,7 +5,7 @@ import Circle from './Circle'
 
 describe('Drawing tools > Circle', () => {
   it('should render active mark without crashing', function () {
-    const mark = {
+    const mockMark = {
       x_center: 100,
       y_center: 200,
       r: 10
@@ -13,7 +13,7 @@ describe('Drawing tools > Circle', () => {
 
     render(
       <svg xmlns='http://www.w3.org/2000/svg'>
-        <Circle active mark={mark} />
+        <Circle active mark={mockMark} />
       </svg>
     )
 
