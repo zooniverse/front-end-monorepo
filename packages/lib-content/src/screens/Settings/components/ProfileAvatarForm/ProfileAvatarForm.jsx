@@ -7,6 +7,7 @@ import { shape, string } from 'prop-types'
 import { Loader, StatusMessage } from '@zooniverse/react-components'
 
 import useUserMedia from '../../helpers/useUserMedia'
+import deleteUserMedia from '../../helpers/deleteUserMedia'
 
 const FormFieldsContainer = styled(Box)`
   gap: 1em;
@@ -24,6 +25,9 @@ function ProfileAvatarForm ({
   const [ isSaving, setIsSaving ] = useState(false)
   const [ saveSuccess, setSaveSuccess ] = useState(false)
   const [ saveError, setSaveError ] = useState(null)
+  const [ isDeleting, setIsDeleting ] = useState(false)
+  const [ deleteSuccess, setDeleteSuccess ] = useState(false)
+  const [ deleteError, setDeleteError ] = useState(null)
   const [ hasUnsavedChanges, setHasUnsavedChanges ] = useState(true)
 
   function onInputChange (e) {
@@ -38,17 +42,45 @@ function ProfileAvatarForm ({
   async function doDelete () {
     // TODO
     console.log('+++ ✖️ Delete')
+
+    try {
+      setIsDeleting(true)
+      setDeleteSuccess(false)
+      setDeleteError(null)
+
+      const deleteResult = await deleteUserMedia(authUser?.id, 'avatar')
+      if (!deleteResult) {
+        throw new Error('Failed to delete user avatar')  // TODO: translations
+      }
+
+      setIsDeleting(false)
+      setDeleteSuccess(true)
+      setDeleteError(null)
+      
+    } catch (err) {
+      console.error(err)
+      setIsDeleting(false)
+      setDeleteSuccess(false)
+      setDeleteError(err?.response?.body || err)
+    }
+
   }
 
-  const disableInput = isLoading || isValidating || isSaving
-  const errorMessage = saveError?.errors?.[0]?.message || saveError?.toString() || (saveError && 'Unknown error')  // We don't worry about loading errors.
+  const disableInput = isLoading || isValidating || isSaving || isDeleting
+  
+  // We don't worry about loading errors.
+  const saveErrorMessage = saveError?.errors?.[0]?.message || saveError?.toString() || (saveError && 'Unknown error')
+  const deleteErrorMessage = deleteError?.errors?.[0]?.message || deleteError?.toString() || (deleteError && 'Unknown error')
+
   const statusType =
-    saveSuccess ? 'success'
-    : saveError ? 'error'
+    (saveSuccess || deleteSuccess) ? 'success'
+    : (saveError || deleteError) ? 'error'
     : ''
   const statusMessage =
     saveSuccess ? t('Settings.forms.saveSuccess')
-    : saveError ? errorMessage
+    : saveError ? saveErrorMessage
+    : deleteSuccess ? t('Settings.forms.deleteSuccess')
+    : deleteError ? deleteErrorMessage
     : ''
   
   return (
@@ -85,7 +117,7 @@ function ProfileAvatarForm ({
             />
           </Box>
 
-          {(isLoading || isValidating || isSaving) && <Loader />}
+          {(isLoading || isValidating || isSaving || isDeleting) && <Loader />}
 
           {hasUnsavedChanges && (
             <Button
