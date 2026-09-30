@@ -12,11 +12,13 @@ import SingleTextViewer from '../SingleTextViewer'
 
 function storeMapper(store) {
   const {
+    enable_switching_flipbook_and_separate: enableSwitchView,
     limit_subject_height: limitSubjectHeight,
     multi_image_layout: multiImageLayout
   } = store.workflows?.active?.configuration
 
   return {
+    enableSwitchView,
     limitSubjectHeight,
     multiImageLayout
   }
@@ -33,7 +35,7 @@ function SeparateFramesViewer({
   onReady = DEFAULT_HANDLER,
   subject
 }) {
-  const { limitSubjectHeight, multiImageLayout } = useStores(storeMapper)
+  const { enableSwitchView, limitSubjectHeight, multiImageLayout } = useStores(storeMapper)
 
   const [forceColLayout, setForceColLayout] = useState(false)
   const [numFramesHorizontally, setNumFramesHorizontally] = useState(1)
@@ -107,7 +109,7 @@ function SeparateFramesViewer({
         )}
       </Grid>
       <Box justify='center' pad='xsmall'>
-        <ViewModeButton />
+        {enableSwitchView && <ViewModeButton />}
       </Box>
     </div>
   )

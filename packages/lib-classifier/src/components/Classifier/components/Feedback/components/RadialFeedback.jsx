@@ -10,7 +10,13 @@ export const FEEDBACK_COLORS = {
   success: "#4EAF79",
 };
 
-const ALLOWED_TOOL_TYPES = ["point", "ellipse", "circle"]
+const ALLOWED_TOOL_TYPES = [
+  "circle",
+  "ellipse",
+  "point",
+  "rectangle",
+  "rotateRectangle"
+]
 
 function toNumber(value) {
   const parsedValue = Number(value);
@@ -73,7 +79,6 @@ function getAnnotatedMarks(annotations = [], applicableRules = []) {
       return;
     }
     const marks = annotation.value
-      // Only consider marks that have x and y coordinates.
       .filter((marking) => isAllowedType(marking))
       // Add a colour to each mark based on success/failure.
       .map((marking) => {
@@ -135,7 +140,7 @@ function AnnotationFeedback({ marking }) {
       fill="rgba(0, 0, 0, 0.5)"
       pointerEvents="none"
       stroke={color}
-      transform={`translate(${mark.x}, ${mark.y})`}
+      transform={mark.x !== undefined ? `translate(${mark.x}, ${mark.y})` : undefined}
     >
       <MarkComponent mark={mark} />
     </g>
@@ -146,8 +151,8 @@ AnnotationFeedback.propTypes = {
   marking: shape({
     color: string.isRequired,
     mark: shape({
-      x: number.isRequired,
-      y: number.isRequired,
+      x: number,
+      y: number,
       toolComponent: node.isRequired,
       toolType: string.isRequired,
     }).isRequired,

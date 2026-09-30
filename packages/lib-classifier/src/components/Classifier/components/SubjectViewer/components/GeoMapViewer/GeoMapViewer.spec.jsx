@@ -198,6 +198,15 @@ describe('Component > GeoMapViewer', function () {
       })
     })
 
+    it('auto-selects the subject point when the tool allows creation but the seed already fills its max', async function () {
+      let map = null
+      render(<PointCreationStory min={0} max={1} seedSubjectPoint onMapReady={(olMap) => { map = olMap }} />)
+
+      await waitFor(() => {
+        expect(deleteOverlay(map)?.getPosition()).to.exist
+      })
+    })
+
     it('removes the subject point and clears the selection on delete', async function () {
       let map = null
       render(<PointCreationStory min={0} max={0} seedSubjectPoint onMapReady={(olMap) => { map = olMap }} />)

@@ -1,6 +1,13 @@
-import geoRadialReducer from './reducer'
+import strategy from './index'
+import grader from '../grader'
+
+const geoRadialReducer = strategy.reducer
 
 describe('feedback geo radial reducer', function () {
+  before(async function () {
+    await grader.load()
+  })
+
   function buildRule () {
     return {
       hideSubjectViewer: true,
