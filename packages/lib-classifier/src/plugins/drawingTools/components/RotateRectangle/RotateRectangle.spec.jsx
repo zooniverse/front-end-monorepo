@@ -3,7 +3,7 @@ import RotateRectangle from './RotateRectangle'
 
 describe('Drawing tools > RotateRectangle', () => {
   it('should render active mark without crashing', function () {
-    const mark = {
+    const mockMark = {
       x_center: 45,
       y_center: 10,
       width: 30,
@@ -12,7 +12,7 @@ describe('Drawing tools > RotateRectangle', () => {
 
     render(
       <svg xmlns='http://www.w3.org/2000/svg'>
-        <RotateRectangle active mark={mark} />
+        <RotateRectangle active mark={mockMark} />
       </svg>
     )
     

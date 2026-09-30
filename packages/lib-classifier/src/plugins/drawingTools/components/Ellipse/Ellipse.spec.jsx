@@ -3,7 +3,7 @@ import Ellipse from './Ellipse'
 
 describe('Drawing tools > Ellipse', () => {
   it('should render active mark without crashing', function () {
-    const mark = {
+    const mockMark = {
       x_center: 100,
       y_center: 200,
       rx: 10,
@@ -12,7 +12,7 @@ describe('Drawing tools > Ellipse', () => {
 
     render(
       <svg xmlns='http://www.w3.org/2000/svg'>
-        <Ellipse active mark={mark} />
+        <Ellipse active mark={mockMark} />
       </svg>
     )
     

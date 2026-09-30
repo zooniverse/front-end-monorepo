@@ -5,7 +5,7 @@ import Rectangle from './Rectangle'
 
 describe('Drawing tools > Rectangle', () => {
   it('should render active mark without crashing', function () {
-    const mark = {
+    const mockMark = {
       x_center: 45,
       y_center: 10,
       width: 30,
@@ -14,7 +14,7 @@ describe('Drawing tools > Rectangle', () => {
 
     render(
       <svg xmlns='http://www.w3.org/2000/svg'>
-        <Rectangle active mark={mark} />
+        <Rectangle active mark={mockMark} />
       </svg>
     )
     

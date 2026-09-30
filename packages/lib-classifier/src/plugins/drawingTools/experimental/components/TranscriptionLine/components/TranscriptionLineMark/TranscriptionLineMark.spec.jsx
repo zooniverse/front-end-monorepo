@@ -3,7 +3,7 @@ import TranscriptionLineMark from './TranscriptionLineMark'
 
 describe('Drawing tools > TranscriptionLineMark', () => {
   it('should render without crashing', function () {
-    const mark = {
+    const mockMark = {
       finished: false,
       x1: 100,
       y1: 200,
@@ -18,7 +18,7 @@ describe('Drawing tools > TranscriptionLineMark', () => {
 
     render(
       <svg xmlns='http://www.w3.org/2000/svg'>
-        <TranscriptionLineMark active color='red' mark={mark} />
+        <TranscriptionLineMark active color='red' mark={mockMark} />
       </svg>
     )
     
