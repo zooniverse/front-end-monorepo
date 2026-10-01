@@ -75,8 +75,7 @@ function CollectionsListContainer({
     : undefined
   const {
     data,
-    error,
-    isLoading
+    error
   } = useProjectCollections({
     favorite: activeTab === 'favorites',
     fallbackData,
@@ -119,7 +118,7 @@ function CollectionsListContainer({
   let placeholder
   if (isUserScoped && !isLoggedIn) placeholder = <RequireUser />
   else if (error) placeholder = <ErrorPlaceholder />
-  else if (loading || !data) placeholder = <Loader />
+  else if (!data) placeholder = <Loader />
   else if (!data.collections.length) placeholder = <EmptyPlaceholder />
 
   if (placeholder) {
