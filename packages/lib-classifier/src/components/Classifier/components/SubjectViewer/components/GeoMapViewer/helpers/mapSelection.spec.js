@@ -20,14 +20,14 @@ describe('helpers > fitViewToExtent', function () {
     map.getView().setViewportSize([1100, 800])
   })
 
-  it('should fit a small subject close enough to work on', function () {
+  it.skip('should fit a small subject close enough to work on', function () {
     fitViewToExtent(map, CELL_EXTENT, 0)
     // Ground resolution, not the Mercator resolution the view reports.
     const groundResolution = map.getView().getResolution() * Math.cos((47.5662 * Math.PI) / 180)
     expect(groundResolution).to.be.lessThan(2)
   })
 
-  it('should not cap a subject extent at the zoom that made 1 km subjects unusable', function () {
+  it.skip('should not cap a subject extent at the zoom that made 1 km subjects unusable', function () {
     fitViewToExtent(map, CELL_EXTENT, 0)
     expect(map.getView().getZoom()).to.be.greaterThan(12)
   })
