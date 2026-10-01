@@ -113,10 +113,16 @@ function FlipbookControls({
   const { t } = useTranslation()
   const selectedButtonRef = useRef(null)
   const keyboardNavigationRef = useRef(false)
+  const previousFrameRef = useRef(currentFrame)
   const showPlayPause = allSourcesAreImages(sources)
 
-  // Scroll the selected frame button into view and focus it only when navigating via keyboard
+  // Scroll the selected frame button into view and focus it only when navigating via keyboard.
+  // Skip when currentFrame hasn't actually changed (e.g. the initial mount).
   useEffect(() => {
+    const frameChanged = previousFrameRef.current !== currentFrame
+    previousFrameRef.current = currentFrame
+    if (!frameChanged) return
+
     selectedButtonRef.current?.scrollIntoView({
       behavior: 'smooth',
       block: 'nearest',

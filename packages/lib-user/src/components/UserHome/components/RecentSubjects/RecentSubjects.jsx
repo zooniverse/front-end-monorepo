@@ -6,6 +6,7 @@ import { Loader, SpacedText, SubjectCard } from '@zooniverse/react-components'
 import { useTranslation, Trans } from 'react-i18next'
 
 import { ContentBox } from '@components/shared'
+import { getHrefWithLocale } from '@utils'
 
 const StyledBox = styled(Box)`
   list-style: none;
@@ -23,8 +24,10 @@ function RecentSubjects({
   recents = [],
   userId = undefined,
 }) {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
   const size = useContext(ResponsiveContext)
+
+  const locale = i18n.language
 
   return (
     <ContentBox
@@ -53,7 +56,7 @@ function RecentSubjects({
                 components={[
                   <Anchor
                     key='projects-page'
-                    href='https://www.zooniverse.org/projects'
+                    href={getHrefWithLocale('/projects', locale)}
                   />
                 ]}
               />

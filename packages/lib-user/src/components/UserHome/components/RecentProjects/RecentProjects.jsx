@@ -6,6 +6,7 @@ import { Loader, ProjectCard, SpacedText } from '@zooniverse/react-components'
 import { useTranslation, Trans } from 'react-i18next'
 
 import { ContentBox } from '@components/shared'
+import { getHrefWithLocale } from '@utils'
 
 const StyledBox = styled(Box)`
   list-style: none;
@@ -22,14 +23,16 @@ export default function RecentProjects({
   isLoading = false,
   renderedProjects = []
 }) {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
   const size = useContext(ResponsiveContext)
+
+  const locale = i18n.language
 
   return (
     <ContentBox
       linkLabel={t('common.seeAll')}
       linkProps={{
-        href: `/users/${authUser?.login}/stats/projects?sort=recent`
+        href: getHrefWithLocale(`/users/${authUser?.login}/stats/projects?sort=recent`, locale)
       }}
       title={t('UserHome.RecentProjects.title')}
       titleId='recent-projects'
@@ -52,7 +55,7 @@ export default function RecentProjects({
               components={[
                 <Anchor
                   key='projects-page'
-                  href='https://www.zooniverse.org/projects'
+                  href={getHrefWithLocale('/projects', locale)}
                 />
               ]}
             />

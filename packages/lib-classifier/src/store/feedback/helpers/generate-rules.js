@@ -1,4 +1,4 @@
-import { forEach, reduce, find } from 'lodash'
+import { forEach, reduce, filter } from 'lodash'
 import strategies from '../strategies'
 import metadataToRules from './metadata-to-rules'
 import getFeedbackFromTasks from './get-feedback-from-tasks'
@@ -23,7 +23,7 @@ function generateRules (subject, workflow) {
 
   forEach(workflowRules, (rules, taskId) => {
     const taskRules = reduce(rules, (result, workflowRule) => {
-      const matchingSubjectRule = find(subjectRules, (subjectRule) => {
+      const matchingSubjectRules = filter(subjectRules, (subjectRule) => {
         if ((subjectRule.id !== null && subjectRule.id !== undefined) &&
           (workflowRule.id !== null && workflowRule.id !== undefined)) {
           return subjectRule.id.toString() === workflowRule.id.toString()
@@ -35,7 +35,7 @@ function generateRules (subject, workflow) {
         }
       })
 
-      if (matchingSubjectRule) {
+      if (matchingSubjectRules.length) {
         const ruleStrategy = workflowRule.strategy
         const ruleGenerator = strategies[ruleStrategy]?.createRule
         if (!ruleGenerator) {
@@ -44,7 +44,7 @@ function generateRules (subject, workflow) {
           }
           return result
         }
-        return result.concat([ruleGenerator(matchingSubjectRule, workflowRule)])
+        return result.concat(matchingSubjectRules.map(subjectRule => ruleGenerator(subjectRule, workflowRule)))
       } else {
         return result
       }

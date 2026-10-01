@@ -22,6 +22,7 @@ function DeleteButton({
   label,
   mark,
   onDelete = DEFAULT_HANDLER,
+  onDeselect = DEFAULT_HANDLER,
   rotate = 0,
   theme = DEFAULT_THEME
 }) {
@@ -47,6 +48,7 @@ function DeleteButton({
       aria-label={label}
       focusable
       focusColor={focusColor}
+      onBlur={onDeselect}
       onKeyDown={onKeyDown}
       onPointerDown={onPointerDown}
       role='button'
@@ -62,6 +64,7 @@ DeleteButton.propTypes = {
   label: PropTypes.string.isRequired,
   mark: PropTypes.object.isRequired,
   onDelete: PropTypes.func,
+  onDeselect: PropTypes.func,
   rotate: PropTypes.number,
   theme: PropTypes.object
 }

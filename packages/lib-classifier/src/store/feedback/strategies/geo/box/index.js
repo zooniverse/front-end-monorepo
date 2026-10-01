@@ -1,9 +1,13 @@
-import createRule from './create-rule'
-import reducer from './reducer'
+import createGeoRule from '../create-rule'
+import geometry from './geometry'
+import grader from '../grader'
+import createGeoReducer from '../reducer'
 
 export default {
-  createRule,
+  createRule: createGeoRule(({ height, theta, width, x, y }) => ({ height, theta: theta || '0', width, x, y })),
+  geometry,
   id: 'geoBox',
-  reducer,
+  load: grader.load,
+  reducer: createGeoReducer(geometry, ['Point']),
   title: 'Geo Box'
 }
