@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { Box, Button, Form } from 'grommet'
+import { useRef, useState } from 'react'
+import { Box, Button, FileInput, Form } from 'grommet'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import { shape, string } from 'prop-types'
@@ -30,6 +30,8 @@ function ProfileAvatarForm ({
   const [ deleteError, setDeleteError ] = useState(null)
   const [ hasUnsavedChanges, setHasUnsavedChanges ] = useState(true)
 
+  const fileInputRef = useRef()
+
   function onInputChange (e) {
     // TODO
   }
@@ -37,6 +39,26 @@ function ProfileAvatarForm ({
   async function onSubmit () {
     // TODO
     console.log('+++ ⬆️ Submit')
+
+    return
+
+    // TODO 
+    
+    const selectedFile = fileInputRef.current?.files?.[0]
+    const formData = new FormData()
+    formData.append('avatar', selectedFile)
+
+    const response = await fetch(
+      `${PANOPTES_API_URL}/users/${authUser.id}/avatar`,
+      {
+        method: 'PUT', // Confirm the method and endpoint with the API contract.
+        headers: { Authorization: `Bearer ${token}` },
+        body: formData
+      }
+    )
+
+    // TODO
+
   }
 
   async function doDelete () {
@@ -102,6 +124,15 @@ function ProfileAvatarForm ({
           
           <Box>
             <h3>Test Controls</h3>
+
+            <FileInput
+              name='avatar'
+              accept='image/*'
+              onChange={onInputChange}
+              disabled={disableInput}
+              ref={fileInputRef}
+            />
+            
             <Button onClick={doDelete} label='Test Delete' />
           </Box>
         </Box>
