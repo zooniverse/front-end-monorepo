@@ -3,13 +3,14 @@
 import { Anchor, Box, Paragraph, Text } from 'grommet'
 import styled from 'styled-components'
 
-import { Trans, useTranslation } from '@translations/i18n'
+import { Trans, useTranslation } from 'react-i18next'
 import AboutLayout from '@components/PageLayout/AboutLayout'
 import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent'
 import {
   MobileHeading,
   StyledHeading
 } from '@components/SharedStyledComponents/SharedStyledComponents'
+import getHrefWithLocale from '@utils/getHrefWithLocale'
 
 const StyledList = styled.ul`
   margin-block-start: 0;
@@ -29,19 +30,20 @@ const Answer = ({ children }) => (
 )
 
 function FAQPage() {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+  const locale = i18n.language
 
   return (
     <>
       <AboutLayout>
-        <MobileHeading level='1' size='1.5rem'>
+        <MobileHeading level={1} size='1.5rem'>
           {t('FAQ.title')}
         </MobileHeading>
         <Box pad={{ horizontal: 'medium' }} align='center'>
           <MaxWidthContent>
             <StyledHeading
               color={{ light: 'neutral-1', dark: 'accent-1' }}
-              level='1'
+              level={1}
               size='small'
             >
               {t('FAQ.title')}
@@ -59,7 +61,7 @@ function FAQPage() {
                     key='talk-page'
                     href='https://www.zooniverse.org/talk'
                   />,
-                  <Anchor key='contact-us' href='/about#contact' />
+                  <Anchor key='contact-us' href={getHrefWithLocale('/about#contact', locale)} />
                 ]}
               />
             </Paragraph>
@@ -140,7 +142,7 @@ function FAQPage() {
                         key='FEM-github-issues'
                         href='https://github.com/zooniverse'
                       />,
-                      <Anchor key='contact-us' href='/about#contact' />
+                      <Anchor key='contact-us' href={getHrefWithLocale('/about#contact', locale)} />
                     ]}
                   />
                 </Answer>
@@ -180,7 +182,7 @@ function FAQPage() {
                     i18nKey='FAQ.item8.answer2'
                     t={t}
                     components={[
-                      <Anchor key='donate-link' href='/get-involved/donate' />
+                      <Anchor key='donate-link' href={getHrefWithLocale('/get-involved/donate', locale)} />
                     ]}
                   />
                 </Answer>
@@ -192,7 +194,7 @@ function FAQPage() {
                     i18nKey='FAQ.item9.answer'
                     t={t}
                     components={[
-                      <Anchor key='resources-page' href='/about/resources' />
+                      <Anchor key='resources-page' href={getHrefWithLocale('/about/resources', locale)} />
                     ]}
                   />
                 </Answer>

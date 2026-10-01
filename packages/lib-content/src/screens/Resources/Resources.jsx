@@ -5,13 +5,14 @@ import styled, { css } from 'styled-components'
 import SpacedHeading from '@zooniverse/react-components/SpacedHeading'
 import ZooniverseLogo from '@zooniverse/react-components/ZooniverseLogo'
 
-import { Trans, useTranslation } from '@translations/i18n'
+import { Trans, useTranslation } from 'react-i18next'
 import AboutLayout from '@components/PageLayout/AboutLayout'
 import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent'
 import {
   MobileHeading,
   StyledHeading
 } from '@components/SharedStyledComponents/SharedStyledComponents'
+import getHrefWithLocale from '@utils/getHrefWithLocale'
 
 const StyledList = styled.ul`
   margin-block-start: 0;
@@ -42,19 +43,20 @@ const ResourceLogo = styled(Box)`
 `
 
 function Resources() {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+  const locale = i18n.language
 
   return (
     <>
       <AboutLayout>
-        <MobileHeading level='1' size='1.5rem'>
+        <MobileHeading level={1} size='1.5rem'>
           {t('Resources.title')}
         </MobileHeading>
         <Box pad={{ horizontal: 'medium' }} align='center'>
           <MaxWidthContent>
             <StyledHeading
               color={{ light: 'neutral-1', dark: 'accent-1' }}
-              level='1'
+              level={1}
               size='small'
             >
               {t('Resources.title')}
@@ -109,7 +111,7 @@ function Resources() {
                   components={[
                     <Anchor
                       key='zooniverse-home-page'
-                      href='https://www.zooniverse.org'
+                      href={getHrefWithLocale('/', locale)}
                     />
                   ]}
                 />
@@ -126,7 +128,7 @@ function Resources() {
                   />,
                   <Anchor
                     key='publications-page'
-                    href='/about/publications'
+                    href={getHrefWithLocale('/about/publications', locale)}
                   />
                 ]}
               />
@@ -138,7 +140,7 @@ function Resources() {
                 components={[
                   <Anchor
                     key='contact-us'
-                    href='/about#contact'
+                    href={getHrefWithLocale('/about#contact', locale)}
                   />
                 ]}
               />
@@ -165,7 +167,7 @@ function Resources() {
                 components={[
                   <Anchor
                     key='contact-us'
-                    href='/about#contact'
+                    href={getHrefWithLocale('/about#contact', locale)}
                   />
                 ]}
               />

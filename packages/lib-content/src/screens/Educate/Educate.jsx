@@ -13,7 +13,7 @@ import SpacedHeading from '@zooniverse/react-components/SpacedHeading'
 import { BarChart, Certificate, Workshop } from 'grommet-icons'
 import { useContext } from 'react'
 
-import { Trans, useTranslation } from '@translations/i18n'
+import { Trans, useTranslation } from 'react-i18next'
 import GetInvolvedLayout from '@components/PageLayout/GetInvolvedLayout'
 import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent'
 import {

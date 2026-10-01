@@ -132,7 +132,6 @@ const Mark = forwardRef(function Mark(
 
   function onFocus() {
     onSelect(mark)
-    markRoot.current?.scrollIntoView?.()
   }
 
   let transform = ''

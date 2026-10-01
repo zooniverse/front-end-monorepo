@@ -1,5 +1,5 @@
 import { Box, ThemeContext } from 'grommet'
-import { useTranslation } from '@translations/i18n'
+import { useTranslation } from 'react-i18next'
 import { css } from 'styled-components'
 
 import ContainerBox from './ContainerBox'
@@ -40,6 +40,10 @@ function AboutLayout({ children }) {
     {
       href: '/about/faq',
       label: t('AboutHeader.links.faq')
+    },
+    {
+      href: '/about/ai-ethics',
+      label: t('AboutHeader.links.aiethics')
     }
   ]
 

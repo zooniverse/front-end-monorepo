@@ -10,6 +10,7 @@ export const MobileHeading = styled(Heading)`
   color: white;
   display: flex;
   justify-content: center;
+  text-align: center;
   padding: 0 0 20px 0;
   margin: 0;
   width: 100%;

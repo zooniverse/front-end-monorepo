@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { AuthModal, SpacedHeading } from '@zooniverse/react-components'
 import { YouTubeEmbed } from '@next/third-parties/google'
 
-import { useTranslation } from '@translations/i18n'
+import { useTranslation } from 'react-i18next'
 import Stats from '@components/Stats/Stats'
 import SubHeading from '@components/HeadingForAboutNav/SubHeading'
 

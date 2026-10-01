@@ -5,7 +5,7 @@ import PageFooter from './PageFooter.js'
 export default function RootLayout({ children, locale }) {
   return (
     <body>
-      <PageContextProviders>
+      <PageContextProviders locale={locale}>
         <PageHeader />
         {children}
         <PageFooter locale={locale} />

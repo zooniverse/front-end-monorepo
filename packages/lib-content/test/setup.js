@@ -1,11 +1,16 @@
 import { JSDOM } from 'jsdom'
-import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest'
+import nock from 'nock'
+import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import { setProjectAnnotations } from '@storybook/react'
+
+import { initTranslations } from './i18n'
 
 import preview from '../.storybook/preview'
 setProjectAnnotations(preview) // Attachs Story decorator with Grommet theme
 
-const jsdom = new JSDOM('<!doctype html><html><body></body></html>', { url: 'https://localhost'})
+nock.disableNetConnect()
+
+const jsdom = new JSDOM('<!doctype html><html><body></body></html>', { url: 'https://localhost' })
 const { window } = jsdom
 
 global.after = afterAll
@@ -38,3 +43,9 @@ global.document = window.document
 global.navigator = {
   userAgent: 'node.js'
 }
+
+// Storybook composeStory creates the <I18nextProvider i18n={i18n}> in the
+// unit test env, but we must init the i18n instance here for Vitest.
+beforeAll(async () => {
+  await initTranslations()
+})

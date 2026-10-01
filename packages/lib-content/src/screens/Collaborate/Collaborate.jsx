@@ -3,7 +3,7 @@
 import { Anchor, Box, Paragraph } from 'grommet'
 import SpacedHeading from '@zooniverse/react-components/SpacedHeading'
 
-import { Trans, useTranslation } from '@translations/i18n'
+import { Trans, useTranslation } from 'react-i18next'
 import GetInvolvedLayout from '@components/PageLayout/GetInvolvedLayout'
 import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent'
 import {
@@ -11,9 +11,11 @@ import {
   StyledHeading
 } from '@components/SharedStyledComponents/SharedStyledComponents'
 import { Supporters, SelectedCollaborators, SelectedTools } from './Logos'
+import getHrefWithLocale from '@utils/getHrefWithLocale'
 
 function Collaborate() {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+  const locale = i18n.language
 
   return (
     <GetInvolvedLayout>
@@ -68,7 +70,7 @@ function Collaborate() {
             <Trans
               i18nKey='Collaborate.paragraphs.fifth'
               t={t}
-              components={[<Anchor key='contact-us' href='/about#contact' />]}
+              components={[<Anchor key='contact-us' href={getHrefWithLocale('/about#contact', locale)} />]}
             />
           </Paragraph>
 
@@ -115,7 +117,7 @@ function Collaborate() {
             <Trans
               i18nKey='Collaborate.paragraphs.nineth'
               t={t}
-              components={[<Anchor key='contact-us' href='/about#contact' />]}
+              components={[<Anchor key='contact-us' href={getHrefWithLocale('/about#contact', locale)} />]}
             />
           </Paragraph>
         </MaxWidthContent>

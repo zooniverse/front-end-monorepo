@@ -1,7 +1,7 @@
 'use client'
 
 import { Box } from 'grommet'
-import OtherLayout from '@components/PageLayout/OtherLayout'
+import ContentLayout from '@components/PageLayout/ContentLayout'
 import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent'
 import { bool, string } from 'prop-types'
 
@@ -14,31 +14,26 @@ function ResetPassword ({
   resetPasswordToken = '',
 }) {
   return (
-    <OtherLayout>
-      <Box
-        align='center'
+    <ContentLayout>
+      <MaxWidthContent
         className='Reset-Password-Page'
-        pad={{ horizontal: 'medium', top: 'large', bottom: 'large' }}
+        color={{ light: 'black', dark: 'white' }}
       >
-        <MaxWidthContent
-          color={{ light: 'black', dark: 'white' }}
-        >
-          {isLoggedIn && (
-            <NoAccessMessage />
-          )}
+        {isLoggedIn && (
+          <NoAccessMessage />
+        )}
 
-          {!isLoggedIn && !resetPasswordToken && (
-            <RequestResetForm />
-          )}
+        {!isLoggedIn && !resetPasswordToken && (
+          <RequestResetForm />
+        )}
 
-          {!isLoggedIn && resetPasswordToken && (
-            <CommitResetForm
-              resetPasswordToken={resetPasswordToken}
-            />
-          )}
-        </MaxWidthContent>
-      </Box>
-    </OtherLayout>
+        {!isLoggedIn && resetPasswordToken && (
+          <CommitResetForm
+            resetPasswordToken={resetPasswordToken}
+          />
+        )}
+      </MaxWidthContent>
+    </ContentLayout>
   )
 }
 

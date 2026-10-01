@@ -4,7 +4,7 @@ import { Box, Button, Layer, Text, Anchor } from 'grommet'
 import { Alert, Download } from 'grommet-icons'
 import { func, number, string, shape } from 'prop-types'
 
-import { useTranslation } from '@translations/i18n'
+import { useTranslation } from 'react-i18next'
 
 function ExportBox({ children }) {
   return (

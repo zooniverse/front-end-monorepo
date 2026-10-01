@@ -3,6 +3,15 @@ import { bool, node, number, string, oneOf } from 'prop-types'
 import styled from 'styled-components'
 
 import Media from '../../../Media'
+import MediaFallback from '../MediaFallback'
+
+const SUPPORTED_MIME_TYPES = [
+	'application',
+	'audio',
+	'image',
+	'text',
+	'video'
+]
 
 const StyledPreview = styled(Box)`
 	overflow: hidden;
@@ -56,13 +65,24 @@ function SimpleMedia({
 	subjectIdTitle,
 	width
 }) {
+	const isSupportedMimeType = SUPPORTED_MIME_TYPES.includes(defaultMimeType)
+
 	return (
 		<StyledPreview
 			height={`${previewHeight}px`}
 			round={{ corner: 'top', size: '8px' }}
 			width={`${width}px`}
 		>
-			{(mediaSrc && showBackground) ? (
+			{(mediaSrc && !isSupportedMimeType) ? (
+				<MediaFallback
+					alt={subjectIdTitle}
+					placeholder={placeholder}
+					previewHeight={previewHeight}
+					width={width}
+				/>
+			) : null}
+
+			{(mediaSrc && isSupportedMimeType && showBackground) ? (
 				<StyledBackground>
 					<Media
 						alt=''
@@ -79,7 +99,7 @@ function SimpleMedia({
 				</StyledBackground>
 			) : null}
 
-			{mediaSrc ? (
+			{(mediaSrc && isSupportedMimeType) ? (
 				<StyledForegroundMedia
 					alt={subjectIdTitle}
 					controls={false}

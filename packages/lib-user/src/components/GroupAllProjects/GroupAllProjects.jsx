@@ -1,5 +1,5 @@
 import { arrayOf, bool, shape, string } from 'prop-types'
-import { useTranslation } from '@translations/i18n'
+import { useTranslation } from 'react-i18next'
 import { Heading } from 'grommet'
 import SpacedText from '@zooniverse/react-components/SpacedText'
 
@@ -10,12 +10,14 @@ import {
   HeaderLink,
   Layout
 } from '@components/shared'
+import { getHrefWithLocale } from '@utils'
 
 const STATS_ENDPOINT = '/classifications/user_groups'
 
 // props are passed from GroupContainer via cloneElement
 function GroupAllProjects({ authUser, group }) {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+  const locale = i18n.language
 
   // fetch all projects contributions from ERAS; Date range is "All Time"
   const {
@@ -37,7 +39,7 @@ function GroupAllProjects({ authUser, group }) {
     <Layout
       primaryHeaderItem={
         <HeaderLink
-          href={`/groups/${group.id}`}
+          href={getHrefWithLocale(`/groups/${group.id}`, locale)}
           label={t('common.back')}
           primaryItem={true}
         />

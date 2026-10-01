@@ -1,5 +1,6 @@
 import getFeedbackViewer from './getFeedbackViewer'
 
+import GeoFeedback from '../components/GeoFeedback'
 import Graph2dRangeFeedback from '../components/Graph2dRangeFeedback'
 import RadialFeedback from '../components/RadialFeedback'
 
@@ -52,5 +53,33 @@ describe('Helpers > getFeedbackViewer', function () {
     const multipleStratRules = graph2dRangeRules.map(rule => ({ ...rule }))
     multipleStratRules[0].strategy = 'column'
     expect(getFeedbackViewer(multipleStratRules)).to.equal(null)
+  })
+
+  it('should return the `GeoFeedback` component if passed `geoRadial` and `geoBox` rules together', function () {
+    const geoRules = [
+      {
+        id: 'testRule4-1',
+        strategy: 'geoRadial'
+      },
+      {
+        id: 'testRule4-2',
+        strategy: 'geoBox'
+      }
+    ]
+    expect(getFeedbackViewer(geoRules)).to.equal(GeoFeedback)
+  })
+
+  it('should return null if a strategy with a viewer is mixed with one without', function () {
+    const mixedRules = [
+      {
+        id: 'testRule5-1',
+        strategy: 'geoRadial'
+      },
+      {
+        id: 'testRule5-2',
+        strategy: 'noViewerStrategy'
+      }
+    ]
+    expect(getFeedbackViewer(mixedRules)).to.equal(null)
   })
 })

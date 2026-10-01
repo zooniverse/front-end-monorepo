@@ -37,10 +37,9 @@ export default async function NextLayout(props) {
   if (!i18nConfig.locales.includes(locale)) {
     notFound()
   }
-  const sanitizedLocale = locale === 'test' ? 'en' : locale
 
   return (
-    <html lang={sanitizedLocale}>
+    <html lang={locale === 'test' ? 'en' : locale}>
       {isProduction && <GoogleTagManager gtmId='GTM-WDW6V4' />}
       <StyledComponentsRegistry>
         <RootLayout locale={locale}>{props.children}</RootLayout>

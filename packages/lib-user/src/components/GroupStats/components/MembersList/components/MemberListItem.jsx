@@ -3,7 +3,7 @@ import { Box, Grid, Menu } from 'grommet'
 import { More, UserAdmin } from 'grommet-icons'
 import { bool, func, shape, string } from 'prop-types'
 import styled from 'styled-components'
-import { useTranslation } from '@translations/i18n'
+import { useTranslation } from 'react-i18next'
 
 const StyledMenu = styled(Menu)`
   div {

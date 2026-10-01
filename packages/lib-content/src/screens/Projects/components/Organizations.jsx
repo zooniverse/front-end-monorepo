@@ -2,7 +2,7 @@ import { Box, Paragraph, ResponsiveContext } from 'grommet'
 import { useContext } from 'react'
 import { ProjectCard, SpacedHeading } from '@zooniverse/react-components'
 
-import { useTranslation } from '@translations/i18n'
+import { useTranslation } from 'react-i18next'
 import StyledCardsContainer from './StyledCardsContainer'
 
 export default function Organizations({ organizations }) {

@@ -4,7 +4,7 @@ import { Notification } from 'grommet'
 import { bool, node, shape, string } from 'prop-types'
 import { Children, cloneElement, useEffect, useState } from 'react'
 import useSWRMutation from 'swr/mutation'
-import { useTranslation } from '@translations/i18n'
+import { useTranslation } from 'react-i18next'
 
 import {
   ContentBox,

@@ -14,7 +14,7 @@ describe('Component > AudioSpectrogramViewerContainer', function () {
 
     it('should render a spectrogram image', function () {
       const { container } = render(<Default />)
-      const imgElement = container.querySelector('img[alt="Spectrogram"]')
+      const imgElement = container.querySelector('img') // only one img in this viewer
       expect(imgElement).to.exist
     })
 

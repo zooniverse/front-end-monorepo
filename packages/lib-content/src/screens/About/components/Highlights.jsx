@@ -9,7 +9,9 @@ import {
 } from 'grommet'
 import { CircleInformation } from 'grommet-icons'
 import styled from 'styled-components'
-import { Trans, useTranslation } from '@translations/i18n'
+import { Trans, useTranslation } from 'react-i18next'
+
+import getHrefWithLocale from '@utils/getHrefWithLocale'
 
 const Relative = styled(Box)`
   // This is necessary so the Contact Us section's header margin doesn't overlap the interactive icon in this section
@@ -17,7 +19,8 @@ const Relative = styled(Box)`
 `
 
 export default function Highlights() {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+  const locale = i18n.language
 
   return (
     <>
@@ -28,7 +31,7 @@ export default function Highlights() {
           components={[
             <Anchor
               key='publications-page'
-              href='/about/publications'
+              href={getHrefWithLocale('/about/publications', locale)}
             />
           ]}
         />

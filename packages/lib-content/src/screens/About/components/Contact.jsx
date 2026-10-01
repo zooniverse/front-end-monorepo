@@ -1,7 +1,9 @@
 import { Anchor, Box, Button, Paragraph, Text } from 'grommet'
-import { Trans, useTranslation } from '@translations/i18n'
+import { Trans, useTranslation } from 'react-i18next'
 import { Edit, Group, Help } from 'grommet-icons'
 import styled from 'styled-components'
+
+import getHrefWithLocale from '@utils/getHrefWithLocale'
 
 const StyledButton = styled(Button)`
   text-align: center;
@@ -13,7 +15,8 @@ const StyledButton = styled(Button)`
 `
 
 export default function Contact({ widgetLoaded = false }) {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+  const locale = i18n.language
 
   const handleClick = e => {
     if (widgetLoaded) {
@@ -95,7 +98,7 @@ export default function Contact({ widgetLoaded = false }) {
           components={[
             <Anchor
               key='faq-page'
-              href='/about/faq'
+              href={getHrefWithLocale('/about/faq', locale)}
             />,
             <Anchor
               key='freshdesk-page'

@@ -9,7 +9,7 @@ import { useContext } from 'react'
 import { ProjectCard, SpacedHeading } from '@zooniverse/react-components'
 import styled from 'styled-components'
 
-import { useTranslation } from '@translations/i18n'
+import { useTranslation } from 'react-i18next'
 
 const StyledList = styled(Box)`
   list-style: none;

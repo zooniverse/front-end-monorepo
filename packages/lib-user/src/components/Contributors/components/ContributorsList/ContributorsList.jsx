@@ -1,7 +1,7 @@
 import { Box } from 'grommet'
 import { arrayOf, number, shape, string } from 'prop-types'
 import styled from 'styled-components'
-import { useTranslation } from '@translations/i18n'
+import { useTranslation } from 'react-i18next'
 
 import { convertStatsSecondsToHours } from '@utils'
 

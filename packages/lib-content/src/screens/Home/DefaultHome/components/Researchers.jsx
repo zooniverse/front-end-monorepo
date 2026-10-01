@@ -3,7 +3,7 @@ import { YouTubeEmbed } from '@next/third-parties/google'
 import styled, { css } from 'styled-components'
 import { SpacedHeading } from '@zooniverse/react-components'
 
-import { useTranslation } from '@translations/i18n'
+import { useTranslation } from 'react-i18next'
 import SubHeading from '@components/HeadingForAboutNav/SubHeading'
 import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent'
 

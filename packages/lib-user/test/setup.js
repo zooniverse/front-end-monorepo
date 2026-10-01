@@ -3,6 +3,8 @@ import nock from 'nock'
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest'
 import { setProjectAnnotations } from '@storybook/react'
 
+import { initTranslations } from './i18n'
+
 import preview from '../.storybook/preview'
 setProjectAnnotations(preview) // Attachs Story decorator with Grommet theme
 
@@ -51,3 +53,9 @@ global.navigator = {
   }
 }
 copyProps(window, global)
+
+// Storybook composeStory creates the <I18nextProvider i18n={i18n}> in the
+// unit test env, but we must init the i18n instance here for Vitest.
+beforeAll(async () => {
+  await initTranslations()
+})

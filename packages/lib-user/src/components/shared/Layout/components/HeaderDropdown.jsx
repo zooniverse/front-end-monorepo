@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components'
 import { Box, DropButton } from 'grommet'
 import { FormDown } from 'grommet-icons'
 import { SpacedText } from '@zooniverse/react-components'
-import { useTranslation } from '@translations/i18n'
+import { useTranslation } from 'react-i18next'
 
 const StyledDropButton = styled(DropButton)`
   position: relative;

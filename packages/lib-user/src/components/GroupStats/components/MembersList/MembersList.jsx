@@ -1,7 +1,7 @@
 import { SpacedText } from '@zooniverse/react-components'
 import { Box } from 'grommet'
 import { arrayOf, func, number, shape, string } from 'prop-types'
-import { useTranslation } from '@translations/i18n'
+import { useTranslation } from 'react-i18next'
 
 import { Pagination } from '@components/shared'
 

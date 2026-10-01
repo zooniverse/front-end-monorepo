@@ -1,6 +1,6 @@
 import { useId, useRef, useState } from 'react'
 import { Box, Form, Heading, Paragraph, TextInput } from 'grommet'
-import { useTranslation } from '@translations/i18n'
+import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 import { bool } from 'prop-types'
 import { Loader, StatusMessage } from '@zooniverse/react-components'
@@ -84,7 +84,7 @@ function RequestResetForm () {
           <VisuallyHiddenLabel htmlFor={inputEmailId}>
             {t('ResetPassword.RequestResetForm.inputEmail')}
           </VisuallyHiddenLabel>
-        
+
           <TextInput
             aria-label={t('ResetPassword.RequestResetForm.inputEmail')}
             disabled={isBusy || isComplete}
@@ -94,7 +94,7 @@ function RequestResetForm () {
             required
             type='email'
           />
-          
+
           <Box direction='row' justify='end'>
             <DarkTealPrimaryButton
               disabled={isBusy || isComplete}
@@ -102,7 +102,7 @@ function RequestResetForm () {
               type='submit'
             />
           </Box>
-            
+
           {isBusy && <Box align='center'><Loader /></Box>}
 
           <StatusMessage type={statusType} text={statusText} />

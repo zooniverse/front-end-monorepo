@@ -4,7 +4,7 @@ import { SpacedText } from '@zooniverse/react-components'
 import { Anchor, Box } from 'grommet'
 import { bool, shape, string } from 'prop-types'
 import { useState } from 'react'
-import { useTranslation } from '@translations/i18n'
+import { useTranslation } from 'react-i18next'
 
 import {
   usePanoptesMemberships,
@@ -18,6 +18,7 @@ import {
   Layout,
   Pagination
 } from '@components/shared'
+import { getHrefWithLocale } from '@utils'
 
 import { getActiveGroupsWithRoles } from './helpers/getActiveGroupsWithRoles.js'
 
@@ -27,7 +28,8 @@ import GroupCreateFormContainer from './components/GroupCreateFormContainer'
 import PreviewLayout from './components/PreviewLayout'
 
 function MyGroupsContainer({ authUser, login, previewLayout = false }) {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+  const locale = i18n.language
   const [groupModalActive, setGroupModalActive] = useState(false)
   const [page, setPage] = useState(1)
 
@@ -78,7 +80,7 @@ function MyGroupsContainer({ authUser, login, previewLayout = false }) {
         <Layout
           primaryHeaderItem={
             <HeaderLink
-              href='/'
+              href={getHrefWithLocale('/', locale)}
               label={t('common.back')}
               primaryItem={true}
             />
