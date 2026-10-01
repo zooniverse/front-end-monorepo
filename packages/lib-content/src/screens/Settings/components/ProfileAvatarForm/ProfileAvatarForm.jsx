@@ -89,6 +89,22 @@ function ProfileAvatarForm ({
       onSubmit={onSubmit}
     >
       <FormFieldsContainer margin={{ vertical: 'small' }}>
+
+        <Box
+          direction='column'
+        >
+          <Box>
+            {userAvatar 
+              ? <img src={userAvatar?.src} />
+              : <p>No avatar</p>
+            }
+          </Box>
+          
+          <Box>
+            <h3>Test Controls</h3>
+            <Button onClick={doDelete} label='Test Delete' />
+          </Box>
+        </Box>
         
         <Box
           direction='row'
@@ -96,16 +112,6 @@ function ProfileAvatarForm ({
           justify='between'
           gap='1em'
         >
-          <Box>
-            {userAvatar && 
-              <img src={userAvatar?.src} />
-            }
-          </Box>
-
-          <Box>
-            <Button onClick={doDelete}>Test Delete</Button>
-          </Box>
-
           <Box
             flex='grow'
             direction='row'
