@@ -24,8 +24,8 @@ const StyledAnchor = styled(Anchor)`
 
   ${props => !props.$active && css`
     &:focus, &:hover {
-      border-bottom: 3px solid ${props => props.theme.global.colors['neutral-7']};
-      color: ${props => props.theme.global.colors['neutral-7']};
+      border-bottom: 3px solid ${props => props.theme.global.colors[props.theme.dark ? 'neutral-6' : 'neutral-7']};
+      color: ${props => props.theme.global.colors[props.theme.dark ? 'neutral-6' : 'neutral-7']};
     }
   `}
 `
@@ -52,7 +52,7 @@ function CollectTabLink({
       ref={linkRef}
       $active={active}
       aria-current={active ? 'page' : undefined}
-      color={active ? 'neutral-1' : { dark: 'neutral-6', light: 'dark-5' }}
+      color={active ? { dark: 'accent-1', light: 'neutral-1' } : { dark: 'neutral-6', light: 'dark-5' }}
       forwardedAs={Link}
       gap='8px'
       href={addQueryParams(href)}
