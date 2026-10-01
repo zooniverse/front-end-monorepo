@@ -11,8 +11,15 @@ function Line({ active = false, mark, onFinish }) {
     mark.setCoordinates(coords)
   }
 
+  // undo transform in Mark to draw line in global coordinates
+  const { x, y } = mark.coords
+  const transform = `translate(${-x}, ${-y})`
+
   return (
-    <g onPointerUp={active ? onFinish : undefined}>
+    <g 
+      onPointerUp={active ? onFinish : undefined} 
+      transform={transform}
+    >
       <line x1={x1} y1={y1} x2={x2} y2={y2} vectorEffect={'non-scaling-stroke'} />
       <line
         x1={x1}

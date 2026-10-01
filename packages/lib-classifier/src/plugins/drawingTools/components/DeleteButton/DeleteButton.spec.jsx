@@ -6,13 +6,13 @@ import { DeleteButton } from './DeleteButton'
 
 describe('Drawing tools > DeleteButton', () => {
   it('should render without crashing', function () {
-    const mark = {
+    const mockMark = {
       deleteButtonPosition: sinon.stub().returns({ x: 30, y: 20 })
     }
 
     render(
       <svg xmlns='http://www.w3.org/2000/svg'>
-        <DeleteButton label='Delete' mark={mark} />
+        <DeleteButton label='Delete' mark={mockMark} />
       </svg>
     )
 
