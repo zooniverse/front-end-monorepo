@@ -9,7 +9,7 @@ const StyledList = styled.ul`
   flex-wrap: wrap;
   width: 100%;
   padding: 0;
-  margin: 0;
+  margin: 0 0 20px;
   list-style: none;
   column-gap: 30px;
   row-gap: 30px;

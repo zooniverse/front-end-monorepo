@@ -80,6 +80,16 @@
   "Collect": {
     "title": "Collect",
     "exploreLink": "Explore all Zooniverse collections",
+    "resultsCount": "Showing {{start}}-{{end}} of {{total}} collections",
+    "hideSingleSubject": "Hide collections with only 1 subject",
+    "sortBy": "SORT BY:",
+    "sortOptions": {
+      "recentlyAdded": "Recently added",
+      "alphabeticalAscending": "Alphabetical A-Z",
+      "alphabeticalDescending": "Alphabetical Z-A",
+      "recentlyCreated": "Recently created",
+      "mostSubjects": "Most subject"
+    },
     "tabs": {
       "title": "Collection pages",
       "collections": "Collections",
