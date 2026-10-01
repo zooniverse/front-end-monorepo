@@ -19,7 +19,7 @@ function Pagination({ pageCount, page, setPage }) {
     <ThemeContext.Extend value={paginationTheme}>
       <GrommetPagination
         alignSelf='center'
-        margin={{ bottom: 'medium', top: 'medium' }}
+        margin={{ vertical: 'small' }}
         page={page}
         numberItems={pageCount}
         onChange={({ page }) => setPage(page)}
