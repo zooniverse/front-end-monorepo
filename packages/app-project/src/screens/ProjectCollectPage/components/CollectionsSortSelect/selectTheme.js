@@ -15,6 +15,9 @@ const selectTheme = {
 			background: 'brand'
 		}
 	},
+	formField: {
+		border: 'none'
+	},
 	select: {
 		control: {
 			extend: `

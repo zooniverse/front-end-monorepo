@@ -20,15 +20,15 @@ function CollectionsSortSelect({ onChange, value = 'display_name' }) {
   const selectedOption = options.find(option => option.value === normalizeCollectionSort(value))
 
   return (
-    <FormField
-      align='center'
-      direction='row'
-      gap='xsmall'
-      htmlFor='collections-sort-select'
-      label={t('Collect.sortBy')}
-      margin='none'
-    >
-      <ThemeContext.Extend value={selectTheme}>
+    <ThemeContext.Extend value={selectTheme}>
+      <FormField
+        align='center'
+        direction='row'
+        gap='xsmall'
+        htmlFor='collections-sort-select'
+        label={t('Collect.sortBy')}
+        margin='none'
+      >
         <StyledSelect
           id='collections-sort-select'
           labelKey='label'
@@ -39,8 +39,8 @@ function CollectionsSortSelect({ onChange, value = 'display_name' }) {
           value={selectedOption?.label}
           valueKey={{ key: 'label', reduce: true }}
         />
-      </ThemeContext.Extend>
-    </FormField>
+      </FormField>
+    </ThemeContext.Extend>
   )
 }
 
