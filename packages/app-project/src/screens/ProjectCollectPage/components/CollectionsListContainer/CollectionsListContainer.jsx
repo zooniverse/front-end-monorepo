@@ -1,7 +1,9 @@
-import { useContext, useEffect, useState } from 'react'
-import { arrayOf, number, shape, string } from 'prop-types'
+import { Loader } from '@zooniverse/react-components'
+import { Box } from 'grommet'
 import { MobXProviderContext } from 'mobx-react'
 import { parseAsInteger, parseAsString, useQueryState } from 'nuqs'
+import { arrayOf, number, shape, string } from 'prop-types'
+import { useContext, useEffect, useState } from 'react'
 
 import {
   DEFAULT_COLLECTION_MIN_SUBJECTS,
@@ -9,13 +11,13 @@ import {
   normalizeCollectionSort
 } from '@helpers/collectionQueryParams'
 import { useProjectCollections } from '@hooks'
+import RequireUser from '@shared/components/RequireUser/RequireUser'
+
 import CollectionsList from '../CollectionsList'
 import CollectionsToolbar from '../CollectionsToolbar'
-import Pagination from '../Pagination'
 import EmptyPlaceholder from '../Placeholders/EmptyPlaceholder'
 import ErrorPlaceholder from '../Placeholders/ErrorPlaceholder'
-import LoadingPlaceholder from '../Placeholders/LoadingPlaceholder'
-import SignInRequiredPlaceholder from '../Placeholders/SignInRequiredPlaceholder'
+import Pagination from '../Pagination'
 
 function CollectionsListContainer({
   activeTab,
@@ -113,28 +115,23 @@ function CollectionsListContainer({
     setUrlPage(1)
     setUrlSort(normalizeCollectionSort(nextSort))
   }
+  
+  let placeholder
+  if (isUserScoped && !isLoggedIn) placeholder = <RequireUser />
+  else if (error) placeholder = <ErrorPlaceholder />
+  else if (loading || !data) placeholder = <Loader />
+  else if (!data.collections.length) placeholder = <EmptyPlaceholder />
 
-  if (isUserScoped && !isLoggedIn) return <SignInRequiredPlaceholder />
-  if (error) return <ErrorPlaceholder />
-  if (isLoading || !data) return <LoadingPlaceholder />
-
-  const toolbar = (
-    <CollectionsToolbar
-      count={data.count}
-      minSubjects={minSubjects}
-      onMinSubjectsChange={handleMinSubjectsChange}
-      onSortChange={handleSortChange}
-      page={validPage}
-      sort={sort}
-    />
-  )
-
-  if (!data.collections.length) {
+  if (placeholder) {
     return (
-      <>
-        {toolbar}
-        <EmptyPlaceholder />
-      </>
+      <Box
+        align='center' 
+        justify='center' 
+        height={{ min: '50vh' }} 
+        pad='large'
+      >
+        {placeholder}
+      </Box>
     )
   }
 
@@ -143,6 +140,17 @@ function CollectionsListContainer({
       pageCount={data.pageCount}
       page={validPage}
       setPage={setUrlPage}
+    />
+  )
+      
+  const toolbar = (
+    <CollectionsToolbar
+      count={data.count}
+      minSubjects={minSubjects}
+      onMinSubjectsChange={handleMinSubjectsChange}
+      onSortChange={handleSortChange}
+      page={validPage}
+      sort={sort}
     />
   )
 
