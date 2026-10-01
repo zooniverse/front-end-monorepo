@@ -7,6 +7,11 @@ import fetchProjectPageTitles from '@helpers/fetchProjectPageTitles'
 import fetchTranslations from '@helpers/fetchTranslations'
 import getServerSideAPIHost from '@helpers/getServerSideAPIHost'
 import initStore from '@stores'
+import {
+  COLLECTIONS_PAGE_SIZE,
+  normalizeCollectionMinSubjects,
+  normalizeCollectionSort
+} from '@helpers/collectionQueryParams'
 
 const environment = process.env.APP_ENV
 
@@ -16,8 +21,6 @@ const HOSTS = {
 }
 
 const host = HOSTS[environment] || 'https://localhost:3000'
-const PAGE_SIZE = 20
-
 export default async function getProjectCollectPageProps({
   locale,
   params,
@@ -26,6 +29,8 @@ export default async function getProjectCollectPageProps({
 }) {
   const parsedPage = Number(searchParams.page)
   const page = Number.isInteger(parsedPage) && parsedPage > 0 ? parsedPage : 1
+  const minSubjects = normalizeCollectionMinSubjects(searchParams.min_subjects)
+  const sort = normalizeCollectionSort(searchParams.sort)
   const isServer = true
   const store = initStore(isServer)
   const env = params.panoptesEnv
@@ -83,7 +88,9 @@ export default async function getProjectCollectPageProps({
         projectDisplayName: strings.display_name,
         projectSlug,
         loginParam,
-        initialPage: page
+        initialPage: page,
+        initialMinSubjects: minSubjects,
+        initialSort: sort
       }
     }
   }
@@ -96,11 +103,11 @@ export default async function getProjectCollectPageProps({
   const query = {
     env,
     favorite: activeTab === 'favorites',
-    min_subjects: 2,
+    min_subjects: minSubjects,
     page,
-    page_size: PAGE_SIZE,
+    page_size: COLLECTIONS_PAGE_SIZE,
     project_ids: [projectData.id],
-    sort: 'display_name'
+    sort
   }
   const { headers, host: apiHost } = getServerSideAPIHost(env)
   const response = await panoptes.get('/collections', query, headers, apiHost)
@@ -115,8 +122,11 @@ export default async function getProjectCollectPageProps({
       projectDisplayName: strings.display_name,
       projectSlug,
       collections: projectCollections,
+      collectionCount: response?.body?.meta?.collections?.count ?? 0,
       pageCount: response?.body?.meta?.collections?.page_count ?? 1,
-      initialPage: page
+      initialPage: page,
+      initialMinSubjects: minSubjects,
+      initialSort: sort
     }
   }
 }
