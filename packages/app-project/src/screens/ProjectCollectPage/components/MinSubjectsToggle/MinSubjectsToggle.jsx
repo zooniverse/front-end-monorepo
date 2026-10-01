@@ -47,7 +47,7 @@ function MinSubjectsToggle({ checked = true, onChange }) {
       <StyledCheckBox
         checked={checked}
         label={
-          <Text color='dark-5' size='14px'>
+          <Text size='0.875rem'>
             {t('Collect.hideSingleSubject')}
           </Text>
         }

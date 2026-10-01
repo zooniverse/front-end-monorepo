@@ -10,7 +10,7 @@ export function Default(args) {
 }
 
 Default.args = {
-  count: 888,
+  count: 123,
   minSubjects: 2,
   onMinSubjectsChange: () => {},
   onSortChange: () => {},

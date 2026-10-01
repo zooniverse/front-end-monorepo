@@ -12,9 +12,7 @@ function CollectionsResultCount({ count = 0, page = 1, pageSize = COLLECTIONS_PA
 
   return (
     <Text
-      alignSelf='center'
-      color='dark-3'
-      size='12px'
+      size='0.75rem'
     >
       {t('Collect.resultsCount', { start, end, total })}
     </Text>
