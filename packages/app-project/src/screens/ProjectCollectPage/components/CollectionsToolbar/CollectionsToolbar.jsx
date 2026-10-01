@@ -1,6 +1,5 @@
-import { Box, Text } from 'grommet'
+import { Box } from 'grommet'
 import { func, number, string } from 'prop-types'
-import { useTranslation } from 'next-i18next/pages'
 
 import CollectionsResultCount from '../CollectionsResultCount'
 import CollectionsSortSelect from '../CollectionsSortSelect'
@@ -14,8 +13,6 @@ function CollectionsToolbar({
   page = 1,
   sort = 'display_name'
 }) {
-  const { t } = useTranslation('screens')
-
   return (
     <Box
       align='end'
@@ -40,10 +37,7 @@ function CollectionsToolbar({
           checked={minSubjects >= 2}
           onChange={onMinSubjectsChange}
         />
-        <Box align='center' direction='row' gap='xsmall'>
-          <Text>{t('Collect.sortBy')}</Text>
-          <CollectionsSortSelect onChange={onSortChange} value={sort} />
-        </Box>
+        <CollectionsSortSelect onChange={onSortChange} value={sort} />
       </Box>
     </Box>
   )
