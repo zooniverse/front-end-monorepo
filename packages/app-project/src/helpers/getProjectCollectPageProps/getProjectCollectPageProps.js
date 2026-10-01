@@ -16,8 +16,16 @@ const HOSTS = {
 }
 
 const host = HOSTS[environment] || 'https://localhost:3000'
+const PAGE_SIZE = 20
 
-export default async function getProjectCollectPageProps({ locale, params, activeTab }) {
+export default async function getProjectCollectPageProps({
+  locale,
+  params,
+  activeTab,
+  searchParams = {}
+}) {
+  const parsedPage = Number(searchParams.page)
+  const page = Number.isInteger(parsedPage) && parsedPage > 0 ? parsedPage : 1
   const isServer = true
   const store = initStore(isServer)
   const env = params.panoptesEnv
@@ -74,7 +82,8 @@ export default async function getProjectCollectPageProps({ locale, params, activ
         activeTab,
         projectDisplayName: strings.display_name,
         projectSlug,
-        loginParam
+        loginParam,
+        initialPage: page
       }
     }
   }
@@ -88,12 +97,14 @@ export default async function getProjectCollectPageProps({ locale, params, activ
     env,
     favorite: activeTab === 'favorites',
     min_subjects: 2,
-    page_size: 20,
+    page,
+    page_size: PAGE_SIZE,
     project_ids: [projectData.id],
     sort: 'display_name'
   }
   const { headers, host: apiHost } = getServerSideAPIHost(env)
   const response = await panoptes.get('/collections', query, headers, apiHost)
+  const projectCollections = response?.body?.collections ?? []
 
   return {
     notFound: false,
@@ -103,7 +114,9 @@ export default async function getProjectCollectPageProps({ locale, params, activ
       activeTab,
       projectDisplayName: strings.display_name,
       projectSlug,
-      collections: response?.body?.collections ?? []
+      collections: projectCollections,
+      pageCount: response?.body?.meta?.collections?.page_count ?? 1,
+      initialPage: page
     }
   }
 }
