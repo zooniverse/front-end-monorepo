@@ -47,9 +47,6 @@ const ViewModeButton = ({ smallScreenStyle }) => {
     : t(
         'SubjectViewer.SeparateFramesViewer.ViewModeButton.switchToSeparateFrames'
       )
-  const onClick = () => {
-    setSeparateFramesView(!separateFramesView)
-  }
 
   return (
     <Button
@@ -58,16 +55,17 @@ const ViewModeButton = ({ smallScreenStyle }) => {
       icon={
         separateFramesView ? (
           <SwitchToFlipbook
+            onClick={() => setSeparateFramesView(false)}
             size={smallScreenStyle ? '20px' : 'medium'}
           />
         ) : (
           <SwitchToSeparateFrames
+            onClick={() => setSeparateFramesView(true)}
             size={smallScreenStyle ? '20px' : 'medium'}
           />
         )
       }
       style={{ width: 'fit-content' }}
-      onClick={onClick}
     />
   )
 }
