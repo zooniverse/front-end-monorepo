@@ -12,7 +12,8 @@ import {
 
 import {
   deletePanoptesMembership,
-  getDateInterval
+  getDateInterval,
+  getHrefWithLocale
 } from '@utils'
 
 import {
@@ -41,7 +42,8 @@ function GroupStats({
   setSelectedDateRange = DEFAULT_HANDLER,
   setSelectedProject = DEFAULT_HANDLER
 }) {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+  const locale = i18n.language
   const [groupModalActive, setGroupModalActive] = useState(false)
 
   const size = useContext(ResponsiveContext)
@@ -163,7 +165,7 @@ function GroupStats({
       revalidate: true
     })
 
-    window.location.href = '/'
+    window.location.href = getHrefWithLocale('/', locale)
   }
 
   // get header items based on user, group, and membership
@@ -173,11 +175,12 @@ function GroupStats({
     group,
     handleGroupMembershipLeave,
     handleGroupModalActive,
+    locale,
     membership,
     t
   })
 
-  const linkProps={ href: `/groups/${group?.id}/projects` }
+  const linkProps={ href: getHrefWithLocale(`/groups/${group?.id}/projects`, locale) }
 
   const error = statsError || projectStatsError || projectsError
   const loading = statsLoading || projectStatsLoading || projectsLoading

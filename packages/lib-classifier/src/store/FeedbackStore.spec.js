@@ -150,6 +150,67 @@ describe('Model > FeedbackStore', function () {
         expect(helpers.generateRules.withArgs(subject, workflow)).to.have.been.calledOnce
         expect(feedback.rules.toJSON()).to.deep.equal(rulesStub)
       })
+
+      describe('with a strategy that loads on demand', function () {
+        let resolveLoad
+        const loadingWorkflow = WorkflowFactory.build({
+          tasks: {
+            T0: {
+              type: 'geoDrawing',
+              feedback: {
+                enabled: true,
+                rules: [{ id: 'dam', strategy: 'loadingStrategy', successEnabled: true }]
+              }
+            }
+          }
+        })
+
+        before(function () {
+          strategies.loadingStrategy = {
+            load: sinon.stub().callsFake(() => new Promise(resolve => { resolveLoad = resolve })),
+            reducer: sinon.stub().callsFake(rule => rule)
+          }
+        })
+
+        beforeEach(function () {
+          rootStore.workflows.setResources([loadingWorkflow])
+          rootStore.workflows.setActive(loadingWorkflow.id)
+          rootStore.subjects.setResources([subject])
+          rootStore.subjects.setActive(subject.id)
+          strategies.loadingStrategy.load.resetHistory()
+        })
+
+        after(function () {
+          delete strategies.loadingStrategy
+        })
+
+        it('should not set rules until the strategy has loaded', async function () {
+          const pending = feedback.createRules(subject)
+          expect(strategies.loadingStrategy.load).to.have.been.calledOnce
+          expect(feedback.rules.size).to.equal(0)
+          resolveLoad()
+          await pending
+          expect(feedback.rules.toJSON()).to.deep.equal(rulesStub)
+        })
+
+        it('should load each strategy once per subject', async function () {
+          const pending = feedback.createRules(subject)
+          resolveLoad()
+          await pending
+          expect(strategies.loadingStrategy.load).to.have.been.calledOnce
+        })
+
+        it('should drop the rules if the subject changed while loading', async function () {
+          const nextSubject = Factory.build('subject')
+          rootStore.subjects.setResources([subject, nextSubject])
+          const pending = feedback.createRules(subject)
+          rootStore.subjects.setActive(nextSubject.id)
+          feedback.reset()
+          resolveLoad()
+          await pending
+          expect(feedback.rules.size).to.equal(0)
+        })
+      })
     })
 
     describe('update', function () {

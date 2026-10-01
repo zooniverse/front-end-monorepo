@@ -1,11 +1,13 @@
 import { useRef, useState } from 'react'
-import { Anchor, Box, Form, FormField, Heading, Paragraph, TextInput } from 'grommet'
+import { Anchor, Box, Form, Heading, Paragraph, TextInput } from 'grommet'
 import { Trans, useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 import { bool } from 'prop-types'
 import { Loader, StatusMessage } from '@zooniverse/react-components'
+
 import doUnsubscribe from '../../helpers/doUnsubscribe'
 import DarkTealPrimaryButton from '../DarkTealPrimaryButton/DarkTealPrimaryButton'
+import getHrefWithLocale from '@utils/getHrefWithLocale'
 
 const ProcessedStateBox = styled(Box)`
   border-radius: 16px;
@@ -48,7 +50,8 @@ const ReadyStateInputBox = styled(Box)`
 function UnsubscribeForm ({
   processed = false,  // If processed is true, it means user was sent here from the Panoptes /unsubscribe route. Immediately show the "Unsubscribe successful!" message.
 }) {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+  const locale = i18n.language
   const [isBusy, setIsBusy] = useState(false)
   const [isError, setIsError] = useState(false)
   const [isComplete, setIsComplete] = useState(processed)
@@ -98,7 +101,7 @@ function UnsubscribeForm ({
                 components={[
                   <Anchor
                     key='email-preferences'
-                    href='/setting/email'
+                    href={getHrefWithLocale('/settings/email', locale)}
                   />
                 ]}
               />

@@ -6,6 +6,7 @@ import styled, { css } from 'styled-components'
 import { useTranslation } from 'react-i18next'
 
 import { TitledStat } from '@components/shared'
+import { getHrefWithLocale } from '@utils'
 
 const StyledListItem = styled.li`
   border-radius: 8px;
@@ -52,11 +53,13 @@ function GroupCard({
   projects = 0,
   role = ''
 }) {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+  const locale = i18n.language
+
   return (
     <StyledListItem>
       <StyledLink
-        href={`/groups/${id}`}
+        href={getHrefWithLocale(`/groups/${id}`, locale)}
       >
         <Box
           pad='20px'

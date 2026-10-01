@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import {
   deletePanoptesUserGroup,
+  getHrefWithLocale,
   updatePanoptesUserGroup
 } from '@utils'
 
@@ -19,7 +20,9 @@ function GroupUpdateFormContainer({
   handleGroupModalActive = DEFAULT_HANDLER,
   login
 }) {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+  const locale = i18n.language
+
   const { trigger: updateGroup } = useSWRMutation({
     adminMode,
     authUserId,
@@ -33,7 +36,7 @@ function GroupUpdateFormContainer({
         await alert(`${t('GroupStats.GroupUpdateFormContainer.error')} \n ${deleteResponse?.statusText}`)
         return console.error(deleteResponse)
       } else {
-        window.location.href = `/users/${login}/groups`
+        window.location.href = getHrefWithLocale(`/users/${login}/groups`, locale)
       }
     } catch (error) {
       console.error(error)
