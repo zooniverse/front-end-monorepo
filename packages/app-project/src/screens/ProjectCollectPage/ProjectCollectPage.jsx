@@ -11,8 +11,11 @@ import CollectionsListContainer from './components/CollectionsListContainer'
 function ProjectCollectPage({
   activeTab,
   collections,
+  collectionCount,
   pageCount,
   initialPage,
+  initialMinSubjects,
+  initialSort,
   loginParam,
   projectDisplayName,
   projectSlug
@@ -35,8 +38,11 @@ function ProjectCollectPage({
           <CollectionsListContainer
             activeTab={activeTab}
             collections={collections}
+            collectionCount={collectionCount}
             pageCount={pageCount}
             initialPage={initialPage}
+            initialMinSubjects={initialMinSubjects}
+            initialSort={initialSort}
             loginParam={loginParam}
           />
         </Box>
@@ -48,8 +54,11 @@ function ProjectCollectPage({
 ProjectCollectPage.propTypes = {
   activeTab: string.isRequired,
   collections: arrayOf(shape({})),
+  collectionCount: number,
   pageCount: number,
   initialPage: number,
+  initialMinSubjects: number,
+  initialSort: string,
   loginParam: string,
   projectDisplayName: string.isRequired,
   projectSlug: string.isRequired
