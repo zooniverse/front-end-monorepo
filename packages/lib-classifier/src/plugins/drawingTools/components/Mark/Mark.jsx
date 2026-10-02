@@ -139,7 +139,8 @@ const Mark = forwardRef(function Mark(
   }
 
   function onPointerUp() {
-    onSelect(mark)
+    // focus the mark, if it isn't already focused.
+    focusMark(markRoot.current)
     if (usesSubTasks) {
       openSubTaskPopup()
     }
