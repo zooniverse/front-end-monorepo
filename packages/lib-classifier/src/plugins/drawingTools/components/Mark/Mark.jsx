@@ -91,9 +91,7 @@ const Mark = forwardRef(function Mark(
 
   useEffect(function onFinishMarkWithSubTasks() {
     /*
-    This runs for all drawn marks in the classification when we finish
-    creating a new mark.
-    usesSubTasks flips from false => true when a mark is
+    This runs for a new mark when it is:
       - finished.
       - valid.
       - has subtasks.
@@ -106,8 +104,10 @@ const Mark = forwardRef(function Mark(
 
   useEffect(function onCloseSubTasks() {
     /* 
-    This runs for each drawn mark when the subtask popup is closed.
-    Return keyboard focus to the mark that opened the popup.
+    Return keyboard focus to the active mark
+    when the subtask popup is closed.
+    NB. this may fail when there are multiple active marks
+    eg. in the separate frames viewer.
     */
     if (isActive && mark.usesSubTasks && !mark.subTaskVisibility) {
       focusMark(markRoot.current)
