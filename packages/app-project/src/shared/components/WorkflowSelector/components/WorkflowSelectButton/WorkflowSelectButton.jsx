@@ -14,6 +14,7 @@ export const ThemedButton = withThemeContext(Button, theme)
 
 function WorkflowSelectButton ({
   disabled = false,
+  externalWorkflowEnabled = false,
   router,
   workflow,
   ...rest
@@ -31,6 +32,9 @@ function WorkflowSelectButton ({
   let workflowStatus = workflow.grouped ? t('WorkflowSelector.WorkflowSelectButton.setSelection') : ''
   // indexed workflows use subject selection
   workflowStatus = workflow.hasIndexedSubjects ? t('WorkflowSelector.WorkflowSelectButton.subjectSelection') : workflowStatus
+  // external workflows show a departure screen instead of the classifier
+  const isExternalWorkflow = externalWorkflowEnabled && !!workflow.configuration?.external_workflow_url?.trim()
+  workflowStatus = isExternalWorkflow ? t('WorkflowSelector.WorkflowSelectButton.externalWorkflow') : workflowStatus
 
   const label = (
     <span>
@@ -76,6 +80,8 @@ function WorkflowSelectButton ({
 
 WorkflowSelectButton.propTypes = {
   disabled: bool,
+  /** True if the project has the external workflow experimental tool. */
+  externalWorkflowEnabled: bool,
   /**
     Optional custom router. Overrides the default NextJS.
     Useful for mocking the router in stories and shallow tests.
