@@ -70,9 +70,9 @@ const Mark = forwardRef(function Mark(
   const markRoot = ref ?? useRef()
   const { tool } = mark
   const mainStyle = {
-    color: tool && tool.color ? tool.color : 'green',
+    color: tool?.color ?? 'green',
     fill: 'transparent',
-    stroke: tool && tool.color ? tool.color : 'green'
+    stroke: tool?.color ?? 'green'
   }
   const focusColor = theme?.global.colors[theme?.global.colors.focus]
 
