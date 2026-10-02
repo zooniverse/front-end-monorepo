@@ -47,10 +47,9 @@ const ViewModeButton = ({ smallScreenStyle }) => {
     : t(
         'SubjectViewer.SeparateFramesViewer.ViewModeButton.switchToSeparateFrames'
       )
-
-const onClick = () => {
-  setSeparateFramesView(!separateFramesView)
-}
+  const onClick = () => {
+    setSeparateFramesView(!separateFramesView)
+  }
 
   return (
     <Button
