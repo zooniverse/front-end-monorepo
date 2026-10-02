@@ -52,12 +52,7 @@ function Ellipse({
             vectorEffect={'non-scaling-stroke'}
           />
           <DragHandle dragMove={onXHandleDrag} x={rx} y={0} />
-          <DragHandle
-            dragMove={onYHandleDrag}
-            dragEnd={mark.finish}
-            x={0}
-            y={-1 * ry}
-          />
+          <DragHandle dragMove={onYHandleDrag} x={0} y={-1 * ry} />
         </g>
       )}
     </g>

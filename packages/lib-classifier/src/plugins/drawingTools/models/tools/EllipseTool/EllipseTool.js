@@ -21,7 +21,7 @@ const EllipseTool = types
     },
 
     handlePointerUp(event, mark) {
-      mark.setDragging(false)
+      mark.finish()
     }
   }))
 

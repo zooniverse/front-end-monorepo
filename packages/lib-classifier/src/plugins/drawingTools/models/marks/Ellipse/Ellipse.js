@@ -5,6 +5,7 @@ import { EllipseTool } from '@plugins/drawingTools/models/tools'
 import Mark from '../Mark'
 
 const BUFFER = 24
+const DEFAULT_SQUASH = 1 / 2
 const DELETE_BUTTON_ANGLE = -45
 const MINIMUM_RADIUS = 5
 
@@ -16,9 +17,6 @@ const EllipseModel = types
     ry: types.optional(types.number, 0),
     angle: types.optional(types.number, 0)
   })
-  .volatile(self => ({
-    dragging: false,
-  }))
   .views((self) => ({
     get coords() {
       return {
@@ -59,19 +57,15 @@ const EllipseModel = types
   }))
   .actions((self) => ({
     initialDrag({ x, y }) {
-      if (self.dragging) {
-        const rx = self.getDistance(self.x_center, self.y_center, x, y)
-        const angle = self.getAngle(self.x_center, self.y_center, x, y)
-        self.rx = rx
-        self.ry = rx * 0.0001
-        self.angle = angle
-      }
+      const rx = self.getDistance(self.x_center, self.y_center, x, y)
+      self.rx = rx
+      self.ry = rx * DEFAULT_SQUASH
+      self.angle = self.getAngle(self.x_center, self.y_center, x, y)
     },
 
     initialPosition({ x, y }) {
       self.x_center = x
       self.y_center = y
-      self.dragging = true
     },
 
     move({ x, y }) {
@@ -85,10 +79,6 @@ const EllipseModel = types
       self.rx = rx
       self.ry = ry
       self.angle = angle
-    },
-
-    setDragging(dragging) {
-      self.dragging = dragging
     }
   }))
 
