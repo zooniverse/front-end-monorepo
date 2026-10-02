@@ -1,7 +1,7 @@
-import useSWR from 'swr'
 import { collections } from '@zooniverse/panoptes-js'
+import useSWR from 'swr'
 
-import { usePanoptesAuth } from '@hooks'
+import usePanoptesAuthToken from '@hooks/usePanoptesAuthToken'
 
 const SWRoptions = {
   revalidateIfStale: true,
@@ -11,21 +11,28 @@ const SWRoptions = {
   refreshInterval: 0
 }
 
-async function fetchProjectCollections({ authorization, query }) {
+async function fetchProjectCollections({ query, token }) {
+  const authorization = token ? `Bearer ${token}` : undefined
+  
   const response = await collections.get({ authorization, query })
   return response?.body?.collections ?? []
 }
 
 export default function useProjectCollections({ favorite, login, projectId }) {
-  const authorization = usePanoptesAuth()
+  const token = usePanoptesAuthToken()
+
   const query = {
     favorite,
     min_subjects: 2,
-    owner: login,
     project_ids: [projectId],
     sort: 'display_name'
   }
-  const key = authorization && projectId && login ? { authorization, query } : null
+  if (login) query.owner = login
+  
+  let key = null
+  if (projectId && (!login || token)) {
+    key = { query, token }
+  }
 
   return useSWR(key, fetchProjectCollections, SWRoptions)
 }

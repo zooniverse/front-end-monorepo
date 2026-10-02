@@ -1,22 +1,23 @@
 import { Loader } from '@zooniverse/react-components'
 import { Box } from 'grommet'
 import { MobXProviderContext } from 'mobx-react'
-import { arrayOf, shape, string } from 'prop-types'
+import { string } from 'prop-types'
 import { useContext } from 'react'
 
 import { useProjectCollections } from '@hooks'
 import RequireUser from '@shared/components/RequireUser/RequireUser'
+import PanoptesAuthContext from '@shared/contexts/PanoptesAuthContext.js'
 
 import CollectionsList from '../CollectionsList'
 import EmptyPlaceholder from '../Placeholders/EmptyPlaceholder'
 import ErrorPlaceholder from '../Placeholders/ErrorPlaceholder'
 
-function CollectionsListContainer({ activeTab, collections, loginParam }) {
+function CollectionsListContainer({ activeTab, loginParam }) {
   const { store } = useContext(MobXProviderContext)
-  const { isLoggedIn } = store.user
+  const { isLoading: isUserLoading, user } = useContext(PanoptesAuthContext)
   const isUserScoped = !!loginParam
   const {
-    data: userCollections,
+    data,
     error,
     isLoading
   } = useProjectCollections({
@@ -24,11 +25,10 @@ function CollectionsListContainer({ activeTab, collections, loginParam }) {
     login: loginParam,
     projectId: store?.project?.id
   })
-  const data = isUserScoped ? userCollections : collections
-  const loading = isUserScoped && isLoading
+  const loading = isUserLoading || isLoading
 
   let placeholder
-  if (isUserScoped && !isLoggedIn) placeholder = <RequireUser />
+  if (isUserScoped && !isUserLoading && !user?.id) placeholder = <RequireUser />
   else if (error) placeholder = <ErrorPlaceholder />
   else if (loading || !data) placeholder = <Loader />
   else if (!data.length) placeholder = <EmptyPlaceholder />
@@ -51,7 +51,6 @@ function CollectionsListContainer({ activeTab, collections, loginParam }) {
 
 CollectionsListContainer.propTypes = {
   activeTab: string.isRequired,
-  collections: arrayOf(shape({})),
   loginParam: string
 }
 

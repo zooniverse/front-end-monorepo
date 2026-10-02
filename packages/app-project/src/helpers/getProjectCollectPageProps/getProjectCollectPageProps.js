@@ -1,11 +1,9 @@
 import { applySnapshot, getSnapshot } from 'mobx-state-tree'
-import { panoptes } from '@zooniverse/panoptes-js'
 
 import fetchLinkedOrganizations from '@helpers/fetchLinkedOrganizations'
 import fetchProjectData from '@helpers/fetchProjectData'
 import fetchProjectPageTitles from '@helpers/fetchProjectPageTitles'
 import fetchTranslations from '@helpers/fetchTranslations'
-import getServerSideAPIHost from '@helpers/getServerSideAPIHost'
 import initStore from '@stores'
 
 const environment = process.env.APP_ENV
@@ -59,41 +57,7 @@ export default async function getProjectCollectPageProps({ locale, params, activ
     organizations: linkedOrganizations
   }
 
-  /*
-    If params.login is defined, then we're viewing a user's
-    My Favorites or My Collections, which will require user authentication, 
-    so return and let the client request collections data
-  */
-  const loginParam = params.login
-  if (loginParam) {
-    return {
-      notFound: false,
-      props: {
-        host,
-        initialState,
-        activeTab,
-        projectDisplayName: strings.display_name,
-        projectSlug,
-        loginParam
-      }
-    }
-  }
-
-  /*
-    If params.login is not defined, then we're viewing the
-    general Favorites or Collections page, so we can fetch
-    collections data server-side.
-  */
-  const query = {
-    env,
-    favorite: activeTab === 'favorites',
-    min_subjects: 2,
-    page_size: 20,
-    project_ids: [projectData.id],
-    sort: 'display_name'
-  }
-  const { headers, host: apiHost } = getServerSideAPIHost(env)
-  const response = await panoptes.get('/collections', query, headers, apiHost)
+  const loginParam = params?.login ?? null
 
   return {
     notFound: false,
@@ -103,7 +67,7 @@ export default async function getProjectCollectPageProps({ locale, params, activ
       activeTab,
       projectDisplayName: strings.display_name,
       projectSlug,
-      collections: response?.body?.collections ?? []
+      loginParam
     }
   }
 }
