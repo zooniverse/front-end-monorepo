@@ -13,6 +13,34 @@ const StyledNav = styled(Nav)`
   justify-content: safe center;
   overflow-x: auto;
   white-space: nowrap;
+
+  // on a small screen width, allow the nav to align to the exact edge of the screen
+  align-self: stretch;
+  margin-left: -20px;
+  margin-right: -20px;
+  max-width: none;
+
+  > :first-child {
+    margin-left: 20px;
+  }
+
+  > :last-child {
+    margin-right: 20px;
+  }
+
+  // larger than a small screen width
+  @media (min-width: 48rem) {
+    margin-left: 0;
+    margin-right: 0;
+
+    > :first-child {
+      margin-left: 0;
+    }
+
+    > :last-child {
+      margin-right: 0;
+    }
+  }
 `
 
 const StyledLoggedInTabs = styled(Box)`
