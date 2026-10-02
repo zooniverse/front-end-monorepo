@@ -51,21 +51,21 @@ describe('feedback geo line reducer', function () {
     expect(rule.successfulClassifications).to.deep.equal([])
   })
 
-  describe('with several dams in one target', function () {
-    function multiRule () {
-      return {
-        coordinates: [
-          [[-91.0, 48.0], [-90.99, 48.0]],
-          [[-91.0, 47.99], [-90.99, 47.99]]
-        ],
-        id: 'dam-crest',
-        strategy: 'geoLine',
-        successEnabled: true,
-        successMessage: 'Success!',
-        tolerance: '20'
-      }
+  function multiRule () {
+    return {
+      coordinates: [
+        [[-91.0, 48.0], [-90.99, 48.0]],
+        [[-91.0, 47.99], [-90.99, 47.99]]
+      ],
+      id: 'dam-crest',
+      strategy: 'geoLine',
+      successEnabled: true,
+      successMessage: 'Success!',
+      tolerance: '20'
     }
+  }
 
+  describe('with several dams in one target', function () {
     it('should succeed for a trace on either dam', function () {
       expect(geoLineReducer(multiRule(), collection([lineString([[-91.0, 48.0], [-90.99, 48.0]])])).success).to.be.true
       expect(geoLineReducer(multiRule(), collection([lineString([[-91.0, 47.99], [-90.99, 47.99]])])).success).to.be.true
@@ -76,8 +76,22 @@ describe('feedback geo line reducer', function () {
     })
   })
 
-  it('should ignore Point features', function () {
-    expect(geoLineReducer(buildRule(), collection([point([-91.0, 48.0])])).success).to.be.false
+  describe('with a Point mark', function () {
+    it('should succeed for a point on the target line', function () {
+      const rule = geoLineReducer(buildRule(), collection([point([-91.0, 48.0])]))
+      expect(rule.success).to.be.true
+      expect(rule.successfulClassifications).to.deep.equal([{ coordinates: [-91.0, 48.0], type: 'Point' }])
+    })
+
+    it('should fail for a point outside the corridor', function () {
+      expect(geoLineReducer(buildRule(), collection([point([-91.0, 48.0005])])).success).to.be.false
+    })
+
+    it('should succeed for a point on any one of several dams in one target', function () {
+      expect(geoLineReducer(multiRule(), collection([point([-91.0, 48.0])])).success).to.be.true
+      expect(geoLineReducer(multiRule(), collection([point([-90.99, 47.99])])).success).to.be.true
+      expect(geoLineReducer(multiRule(), collection([point([-91.0, 47.95])])).success).to.be.false
+    })
   })
 
   it('should fail for an empty FeatureCollection and a null value', function () {

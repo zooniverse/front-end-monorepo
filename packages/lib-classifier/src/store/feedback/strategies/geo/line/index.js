@@ -9,6 +9,6 @@ export default {
   geometry,
   id: 'geoLine',
   load: grader.load,
-  reducer: createGeoReducer(geometry, ['LineString']),
+  reducer: createGeoReducer(geometry, ['LineString', 'Point']),
   title: 'Geo Line'
 }
