@@ -75,7 +75,6 @@ const Mark = forwardRef(function Mark(
     stroke: tool && tool.color ? tool.color : 'green'
   }
   const focusColor = theme?.global.colors[theme?.global.colors.focus]
-  const usesSubTasks = mark.finished && mark.isValid && mark.tasks.length > 0
 
   function openSubTaskPopup() {
     if (!mark.subTaskVisibility) {
@@ -100,20 +99,20 @@ const Mark = forwardRef(function Mark(
       - has subtasks.
     When all three are true, the subtask popup opens automatically.
     */
-    if (usesSubTasks) {
+    if (mark.usesSubTasks) {
       openSubTaskPopup()
     }
-  }, [usesSubTasks])
+  }, [mark.usesSubTasks])
 
   useEffect(function onCloseSubTasks() {
     /* 
     This runs for each drawn mark when the subtask popup is closed.
     Return keyboard focus to the mark that opened the popup.
     */
-    if (isActive && usesSubTasks && !mark.subTaskVisibility) {
+    if (isActive && mark.usesSubTasks && !mark.subTaskVisibility) {
       focusMark(markRoot.current)
     }
-  }, [usesSubTasks, isActive, mark.subTaskVisibility])
+  }, [mark.usesSubTasks, isActive, mark.subTaskVisibility])
 
   function onKeyDown(event) {
     switch (event.key) {
@@ -141,7 +140,7 @@ const Mark = forwardRef(function Mark(
   function onPointerUp() {
     // focus the mark, if it isn't already focused.
     focusMark(markRoot.current)
-    if (usesSubTasks) {
+    if (mark.usesSubTasks) {
       openSubTaskPopup()
     }
   }
@@ -207,6 +206,7 @@ Mark.propTypes = {
     tool: PropTypes.shape({
       color: PropTypes.string
     }),
+    usesSubTasks: PropTypes.bool,
     x: PropTypes.number,
     x_rotate: PropTypes.number,
     y: PropTypes.number,
