@@ -123,7 +123,7 @@ function ProfileAvatarForm ({
         >
           <Box>
             {userAvatar 
-              ? <img src={userAvatar?.src} />
+              ? <img style={{ maxWidth: '200px', margin: '0 auto' }} src={userAvatar?.src} />
               : <p>No avatar</p>
             }
           </Box>
