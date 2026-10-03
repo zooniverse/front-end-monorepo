@@ -7,6 +7,7 @@ import { shape, string } from 'prop-types'
 import { Loader, StatusMessage } from '@zooniverse/react-components'
 
 import useUserMedia from '../../helpers/useUserMedia'
+import uploadUserMedia from '../../helpers/uploadUserMedia'
 import deleteUserMedia from '../../helpers/deleteUserMedia'
 
 const FormFieldsContainer = styled(Box)`
@@ -39,25 +40,30 @@ function ProfileAvatarForm ({
   async function onSubmit () {
     // TODO
     console.log('+++ ⬆️ Submit')
-
-    return
-
-    // TODO 
     
     const selectedFile = fileInputRef.current?.files?.[0]
-    const formData = new FormData()
-    formData.append('avatar', selectedFile)
+    if (!selectedFile) { return }
 
-    const response = await fetch(
-      `${PANOPTES_API_URL}/users/${authUser.id}/avatar`,
-      {
-        method: 'PUT', // Confirm the method and endpoint with the API contract.
-        headers: { Authorization: `Bearer ${token}` },
-        body: formData
+    try {
+      setIsSaving(true)
+      setSaveSuccess(false)
+      setSaveError(null)
+
+      const uploadResult = await uploadUserMedia(authUser?.id, 'avatar', selectedFile)
+      if (!uploadResult) {
+        throw new Error('Failed to upload user avatar')  // TODO: translations
       }
-    )
 
-    // TODO
+      setIsSaving(false)
+      setSaveSuccess(true)
+      setSaveError(null)
+
+    } catch (err) {
+      console.error(err)
+      setIsSaving(false)
+      setSaveSuccess(false)
+      setSaveError(err?.response?.body || err)
+    }
 
   }
 

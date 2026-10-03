@@ -104,6 +104,12 @@ mutate(prevData => {
 
 For future work, consider using [`useSWRMutation()`](https://swr.vercel.app/docs/mutation#useswrmutation) if we really, really want to sync our local data to whatever Panoptes responds with.
 
+## uploadUserMedia()
+
+Function for _uploading_ (or replacing) Panoptes user data related to _media files._ (Either the Profile Avatar or Profile Header.)
+
+TODO
+
 ## deleteUserMedia()
 
 Function for _deleting_ Panoptes user data related to _media files._ (Either the Profile Avatar or Profile Header.)
