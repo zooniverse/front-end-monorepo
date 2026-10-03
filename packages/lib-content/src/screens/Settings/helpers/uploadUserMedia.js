@@ -18,7 +18,7 @@ const VALID_MEDIA_TYPES = ['avatar', 'profile_header']
 
 async function uploadUserMedia(userId, mediaType, file) {
 
-  // Step 0: Initial sanity checks.
+  // Step 1: Initialisation and sanity checks.
 
   if (!VALID_MEDIA_TYPES.includes(mediaType)) {
     throw new Error(`Invalid mediaType: ${mediaType}. Must be one of: ${VALID_MEDIA_TYPES.join(', ')}`)
@@ -41,6 +41,13 @@ async function uploadUserMedia(userId, mediaType, file) {
 
   let postResponse, putResponse, uploadUrl
 
+  // Step 2: Create a new Media Resource, aka the POST request to Panoptes.
+  // The new media resource will be empty, but will contain an upload URL with a
+  // magic token. For a brief window of time, we'll be able to upload a file to
+  // that URL.
+  // Oh, and to be clear, that upload URL will be to our own Microsoft Azure
+  // storage.
+
   const postHeaders = {
     authorization,
     etag: getResponse?.headers?.etag
@@ -51,17 +58,16 @@ async function uploadUserMedia(userId, mediaType, file) {
     }
   }
 
-  console.log('+++ A. file: ', file)
-
   try {
     postResponse = await panoptes.post(`/users/${userId}/${mediaType}`, postBody, postHeaders)
     uploadUrl = postResponse?.body?.media?.[0]?.src
+    if (!uploadUrl) throw new Error('Panoptes didn\'t provide an upload URL for media file.')
   } catch (error) {
     console.error(error)
     throw error
   }
 
-  console.log('+++ B. uploadUrl: ', uploadUrl)
+  // Step 3: Upload the media file, aka the PUT request to Azure.
 
   const putHeaders = {
     'Content-Type': file.type,
@@ -80,7 +86,7 @@ async function uploadUserMedia(userId, mediaType, file) {
     throw error
   }
 
-  console.log('+++ C. putResponse: ', putResponse)
+  // Step Finale: success?
 
   return putResponse?.status === 201 && postResponse?.status === 201
 }
