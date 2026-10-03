@@ -72,7 +72,7 @@ async function uploadUserMedia(userId, mediaType, file) {
   try {
     putResponse = await fetch(uploadUrl, {
       method: 'PUT',
-      putHeaders,
+      headers: putHeaders,
       body: putBody
     })
   } catch (error) {
