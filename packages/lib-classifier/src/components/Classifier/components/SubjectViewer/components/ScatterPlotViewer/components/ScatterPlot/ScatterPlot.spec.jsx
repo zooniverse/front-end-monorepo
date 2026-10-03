@@ -206,6 +206,42 @@ describe('Component > ScatterPlot', function () {
     })
   })
 
+  describe('when some data series are not highlighted', function () {
+    let highlightedSeriesData
+
+    beforeEach(function () {
+      // Copy the mock data, so that the glyphs set while sorting by highlight don't leak into other tests.
+      highlightedSeriesData = structuredClone(variableStar.scatterPlot.data)
+      const [firstSeries] = highlightedSeriesData
+      render(
+        <ScatterPlot
+          data={highlightedSeriesData}
+          highlightedSeries={[firstSeries.seriesOptions.label]}
+          parentHeight={parentHeight}
+          parentWidth={parentWidth}
+          theme={zooTheme}
+          transformMatrix={transformMatrix}
+        />,
+        {
+          wrapper: withStore()
+        }
+      )
+    })
+
+    it('should keep the glyph of each data series, based on its original order', function () {
+      const glyphNames = Object.keys(glyphComponents)
+      const [firstSeries] = highlightedSeriesData
+      const expectedFills = [zooTheme.global.colors[firstSeries.seriesOptions.color], 'transparent']
+      highlightedSeriesData.forEach((series, index) => {
+        const glyphs = document.querySelectorAll(`.visx-glyph-${glyphNames[index]}`)
+        expect(glyphs).to.have.lengthOf(series.seriesData.length)
+        glyphs.forEach((glyph) => {
+          expect(glyph.getAttribute('fill')).to.equal(expectedFills[index])
+        })
+      })
+    })
+  })
+
   describe('when there are error bars', function () {
     describe('for the horizontal (x) direction', function () {
       it('should render a line centered at the glyph component', function () {
