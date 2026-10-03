@@ -70,12 +70,11 @@ const Mark = forwardRef(function Mark(
   const markRoot = ref ?? useRef()
   const { tool } = mark
   const mainStyle = {
-    color: tool && tool.color ? tool.color : 'green',
+    color: tool?.color ?? 'green',
     fill: 'transparent',
-    stroke: tool && tool.color ? tool.color : 'green'
+    stroke: tool?.color ?? 'green'
   }
   const focusColor = theme?.global.colors[theme?.global.colors.focus]
-  const usesSubTasks = mark.isValid && mark.tasks.length > 0
 
   function openSubTaskPopup() {
     if (!mark.subTaskVisibility) {
@@ -91,16 +90,29 @@ const Mark = forwardRef(function Mark(
   }, [isActive, mark.finished])
 
   useEffect(function onFinishMarkWithSubTasks() {
-    if (usesSubTasks && mark.finished) {
+    /*
+    This runs for a new mark when it is:
+      - finished.
+      - valid.
+      - has subtasks.
+    When all three are true, the subtask popup opens automatically.
+    */
+    if (mark.usesSubTasks) {
       openSubTaskPopup()
     }
-  }, [usesSubTasks, mark.finished])
+  }, [mark.usesSubTasks])
 
   useEffect(function onCloseSubTasks() {
-    if (isActive && mark.finished && !mark.subTaskVisibility) {
+    /* 
+    Return keyboard focus to the active mark
+    when the subtask popup is closed.
+    NB. this may fail when there are multiple active marks
+    eg. in the separate frames viewer.
+    */
+    if (isActive && mark.usesSubTasks && !mark.subTaskVisibility) {
       focusMark(markRoot.current)
     }
-  }, [isActive, mark.finished, mark.subTaskVisibility])
+  }, [mark.usesSubTasks, isActive, mark.subTaskVisibility])
 
   function onKeyDown(event) {
     switch (event.key) {
@@ -114,6 +126,7 @@ const Mark = forwardRef(function Mark(
       case 'Enter': {
         event.preventDefault()
         event.stopPropagation()
+        onSelect(mark)
         openSubTaskPopup()
         onFinish(event)
         return false
@@ -125,7 +138,9 @@ const Mark = forwardRef(function Mark(
   }
 
   function onPointerUp() {
-    if (usesSubTasks) {
+    // focus the mark, if it isn't already focused.
+    focusMark(markRoot.current)
+    if (mark.usesSubTasks) {
       openSubTaskPopup()
     }
   }
@@ -175,13 +190,32 @@ const Mark = forwardRef(function Mark(
 })
 
 Mark.propTypes = {
+  disabled: PropTypes.bool,
   dragging: PropTypes.bool,
   children: PropTypes.node.isRequired,
   isActive: PropTypes.bool,
   label: PropTypes.string.isRequired,
+  mark: PropTypes.shape({
+    angle: PropTypes.number,
+    finished: PropTypes.bool,
+    id: PropTypes.string.isRequired,
+    isValid: PropTypes.bool,
+    setSubTaskVisibility: PropTypes.func.isRequired,
+    subTaskVisibility: PropTypes.bool,
+    tasks: PropTypes.arrayOf(PropTypes.object).isRequired,
+    tool: PropTypes.shape({
+      color: PropTypes.string
+    }),
+    usesSubTasks: PropTypes.bool,
+    x: PropTypes.number,
+    x_rotate: PropTypes.number,
+    y: PropTypes.number,
+    y_rotate: PropTypes.number
+  }).isRequired,
   onDelete: PropTypes.func,
-  onDeselect: PropTypes.func,
+  onFinish: PropTypes.func,
   onSelect: PropTypes.func,
+  pointerEvents: PropTypes.string,
   tool: PropTypes.shape({
     color: PropTypes.string
   })
