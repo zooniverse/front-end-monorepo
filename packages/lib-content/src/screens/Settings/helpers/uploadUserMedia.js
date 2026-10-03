@@ -24,17 +24,11 @@ async function uploadUserMedia(userId, mediaType, file) {
     throw new Error(`Invalid mediaType: ${mediaType}. Must be one of: ${VALID_MEDIA_TYPES.join(', ')}`)
   }
 
-  if (!file) {
-    throw new Error('No file provided.')
-  }
+  if (!file) throw new Error('No file provided.')
 
   const token = await auth.checkBearerToken()
   if (!token) return null
-
   const authorization = `Bearer ${token}`
-
-  // Fetch latest copy of user, to get deatils for If-Match header, to make PUT changes.
-  const getResponse = await panoptes.get(`/users/${userId}/${mediaType}`, {}, { authorization })
 
   // TODO: sanitise SVG content!!!
   // PR REVIEWERS: IF YOU SEE THIS, DO NOT ALLOW THIS PR TO BE MERGED
@@ -50,7 +44,6 @@ async function uploadUserMedia(userId, mediaType, file) {
 
   const postHeaders = {
     authorization,
-    etag: getResponse?.headers?.etag
   }
   const postBody = {
     media: {
