@@ -2,6 +2,8 @@ import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import DragHandle from '../DragHandle'
 
+import useSVGContext from '@plugins/drawingTools/hooks/useSVGContext'
+
 const GUIDE_DASH = [4, 4]
 const GUIDE_WIDTH = 1
 
@@ -12,19 +14,16 @@ function Ellipse({
   mark,
   onFinish = DEFAULT_HANDLER,
 }) {
-  const { x_center, y_center, rx, ry } = mark
+  const { rx, ry } = mark
+  const { scale } = useSVGContext()
   const guideWidth = GUIDE_WIDTH
 
-  function onXHandleDrag(e) {
-    const r = mark.getDistance(x_center, y_center, e.x, e.y)
-    const angle = mark.getAngle(x_center, y_center, e.x, e.y)
-    mark.setCoordinates({ x: x_center, y: y_center, rx: r, ry, angle })
+  function onXHandleDrag(e, d) {
+    mark.resizeByAxis({ dx: d.x, dy: d.y, axis: 'major', scale })
   }
 
-  function onYHandleDrag(e) {
-    const r = mark.getDistance(x_center, y_center, e.x, e.y)
-    const angle = mark.getAngle(x_center, y_center, e.x, e.y) + 90
-    mark.setCoordinates({ x: x_center, y: y_center, rx, ry: r, angle })
+  function onYHandleDrag(e, d) {
+    mark.resizeByAxis({ dx: d.x, dy: d.y, axis: 'minor', scale })
   }
 
   return (

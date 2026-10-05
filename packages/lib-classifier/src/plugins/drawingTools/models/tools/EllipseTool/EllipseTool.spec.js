@@ -8,16 +8,16 @@ const ellipse = {
   type: 'ellipse'
 }
 
-/** Replays the pointer sequence InteractionLayer runs while creating a mark. */
-function drawMark(tool, { from, to }) {
-  const mark = tool.createMark({ id: `ellipse${tool.marks.size}` })
-  mark.initialPosition(from)
-  tool.handlePointerMove(to, mark)
-  tool.handlePointerUp(to, mark)
-  return mark
-}
-
 describe('Model > DrawingTools > Ellipse', function () {
+  // Replays the pointer sequence InteractionLayer runs while creating a mark.
+  function drawMark(tool, { from, to }) {
+    const mark = tool.createMark({ id: `ellipse${tool.marks.size}` })
+    mark.initialPosition(from)
+    tool.handlePointerMove(to, mark)
+    tool.handlePointerUp(to, mark)
+    return mark
+  }
+
   it('should exist', function () {
     const ellipseToolInstance = EllipseTool.create(ellipse)
     expect(ellipseToolInstance).to.exist
@@ -54,8 +54,8 @@ describe('Model > DrawingTools > Ellipse', function () {
       expect(mark.rx).to.equal(40)
     })
 
-    it('should squash ry to half of rx, as PFE does', function () {
-      expect(mark.ry).to.equal(20)
+    it('should squash ry to a tenth of rx', function () {
+      expect(mark.ry).to.equal(4)
     })
 
     it('should finish on pointer up', function () {
