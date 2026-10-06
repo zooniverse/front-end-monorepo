@@ -133,6 +133,8 @@ function ProfileAvatarForm ({
     : deleteError ? deleteErrorMessage
     : ''
   
+  const imageSrc = imageData || userAvatar?.src
+  
   return (
     <Form
       className='ProfileAvatarForm'
@@ -144,13 +146,10 @@ function ProfileAvatarForm ({
           direction='column'
         >
           <Box>
-            {userAvatar 
+            {imageSrc
               ? <img
                   style={{ maxWidth: '200px', margin: '0 auto' }}
-                  src={
-                    imageData ||
-                    userAvatar?.src
-                  }
+                  src={imageSrc}
               />
               : <p>No avatar</p>
             }
