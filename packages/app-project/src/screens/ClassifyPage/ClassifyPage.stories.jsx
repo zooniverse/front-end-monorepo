@@ -18,12 +18,31 @@ const router = {
   }
 }
 
+export const EXTERNAL_WORKFLOW = {
+  completeness: 0,
+  configuration: {
+    external_workflow_description: 'This workflow runs on a **partner site**. [Learn more](https://www.zooniverse.org/about).',
+    external_workflow_url: 'https://example.org/my-workflow'
+  },
+  displayName: 'External Workflow',
+  id: '32842'
+}
+
+export const STANDARD_WORKFLOW = {
+  completeness: 0.4,
+  configuration: {},
+  displayName: 'Standard Workflow',
+  id: '32843'
+}
+
+const WORKFLOWS = [STANDARD_WORKFLOW, EXTERNAL_WORKFLOW]
+
 function buildStore(userLoadingState) {
   const snapshot = {
     project: {
       display_name: 'Snapshot Serengeti',
       experimental_tools: ['external workflow'],
-      links: { active_workflows: ['32842'] },
+      links: { active_workflows: ['32842', '32843'] },
       loadingState: asyncStates.success,
       slug: 'zooniverse/snapshot-serengeti',
       urls: []
@@ -44,26 +63,22 @@ function buildStore(userLoadingState) {
 
 const readyStore = buildStore(asyncStates.success)
 // keeps ClassifierWrapper on its loading branch so the real classifier never mounts
-const loadingStore = buildStore(asyncStates.loading)
+export const loadingStore = buildStore(asyncStates.loading)
 
-export const EXTERNAL_WORKFLOW = {
-  completeness: 0,
-  configuration: {
-    external_workflow_description: 'This workflow runs on a **partner site**. [Learn more](https://www.zooniverse.org/about).',
-    external_workflow_url: 'https://example.org/my-workflow'
-  },
-  displayName: 'External Workflow',
-  id: '32842'
-}
-
-function Page({ store, ...props }) {
+/*
+  Exported so specs can replay a navigation sequence against one mounted ClassifyPage.
+  Clearing workflowFromUrl stands in for the header's Classify link, which drops the
+  workflow from the URL on a project with more than one active workflow.
+*/
+export function Page({ store, workflowFromUrl, ...props }) {
   return (
     <RouterContext.Provider value={router}>
       <Provider store={store}>
         <ClassifyPage
           appLoadingState={store.appLoadingState}
-          workflowID={props.workflowFromUrl.id}
-          workflows={[props.workflowFromUrl]}
+          workflowFromUrl={workflowFromUrl}
+          workflowID={workflowFromUrl?.id}
+          workflows={WORKFLOWS}
           {...props}
         />
       </Provider>
@@ -73,16 +88,28 @@ function Page({ store, ...props }) {
 
 export default {
   title: 'Project App / Screens / Classify / Classify Page',
-  component: ClassifyPage
+  component: ClassifyPage,
+  excludeStories: [
+    'EXTERNAL_WORKFLOW',
+    'Page',
+    'STANDARD_WORKFLOW',
+    'loadingStore'
+  ]
 }
 
 export function ExternalWorkflow() {
   return <Page store={readyStore} externalWorkflowEnabled workflowFromUrl={EXTERNAL_WORKFLOW} />
 }
 
-export function ExternalWorkflowWhileLoading() {
+/*
+  A spec fixture: renders identically to ExternalWorkflow by design. The departure
+  screen does not wait on appLoadingState, so this proves the classifier never mounts
+  even transiently while the app is still loading.
+*/
+export function ExternalWorkflowBeforeAppLoads() {
   return <Page store={loadingStore} externalWorkflowEnabled workflowFromUrl={EXTERNAL_WORKFLOW} />
 }
+ExternalWorkflowBeforeAppLoads.tags = ['!dev']
 
 export function ExternalWorkflowWithoutFlag() {
   return <Page store={loadingStore} externalWorkflowEnabled={false} workflowFromUrl={EXTERNAL_WORKFLOW} />

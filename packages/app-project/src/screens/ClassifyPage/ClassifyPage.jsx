@@ -51,7 +51,11 @@ function ClassifyPage({
   */
   const cachePanoptesData = workflows.some(workflow => workflow.prioritized)
 
-  const [classifierProps, setClassifierProps] = useState({})
+  /*
+    What the main area shows, and the URL it came from, so the view survives the
+    header's Classify link dropping the workflow from the URL.
+  */
+  const [mainView, setMainView] = useState({})
   const [showTutorial, setShowTutorial] = useState(false)
   const [collectionsModalActive, setCollectionsModalActive] = useState(false)
   const [collectionsSubjectID, setCollectionsSubjectID] = useState(subjectID)
@@ -70,19 +74,30 @@ function ClassifyPage({
   canClassify = isIndexed ? !!subjectID : canClassify
 
   /*
-    Derive classifier state from the URL, when the URL changes.
-    Use the previous classifier state if there's no workflow ID in the URL.
+    Derive the main view from the URL, when the URL changes.
+    Keep the previous view if there's no workflow ID in the URL.
   */
-  const workflowChanged = classifierProps.workflowID !== workflowID
-  const subjectSetChanged = classifierProps.subjectSetID !== subjectSetID
-  const subjectChanged = classifierProps.subjectID !== subjectID
+  const workflowChanged = mainView.workflowID !== workflowID
+  const subjectSetChanged = mainView.subjectSetID !== subjectSetID
+  const subjectChanged = mainView.subjectID !== subjectID
   const URLChanged = workflowChanged || subjectSetChanged || subjectChanged
 
-  if (canClassify && URLChanged && !isExternalWorkflow) {
-    setClassifierProps({
-      workflowID,
+  if (URLChanged && isExternalWorkflow) {
+    setMainView({
+      description: externalWorkflowDescription,
+      isExternal: true,
+      subjectID,
       subjectSetID,
-      subjectID
+      url: externalWorkflowUrl,
+      workflowID
+    })
+  }
+
+  if (URLChanged && canClassify && !isExternalWorkflow) {
+    setMainView({
+      subjectID,
+      subjectSetID,
+      workflowID
     })
     setShowTutorial(true)
   }
@@ -107,28 +122,28 @@ function ClassifyPage({
           pad='medium'
         >
           <Box as='main' height={{ min: '400px'}} width='100%'>
-            {isExternalWorkflow ? (
+            {!canClassify && appLoadingState === asyncStates.success && (
+              <WorkflowMenuModal
+                subjectSetFromUrl={subjectSetFromUrl}
+                workflowFromUrl={workflowFromUrl}
+                workflows={workflows}
+              />
+            )}
+            {mainView.isExternal ? (
               <ExternalWorkflow
-                description={externalWorkflowDescription}
-                url={externalWorkflowUrl}
+                description={mainView.description}
+                url={mainView.url}
               />
             ) : (
-              <>
-                {!canClassify && appLoadingState === asyncStates.success && (
-                  <WorkflowMenuModal
-                    subjectSetFromUrl={subjectSetFromUrl}
-                    workflowFromUrl={workflowFromUrl}
-                    workflows={workflows}
-                  />
-                )}
-                <ClassifierWrapper
-                  cachePanoptesData={cachePanoptesData}
-                  onAddToCollection={onAddToCollection}
-                  onSubjectReset={onSubjectReset}
-                  showTutorial={showTutorial}
-                  {...classifierProps}
-                />
-              </>
+              <ClassifierWrapper
+                cachePanoptesData={cachePanoptesData}
+                onAddToCollection={onAddToCollection}
+                onSubjectReset={onSubjectReset}
+                showTutorial={showTutorial}
+                subjectID={mainView.subjectID}
+                subjectSetID={mainView.subjectSetID}
+                workflowID={mainView.workflowID}
+              />
             )}
             {workflowFromUrl && (
               <WorkflowAssignmentModal currentWorkflowID={workflowID} />

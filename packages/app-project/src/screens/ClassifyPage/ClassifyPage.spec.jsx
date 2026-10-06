@@ -2,9 +2,15 @@ import { composeStories } from '@storybook/react'
 import { render, screen } from '@testing-library/react'
 
 import * as Stories from './ClassifyPage.stories'
+import {
+  EXTERNAL_WORKFLOW,
+  Page,
+  STANDARD_WORKFLOW,
+  loadingStore
+} from './ClassifyPage.stories'
 const {
   ExternalWorkflow,
-  ExternalWorkflowWhileLoading,
+  ExternalWorkflowBeforeAppLoads,
   ExternalWorkflowWithoutFlag,
   ExternalWorkflowWithoutUrl
 } = composeStories(Stories)
@@ -37,12 +43,68 @@ describe('Component > ClassifyPage', function () {
 
   describe('with an external workflow while the app is loading', function () {
     it('should never mount the classifier', async function () {
-      render(<ExternalWorkflowWhileLoading />)
+      render(<ExternalWorkflowBeforeAppLoads />)
       await screen.findByRole('link', DEPARTURE_LINK)
       expect(screen.queryAllByRole('status')).to.have.lengthOf(0)
     })
   })
 
+  /*
+    Clicking Classify in the project header drops the workflow from the URL, on a
+    project with more than one active workflow. The main area keeps showing the last
+    selected workflow, whichever kind it is.
+  */
+  describe('when the header Classify link drops the workflow from the URL', function () {
+    it('should keep the departure screen', async function () {
+      const { rerender } = render(
+        <Page store={loadingStore} externalWorkflowEnabled workflowFromUrl={EXTERNAL_WORKFLOW} />
+      )
+      await screen.findByRole('link', DEPARTURE_LINK)
+
+      rerender(<Page store={loadingStore} externalWorkflowEnabled workflowFromUrl={undefined} />)
+
+      expect(screen.getByRole('link', DEPARTURE_LINK)).toBeDefined()
+      expect(screen.queryAllByRole('status')).to.have.lengthOf(0)
+    })
+
+    it('should keep a standard workflow classifier', async function () {
+      const { rerender } = render(
+        <Page store={loadingStore} externalWorkflowEnabled workflowFromUrl={STANDARD_WORKFLOW} />
+      )
+      expect((await screen.findAllByRole('status', {}, { timeout: 8000 })).length).to.be.above(0)
+
+      rerender(<Page store={loadingStore} externalWorkflowEnabled workflowFromUrl={undefined} />)
+
+      expect(screen.queryAllByRole('status').length).to.be.above(0)
+      expect(screen.queryByRole('link', DEPARTURE_LINK)).to.equal(null)
+    })
+
+    it('should swap to the departure screen when an external workflow is picked from the menu', async function () {
+      const { rerender } = render(
+        <Page store={loadingStore} externalWorkflowEnabled workflowFromUrl={STANDARD_WORKFLOW} />
+      )
+      expect((await screen.findAllByRole('status', {}, { timeout: 8000 })).length).to.be.above(0)
+
+      rerender(<Page store={loadingStore} externalWorkflowEnabled workflowFromUrl={undefined} />)
+      rerender(<Page store={loadingStore} externalWorkflowEnabled workflowFromUrl={EXTERNAL_WORKFLOW} />)
+
+      await screen.findByRole('link', DEPARTURE_LINK)
+      expect(screen.queryAllByRole('status')).to.have.lengthOf(0)
+    })
+
+    it('should swap to the classifier when a standard workflow is picked from the menu', async function () {
+      const { rerender } = render(
+        <Page store={loadingStore} externalWorkflowEnabled workflowFromUrl={EXTERNAL_WORKFLOW} />
+      )
+      await screen.findByRole('link', DEPARTURE_LINK)
+
+      rerender(<Page store={loadingStore} externalWorkflowEnabled workflowFromUrl={undefined} />)
+      rerender(<Page store={loadingStore} externalWorkflowEnabled workflowFromUrl={STANDARD_WORKFLOW} />)
+
+      expect((await screen.findAllByRole('status', {}, { timeout: 8000 })).length).to.be.above(0)
+      expect(screen.queryByRole('link', DEPARTURE_LINK)).to.equal(null)
+    })
+  })
   describe('without the external workflow experimental tool', function () {
     it('should render the classifier, not the departure screen', async function () {
       render(<ExternalWorkflowWithoutFlag />)
