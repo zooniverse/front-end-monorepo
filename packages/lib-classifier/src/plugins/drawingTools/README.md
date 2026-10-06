@@ -79,11 +79,6 @@ In addition, mark models should extend the base Mark model with any properties s
 
 - _angle (number)_ Rotation angle of the mark in degrees, measure clockwise from the positive x-axis.
 
-For compatibility with [radial feedback](https://github.com/zooniverse/front-end-monorepo/blob/main/packages/lib-classifier/src/store/feedback/strategies/drawing/radial/README.md) marks need to define the following properties.
-
-- _x (number)_ x position of the mark's centre of rotation, in SVG coordinates relative to the subject image.
-- _y (number)_ y position of the mark's centre of rotation, in SVG coordinates relative to the subject image.
-
 ## Working with tools and marks
 
 ```js
