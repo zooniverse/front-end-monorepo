@@ -10,7 +10,7 @@ const StyledCheckBox = styled(CheckBox)`
   }
 
   & + span > span {
-    background-color: ${({ theme }) => theme.global.colors['neutral-1']};
+    background-color: ${({ theme }) => theme.global.colors['dark-5']};
   }
 
   &:checked + span {
@@ -20,7 +20,7 @@ const StyledCheckBox = styled(CheckBox)`
 
   &:checked + span > span {
     background-color: white;
-    border: 1px solid ${({ theme }) => theme.global.colors['neutral-1']};
+    border: 2px solid ${({ theme }) => theme.global.colors['neutral-1']};
   }
 `
 
