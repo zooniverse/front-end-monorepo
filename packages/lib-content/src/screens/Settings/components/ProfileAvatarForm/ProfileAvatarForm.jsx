@@ -60,7 +60,6 @@ function ProfileAvatarForm ({
   const [ isDeleting, setIsDeleting ] = useState(false)
   const [ deleteSuccess, setDeleteSuccess ] = useState(false)
   const [ deleteError, setDeleteError ] = useState(null)
-  const [ hasUnsavedChanges, setHasUnsavedChanges ] = useState(true)
   const [ imageData, setImageData ] = useState(null)
 
   const fileInputRef = useRef()
@@ -105,6 +104,9 @@ function ProfileAvatarForm ({
       setIsSaving(false)
       setSaveSuccess(true)
       setSaveError(null)
+
+      // Clear the temporary input file on successful upload.
+      setImageData(null)
 
     } catch (err) {
       console.error(err)
@@ -192,7 +194,9 @@ function ProfileAvatarForm ({
               ref={fileInputRef}
             />
             
-            <Button onClick={doDelete} label='Test Delete' />
+            {userAvatar && !imageData && (
+              <Button onClick={doDelete} label='Test Delete' />
+            )}
           </Box>
         </Box>
         
@@ -215,7 +219,7 @@ function ProfileAvatarForm ({
 
           {(isLoading || isValidating || isSaving || isDeleting) && <Loader />}
 
-          {hasUnsavedChanges && (
+          {imageData && (
             <Button
               disabled={disableInput}
               label={t('Settings.forms.save')}
