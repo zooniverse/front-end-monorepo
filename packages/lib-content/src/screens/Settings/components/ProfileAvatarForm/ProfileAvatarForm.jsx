@@ -30,11 +30,33 @@ function ProfileAvatarForm ({
   const [ deleteSuccess, setDeleteSuccess ] = useState(false)
   const [ deleteError, setDeleteError ] = useState(null)
   const [ hasUnsavedChanges, setHasUnsavedChanges ] = useState(true)
+  const [ imageData, setImageData ] = useState(null)
 
   const fileInputRef = useRef()
 
-  function onInputChange (e) {
-    // TODO
+  async function processInputFileIntoImageData (file) {
+    if (!file) return
+
+    const fileReader = new FileReader()
+    fileReader.addEventListener('load', () => {
+      setImageData(fileReader.result)
+    })
+    fileReader.readAsDataURL(file)
+  }
+    
+
+  async function onInputChange (e) {
+    console.log('+++ Input Change', e.target.files?.[0])
+
+    const selectedFile = e.target.files?.[0]
+    
+    if (!selectedFile) {
+      setImageData(null)
+      return
+    }
+
+    const newImageData = processInputFileIntoImageData(selectedFile)
+    setImageData(newImageData)
   }
 
   async function onSubmit () {
@@ -123,7 +145,13 @@ function ProfileAvatarForm ({
         >
           <Box>
             {userAvatar 
-              ? <img style={{ maxWidth: '200px', margin: '0 auto' }} src={userAvatar?.src} />
+              ? <img
+                  style={{ maxWidth: '200px', margin: '0 auto' }}
+                  src={
+                    imageData ||
+                    userAvatar?.src
+                  }
+              />
               : <p>No avatar</p>
             }
           </Box>
