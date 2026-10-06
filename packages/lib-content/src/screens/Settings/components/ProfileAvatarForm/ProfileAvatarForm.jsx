@@ -49,6 +49,21 @@ async function processInputFileIntoImageData (file) {
   return await readFileAsDataURL(file)
 }
 
+const TARGET_WIDTH = 200
+const TARGET_HEIGHT = 100
+
+async function resizeImageData (imageData, target = { ratio: 1 }) {
+  if (!imageData) return
+
+  const {
+    width: targetWidth,
+    height: targetHeight,
+    ratio: targetRatio
+  } = target
+
+  return imageData
+}
+
 function ProfileAvatarForm ({
   authUser,
 }) {
@@ -64,9 +79,16 @@ function ProfileAvatarForm ({
 
   const fileInputRef = useRef()
   
-  async function onInputChange (e) {
-    console.log('+++ Input Change', e.target.files?.[0])
+  // When the File input changes, we'll do the following:
+  // 1. read the selected image file as a Data URL string (image data).
+  // 2. resize the image data 
+  //   - we're cropping the image to a target width/height
+  //   - AND we're double-making sure that the image is within an acceptable
+  //     file size range.
+  // 3. show the modified image data as a preview.
+  // After that, the user has to click the Submit button to save changes.
 
+  async function onInputChange (e) {
     const selectedFile = e.target.files?.[0]
     
     if (!selectedFile) {
@@ -75,12 +97,17 @@ function ProfileAvatarForm ({
     }
 
     try {
+      setImageData(null)
+      setSaveError(null)  // SaveError is pulling double duty here.
+
       const newImageData = await processInputFileIntoImageData(selectedFile)
-      setImageData(newImageData)
+      const resizedImageData = await resizeImageData(newImageData)
+      setImageData(resizedImageData)
+
     } catch (err) {
       console.error(err)
       setImageData(null)
-      // TODO: display error message to user.
+      setSaveError(err)
     }
   }
 
