@@ -1,11 +1,9 @@
 import { applySnapshot, getSnapshot } from 'mobx-state-tree'
-import { panoptes } from '@zooniverse/panoptes-js'
 
 import fetchLinkedOrganizations from '@helpers/fetchLinkedOrganizations'
 import fetchProjectData from '@helpers/fetchProjectData'
 import fetchProjectPageTitles from '@helpers/fetchProjectPageTitles'
 import fetchTranslations from '@helpers/fetchTranslations'
-import getServerSideAPIHost from '@helpers/getServerSideAPIHost'
 import initStore from '@stores'
 import {
   COLLECTIONS_PAGE_SIZE,
@@ -72,46 +70,7 @@ export default async function getProjectCollectPageProps({
     organizations: linkedOrganizations
   }
 
-  /*
-    If params.login is defined, then we're viewing a user's
-    My Favorites or My Collections, which will require user authentication, 
-    so return and let the client request collections data
-  */
-  const loginParam = params.login
-  if (loginParam) {
-    return {
-      notFound: false,
-      props: {
-        host,
-        initialState,
-        activeTab,
-        projectDisplayName: strings.display_name,
-        projectSlug,
-        loginParam,
-        initialPage: page,
-        initialMinSubjects: minSubjects,
-        initialSort: sort
-      }
-    }
-  }
-
-  /*
-    If params.login is not defined, then we're viewing the
-    general Favorites or Collections page, so we can fetch
-    collections data server-side.
-  */
-  const query = {
-    env,
-    favorite: activeTab === 'favorites',
-    min_subjects: minSubjects,
-    page,
-    page_size: COLLECTIONS_PAGE_SIZE,
-    project_ids: [projectData.id],
-    sort
-  }
-  const { headers, host: apiHost } = getServerSideAPIHost(env)
-  const response = await panoptes.get('/collections', query, headers, apiHost)
-  const projectCollections = response?.body?.collections ?? []
+  const loginParam = params?.login ?? null
 
   return {
     notFound: false,
@@ -121,9 +80,7 @@ export default async function getProjectCollectPageProps({
       activeTab,
       projectDisplayName: strings.display_name,
       projectSlug,
-      collections: projectCollections,
-      collectionCount: response?.body?.meta?.collections?.count ?? 0,
-      pageCount: response?.body?.meta?.collections?.page_count ?? 1,
+      loginParam,
       initialPage: page,
       initialMinSubjects: minSubjects,
       initialSort: sort

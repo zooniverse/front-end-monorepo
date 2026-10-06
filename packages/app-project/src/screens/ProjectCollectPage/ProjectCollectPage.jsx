@@ -1,5 +1,5 @@
 import { Box } from 'grommet'
-import { arrayOf, number, shape, string } from 'prop-types'
+import { string } from 'prop-types'
 
 import StandardLayout from '@shared/components/StandardLayout'
 import ProjectAboutPageLayout from '../ProjectAboutPage/ProjectAboutPageLayout'
@@ -10,9 +10,6 @@ import CollectionsListContainer from './components/CollectionsListContainer'
 
 function ProjectCollectPage({
   activeTab,
-  collections,
-  collectionCount,
-  pageCount,
   initialPage,
   initialMinSubjects,
   initialSort,
@@ -37,9 +34,6 @@ function ProjectCollectPage({
           />
           <CollectionsListContainer
             activeTab={activeTab}
-            collections={collections}
-            collectionCount={collectionCount}
-            pageCount={pageCount}
             initialPage={initialPage}
             initialMinSubjects={initialMinSubjects}
             initialSort={initialSort}
@@ -53,9 +47,6 @@ function ProjectCollectPage({
 
 ProjectCollectPage.propTypes = {
   activeTab: string.isRequired,
-  collections: arrayOf(shape({})),
-  collectionCount: number,
-  pageCount: number,
   initialPage: number,
   initialMinSubjects: number,
   initialSort: string,

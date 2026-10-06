@@ -12,6 +12,7 @@ import {
 } from '@helpers/collectionQueryParams'
 import { useProjectCollections } from '@hooks'
 import RequireUser from '@shared/components/RequireUser/RequireUser'
+import PanoptesAuthContext from '@shared/contexts/PanoptesAuthContext.js'
 
 import CollectionsList from '../CollectionsList'
 import CollectionsToolbar from '../CollectionsToolbar'
@@ -21,16 +22,13 @@ import Pagination from '../Pagination'
 
 function CollectionsListContainer({
   activeTab,
-  collections,
-  collectionCount: initialCollectionCount,
-  pageCount: initialPageCount,
   initialPage = 1,
   initialMinSubjects = DEFAULT_COLLECTION_MIN_SUBJECTS,
   initialSort = DEFAULT_COLLECTION_SORT,
   loginParam
 }) {
   const { store } = useContext(MobXProviderContext)
-  const { isLoggedIn } = store.user
+  const { isLoading: isUserLoading, user } = useContext(PanoptesAuthContext)
   const isUserScoped = !!loginParam
 
   const [urlPage, setUrlPage] = useQueryState(
@@ -63,28 +61,19 @@ function CollectionsListContainer({
     : urlMinSubjects ?? DEFAULT_COLLECTION_MIN_SUBJECTS
   const sort = normalizeCollectionSort(urlSort)
 
-  const fallbackData = collections &&
-    page === initialPage &&
-    minSubjects === initialMinSubjects &&
-    sort === initialSort
-    ? {
-        collections,
-        count: initialCollectionCount ?? 0,
-        pageCount: initialPageCount ?? 1
-      }
-    : undefined
   const {
     data,
-    error
+    error,
+    isLoading
   } = useProjectCollections({
     favorite: activeTab === 'favorites',
-    fallbackData,
     login: loginParam,
     minSubjects,
     page,
     projectId: store?.project?.id,
     sort
   })
+  const loading = isUserLoading || isLoading
 
   const pageCount = data ? Math.max(1, data.pageCount) : undefined
   const validPage = pageCount ? Math.min(page, pageCount) : page
@@ -116,7 +105,7 @@ function CollectionsListContainer({
   }
   
   let placeholder
-  if (isUserScoped && !isLoggedIn) placeholder = <RequireUser />
+  if (isUserScoped && !isUserLoading && !user?.id) placeholder = <RequireUser />
   else if (error) placeholder = <ErrorPlaceholder />
   else if (!data) placeholder = <Loader />
   else if (!data.collections.length) placeholder = <EmptyPlaceholder />
@@ -165,9 +154,6 @@ function CollectionsListContainer({
 
 CollectionsListContainer.propTypes = {
   activeTab: string.isRequired,
-  collections: arrayOf(shape({})),
-  collectionCount: number,
-  pageCount: number,
   initialPage: number,
   initialMinSubjects: number,
   initialSort: string,
