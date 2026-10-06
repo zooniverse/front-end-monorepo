@@ -1,61 +1,33 @@
-import { CheckBox, Text, ThemeContext } from 'grommet'
-import { bool, func } from 'prop-types'
+import { CheckBox, Text } from 'grommet'
 import { useTranslation } from 'next-i18next/pages'
-import styled from 'styled-components'
+import { bool, func } from 'prop-types'
+import { ThemeProvider } from 'styled-components'
 
-const StyledCheckBox = styled(CheckBox)`
-  & + span {
-    background-color: white;
-    border-color: ${({ theme }) => theme.global.colors['dark-5']};
-  }
-
-  & + span > span {
-    background-color: ${({ theme }) => theme.global.colors['dark-5']};
-  }
-
-  &:checked + span {
-    background-color: ${({ theme }) => theme.global.colors['neutral-1']};
-    border-color: ${({ theme }) => theme.global.colors['neutral-1']};
-  }
-
-  &:checked + span > span {
-    background-color: white;
-    border: 2px solid ${({ theme }) => theme.global.colors['neutral-1']};
-  }
-`
-
-function MinSubjectsToggle({ checked = true, onChange }) {
+function Label () {
   const { t } = useTranslation('screens')
 
+  return (
+    <Text size='0.875rem'>
+      {t('Collect.hideSingleSubject')}
+    </Text>
+  )
+}
+
+function MinSubjectsToggle ({ checked = true, onChange }) {
   function handleChange(event) {
     onChange(event.target.checked)
   }
 
   return (
-    <ThemeContext.Extend
-      value={{
-        checkBox: {
-          color: 'white',
-          gap: '10px',
-          size: '16px',
-          toggle: {
-            color: 'white'
-          }
-        }
-      }}
-    >
-      <StyledCheckBox
+    <ThemeProvider theme={{ mode: 'dark' }}>
+      <CheckBox
         checked={checked}
-        label={
-          <Text size='0.875rem'>
-            {t('Collect.hideSingleSubject')}
-          </Text>
-        }
+        label={<Label />}
         onChange={handleChange}
         reverse
         toggle
       />
-    </ThemeContext.Extend>
+    </ThemeProvider>
   )
 }
 
