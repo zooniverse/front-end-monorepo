@@ -52,7 +52,16 @@ async function processInputFileIntoImageData (file) {
 const TARGET_WIDTH = 200
 const TARGET_HEIGHT = 100
 
-async function resizeImageData (imageData, target = { ratio: 1 }) {
+function loadImageObjectFromData (imageData) {
+  return new Promise((resolve, reject) => {
+    const image = new Image()
+    image.onload = () => resolve(image)
+    image.onerror = (err) => reject(err)
+    image.src = imageData
+  })
+}
+
+async function resizeImageData (imageData, target = { width: TARGET_WIDTH, height: TARGET_HEIGHT }) {
   if (!imageData) return
 
   const {
@@ -61,7 +70,26 @@ async function resizeImageData (imageData, target = { ratio: 1 }) {
     ratio: targetRatio
   } = target
 
-  return imageData
+  let width, height
+  const canvas = document.createElement('canvas')
+  const c2d = canvas.getContext('2d')
+  const imageObject = await loadImageObjectFromData(imageData)
+
+  let canvasWidth = targetWidth || imageObject.naturalWidth
+  let canvasHeight = targetHeight || imageObject.naturalHeight
+
+  // Optional: Set a white background.
+  c2d.rect(0, 0, canvasWidth, canvasHeight)
+  c2d.fillStyle = 'white'
+  c2d.fill()
+
+  // Draw the image onto the canvas.
+  c2d.drawImage(imageObject, 0, 0, canvasWidth, canvasHeight)
+
+  console.log('+++ imageData', imageData)
+  console.log('+++ imageObject', imageObject)
+
+  return canvas.toDataURL()  // By default, this is a PNG data URL with quality=1.
 }
 
 function ProfileAvatarForm ({
