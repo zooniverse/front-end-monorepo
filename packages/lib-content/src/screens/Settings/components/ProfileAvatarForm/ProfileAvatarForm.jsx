@@ -18,6 +18,37 @@ const FormFieldsContainer = styled(Box)`
   }
 `
 
+// readFileAsDataURL is a utility function that wraps the FileReader around a
+// Promise, just so we can use await.
+function readFileAsDataURL (file) {
+  return new Promise((resolve, reject) => {
+    const fileReader = new FileReader()
+    fileReader.addEventListener('load', () => {
+      resolve(fileReader.result)
+    })
+    fileReader.addEventListener('error', () => {
+      reject(fileReader.error)
+    })
+    fileReader.readAsDataURL(file)
+  })
+}
+
+// processInputFileIntoImageData converts a File object into a data URL string.
+// 
+// Usage:
+// const imageData = await readFileAsDataURL(imageFile)
+// return <img src={imageData} />
+//
+// Input:
+// - file: a File object. (e.g. from <input type="file">)
+//
+// Output: 
+// - A Promise that returns a string (data URL) when resolved.
+async function processInputFileIntoImageData (file) {
+  if (!file) return
+  return await readFileAsDataURL(file)
+}
+
 function ProfileAvatarForm ({
   authUser,
 }) {
@@ -33,18 +64,7 @@ function ProfileAvatarForm ({
   const [ imageData, setImageData ] = useState(null)
 
   const fileInputRef = useRef()
-
-  async function processInputFileIntoImageData (file) {
-    if (!file) return
-
-    const fileReader = new FileReader()
-    fileReader.addEventListener('load', () => {
-      setImageData(fileReader.result)
-    })
-    fileReader.readAsDataURL(file)
-  }
-    
-
+  
   async function onInputChange (e) {
     console.log('+++ Input Change', e.target.files?.[0])
 
@@ -55,8 +75,14 @@ function ProfileAvatarForm ({
       return
     }
 
-    const newImageData = processInputFileIntoImageData(selectedFile)
-    setImageData(newImageData)
+    try {
+      const newImageData = await processInputFileIntoImageData(selectedFile)
+      setImageData(newImageData)
+    } catch (err) {
+      console.error(err)
+      setImageData(null)
+      // TODO: display error message to user.
+    }
   }
 
   async function onSubmit () {
