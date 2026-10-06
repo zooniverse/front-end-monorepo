@@ -6,7 +6,6 @@ import fetchProjectPageTitles from '@helpers/fetchProjectPageTitles'
 import fetchTranslations from '@helpers/fetchTranslations'
 import initStore from '@stores'
 import {
-  COLLECTIONS_PAGE_SIZE,
   normalizeCollectionMinSubjects,
   normalizeCollectionSort
 } from '@helpers/collectionQueryParams'

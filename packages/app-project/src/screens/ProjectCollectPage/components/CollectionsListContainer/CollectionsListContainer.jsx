@@ -2,7 +2,7 @@ import { Loader } from '@zooniverse/react-components'
 import { Box } from 'grommet'
 import { MobXProviderContext } from 'mobx-react'
 import { parseAsInteger, parseAsString, useQueryState } from 'nuqs'
-import { arrayOf, number, shape, string } from 'prop-types'
+import { number, string } from 'prop-types'
 import { useContext, useEffect, useState } from 'react'
 
 import {
@@ -33,7 +33,7 @@ function CollectionsListContainer({
 
   const [urlPage, setUrlPage] = useQueryState(
     'page',
-    parseAsInteger.withDefault(1).withOptions({
+    parseAsInteger.withDefault(initialPage).withOptions({
       clearOnDefault: true,
       history: 'push'
     })
@@ -50,7 +50,7 @@ function CollectionsListContainer({
   )
   const [urlSort, setUrlSort] = useQueryState(
     'sort',
-    parseAsString.withDefault(DEFAULT_COLLECTION_SORT).withOptions({
+    parseAsString.withDefault(initialSort).withOptions({
       clearOnDefault: true,
       history: 'push'
     })
@@ -58,7 +58,7 @@ function CollectionsListContainer({
   const page = urlPage ?? initialPage
   const minSubjects = isMinSubjectsDisabled
     ? 1
-    : urlMinSubjects ?? DEFAULT_COLLECTION_MIN_SUBJECTS
+    : urlMinSubjects ?? initialMinSubjects
   const sort = normalizeCollectionSort(urlSort)
 
   const {
@@ -107,7 +107,7 @@ function CollectionsListContainer({
   let placeholder
   if (isUserScoped && !isUserLoading && !user?.id) placeholder = <RequireUser />
   else if (error) placeholder = <ErrorPlaceholder />
-  else if (!data) placeholder = <Loader />
+  else if (loading || !data) placeholder = <Loader />
   else if (!data.collections.length) placeholder = <EmptyPlaceholder />
 
   if (placeholder) {

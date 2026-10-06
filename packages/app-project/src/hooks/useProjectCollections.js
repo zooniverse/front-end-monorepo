@@ -39,7 +39,9 @@ export default function useProjectCollections({
 
   const query = {
     favorite,
-    min_subjects: 2,
+    min_subjects: minSubjects,
+    page,
+    page_size: COLLECTIONS_PAGE_SIZE,
     project_ids: [projectId],
     sort
   }
@@ -50,5 +52,5 @@ export default function useProjectCollections({
     key = { query, token }
   }
 
-  return useSWR(key, fetchProjectCollections, options)
+  return useSWR(key, fetchProjectCollections, SWRoptions)
 }
