@@ -61,6 +61,18 @@ function loadImageObjectFromData (imageData) {
   })
 }
 
+function getImageBlobFromCanvas (canvas) {
+  return new Promise((resolve, reject) => {
+    canvas.toBlob((blob) => {
+      if (blob) {
+        resolve(blob)
+      } else {
+        reject(new Error('Couldn\'t get image blob from canvas.'))
+      }
+    })
+  })
+}
+
 async function resizeImageData (imageData, target = { width: TARGET_WIDTH, height: TARGET_HEIGHT }) {
   if (!imageData) return
 
@@ -78,6 +90,9 @@ async function resizeImageData (imageData, target = { width: TARGET_WIDTH, heigh
   let canvasWidth = targetWidth || imageObject.naturalWidth
   let canvasHeight = targetHeight || imageObject.naturalHeight
 
+  canvas.width = canvasWidth
+  canvas.height = canvasHeight
+
   // Optional: Set a white background.
   c2d.rect(0, 0, canvasWidth, canvasHeight)
   c2d.fillStyle = 'white'
@@ -86,10 +101,12 @@ async function resizeImageData (imageData, target = { width: TARGET_WIDTH, heigh
   // Draw the image onto the canvas.
   c2d.drawImage(imageObject, 0, 0, canvasWidth, canvasHeight)
 
-  console.log('+++ imageData', imageData)
-  console.log('+++ imageObject', imageObject)
+  const blob = await getImageBlobFromCanvas(canvas)
 
-  return canvas.toDataURL()  // By default, this is a PNG data URL with quality=1.
+  return {
+    string: canvas.toDataURL(),  // By default, this is a PNG data URL with quality=1.
+    blob  // This is the "File" that will be uploaded to Panoptes.
+  }
 }
 
 function ProfileAvatarForm ({
@@ -103,7 +120,8 @@ function ProfileAvatarForm ({
   const [ isDeleting, setIsDeleting ] = useState(false)
   const [ deleteSuccess, setDeleteSuccess ] = useState(false)
   const [ deleteError, setDeleteError ] = useState(null)
-  const [ imageData, setImageData ] = useState(null)
+  const [ imageData, setImageData ] = useState(null)  // This is the Data URL string that will be used to edit and preview the image client-side. 
+  const [ imageBlob, setImageBlob ] = useState(null)  // This is the "File" that will be uploaded to Panoptes.
 
   const fileInputRef = useRef()
   
@@ -121,29 +139,33 @@ function ProfileAvatarForm ({
     
     if (!selectedFile) {
       setImageData(null)
+      setImageBlob(null)
       return
     }
 
     try {
       setImageData(null)
+      setImageBlob(null)
       setSaveError(null)  // SaveError is pulling double duty here.
 
       const newImageData = await processInputFileIntoImageData(selectedFile)
-      const resizedImageData = await resizeImageData(newImageData)
+      const {
+        string: resizedImageData,
+        blob: resizedImageBlob
+      } = await resizeImageData(newImageData)
       setImageData(resizedImageData)
+      setImageBlob(resizedImageBlob)
 
     } catch (err) {
       console.error(err)
       setImageData(null)
+      setImageBlob(null)
       setSaveError(err)
     }
   }
 
-  async function onSubmit () {
-    // TODO
-    console.log('+++ ⬆️ Submit')
-    
-    const selectedFile = fileInputRef.current?.files?.[0]
+  async function onSubmit () {    
+    const selectedFile = imageBlob
     if (!selectedFile) { return }
 
     try {
@@ -162,6 +184,7 @@ function ProfileAvatarForm ({
 
       // Clear the temporary input file on successful upload.
       setImageData(null)
+      setImageBlob(null)
 
     } catch (err) {
       console.error(err)
@@ -173,9 +196,6 @@ function ProfileAvatarForm ({
   }
 
   async function doDelete () {
-    // TODO
-    console.log('+++ ✖️ Delete')
-
     try {
       setIsDeleting(true)
       setDeleteSuccess(false)
@@ -196,7 +216,6 @@ function ProfileAvatarForm ({
       setDeleteSuccess(false)
       setDeleteError(err?.response?.body || err)
     }
-
   }
 
   const disableInput = isLoading || isValidating || isSaving || isDeleting
