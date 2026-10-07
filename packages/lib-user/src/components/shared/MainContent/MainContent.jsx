@@ -8,6 +8,7 @@ import { polyfill } from '@microsoft/focusgroup-polyfill'
 
 import {
   convertStatsSecondsToHours,
+  getHrefWithLocale,
   getStatsDateString
 } from '@utils'
 
@@ -51,7 +52,8 @@ function MainContent({
   source = DEFAULT_SOURCE,
   totalProjects = 0
 }) {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+  const locale = i18n.language
   const tabList = useRef(null)
   const [activeTab, setActiveTab] = useState(0)
   const [showCalendar, setShowCalendar] = useState(false)
@@ -306,7 +308,7 @@ function MainContent({
                   components={[
                     <Anchor
                       key='projects-page'
-                      href='https://www.zooniverse.org/projects'
+                      href={getHrefWithLocale('/projects', locale)}
                     />
                   ]}
                 />

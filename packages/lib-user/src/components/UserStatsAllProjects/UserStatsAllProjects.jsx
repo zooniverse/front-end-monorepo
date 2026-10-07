@@ -4,6 +4,7 @@ import { bool, shape, string } from 'prop-types'
 import { useContext } from 'react'
 import { Box, Heading, ResponsiveContext } from 'grommet'
 import SpacedText from '@zooniverse/react-components/SpacedText'
+import { useTranslation } from 'react-i18next'
 
 import { usePanoptesUser, useStats } from '@hooks'
 import {
@@ -14,8 +15,7 @@ import {
   Layout,
   SortDropdown
 } from '@components/shared'
-import { getDateInterval, getStatsDateString } from '@utils'
-import { useTranslation } from 'react-i18next'
+import { getDateInterval, getHrefWithLocale, getStatsDateString } from '@utils'
 
 const STATS_ENDPOINT = '/classifications/users'
 const DEFAULT_HANDLER = () => true
@@ -26,7 +26,8 @@ function UserStatsAllProjects({
   handleSortParam = DEFAULT_HANDLER,
   sortParam = 'top'
 }) {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+  const locale = i18n.language
   const grommetSize = useContext(ResponsiveContext)
 
   // fetch user
@@ -70,7 +71,7 @@ function UserStatsAllProjects({
     <Layout
       primaryHeaderItem={
         <HeaderLink
-          href={`/users/${login}/stats`}
+          href={getHrefWithLocale(`/users/${login}/stats`, locale)}
           label={t('common.back')}
           primaryItem={true}
         />

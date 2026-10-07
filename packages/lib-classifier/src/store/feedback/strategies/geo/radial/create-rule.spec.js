@@ -1,4 +1,6 @@
-import createRule from './create-rule'
+import strategy from './index'
+
+const createRule = strategy.createRule
 
 describe('feedback geo radial create-rule', function () {
   const subjectRule = {
