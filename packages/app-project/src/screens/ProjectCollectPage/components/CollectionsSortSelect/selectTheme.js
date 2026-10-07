@@ -16,7 +16,15 @@ const selectTheme = {
 		}
 	},
 	formField: {
-		border: 'none'
+		border: 'none',
+		label: {
+			margin: {
+				right: 'xsmall'
+			}
+		},
+		extend: `
+			text-transform: uppercase;
+		`
 	},
 	select: {
 		control: {
