@@ -49,9 +49,6 @@ async function processInputFileIntoImageData (file) {
   return await readFileAsDataURL(file)
 }
 
-const TARGET_WIDTH = 200
-const TARGET_HEIGHT = 100
-
 function loadImageObjectFromData (imageData) {
   return new Promise((resolve, reject) => {
     const image = new Image()
@@ -73,14 +70,8 @@ function getImageBlobFromCanvas (canvas) {
   })
 }
 
-async function resizeImageData (imageData, target = { ratio: 1 }) {
+async function resizeImageData (imageData, targetRatio) {
   if (!imageData) return
-
-  const {
-    width: targetWidth,
-    height: targetHeight,
-    ratio: targetRatio
-  } = target
 
   const canvas = document.createElement('canvas')
   const c2d = canvas.getContext('2d')
@@ -95,8 +86,8 @@ async function resizeImageData (imageData, target = { ratio: 1 }) {
   let yOffset = 0
   let xScale = 1
   let yScale = 1
-  let canvasWidth = targetWidth || imageObject.naturalWidth
-  let canvasHeight = targetHeight || imageObject.naturalHeight
+  let canvasWidth = imageObject.naturalWidth
+  let canvasHeight = imageObject.naturalHeight
 
   if (targetRatio) {
     if (imageRatio > targetRatio) {
@@ -129,9 +120,14 @@ async function resizeImageData (imageData, target = { ratio: 1 }) {
   c2d.drawImage(imageObject, xOffset, yOffset, imageWidth * xScale, imageHeight * yScale)
 
   const blob = await getImageBlobFromCanvas(canvas)
+  const string = canvas.toDataURL()
+
+  console.log('+++ File size: ', blob.size)
+
+  // TODO: keep scaling down when file size is larger than a certain threshold.
 
   return {
-    string: canvas.toDataURL(),  // By default, this is a PNG data URL with quality=1.
+    string,  // By default, this is a PNG data URL with quality=1.
     blob  // This is the "File" that will be uploaded to Panoptes.
   }
 }
@@ -179,7 +175,7 @@ function ProfileAvatarForm ({
       const {
         string: resizedImageData,
         blob: resizedImageBlob
-      } = await resizeImageData(newImageData)
+      } = await resizeImageData(newImageData, 1)
       setImageData(resizedImageData)
       setImageBlob(resizedImageBlob)
 
