@@ -258,3 +258,40 @@ Error.args = {
   workflowDescription: store.project.workflow_description,
   workflows: WORKFLOWS
 }
+
+export function WithExternalWorkflow({
+  externalWorkflowEnabled,
+  uppLoaded,
+  userReadyState,
+  workflowDescription,
+  workflows
+}) {
+  return (
+    <WorkflowSelector
+      externalWorkflowEnabled={externalWorkflowEnabled}
+      uppLoaded={uppLoaded}
+      userReadyState={userReadyState}
+      workflowDescription={workflowDescription}
+      workflows={workflows}
+    />
+  )
+}
+
+WithExternalWorkflow.args = {
+  externalWorkflowEnabled: true,
+  uppLoaded: true,
+  userReadyState: asyncStates.success,
+  workflowDescription: store.project.workflow_description,
+  workflows: [
+    ...WORKFLOWS,
+    {
+      completeness: 0,
+      configuration: {
+        external_workflow_url: 'https://example.org/my-workflow'
+      },
+      default: false,
+      displayName: 'Steam (External)',
+      id: '3456'
+    }
+  ]
+}
