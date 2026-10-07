@@ -6,7 +6,6 @@ import styled, { css } from 'styled-components'
 import { convertEvent } from '@plugins/drawingTools/components/draggable/draggable'
 import DrawingToolMarks from './components/DrawingToolMarks'
 import TranscribedLines from './components/TranscribedLines'
-import SubTaskPopup from './components/SubTaskPopup'
 import { isInBounds } from './helpers/isInBounds'
 import getFixedNumber from '../../helpers/getFixedNumber'
 
@@ -163,10 +162,6 @@ function InteractionLayer({
         onPointerUp={onPointerUp}
       />
       <TranscribedLines />
-      <SubTaskPopup
-        activeMark={activeMark}
-        onDelete={deleteMark}
-      />
       <DrawingToolMarks
         activeMark={activeMark}
         marks={marks}
