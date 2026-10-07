@@ -73,7 +73,7 @@ function getImageBlobFromCanvas (canvas) {
   })
 }
 
-async function resizeImageData (imageData, target = { width: TARGET_WIDTH, height: TARGET_HEIGHT }) {
+async function resizeImageData (imageData, target = { ratio: 1 }) {
   if (!imageData) return
 
   const {
@@ -82,24 +82,51 @@ async function resizeImageData (imageData, target = { width: TARGET_WIDTH, heigh
     ratio: targetRatio
   } = target
 
-  let width, height
   const canvas = document.createElement('canvas')
   const c2d = canvas.getContext('2d')
   const imageObject = await loadImageObjectFromData(imageData)
+  const imageWidth = imageObject.naturalWidth
+  const imageHeight = imageObject.naturalHeight
+  const imageRatio = imageWidth / imageHeight  // ⚠️ Will quietly return nonsense value of Infinity or NaN if imageHeight is 0.
 
+  // Prepare the transformation variables, for when we need to draw the image
+  // onto the canvas.
+  let xOffset = 0
+  let yOffset = 0
+  let xScale = 1
+  let yScale = 1
   let canvasWidth = targetWidth || imageObject.naturalWidth
   let canvasHeight = targetHeight || imageObject.naturalHeight
 
+  if (targetRatio) {
+    if (imageRatio > targetRatio) {
+      // Image is wider than target, therefore keep height and crop width.
+      canvasWidth = imageHeight * targetRatio
+      canvasHeight = imageHeight
+      
+      xOffset = -(imageWidth - canvasWidth) / 2
+    } else {
+      // Image is taller than target, therefore keep width and crop height.
+      canvasWidth = imageWidth
+      canvasHeight = imageWidth * targetRatio
+
+      yOffset = -(imageHeight - canvasHeight) / 2
+    }
+  }
+
+  // Set canvas width and height, which we'll be drawing the image onto.
   canvas.width = canvasWidth
   canvas.height = canvasHeight
 
   // Optional: Set a white background.
-  c2d.rect(0, 0, canvasWidth, canvasHeight)
-  c2d.fillStyle = 'white'
-  c2d.fill()
+  const allowTransparency = true
+  if (!allowTransparency) {
+    c2d.fillStyle = 'white'
+    c2d.fillRect(0, 0, canvasWidth, canvasHeight)
+  }
 
   // Draw the image onto the canvas.
-  c2d.drawImage(imageObject, 0, 0, canvasWidth, canvasHeight)
+  c2d.drawImage(imageObject, xOffset, yOffset, imageWidth * xScale, imageHeight * yScale)
 
   const blob = await getImageBlobFromCanvas(canvas)
 
