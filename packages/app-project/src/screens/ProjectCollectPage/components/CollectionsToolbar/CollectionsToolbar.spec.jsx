@@ -16,6 +16,6 @@ describe('Component > CollectionsToolbar', function () {
 
   it('should show the minimum subjects toggle and sort selector', function () {
     expect(screen.getByRole('checkbox', { name: 'Hide collections with only 1 subject' })).to.exist
-    expect(screen.getByLabelText('SORT BY:')).to.exist
+    expect(screen.getByLabelText('Sort by:')).to.exist
   })
 })
