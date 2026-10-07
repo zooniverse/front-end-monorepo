@@ -64,7 +64,7 @@ function getImageBlobFromCanvas (canvas) {
       if (blob) {
         resolve(blob)
       } else {
-        reject(new Error('Couldn\'t get image blob from canvas.'))
+        reject(new Error("Couldn't get image blob from canvas."))
       }
     })
   })
@@ -73,58 +73,55 @@ function getImageBlobFromCanvas (canvas) {
 async function resizeImageData (imageData, targetRatio) {
   if (!imageData) return
 
+  // We're going to draw the imageData onto a canvas.
   const canvas = document.createElement('canvas')
   const c2d = canvas.getContext('2d')
   const imageObject = await loadImageObjectFromData(imageData)
   const imageWidth = imageObject.naturalWidth
   const imageHeight = imageObject.naturalHeight
-  const imageRatio = imageWidth / imageHeight  // ⚠️ Will quietly return nonsense value of Infinity or NaN if imageHeight is 0.
-
-  // Prepare the transformation variables, for when we need to draw the image
-  // onto the canvas.
-  let xOffset = 0
-  let yOffset = 0
-  let xScale = 1
-  let yScale = 1
   let canvasWidth = imageObject.naturalWidth
   let canvasHeight = imageObject.naturalHeight
 
+  // If our resized image has a target ratio (e.g. 1:1 for a perfect square),
+  // crop the image to fill the canvas using "cover" logic.
+  let xOffset = 0, yOffset = 0
   if (targetRatio) {
+    const imageRatio = imageWidth / imageHeight  // ⚠️ Will quietly return nonsense value of Infinity or NaN if imageHeight is 0.
     if (imageRatio > targetRatio) {
       // Image is wider than target, therefore keep height and crop width.
       canvasWidth = imageHeight * targetRatio
       canvasHeight = imageHeight
-      
       xOffset = -(imageWidth - canvasWidth) / 2
     } else {
       // Image is taller than target, therefore keep width and crop height.
       canvasWidth = imageWidth
       canvasHeight = imageWidth * targetRatio
-
       yOffset = -(imageHeight - canvasHeight) / 2
     }
   }
 
-  // Set canvas width and height, which we'll be drawing the image onto.
-  canvas.width = canvasWidth
-  canvas.height = canvasHeight
+  const MAXIMUM_BLOB_SIZE = 60000  // This limit should be determined by checking in with the Panoptes system.
+  let blob, string  // This is the resized image data, in two formats: blob/file (for upload), and data URL string. 
+  let scale = 1
 
-  // Optional: Set a white background.
-  const allowTransparency = true
-  if (!allowTransparency) {
-    c2d.fillStyle = 'white'
-    c2d.fillRect(0, 0, canvasWidth, canvasHeight)
+  // Right! Now let's resize the image, making it smaller and smaller until 
+  // We'll start at 100% scale (original image size), then drop down 5% each time.
+  for (scale = 1 ; scale > 0 ; scale -= 0.05) {
+    // Set canvas width and height, which we'll be drawing the image onto.
+    canvas.width = canvasWidth * scale
+    canvas.height = canvasHeight * scale
+
+    // Draw the image onto the canvas.
+    c2d.clearRect(0, 0, canvasWidth, canvasHeight)  // Yes, we're clearing the original canvasWidth x canvasHeight, not canvasWidth*scale x canvasHeight*scale
+    c2d.drawImage(imageObject, xOffset * scale, yOffset * scale, imageWidth * scale, imageHeight * scale)
+
+    blob = await getImageBlobFromCanvas(canvas)
+    string = canvas.toDataURL()
+
+    if (blob.size <= MAXIMUM_BLOB_SIZE) break
   }
 
-  // Draw the image onto the canvas.
-  c2d.drawImage(imageObject, xOffset, yOffset, imageWidth * xScale, imageHeight * yScale)
-
-  const blob = await getImageBlobFromCanvas(canvas)
-  const string = canvas.toDataURL()
-
-  console.log('+++ File size: ', blob.size)
-
-  // TODO: keep scaling down when file size is larger than a certain threshold.
+  if (scale <= 0) throw new Error("Couldn't reasonably resize image.")
 
   return {
     string,  // By default, this is a PNG data URL with quality=1.
@@ -167,23 +164,29 @@ function ProfileAvatarForm ({
     }
 
     try {
+      setIsSaving(true)
+      setSaveError(null)  // SaveError is pulling double duty here.
       setImageData(null)
       setImageBlob(null)
-      setSaveError(null)  // SaveError is pulling double duty here.
 
       const newImageData = await processInputFileIntoImageData(selectedFile)
       const {
         string: resizedImageData,
         blob: resizedImageBlob
       } = await resizeImageData(newImageData, 1)
+
+      setIsSaving(false)
+      setSaveError(null)
       setImageData(resizedImageData)
       setImageBlob(resizedImageBlob)
 
     } catch (err) {
       console.error(err)
+
+      setIsSaving(false)
+      setSaveError(err)
       setImageData(null)
       setImageBlob(null)
-      setSaveError(err)
     }
   }
 
