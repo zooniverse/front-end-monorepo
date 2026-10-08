@@ -23,9 +23,10 @@ function AccountNameForm ({
 }) {
   const { t } = useTranslation()
   const { data: user, isLoading, error: loadError, isValidating, mutate } = useUserData({ login: authUser.login })
-  const [ isSaving, setIsSaving ] = useState(false)
-  const [ saveSuccess, setSaveSuccess ] = useState(false)
-  const [ saveError, setSaveError ] = useState(null)
+  const [ isSaving, setIsSaving ] = useState(false)  // Are we in the process of saving?
+  const [ saveSuccess, setSaveSuccess ] = useState(false)  // Was the save successful?
+  const [ saveMessage, setSaveMessage ] = useState('')  // Additional (non-error) information message on the save process.
+  const [ saveError, setSaveError ] = useState(null)  // If the save failed, this is the error object/
   const [ hasUnsavedChanges, setHasUnsavedChanges ] = useState(false)
 
   if (!user) return null
@@ -46,11 +47,20 @@ function AccountNameForm ({
 
     setHasUnsavedChanges(true)
     setSaveSuccess(false)
+    setSaveMessage('')
+    setSaveError(null)
   }
 
   async function onSubmit () {
 
-    // TODO: validate input.
+    // Sanity check
+    if (isSaving) { return }
+    if (!hasUnsavedChanges) {
+      setSaveSuccess(false)
+      setSaveMessage(t('Settings.forms.saveUnnecessary'))
+      return
+    }
+
     // Fun fact: did you know that display_name and credited_name can both accept emojis?
     // credited_name can be empty, but not display_name.
     const displayName = user.display_name
@@ -64,6 +74,7 @@ function AccountNameForm ({
 
           setIsSaving(true)
           setSaveSuccess(false)
+          setSaveMessage('')
           setSaveError(null)
 
           await updateUserData({
@@ -73,6 +84,7 @@ function AccountNameForm ({
 
           setIsSaving(false)
           setSaveSuccess(true)
+          setSaveMessage('')
           setSaveError(null)
           setHasUnsavedChanges(false)
           shouldRevalidate = true
@@ -94,6 +106,7 @@ function AccountNameForm ({
       console.error(err)
       setIsSaving(false)
       setSaveSuccess(false)
+      setSaveMessage('')
       setSaveError(err?.response?.body || err)
     }
   }
@@ -103,10 +116,12 @@ function AccountNameForm ({
   const statusType =
     saveSuccess ? 'success'
     : saveError ? 'error'
+    : saveMessage ? 'warning'  // TODO: this would preferably just be an 'info' type.
     : ''
   const statusMessage =
     saveSuccess ? t('Settings.forms.saveSuccess')
     : saveError ? errorMessage
+    : saveMessage ? saveMessage
     : ''
   
   return (
@@ -136,6 +151,12 @@ function AccountNameForm ({
           justify='between'
           gap='1em'
         >
+          <Button
+            disabled={disableInput}
+            label={t('Settings.forms.save')}
+            type='submit'
+          />
+
           <Box
             flex='grow'
             direction='row'
@@ -148,14 +169,6 @@ function AccountNameForm ({
           </Box>
 
           {(isLoading || isValidating || isSaving) && <Loader />}
-
-          {hasUnsavedChanges && (
-            <Button
-              disabled={disableInput}
-              label={t('Settings.forms.save')}
-              type='submit'
-            />
-          )}
         </Box>
       </FormFieldsContainer>
     </Form>

@@ -646,7 +646,8 @@
       },
       "optional": "Optional",
       "save": "Change",
-      "saveSuccess": "Changes saved."
+      "saveSuccess": "Changes saved.",
+      "saveUnnecessary": "No changes to be saved."
     }
   },
   "Sidebar": {
