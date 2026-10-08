@@ -4,7 +4,7 @@ import { object, string } from 'prop-types'
 import styled from 'styled-components'
 
 import Media from '../Media'
-import addQueryParams from '../SubjectCard/helpers/addQueryParams'
+import addQueryParams from '../helpers/addQueryParams'
 import { useTranslation } from '../translations/i18n'
 
 const COVER_WIDTH = 280
