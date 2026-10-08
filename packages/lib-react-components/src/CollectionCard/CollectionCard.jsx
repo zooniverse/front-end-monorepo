@@ -4,6 +4,7 @@ import { object, string } from 'prop-types'
 import styled from 'styled-components'
 
 import Media from '../Media'
+import addQueryParams from '../SubjectCard/helpers/addQueryParams'
 import { useTranslation } from '../translations/i18n'
 
 const COVER_WIDTH = 280
@@ -83,9 +84,9 @@ function CollectionCard({ collection, projectSlug }) {
   const owner = links?.owner
   const subjectCount = links?.subjects?.length || 0
   const hasCollaborators = links?.collection_roles?.length > 1
-  const href = projectSlug
+  const href = addQueryParams(projectSlug
     ? `https://www.zooniverse.org/projects/${projectSlug}/collections/${slug}`
-    : `https://www.zooniverse.org/collections/${slug}`
+    : `https://www.zooniverse.org/collections/${slug}`)
 
   return (
     <StyledCollectionCard
