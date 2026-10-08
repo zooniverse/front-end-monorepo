@@ -35,10 +35,6 @@ Regarding SWR:
   - We also _manually_ trigger a revalidate when we do a mutate() + updateUserData() combo to save data to Panoptes.
   - We do NOT automatically revalidate when the window (re-)gains focus, because it will reset any local changes/changes not saved to Panoptes caused by mutate(). And boy, this is a very annoying experience if you're, say, tabbing into another window to check some details.
 
-### Dev Notes
-
-Why yes, we do actually have the full User resource already, passed in via authUser, but we treat that as a read-only object and we're only interested in its `login` value.
-
 ## updateUserData()
 
 Function for _saving_ changes to Panoptes.
