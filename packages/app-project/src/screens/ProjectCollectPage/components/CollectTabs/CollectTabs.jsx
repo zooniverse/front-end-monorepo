@@ -1,4 +1,4 @@
-import { Box, Nav } from 'grommet'
+import { Nav } from 'grommet'
 import { Favorite, Bookmark } from 'grommet-icons'
 import { string } from 'prop-types'
 import { MobXProviderContext, observer } from 'mobx-react'
@@ -43,11 +43,6 @@ const StyledNav = styled(Nav)`
   }
 `
 
-const StyledLoggedInTabs = styled(Box)`
-  flex-shrink: 0;
-  white-space: nowrap;
-`
-
 function useStores() {
   const { store } = useContext(MobXProviderContext)
   const { isLoggedIn, login } = store.user
@@ -84,20 +79,20 @@ function CollectTabs({
         text={t('Collect.tabs.collections')}
       />
       {isLoggedIn && (
-        <StyledLoggedInTabs direction='row' gap='medium'>
-          <CollectTabLink
-            active={activeTab === 'favorites' && !!loginParam}
-            href={`/${projectSlug}/favorites/${login}`}
-            icon={<Favorite aria-hidden='true' size='20px' />}
-            text={t('Collect.tabs.myFavorites', { projectName: projectDisplayName })}
-          />
-          <CollectTabLink
-            active={activeTab === 'collections' && !!loginParam}
-            href={`/${projectSlug}/collections/${login}`}
-            icon={<Bookmark aria-hidden='true' size='16px' />}
-            text={t('Collect.tabs.myCollections', { projectName: projectDisplayName })}
-          />
-        </StyledLoggedInTabs>
+        <CollectTabLink
+          active={activeTab === 'favorites' && !!loginParam}
+          href={`/${projectSlug}/favorites/${login}`}
+          icon={<Favorite aria-hidden='true' size='20px' />}
+          text={t('Collect.tabs.myFavorites', { projectName: projectDisplayName })}
+        />
+      )}
+      {isLoggedIn && (
+        <CollectTabLink
+          active={activeTab === 'collections' && !!loginParam}
+          href={`/${projectSlug}/collections/${login}`}
+          icon={<Bookmark aria-hidden='true' size='16px' />}
+          text={t('Collect.tabs.myCollections', { projectName: projectDisplayName })}
+        />
       )}
     </StyledNav>
   )
