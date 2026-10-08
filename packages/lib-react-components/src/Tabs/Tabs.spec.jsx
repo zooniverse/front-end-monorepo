@@ -24,6 +24,11 @@ describe('Component > Tabs', function () {
     expect(tabsContainer).toBeDefined()
   })
 
+  it('should be a focusgroup', function () {
+    const tabsContainer = screen.getByRole('tablist')
+    expect(tabsContainer.getAttribute('focusgroup')).to.equal('tablist')
+  })
+
   it('should render the correct number of tabs', function () {
     const arrayOfTabs = screen.getAllByRole('tab')
     expect(arrayOfTabs).to.have.length(3)
@@ -32,6 +37,46 @@ describe('Component > Tabs', function () {
   it('should have exactly one active panel', function () {
     const tabPanel = screen.getAllByRole('tabpanel')
     expect(tabPanel).to.have.length(1)
+  })
+
+  it('should have a focusable tab panel', function () {
+    const tabPanel = screen.getByRole('tabpanel')
+    expect(tabPanel.getAttribute('tabindex')).to.equal('0')
+  })
+
+  it('should make the selected tab the only tab stop', function () {
+    const tabIndexes = screen.getAllByRole('tab').map(tab => tab.getAttribute('tabindex'))
+    expect(tabIndexes).to.deep.equal(['0', '-1', '-1'])
+  })
+
+  it('should move focus between tabs with the arrow keys without changing the active panel', async function () {
+    const user = userEvent.setup({ delay: null })
+    const [apples, bananas, cherries] = screen.getAllByRole('tab')
+
+    apples.focus()
+    await user.keyboard('{ArrowRight}')
+    expect(document.activeElement).to.equal(bananas)
+    await user.keyboard('{ArrowRight}')
+    expect(document.activeElement).to.equal(cherries)
+    await user.keyboard('{ArrowRight}')
+    expect(document.activeElement).to.equal(apples)
+    await user.keyboard('{ArrowLeft}')
+    expect(document.activeElement).to.equal(cherries)
+    await user.keyboard('{Home}')
+    expect(document.activeElement).to.equal(apples)
+    await user.keyboard('{End}')
+    expect(document.activeElement).to.equal(cherries)
+    expect(apples.getAttribute('aria-selected')).to.equal('true')
+    expect(within(screen.getByRole('tabpanel')).getByText('An apple is a red fruit.')).toBeDefined()
+  })
+
+  it('should move the tab stop to the newly selected tab', async function () {
+    const user = userEvent.setup({ delay: null })
+    await user.click(screen.getByRole('tab', { name: 'cherries' }))
+    await waitFor(() => {
+      const tabIndexes = screen.getAllByRole('tab').map(tab => tab.getAttribute('tabindex'))
+      expect(tabIndexes).to.deep.equal(['-1', '-1', '0'])
+    })
   })
 
   it('should change the active tab panel when a tab button is clicked', async function () {

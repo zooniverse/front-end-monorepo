@@ -40,3 +40,4 @@ export { default as getThumbnailSrc } from './Media/helpers/getThumbnailSrc.js'
 export { default as getGradientShade } from './helpers/getGradientShade/index.js'
 
 export { default as useProgressiveImage } from './hooks/useProgressiveImage.js'
+export { default as useRovingTabIndex } from './hooks/useRovingTabIndex.js'
