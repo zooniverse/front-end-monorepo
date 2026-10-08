@@ -97,7 +97,7 @@ function AccountNameForm ({
           // Optimitic data isn't required here since we're using onInputChange() to make local changes.
           // optimisticData: prevData => prevData,
 
-          // Rollback isn't required here because this mutate doesn't make any changes.
+          // Rollback isn't required here because this mutate doesn't use optimisticData
           // rollbackOnError: (err) => { return true }
         }
       )
