@@ -26,8 +26,8 @@ const RectangleModel = types
 
     deleteButtonPosition(scale) {
       const BUFFER = 16
-      const x = self.x_center + self.width / 2 + BUFFER / scale
-      const y = self.y_center - self.height / 2
+      const x = self.width / 2 + BUFFER / scale
+      const y = -self.height / 2
       // TODO: check for out of bounds coordinates
       return { x, y }
     },
