@@ -70,7 +70,7 @@ const Badge = styled(Text)`
   padding: 6px 5px;
 `
 
-function CollectionCard({ collection, userId }) {
+function CollectionCard({ collection, projectSlug }) {
   const { t } = useTranslation()
   const {
     default_subject_src: mediaSrc,
@@ -83,7 +83,9 @@ function CollectionCard({ collection, userId }) {
   const owner = links?.owner
   const subjectCount = links?.subjects?.length || 0
   const hasCollaborators = links?.collection_roles?.length > 1
-  const href = `https://www.zooniverse.org/collections/${slug}`
+  const href = projectSlug
+    ? `https://www.zooniverse.org/projects/${projectSlug}/collections/${slug}`
+    : `https://www.zooniverse.org/collections/${slug}`
 
   return (
     <StyledCollectionCard
@@ -176,7 +178,7 @@ function CollectionCard({ collection, userId }) {
 
 CollectionCard.propTypes = {
   collection: object.isRequired,
-  userId: string
+  projectSlug: string
 }
 
 export default CollectionCard
