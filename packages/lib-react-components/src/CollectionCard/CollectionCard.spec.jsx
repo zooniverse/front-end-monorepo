@@ -1,11 +1,12 @@
 import { composeStory } from '@storybook/react'
 import { render, screen } from '@testing-library/react'
 
-import Meta, { Default, PublicSingle } from './CollectionCard.stories'
+import Meta, { Default, PublicSingle, WithProjectSlug } from './CollectionCard.stories'
 
 describe('components > shared > CollectionCard', function () {
   const DefaultStory = composeStory(Default, Meta)
   const PublicSingleStory = composeStory(PublicSingle, Meta)
+  const WithProjectSlugStory = composeStory(WithProjectSlug, Meta)
 
   it('should show the collection name', function () {
     render(<DefaultStory />)
@@ -47,5 +48,11 @@ describe('components > shared > CollectionCard', function () {
     render(<PublicSingleStory />)
 
     expect(screen.queryByLabelText('Collection has collaborators')).toBeNull()
+  })
+
+  it('should link to a collection in a project when projectSlug is provided', function () {
+    render(<WithProjectSlugStory />)
+
+    expect(screen.getByRole('link', { href: 'https://www.zooniverse.org/projects/researcher/testproject/collections/best-of-the-best' })).toBeTruthy()
   })
 })
