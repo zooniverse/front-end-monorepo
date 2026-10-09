@@ -9,7 +9,6 @@ import CollectTabs from './components/CollectTabs'
 import CollectionsListContainer from './components/CollectionsListContainer'
 
 function ProjectCollectPage({
-  activeTab,
   loginParam,
   projectDisplayName,
   projectSlug
@@ -24,13 +23,10 @@ function ProjectCollectPage({
         >
           <CollectHeading />
           <CollectTabs
-            activeTab={activeTab}
-            loginParam={loginParam}
             projectSlug={projectSlug}
             projectDisplayName={projectDisplayName}
           />
           <CollectionsListContainer
-            activeTab={activeTab}
             loginParam={loginParam}
           />
         </Box>
@@ -40,7 +36,6 @@ function ProjectCollectPage({
 }
 
 ProjectCollectPage.propTypes = {
-  activeTab: string.isRequired,
   loginParam: string,
   projectDisplayName: string.isRequired,
   projectSlug: string.isRequired

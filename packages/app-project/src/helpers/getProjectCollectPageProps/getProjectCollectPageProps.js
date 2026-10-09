@@ -15,7 +15,7 @@ const HOSTS = {
 
 const host = HOSTS[environment] || 'https://localhost:3000'
 
-export default async function getProjectCollectPageProps({ locale, params, activeTab }) {
+export default async function getProjectCollectPageProps({ locale, params }) {
   const isServer = true
   const store = initStore(isServer)
   const env = params.panoptesEnv
@@ -64,7 +64,6 @@ export default async function getProjectCollectPageProps({ locale, params, activ
     props: {
       host,
       initialState,
-      activeTab,
       projectDisplayName: strings.display_name,
       projectSlug,
       loginParam

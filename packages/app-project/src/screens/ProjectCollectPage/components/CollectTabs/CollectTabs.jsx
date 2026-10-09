@@ -50,8 +50,6 @@ function useStores() {
 }
 
 function CollectTabs({
-  activeTab,
-  loginParam,
   projectDisplayName,
   projectSlug
 }) {
@@ -67,20 +65,17 @@ function CollectTabs({
       pad='2px'
     >
       <CollectTabLink
-        active={activeTab === 'favorites' && !loginParam}
         href={`/${projectSlug}/favorites`}
         icon={<Favorite aria-hidden='true' size='20px' />}
         text={t('Collect.tabs.favorites')}
       />
       <CollectTabLink
-        active={activeTab === 'collections' && !loginParam}
         href={`/${projectSlug}/collections`}
         icon={<Bookmark aria-hidden='true' size='16px' />}
         text={t('Collect.tabs.collections')}
       />
       {isLoggedIn && (
         <CollectTabLink
-          active={activeTab === 'favorites' && !!loginParam}
           href={`/${projectSlug}/favorites/${login}`}
           icon={<Favorite aria-hidden='true' size='20px' />}
           text={t('Collect.tabs.myFavorites', { projectName: projectDisplayName })}
@@ -88,7 +83,6 @@ function CollectTabs({
       )}
       {isLoggedIn && (
         <CollectTabLink
-          active={activeTab === 'collections' && !!loginParam}
           href={`/${projectSlug}/collections/${login}`}
           icon={<Bookmark aria-hidden='true' size='16px' />}
           text={t('Collect.tabs.myCollections', { projectName: projectDisplayName })}
@@ -99,8 +93,6 @@ function CollectTabs({
 }
 
 CollectTabs.propTypes = {
-  activeTab: string.isRequired,
-  loginParam: string,
   projectDisplayName: string.isRequired,
   projectSlug: string.isRequired
 }

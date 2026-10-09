@@ -12,7 +12,7 @@ import CollectionsList from '../CollectionsList'
 import EmptyPlaceholder from '../Placeholders/EmptyPlaceholder'
 import ErrorPlaceholder from '../Placeholders/ErrorPlaceholder'
 
-function CollectionsListContainer({ activeTab, loginParam }) {
+function CollectionsListContainer({ loginParam }) {
   const { store } = useContext(MobXProviderContext)
   const { isLoading: isUserLoading, user } = useContext(PanoptesAuthContext)
   const isUserScoped = !!loginParam
@@ -50,7 +50,6 @@ function CollectionsListContainer({ activeTab, loginParam }) {
 }
 
 CollectionsListContainer.propTypes = {
-  activeTab: string.isRequired,
   loginParam: string
 }
 

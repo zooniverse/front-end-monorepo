@@ -34,7 +34,6 @@ export function Default(args) {
   )
 }
 Default.args = {
-  activeTab: 'favorites',
   projectDisplayName: 'Test Project',
   projectSlug: 'test-owner/test-project'
 }
@@ -47,8 +46,6 @@ export function LoggedIn(args) {
   )
 }
 LoggedIn.args = {
-  activeTab: 'collections',
-  loginParam: 'test-user',
   projectDisplayName: 'Test Project',
   projectSlug: 'test-owner/test-project'
 }
