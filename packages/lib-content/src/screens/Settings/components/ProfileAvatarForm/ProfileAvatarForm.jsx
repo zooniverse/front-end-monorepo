@@ -133,7 +133,7 @@ function ProfileAvatarForm ({
   authUser,
 }) {
   const { t } = useTranslation()
-  const { data: userAvatar, isLoading, error: loadError, isValidating } = useUserMedia({ userId: authUser?.id, mediaType: 'avatar' })
+  const { data: userAvatar, isLoading, error: loadError, isValidating, mutate } = useUserMedia({ userId: authUser?.id, mediaType: 'avatar' })
   const [ isSaving, setIsSaving ] = useState(false)
   const [ saveSuccess, setSaveSuccess ] = useState(false)
   const [ saveError, setSaveError ] = useState(null)
@@ -195,30 +195,40 @@ function ProfileAvatarForm ({
     if (!selectedFile) { return }
 
     try {
-      setIsSaving(true)
-      setSaveSuccess(false)
-      setSaveError(null)
+      let shouldRevalidate = false
 
-      const uploadResult = await uploadUserMedia(authUser?.id, 'avatar', selectedFile)
-      if (!uploadResult) {
-        throw new Error('Failed to upload user avatar')  // TODO: translations
-      }
+      await mutate(
+        async (prevData) => {
+          setIsSaving(true)
+          setSaveSuccess(false)
+          setSaveError(null)
 
-      setIsSaving(false)
-      setSaveSuccess(true)
-      setSaveError(null)
+          const uploadResult = await uploadUserMedia(authUser?.id, 'avatar', selectedFile)
+          if (!uploadResult) {
+            throw new Error('Failed to upload user avatar')  // TODO: translations
+          }
 
-      // Clear the temporary input file on successful upload.
-      setImageData(null)
-      setImageBlob(null)
+          setIsSaving(false)
+          setSaveSuccess(true)
+          setSaveError(null)
 
+          // Clear the temporary input file on successful upload.
+          setImageData(null)
+          setImageBlob(null)
+          shouldRevalidate = true
+
+          return prevData  // Return existing data with no changes.
+        }, {
+          // DO revalidate, IF uploadUserMedia() is successful. (i.e. please sync local data with Panoptes) 
+          revalidate: () => shouldRevalidate
+        }
+      )
     } catch (err) {
       console.error(err)
       setIsSaving(false)
       setSaveSuccess(false)
       setSaveError(err?.response?.body || err)
     }
-
   }
 
   async function doDelete () {
