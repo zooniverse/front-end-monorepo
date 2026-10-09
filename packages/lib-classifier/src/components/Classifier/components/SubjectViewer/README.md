@@ -51,8 +51,9 @@ Currently, we have three implementations of pan and zoom functionality. An open 
 - [`InteractionLayer`](components/InteractionLayer) - A transparent SVG rectangle layered on top of images used with the `SingleImageViewer` and the `SingleVideoViewer` that has event listeners for the pointer events for drawing SVG shape annotation marks on the subject image or video. This layer contains several children components:
   - [`DrawingToolMarks`](components/InteractionLayer/components/DrawingToolMarks) - This is the rendering component of the SVG shape marks actively being drawing by the volunteer. It handles whether a mark is in bounds of the viewer area as well as certain event handling for movement, selection, and deletion of an individual mark.
   - [`PreviousMarks`](components/InteractionLayer/components/PreviousMarks) - This is the rendering component of the SVG shape marks made from previous drawing tasks in previous workflow steps, but during the same classification session.
-  - [`SubTaskPopup`](components/SubTaskPopup) - This is the movable pop up modal rendered on click of marks that are associated with a drawing task with a defined set of subtasks to be answered per mark.
   - [`TranscribedLines`](components/TranscribedLines) - This is the rendering component for Caesar reductions of transcriptions made by volunteers from other sessions. It contains the logic for handling when a new mark is created from the previous transcription if the line has not reached consensus or if the line has reached consensus, then to render the completed line and open a modal pop up containing the data that contributed toward consensus.
+
+- [`SubTaskPopup`](components/SubTaskPopup) - This movable popup is rendered once by `SubjectViewer` for marks associated with drawing tasks that define subtasks.
 
 ## Other
 
