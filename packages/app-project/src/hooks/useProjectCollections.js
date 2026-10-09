@@ -1,6 +1,11 @@
 import { collections } from '@zooniverse/panoptes-js'
 import useSWR from 'swr'
 
+import {
+  COLLECTIONS_PAGE_SIZE,
+  DEFAULT_COLLECTION_MIN_SUBJECTS,
+  DEFAULT_COLLECTION_SORT
+} from '@helpers/collectionQueryParams'
 import usePanoptesAuthToken from '@hooks/usePanoptesAuthToken'
 
 const SWRoptions = {
@@ -15,17 +20,30 @@ async function fetchProjectCollections({ query, token }) {
   const authorization = token ? `Bearer ${token}` : undefined
   
   const response = await collections.get({ authorization, query })
-  return response?.body?.collections ?? []
+  const projectCollections = response?.body?.collections ?? []
+  const pageCount = response?.body?.meta?.collections?.page_count ?? 1
+  const count = response?.body?.meta?.collections?.count ?? 0
+
+  return { collections: projectCollections, pageCount, count }
 }
 
-export default function useProjectCollections({ favorite, login, projectId }) {
+export default function useProjectCollections({
+  favorite,
+  login,
+  minSubjects = DEFAULT_COLLECTION_MIN_SUBJECTS,
+  page = 1,
+  projectId,
+  sort = DEFAULT_COLLECTION_SORT
+}) {
   const token = usePanoptesAuthToken()
 
   const query = {
     favorite,
-    min_subjects: 2,
+    min_subjects: minSubjects,
+    page,
+    page_size: COLLECTIONS_PAGE_SIZE,
     project_ids: [projectId],
-    sort: 'display_name'
+    sort
   }
   if (login) query.owner = login
   
