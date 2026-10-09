@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { Anchor } from 'grommet'
-import { bool, string } from 'prop-types'
+import { string } from 'prop-types'
+import { usePathname } from 'next/navigation'
 import { useEffect, useRef } from 'react'
 import styled, { css } from 'styled-components'
 
@@ -30,14 +31,16 @@ const StyledAnchor = styled(Anchor)`
   `}
 `
 
-function CollectTabLink({ 
-  active,
+function CollectTabLink({
   href,
   icon,
-  text 
+  text
 }) {
+  const pathname = usePathname()
+  const active = pathname === href
+  
   const linkRef = useRef(null)
-
+  
   useEffect(function scrollActiveTabIntoView() {
     if (active) {
       linkRef.current?.scrollIntoView?.({
@@ -65,7 +68,6 @@ function CollectTabLink({
 }
 
 CollectTabLink.propTypes = {
-  active: bool,
   href: string.isRequired,
   text: string.isRequired
 }

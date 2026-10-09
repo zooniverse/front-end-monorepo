@@ -37,6 +37,14 @@ Default.args = {
   projectDisplayName: 'Test Project',
   projectSlug: 'test-owner/test-project'
 }
+Default.parameters = {
+  nextjs: {
+    appDirectory: true,
+    navigation: {
+      pathname: '/test-owner/test-project/favorites'
+    }
+  }
+}
 
 export function LoggedIn(args) {
   return (
@@ -48,4 +56,12 @@ export function LoggedIn(args) {
 LoggedIn.args = {
   projectDisplayName: 'Test Project',
   projectSlug: 'test-owner/test-project'
+}
+LoggedIn.parameters = {
+  nextjs: {
+    appDirectory: true,
+    navigation: {
+      pathname: '/test-owner/test-project/collections/test-user'
+    }
+  }
 }

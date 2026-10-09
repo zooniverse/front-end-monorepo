@@ -3,6 +3,7 @@ import { Box } from 'grommet'
 import { MobXProviderContext } from 'mobx-react'
 import { string } from 'prop-types'
 import { useContext } from 'react'
+import { usePathname } from 'next/navigation'
 
 import { useProjectCollections } from '@hooks'
 import RequireUser from '@shared/components/RequireUser/RequireUser'
@@ -13,6 +14,8 @@ import EmptyPlaceholder from '../Placeholders/EmptyPlaceholder'
 import ErrorPlaceholder from '../Placeholders/ErrorPlaceholder'
 
 function CollectionsListContainer({ loginParam }) {
+  const pathname = usePathname()
+  const favorite = pathname?.split('/').includes('favorites') ?? false
   const { store } = useContext(MobXProviderContext)
   const { isLoading: isUserLoading, user } = useContext(PanoptesAuthContext)
   const isUserScoped = !!loginParam
@@ -21,7 +24,7 @@ function CollectionsListContainer({ loginParam }) {
     error,
     isLoading
   } = useProjectCollections({
-    favorite: activeTab === 'favorites',
+    favorite,
     login: loginParam,
     projectId: store?.project?.id
   })
