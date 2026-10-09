@@ -1,3 +1,23 @@
+/*
+updateUserData() is a function for _saving_ changes to Panoptes.
+
+Input: (separate args)
+1. (object): an object with key-value pairs that we want to change.
+2. (string): user's ID.
+
+Output:
+- Updated User resource, on success.
+
+Potentially throws:
+- API errors from Panoptes.
+
+Notes:
+- Performs a GET to Panoptes (to get some validation data for the header),
+  then a PUT with the new data.
+- Protip: this isn't an SWR hook, so you'll need to manually keep track of the
+  processing/saving state.
+ */
+
 import { panoptes } from '@zooniverse/panoptes-js'
 import auth from 'panoptes-client/lib/auth'
 

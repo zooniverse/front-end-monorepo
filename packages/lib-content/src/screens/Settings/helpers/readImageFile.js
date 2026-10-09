@@ -8,12 +8,6 @@ a data URL string.
 - Future devs, please feel free to rename/rework this function if you start
   using it to read video files or whatever.
 
-Usage:
-```
-const imageData = await readImageFile(imageFile)
-return <img src={imageData} />
-```
-
 Input:
 - `file` (file): a File object. (e.g. from `<input type="file">`)
 
