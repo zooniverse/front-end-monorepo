@@ -18,18 +18,6 @@ Notes:
 - The resized image (output) will be a PNG with default quality, and
   transparency preserved.
 
-Usage:
-```
-const imageData = readImageFileOrWhatever()  // string/data URL
-const maxSize = 60000  // i.e. 60kb
-const optionalRatio = 1  // crop image to a 1:1 square
-
-const {
-  string: resizedSquareImageData,
-  blob: resizedSquareImageBlob
-} = await resizeImageData(imageData, maxSize, optionalRatio)
-```
-
 Input:
 - `imageData` (string): the contents of an image file, as a data URL.
 - `maxDataSize` (number): the target file size/data size, in bytes.
@@ -44,8 +32,9 @@ Output:
 Potentially throws:
 - FileReader errors.
 - "Invalid input" error.
-- "Couldn't reasonably resize image" error, which occurs 
-
+- "Couldn't reasonably resize image" error, which occurs if the maxDataSize
+  target still couldn't be met after resizing this image down to the smallest
+  scale of 5%.
  */
 
 const RESIZE_INCREMENT = -0.05
