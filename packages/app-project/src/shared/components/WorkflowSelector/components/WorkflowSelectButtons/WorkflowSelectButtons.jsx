@@ -6,6 +6,7 @@ import LevelingUpButtons from './LevelingUpButtons'
 
 function WorkflowSelectButtons({
   assignedWorkflowID = '',
+  externalWorkflowEnabled = false,
   workflowAssignmentEnabled = false,
   workflows = []
 }) {
@@ -14,6 +15,7 @@ function WorkflowSelectButtons({
       {workflowAssignmentEnabled ? (
         <LevelingUpButtons
           assignedWorkflowID={assignedWorkflowID}
+          externalWorkflowEnabled={externalWorkflowEnabled}
           workflows={workflows}
         />
       ) : (
@@ -29,7 +31,7 @@ function WorkflowSelectButtons({
         >
           {workflows.map(workflow => (
             <li key={workflow.id}>
-              <WorkflowSelectButton workflow={workflow} />
+              <WorkflowSelectButton externalWorkflowEnabled={externalWorkflowEnabled} workflow={workflow} />
             </li>
           ))}
         </Box>
@@ -40,6 +42,7 @@ function WorkflowSelectButtons({
 
 WorkflowSelectButtons.propTypes = {
   assignedWorkflowID: string,
+  externalWorkflowEnabled: bool,
   workflowAssignmentEnabled: bool,
   workflows: arrayOf(object)
 }

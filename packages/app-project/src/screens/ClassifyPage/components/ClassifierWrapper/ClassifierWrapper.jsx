@@ -183,7 +183,7 @@ ClassifierWrapper.propTypes = {
   showTutorial: bool,
   /** Stored as a state variable in ClassifierPageContainer */
   subjectID: string,
-  /** optional subject set ID (from the classifierProps via getDefaultPageProps in page index.js) */
+  /** optional subject set ID (from the main view in ClassifyPage, via getDefaultPageProps in page index.js) */
   subjectSetID: string,
   /** Current logged-in user */
   user: shape({
@@ -191,6 +191,6 @@ ClassifierWrapper.propTypes = {
   }),
   /** Logged-in user ID */
   userID: string,
-  /** required workflow ID (from the classifierProps via getDefaultPageProps in page index.js) */
+  /** required workflow ID (from the main view in ClassifyPage, via getDefaultPageProps in page index.js) */
   workflowID: string
 }

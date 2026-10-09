@@ -1,10 +1,10 @@
 # Feedback Strategy: Geo Line
 
-Determines whether a volunteer's geoDrawing line follows a target line on the map, within a given tolerance.
+Determines whether a volunteer's geoDrawing mark follows, or falls on, a target line on the map, within a given tolerance.
 
-The target is a `LineString` in `EPSG:4326` (matching the geoDrawing annotation) and the tolerance is a distance in **meters**. The target is grown into a corridor `tolerance` wide and the volunteer's `LineString` must lie entirely inside it, in either direction; see the [geo grader](../grader/README.md).
+The target is a `LineString` in `EPSG:4326` (matching the geoDrawing annotation) and the tolerance is a distance in **meters**. The target is grown into a corridor `tolerance` wide and the volunteer's mark must lie entirely inside it; a `LineString` counts in either direction; see the [geo grader](../grader/README.md).
 
-Only `LineString` features (the `SegmentedLine` tool) are considered. `Point` features are ignored.
+`LineString` features (the `SegmentedLine` tool) and `Point` features (the `Point` tool) are both considered, so the same target grades a traced crest or a point dropped on one. Pair a Point tool with a nested target to ask "mark any one of these".
 
 ## Subject metadata fields
 
