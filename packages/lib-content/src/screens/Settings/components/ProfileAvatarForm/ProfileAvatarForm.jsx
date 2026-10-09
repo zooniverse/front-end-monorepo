@@ -9,6 +9,8 @@ import { Loader, StatusMessage } from '@zooniverse/react-components'
 import useUserMedia from '../../helpers/useUserMedia'
 import uploadUserMedia from '../../helpers/uploadUserMedia'
 import deleteUserMedia from '../../helpers/deleteUserMedia'
+import readImageFile from '../../helpers/readImageFile'
+import resizeImageData from '../../helpers/resizeImageData'
 
 const FormFieldsContainer = styled(Box)`
   gap: 1em;
@@ -18,119 +20,10 @@ const FormFieldsContainer = styled(Box)`
   }
 `
 
-// readFileAsDataURL is a utility function that wraps the FileReader around a
-// Promise, just so we can use await.
-function readFileAsDataURL (file) {
-  return new Promise((resolve, reject) => {
-    const fileReader = new FileReader()
-    fileReader.addEventListener('load', () => {
-      resolve(fileReader.result)
-    })
-    fileReader.addEventListener('error', () => {
-      reject(fileReader.error)
-    })
-    fileReader.readAsDataURL(file)
-  })
-}
-
-// processInputFileIntoImageData converts a File object into a data URL string.
-// 
-// Usage:
-// const imageData = await readFileAsDataURL(imageFile)
-// return <img src={imageData} />
-//
-// Input:
-// - file: a File object. (e.g. from <input type="file">)
-//
-// Output: 
-// - A Promise that returns a string (data URL) when resolved.
-async function processInputFileIntoImageData (file) {
-  if (!file) return
-  return await readFileAsDataURL(file)
-}
-
-function loadImageObjectFromData (imageData) {
-  return new Promise((resolve, reject) => {
-    const image = new Image()
-    image.onload = () => resolve(image)
-    image.onerror = (err) => reject(err)
-    image.src = imageData
-  })
-}
-
-function getImageBlobFromCanvas (canvas) {
-  return new Promise((resolve, reject) => {
-    canvas.toBlob((blob) => {
-      if (blob) {
-        resolve(blob)
-      } else {
-        reject(new Error("Couldn't get image blob from canvas."))
-      }
-    })
-  })
-}
-
-async function resizeImageData (imageData, targetRatio) {
-  if (!imageData) return
-
-  // We're going to draw the imageData onto a canvas.
-  const canvas = document.createElement('canvas')
-  const c2d = canvas.getContext('2d')
-  const imageObject = await loadImageObjectFromData(imageData)
-  const imageWidth = imageObject.naturalWidth
-  const imageHeight = imageObject.naturalHeight
-  let canvasWidth = imageObject.naturalWidth
-  let canvasHeight = imageObject.naturalHeight
-
-  // If our resized image has a target ratio (e.g. 1:1 for a perfect square),
-  // crop the image to fill the canvas using "cover" logic.
-  let xOffset = 0, yOffset = 0
-  if (targetRatio) {
-    const imageRatio = imageWidth / imageHeight  // ⚠️ Will quietly return nonsense value of Infinity or NaN if imageHeight is 0.
-    if (imageRatio > targetRatio) {
-      // Image is wider than target, therefore keep height and crop width.
-      canvasWidth = imageHeight * targetRatio
-      canvasHeight = imageHeight
-      xOffset = -(imageWidth - canvasWidth) / 2
-    } else {
-      // Image is taller than target, therefore keep width and crop height.
-      canvasWidth = imageWidth
-      canvasHeight = imageWidth * targetRatio
-      yOffset = -(imageHeight - canvasHeight) / 2
-    }
-  }
-
-  const MAXIMUM_BLOB_SIZE = 60000  // This limit should be determined by checking in with the Panoptes system.
-  let blob, string  // This is the resized image data, in two formats: blob/file (for upload), and data URL string. 
-  let scale = 1
-
-  // Right! Now let's resize the image, making it smaller and smaller until 
-  // We'll start at 100% scale (original image size), then drop down 5% each time.
-  for (scale = 1 ; scale > 0 ; scale -= 0.05) {
-    // Set canvas width and height, which we'll be drawing the image onto.
-    canvas.width = canvasWidth * scale
-    canvas.height = canvasHeight * scale
-
-    // Draw the image onto the canvas.
-    c2d.clearRect(0, 0, canvasWidth, canvasHeight)  // Yes, we're clearing the original canvasWidth x canvasHeight, not canvasWidth*scale x canvasHeight*scale
-    c2d.drawImage(imageObject, xOffset * scale, yOffset * scale, imageWidth * scale, imageHeight * scale)
-
-    blob = await getImageBlobFromCanvas(canvas)
-    string = canvas.toDataURL()
-
-    if (blob.size <= MAXIMUM_BLOB_SIZE) break
-  }
-
-  if (scale <= 0) throw new Error("Couldn't reasonably resize image.")
-
-  return {
-    string,  // By default, this is a PNG data URL with quality=1.
-    blob  // This is the "File" that will be uploaded to Panoptes.
-  }
-}
-
 function ProfileAvatarForm ({
   authUser,
+  maxDataSize = 60000,
+  optionalRatio = 1,
 }) {
   const { t } = useTranslation()
   const { data: userAvatar, isLoading, error: loadError, isValidating, mutate } = useUserMedia({ userId: authUser?.id, mediaType: 'avatar' })
@@ -147,10 +40,8 @@ function ProfileAvatarForm ({
   
   // When the File input changes, we'll do the following:
   // 1. read the selected image file as a Data URL string (image data).
-  // 2. resize the image data 
-  //   - we're cropping the image to a target width/height
-  //   - AND we're double-making sure that the image is within an acceptable
-  //     file size range.
+  // 2. resize the image data to an acceptable file size range (and optionally,
+  //    the image will be cropped to meet a specific aspect ratio).
   // 3. show the modified image data as a preview.
   // After that, the user has to click the Submit button to save changes.
 
@@ -169,11 +60,11 @@ function ProfileAvatarForm ({
       setImageData(null)
       setImageBlob(null)
 
-      const newImageData = await processInputFileIntoImageData(selectedFile)
+      const newImageData = await readImageFile(selectedFile)
       const {
         string: resizedImageData,
         blob: resizedImageBlob
-      } = await resizeImageData(newImageData, 1)
+      } = await resizeImageData(newImageData, maxDataSize, optionalRatio)
 
       setIsSaving(false)
       setSaveError(null)
