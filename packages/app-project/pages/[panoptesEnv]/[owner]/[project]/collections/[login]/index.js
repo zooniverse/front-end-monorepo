@@ -5,7 +5,6 @@ export { default } from '@screens/ProjectCollectPage'
 
 export async function getServerSideProps({ locale, params, query }) {
   const { notFound, props } = await getProjectCollectPageProps({
-    activeTab: 'collections',
     locale,
     params,
     searchParams: query

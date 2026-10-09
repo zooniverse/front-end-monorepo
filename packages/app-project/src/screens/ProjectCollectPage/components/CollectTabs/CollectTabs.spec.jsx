@@ -3,11 +3,18 @@ import { render, screen } from '@testing-library/react'
 
 import Meta, { Default, LoggedIn } from './CollectTabs.stories'
 
+const mockNavigation = vi.hoisted(() => ({ pathname: '' }))
+
+vi.mock('next/navigation', () => ({
+  usePathname: () => mockNavigation.pathname
+}))
+
 describe('Component > CollectTabs', function () {
   describe('when logged out', function () {
     const DefaultStory = composeStory(Default, Meta)
 
     beforeEach(function () {
+      mockNavigation.pathname = Default.parameters.nextjs.navigation.pathname
       render(<DefaultStory />)
     })
 
@@ -36,6 +43,7 @@ describe('Component > CollectTabs', function () {
     const LoggedInStory = composeStory(LoggedIn, Meta)
 
     beforeEach(function () {
+      mockNavigation.pathname = LoggedIn.parameters.nextjs.navigation.pathname
       render(<LoggedInStory />)
     })
 

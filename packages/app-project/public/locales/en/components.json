@@ -108,7 +108,8 @@
     "alreadySeen": "Already seen",
     "retired": "Retired",
     "unclassified": "Available",
-    "fetching": "Please wait..."
+    "fetching": "Please wait...",
+    "error": "Sorry, we couldn't load the subjects in this subject set. Please try again later, or let the project team know on Talk."
   },
   "SubjectPreview": {
     "CollectionsButton": {
@@ -133,6 +134,7 @@
     "noWorkflows": "Nothing to classify",
     "WorkflowSelectButton": {
       "complete": "{{completeness}}% complete",
+      "externalWorkflow": "external workflow",
       "setSelection": "set selection",
       "subjectSelection": "subject selection"
     },

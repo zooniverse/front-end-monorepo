@@ -34,9 +34,16 @@ export function Default(args) {
   )
 }
 Default.args = {
-  activeTab: 'favorites',
   projectDisplayName: 'Test Project',
   projectSlug: 'test-owner/test-project'
+}
+Default.parameters = {
+  nextjs: {
+    appDirectory: true,
+    navigation: {
+      pathname: '/test-owner/test-project/favorites'
+    }
+  }
 }
 
 export function LoggedIn(args) {
@@ -47,8 +54,14 @@ export function LoggedIn(args) {
   )
 }
 LoggedIn.args = {
-  activeTab: 'collections',
-  loginParam: 'test-user',
   projectDisplayName: 'Test Project',
   projectSlug: 'test-owner/test-project'
+}
+LoggedIn.parameters = {
+  nextjs: {
+    appDirectory: true,
+    navigation: {
+      pathname: '/test-owner/test-project/collections/test-user'
+    }
+  }
 }

@@ -69,3 +69,28 @@ describe('draggable', function () {
     })
   })
 })
+
+describe('draggable, on pointer cancel', function () {
+  const StubComponent = forwardRef((props, ref) => {
+    return <p id='cancel-target' ref={ref}>Hello there!</p>
+  })
+  const Draggable = draggable(StubComponent)
+  const onEnd = sinon.stub()
+
+  beforeEach(function () {
+    onEnd.resetHistory()
+    render(
+      <svg>
+        <Draggable dragEnd={onEnd} />
+      </svg>
+    )
+  })
+
+  it('should end the drag when the browser cancels the pointer', function () {
+    const target = document.querySelector('#cancel-target')
+    target.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, pointerId: 1 }))
+    target.dispatchEvent(new PointerEvent('pointercancel', { bubbles: true, pointerId: 1 }))
+
+    expect(onEnd).to.have.been.calledOnce
+  })
+})

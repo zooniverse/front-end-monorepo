@@ -1,6 +1,7 @@
 import { Loader } from '@zooniverse/react-components'
 import { Box } from 'grommet'
 import { MobXProviderContext } from 'mobx-react'
+import { usePathname } from 'next/navigation'
 import { parseAsInteger, parseAsString, useQueryState } from 'nuqs'
 import { number, string } from 'prop-types'
 import { useContext, useEffect, useState } from 'react'
@@ -20,13 +21,9 @@ import EmptyPlaceholder from '../Placeholders/EmptyPlaceholder'
 import ErrorPlaceholder from '../Placeholders/ErrorPlaceholder'
 import Pagination from '../Pagination'
 
-function CollectionsListContainer({
-  activeTab,
-  initialPage = 1,
-  initialMinSubjects = DEFAULT_COLLECTION_MIN_SUBJECTS,
-  initialSort = DEFAULT_COLLECTION_SORT,
-  loginParam
-}) {
+function CollectionsListContainer({ loginParam }) {
+  const pathname = usePathname()
+  const favorite = pathname?.split('/').includes('favorites') ?? false
   const { store } = useContext(MobXProviderContext)
   const { isLoading: isUserLoading, user } = useContext(PanoptesAuthContext)
   const isUserScoped = !!loginParam
@@ -66,7 +63,7 @@ function CollectionsListContainer({
     error,
     isLoading
   } = useProjectCollections({
-    favorite: activeTab === 'favorites',
+    favorite,
     login: loginParam,
     minSubjects,
     page,
@@ -153,10 +150,6 @@ function CollectionsListContainer({
 }
 
 CollectionsListContainer.propTypes = {
-  activeTab: string.isRequired,
-  initialPage: number,
-  initialMinSubjects: number,
-  initialSort: string,
   loginParam: string
 }
 

@@ -18,16 +18,8 @@ const HOSTS = {
 }
 
 const host = HOSTS[environment] || 'https://localhost:3000'
-export default async function getProjectCollectPageProps({
-  locale,
-  params,
-  activeTab,
-  searchParams = {}
-}) {
-  const parsedPage = Number(searchParams.page)
-  const page = Number.isInteger(parsedPage) && parsedPage > 0 ? parsedPage : 1
-  const minSubjects = normalizeCollectionMinSubjects(searchParams.min_subjects)
-  const sort = normalizeCollectionSort(searchParams.sort)
+
+export default async function getProjectCollectPageProps({ locale, params }) {
   const isServer = true
   const store = initStore(isServer)
   const env = params.panoptesEnv
@@ -76,7 +68,6 @@ export default async function getProjectCollectPageProps({
     props: {
       host,
       initialState,
-      activeTab,
       projectDisplayName: strings.display_name,
       projectSlug,
       loginParam,

@@ -1,4 +1,4 @@
-import { PlainButton, SpacedText } from '@zooniverse/react-components'
+import { PlainButton, SpacedText, StatusMessage } from '@zooniverse/react-components'
 import { debounce } from 'lodash'
 import Link from 'next/link'
 import { array, bool, number, shape, string } from 'prop-types'
@@ -8,6 +8,7 @@ import { Box, DataTable, Heading, Paragraph } from 'grommet'
 import { useTranslation } from 'next-i18next/pages'
 
 import addQueryParams from '@helpers/addQueryParams'
+import logToSentry from '@helpers/logger/logToSentry.js'
 import { columns, fetchStatuses, fetchSubjects, searchParams } from './helpers'
 
 /*
@@ -49,6 +50,7 @@ export default function SubjectPicker({ baseUrl, subjectSet, workflow }) {
   const [ rows, setRows ] = useState([])
   const [ query, setQuery ] = useState('')
   const [ isFetching, setIsFetching ] = useState(false)
+  const [ fetchError, setFetchError ] = useState(null)
   const [ sortField, setSortField ] = useState('priority')
   const [ sortOrder, setSortOrder ] = useState('asc')
   const { indexFields } = subjectSet.metadata
@@ -69,11 +71,19 @@ export default function SubjectPicker({ baseUrl, subjectSet, workflow }) {
       // See https://github.com/zooniverse/front-end-monorepo/pull/2466#issuecomment-931547044
       // for details.
       setIsFetching(true)
+      setFetchError(null)
 
-      const subjects = await fetchSubjects(subjectSet.id, query, sortField, sortOrder)
-      const newRows = await fetchStatuses(subjects, workflow, PAGE_SIZE)
-      setRows(newRows)
-      setIsFetching(false)
+      try {
+        const subjects = await fetchSubjects(subjectSet.id, query, sortField, sortOrder)
+        const newRows = await fetchStatuses(subjects, workflow, PAGE_SIZE)
+        setRows(newRows)
+      } catch (error) {
+        console.error(error)
+        logToSentry(error)
+        setFetchError(error)
+      } finally {
+        setIsFetching(false)
+      }
     }
 
     fetchSubjectData()
@@ -168,6 +178,11 @@ export default function SubjectPicker({ baseUrl, subjectSet, workflow }) {
       {isFetching && (
         <Paragraph textAlign="center">{t('SubjectPicker.fetching')}</Paragraph>
       )}
+      <StatusMessage
+        margin={{ top: 'small' }}
+        text={fetchError ? t('SubjectPicker.error') : ''}
+        type='error'
+      />
     </>
   )
 }
