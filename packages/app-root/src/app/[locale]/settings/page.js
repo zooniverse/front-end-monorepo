@@ -1,7 +1,7 @@
 import AccountSettingsContainer from './AccountSettingsContainer'
 
 export const metadata = {
-  title: 'Settings',
+  title: 'Account Settings',
   description: ''
 }
 

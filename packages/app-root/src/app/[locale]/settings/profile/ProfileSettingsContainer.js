@@ -1,13 +1,13 @@
 'use client'
 
-import { AccountSettings } from '@zooniverse/content'
+import { ProfileSettings } from '@zooniverse/content'
 
 import { useContext } from 'react'
 
 import { PanoptesAuthContext } from '@/contexts'
 import AuthenticatedUsersPageContainer from '@/components/AuthenticatedUsersPageContainer'
 
-function AccountSettingsContainer() {
+function ProfileSettingsContainer() {
   const { adminMode, isLoading, user } = useContext(PanoptesAuthContext)
 
   // AuthenticatedUsersPageContainer was built for pages like /users, to
@@ -23,11 +23,11 @@ function AccountSettingsContainer() {
       login={login}
       user={user}
     >
-      <AccountSettings
+      <ProfileSettings
         authUser={user}
       />
     </AuthenticatedUsersPageContainer>
   )
 }
 
-export default AccountSettingsContainer
+export default ProfileSettingsContainer

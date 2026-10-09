@@ -1,3 +1,28 @@
+/*
+useUserData() is a hook for _fetching_ Panoptes user data.
+
+Input:
+- An Object containing:
+  - `login` (string): user's login (username).
+  - `token` (string): user's Panoptes authentication token.
+
+Output:
+- Standard useSWR() output. See example.
+
+Regarding SWR:
+
+- useUserData() uses SWR to ensure the data is fresh by periodically checking
+  in with Panoptes.
+  - In practice this just mostly means it automatically checks when their
+    network reconnects after a disconnect.
+  - We also _manually_ trigger a revalidate when we do a mutate() +
+    updateUserData() combo to save data to Panoptes.
+  - We do NOT automatically revalidate when the window (re-)gains focus, because
+    it will reset any local changes/changes not saved to Panoptes caused by
+    mutate(). And boy, this is a very annoying experience if you're, say,
+    tabbing into another window to check some details.
+ */
+
 import { panoptes } from '@zooniverse/panoptes-js'
 import useSWR from 'swr'
 
