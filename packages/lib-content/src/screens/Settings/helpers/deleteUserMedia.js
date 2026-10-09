@@ -1,3 +1,25 @@
+/*
+deleteUserMedia() is a function for _deleting_ Panoptes user data related to
+_media files._ (Either the Profile Avatar or Profile Header.)
+
+Input: (separate args)
+1. (string): user's ID.
+2. (string): type of media we're interested in. Either `"avatar"` or
+   `"profile_header"`
+
+Output:
+- `true` on successful delete.
+
+Potentially throws:
+- API errors from Panoptes.
+
+Notes:
+- Performs a GET to Panoptes (to get some validation data for the header),
+  then a DELETE.
+- Protip: this isn't an SWR hook, so you'll need to manually keep track of the
+  processing/saving state.
+ */
+
 import { panoptes } from '@zooniverse/panoptes-js'
 import auth from 'panoptes-client/lib/auth'
 

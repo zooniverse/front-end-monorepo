@@ -1,3 +1,18 @@
+/*
+useUserMedia() is a hook for fetching Panoptes user data related to
+_media files._ Specifically, you can get either the user's Profile Avatar or
+Profile Header.
+
+Input:
+- An Object containing:
+  - `userId` (string): user's ID.
+  - `mediaType` (string): type of media we're interested in. Either `"avatar"`
+    or `"profile_header"`
+
+Output:
+- Standard useSWR() output. See example.
+ */
+
 import { panoptes } from '@zooniverse/panoptes-js'
 import useSWR from 'swr'
 
