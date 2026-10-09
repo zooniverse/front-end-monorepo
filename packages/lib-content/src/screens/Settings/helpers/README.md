@@ -127,3 +127,29 @@ Potentially throws:
 Notes:
 - Performs a GET to Panoptes (to get some validation data for the header), then a DELETE.
 - Protip: this isn't an SWR hook, so you'll need to manually keep track of the processing/saving state.
+
+## readImageFile()
+
+readImageFile() is an async function that reads the content of a File object as
+a data URL string.
+
+- To be honest, this function can be used to read any file (not just image
+  files) but in practice, FEM only uses it with PNGs/GIFs/JPEGs/SVGs. The
+  function is named such to make its implicit image-centric intent clear.
+- Future devs, please feel free to rename/rework this function if you start
+  using it to read video files or whatever.
+
+Usage:
+```
+const imageData = await readImageFile(imageFile)
+return <img src={imageData} />
+```
+
+Input:
+- `file`: a File object. (e.g. from `<input type="file">`)
+
+Output:
+- A Promise that returns a string (data URL) when resolved.
+
+Potentially throws:
+- FileReader errors.
