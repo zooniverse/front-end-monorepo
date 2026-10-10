@@ -95,6 +95,10 @@ const BaseMark = types
       return self.tool.tasks
     },
 
+    get usesSubTasks() {
+      return self.finished && self.isValid && self.tasks.length > 0
+    },
+
     get videoTime() {
       /*
         For certain drawing tools (e.g. Temporal Point), we need to know WHEN the mark was created.
