@@ -12,6 +12,12 @@ describe('Component > CollectionsResultCount', function () {
   it('should show an empty result range when there are no collections', function () {
     render(<CollectionsResultCount count={0} />)
 
-    expect(screen.getByText('Showing 0-0 of 0 collections')).to.exist
+    expect(screen.getByText('Showing 0 of 0 collections')).to.exist
+  })
+
+  it('should show the total count when it is less than the page size', function () {
+    render(<CollectionsResultCount count={5} pageSize={10} />)
+
+    expect(screen.getByText('Showing 5 of 5 collections')).to.exist
   })
 })
