@@ -7,7 +7,7 @@ import { useTranslation } from '@translations/i18n'
 
 import { useClientRect } from '@hooks'
 import * as taskRegister from '@plugins/tasks'
-import getDefaultPosition from '../../helpers/getDefaultPosition'
+import getDefaultPosition from '../InteractionLayer/helpers/getDefaultPosition'
 import ConfirmModal from './components/ConfirmModal'
 import SaveButton from './components/SaveButton'
 
