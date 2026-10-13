@@ -19,12 +19,22 @@ function taskDispatcher (snapshot) {
 
 const GenericTask = types.union({ dispatcher: taskDispatcher }, ...taskModels)
 
+// MST only typechecks snapshots outside production, so check explicitly instead.
+export function isSupportedTaskSnapshot(snapshot) {
+  try {
+    return GenericTask.is(snapshot)
+  } catch (error) {
+    return false
+  }
+}
+
 const baseStep = types
   .model('Step', {
     next: types.maybe(types.string),
     stepKey: types.identifier,
     taskKeys: types.array(types.string),
-    tasks: types.array(GenericTask)
+    tasks: types.array(GenericTask),
+    unsupportedTaskKeys: types.array(types.string)
   })
   .views(self => ({
     isComplete(annotations=[]) {
@@ -40,6 +50,10 @@ const baseStep = types
       let isValid = self.tasks.every((task) => task.isValid)
 
       return isValid
+    },
+
+    get hasUnsupportedTasks() {
+      return self.unsupportedTaskKeys.length > 0
     },
 
     get isThereBranching () {
@@ -73,6 +87,12 @@ const baseStep = types
         task.complete(annotation)
         task.validate(annotation)
       })
+    },
+
+    addUnsupportedTaskKey (taskKey) {
+      if (!self.unsupportedTaskKeys.includes(taskKey)) {
+        self.unsupportedTaskKeys.push(taskKey)
+      }
     },
 
     reset () {
