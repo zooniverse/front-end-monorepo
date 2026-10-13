@@ -65,6 +65,7 @@ function PreviousMarks ({
               <DrawingToolMarks
                 disabled
                 marks={annotationValuesPerFrame}
+                pointerEvents='none'
               />
             </g>
           )
