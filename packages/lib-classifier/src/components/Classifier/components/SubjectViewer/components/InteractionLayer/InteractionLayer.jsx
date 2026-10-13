@@ -114,6 +114,11 @@ function InteractionLayer({
   function onFinish(event) {
     event?.preventDefault?.()
     event?.stopPropagation?.()
+    // Cloned marks render in every frame: open the popup from the frame that was drawn on.
+    if (creating) {
+      const markNode = canvasRef.current?.parentNode?.querySelector(`[id="mark-${activeMark.id}"]`)
+      activeMark.setSubTaskVisibility(true, markNode?.getBoundingClientRect())
+    }
     setCreating(false)
 
     /*
