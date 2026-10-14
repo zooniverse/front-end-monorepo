@@ -699,6 +699,14 @@
         "third": "Talk with fellow volunteers and experts"
       }
     },
-    "title": "Volunteer"
+    "title": "Volunteer",
+    "translate": {
+      "heading": "Translate a Project",
+      "paragraphs": {
+        "first": "Volunteer translators assist research teams in translating English-language Zooniverse projects into other languages, aiding our global community of volunteers. Project translators work directly with project teams to be added to their project as a Translator, at which point they can access the project-level translations website and input translations for each section of the project.",
+        "second": "We also welcome volunteers to help correct AI-generated translations of platform-level content, i.e. the text shared across all projects such as menu labels, headers, buttons, etc. This content is <0>not</0> project-specific, and is managed and maintained by the Zooniverse team.",
+        "third": "If you are interested in volunteering as a project translator, or in helping to edit platform-level translations, please <0>contact us</0>."
+      }
+    }
   }
 }
