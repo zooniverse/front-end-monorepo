@@ -3,11 +3,10 @@ import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslation
 import getProjectCollectPageProps from '@helpers/getProjectCollectPageProps'
 export { default } from '@screens/ProjectCollectPage'
 
-export async function getServerSideProps({ locale, params, query }) {
+export async function getServerSideProps({ locale, params }) {
   const { notFound, props } = await getProjectCollectPageProps({
     locale,
-    params,
-    searchParams: query
+    params
   })
 
   return {

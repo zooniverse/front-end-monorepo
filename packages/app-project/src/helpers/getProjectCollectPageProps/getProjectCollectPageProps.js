@@ -5,10 +5,6 @@ import fetchProjectData from '@helpers/fetchProjectData'
 import fetchProjectPageTitles from '@helpers/fetchProjectPageTitles'
 import fetchTranslations from '@helpers/fetchTranslations'
 import initStore from '@stores'
-import {
-  normalizeCollectionMinSubjects,
-  normalizeCollectionSort
-} from '@helpers/collectionQueryParams'
 
 const environment = process.env.APP_ENV
 
@@ -70,10 +66,7 @@ export default async function getProjectCollectPageProps({ locale, params }) {
       initialState,
       projectDisplayName: strings.display_name,
       projectSlug,
-      loginParam,
-      initialPage: page,
-      initialMinSubjects: minSubjects,
-      initialSort: sort
+      loginParam
     }
   }
 }
