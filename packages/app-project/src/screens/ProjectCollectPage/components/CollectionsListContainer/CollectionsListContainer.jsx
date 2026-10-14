@@ -1,4 +1,4 @@
-import { Loader } from '@zooniverse/react-components'
+import Loader from '@zooniverse/react-components/Loader'
 import { Box } from 'grommet'
 import { MobXProviderContext } from 'mobx-react'
 import { usePathname, useSearchParams } from 'next/navigation'
@@ -66,7 +66,7 @@ function CollectionsListContainer({ loginParam }) {
     : DEFAULT_COLLECTION_MIN_SUBJECTS
   const sort = urlSort ?? DEFAULT_COLLECTION_SORT
 
-  const { data, error, isLoading } = useProjectCollections({
+  const { data, error, isLoading, isValidating } = useProjectCollections({
     favorite,
     login: loginParam,
     minSubjects,
@@ -74,6 +74,8 @@ function CollectionsListContainer({ loginParam }) {
     projectId,
     sort
   })
+
+  const loadingOrValidating = isLoading || isValidating
 
   function handleSortChange(newSort) {
     setUrlSort(newSort === DEFAULT_COLLECTION_SORT ? null : newSort)
@@ -93,8 +95,8 @@ function CollectionsListContainer({ loginParam }) {
   let placeholder
   if (isUserScoped && !isUserLoading && !user?.id) placeholder = <RequireUser />
   else if (error) placeholder = <ErrorPlaceholder />
-  else if (isLoading || !data) placeholder = <Loader />
-  else if (!data.collections.length) placeholder = <EmptyPlaceholder />
+  else if (!data) placeholder = <Loader />
+  else if (!data.collections.length && !loadingOrValidating) placeholder = <EmptyPlaceholder />
 
   if (placeholder) {
     return (
@@ -120,6 +122,7 @@ function CollectionsListContainer({ loginParam }) {
   const toolbar = (
     <CollectionsToolbar
       count={data.count}
+      isLoading={loadingOrValidating}
       minSubjects={minSubjects}
       onMinSubjectsChange={handleMinSubjectsChange}
       onSortChange={handleSortChange}
@@ -132,7 +135,12 @@ function CollectionsListContainer({ loginParam }) {
     <>
       {pagination}
       {toolbar}
-      <CollectionsList collections={data.collections} />
+      <Box height={{ min: '180px' }}>
+        <CollectionsList
+          collections={data.collections}
+          isLoading={loadingOrValidating}
+        />
+      </Box>
       {pagination}
     </>
   )

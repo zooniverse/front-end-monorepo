@@ -9,6 +9,7 @@ import {
 import usePanoptesAuthToken from '@hooks/usePanoptesAuthToken'
 
 const SWRoptions = {
+  keepPreviousData: true,
   revalidateIfStale: true,
   revalidateOnMount: true,
   revalidateOnFocus: true,
