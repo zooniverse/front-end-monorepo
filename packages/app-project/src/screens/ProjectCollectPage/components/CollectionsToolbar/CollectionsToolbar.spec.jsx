@@ -11,11 +11,11 @@ describe('Component > CollectionsToolbar', function () {
   })
 
   it('should show the collection result count', function () {
-    expect(screen.getByText('Showing 1-20 of 123 collections')).to.exist
+    expect(screen.getByText('Collect.resultsCount')).toBeDefined()
   })
 
   it('should show the minimum subjects toggle and sort selector', function () {
-    expect(screen.getByRole('checkbox', { name: 'Hide collections with only 1 subject' })).to.exist
-    expect(screen.getByLabelText('Sort by:')).to.exist
+    expect(screen.getByRole('checkbox', { name: 'Collect.hideSingleSubject' })).toBeDefined()
+    expect(screen.getByLabelText('Collect.sortBy')).toBeDefined()
   })
 })

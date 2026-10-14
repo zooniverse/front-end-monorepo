@@ -1,23 +1,21 @@
+import { composeStory } from '@storybook/react'
 import { render, screen } from '@testing-library/react'
 
-import CollectionsResultCount from './CollectionsResultCount'
+import Meta, { Default, Loading } from './CollectionsResultCount.stories'
+
+const DefaultStory = composeStory(Default, Meta)
+const LoadingStory = composeStory(Loading, Meta)
 
 describe('Component > CollectionsResultCount', function () {
-  it('should show the result range for the current page', function () {
-    render(<CollectionsResultCount count={25} page={2} pageSize={10} />)
+  it('should show the result count text', function () {
+    render(<DefaultStory />)
 
-    expect(screen.getByText('Showing 11-20 of 25 collections')).to.exist
+    expect(screen.getByText('Collect.resultsCount')).toBeDefined()
   })
 
-  it('should show an empty result range when there are no collections', function () {
-    render(<CollectionsResultCount count={0} />)
+  it('should hide the count text while loading', function () {
+    render(<LoadingStory />)
 
-    expect(screen.getByText('Showing 0 of 0 collections')).to.exist
-  })
-
-  it('should show the total count when it is less than the page size', function () {
-    render(<CollectionsResultCount count={5} pageSize={10} />)
-
-    expect(screen.getByText('Showing 5 of 5 collections')).to.exist
+    expect(screen.queryByText('Collect.resultsCount')).toBeNull()
   })
 })

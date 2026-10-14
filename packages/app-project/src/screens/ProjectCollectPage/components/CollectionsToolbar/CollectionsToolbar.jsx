@@ -1,5 +1,5 @@
 import { Box } from 'grommet'
-import { func, number, string } from 'prop-types'
+import { bool, func, number, string } from 'prop-types'
 import styled from 'styled-components'
 
 import CollectionsResultCount from '../CollectionsResultCount'
@@ -29,6 +29,7 @@ const ToolbarControls = styled(Box)`
 
 function CollectionsToolbar({
   count = 0,
+  isLoading = false,
   minSubjects = 2,
   onMinSubjectsChange,
   onSortChange,
@@ -45,7 +46,7 @@ function CollectionsToolbar({
       width={{ max: '1210px' }}
       wrap
     >
-      <CollectionsResultCount count={count} page={page} />
+      <CollectionsResultCount count={count} isLoading={isLoading} page={page} />
       <ToolbarControls gap='20px' wrap>
         <MinSubjectsToggle
           checked={minSubjects >= 2}
@@ -59,6 +60,7 @@ function CollectionsToolbar({
 
 CollectionsToolbar.propTypes = {
   count: number,
+  isLoading: bool,
   minSubjects: number,
   onMinSubjectsChange: func.isRequired,
   onSortChange: func.isRequired,
