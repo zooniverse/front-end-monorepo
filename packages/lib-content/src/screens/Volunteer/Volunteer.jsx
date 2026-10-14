@@ -64,11 +64,7 @@ function Volunteer() {
       </MobileHeading>
       <Box pad={{ horizontal: 'medium', bottom: 'large' }} align='center'>
         <MaxWidthContent color={{ light: 'black', dark: 'white' }}>
-          <StyledHeading
-            color={{ light: 'neutral-1', dark: 'accent-1' }}
-            level={1}
-            size='small'
-          >
+          <StyledHeading color={{ light: 'neutral-1', dark: 'accent-1' }} level={1} size='small'>
             {t('Volunteer.title')}
           </StyledHeading>
           <SpacedHeading
@@ -80,18 +76,10 @@ function Volunteer() {
           >
             {t('Volunteer.howTo.heading')}
           </SpacedHeading>
-          <Paragraph margin={{ top: '0' }}>
-            {t('Volunteer.howTo.paragraph')}
-          </Paragraph>
+          <Paragraph margin={{ top: '0' }}>{t('Volunteer.howTo.paragraph')}</Paragraph>
 
           {/** CLASSIFY */}
-          <Heading
-            level={3}
-            size='1.13rem'
-            weight='bold'
-            color={headingColor}
-            margin='0'
-          >
+          <Heading level={3} size='1.13rem' weight='bold' color={headingColor} margin='0'>
             {t('Volunteer.classify.heading')}
           </Heading>
           <Paragraph>{t('Volunteer.classify.paragraphs.first')}</Paragraph>
@@ -99,7 +87,9 @@ function Volunteer() {
             <Trans
               i18nKey='Volunteer.classify.paragraphs.second'
               t={t}
-              components={[<Anchor key='zooniverse-homepage' href={getHrefWithLocale('/', locale)} />]}
+              components={[
+                <Anchor key='zooniverse-homepage' href={getHrefWithLocale('/', locale)} />
+              ]}
             />
           </Paragraph>
 
@@ -117,11 +107,7 @@ function Volunteer() {
             <StyledBox direction='row' gap='small'>
               <BarChart size='50px' color={{ light: 'neutral-1', dark: 'accent-1' }} />
               <Box>
-                <Text
-                  color={{ light: 'black', dark: 'white' }}
-                  weight='bold'
-                  size='1rem'
-                >
+                <Text color={{ light: 'black', dark: 'white' }} weight='bold' size='1rem'>
                   {t('Volunteer.register.subheadings.first')}
                 </Text>
                 <Paragraph pad='0' margin='0'>
@@ -132,11 +118,7 @@ function Volunteer() {
             <StyledBox direction='row' gap='small'>
               <Certificate size='50px' color={{ light: 'neutral-1', dark: 'accent-1' }} />
               <Box>
-                <Text
-                  color={{ light: 'black', dark: 'white' }}
-                  weight='bold'
-                  size='1rem'
-                >
+                <Text color={{ light: 'black', dark: 'white' }} weight='bold' size='1rem'>
                   {t('Volunteer.register.subheadings.second')}
                 </Text>
                 <Paragraph pad='0' margin='0'>
@@ -147,11 +129,7 @@ function Volunteer() {
             <StyledBox direction='row' gap='small'>
               <Chat size='50px' color={{ light: 'neutral-1', dark: 'accent-1' }} />
               <Box>
-                <Text
-                  color={{ light: 'black', dark: 'white' }}
-                  weight='bold'
-                  size='1rem'
-                >
+                <Text color={{ light: 'black', dark: 'white' }} weight='bold' size='1rem'>
                   {t('Volunteer.register.subheadings.third')}
                 </Text>
                 <Paragraph pad='0' margin='0'>
@@ -165,10 +143,7 @@ function Volunteer() {
               i18nKey='Volunteer.register.paragraphs.fourth'
               t={t}
               components={[
-                <Anchor
-                  key='user-accounts'
-                  href='https://www.zooniverse.org/accounts/register'
-                />
+                <Anchor key='user-accounts' href='https://www.zooniverse.org/accounts/register' />
               ]}
             />
           </Paragraph>
@@ -217,10 +192,7 @@ function Volunteer() {
               i18nKey='Volunteer.beta.paragraphs.third'
               t={t}
               components={[
-                <Anchor
-                  key='email-settings'
-                  href='https://www.zooniverse.org/settings/email'
-                />
+                <Anchor key='email-settings' href='https://www.zooniverse.org/settings/email' />
               ]}
             />
           </Paragraph>
@@ -247,11 +219,38 @@ function Volunteer() {
               ]}
             />
           </Paragraph>
-          <Paragraph margin='0'>
+          <Paragraph margin={{ top: '0', bottom: 'medium' }}>
             <Trans
               i18nKey='Volunteer.moderate.paragraphs.second'
               t={t}
-              components={[<Anchor key='contact-us' href={getHrefWithLocale('/about#contact', locale)} />]}
+              components={[
+                <Anchor key='contact-us' href={getHrefWithLocale('/about#contact', locale)} />
+              ]}
+            />
+          </Paragraph>
+
+          {/** Translations */}
+          <Heading level={3} size='1.13rem' weight='bold' color={headingColor}>
+            {t('Volunteer.translate.heading')}
+          </Heading>
+          <Paragraph>{t('Volunteer.translate.paragraphs.first')}</Paragraph>
+          <Paragraph margin='0'>
+            <Trans
+              i18nKey='Volunteer.translate.paragraphs.second'
+              t={t}
+              components={[<strong />]}
+            />
+          </Paragraph>
+          <Paragraph>
+            <Trans
+              i18nKey='Volunteer.translate.paragraphs.third'
+              t={t}
+              components={[
+                <Anchor
+                  key='contact-us-translate'
+                  href={getHrefWithLocale('/about#contact', locale)}
+                />
+              ]}
             />
           </Paragraph>
         </MaxWidthContent>
