@@ -8,18 +8,3 @@ export const COLLECTION_SORT_OPTIONS = [
   { labelKey: 'recentlyAdded', value: '-updated_at' },
   { labelKey: 'recentlyCreated', value: '-created_at' }
 ]
-
-export function normalizeCollectionSort(sort) {
-  return COLLECTION_SORT_OPTIONS.some(option => option.value === sort)
-    ? sort
-    : DEFAULT_COLLECTION_SORT
-}
-
-export function normalizeCollectionMinSubjects(minSubjects) {
-  if (minSubjects === undefined || minSubjects === null || minSubjects === '') {
-    return DEFAULT_COLLECTION_MIN_SUBJECTS
-  }
-
-  const value = Number(minSubjects)
-  return Number.isInteger(value) ? value : DEFAULT_COLLECTION_MIN_SUBJECTS
-}

@@ -1,5 +1,5 @@
 import { Box } from 'grommet'
-import { number, string } from 'prop-types'
+import { string } from 'prop-types'
 
 import StandardLayout from '@shared/components/StandardLayout'
 import ProjectAboutPageLayout from '../ProjectAboutPage/ProjectAboutPageLayout'

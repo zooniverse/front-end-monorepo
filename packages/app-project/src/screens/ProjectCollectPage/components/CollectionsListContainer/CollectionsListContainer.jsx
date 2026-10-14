@@ -1,15 +1,15 @@
 import { Loader } from '@zooniverse/react-components'
 import { Box } from 'grommet'
 import { MobXProviderContext } from 'mobx-react'
-import { usePathname } from 'next/navigation'
-import { parseAsInteger, parseAsString, useQueryState } from 'nuqs'
-import { number, string } from 'prop-types'
-import { useContext, useEffect, useState } from 'react'
+import { usePathname, useSearchParams } from 'next/navigation'
+import { parseAsInteger, parseAsStringLiteral, useQueryState } from 'nuqs'
+import { string } from 'prop-types'
+import { useContext, useEffect } from 'react'
 
 import {
+  COLLECTION_SORT_OPTIONS,
   DEFAULT_COLLECTION_MIN_SUBJECTS,
-  DEFAULT_COLLECTION_SORT,
-  normalizeCollectionSort
+  DEFAULT_COLLECTION_SORT
 } from '@helpers/collectionQueryParams'
 import { useProjectCollections } from '@hooks'
 import RequireUser from '@shared/components/RequireUser/RequireUser'
@@ -21,90 +21,79 @@ import EmptyPlaceholder from '../Placeholders/EmptyPlaceholder'
 import ErrorPlaceholder from '../Placeholders/ErrorPlaceholder'
 import Pagination from '../Pagination'
 
+const SORT_VALUES = COLLECTION_SORT_OPTIONS.map(option => option.value)
+
 function CollectionsListContainer({ loginParam }) {
   const pathname = usePathname()
-  const favorite = pathname?.split('/').includes('favorites') ?? false
   const { store } = useContext(MobXProviderContext)
   const { isLoading: isUserLoading, user } = useContext(PanoptesAuthContext)
+  
+  const favorite = pathname?.split('/').includes('favorites') ?? false
+  const projectId = store?.project?.id
   const isUserScoped = !!loginParam
 
-  const [urlPage, setUrlPage] = useQueryState(
-    'page',
-    parseAsInteger.withDefault(initialPage).withOptions({
-      clearOnDefault: true,
-      history: 'push'
-    })
-  )
-  const [urlMinSubjects, setUrlMinSubjects] = useQueryState(
-    'min_subjects',
-    parseAsInteger.withOptions({
-      clearOnDefault: false,
-      history: 'push'
-    })
-  )
-  const [isMinSubjectsDisabled, setIsMinSubjectsDisabled] = useState(
-    urlMinSubjects !== null && urlMinSubjects < DEFAULT_COLLECTION_MIN_SUBJECTS
-  )
-  const [urlSort, setUrlSort] = useQueryState(
-    'sort',
-    parseAsString.withDefault(initialSort).withOptions({
-      clearOnDefault: true,
-      history: 'push'
-    })
-  )
-  const page = urlPage ?? initialPage
-  const minSubjects = isMinSubjectsDisabled
-    ? 1
-    : urlMinSubjects ?? initialMinSubjects
-  const sort = normalizeCollectionSort(urlSort)
+  const [urlPage, setUrlPage] = useQueryState('page', parseAsInteger)
+  const [urlMinSubjects, setUrlMinSubjects] = useQueryState('min_subjects', parseAsInteger)
+  const [urlSort, setUrlSort] = useQueryState('sort', parseAsStringLiteral(SORT_VALUES))
 
-  const {
-    data,
-    error,
-    isLoading
-  } = useProjectCollections({
+  const searchParams = useSearchParams()
+
+  /*
+    Invalid params already in the URL are cleared. Defaults are applied when reading
+    and are not written to the URL.
+  */
+  useEffect(function onMount() {
+    // If pageParm is invalid like a negative number or a non-integer, clear it from the URL
+    const pageParam = searchParams.get('page')
+    if (pageParam !== null && !(Number.isInteger(Number(pageParam)) && Number(pageParam) >= 1)) {
+      setUrlPage(null)
+    }
+
+    // If minSubjectsParam is invalid like a negative number or a non-integer, clear it from the URL
+    const minSubjectsParam = searchParams.get('min_subjects')
+    if (minSubjectsParam !== null && !(minSubjectsParam !== '' && Number.isInteger(Number(minSubjectsParam)) && Number(minSubjectsParam) >= 0)) {
+      setUrlMinSubjects(null)
+    }
+
+    if (searchParams.has('sort') && urlSort === null) {
+      setUrlSort(null)
+    }
+  }, [])
+
+  const page = urlPage !== null && urlPage >= 1 ? urlPage : 1
+  const minSubjects = urlMinSubjects !== null && urlMinSubjects >= 0
+    ? urlMinSubjects
+    : DEFAULT_COLLECTION_MIN_SUBJECTS
+  const sort = urlSort ?? DEFAULT_COLLECTION_SORT
+
+  const { data, error, isLoading } = useProjectCollections({
     favorite,
     login: loginParam,
     minSubjects,
     page,
-    projectId: store?.project?.id,
+    projectId,
     sort
   })
-  const loading = isUserLoading || isLoading
 
-  const pageCount = data ? Math.max(1, data.pageCount) : undefined
-  const validPage = pageCount ? Math.min(page, pageCount) : page
-
-  useEffect(function normalizePage() {
-    if (urlPage !== validPage) setUrlPage(validPage)
-  }, [setUrlPage, urlPage, validPage])
-
-  useEffect(function normalizeMinSubjects() {
-    if (urlMinSubjects === null) {
-      if (!isMinSubjectsDisabled) setUrlMinSubjects(DEFAULT_COLLECTION_MIN_SUBJECTS)
-    } else if (urlMinSubjects < DEFAULT_COLLECTION_MIN_SUBJECTS) {
-      setIsMinSubjectsDisabled(true)
-      setUrlMinSubjects(null)
-    } else {
-      setIsMinSubjectsDisabled(false)
-    }
-  }, [isMinSubjectsDisabled, setUrlMinSubjects, urlMinSubjects])
-
-  function handleMinSubjectsChange(isEnabled) {
-    setUrlPage(1)
-    setIsMinSubjectsDisabled(!isEnabled)
-    setUrlMinSubjects(isEnabled ? DEFAULT_COLLECTION_MIN_SUBJECTS : null)
+  function handleSortChange(newSort) {
+    setUrlSort(newSort === DEFAULT_COLLECTION_SORT ? null : newSort)
+    setUrlPage(null)
   }
 
-  function handleSortChange(nextSort) {
-    setUrlPage(1)
-    setUrlSort(normalizeCollectionSort(nextSort))
+  function handleMinSubjectsChange(checked) {
+    const newMinSubjects = checked ? DEFAULT_COLLECTION_MIN_SUBJECTS : 1
+    setUrlMinSubjects(newMinSubjects === DEFAULT_COLLECTION_MIN_SUBJECTS ? null : newMinSubjects)
+    setUrlPage(null)
   }
-  
+
+  function handlePageChange(newPage) {
+    setUrlPage(newPage === 1 ? null : newPage)
+  }
+
   let placeholder
   if (isUserScoped && !isUserLoading && !user?.id) placeholder = <RequireUser />
   else if (error) placeholder = <ErrorPlaceholder />
-  else if (loading || !data) placeholder = <Loader />
+  else if (isLoading || !data) placeholder = <Loader />
   else if (!data.collections.length) placeholder = <EmptyPlaceholder />
 
   if (placeholder) {
@@ -123,8 +112,8 @@ function CollectionsListContainer({ loginParam }) {
   const pagination = data.pageCount > 1 && (
     <Pagination
       pageCount={data.pageCount}
-      page={validPage}
-      setPage={setUrlPage}
+      page={page}
+      setPage={handlePageChange}
     />
   )
       
@@ -134,7 +123,7 @@ function CollectionsListContainer({ loginParam }) {
       minSubjects={minSubjects}
       onMinSubjectsChange={handleMinSubjectsChange}
       onSortChange={handleSortChange}
-      page={validPage}
+      page={page}
       sort={sort}
     />
   )

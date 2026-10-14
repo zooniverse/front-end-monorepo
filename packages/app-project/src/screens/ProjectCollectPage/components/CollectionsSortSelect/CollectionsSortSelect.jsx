@@ -3,7 +3,7 @@ import { useTranslation } from 'next-i18next/pages'
 import { FormField, Select, ThemeContext } from 'grommet'
 import styled from 'styled-components'
 
-import { COLLECTION_SORT_OPTIONS, normalizeCollectionSort } from '@helpers/collectionQueryParams'
+import { COLLECTION_SORT_OPTIONS } from '@helpers/collectionQueryParams'
 import selectTheme from './selectTheme'
 
 const StyledSelect = styled(Select)`
@@ -17,7 +17,7 @@ function CollectionsSortSelect({ onChange, value = 'display_name' }) {
     label: t(`Collect.sortOptions.${option.labelKey}`),
     value: option.value
   }))
-  const selectedOption = options.find(option => option.value === normalizeCollectionSort(value))
+  const selectedOption = options.find(option => option.value === value)
 
   return (
     <ThemeContext.Extend value={selectTheme}>
