@@ -131,7 +131,7 @@ function ProfileAvatarForm ({
     const selectedFile = imageBlob
 
     // Sanity check
-    if (isSaving) { return }
+    if (isSaving || isDeleting) { return }
     if (!selectedFile) {
       setSaveSuccess(false)
       setSaveMessage('')
@@ -180,19 +180,40 @@ function ProfileAvatarForm ({
   }
 
   async function doDelete () {
+    // Sanity check
+    if (isSaving || isDeleting) { return }
+
     try {
-      setIsDeleting(true)
-      setDeleteSuccess(false)
-      setDeleteError(null)
+      let shouldRevalidate = false
 
-      const deleteResult = await deleteUserMedia(authUser?.id, mediaType)
-      if (!deleteResult) {
-        throw new Error(`Failed to delete user ${mediaType}`)  // TODO: translations
-      }
+      await mutate(
+        async (prevData) => {
+          setIsDeleting(true)
+          setDeleteSuccess(false)
+          setDeleteError(null)
 
-      setIsDeleting(false)
-      setDeleteSuccess(true)
-      setDeleteError(null)
+          setSaveSuccess(false)
+          setSaveMessage('')
+          setSaveError(null)
+
+          const deleteResult = await deleteUserMedia(authUser?.id, mediaType)
+          if (!deleteResult) {
+            throw new Error(`Failed to delete user ${mediaType}`)  // TODO: translations
+          }
+
+          setIsDeleting(false)
+          setDeleteSuccess(true)
+          setDeleteError(null)
+
+          console.log('+++ REVALIDATE')
+          shouldRevalidate = true
+
+          return prevData  // Return existing data with no changes.
+        }, {
+          // DO revalidate, IF deleteUserMedia() is successful. (i.e. please sync local data with Panoptes) 
+          revalidate: () => shouldRevalidate
+        }
+      )
       
     } catch (err) {
       console.error(err)
