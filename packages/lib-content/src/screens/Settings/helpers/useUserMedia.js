@@ -10,7 +10,10 @@ Input:
     or `"profile_header"`
 
 Output:
-- Standard useSWR() output. See example.
+- Standard useSWR() output. See example in README.
+- `swrOutput.data` will either be...
+  - a Panoptes Media resource, OR
+  - `null`, if user media resource doesn't exist.
  */
 
 import { panoptes } from '@zooniverse/panoptes-js'
@@ -25,9 +28,14 @@ async function fetchUserMedia({ userId, mediaType }) {
     const { body } = await panoptes.get(`/users/${userId}/${mediaType}`)
     const media = body.media
     return media?.[0]
-  } catch (error) {
-    console.error(error)
-    throw error
+  } catch (err) {
+
+    // Note: if the media doesn't exist (which is perfectly valid),
+    // panoptes.get() will throw a 404 error.
+    if (err.status === 404) return null
+
+    console.error(err)
+    throw err
   }
 }
 
