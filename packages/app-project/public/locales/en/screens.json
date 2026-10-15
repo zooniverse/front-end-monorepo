@@ -96,6 +96,9 @@
       "error": "There was an error loading collections."
     }
   },
+  "Collection": {
+    "notFound": "There was an error retrieving this collection."
+  },
   "ProjectStats": {
     "BarChart": {
       "a11y": "Bar chart of {{typeLabel}} by {{countLabel}} from {{startDate}} to {{endDate}}",

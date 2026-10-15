@@ -58,6 +58,7 @@ export default async function getProjectCollectPageProps({ locale, params }) {
   }
 
   const loginParam = params?.login ?? null
+  const collectionNameParam = params?.collectionName ?? null
 
   return {
     notFound: false,
@@ -66,7 +67,8 @@ export default async function getProjectCollectPageProps({ locale, params }) {
       initialState,
       projectDisplayName: strings.display_name,
       projectSlug,
-      loginParam
+      loginParam,
+      collectionNameParam
     }
   }
 }
