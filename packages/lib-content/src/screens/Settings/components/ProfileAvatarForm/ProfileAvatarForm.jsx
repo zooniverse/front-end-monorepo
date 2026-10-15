@@ -67,6 +67,7 @@ function ProfileAvatarForm ({
   const { data: currentUserMedia, isLoading, error: loadError, isValidating, mutate } = useUserMedia({ userId: authUser?.id, mediaType: mediaType })
   const [ isSaving, setIsSaving ] = useState(false)
   const [ saveSuccess, setSaveSuccess ] = useState(false)
+  const [ saveMessage, setSaveMessage ] = useState('')  // Additional (non-error) information message on the save process.
   const [ saveError, setSaveError ] = useState(null)
   const [ isDeleting, setIsDeleting ] = useState(false)
   const [ deleteSuccess, setDeleteSuccess ] = useState(false)
@@ -95,6 +96,8 @@ function ProfileAvatarForm ({
 
     try {
       setIsSaving(true)
+      setSaveSuccess(false)
+      setSaveMessage('')
       setSaveError(null)  // SaveError is pulling double duty here.
       setImageData(null)
       setImageBlob(null)
@@ -106,6 +109,8 @@ function ProfileAvatarForm ({
       } = await resizeImageData(newImageData, maxDataSize, optionalRatio)
 
       setIsSaving(false)
+      setSaveSuccess(false)
+      setSaveMessage(t('Settings.forms.saveReminder'))
       setSaveError(null)
       setImageData(resizedImageData)
       setImageBlob(resizedImageBlob)
@@ -114,6 +119,8 @@ function ProfileAvatarForm ({
       console.error(err)
 
       setIsSaving(false)
+      setSaveSuccess(false)
+      setSaveMessage('')
       setSaveError(err)
       setImageData(null)
       setImageBlob(null)
@@ -122,7 +129,15 @@ function ProfileAvatarForm ({
 
   async function onSubmit () {    
     const selectedFile = imageBlob
-    if (!selectedFile) { return }
+
+    // Sanity check
+    if (isSaving) { return }
+    if (!selectedFile) {
+      setSaveSuccess(false)
+      setSaveMessage('')
+      setSaveMessage(t('Settings.forms.saveUnnecessary'))
+      return
+    }
 
     try {
       let shouldRevalidate = false
@@ -131,6 +146,7 @@ function ProfileAvatarForm ({
         async (prevData) => {
           setIsSaving(true)
           setSaveSuccess(false)
+          setSaveMessage('')
           setSaveError(null)
 
           const uploadResult = await uploadUserMedia(authUser?.id, mediaType, selectedFile)
@@ -140,6 +156,7 @@ function ProfileAvatarForm ({
 
           setIsSaving(false)
           setSaveSuccess(true)
+          setSaveMessage('')
           setSaveError(null)
 
           // Clear the temporary input file on successful upload.
@@ -157,6 +174,7 @@ function ProfileAvatarForm ({
       console.error(err)
       setIsSaving(false)
       setSaveSuccess(false)
+      setSaveMessage('')
       setSaveError(err?.response?.body || err)
     }
   }
@@ -193,10 +211,12 @@ function ProfileAvatarForm ({
   const statusType =
     (saveSuccess || deleteSuccess) ? 'success'
     : (saveError || deleteError) ? 'error'
+    : saveMessage ? 'warning'  // TODO: this would preferably just be an 'info' type.
     : ''
   const statusMessage =
     saveSuccess ? t('Settings.forms.saveSuccess')
     : saveError ? saveErrorMessage
+    : saveMessage ? saveMessage
     : deleteSuccess ? t('Settings.forms.deleteSuccess')
     : deleteError ? deleteErrorMessage
     : ''
@@ -291,6 +311,12 @@ function ProfileAvatarForm ({
           justify='between'
           gap='1em'
         >
+          <Button
+            disabled={disableInput}
+            label={t('Settings.forms.save')}
+            type='submit'
+          />
+
           <Box
             flex='grow'
             direction='row'
@@ -302,15 +328,7 @@ function ProfileAvatarForm ({
             />
           </Box>
 
-          {(isLoading || isValidating || isSaving || isDeleting) && <Loader />}
-
-          {imageData && (
-            <Button
-              disabled={disableInput}
-              label={t('Settings.forms.save')}
-              type='submit'
-            />
-          )}
+          {(isLoading || isValidating || isSaving) && <Loader />}
         </Box>
       </FormFieldsContainer>
     </Form>
