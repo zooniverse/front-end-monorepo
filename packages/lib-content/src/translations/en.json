@@ -658,7 +658,8 @@
       "deleteSuccess": "Media removed.",
       "save": "Change",
       "saveSuccess": "Changes saved.",
-      "saveUnnecessary": "No changes to be saved."
+      "saveUnnecessary": "No changes to be saved.",
+      "selectImage": "Select image to upload."
     }
   },
   "Sidebar": {
