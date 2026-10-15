@@ -6,8 +6,8 @@ import { useTranslation } from '@translations/i18n'
 
 import { useClientRect } from '@hooks'
 import * as taskRegister from '@plugins/tasks'
-import SaveButton from '../../InteractionLayer/components/SubTaskPopup/components/SaveButton'
-import ConfirmModal from '../../InteractionLayer/components/SubTaskPopup/components/ConfirmModal'
+import SaveButton from '../../SubTaskPopup/components/SaveButton'
+import ConfirmModal from '../../SubTaskPopup/components/ConfirmModal'
 
 const MIN_POPUP_WIDTH = 350
 const MIN_POPUP_HEIGHT = 200

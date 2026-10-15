@@ -409,6 +409,11 @@
       "answer": "We support major browsers up to the second to last version.",
       "question": "What browser version does Zooniverse support?"
     },
+    "item11": {
+      "answer0": "Some translations of platform-level content (i.e. the text shared across all Zooniverse projects such as menu labels, headers, buttons, etc.) come from volunteer translators. However, we have also tested AI translations on a small number of languages <0>for platform-level text only</0>. We recognize that the quality of AI translation differs across languages, and that this comes with a risk of translations being incorrect. We welcome volunteers to help increase the quality of translation across our platform.",
+      "answer1": "Please note that translation of project-level text is managed by research teams, and any AI-generated translation of project-specific text should be disclosed by the team, per our <0>AI Ethics Framework</0>. Additional information about Zooniverse translations is available at <1>https://help.zooniverse.org/next-steps/translations</1>.",
+      "question": "What should I do if I notice that platform-level translations are incorrect?"
+    },
     "item1": {
       "answer": "For most of the subjects shown in Zooniverse projects, the researchers don't know the correct answer and that's why they need your help. Human beings are really good at pattern recognition tasks, so generally your first guess is likely the right one. Don’t worry too much about making an occasional mistake - more than one person will review each image, video or graph in a project. Most Zooniverse projects have a Help button, a Frequently Asked Questions (FAQ) page, and a Field Guide with more information to guide you when classifying.",
       "question": "How do I know if I'm doing this right?"
@@ -699,6 +704,14 @@
         "third": "Talk with fellow volunteers and experts"
       }
     },
-    "title": "Volunteer"
+    "title": "Volunteer",
+    "translate": {
+      "heading": "Translate a Project",
+      "paragraphs": {
+        "first": "Volunteer translators assist research teams in translating English-language Zooniverse projects into other languages, aiding our global community of volunteers. Project translators work directly with project teams to be added to their project as a Translator, at which point they can access the project-level translations website and input translations for each section of the project.",
+        "second": "We also welcome volunteers to help correct AI-generated translations of platform-level content, i.e. the text shared across all projects such as menu labels, headers, buttons, etc. This content is <0>not</0> project-specific, and is managed and maintained by the Zooniverse team.",
+        "third": "If you are interested in volunteering as a project translator, or in helping to edit platform-level translations, please <0>contact us</0>."
+      }
+    }
   }
 }

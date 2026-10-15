@@ -101,6 +101,7 @@ function draggable(WrappedComponent) {
         onPointerDown={onDragStart}
         onPointerMove={onDragMove}
         onPointerUp={onDragEnd}
+        onPointerCancel={onDragEnd}
       >
         <WrappedComponent
           ref={wrappedComponent}
