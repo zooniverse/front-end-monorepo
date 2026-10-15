@@ -652,6 +652,7 @@
       "deleteSuccess": "Media removed.",
       "save": "Change",
       "saveSuccess": "Changes saved.",
+      "saveReminder": "Click 'Change' to save changes.",
       "saveUnnecessary": "No changes to be saved.",
       "selectImage": "Select image to upload."
     }
