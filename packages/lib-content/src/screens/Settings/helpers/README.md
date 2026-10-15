@@ -253,7 +253,10 @@ Input:
     or `"profile_header"`
 
 Output:
-- Standard useSWR() output. See example.
+- Standard useSWR() output. See example in README.
+- `swrOutput.data` will either be...
+  - a Panoptes Media resource, OR
+  - `null`, if user media resource doesn't exist.
 
 ### Example
 
