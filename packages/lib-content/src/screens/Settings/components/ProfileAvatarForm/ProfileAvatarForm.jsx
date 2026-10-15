@@ -1,7 +1,8 @@
-import { useRef, useState } from 'react'
-import { Box, Button, FileInput, Form } from 'grommet'
+import { useId, useRef, useState } from 'react'
+import { Box, Button, FileInput, Form, Text } from 'grommet'
+import { AddCircle as AddIcon } from 'grommet-icons'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { shape, string } from 'prop-types'
 
 import { Loader, StatusMessage } from '@zooniverse/react-components'
@@ -20,13 +21,50 @@ const FormFieldsContainer = styled(Box)`
   }
 `
 
+// An invisible file input that that appears _in front_ another element (e.g.
+// an image). Requires a parent element with position=relative, a "background"
+// element, and explicit width & height shared by all three elements.
+// Usage:
+// <div style={{ position: 'relative'; width: '100px'; height: '100px' }}>
+//   <img style={{ width: '100px'; height: '100px' }} />
+//   <InvisibleFileInput width='100px' height='100px' />
+// </div>
+const InvisibleFileInput = styled('input')`
+  position: absolute;
+  top: 0;
+  left: 0;
+  ${props => css`
+    width: ${props.width};
+    height: ${props.height};
+  `}
+  background: transparent;
+  border: none;
+
+  &::file-selector-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: transparent;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
+`
+
 function ProfileAvatarForm ({
   authUser,
   maxDataSize = 60000,
+  mediaType = 'avatar',
   optionalRatio = 1,
+  
 }) {
   const { t } = useTranslation()
-  const { data: userAvatar, isLoading, error: loadError, isValidating, mutate } = useUserMedia({ userId: authUser?.id, mediaType: 'avatar' })
+  const { data: currentUserMedia, isLoading, error: loadError, isValidating, mutate } = useUserMedia({ userId: authUser?.id, mediaType: mediaType })
   const [ isSaving, setIsSaving ] = useState(false)
   const [ saveSuccess, setSaveSuccess ] = useState(false)
   const [ saveError, setSaveError ] = useState(null)
@@ -37,6 +75,7 @@ function ProfileAvatarForm ({
   const [ imageBlob, setImageBlob ] = useState(null)  // This is the "File" that will be uploaded to Panoptes.
 
   const fileInputRef = useRef()
+  const fileInputId = useId()
   
   // When the File input changes, we'll do the following:
   // 1. read the selected image file as a Data URL string (image data).
@@ -94,9 +133,9 @@ function ProfileAvatarForm ({
           setSaveSuccess(false)
           setSaveError(null)
 
-          const uploadResult = await uploadUserMedia(authUser?.id, 'avatar', selectedFile)
+          const uploadResult = await uploadUserMedia(authUser?.id, mediaType, selectedFile)
           if (!uploadResult) {
-            throw new Error('Failed to upload user avatar')  // TODO: translations
+            throw new Error(`Failed to upload user ${mediaType}`)  // TODO: translations
           }
 
           setIsSaving(false)
@@ -128,9 +167,9 @@ function ProfileAvatarForm ({
       setDeleteSuccess(false)
       setDeleteError(null)
 
-      const deleteResult = await deleteUserMedia(authUser?.id, 'avatar')
+      const deleteResult = await deleteUserMedia(authUser?.id, mediaType)
       if (!deleteResult) {
-        throw new Error('Failed to delete user avatar')  // TODO: translations
+        throw new Error(`Failed to delete user ${mediaType}`)  // TODO: translations
       }
 
       setIsDeleting(false)
@@ -162,7 +201,10 @@ function ProfileAvatarForm ({
     : deleteError ? deleteErrorMessage
     : ''
   
-  const imageSrc = imageData || userAvatar?.src
+  const imageSrc = imageData || currentUserMedia?.src
+
+  const width = '128px'
+  const height = '128px'
   
   return (
     <Form
@@ -171,9 +213,49 @@ function ProfileAvatarForm ({
     >
       <FormFieldsContainer margin={{ vertical: 'small' }}>
 
-        <Box
-          direction='column'
-        >
+        <Box direction='column'>
+
+          <Box
+            style={{
+              border: '0.5px solid #A6A7A9',
+              borderRadius: '4px',
+              background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.00) 0%, rgba(239, 242, 245, 0.40) 100%), rgba(255, 255, 255, 0.20)',
+              boxShadow: '1px 1px 4px 0 rgba(0, 0, 0, 0.25) inset',
+              position: 'relative'
+            }}
+            width={width}
+            height={height}
+          >
+            <Box
+              width={width}
+              height={height}
+              align='center'
+              justify='center'
+            >
+              <AddIcon color='brand' size='large' />
+              <Text
+                as='label'
+                textAlign='center'
+                width={{ max: '85%' }}
+                htmlFor={fileInputId}
+              >
+                {t('Settings.forms.selectImage')}
+              </Text>
+            </Box>
+
+            <InvisibleFileInput
+              id={fileInputId}
+              name={mediaType}
+              accept='image/*'
+              onChange={onInputChange}
+              disabled={disableInput}
+              ref={fileInputRef}
+              width={width}
+              height={height}
+              type='file'
+            />
+          </Box>
+        
           <Box>
             {imageSrc
               ? <img
@@ -187,6 +269,7 @@ function ProfileAvatarForm ({
           <Box>
             <h3>Test Controls</h3>
 
+            {/*
             <FileInput
               name='avatar'
               accept='image/*'
@@ -194,13 +277,14 @@ function ProfileAvatarForm ({
               disabled={disableInput}
               ref={fileInputRef}
             />
+            */}
             
-            {userAvatar && !imageData && (
+            {currentUserMedia && !imageData && (
               <Button onClick={doDelete} label='Test Delete' />
             )}
           </Box>
         </Box>
-        
+
         <Box
           direction='row'
           align='center'
