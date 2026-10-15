@@ -189,3 +189,10 @@ export const WithText = {
     userId: '1234'
   }
 }
+
+export const WithProjectSlug = {
+  args: {
+    collection,
+    projectSlug: 'researcher/testproject'
+  }
+}
