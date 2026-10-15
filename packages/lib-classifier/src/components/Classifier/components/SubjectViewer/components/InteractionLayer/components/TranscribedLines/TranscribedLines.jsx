@@ -5,6 +5,7 @@ import { Tooltip } from '@zooniverse/react-components'
 
 import { useTranscriptionReductions } from '@hooks'
 import { TranscriptionLine } from '@plugins/drawingTools/components'
+import { focusAndOpenSubTaskPopup } from '@plugins/drawingTools/shared/markHelpers'
 import { useTranslation } from '@translations/i18n'
 
 import TooltipIcon from './components/TooltipIcon'
@@ -75,6 +76,7 @@ function TranscribedLines() {
   const [ show, setShow ] = useState(false)
   const activeLine = useRef(null)
   const scrollPosition = useRef(null)
+  const transcribedMark = useRef(null)
 
   const { t } = useTranslation('components')
 
@@ -89,10 +91,24 @@ function TranscribedLines() {
     }
   }, [show])
 
+  useEffect(function handleCreateTranscribedMark() {
+    // Focus and open subtask popup for the newly created mark
+    // This needs to be done after the mark is rendered in order
+    // to position the popup.
+
+    const mark = transcribedMark.current
+
+    if (mark) {
+      const markNode = mark.getElement(frame)
+      focusAndOpenSubTaskPopup(mark, markNode)
+      transcribedMark.current = null
+    }
+  }, [transcribedMark.current])
+
   if (!visible) {
     return null
   }
-
+  
   const invalidTranscriptionTask = !active || Object.keys(task).length === 0
   const completedLines = lines.filter(line => line.consensusReached)
   const transcribedLines = lines.filter(line => !line.consensusReached)
@@ -128,6 +144,7 @@ function TranscribedLines() {
       mark.finish()
       const value = annotation.value.slice()
       annotation.update([ ...value, mark.id ])
+      transcribedMark.current = mark
     }
   }
 
