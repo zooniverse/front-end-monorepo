@@ -22,11 +22,10 @@ const LineModel = types
 
     deleteButtonPosition(scale) {
       const BUFFER = 16
-      const x =
-        self.x1 > self.x2 ? self.x1 + BUFFER / scale : self.x1 - BUFFER / scale
-      const y = self.y1
+      const x = self.x1 > self.x2 ? BUFFER / scale : -BUFFER / scale
+      
       // TODO: check for out of bounds coordinates
-      return { x, y }
+      return { x, y: 0 }
     },
 
     get length() {

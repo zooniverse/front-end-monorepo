@@ -13,22 +13,31 @@ function RotateRectangle({
   mark,
   onFinish = () => true,
 }) {
-  const { angle, height, width, x_center, y_center } = mark
+  const { height, width, x_center, y_center } = mark
   const guideWidth = GUIDE_WIDTH
 
-  const x_left = x_center - width / 2
-  const x_right = x_center + width / 2
-  const y_top = y_center - height / 2
-  const y_bottom = y_center + height / 2
-  const xRotationHandle = x_center + width / 2 + BUFFER
+  // draw in local coordinates
+  const x_left = -width / 2
+  const x_right = width / 2
+  const y_top = -height / 2
+  const y_bottom = height / 2
+  const xRotationHandle = width / 2 + BUFFER
 
-  function onHandleDrag(coords) {
-    mark.resizeByCorner(coords)
+  function onHandleDrag(params) {
+    // params contain deltas, so don't need to transform
+    mark.resizeByCorner(params)
   }
 
   function onRotateDrag(e) {
     const angle = mark.getAngle(x_center, y_center, e.x, e.y)
-    mark.setCoordinates({ x_left, x_right, y_top, y_bottom, angle })
+    // transform back into global coordinates
+    mark.setCoordinates({
+      x_left: x_center + x_left, 
+      x_right: x_center + x_right, 
+      y_top: y_center + y_top, 
+      y_bottom: y_center + y_bottom, 
+      angle 
+    })
   }
 
   return (
@@ -47,10 +56,10 @@ function RotateRectangle({
       {active && (
         <g>
           <line
-            x1={x_center}
-            y1={y_center}
+            x1={0}
+            y1={0}
             x2={xRotationHandle}
-            y2={y_center}
+            y2={0}
             strokeWidth={guideWidth}
             strokeDasharray={GUIDE_DASH}
             vectorEffect={'non-scaling-stroke'}
@@ -58,7 +67,7 @@ function RotateRectangle({
           <RotateHandle
             dragMove={onRotateDrag}
             x={xRotationHandle}
-            y={y_center}
+            y={0}
           />
         </g>
       )}
