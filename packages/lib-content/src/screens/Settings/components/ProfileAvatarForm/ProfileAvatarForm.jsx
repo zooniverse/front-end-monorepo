@@ -1,11 +1,12 @@
 import { useId, useRef, useState } from 'react'
-import { Box, Button, FileInput, Form, Text } from 'grommet'
-import { AddCircle as AddIcon } from 'grommet-icons'
+import { Box, Button, Form, Text } from 'grommet'
+import { AddCircle as AddIcon, Trash as TrashIcon } from 'grommet-icons'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 import { shape, string } from 'prop-types'
 
 import { Loader, StatusMessage } from '@zooniverse/react-components'
+import { IconActionButton } from '@zooniverse/react-components'
 
 import useUserMedia from '../../helpers/useUserMedia'
 import uploadUserMedia from '../../helpers/uploadUserMedia'
@@ -82,6 +83,23 @@ const InvisibleFileInput = styled('input')`
     width: 100%;
     height: 100%;
     cursor: pointer;
+  }
+`
+
+// A delete button that appears _in front_ of the invisible file input.
+// Does not change colour in light/dark mode.
+const DeleteButton = styled(IconActionButton)`
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  background-color: ${props => props.theme.global.colors['neutral-6']};
+  filter: drop-shadow(1px 1px 4px rgba(0, 0, 0, 0.25));
+  backdrop-filter: blur(2px);
+
+  > svg {
+    fill: ${props => props.theme.global.colors['neutral-4']};
+    stroke: ${props => props.theme.global.colors['neutral-4']};
   }
 `
 
@@ -334,6 +352,18 @@ function ProfileAvatarForm ({
               height={height}
               type='file'
             />
+
+            {imageSrc && (
+              <DeleteButton
+                a11yTitle={t('Settings.forms.delete')}
+                disabled={disableInput}
+                height='40px'
+                icon={<TrashIcon color='red' />}
+                onClick={doDelete}
+                plain
+                width='40px'
+              />
+            )}
             
           </FileInputContainer>
 
