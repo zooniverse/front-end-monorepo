@@ -16,6 +16,9 @@ import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent'
 import SettingsHeading from './components/SettingsHeading/SettingsHeading'
 import UserMediaForm from './components/UserMediaForm/UserMediaForm'
 
+const MAX_AVATAR_SIZE = 65536
+const MAX_HEADER_SIZE = 256000
+
 function ProfileSettings ({
   authUser
 }) {
@@ -58,6 +61,35 @@ function ProfileSettings ({
 
           <UserMediaForm
             authUser={authUser}
+            makeImageCircular={true}
+            maxDataSize={MAX_AVATAR_SIZE}
+            mediaType='avatar'
+            labels={{
+              main: t('Settings.forms.fields.avatar.label'),
+              image: t('Settings.forms.fields.avatar.image'),
+              body: t('Settings.forms.fields.avatar.body'),
+            }}
+            optionalRatio={1}
+            width='128px'
+            height='128px'
+
+            margin={{ bottom: 'small' }}
+          />
+
+          <UserMediaForm
+            authUser={authUser}
+            makeImageCircular={false}
+            maxDataSize={MAX_HEADER_SIZE}
+            mediaType='profile_header'
+            labels={{
+              main: t('Settings.forms.fields.profile_header.label'),
+              image: t('Settings.forms.fields.profile_header.image'),
+              body: t('Settings.forms.fields.profile_header.body'),
+            }}
+            optionalRatio={false}
+            width='800px'
+            height='150px'
+            margin={{ bottom: 'small' }}
           />
           
         </MaxWidthContent>
