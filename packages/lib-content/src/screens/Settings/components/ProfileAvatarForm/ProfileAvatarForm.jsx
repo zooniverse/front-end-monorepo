@@ -27,7 +27,14 @@ const FormFieldsContainer = styled(Box)`
 //   one that needs to be saved.
 // - Otherwise, the container will be a grey square or rectangle awaiting input. 
 const FileInputContainer = styled(Box)`
+  position: relative;
+`
 
+const ContainerBackgroundWhenThereIsNoPreviewImage = styled(Box)`
+  border: 0.5px solid #A6A7A9;
+  border-radius: 4px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.00) 0%, rgba(239, 242, 245, 0.40) 100%), rgba(255, 255, 255, 0.20);
+  box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.25) inset;
 `
 
 const PreviewImage = styled('img')`
@@ -37,6 +44,10 @@ const PreviewImage = styled('img')`
   `}
   object-fit: cover;
   object-position: center;
+  ${props => props.circular === 'true'
+    ? 'border-radius: 50%;'
+    : ''
+  }
 `
 
 // An invisible file input that that appears _in front_ another element (e.g.
@@ -81,7 +92,10 @@ function ProfileAvatarForm ({
   optionalRatio = 1,
   labels = {
     previewImage: '',  // TODO: ensure the parent calling this specifies the appropriate labels
-  }  
+  },
+  width = '128px',
+  height = '128px',
+  makePreviewImageCircular = true,
 }) {
   const { t } = useTranslation()
   const { data: currentUserMedia, isLoading, error: loadError, isValidating, mutate } = useUserMedia({ userId: authUser?.id, mediaType: mediaType })
@@ -265,9 +279,8 @@ function ProfileAvatarForm ({
     : ''
   
   const imageSrc = imageData || currentUserMedia?.src
-
-  const width = '128px'
-  const height = '128px'
+  const makeFileInputCircular = !!(makePreviewImageCircular && imageSrc)
+  console.log('+++ makeFileInputCircular', makeFileInputCircular)
   
   return (
     <Form
@@ -279,13 +292,6 @@ function ProfileAvatarForm ({
         <Box direction='column'>
 
           <FileInputContainer
-            style={{
-              border: '0.5px solid #A6A7A9',
-              borderRadius: '4px',
-              background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.00) 0%, rgba(239, 242, 245, 0.40) 100%), rgba(255, 255, 255, 0.20)',
-              boxShadow: '1px 1px 4px 0 rgba(0, 0, 0, 0.25) inset',
-              position: 'relative'
-            }}
             width={width}
             height={height}
           >
@@ -295,9 +301,11 @@ function ProfileAvatarForm ({
                 role="img"
                 alt={labels?.previewImage}
                 src={imageSrc}
+                circular={makeFileInputCircular ? 'true' : 'false'}
               />
             ):(
-              <Box
+              <ContainerBackgroundWhenThereIsNoPreviewImage
+                flex={false}
                 width={width}
                 height={height}
                 align='center'
@@ -312,7 +320,7 @@ function ProfileAvatarForm ({
                 >
                   {t('Settings.forms.selectImage')}
                 </Text>
-              </Box>
+              </ContainerBackgroundWhenThereIsNoPreviewImage>
             )}
 
             <InvisibleFileInput
