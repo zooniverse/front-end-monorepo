@@ -53,7 +53,7 @@ const CurrentOrSelectedImage = styled('img')`
     width: ${props.width};
     height: ${props.height};
   `}
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
   ${props => props.circular === 'true'
     ? 'border-radius: 50%;'
@@ -391,10 +391,11 @@ function UserMediaForm ({
         >
           {imageSrc ? (
             <CurrentOrSelectedImage
-              role="img"
               alt={labels?.image}
               src={imageSrc}
               circular={makeFileInputCircular ? 'true' : 'false'}
+              width={width}
+              height={height}
             />
           ):(
             <ContainerBackgroundWhenThereIsNoCurrentOrSelectedImage
