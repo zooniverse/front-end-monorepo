@@ -147,10 +147,14 @@ function ProfileAvatarForm ({
     }
 
     try {
-      setIsSaving(true)
+      // Reset states
       setSaveSuccess(false)
       setSaveMessage('')
       setSaveError(null)  // SaveError is pulling double duty here.
+      setDeleteSuccess(false)
+      setDeleteError(null)
+
+      setIsSaving(true)
       setImageData(null)
       setImageBlob(null)
 
@@ -161,9 +165,7 @@ function ProfileAvatarForm ({
       } = await resizeImageData(newImageData, maxDataSize, optionalRatio)
 
       setIsSaving(false)
-      setSaveSuccess(false)
       setSaveMessage(t('Settings.forms.saveReminder'))
-      setSaveError(null)
       setImageData(resizedImageData)
       setImageBlob(resizedImageBlob)
 
@@ -174,6 +176,7 @@ function ProfileAvatarForm ({
       setSaveSuccess(false)
       setSaveMessage('')
       setSaveError(err)
+
       setImageData(null)
       setImageBlob(null)
     }
@@ -196,10 +199,14 @@ function ProfileAvatarForm ({
 
       await mutate(
         async (prevData) => {
-          setIsSaving(true)
+          // Reset states
           setSaveSuccess(false)
           setSaveMessage('')
           setSaveError(null)
+          setDeleteSuccess(false)
+          setDeleteError(null)
+
+          setIsSaving(true)
 
           const uploadResult = await uploadUserMedia(authUser?.id, mediaType, selectedFile)
           if (!uploadResult) {
@@ -240,13 +247,14 @@ function ProfileAvatarForm ({
 
       await mutate(
         async (prevData) => {
-          setIsDeleting(true)
-          setDeleteSuccess(false)
-          setDeleteError(null)
-
+          // Reset states
           setSaveSuccess(false)
           setSaveMessage('')
           setSaveError(null)
+          setDeleteSuccess(false)
+          setDeleteError(null)
+
+          setIsDeleting(true)
 
           const deleteResult = await deleteUserMedia(authUser?.id, mediaType)
           if (!deleteResult) {
@@ -255,7 +263,6 @@ function ProfileAvatarForm ({
 
           setIsDeleting(false)
           setDeleteSuccess(true)
-          setDeleteError(null)
 
           // Clear any temporary input file on successful upload, just in case.
           setImageData(null)
