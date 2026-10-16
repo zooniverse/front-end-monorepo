@@ -1,8 +1,9 @@
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
-import { forwardRef, useEffect, useRef } from 'react';
+import { forwardRef, useRef } from 'react';
 import styled, { css, useTheme } from 'styled-components'
 import draggable from '../draggable'
+import { focusAndOpenSubTaskPopup } from '@plugins/drawingTools/shared/markHelpers'
 
 export const STROKE_WIDTH = 2
 export const SELECTED_STROKE_WIDTH = 4
@@ -37,16 +38,6 @@ const StyledGroup = styled.g`
   }
 `
 
-export function focusMark(markNode) {
-  const hasFocus = markNode === document.activeElement
-  if (!hasFocus) {
-    const x = scrollX
-    const y = scrollY
-    markNode?.focus()
-    window.scrollTo(x, y)
-  }
-}
-
 function defaultHandler() {
   return true
 }
@@ -56,6 +47,7 @@ const Mark = forwardRef(function Mark(
     children,
     disabled = false,
     dragging = false,
+    frame = 0,
     isActive = false,
     label,
     mark,
@@ -75,32 +67,6 @@ const Mark = forwardRef(function Mark(
     stroke: tool && tool.color ? tool.color : 'green'
   }
   const focusColor = theme?.global.colors[theme?.global.colors.focus]
-  const usesSubTasks = mark.isValid && mark.tasks.length > 0
-
-  function openSubTaskPopup() {
-    if (!mark.subTaskVisibility) {
-      const markBounds = markRoot.current?.getBoundingClientRect()
-      mark.setSubTaskVisibility(true, markBounds)
-    }
-  }
-
-  useEffect(function onSelectMark() {
-    if (isActive && mark.finished) {
-      focusMark(markRoot.current)
-    }
-  }, [isActive, mark.finished])
-
-  useEffect(function onFinishMarkWithSubTasks() {
-    if (usesSubTasks && mark.finished) {
-      openSubTaskPopup()
-    }
-  }, [usesSubTasks, mark.finished])
-
-  useEffect(function onCloseSubTasks() {
-    if (isActive && mark.finished && !mark.subTaskVisibility) {
-      focusMark(markRoot.current)
-    }
-  }, [isActive, mark.finished, mark.subTaskVisibility])
 
   function onKeyDown(event) {
     switch (event.key) {
@@ -114,7 +80,7 @@ const Mark = forwardRef(function Mark(
       case 'Enter': {
         event.preventDefault()
         event.stopPropagation()
-        openSubTaskPopup()
+        focusAndOpenSubTaskPopup(mark, markRoot.current)
         onFinish(event)
         return false
       }
@@ -125,9 +91,7 @@ const Mark = forwardRef(function Mark(
   }
 
   function onPointerUp() {
-    if (usesSubTasks) {
-      openSubTaskPopup()
-    }
+    focusAndOpenSubTaskPopup(mark, markRoot.current)
   }
 
   function onFocus() {
@@ -152,7 +116,7 @@ const Mark = forwardRef(function Mark(
   return (
     <StyledGroup
       {...mainStyle}
-      id={`mark-${mark.id}`}
+      id={`mark-${mark.id}-${frame}`}
       data-testid="mark-mark"
       aria-disabled={disabled ? 'true' : 'false'}
       aria-label={label}
@@ -177,6 +141,7 @@ const Mark = forwardRef(function Mark(
 Mark.propTypes = {
   dragging: PropTypes.bool,
   children: PropTypes.node.isRequired,
+  frame: PropTypes.number,
   isActive: PropTypes.bool,
   label: PropTypes.string.isRequired,
   onDelete: PropTypes.func,

@@ -4,6 +4,7 @@ import { useRef, useState } from 'react';
 import styled, { css } from 'styled-components'
 
 import { convertEvent } from '@plugins/drawingTools/components/draggable/draggable'
+import { focusAndOpenSubTaskPopup } from '@plugins/drawingTools/shared/markHelpers';
 import DrawingToolMarks from './components/DrawingToolMarks'
 import TranscribedLines from './components/TranscribedLines'
 import { isInBounds } from './helpers/isInBounds'
@@ -114,10 +115,11 @@ function InteractionLayer({
   function onFinish(event) {
     event?.preventDefault?.()
     event?.stopPropagation?.()
+    const markNode = activeMark.getElement(frame)
+
     // Cloned marks render in every frame: open the popup from the frame that was drawn on.
     if (creating) {
-      const markNode = canvasRef.current?.parentNode?.querySelector(`[id="mark-${activeMark.id}"]`)
-      activeMark.setSubTaskVisibility(true, markNode?.getBoundingClientRect())
+      focusAndOpenSubTaskPopup(activeMark, markNode)
     }
     setCreating(false)
 
@@ -131,7 +133,7 @@ function InteractionLayer({
       return
     }
 
-    if (activeMark.element && !isInBounds(activeMark.element, canvasRef.current)) {
+    if (markNode && !isInBounds(markNode, canvasRef.current)) {
       activeTool.deleteMark(activeMark)
       setActiveMark(undefined)
     }
@@ -169,6 +171,7 @@ function InteractionLayer({
       <TranscribedLines />
       <DrawingToolMarks
         activeMark={activeMark}
+        frame={frame}
         marks={marks}
         onDelete={deleteMark}
         onDeselectMark={inactivateMark}

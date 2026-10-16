@@ -34,7 +34,6 @@ describe('Drawing tools > Mark', function () {
 
   describe('default behaviour', function () {
     before(function () {
-      sinon.stub(window, 'scrollTo')
       point = pointTool.createMark({
         id: 'point1'
       })
@@ -59,11 +58,14 @@ describe('Drawing tools > Mark', function () {
     after(function () {
       onFinish.resetHistory()
       onSelect.resetHistory()
-      window.scrollTo.restore()
     })
 
     it('should render a child drawing tool', function () {
       expect(svgPoint).to.exist
+    })
+
+    it('should render a child with an id including the frame', function () {
+      expect(svgPoint.id).to.equal('mark-point1-0')
     })
   })
 
@@ -378,92 +380,6 @@ describe('Drawing tools > Mark', function () {
     it('should be rotated by mark.angle', function () {
       const transform = svgEllipse.getAttribute('transform')
       expect(transform).to.have.string('rotate(-45)')
-    })
-  })
-
-  describe('when the active mark is finished', function () {
-    function markWrapper(mark) {
-      return (
-        <Grommet theme={zooTheme}>
-          <svg>
-            <Mark
-              isActive
-              label='Point 1'
-              mark={mark}
-              onDelete={onDelete}
-              onFinish={onFinish}
-              onSelect={onSelect}
-            >
-              <Point mark={mark} />
-            </Mark>
-          </svg>
-        </Grommet>
-      )
-    }
-
-    describe('when subtasks are closed', function () {
-      let newMark
-
-      before(function () {
-        newMark = pointTool.createMark()
-        newMark.setSubTaskVisibility(false)
-        newMark.finish()
-        render(markWrapper(newMark))
-      })
-
-      after(function () {
-        onFinish.resetHistory()
-      })
-
-      it('should open the subtask popup', async function () {
-        expect(newMark.subTaskVisibility).to.equal(true)
-      })
-    })
-  })
-
-  describe('when subtasks are closed', function () {
-    function markWrapper(mark) {
-      return (
-        <Grommet theme={zooTheme}>
-          <svg>
-            <Mark
-              isActive
-              label='Point 1'
-              mark={mark}
-              onDelete={onDelete}
-              onFinish={onFinish}
-              onSelect={onSelect}
-            >
-              <Point mark={mark} />
-            </Mark>
-          </svg>
-        </Grommet>
-      )
-    }
-
-    let newMark, svgPoint
-
-    before(function () {
-      sinon.stub(window, 'scrollTo')
-      newMark = pointTool.createMark()
-      newMark.setSubTaskVisibility(true)
-      newMark.finish()
-      render(markWrapper(newMark))
-      newMark.setSubTaskVisibility(false)
-      svgPoint = screen.getByLabelText('Point 1')
-    })
-
-    after(function () {
-      onFinish.resetHistory()
-      window.scrollTo.resetHistory()
-    })
-
-    it('should focus the active mark', function () {
-      expect(document.activeElement).to.equal(svgPoint)
-    })
-
-    it('should preserve the window scroll position', function () {
-      expect(window.scrollTo).to.have.been.calledOnce
     })
   })
 
