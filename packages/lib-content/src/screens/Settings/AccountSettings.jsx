@@ -1,41 +1,31 @@
 'use client'
 
-import { Box, Heading } from 'grommet'
-import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent'
+import { Box } from 'grommet'
 import { shape, string } from 'prop-types'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
 
 import {
-  mobileBreakpoint,
   StickyBox,
   StickySidebar,
   StyledGrid
 } from '@components/SharedStyledComponents/SharedStyledComponents'
 import DropdownNav from '@components/DropdownNav/DropdownNav'
 import FormLayout from '@components/PageLayout/FormLayout'
+import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent'
 
-const StyledAboutHeading = styled(Heading)`
-  position: relative;
-  padding: 44px 0;
-  margin: 0;
-  text-align: center;
-
-  @media (width <= ${mobileBreakpoint}) {
-    display: none;
-  }
-`
+import SettingsHeading from './components/SettingsHeading/SettingsHeading'
+import AccountNameForm from './components/AccountNameForm/AccountNameForm'
 
 function AccountSettings ({
-  user
+  authUser
 }) {
-  if (!user) return null
+  if (!authUser) return null
 
   const { i18n, t } = useTranslation()
   const locale = i18n.language
   const localePrefix = locale === 'en' ? '' : `/${locale}`
 
-  const activeSection = 0
+  const ACTIVE_SECTION = 0
   const sidebarSections = [
     { name: t('Settings.AccountSettings.title'), href: `${localePrefix}/settings` },
     { name: t('Settings.ProfileSettings.title'), href: `${localePrefix}/settings/profile` },
@@ -47,30 +37,31 @@ function AccountSettings ({
 
       <StickyBox background={{ dark: 'dark-3', light: 'neutral-6' }}>
         <DropdownNav
-          activeSection={activeSection}
+          activeSection={ACTIVE_SECTION}
           sidebarLabel={t('Settings.common.sidebar')}
           sections={sidebarSections}
-          // setActiveSection={setActiveSection}
         />
       </StickyBox>
 
       <StyledGrid>
         <Box as='aside' align='center'>
           <StickySidebar
-            activeSection={activeSection}
+            activeSection={ACTIVE_SECTION}
             ariaLabel={t('Settings.common.sidebar')}
             sections={sidebarSections}
-            //setActiveSection={setActiveSection}
           />
         </Box>
 
         <MaxWidthContent
           className='Account-Settings-Page'
           color={{ light: 'black', dark: 'white' }}
-          background='#f0e0e0'
         >
-          <h1>Account Settings Placeholder</h1>
-          <p>User is {user.login} aka {user.display_name}</p>
+          <SettingsHeading section='AccountSettings' />
+
+          <AccountNameForm
+            authUser={authUser}
+          />
+          
         </MaxWidthContent>
       </StyledGrid>
 
@@ -79,7 +70,7 @@ function AccountSettings ({
 }
 
 AccountSettings.propTypes = {
-  user: shape({
+  authUser: shape({
     display_name: string,
     id: string.isRequired,
     login: string,
