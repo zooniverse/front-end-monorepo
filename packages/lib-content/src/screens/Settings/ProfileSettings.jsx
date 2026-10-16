@@ -87,7 +87,7 @@ function ProfileSettings ({
               body: t('Settings.forms.fields.profile_header.body'),
             }}
             optionalRatio={false}
-            width='800px'
+            width='100%'
             height='150px'
             margin={{ bottom: 'small' }}
           />
