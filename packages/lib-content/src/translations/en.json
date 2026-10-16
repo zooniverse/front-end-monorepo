@@ -653,7 +653,13 @@
         },
         "avatar": {
           "label": "Avatar",
-          "currentImage": "User Avatar image"
+          "image": "User Avatar image",
+          "body": "Drag and drop an image here, or select an image from your files. Square format images look best! Upload size should be less than 65kb."
+        },
+        "profile_header": {
+          "label": "Header Image",
+          "image": "User Header image",
+          "body": "Drag and drop an image here, or select an image from your files.  Wide format images look best! Upload size should be less than 256kb."
         }
       },
       "optional": "Optional",

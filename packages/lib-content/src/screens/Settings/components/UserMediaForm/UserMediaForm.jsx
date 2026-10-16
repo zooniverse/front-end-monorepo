@@ -1,5 +1,5 @@
 import { useId, useRef, useState } from 'react'
-import { Box, Button, Form, Text } from 'grommet'
+import { Box, Button, Form, Paragraph, Text } from 'grommet'
 import { AddCircle as AddIcon, Trash as TrashIcon } from 'grommet-icons'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
@@ -14,12 +14,18 @@ import deleteUserMedia from '../../helpers/deleteUserMedia'
 import readImageFile from '../../helpers/readImageFile'
 import resizeImageData from '../../helpers/resizeImageData'
 
-const FormFieldsContainer = styled(Box)`
-  gap: 1em;
+const VALID_MEDIA_TYPES = ['avatar', 'profile_header']
 
+const FormFieldsContainer = styled(Box)`
   input:user-invalid {
     border-color: ${props => props.theme.global.colors['neutral-4']};
   }
+`
+
+const BigLabel = styled(Text)`
+  font-weight: 700;
+  font-style: bold;
+  text-transform: uppercase;
 `
 
 // The File Input Container 
@@ -110,15 +116,18 @@ const DeleteButton = styled(IconActionButton)`
 
 function UserMediaForm ({
   authUser,
-  maxDataSize = 60000,
-  mediaType = 'avatar',
-  optionalRatio = 1,
+  makeImageCircular = false,
+  maxDataSize = 0,
+  mediaType = '',  // Must be one of VALID_MEDIA_TYPES
   labels = {
-    currentImage: '',  // TODO: ensure the parent calling this specifies the appropriate labels
+    main: '',
+    image: '',
+    body: '',
   },
-  width = '128px',
-  height = '128px',
-  makeImageCircular = true,
+  optionalRatio = false,  // Use optionalRatio=1 to ensure images are cropped to a 1:1 square.
+  width = '',  // Any CSS value, e.g. '128px'
+  height = '',
+  ...rest
 }) {
   const { t } = useTranslation()
   const { data: currentUserMedia, isLoading, error: loadError, isValidating, mutate } = useUserMedia({ userId: authUser?.id, mediaType: mediaType })
@@ -354,103 +363,108 @@ function UserMediaForm ({
   // image.
   const imageSrc = imageData || currentUserMedia?.src
   const makeFileInputCircular = !!(makeImageCircular && imageSrc)
+
+  if (!VALID_MEDIA_TYPES.includes(mediaType)) { return null }
   
   return (
     <Form
       className='UserMediaForm'
       onSubmit={onSubmit}
+      {...rest}
     >
-      <FormFieldsContainer margin={{ vertical: 'small' }}>
+      <FormFieldsContainer
+        direction='column'
+        margin={{ vertical: 'small' }}
+      >
+        <BigLabel
+          as='label'
+          htmlFor={fileInputId}
+        >
+          {labels?.main}
+        </BigLabel>
 
-        <Box direction='column'>
+        <Paragraph>{labels?.body}</Paragraph>
 
-          <FileInputContainer
-            width={width}
-            height={height}
-          >
-
-            {imageSrc ? (
-              <CurrentOrSelectedImage
-                role="img"
-                alt={labels?.currentImage}
-                src={imageSrc}
-                circular={makeFileInputCircular ? 'true' : 'false'}
-              />
-            ):(
-              <ContainerBackgroundWhenThereIsNoCurrentOrSelectedImage
-                flex={false}
-                width={width}
-                height={height}
-                align='center'
-                justify='center'
-              >
-                <AddIcon color='brand' size='large' />
-                <Text
-                  as='label'
-                  textAlign='center'
-                  width={{ max: '85%' }}
-                  htmlFor={fileInputId}
-                >
-                  {t('Settings.forms.selectImage')}
-                </Text>
-              </ContainerBackgroundWhenThereIsNoCurrentOrSelectedImage>
-            )}
-
-            <InvisibleFileInput
-              id={fileInputId}
-              name={mediaType}
-              accept='image/*'
-              onChange={onInputChange}
-              disabled={isBusy}
-              ref={fileInputRef}
+        <FileInputContainer
+          width={width}
+          height={height}
+        >
+          {imageSrc ? (
+            <CurrentOrSelectedImage
+              role="img"
+              alt={labels?.image}
+              src={imageSrc}
+              circular={makeFileInputCircular ? 'true' : 'false'}
+            />
+          ):(
+            <ContainerBackgroundWhenThereIsNoCurrentOrSelectedImage
+              flex={false}
               width={width}
               height={height}
-              type='file'
-            />
+              align='center'
+              justify='center'
+            >
+              <AddIcon color='brand' size='large' />
+              <Text
+                textAlign='center'
+                width={{ max: '85%' }}
+              >
+                {t('Settings.forms.selectImage')}
+              </Text>
+            </ContainerBackgroundWhenThereIsNoCurrentOrSelectedImage>
+          )}
 
-            {imageSrc && (
-              <DeleteButton
-                a11yTitle={t('Settings.forms.delete')}
-                disabled={isBusy}
-                height='40px'
-                icon={<TrashIcon color='red' />}
-                onClick={doDelete}
-                plain
-                width='40px'
-              />
-            )}
-            
-          </FileInputContainer>
+          <InvisibleFileInput
+            id={fileInputId}
+            name={mediaType}
+            accept='image/*'
+            onChange={onInputChange}
+            disabled={isBusy}
+            ref={fileInputRef}
+            width={width}
+            height={height}
+            type='file'
+          />
+
+          {imageSrc && (
+            <DeleteButton
+              a11yTitle={t('Settings.forms.delete')}
+              disabled={isBusy}
+              height='40px'
+              icon={<TrashIcon color='red' />}
+              onClick={doDelete}
+              plain
+              width='40px'
+            />
+          )}
+        </FileInputContainer>
+
+        <Box
+          direction='row'
+          align='center'
+          justify='between'
+          gap='1em'
+          margin={{ vertical: 'small' }}
+        >
+          <Button
+            disabled={isBusy}
+            label={t('Settings.forms.save')}
+            type='submit'
+          />
 
           <Box
+            flex='grow'
             direction='row'
             align='center'
-            justify='between'
-            gap='1em'
           >
-            <Button
-              disabled={isBusy}
-              label={t('Settings.forms.save')}
-              type='submit'
+            <StatusMessage
+              text={statusMessage}
+              type={statusType}
             />
-
-            <Box
-              flex='grow'
-              direction='row'
-              align='center'
-            >
-              <StatusMessage
-                text={statusMessage}
-                type={statusType}
-              />
-            </Box>
-
-            {isBusy && <Loader />}
           </Box>
-        
-        </Box>
 
-        
+          {isBusy && <Loader />}
+        </Box>
       </FormFieldsContainer>
     </Form>
   )
