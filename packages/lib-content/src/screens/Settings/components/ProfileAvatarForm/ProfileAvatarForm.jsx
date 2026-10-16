@@ -117,11 +117,12 @@ function ProfileAvatarForm ({
 }) {
   const { t } = useTranslation()
   const { data: currentUserMedia, isLoading, error: loadError, isValidating, mutate } = useUserMedia({ userId: authUser?.id, mediaType: mediaType })
-  const [ isSaving, setIsSaving ] = useState(false)
+  const [ isSelecting, setIsSelecting ] = useState(false) // true when user is selecting an image to upload, but hasn't submitted.
+  const [ selectionMessage, setSelectionMessage ] = useState('')  // Additional (non-error) information message when selecting (or clearing) an image to upload.
+  const [ isSaving, setIsSaving ] = useState(false)  // true when user has already selected an image, and just pressed the "Save"/submit button.
   const [ saveSuccess, setSaveSuccess ] = useState(false)
-  const [ saveMessage, setSaveMessage ] = useState('')  // Additional (non-error) information message on the save process.
   const [ saveError, setSaveError ] = useState(null)
-  const [ isDeleting, setIsDeleting ] = useState(false)
+  const [ isDeleting, setIsDeleting ] = useState(false)  // true when user clicked on the delete button, AND there was no selected image in the way.
   const [ deleteSuccess, setDeleteSuccess ] = useState(false)
   const [ deleteError, setDeleteError ] = useState(null)
   const [ imageData, setImageData ] = useState(null)  // This is the Data URL string that will be used to edit and preview the image client-side. 
@@ -129,6 +130,17 @@ function ProfileAvatarForm ({
 
   const fileInputRef = useRef()
   const fileInputId = useId()
+
+  function resetStates () {
+    setIsSelecting(false)
+    setSelectionMessage('')
+    setSaveSuccess(false)
+    setSaveError(null)
+    setDeleteSuccess(false)
+    setDeleteError(null)
+  }
+
+  const isBusy = isLoading || isValidating || isSaving || isDeleting || isSelecting
   
   // When the File input changes, we'll do the following:
   // 1. read the selected image file as a Data URL string (image data).
@@ -147,14 +159,9 @@ function ProfileAvatarForm ({
     }
 
     try {
-      // Reset states
-      setSaveSuccess(false)
-      setSaveMessage('')
-      setSaveError(null)  // SaveError is pulling double duty here.
-      setDeleteSuccess(false)
-      setDeleteError(null)
+      resetStates()
 
-      setIsSaving(true)
+      setIsSelecting(true)
       setImageData(null)
       setImageBlob(null)
 
@@ -164,18 +171,17 @@ function ProfileAvatarForm ({
         blob: resizedImageBlob
       } = await resizeImageData(newImageData, maxDataSize, optionalRatio)
 
-      setIsSaving(false)
-      setSaveMessage(t('Settings.forms.saveReminder'))
+      setIsSelecting(false)
+      setSelectionMessage(t('Settings.forms.saveReminder'))
+
       setImageData(resizedImageData)
       setImageBlob(resizedImageBlob)
 
     } catch (err) {
       console.error(err)
 
-      setIsSaving(false)
-      setSaveSuccess(false)
-      setSaveMessage('')
-      setSaveError(err)
+      setIsSelecting(false)
+      setSelectionMessage(err)
 
       setImageData(null)
       setImageBlob(null)
@@ -186,11 +192,10 @@ function ProfileAvatarForm ({
     const selectedFile = imageBlob
 
     // Sanity check
-    if (isSaving || isDeleting) { return }
+    if (isBusy) { return }
     if (!selectedFile) {
       setSaveSuccess(false)
-      setSaveMessage('')
-      setSaveMessage(t('Settings.forms.saveUnnecessary'))
+      setSelectionMessage(t('Settings.forms.saveUnnecessary'))
       return
     }
 
@@ -199,12 +204,7 @@ function ProfileAvatarForm ({
 
       await mutate(
         async (prevData) => {
-          // Reset states
-          setSaveSuccess(false)
-          setSaveMessage('')
-          setSaveError(null)
-          setDeleteSuccess(false)
-          setDeleteError(null)
+          resetStates()
 
           setIsSaving(true)
 
@@ -215,8 +215,6 @@ function ProfileAvatarForm ({
 
           setIsSaving(false)
           setSaveSuccess(true)
-          setSaveMessage('')
-          setSaveError(null)
 
           // Clear the temporary input file on successful upload.
           setImageData(null)
@@ -233,26 +231,29 @@ function ProfileAvatarForm ({
       console.error(err)
       setIsSaving(false)
       setSaveSuccess(false)
-      setSaveMessage('')
       setSaveError(err?.response?.body || err)
     }
   }
 
+  // This function either deletes the user's existing media file, OR deletes and  
   async function doDelete () {
     // Sanity check
-    if (isSaving || isDeleting) { return }
+    if (isBusy) { return }
+
+    // If 
+    if (imageBlob || imageData) {
+      setImageBlob(null)
+      setImageData(null)
+      setSelectionMessage(t('Settings.forms.selectionCleared'))
+      return
+    }
 
     try {
       let shouldRevalidate = false
 
       await mutate(
         async (prevData) => {
-          // Reset states
-          setSaveSuccess(false)
-          setSaveMessage('')
-          setSaveError(null)
-          setDeleteSuccess(false)
-          setDeleteError(null)
+          resetStates()
 
           setIsDeleting(true)
 
@@ -284,8 +285,6 @@ function ProfileAvatarForm ({
     }
   }
 
-  const disableInput = isLoading || isValidating || isSaving || isDeleting
-  
   // We don't worry about loading errors.
   const saveErrorMessage = saveError?.errors?.[0]?.message || saveError?.toString() || (saveError && 'Unknown error')
   const deleteErrorMessage = deleteError?.errors?.[0]?.message || deleteError?.toString() || (deleteError && 'Unknown error')
@@ -293,19 +292,18 @@ function ProfileAvatarForm ({
   const statusType =
     (saveSuccess || deleteSuccess) ? 'success'
     : (saveError || deleteError) ? 'error'
-    : saveMessage ? 'warning'  // TODO: this would preferably just be an 'info' type.
+    : selectionMessage ? 'warning'  // TODO: this would preferably just be an 'info' type.
     : ''
   const statusMessage =
     saveSuccess ? t('Settings.forms.saveSuccess')
     : saveError ? saveErrorMessage
-    : saveMessage ? saveMessage
+    : selectionMessage ? selectionMessage
     : deleteSuccess ? t('Settings.forms.deleteSuccess')
     : deleteError ? deleteErrorMessage
     : ''
   
   const imageSrc = imageData || currentUserMedia?.src
   const makeFileInputCircular = !!(makePreviewImageCircular && imageSrc)
-  console.log('+++ makeFileInputCircular', makeFileInputCircular)
   
   return (
     <Form
@@ -353,7 +351,7 @@ function ProfileAvatarForm ({
               name={mediaType}
               accept='image/*'
               onChange={onInputChange}
-              disabled={disableInput}
+              disabled={isBusy}
               ref={fileInputRef}
               width={width}
               height={height}
@@ -363,7 +361,7 @@ function ProfileAvatarForm ({
             {imageSrc && (
               <DeleteButton
                 a11yTitle={t('Settings.forms.delete')}
-                disabled={disableInput}
+                disabled={isBusy}
                 height='40px'
                 icon={<TrashIcon color='red' />}
                 onClick={doDelete}
@@ -381,7 +379,7 @@ function ProfileAvatarForm ({
             gap='1em'
           >
             <Button
-              disabled={disableInput}
+              disabled={isBusy}
               label={t('Settings.forms.save')}
               type='submit'
             />
@@ -397,15 +395,9 @@ function ProfileAvatarForm ({
               />
             </Box>
 
-            {(isLoading || isValidating || isSaving) && <Loader />}
+            {isBusy && <Loader />}
           </Box>
         
-          <Box>
-            <h3>Test Controls</h3>
-            
-            
-            <Button onClick={doDelete} label='Test Delete' />
-          </Box>
         </Box>
 
         
