@@ -1,4 +1,5 @@
 import sortDataPointsByHighlight from "."
+import { glyphComponents } from '../getDataSeriesSymbol'
 import variableStarData from '../mockLightCurves/variableStar.json'
 
 describe('Helper > sortDataPointsByHighlight', function () {
@@ -24,5 +25,13 @@ describe('Helper > sortDataPointsByHighlight', function () {
     const sortedDataPoints = sortDataPointsByHighlight(data, highlightedSeries)
     expect(sortedDataPoints[0]).to.deep.equal(data[1])
     expect(sortedDataPoints[1]).to.deep.equal(data[0])
+  })
+
+  it('should set the glyph of each data series based on its original order, before sorting', function () {
+    const dataCopy = structuredClone(data)
+    const glyphNames = Object.keys(glyphComponents)
+    const sortedDataPoints = sortDataPointsByHighlight(dataCopy, highlightedSeries)
+    expect(sortedDataPoints[0].seriesOptions.glyph).to.equal(glyphNames[1])
+    expect(sortedDataPoints[1].seriesOptions.glyph).to.equal(glyphNames[0])
   })
 })

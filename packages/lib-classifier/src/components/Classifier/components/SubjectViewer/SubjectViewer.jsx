@@ -1,8 +1,10 @@
+import { tryReference } from 'mobx-state-tree'
 import asyncStates from '@zooniverse/async-states'
 import PropTypes from 'prop-types'
 import { useTranslation } from '@translations/i18n'
 import { withStores } from '@helpers'
 import getViewer from './helpers/getViewer'
+import SubTaskPopup from './components/SubTaskPopup'
 
 function storeMapper(classifierStore) {
   const {
@@ -13,8 +15,13 @@ function storeMapper(classifierStore) {
   const drawingTasks = classifierStore?.workflowSteps.findTasksByType('drawing')
   const transcriptionTasks = classifierStore?.workflowSteps.findTasksByType('transcription')
   const enableInteractionLayer = drawingTasks.length > 0 || transcriptionTasks.length > 0
-  
+  const { activeInteractionTask } = classifierStore.workflowSteps
+  const activeMark = tryReference(() => activeInteractionTask?.activeMark)
+  const deleteMark = activeInteractionTask?.deleteMark
+
   return {
+    activeMark,
+    deleteMark,
     enableInteractionLayer,
     onError,
     onSubjectReady,
@@ -25,6 +32,8 @@ function storeMapper(classifierStore) {
 }
 
 function SubjectViewer({
+  activeMark,
+  deleteMark,
   enableInteractionLayer,
   onError,
   onSubjectReady,
@@ -50,19 +59,25 @@ function SubjectViewer({
 
       if (Viewer) {
         return (
-          <Viewer
-            enableInteractionLayer={enableInteractionLayer}
-            key={subject.id}
-            loadingState={subjectReadyState}
-            onError={onError}
-            onReady={onSubjectReady}
-            subject={subject}
-            title={{
-              id: 'subject-title',
-              text: `Subject ${subject.id}`
-            }}
-            viewerConfiguration={subject?.viewerConfiguration}
-          />
+          <>
+            <Viewer
+              enableInteractionLayer={enableInteractionLayer}
+              key={subject.id}
+              loadingState={subjectReadyState}
+              onError={onError}
+              onReady={onSubjectReady}
+              subject={subject}
+              title={{
+                id: 'subject-title',
+                text: `Subject ${subject.id}`
+              }}
+              viewerConfiguration={subject?.viewerConfiguration}
+            />
+            <SubTaskPopup
+              activeMark={activeMark}
+              onDelete={deleteMark}
+            />
+          </>
         )
       }
 
