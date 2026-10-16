@@ -21,6 +21,24 @@ const FormFieldsContainer = styled(Box)`
   }
 `
 
+// The File Input Container 
+// - If the custom hasMedia property is true, it means the container has a
+//   preview image - either an existing user media asset, or a newly uploaded
+//   one that needs to be saved.
+// - Otherwise, the container will be a grey square or rectangle awaiting input. 
+const FileInputContainer = styled(Box)`
+
+`
+
+const PreviewImage = styled('img')`
+  ${props => css`
+    width: ${props.width};
+    height: ${props.height};
+  `}
+  object-fit: cover;
+  object-position: center;
+`
+
 // An invisible file input that that appears _in front_ another element (e.g.
 // an image). Requires a parent element with position=relative, a "background"
 // element, and explicit width & height shared by all three elements.
@@ -61,7 +79,9 @@ function ProfileAvatarForm ({
   maxDataSize = 60000,
   mediaType = 'avatar',
   optionalRatio = 1,
-  
+  labels = {
+    previewImage: '',  // TODO: ensure the parent calling this specifies the appropriate labels
+  }  
 }) {
   const { t } = useTranslation()
   const { data: currentUserMedia, isLoading, error: loadError, isValidating, mutate } = useUserMedia({ userId: authUser?.id, mediaType: mediaType })
@@ -256,7 +276,7 @@ function ProfileAvatarForm ({
 
         <Box direction='column'>
 
-          <Box
+          <FileInputContainer
             style={{
               border: '0.5px solid #A6A7A9',
               borderRadius: '4px',
@@ -267,22 +287,31 @@ function ProfileAvatarForm ({
             width={width}
             height={height}
           >
-            <Box
-              width={width}
-              height={height}
-              align='center'
-              justify='center'
-            >
-              <AddIcon color='brand' size='large' />
-              <Text
-                as='label'
-                textAlign='center'
-                width={{ max: '85%' }}
-                htmlFor={fileInputId}
+
+            {imageSrc ? (
+              <PreviewImage
+                role="img"
+                alt={labels?.previewImage}
+                src={imageSrc}
+              />
+            ):(
+              <Box
+                width={width}
+                height={height}
+                align='center'
+                justify='center'
               >
-                {t('Settings.forms.selectImage')}
-              </Text>
-            </Box>
+                <AddIcon color='brand' size='large' />
+                <Text
+                  as='label'
+                  textAlign='center'
+                  width={{ max: '85%' }}
+                  htmlFor={fileInputId}
+                >
+                  {t('Settings.forms.selectImage')}
+                </Text>
+              </Box>
+            )}
 
             <InvisibleFileInput
               id={fileInputId}
@@ -295,62 +324,44 @@ function ProfileAvatarForm ({
               height={height}
               type='file'
             />
+            
+          </FileInputContainer>
+
+          <Box
+            direction='row'
+            align='center'
+            justify='between'
+            gap='1em'
+          >
+            <Button
+              disabled={disableInput}
+              label={t('Settings.forms.save')}
+              type='submit'
+            />
+
+            <Box
+              flex='grow'
+              direction='row'
+              align='center'
+            >
+              <StatusMessage
+                text={statusMessage}
+                type={statusType}
+              />
+            </Box>
+
+            {(isLoading || isValidating || isSaving) && <Loader />}
           </Box>
         
           <Box>
-            {imageSrc
-              ? <img
-                  style={{ maxWidth: '200px', margin: '0 auto' }}
-                  src={imageSrc}
-              />
-              : <p>No avatar</p>
-            }
-          </Box>
-          
-          <Box>
             <h3>Test Controls</h3>
-
-            {/*
-            <FileInput
-              name='avatar'
-              accept='image/*'
-              onChange={onInputChange}
-              disabled={disableInput}
-              ref={fileInputRef}
-            />
-            */}
             
-            {currentUserMedia && !imageData && (
-              <Button onClick={doDelete} label='Test Delete' />
-            )}
+            
+            <Button onClick={doDelete} label='Test Delete' />
           </Box>
         </Box>
 
-        <Box
-          direction='row'
-          align='center'
-          justify='between'
-          gap='1em'
-        >
-          <Button
-            disabled={disableInput}
-            label={t('Settings.forms.save')}
-            type='submit'
-          />
-
-          <Box
-            flex='grow'
-            direction='row'
-            align='center'
-          >
-            <StatusMessage
-              text={statusMessage}
-              type={statusType}
-            />
-          </Box>
-
-          {(isLoading || isValidating || isSaving) && <Loader />}
-        </Box>
+        
       </FormFieldsContainer>
     </Form>
   )
