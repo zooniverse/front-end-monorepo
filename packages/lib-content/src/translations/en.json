@@ -659,6 +659,7 @@
       "optional": "Optional",
       "delete": "Delete",
       "deleteSuccess": "Media removed.",
+      "selectionCleared": "Selected image has been cleared.",
       "save": "Change",
       "saveSuccess": "Changes saved.",
       "saveReminder": "Click 'Change' to save changes.",
