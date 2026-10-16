@@ -41,6 +41,10 @@ describe('SingleChoiceTask', function () {
       const radioButton = screen.getByRole('radio', { name: label })
       expect(radioButton.checked).to.equal(true)
     })
+
+    it('should not focus the selected answer when it mounts', function () {
+      expect(document.activeElement).to.equal(document.body)
+    })
   })
 
   describe('onChange event handler', function () {
