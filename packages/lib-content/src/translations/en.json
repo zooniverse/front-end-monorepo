@@ -633,7 +633,10 @@
       "title": "Account"
     },
     "ProfileSettings": {
-      "title": "Profile"
+      "title": "Profile",
+      "s": {
+
+      }
     },
     "EmailSettings": {
       "title": "Email"
@@ -647,12 +650,27 @@
         "credited_name": {
           "label": "Real Name",
           "help": "This is the name we'll use to give acknowledgement in publications, posters, volunteer certificates, and other materials."
+        },
+        "avatar": {
+          "label": "Avatar",
+          "image": "User Avatar image",
+          "body": "Drag and drop an image here, or select an image from your files. Square format images look best! Upload size should be less than 65kb."
+        },
+        "profile_header": {
+          "label": "Header Image",
+          "image": "User Header image",
+          "body": "Drag and drop an image here, or select an image from your files.  Wide format images look best! Upload size should be less than 256kb."
         }
       },
       "optional": "Optional",
+      "delete": "Delete",
+      "deleteSuccess": "Media removed.",
+      "selectionCleared": "Selected image has been cleared.",
       "save": "Change",
       "saveSuccess": "Changes saved.",
-      "saveUnnecessary": "No changes to be saved."
+      "saveReminder": "Click 'Change' to save changes.",
+      "saveUnnecessary": "No changes to be saved.",
+      "selectImage": "Select image to upload."
     }
   },
   "Sidebar": {
