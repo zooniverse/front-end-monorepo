@@ -32,9 +32,9 @@ function CollectionsListContainer({ loginParam }) {
   const projectId = store?.project?.id
   const isUserScoped = !!loginParam
 
-  const [urlPage, setUrlPage] = useQueryState('page', parseAsInteger)
-  const [urlMinSubjects, setUrlMinSubjects] = useQueryState('min_subjects', parseAsInteger)
-  const [urlSort, setUrlSort] = useQueryState('sort', parseAsStringLiteral(SORT_VALUES))
+  const [page, setUrlPage] = useQueryState('page', parseAsInteger.withDefault(1))
+  const [minSubjects, setUrlMinSubjects] = useQueryState('min_subjects', parseAsInteger.withDefault(DEFAULT_COLLECTION_MIN_SUBJECTS))
+  const [sort, setUrlSort] = useQueryState('sort', parseAsStringLiteral(SORT_VALUES).withDefault('display_name'))
 
   const searchParams = useSearchParams()
 
@@ -60,11 +60,6 @@ function CollectionsListContainer({ loginParam }) {
     }
   }, [])
 
-  const page = urlPage !== null && urlPage >= 1 ? urlPage : 1
-  const minSubjects = urlMinSubjects !== null && urlMinSubjects >= 0
-    ? urlMinSubjects
-    : DEFAULT_COLLECTION_MIN_SUBJECTS
-  const sort = urlSort ?? DEFAULT_COLLECTION_SORT
 
   const { data, error, isLoading, isValidating } = useProjectCollections({
     favorite,
@@ -78,18 +73,18 @@ function CollectionsListContainer({ loginParam }) {
   const loadingOrValidating = isLoading || isValidating
 
   function handleSortChange(newSort) {
-    setUrlSort(newSort === DEFAULT_COLLECTION_SORT ? null : newSort)
-    setUrlPage(null)
+    setUrlSort(newSort)
+    setUrlPage(1)
   }
 
   function handleMinSubjectsChange(checked) {
     const newMinSubjects = checked ? DEFAULT_COLLECTION_MIN_SUBJECTS : 1
-    setUrlMinSubjects(newMinSubjects === DEFAULT_COLLECTION_MIN_SUBJECTS ? null : newMinSubjects)
-    setUrlPage(null)
+    setUrlMinSubjects(newMinSubjects)
+    setUrlPage(1)
   }
 
   function handlePageChange(newPage) {
-    setUrlPage(newPage === 1 ? null : newPage)
+    setUrlPage(newPage)
   }
 
   let placeholder
