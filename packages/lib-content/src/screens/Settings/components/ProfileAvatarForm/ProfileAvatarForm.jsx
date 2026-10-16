@@ -225,7 +225,9 @@ function ProfileAvatarForm ({
           setDeleteSuccess(true)
           setDeleteError(null)
 
-          console.log('+++ REVALIDATE')
+          // Clear any temporary input file on successful upload, just in case.
+          setImageData(null)
+          setImageBlob(null)
           shouldRevalidate = true
 
           return prevData  // Return existing data with no changes.
