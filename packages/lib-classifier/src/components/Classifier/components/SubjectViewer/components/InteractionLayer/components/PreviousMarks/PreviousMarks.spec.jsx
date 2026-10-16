@@ -121,6 +121,7 @@ describe('Component > PreviousMarks', function () {
       marks.forEach(mark => {
         expect(mark.getAttribute('aria-disabled')).to.equal('true')
         expect(mark.getAttribute('tabindex')).to.equal('-1')
+        expect(mark.getAttribute('pointer-events')).to.equal('none')
       })
     })
 
@@ -137,6 +138,7 @@ describe('Component > PreviousMarks', function () {
       marks.forEach(mark => {
         expect(mark.getAttribute('aria-disabled')).to.equal('true')
         expect(mark.getAttribute('tabindex')).to.equal('-1')
+        expect(mark.getAttribute('pointer-events')).to.equal('none')
       })
     })
   })
