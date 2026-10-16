@@ -34,7 +34,7 @@ function CollectionsListContainer({ loginParam }) {
 
   const [page, setUrlPage] = useQueryState('page', parseAsInteger.withDefault(1))
   const [minSubjects, setUrlMinSubjects] = useQueryState('min_subjects', parseAsInteger.withDefault(DEFAULT_COLLECTION_MIN_SUBJECTS))
-  const [sort, setUrlSort] = useQueryState('sort', parseAsStringLiteral(SORT_VALUES).withDefault('display_name'))
+  const [sort, setUrlSort] = useQueryState('sort', parseAsStringLiteral(SORT_VALUES).withDefault(DEFAULT_COLLECTION_SORT))
 
   const searchParams = useSearchParams()
 
@@ -43,19 +43,27 @@ function CollectionsListContainer({ loginParam }) {
     and are not written to the URL.
   */
   useEffect(function onMount() {
-    // If pageParm is invalid like a negative number or a non-integer, clear it from the URL
+    // If the page parameter is invalid like a negative number or a non-integer, clear it from the URL
     const pageParam = searchParams.get('page')
-    if (pageParam !== null && !(Number.isInteger(Number(pageParam)) && Number(pageParam) >= 1)) {
+    if (
+      pageParam !== null
+      && !(Number.isInteger(Number(pageParam)) && Number(pageParam) > 0) // page should be an integer greater than 0
+    ) {
       setUrlPage(null)
     }
 
-    // If minSubjectsParam is invalid like a negative number or a non-integer, clear it from the URL
+    // If the min_subjects parameter is invalid like a negative number or a non-integer, clear it from the URL
     const minSubjectsParam = searchParams.get('min_subjects')
-    if (minSubjectsParam !== null && !(minSubjectsParam !== '' && Number.isInteger(Number(minSubjectsParam)) && Number(minSubjectsParam) >= 0)) {
+    if (
+      minSubjectsParam !== null 
+      && !(Number.isInteger(Number(minSubjectsParam)) && Number(minSubjectsParam) >= 0) // min_subjects should be an integer greater than or equal to 0
+    ) {
       setUrlMinSubjects(null)
     }
 
-    if (searchParams.has('sort') && urlSort === null) {
+    // If the sort parameter is an unsupported value, clear it from the URL
+    const sortParam = searchParams.get('sort')
+    if (sortParam !== null && !SORT_VALUES.includes(sortParam)) {
       setUrlSort(null)
     }
   }, [])
