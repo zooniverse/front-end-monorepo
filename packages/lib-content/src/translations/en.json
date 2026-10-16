@@ -654,7 +654,7 @@
         },
         "avatar": {
           "label": "Avatar",
-          "previewImage": "User Avatar image"
+          "currentImage": "User Avatar image"
         }
       },
       "optional": "Optional",
