@@ -108,7 +108,7 @@ const DeleteButton = styled(IconActionButton)`
   }
 `
 
-function ProfileAvatarForm ({
+function UserMediaForm ({
   authUser,
   maxDataSize = 60000,
   mediaType = 'avatar',
@@ -357,7 +357,7 @@ function ProfileAvatarForm ({
   
   return (
     <Form
-      className='ProfileAvatarForm'
+      className='UserMediaForm'
       onSubmit={onSubmit}
     >
       <FormFieldsContainer margin={{ vertical: 'small' }}>
@@ -456,11 +456,11 @@ function ProfileAvatarForm ({
   )
 }
 
-ProfileAvatarForm.propTypes = {
+UserMediaForm.propTypes = {
   authUser: shape({
     id: string,
     login: string
   }).isRequired,
 }
 
-export default ProfileAvatarForm
+export default UserMediaForm
