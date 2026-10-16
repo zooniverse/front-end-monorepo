@@ -78,7 +78,6 @@ function DrawingToolMarks({
           label={`Mark ${index}`}
           mark={mark}
           onDelete={deleteMark}
-          onFinish={onFinish}
           onSelect={selectMark}
           pointerEvents={isActive ? 'painted' : pointerEvents}
         >

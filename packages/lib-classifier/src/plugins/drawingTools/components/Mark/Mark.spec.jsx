@@ -28,7 +28,6 @@ describe('Drawing tools > Mark', function () {
   })
   let point
   const onDelete = sinon.stub()
-  const onFinish = sinon.stub()
   const onSelect = sinon.stub()
   let svgPoint
 
@@ -44,7 +43,6 @@ describe('Drawing tools > Mark', function () {
             label='Point 1'
             mark={point}
             onDelete={onDelete}
-            onFinish={onFinish}
             onSelect={onSelect}
           >
             <Point mark={point} />
@@ -56,7 +54,6 @@ describe('Drawing tools > Mark', function () {
     })
 
     after(function () {
-      onFinish.resetHistory()
       onSelect.resetHistory()
     })
 
@@ -82,7 +79,6 @@ describe('Drawing tools > Mark', function () {
             label='Point 1'
             mark={point}
             onDelete={onDelete}
-            onFinish={onFinish}
             onSelect={onSelect}
           >
             <Point mark={point} />
@@ -94,6 +90,58 @@ describe('Drawing tools > Mark', function () {
 
     it('should be selected', function () {
       expect(onSelect).to.have.been.calledOnce
+    })
+
+    it('should not open subtask popup', function () {
+      expect(onSelect).to.have.been.calledOnce
+    })
+
+    it('should not open subtask popup', function () {
+      expect(point.subTaskVisibility).to.equal(false)
+    })
+  })
+
+  describe('on deselect', function () {
+    it('should blur the mark', async function() {
+      const user = userEvent.setup({ delay: 'none' })
+      point = pointTool.createMark({
+        id: 'point1'
+      })
+      point.finish()
+      const { rerender } = render(
+        <svg>
+          <Mark
+            isActive={true}
+            label='Point 1'
+            mark={point}
+            onDelete={onDelete}
+            onSelect={onSelect}
+          >
+            <Point mark={point} />
+          </Mark>
+        </svg>, { wrapper: withGrommetWrapper() }
+      )
+      
+      await user.tab() // set focus on mark
+      svgPoint = document.querySelector('g.drawingMark')
+      expect(document.activeElement).to.equal(svgPoint)
+
+      // rerender with isActive = false to trigger onDeselectMark effect
+      rerender(
+        <svg>
+          <Mark
+            isActive={false}
+            label='Point 1'
+            mark={point}
+            onDelete={onDelete}
+            onSelect={onSelect}
+          >
+            <Point mark={point} />
+          </Mark>
+        </svg>, { wrapper: withGrommetWrapper() }
+      )
+      
+      expect(document.activeElement).not.to.equal(svgPoint)
     })
   })
 
@@ -109,10 +157,10 @@ describe('Drawing tools > Mark', function () {
         render(
           <svg>
             <Mark
+              isActive={true} // key events only handled when active
               label='Point 1'
               mark={point}
               onDelete={onDelete}
-              onFinish={onFinish}
               onSelect={onSelect}
             >
               <Point mark={point} />
@@ -143,10 +191,10 @@ describe('Drawing tools > Mark', function () {
         render(
           <svg>
             <Mark
+              isActive={true} // key events only handled when active
               label='Point 1'
               mark={point}
               onDelete={onDelete}
-              onFinish={onFinish}
               onSelect={onSelect}
             >
               <Point mark={point} />
@@ -159,16 +207,8 @@ describe('Drawing tools > Mark', function () {
         await when(() => point.subTaskVisibility)
       })
 
-      after(function () {
-        onFinish.resetHistory()
-      })
-
       it('should open the subtasks popup', async function () {
         expect(point.subTaskVisibility).to.equal(true)
-      })
-
-      it('should call onFinish', async function () {
-        expect(onFinish).to.have.been.calledOnce
       })
     })
 
@@ -183,10 +223,10 @@ describe('Drawing tools > Mark', function () {
         render(
           <svg>
             <Mark
+              isActive={true} // key events only handled when active
               label='Point 1'
               mark={point}
               onDelete={onDelete}
-              onFinish={onFinish}
               onSelect={onSelect}
             >
               <Point mark={point} />
@@ -199,16 +239,8 @@ describe('Drawing tools > Mark', function () {
         await when(() => point.subTaskVisibility)
       })
 
-      after(function () {
-        onFinish.resetHistory()
-      })
-
       it('should open the subtasks popup', async function () {
         expect(point.subTaskVisibility).to.equal(true)
-      })
-
-      it('should call onFinish', async function () {
-        expect(onFinish).to.have.been.calledOnce
       })
     })
 
@@ -223,10 +255,10 @@ describe('Drawing tools > Mark', function () {
         render(
           <svg>
             <Mark
+              isActive={true} // key events only handled when active
               label='Point 1'
               mark={point}
               onDelete={onDelete}
-              onFinish={onFinish}
               onSelect={onSelect}
             >
               <Point mark={point} />
@@ -240,10 +272,6 @@ describe('Drawing tools > Mark', function () {
 
       it('should not be deleted', function () {
         expect(onDelete).to.not.have.been.called
-      })
-
-      it('should not call onFinish', function () {
-        expect(onFinish).to.not.have.been.called
       })
     })
   })
@@ -262,7 +290,6 @@ describe('Drawing tools > Mark', function () {
             label='Point 1'
             mark={point}
             onDelete={onDelete}
-            onFinish={onFinish}
             onSelect={onSelect}
           >
             <Point mark={point} />
@@ -299,7 +326,6 @@ describe('Drawing tools > Mark', function () {
             label='Point 1'
             mark={point}
             onDelete={onDelete}
-            onFinish={onFinish}
             onSelect={onSelect}
           >
             <Point mark={point} />
@@ -332,7 +358,6 @@ describe('Drawing tools > Mark', function () {
             label='Rectangle 1'
             mark={rectangle}
             onDelete={onDelete}
-            onFinish={onFinish}
             onSelect={onSelect}
           >
             <Rectangle mark={rectangle} />
@@ -367,7 +392,6 @@ describe('Drawing tools > Mark', function () {
             label='Ellipse 1'
             mark={ellipse}
             onDelete={onDelete}
-            onFinish={onFinish}
             onSelect={onSelect}
           >
             <Ellipse mark={ellipse} />
@@ -396,7 +420,6 @@ describe('Drawing tools > Mark', function () {
             label='Point 1'
             mark={point}
             onDelete={onDelete}
-            onFinish={onFinish}
             onSelect={onSelect}
           >
             <Point mark={point} />

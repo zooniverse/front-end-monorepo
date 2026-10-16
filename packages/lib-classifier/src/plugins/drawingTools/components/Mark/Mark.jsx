@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react'
 import PropTypes from 'prop-types'
-import { forwardRef, useRef } from 'react';
+import { forwardRef, useEffect, useRef } from 'react';
 import styled, { css, useTheme } from 'styled-components'
 import draggable from '../draggable'
 import { focusAndOpenSubTaskPopup } from '@plugins/drawingTools/shared/markHelpers'
@@ -52,7 +52,6 @@ const Mark = forwardRef(function Mark(
     label,
     mark,
     onDelete = defaultHandler,
-    onFinish = defaultHandler,
     onSelect = defaultHandler,
     pointerEvents = 'painted',
   },
@@ -68,6 +67,16 @@ const Mark = forwardRef(function Mark(
   }
   const focusColor = theme?.global.colors[theme?.global.colors.focus]
 
+  useEffect(function onDeselectMark() {
+    // Inactive marks should not have focus, so blur mark when deselected.
+    // This avoids, for example, one mark being focused (and receiving keyboard events) 
+    // while another is being drawn. 
+
+    if (!isActive) {
+      markRoot.current?.blur()
+    }
+  }, [isActive])
+
   function onKeyDown(event) {
     switch (event.key) {
       case 'Backspace': {
@@ -81,7 +90,6 @@ const Mark = forwardRef(function Mark(
         event.preventDefault()
         event.stopPropagation()
         focusAndOpenSubTaskPopup(mark, markRoot.current)
-        onFinish(event)
         return false
       }
       default: {
@@ -145,7 +153,6 @@ Mark.propTypes = {
   isActive: PropTypes.bool,
   label: PropTypes.string.isRequired,
   onDelete: PropTypes.func,
-  onDeselect: PropTypes.func,
   onSelect: PropTypes.func,
   tool: PropTypes.shape({
     color: PropTypes.string
