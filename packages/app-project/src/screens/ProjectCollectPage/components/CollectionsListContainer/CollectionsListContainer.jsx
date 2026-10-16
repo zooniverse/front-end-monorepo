@@ -49,7 +49,7 @@ function CollectionsListContainer({ loginParam }) {
       pageParam !== null
       && !(Number.isInteger(Number(pageParam)) && Number(pageParam) > 0) // page should be an integer greater than 0
     ) {
-      setUrlPage(null)
+      setUrlPage(1)
     }
 
     // If the min_subjects parameter is invalid like a negative number or a non-integer, clear it from the URL
@@ -58,13 +58,13 @@ function CollectionsListContainer({ loginParam }) {
       minSubjectsParam !== null 
       && !(Number.isInteger(Number(minSubjectsParam)) && Number(minSubjectsParam) >= 0) // min_subjects should be an integer greater than or equal to 0
     ) {
-      setUrlMinSubjects(null)
+      setUrlMinSubjects(DEFAULT_COLLECTION_MIN_SUBJECTS)
     }
 
     // If the sort parameter is an unsupported value, clear it from the URL
     const sortParam = searchParams.get('sort')
     if (sortParam !== null && !SORT_VALUES.includes(sortParam)) {
-      setUrlSort(null)
+      setUrlSort(DEFAULT_COLLECTION_SORT)
     }
   }, [])
 
