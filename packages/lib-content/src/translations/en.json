@@ -651,6 +651,10 @@
         "display_name": {
           "help": "How your name will appear to others throughout the platform.",
           "label": "Display Name"
+        },
+        "avatar": {
+          "label": "Avatar",
+          "previewImage": "User Avatar image"
         }
       },
       "optional": "Optional",
