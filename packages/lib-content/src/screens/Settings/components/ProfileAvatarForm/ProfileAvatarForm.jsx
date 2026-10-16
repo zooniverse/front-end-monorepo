@@ -31,14 +31,18 @@ const FileInputContainer = styled(Box)`
   position: relative;
 `
 
-const ContainerBackgroundWhenThereIsNoPreviewImage = styled(Box)`
+// When there's no current media file, NOR a selected media file to upload, show
+// a prompt that says "pls select a file thx".
+const ContainerBackgroundWhenThereIsNoCurrentOrSelectedImage = styled(Box)`
   border: 0.5px solid #A6A7A9;
   border-radius: 4px;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.00) 0%, rgba(239, 242, 245, 0.40) 100%), rgba(255, 255, 255, 0.20);
   box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.25) inset;
 `
 
-const PreviewImage = styled('img')`
+// Used to display the media image - either the user's current media file
+// (avatar/profile header), OR the one the user just selected to upload. 
+const CurrentOrSelectedImage = styled('img')`
   ${props => css`
     width: ${props.width};
     height: ${props.height};
@@ -58,6 +62,7 @@ const PreviewImage = styled('img')`
 // <div style={{ position: 'relative'; width: '100px'; height: '100px' }}>
 //   <img style={{ width: '100px'; height: '100px' }} />
 //   <InvisibleFileInput width='100px' height='100px' />
+//   <DeleteButton />
 // </div>
 const InvisibleFileInput = styled('input')`
   position: absolute;
@@ -109,49 +114,76 @@ function ProfileAvatarForm ({
   mediaType = 'avatar',
   optionalRatio = 1,
   labels = {
-    previewImage: '',  // TODO: ensure the parent calling this specifies the appropriate labels
+    currentImage: '',  // TODO: ensure the parent calling this specifies the appropriate labels
   },
   width = '128px',
   height = '128px',
-  makePreviewImageCircular = true,
+  makeImageCircular = true,
 }) {
   const { t } = useTranslation()
   const { data: currentUserMedia, isLoading, error: loadError, isValidating, mutate } = useUserMedia({ userId: authUser?.id, mediaType: mediaType })
-  const [ isSelecting, setIsSelecting ] = useState(false) // true when user is selecting an image to upload, but hasn't submitted.
-  const [ selectionMessage, setSelectionMessage ] = useState('')  // Additional (non-error) information message when selecting (or clearing) an image to upload.
-  const [ isSaving, setIsSaving ] = useState(false)  // true when user has already selected an image, and just pressed the "Save"/submit button.
-  const [ saveSuccess, setSaveSuccess ] = useState(false)
-  const [ saveError, setSaveError ] = useState(null)
-  const [ isDeleting, setIsDeleting ] = useState(false)  // true when user clicked on the delete button, AND there was no selected image in the way.
-  const [ deleteSuccess, setDeleteSuccess ] = useState(false)
-  const [ deleteError, setDeleteError ] = useState(null)
+
+  // The "Selecting" operation triggers when a user is choosing an image to
+  // upload via the file input. This operation is entirely client-side.
+  // - selectionMessage provides additional (non-error) feedback when selecting
+  //   (or clearing) an image to upload.
+  const [ isSelecting, setIsSelecting ] = useState(false)
+  const [ selectionMessage, setSelectionMessage ] = useState('')
   const [ imageData, setImageData ] = useState(null)  // This is the Data URL string that will be used to edit and preview the image client-side. 
   const [ imageBlob, setImageBlob ] = useState(null)  // This is the "File" that will be uploaded to Panoptes.
 
+  // The "Save" operation occurs when the user has selected an image, and
+  // clicks on the Save button. This operation pings Panoptes.
+  const [ isSaving, setIsSaving ] = useState(false)
+  const [ saveSuccess, setSaveSuccess ] = useState(false)
+  const [ saveError, setSaveError ] = useState(null)
+  
+  // The "Delete" operation occurs when the user has an existing current media
+  // file, AND has not selected a new image to upload, and then clicks the
+  // Delete button. This operation pings Panoptes.
+  // NOTE:
+  // - The Delete button also doubles for triggering the "Clearing" operation.
+  //   i.e. if the user has selected an image to upload, but then changes their
+  //   mind, the Delete button clears their selected file.
+  // - The "Clearing" operation isn't tracked by the "Delete" operation state
+  //   variables, but it does use selectionMessage.
+  const [ isDeleting, setIsDeleting ] = useState(false)  // true when user clicked on the delete button, AND there was no selected image in the way.
+  const [ deleteSuccess, setDeleteSuccess ] = useState(false)
+  const [ deleteError, setDeleteError ] = useState(null)
+  
   const fileInputRef = useRef()
   const fileInputId = useId()
 
+  // Reset operation states. Call this before initiating a new "Selecting",
+  // "Save", or "Delete" operation.
   function resetStates () {
     setIsSelecting(false)
     setSelectionMessage('')
+    setIsSaving(false)
     setSaveSuccess(false)
     setSaveError(null)
+    setIsDeleting(false)
     setDeleteSuccess(false)
     setDeleteError(null)
   }
 
+  // If a FETCH, SAVE, DELETE, or SELECTING operation is ongoing, don't let
+  // other operations trigger.
   const isBusy = isLoading || isValidating || isSaving || isDeleting || isSelecting
-  
-  // When the File input changes, we'll do the following:
-  // 1. read the selected image file as a Data URL string (image data).
-  // 2. resize the image data to an acceptable file size range (and optionally,
-  //    the image will be cropped to meet a specific aspect ratio).
-  // 3. show the modified image data as a preview.
-  // After that, the user has to click the Submit button to save changes.
 
+  /*
+  When the File input changes, we'll do the following:
+  1. read the selected image file as a Data URL string (image data).
+  2. resize the image data to an acceptable file size range (and optionally,
+     the image will be cropped to meet a specific aspect ratio).
+  3. show the modified image data as a preview.
+  After that, the user has to click the Submit button to save changes.
+   */
   async function onInputChange (e) {
     const selectedFile = e.target.files?.[0]
-    
+
+    // Sanity check
+    if (isBusy) { return }
     if (!selectedFile) {
       setImageData(null)
       setImageBlob(null)
@@ -159,21 +191,22 @@ function ProfileAvatarForm ({
     }
 
     try {
+      // Initialise "Selecting" operation state
       resetStates()
-
       setIsSelecting(true)
       setImageData(null)
       setImageBlob(null)
 
+      // Read the file the user selected, and attempt to resize it. 
       const newImageData = await readImageFile(selectedFile)
       const {
         string: resizedImageData,
         blob: resizedImageBlob
       } = await resizeImageData(newImageData, maxDataSize, optionalRatio)
 
+      // Operation complete!
       setIsSelecting(false)
       setSelectionMessage(t('Settings.forms.saveReminder'))
-
       setImageData(resizedImageData)
       setImageBlob(resizedImageBlob)
 
@@ -188,6 +221,11 @@ function ProfileAvatarForm ({
     }
   }
 
+  /*
+  aka doSave()
+  When user clicks on the Save button, we try to send resized image to Panoptes.
+  See uploadUserMedia.js for the multi-step process required!
+   */
   async function onSubmit () {    
     const selectedFile = imageBlob
 
@@ -204,15 +242,18 @@ function ProfileAvatarForm ({
 
       await mutate(
         async (prevData) => {
+          
+          // Initialise "Save" operation state
           resetStates()
-
           setIsSaving(true)
 
+          // Save data to Panoptes.
           const uploadResult = await uploadUserMedia(authUser?.id, mediaType, selectedFile)
           if (!uploadResult) {
             throw new Error(`Failed to upload user ${mediaType}`)  // TODO: translations
           }
 
+          // Operation complete!
           setIsSaving(false)
           setSaveSuccess(true)
 
@@ -235,12 +276,17 @@ function ProfileAvatarForm ({
     }
   }
 
-  // This function either deletes the user's existing media file, OR deletes and  
+  /*
+  This function either delete's the user's existing media file, OR clears any
+  selected image file.
+   */
   async function doDelete () {
     // Sanity check
     if (isBusy) { return }
 
-    // If 
+    // If user has selected an image to upload, then the Delete button just
+    // clears that selected image WITHOUT deleting any existing user media
+    // resource on Panoptes.
     if (imageBlob || imageData) {
       setImageBlob(null)
       setImageData(null)
@@ -253,21 +299,20 @@ function ProfileAvatarForm ({
 
       await mutate(
         async (prevData) => {
-          resetStates()
 
+          // Initialise "Delete" operation state
+          resetStates()
           setIsDeleting(true)
 
+          // Send a DELETE request to Panoptes.
           const deleteResult = await deleteUserMedia(authUser?.id, mediaType)
           if (!deleteResult) {
             throw new Error(`Failed to delete user ${mediaType}`)  // TODO: translations
           }
 
+          // Operation complete!
           setIsDeleting(false)
           setDeleteSuccess(true)
-
-          // Clear any temporary input file on successful upload, just in case.
-          setImageData(null)
-          setImageBlob(null)
           shouldRevalidate = true
 
           return prevData  // Return existing data with no changes.
@@ -289,6 +334,8 @@ function ProfileAvatarForm ({
   const saveErrorMessage = saveError?.errors?.[0]?.message || saveError?.toString() || (saveError && 'Unknown error')
   const deleteErrorMessage = deleteError?.errors?.[0]?.message || deleteError?.toString() || (deleteError && 'Unknown error')
 
+  // The <StatusMessage> component is used to provide feedback on all stages of
+  // a Save/Delete/Selecting operation.
   const statusType =
     (saveSuccess || deleteSuccess) ? 'success'
     : (saveError || deleteError) ? 'error'
@@ -301,9 +348,12 @@ function ProfileAvatarForm ({
     : deleteSuccess ? t('Settings.forms.deleteSuccess')
     : deleteError ? deleteErrorMessage
     : ''
-  
+
+  // If there user has an existing media resource (e.g. an existing avatar), OR
+  // they've just selected a new image file to upload, we want to show that
+  // image.
   const imageSrc = imageData || currentUserMedia?.src
-  const makeFileInputCircular = !!(makePreviewImageCircular && imageSrc)
+  const makeFileInputCircular = !!(makeImageCircular && imageSrc)
   
   return (
     <Form
@@ -320,14 +370,14 @@ function ProfileAvatarForm ({
           >
 
             {imageSrc ? (
-              <PreviewImage
+              <CurrentOrSelectedImage
                 role="img"
-                alt={labels?.previewImage}
+                alt={labels?.currentImage}
                 src={imageSrc}
                 circular={makeFileInputCircular ? 'true' : 'false'}
               />
             ):(
-              <ContainerBackgroundWhenThereIsNoPreviewImage
+              <ContainerBackgroundWhenThereIsNoCurrentOrSelectedImage
                 flex={false}
                 width={width}
                 height={height}
@@ -343,7 +393,7 @@ function ProfileAvatarForm ({
                 >
                   {t('Settings.forms.selectImage')}
                 </Text>
-              </ContainerBackgroundWhenThereIsNoPreviewImage>
+              </ContainerBackgroundWhenThereIsNoCurrentOrSelectedImage>
             )}
 
             <InvisibleFileInput
