@@ -1,4 +1,5 @@
 export { default as addQueryParams } from './addQueryParams'
+export { default as collectionQueryParams } from './collectionQueryParams'
 export { default as fetchDiscussions } from './fetchDiscussions'
 export { default as fetchLinkedOrganizations } from './fetchLinkedOrganizations'
 export { default as fetchProjectData } from './fetchProjectData'
