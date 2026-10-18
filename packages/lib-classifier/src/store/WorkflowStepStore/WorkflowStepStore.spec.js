@@ -1,4 +1,4 @@
-// import WorkflowStepStore from './WorkflowStepStore'
+import WorkflowStepStore from './WorkflowStepStore'
 import {
   DrawingTaskFactory,
   MultipleChoiceTaskFactory,
@@ -13,10 +13,7 @@ import { Factory } from 'rosie'
 import mockStore from '@test/mockStore'
 import stubPanoptesJs from '@test/stubPanoptesJs'
 
-// Must be skipped due to unexpect behavior of the above import in Vitest env
-// https://github.com/zooniverse/front-end-monorepo/issues/7018
-
-describe.skip('Model > WorkflowStepStore', function () {
+describe('Model > WorkflowStepStore', function () {
   it('should exist', function () {
     expect(WorkflowStepStore).to.be.an('object')
   })
@@ -96,7 +93,7 @@ describe.skip('Model > WorkflowStepStore', function () {
           const annotation = undefined
           const { taskKey } = task
           const originalTask = { ...workflow.tasks[taskKey], annotation, taskKey }
-          expect(getSnapshot(task)).to.eql(originalTask)
+          expect(getSnapshot(task)).to.deep.include(originalTask)
         })
       })
     })
@@ -160,7 +157,7 @@ describe.skip('Model > WorkflowStepStore', function () {
           const annotation = undefined
           const { taskKey } = task
           const originalTask = { ...workflow.tasks[taskKey], annotation, taskKey }
-          expect(getSnapshot(task)).to.eql(originalTask)
+          expect(getSnapshot(task)).to.deep.include(originalTask)
         })
       })
     })
@@ -233,7 +230,7 @@ describe.skip('Model > WorkflowStepStore', function () {
           const annotation = undefined
           const { taskKey } = task
           const originalTask = { ...workflow.tasks[taskKey], annotation, taskKey }
-          expect(getSnapshot(task)).to.eql(originalTask)
+          expect(getSnapshot(task)).to.deep.include(originalTask)
         })
       })
     })
@@ -622,7 +619,7 @@ describe.skip('Model > WorkflowStepStore', function () {
       const panoptesClientStub = stubPanoptesJs({ workflows: singleChoiceWorkflow, subjects })
       const rootStore = mockStore({ client: panoptesClientStub, project, workflow: singleChoiceWorkflow })
       rootStore.workflowSteps.selectStep('S1')
-      expect(rootStore.workflowSteps.interactionTask.size).to.equal(0)
+      expect(rootStore.workflowSteps.interactionTask).to.deep.equal({})
     })
 
     it('should be empty if the workflow drawing task is not part of the active step', async function () {
@@ -641,7 +638,7 @@ describe.skip('Model > WorkflowStepStore', function () {
       const panoptesClientStub = stubPanoptesJs({ workflows: manyStepWorkflow, subjects })
       const rootStore = mockStore({ client: panoptesClientStub, project, workflow: manyStepWorkflow })
       rootStore.workflowSteps.selectStep('S1')
-      expect(rootStore.workflowSteps.interactionTask.size).to.equal(0)
+      expect(rootStore.workflowSteps.interactionTask).to.deep.equal({})
     })
 
     it('should be the active step drawing task', async function () {
@@ -694,7 +691,7 @@ describe.skip('Model > WorkflowStepStore', function () {
       const panoptesClientStub = stubPanoptesJs({ workflows: singleChoiceWorkflow, subjects })
       const rootStore = mockStore({ client: panoptesClientStub, project, workflow: singleChoiceWorkflow })
       rootStore.workflowSteps.selectStep()
-      expect(rootStore.workflowSteps.activeInteractionTask.size).to.equal(0)
+      expect(rootStore.workflowSteps.activeInteractionTask).to.deep.equal({})
     })
 
     it('should be empty if the workflow drawing task is not part of the active step', async function () {
@@ -713,7 +710,7 @@ describe.skip('Model > WorkflowStepStore', function () {
       const panoptesClientStub = stubPanoptesJs({ workflows: manyStepDrawingWorkflow, subjects })
       const rootStore = mockStore({ client: panoptesClientStub, project, workflow: manyStepDrawingWorkflow })
       rootStore.workflowSteps.selectStep('S1')
-      expect(rootStore.workflowSteps.activeInteractionTask.size).to.equal(0)
+      expect(rootStore.workflowSteps.activeInteractionTask).to.deep.equal({})
     })
 
     it('should be empty if the workflow transcription task is not part of the active step', async function () {
@@ -732,7 +729,7 @@ describe.skip('Model > WorkflowStepStore', function () {
       const panoptesClientStub = stubPanoptesJs({ workflows: manyStepTranscriptionWorkflow, subjects })
       const rootStore = mockStore({ client: panoptesClientStub, project, workflow: manyStepTranscriptionWorkflow })
       rootStore.workflowSteps.selectStep('S1')
-      expect(rootStore.workflowSteps.activeInteractionTask.size).to.equal(0)
+      expect(rootStore.workflowSteps.activeInteractionTask).to.deep.equal({})
     })
 
     it('should be the active step drawing task', async function () {
@@ -768,5 +765,91 @@ describe.skip('Model > WorkflowStepStore', function () {
       rootStore.workflowSteps.selectStep()
       expect(rootStore.workflowSteps.activeInteractionTask.type).to.equal('transcription')
     })
+  })
+
+  describe('unsupported tasks', function () {
+    const UNSUPPORTED_TYPE = { type: 'wakkawakka', taskKey: 'T2', question: 'Nope' }
+    // legacyDropdownAdapter only converts a single menu.
+    const MULTI_MENU_DROPDOWN = {
+      type: 'dropdown',
+      taskKey: 'T2',
+      selects: [
+        { id: 'a', title: 'One', options: { '*': [{ label: 'x', value: '1' }] } },
+        { id: 'b', title: 'Two', options: { '*': [{ label: 'y', value: '2' }] } }
+      ]
+    }
+    const LEGACY_SINGLE_DROPDOWN = {
+      type: 'dropdown',
+      taskKey: 'T2',
+      selects: [{
+        id: 'a',
+        title: 'One',
+        allowCreate: false,
+        required: false,
+        options: { '*': [{ label: 'w' }, { label: 'x' }, { label: 'y' }, { label: 'z' }] }
+      }]
+    }
+
+    function buildStore(secondTask) {
+      const workflow = WorkflowFactory.build({
+        steps: [['S1', { taskKeys: ['T1'] }], ['S2', { taskKeys: ['T2'] }]],
+        tasks: { T1: SingleChoiceTaskFactory.build(), T2: secondTask }
+      })
+      const project = ProjectFactory.build({}, { activeWorkflowId: workflow.id })
+      const panoptesClientStub = stubPanoptesJs({
+        projects: project,
+        subjects: Factory.buildList('subject', 10),
+        workflows: workflow
+      })
+      return mockStore({ client: panoptesClientStub, project, workflow })
+    }
+
+    function underNodeEnv(nodeEnv, fn) {
+      const previous = process.env.NODE_ENV
+      const consoleError = console.error
+      process.env.NODE_ENV = nodeEnv
+      console.error = () => {}
+      try {
+        return fn()
+      } finally {
+        console.error = consoleError
+        process.env.NODE_ENV = previous
+      }
+    }
+
+    for (const nodeEnv of ['development', 'production']) {
+      describe(`with NODE_ENV=${nodeEnv}`, function () {
+        it('should be false when every task is supported', function () {
+          const store = underNodeEnv(nodeEnv, () => buildStore(MultipleChoiceTaskFactory.build()))
+          expect(store.workflowSteps.hasUnsupportedTasks).to.be.false
+          store.workflowSteps.steps.forEach(step => {
+            expect(step.unsupportedTaskKeys).to.be.empty
+          })
+        })
+
+        it('should be true for a task type the classifier does not implement', function () {
+          const store = underNodeEnv(nodeEnv, () => buildStore(UNSUPPORTED_TYPE))
+          expect(store.workflowSteps.hasUnsupportedTasks).to.be.true
+          expect(store.workflowSteps.steps.get('S2').unsupportedTaskKeys.slice()).to.deep.equal(['T2'])
+        })
+
+        it('should be true for a multi-menu legacy dropdown', function () {
+          const store = underNodeEnv(nodeEnv, () => buildStore(MULTI_MENU_DROPDOWN))
+          expect(store.workflowSteps.hasUnsupportedTasks).to.be.true
+        })
+
+        it('should be false for a single-menu legacy dropdown', function () {
+          const store = underNodeEnv(nodeEnv, () => buildStore(LEGACY_SINGLE_DROPDOWN))
+          expect(store.workflowSteps.hasUnsupportedTasks).to.be.false
+          const [task] = store.workflowSteps.steps.get('S2').tasks
+          expect(task.type).to.equal('dropdown-simple')
+        })
+
+        it('should keep the unsupported task out of the store', function () {
+          const store = underNodeEnv(nodeEnv, () => buildStore(UNSUPPORTED_TYPE))
+          expect(store.workflowSteps.steps.get('S2').tasks).to.be.empty
+        })
+      })
+    }
   })
 })

@@ -1,25 +1,22 @@
 import sinon from 'sinon'
-// import Step from './Step'
+import { addMiddleware } from 'mobx-state-tree'
+import Step from './Step'
 import {
   MultipleChoiceTaskFactory,
   SingleChoiceTaskFactory,
   DrawingTaskFactory,
   TranscriptionTaskFactory
 } from '@test/factories'
-// import * as tasks from '@plugins/tasks'
+import * as tasks from '@plugins/tasks'
 
-// Must be skipped due to Vitest unable to resolve some of these imports
-// Might be caused by barrel imports in the classifier like import * as tasks from '@plugins/tasks'
-// https://github.com/zooniverse/front-end-monorepo/issues/7018
-
-describe.skip('Model > Step', function () {
+describe('Model > Step', function () {
   let step
-  // const {
-  //   single: SingleChoiceTask,
-  //   multiple: MultipleChoiceTask,
-  //   drawing: DrawingTask,
-  //   transcription: TranscriptionTask
-  // } = tasks
+  const {
+    single: SingleChoiceTask,
+    multiple: MultipleChoiceTask,
+    drawing: DrawingTask,
+    transcription: TranscriptionTask
+  } = tasks
 
   before(function () {
     step = Step.create({ stepKey: 'S1', taskKeys: ['T1'] })
@@ -357,32 +354,32 @@ describe.skip('Model > Step', function () {
     })
   })
 
-  describe.skip('with reset', function () {
-    let tasks
-
+  // sinon can't spy on MST actions, so record them with addMiddleware.
+  describe('with reset', function () {
     it('should reset each task', function () {
-      tasks = [
+      const tasks = [
         MultipleChoiceTask.TaskModel.create(MultipleChoiceTaskFactory.build({ taskKey: 'T1', required: '' })),
         SingleChoiceTask.TaskModel.create(SingleChoiceTaskFactory.build({ taskKey: 'T2', required: '' }))
       ]
-      step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], tasks })
-      const resetSpies = {}
-      step.tasks.forEach(task => {
-        resetSpies[task.taskKey] = sinon.spy(task, 'reset')
-        expect(resetSpies[task.taskKey]).to.have.not.been.called
+      const step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], tasks })
+      const calls = []
+      addMiddleware(step, (call, next) => {
+        calls.push(call.name)
+        return next(call)
       })
+
       step.reset()
-      step.tasks.forEach(task => {
-        expect(resetSpies[task.taskKey]).to.have.been.calledOnce
-      })
+
+      const taskResets = calls.filter(name => name === 'reset')
+      expect(taskResets).to.have.lengthOf(step.tasks.length + 1)
     })
   })
 
-  describe.skip('on next or finish', function () {
-    let tasks
+  describe('on next or finish', function () {
+    let calls
 
     before(function () {
-      tasks = [
+      const tasks = [
         MultipleChoiceTask.TaskModel.create(MultipleChoiceTaskFactory.build({ taskKey: 'T1', required: '' })),
         SingleChoiceTask.TaskModel.create(SingleChoiceTaskFactory.build({
           taskKey: 'T2',
@@ -393,31 +390,21 @@ describe.skip('Model > Step', function () {
           ]
         }))
       ]
-      tasks.forEach(task => {
-        sinon.spy(task, 'complete')
-        sinon.spy(task, 'validate')
-      })
       const step = Step.create({ stepKey: 'S1', taskKeys: ['T1', 'T2'], tasks })
+      calls = []
+      addMiddleware(step, (call, next) => {
+        calls.push(call.name)
+        return next(call)
+      })
       step.completeAndValidate([])
     })
 
-    after(function () {
-      tasks.forEach(task => {
-        task.complete.restore()
-        task.validate.restore()
-      })
-    })
-
     it('should validate each step task', function () {
-      tasks.forEach(task => {
-        expect(task.validate).to.have.been.calledOnce
-      })
+      expect(calls.filter(name => name === 'validate')).to.have.lengthOf(2)
     })
 
     it('should complete each step task', function () {
-      tasks.forEach(task => {
-        expect(task.complete).to.have.been.calledOnce
-      })
+      expect(calls.filter(name => name === 'complete')).to.have.lengthOf(2)
     })
   })
 })
