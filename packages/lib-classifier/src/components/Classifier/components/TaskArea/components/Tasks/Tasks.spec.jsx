@@ -60,10 +60,9 @@ describe('Tasks', function () {
       expect(screen.getByText('Done')).to.exist
     })
 
-    it('should autofocus the task', function () {
+    it('should not autofocus the task when it mounts', function () {
       render(<MultipleTasksStory />)
-      const activeElement = document.activeElement
-      expect(activeElement.className.includes('StyledFieldset'))
+      expect(document.activeElement).to.equal(document.body)
     })
   })
 })

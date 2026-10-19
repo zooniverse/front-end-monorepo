@@ -7,7 +7,7 @@ import MetadataIconButton from '../MetadataIconButton'
 import FavoritesIconButton from '../FavoritesIconButton'
 import CollectIconButton from '../CollectIconButton'
 import ShareIconButton from '../ShareIconButton'
-import addQueryParams from './helpers/addQueryParams'
+import addQueryParams from '../helpers/addQueryParams'
 
 import SimpleMedia from './components/SimpleMedia'
 import InteractiveMedia from './components/InteractiveMedia'
