@@ -5,6 +5,7 @@ import { useResizeDetector } from 'react-resize-detector'
 import styled from 'styled-components'
 
 import getHost from '../helpers/getHost'
+import getHrefWithLocale from '../helpers/getHrefWithLocale'
 import { useTranslation } from '../translations/i18n'
 import { useHasMounted } from '../hooks'
 
@@ -91,7 +92,8 @@ export default function ZooHeader({
   user = {},
   ...props
 }) {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+  const locale = i18n.language
 
   // Hide the user nav menus until component is mounted and can detect a signed-in user
   const hasMounted = useHasMounted()
@@ -110,9 +112,9 @@ export default function ZooHeader({
   const adminNavLinkURL = `${host}/admin`
 
   const mainHeaderNavListURLs = [
-    `${host}/projects`,
-    `${host}/about`,
-    `${host}/get-involved`,
+    `${host}${getHrefWithLocale(`/projects`, locale)}`,
+    `${host}${getHrefWithLocale(`/about`, locale)}`,
+    `${host}${getHrefWithLocale(`/get-involved`, locale)}`,
     `${host}/talk`,
     `${host}/lab`
   ]
@@ -147,7 +149,7 @@ export default function ZooHeader({
           direction='row'
           style={{ zIndex: 1 }}
         >
-          <StyledLogoAnchor href='http://www.zooniverse.org'>
+          <StyledLogoAnchor href={`${host}${getHrefWithLocale(`/`, locale)}`}>
             <ZooniverseLogo size='1.25em' id='HeaderZooniverseLogo' />
           </StyledLogoAnchor>
           <MainNavList
