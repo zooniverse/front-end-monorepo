@@ -3,9 +3,10 @@ import { useContext } from 'react'
 import useSWR from 'swr'
 import { projects } from '@zooniverse/panoptes-js'
 import { ProjectCard, SpacedHeading } from '@zooniverse/react-components'
-
 import { useTranslation } from 'react-i18next'
+
 import HorizontalRuleLogo from '@components/HorizontalRuleLogo/HorizontalRuleLogo'
+import getHrefWithLocale from '@utils/getHrefWithLocale'
 
 const SWROptions = {
   revalidateIfStale: true,
@@ -40,7 +41,8 @@ function useFeaturedProjects() {
 
 export default function FeaturedProjects() {
   const { data: featuredProjects, isLoading } = useFeaturedProjects()
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+  const locale = i18n.language
 
   const size = useContext(ResponsiveContext)
   const cardSize = size === 'small' ? 'medium' : 'xlarge'
@@ -75,7 +77,7 @@ export default function FeaturedProjects() {
               key={project.slug}
               description={project.description}
               displayName={project.display_name}
-              href={`https://www.zooniverse.org/projects/${project.slug}`}
+              href={getHrefWithLocale(`/projects/${project.slug}`, locale)}
               imageSrc={project.avatar_src}
               size={cardSize}
             />

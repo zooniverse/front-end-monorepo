@@ -1,6 +1,8 @@
-import { Anchor, Box, Heading, Paragraph, Text } from 'grommet'
-import { Trans, useTranslation } from 'react-i18next'
+import { Anchor, Box, Heading } from 'grommet'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
+
+import getHrefWithLocale from '@utils/getHrefWithLocale'
 
 const StyledList = styled.ul`
   margin-block-start: 0;
@@ -9,7 +11,8 @@ const StyledList = styled.ul`
 `
 
 export default function Resources() {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+  const locale = i18n.language
 
   return (
     <Box>
@@ -79,28 +82,28 @@ export default function Resources() {
       <StyledList>
         <li>
           <Anchor
-            href='https://www.zooniverse.org/projects/hughdickinson/galaxy-zoo-clump-scout-ii'
+            href={getHrefWithLocale('/projects/hughdickinson/galaxy-zoo-clump-scout-ii', locale)}
             label='Clump Scout II'
             size='1rem'
           />
         </li>
         <li>
           <Anchor
-            href='https://www.zooniverse.org/projects/erinmc/dark-energy-explorers'
+            href={getHrefWithLocale('/projects/erinmc/dark-energy-explorers', locale)}
             label='Dark Energy Explorers'
             size='1rem'
           />
         </li>
         <li>
           <Anchor
-            href='https://www.zooniverse.org/projects/bg557/field-journal-fix-up'
+            href={getHrefWithLocale('/projects/bg557/field-journal-fix-up', locale)}
             label='Field Journal Fix-Up'
             size='1rem'
           />
         </li>
         <li>
           <Anchor
-            href='https://www.zooniverse.org/projects/hjsmith/the-material-culture-of-wills-england-1540-1790'
+            href={getHrefWithLocale('/projects/hjsmith/the-material-culture-of-wills-england-1540-1790', locale)}
             label='The Material Culture of Wills: England 1540-1790'
             size='1rem'
           />

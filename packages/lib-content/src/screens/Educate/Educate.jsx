@@ -55,7 +55,8 @@ const StyledBox = styled(Box)`
 const headingColor = { light: 'black', dark: 'white' }
 
 function Educate() {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+  const locale = i18n.language
   const size = useContext(ResponsiveContext)
 
   const articleExcerptSize = size === 'small' ? 120 : 250
@@ -171,7 +172,7 @@ function Educate() {
                     components={[
                       <Anchor
                         key='project-education-page'
-                        href='https://www.zooniverse.org/projects/zooniverse/snapshot-wisconsin/about/education'
+                        href={getHrefWithLocale('/projects/zooniverse/snapshot-wisconsin/about/education', locale)}
                       />
                     ]}
                   />
