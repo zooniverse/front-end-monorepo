@@ -93,7 +93,7 @@ export default function ZooHeader({
   ...props
 }) {
   const { i18n, t } = useTranslation()
-  const locale = i18n.language
+  const locale = i18n.language ?? 'en'
 
   // Hide the user nav menus until component is mounted and can detect a signed-in user
   const hasMounted = useHasMounted()
@@ -118,6 +118,8 @@ export default function ZooHeader({
     `${host}/talk`,
     `${host}/lab`
   ]
+
+  const homeURL = `${host}${getHrefWithLocale(`/`, locale)}`
 
   const mainHeaderNavListLabels = [
     t('ZooHeader.mainHeaderNavListLabels.projects'),
@@ -149,7 +151,7 @@ export default function ZooHeader({
           direction='row'
           style={{ zIndex: 1 }}
         >
-          <StyledLogoAnchor href={`${host}${getHrefWithLocale(`/`, locale)}`}>
+          <StyledLogoAnchor href={homeURL}>
             <ZooniverseLogo size='1.25em' id='HeaderZooniverseLogo' />
           </StyledLogoAnchor>
           <MainNavList
