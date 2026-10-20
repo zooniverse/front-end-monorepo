@@ -8,8 +8,9 @@ import { Box, ResponsiveContext } from 'grommet'
 import { useContext } from 'react'
 import { ProjectCard, SpacedHeading } from '@zooniverse/react-components'
 import styled from 'styled-components'
-
 import { useTranslation } from 'react-i18next'
+
+import getHrefWithLocale from '@utils/getHrefWithLocale'
 
 const StyledList = styled(Box)`
   list-style: none;
@@ -31,7 +32,8 @@ const StyledList = styled(Box)`
 `
 
 export default function FeaturedProjects({ featuredProjects }) {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+  const locale = i18n.language
 
   const size = useContext(ResponsiveContext)
 
@@ -59,7 +61,7 @@ export default function FeaturedProjects({ featuredProjects }) {
               <ProjectCard
                 description={project.description}
                 displayName={project.display_name}
-                href={`https://www.zooniverse.org/projects/${project.slug}`}
+                href={getHrefWithLocale(`/projects/${project.slug}`, locale)}
                 imageSrc={project.avatar_src}
                 size={size}
                 background={{ light: 'light-1', dark: 'dark-1' }}

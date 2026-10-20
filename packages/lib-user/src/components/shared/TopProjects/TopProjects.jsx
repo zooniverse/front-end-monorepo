@@ -81,7 +81,8 @@ function TopProjects({
   loading = false,
   projects = []
 }) {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+  const locale = i18n.language
   const size = useContext(ResponsiveContext)
   const cardSize = grid ? 'small' : size
 
@@ -129,7 +130,7 @@ function TopProjects({
                   badge={topProject?.count}
                   description={topProject?.description}
                   displayName={topProject?.display_name}
-                  href={`https://www.zooniverse.org/projects/${topProject?.slug}`}
+                  href={getHrefWithLocale(`/projects/${topProject?.slug}`, locale)}
                   imageSrc={topProject?.avatar_src}
                   size={cardSize}
                   state={topProject?.state}

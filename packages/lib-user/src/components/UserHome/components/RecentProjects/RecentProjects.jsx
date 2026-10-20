@@ -77,7 +77,7 @@ export default function RecentProjects({
               <ProjectCard
                 description={project?.description}
                 displayName={project?.display_name}
-                href={`https://www.zooniverse.org/projects/${project?.slug}`}
+                href={getHrefWithLocale(`/projects/${project?.slug}`, locale)}
                 imageSrc={project?.avatar_src}
                 size={size}
                 state={project?.state}

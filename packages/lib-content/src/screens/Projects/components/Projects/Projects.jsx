@@ -6,11 +6,12 @@ import {
 import { Box, CheckBox, Paragraph, ResponsiveContext, Text } from 'grommet'
 import { useContext, useState } from 'react'
 import { useQueryState } from 'nuqs'
-
 import { useTranslation, Trans } from 'react-i18next'
+
 import StyledCardsContainer from '../StyledCardsContainer'
 import useProjects from './hooks/useProjects'
 import useDebounce from './hooks/useDebounce'
+import getHrefWithLocale from '@utils/getHrefWithLocale'
 
 import DisciplineSelect from './components/DisciplineSelect'
 import LanguagesSelect from './components/LanguagesSelect'
@@ -25,7 +26,8 @@ import SortBySelect from './components/SortBySelect'
 import StatusSelect from './components/StatusSelect'
 
 export default function Projects({ adminMode = false }) {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+  const locale = i18n.language
   const size = useContext(ResponsiveContext)
 
   const [sort, setSort] = useQueryState('sort', {
@@ -209,7 +211,7 @@ export default function Projects({ adminMode = false }) {
                 <ProjectCard
                   description={project.description}
                   displayName={project.display_name}
-                  href={`/projects/${project.slug}`}
+                  href={getHrefWithLocale(`/projects/${project.slug}`, locale)}
                   imageSrc={project.avatar_src}
                   size={size}
                   state={project.state}

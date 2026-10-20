@@ -4,9 +4,10 @@ import styled from 'styled-components'
 import { arrayOf, bool, func, number, shape, string } from 'prop-types'
 import ProjectCard from '@zooniverse/react-components/ProjectCard'
 import Loader from '@zooniverse/react-components/Loader'
-
 import { useTranslation } from 'react-i18next'
+
 import { Pagination } from '@components/shared'
+import getHrefWithLocale from '@utils'
 
 const StyledBox = styled(Box)`
   list-style: none;
@@ -27,7 +28,8 @@ function Projects({
   renderedProjects = [],
   setPage = DEFAULT_HANDLER
 }) {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+  const locale = i18n.language
   const firstCardRef = useRef(null)
 
   function handlePageChange({ page }) {
@@ -57,7 +59,7 @@ function Projects({
                   badge={renderedProjects?.[0].count}
                   description={renderedProjects?.[0].description}
                   displayName={renderedProjects?.[0].display_name}
-                  href={`https://www.zooniverse.org/projects/${renderedProjects?.[0].slug}`}
+                  href={getHrefWithLocale(`/projects/${renderedProjects?.[0].slug}`, locale)}
                   imageSrc={renderedProjects?.[0].avatar_src}
                   size='small'
                   state={renderedProjects?.[0].state}
@@ -72,7 +74,7 @@ function Projects({
                         badge={project?.count}
                         description={project?.description}
                         displayName={project?.display_name}
-                        href={`https://www.zooniverse.org/projects/${project?.slug}`}
+                        href={getHrefWithLocale(`/projects/${project?.slug}`, locale)}
                         imageSrc={project?.avatar_src}
                         size='small'
                         state={project?.state}
