@@ -4,7 +4,7 @@ import { bool, func, number, shape, string } from 'prop-types'
 import { useResizeDetector } from 'react-resize-detector'
 import styled from 'styled-components'
 
-import { getHost } from './helpers'
+import getHost from '../helpers/getHost'
 import { useTranslation } from '../translations/i18n'
 import { useHasMounted } from '../hooks'
 
