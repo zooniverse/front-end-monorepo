@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## Changed
+- `ZooFooter` and `ZooHeader` links to app-root pages now preserve `locale`.
+
 ## Added
 - `useRovingTabIndex` hook, so other tabbed components can share the keyboard model used by `Tabs` (#7539).
 
