@@ -12,6 +12,7 @@ export async function getServerSideProps({ locale, params }) {
   return {
     notFound,
     props: {
+      locale,
       ...(await serverSideTranslations(locale, ['components', 'screens'])),
       ...props
     }
