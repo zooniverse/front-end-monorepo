@@ -12,8 +12,8 @@ import styled from 'styled-components'
 import SpacedHeading from '@zooniverse/react-components/SpacedHeading'
 import { BarChart, Certificate, Workshop } from 'grommet-icons'
 import { useContext } from 'react'
-
 import { Trans, useTranslation } from 'react-i18next'
+
 import GetInvolvedLayout from '@components/PageLayout/GetInvolvedLayout'
 import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent'
 import {
@@ -21,6 +21,7 @@ import {
   StyledHeading
 } from '@components/SharedStyledComponents/SharedStyledComponents'
 import Article from '@components/Article/Article'
+import getProjectHrefWithLocale from '@utils/getProjectHrefWithLocale'
 
 const StyledAnchor = styled(Anchor)`
   border-radius: 8px;
@@ -172,7 +173,7 @@ function Educate() {
                     components={[
                       <Anchor
                         key='project-education-page'
-                        href={getHrefWithLocale('/projects/zooniverse/snapshot-wisconsin/about/education', locale)}
+                        href={getProjectHrefWithLocale('/zooniverse/snapshot-wisconsin/about/education', locale)}
                       />
                     ]}
                   />

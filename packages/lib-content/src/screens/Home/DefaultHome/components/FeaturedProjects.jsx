@@ -6,7 +6,7 @@ import { ProjectCard, SpacedHeading } from '@zooniverse/react-components'
 import { useTranslation } from 'react-i18next'
 
 import HorizontalRuleLogo from '@components/HorizontalRuleLogo/HorizontalRuleLogo'
-import getHrefWithLocale from '@utils/getHrefWithLocale'
+import getProjectHrefWithLocale from '@utils/getProjectHrefWithLocale'
 
 const SWROptions = {
   revalidateIfStale: true,
@@ -77,7 +77,7 @@ export default function FeaturedProjects() {
               key={project.slug}
               description={project.description}
               displayName={project.display_name}
-              href={getHrefWithLocale(`/projects/${project.slug}`, locale)}
+              href={getProjectHrefWithLocale(`/${project.slug}`, locale)}
               imageSrc={project.avatar_src}
               size={cardSize}
             />

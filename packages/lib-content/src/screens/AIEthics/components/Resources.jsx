@@ -2,7 +2,7 @@ import { Anchor, Box, Heading } from 'grommet'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import getHrefWithLocale from '@utils/getHrefWithLocale'
+import getProjectHrefWithLocale from '@utils/getProjectHrefWithLocale'
 
 const StyledList = styled.ul`
   margin-block-start: 0;
@@ -82,28 +82,28 @@ export default function Resources() {
       <StyledList>
         <li>
           <Anchor
-            href={getHrefWithLocale('/projects/hughdickinson/galaxy-zoo-clump-scout-ii', locale)}
+            href={getProjectHrefWithLocale('/hughdickinson/galaxy-zoo-clump-scout-ii', locale)}
             label='Clump Scout II'
             size='1rem'
           />
         </li>
         <li>
           <Anchor
-            href={getHrefWithLocale('/projects/erinmc/dark-energy-explorers', locale)}
+            href={getProjectHrefWithLocale('/erinmc/dark-energy-explorers', locale)}
             label='Dark Energy Explorers'
             size='1rem'
           />
         </li>
         <li>
           <Anchor
-            href={getHrefWithLocale('/projects/bg557/field-journal-fix-up', locale)}
+            href={getProjectHrefWithLocale('/bg557/field-journal-fix-up', locale)}
             label='Field Journal Fix-Up'
             size='1rem'
           />
         </li>
         <li>
           <Anchor
-            href={getHrefWithLocale('/projects/hjsmith/the-material-culture-of-wills-england-1540-1790', locale)}
+            href={getProjectHrefWithLocale('/hjsmith/the-material-culture-of-wills-england-1540-1790', locale)}
             label='The Material Culture of Wills: England 1540-1790'
             size='1rem'
           />

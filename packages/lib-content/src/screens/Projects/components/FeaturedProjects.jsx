@@ -10,7 +10,7 @@ import { ProjectCard, SpacedHeading } from '@zooniverse/react-components'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
 
-import getHrefWithLocale from '@utils/getHrefWithLocale'
+import getProjectHrefWithLocale from '@utils/getProjectHrefWithLocale'
 
 const StyledList = styled(Box)`
   list-style: none;
@@ -61,7 +61,7 @@ export default function FeaturedProjects({ featuredProjects }) {
               <ProjectCard
                 description={project.description}
                 displayName={project.display_name}
-                href={getHrefWithLocale(`/projects/${project.slug}`, locale)}
+                href={getProjectHrefWithLocale(`/${project.slug}`, locale)}
                 imageSrc={project.avatar_src}
                 size={size}
                 background={{ light: 'light-1', dark: 'dark-1' }}

@@ -6,6 +6,7 @@ import { Loader, ProjectCard } from '@zooniverse/react-components'
 import { useTranslation } from 'react-i18next'
 
 import { ContentBox } from '@components/shared'
+import { getProjectHrefWithLocale } from '@utils'
 
 const StyledGridList = styled(Grid)`
   list-style: none;
@@ -130,7 +131,7 @@ function TopProjects({
                   badge={topProject?.count}
                   description={topProject?.description}
                   displayName={topProject?.display_name}
-                  href={getHrefWithLocale(`/projects/${topProject?.slug}`, locale)}
+                  href={getProjectHrefWithLocale(`/${topProject?.slug}`, locale)}
                   imageSrc={topProject?.avatar_src}
                   size={cardSize}
                   state={topProject?.state}

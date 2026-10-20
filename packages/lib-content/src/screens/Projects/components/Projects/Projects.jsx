@@ -11,7 +11,7 @@ import { useTranslation, Trans } from 'react-i18next'
 import StyledCardsContainer from '../StyledCardsContainer'
 import useProjects from './hooks/useProjects'
 import useDebounce from './hooks/useDebounce'
-import getHrefWithLocale from '@utils/getHrefWithLocale'
+import getProjectHrefWithLocale from '@utils/getProjectHrefWithLocale'
 
 import DisciplineSelect from './components/DisciplineSelect'
 import LanguagesSelect from './components/LanguagesSelect'
@@ -211,7 +211,7 @@ export default function Projects({ adminMode = false }) {
                 <ProjectCard
                   description={project.description}
                   displayName={project.display_name}
-                  href={getHrefWithLocale(`/projects/${project.slug}`, locale)}
+                  href={getProjectHrefWithLocale(`/${project.slug}`, locale)}
                   imageSrc={project.avatar_src}
                   size={size}
                   state={project.state}
