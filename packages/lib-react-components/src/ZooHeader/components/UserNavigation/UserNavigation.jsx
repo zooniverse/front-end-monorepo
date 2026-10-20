@@ -8,7 +8,7 @@ import NavButton from './components/NavButton/NavButton'
 import NavListItem from '../NavListItem/NavListItem'
 import UserMenu from '../UserMenu/UserMenu'
 import ThemeModeToggle from '../ThemeModeToggle/ThemeModeToggle'
-import { getHost } from '../../helpers'
+import getHost from '../../../helpers/getHost'
 
 const StyledBlank = styled(Blank)`
   vertical-align: -3px; // to help align-items center in nav
