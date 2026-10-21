@@ -85,7 +85,7 @@ function MultipleChoiceTask ({
         const checked = (value && value.length > 0) ? value.includes(index) : false
         return (
           <TaskInput
-            autoFocus={autoFocus && checked}
+            autoFocus={checked}
             checked={checked}
             disabled={disabled}
             index={index}
