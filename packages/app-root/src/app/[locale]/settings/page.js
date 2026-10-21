@@ -7,8 +7,6 @@ export const metadata = {
 
 export default async function SettingsPage () {
   return (
-    <AccountSettingsContainer
-      subPageComponent={undefined}
-    />
+    <AccountSettingsContainer />
   )
 }
