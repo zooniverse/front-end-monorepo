@@ -1,0 +1,79 @@
+{
+  "About": {
+    "PageHeading": {
+      "title": {
+        "education": "Výuka",
+        "faq": "Časté otázky",
+        "research": "Výzkum",
+        "results": "Výsledky",
+        "team": "Tým"
+      }
+    },
+    "PageNav": {
+      "title": "O Projektu"
+    },
+    "SidebarHeading": "O projektu",
+    "TeamMember": {
+      "collaborator": "Spolupracovník",
+      "expert": "Expert",
+      "moderator": "Moderátor",
+      "museum": "Muzeum",
+      "owner": "Vlastník",
+      "researcher": "Výzkumník",
+      "tester": "Testovací člověk",
+      "translator": "Překladatel"
+    }
+  },
+  "Classify": {
+    "ClassifierWrapper": {
+      "ErrorMessage": {
+        "title": "V klasifikátoru došlo k chybě :("
+      }
+    },
+    "RecentSubjects": {
+      "text": "Diskutujte o tématu v Diskusi nebo si ho přidejte do Oblíbených nebo do sbírky.",
+      "title": "Tvé nedávné klasifikace"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "Ne, děkuji",
+      "confirm": "Přejít do dalšího pracovního postupu!",
+      "content": "Gratulujeme! Protože se vám daří, můžete nyní přistupovat k dalšímu pracovnímu postupu. Pokud dáváte přednost tomu, abyste zůstali u stávajícího pracovního postupu, můžete se rozhodnout zůstat.",
+      "dismiss": "Na této relaci už to neukazujte",
+      "title": "K dispozici je nový pracovní postup"
+    },
+    "YourStats": {
+      "allTime": "Po celou dobu",
+      "lastSeven": "Posledních 7 dní",
+      "link": "Více informací",
+      "title": "Vaše statistiky"
+    }
+  },
+  "Home": {
+    "AboutProject": {
+      "title": "O projektu {{projectName}}"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "Více informací"
+      },
+      "NotApproved": {
+        "paragraph": "Tento projekt byl vybudován za pomoci aplikace Zooniverse Project Builder, ale zatím není oficiálním projektem Zooniverse. Dotazy a připomínky týkající se tohoto projektu směřované na tým Zooniverse se nemusí dočkat odezvy."
+      }
+    },
+    "MessageFromResearcher": {
+      "noMessage": "Spojte se s výzkumným týmem na straně Talk a dozvíte se o tomto projektu více!",
+      "noMessageButton": "Přejít na stránku Talk",
+      "title": "Zpráva od výzkumníka"
+    },
+    "ZooniverseTalk": {
+      "RecentSubjects": {
+        "error": "Došlo k chybě při načítání předmětů :(",
+        "noSubjects": "Vypadá to, že se k tématu zatím nikdo nevyjádřil. Přejděte do sekce Diskuse a buďte první!",
+        "subjectLabel": "Předmět {{id}}"
+      },
+      "button": "Zapojit se",
+      "message": "Popovídejte si s výzkumným týmem a dalšími dobrovolníky!",
+      "title": "Zooniverse Talk"
+    }
+  }
+}
