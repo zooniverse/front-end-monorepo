@@ -1,12 +1,12 @@
+import EmailSettingsContainer from './EmailSettingsContainer'
+
 export const metadata = {
-  title: 'Settings',
+  title: 'Email Settings',
   description: ''
 }
 
 export default async function EmailSettingsPage () {
   return (
-    <div>
-      TODO: Settings - Email
-    </div>
+    <EmailSettingsContainer />
   )
 }
