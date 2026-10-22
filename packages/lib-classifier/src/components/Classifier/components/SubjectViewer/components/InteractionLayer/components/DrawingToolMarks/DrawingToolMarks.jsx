@@ -13,6 +13,7 @@ function DrawingToolMarks({
     setSubTaskVisibility: () => { }
   },
   disabled = false,
+  frame = 0,
   marks = [],
   onDelete = () => true,
   onDeselectMark = () => true,
@@ -73,10 +74,10 @@ function DrawingToolMarks({
           dragStart={selectMark}
           dragMove={moveMark}
           dragEnd={endMoveMark}
+          frame={frame}
           label={`Mark ${index}`}
           mark={mark}
           onDelete={deleteMark}
-          onFinish={onFinish}
           onSelect={selectMark}
           pointerEvents={isActive ? 'painted' : pointerEvents}
         >
@@ -106,6 +107,8 @@ DrawingToolMarks.propTypes = {
     id: PropTypes.string,
     setSubTaskVisibility: PropTypes.func
   }),
+  /** Frame index */
+  frame: PropTypes.number,
   /** A list of marks for the current drawing task. */
   marks: PropTypes.array.isRequired,
   /** Callback after deleting a mark. */
