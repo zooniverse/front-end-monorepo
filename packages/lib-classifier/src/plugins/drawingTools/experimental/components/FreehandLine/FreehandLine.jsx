@@ -113,11 +113,21 @@ function FreehandLine({ active = false, mark, onFinish = DEFAULT_HANDLER }) {
     }
   }
 
+  // undo transform in Mark to draw line in global coordinates
+  const coords = mark.coords
+  let transform = ''
+
+  if (coords) {
+    const { x, y } = coords
+    transform = `translate(${-x}, ${-y})`
+  }
+
   return (
     <StyledGroup
       data-testid="mark-focusable"
       className={active ? 'editing' : undefined}
       onPointerUp={active ? onFinish : undefined}
+      transform={transform}
     >
       {mark.visiblePathsRender.map((pts, i) => {
         return <Fragment key={i}>

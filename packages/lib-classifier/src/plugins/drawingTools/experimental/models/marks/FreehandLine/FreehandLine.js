@@ -34,6 +34,14 @@ const FreehandLineModel = types
     pathY: types.array(FixedNumber),
   })
   .views((self) => ({
+    get coords() {
+      // points is in volatile state, so isn't deeply observed
+      // read dragPoint and closePoint to ensure coords is updated when model changed
+      self.dragPoint
+      self.closePoint
+      return self.points[0] ?? null
+    },
+
     get isValid() {
       return true
     },
