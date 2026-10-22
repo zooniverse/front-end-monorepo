@@ -55,6 +55,19 @@ function SubjectsListContainer({
     )
   }
 
+  if (!isLoading && !isValidating && count === 0) {
+    return (
+      <Box
+        align='center'
+        justify='center'
+        height={{ min: '50vh' }}
+        pad='large'
+      >
+        <Paragraph>{t('Collection.emptySubjects')}</Paragraph>
+      </Box>
+    )
+  }
+
   function onSelectSubjects() {
     window.alert('Select Subjects coming soon...')
   }
