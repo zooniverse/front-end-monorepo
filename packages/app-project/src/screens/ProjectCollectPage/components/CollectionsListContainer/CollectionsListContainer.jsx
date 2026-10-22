@@ -23,7 +23,7 @@ import Pagination from '../Pagination'
 
 const SORT_VALUES = COLLECTION_SORT_OPTIONS.map(option => option.value)
 
-function CollectionsListContainer({ loginParam }) {
+function CollectionsListContainer({ loginParam, projectSlug }) {
   const pathname = usePathname()
   const { store } = useContext(MobXProviderContext)
   const { isLoading: isUserLoading, user } = useContext(PanoptesAuthContext)
@@ -142,6 +142,7 @@ function CollectionsListContainer({ loginParam }) {
         <CollectionsList
           collections={data.collections}
           isLoading={loadingOrValidating}
+          projectSlug={projectSlug}
         />
       </Box>
       {pagination}
@@ -150,7 +151,8 @@ function CollectionsListContainer({ loginParam }) {
 }
 
 CollectionsListContainer.propTypes = {
-  loginParam: string
+  loginParam: string,
+  projectSlug: string.isRequired
 }
 
 export default CollectionsListContainer

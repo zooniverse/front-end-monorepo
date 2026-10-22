@@ -1,20 +1,20 @@
 import { CollectionCard } from '@zooniverse/react-components'
 import { Box } from 'grommet'
-import { arrayOf, bool, object } from 'prop-types'
+import { arrayOf, bool, object, string } from 'prop-types'
 import styled from 'styled-components'
 
 const StyledList = styled.ul`
   position: relative;
+  column-gap: 30px;
   display: flex;
   flex-direction: row;
-  justify-content: center;
   flex-wrap: wrap;
-  width: 100%;
-  padding: 0;
-  margin: 0 0 20px;
+  justify-content: center;
   list-style: none;
-  column-gap: 30px;
+  margin: 0 0 20px;
+  padding: 0;
   row-gap: 30px;
+  width: 100%;
 `
 
 const StyledBox = styled(Box)`
@@ -36,13 +36,20 @@ function LoadingOverlay() {
   )
 }
 
-function CollectionsList({ collections, isLoading = false }) {
+function CollectionsList({
+  collections,
+  isLoading = false,
+  projectSlug
+}) {
   return (
     <StyledList aria-busy={isLoading}>
       {isLoading ? <LoadingOverlay /> : null}
       {collections.map(collection => (
         <li key={collection.id}>
-          <CollectionCard collection={collection} />
+          <CollectionCard
+            collection={collection}
+            projectSlug={projectSlug}
+          />
         </li>
       ))}
     </StyledList>
@@ -51,7 +58,8 @@ function CollectionsList({ collections, isLoading = false }) {
 
 CollectionsList.propTypes = {
   collections: arrayOf(object).isRequired,
-  isLoading: bool
+  isLoading: bool,
+  projectSlug: string.isRequired
 }
 
 export default CollectionsList
