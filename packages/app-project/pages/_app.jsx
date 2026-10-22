@@ -16,7 +16,7 @@ import { useAdminMode, usePreferredTheme, useSugarProject, useUserFavourites } f
 import initStore from '@stores'
 import PanoptesAuthContext from '@shared/contexts/PanoptesAuthContext.js'
 import ThemeModeContext from '@shared/contexts/ThemeModeContext.js'
-import TranslationsPopover from '@components/TranslationsPopover/TranslationsPopover'
+import TranslationsModal from '@components/TranslationsModal/TranslationsModal'
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -119,7 +119,7 @@ function MyApp({ Component, pageProps }) {
               >
                 <Head host={pageProps.host} pageTitle={pageProps.pageTitle} />
                 <NuqsAdapter>
-                  <TranslationsPopover locale={locale} />
+                  <TranslationsModal locale={locale} />
                   <Component {...pageProps} />
                 </NuqsAdapter>
               </Grommet>
