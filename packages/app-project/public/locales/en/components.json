@@ -133,7 +133,7 @@
     },
     "cta": "If you are interested in helping us translate this page, please <0>contact us</0>.",
     "paragraph": "This project has not been translated into your selected language.",
-    "title": "Project Translations Unavailable"
+    "title": "{{languageName}} Translations Unavailable"
   },
   "WorkflowSelector": {
     "getStarted": "Get Started!",

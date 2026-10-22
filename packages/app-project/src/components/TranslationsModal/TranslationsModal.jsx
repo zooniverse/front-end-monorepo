@@ -6,6 +6,7 @@ import { Anchor, Button, Paragraph } from 'grommet'
 import { usePathname } from 'next/navigation'
 
 import addQueryParams from '@helpers/addQueryParams'
+import localeMenu from '@helpers/localeMenu'
 
 function storeMapper(store) {
   const {
@@ -38,6 +39,8 @@ export default function TranslationsModal({ locale }) {
 
   const pathname = usePathname()
 
+  const languageName = localeMenu[locale] ?? ''
+
   function closeFn() {
     setActive(false)
   }
@@ -47,19 +50,29 @@ export default function TranslationsModal({ locale }) {
   }
 
   return (
-    <Modal active={active} closeFn={closeFn} role='dialog' title={t('TranslationsModal.title')}>
-      <Paragraph margin={{ top: '0' }}>{t('TranslationsModal.paragraph')}</Paragraph>
-      <Button
-        href={addQueryParams(`/projects${pathname}`)}
-        label={t('TranslationsModal.buttons.switchToEn')}
-      />
-      <Paragraph>
+    <Modal
+      active={active}
+      closeFn={closeFn}
+      role='dialog'
+      title={t('TranslationsModal.title', { languageName })}
+      pad='small'
+    >
+      <Paragraph margin='0' textAlign='center'>
+        {t('TranslationsModal.paragraph')}
+      </Paragraph>
+      <Paragraph textAlign='center'>
         <Trans
           i18nKey={t('TranslationsModal.cta')}
           t={t}
           components={[<Anchor key='contact-us-about-translations' href='about#contact' />]}
         />
       </Paragraph>
+      <Button
+        href={addQueryParams(`/projects${pathname}`)}
+        label={t('TranslationsModal.buttons.switchToEn')}
+        alignSelf='center'
+        pad={{ horizontal: 'medium' }}
+      />
     </Modal>
   )
 }
