@@ -155,7 +155,7 @@ function AccountNameForm ({
         >
           <Button
             disabled={disableInput}
-            label={t('Settings.forms.save')}
+            label={t('Settings.forms.change')}
             type='submit'
           />
 
