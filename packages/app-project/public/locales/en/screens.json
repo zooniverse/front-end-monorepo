@@ -114,6 +114,8 @@
       "settings": "Settings",
       "share": "Share"
     },
+    "resultsCount": "Showing {{range}} of {{total}} subjects",
+    "selectSubjects": "Select Subjects",
     "notFound": "There was an error retrieving this collection."
   },
   "ProjectStats": {
