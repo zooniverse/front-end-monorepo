@@ -31,7 +31,7 @@ function UserHeader({ collection, projectSlug }) {
 
   if (!owner?.login) {
     return error || !isLoading ? (
-      <Text role='alert'>{t('Collection.ownerLoadError')}</Text>
+      <Text>{t('Collection.ownerLoadError')}</Text>
     ) : null
   }
 

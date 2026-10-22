@@ -1,4 +1,4 @@
-import { Box, Button } from 'grommet'
+import { Box, Button, Paragraph } from 'grommet'
 import { useSearchParams } from 'next/navigation'
 import { parseAsInteger, useQueryState } from 'nuqs'
 import { string } from 'prop-types'
@@ -35,12 +35,25 @@ function SubjectsListContainer({
     }
   }, [])
 
-  const { data, isLoading, isValidating } = useCollectionSubjects({
+  const { data, error, isLoading, isValidating } = useCollectionSubjects({
     collectionId,
     page,
     pageSize: SUBJECTS_PAGE_SIZE
   })
   const { subjects = [], count = 0, pageCount = 1 } = data || {}
+
+  if (error) {
+    return (
+      <Box
+        align='center'
+        justify='center'
+        height={{ min: '50vh' }}
+        pad='large'
+      >
+        <Paragraph>{t('Collection.subjectsLoadError')}</Paragraph>
+      </Box>
+    )
+  }
 
   function onSelectSubjects() {
     window.alert('Select Subjects coming soon...')
