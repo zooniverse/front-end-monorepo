@@ -46,8 +46,9 @@ export default function Tasks({
             justify='between'
             fill
           >
-            {step.tasks.map(task => (
+            {step.tasks.map((task, index) => (
               <Task
+                autoFocus={index === 0}
                 disabled={disabled || !ready}
                 key={task.taskKey}
                 previousAnnotationValues={previousAnnotationValues}
