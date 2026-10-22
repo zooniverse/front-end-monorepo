@@ -12,6 +12,7 @@ import ProjectAboutPageLayout from '../ProjectAboutPage/ProjectAboutPageLayout'
 
 import CollectionHeader from './components/CollectionHeader'
 import CollectionOptions from './components/CollectionOptions'
+import UserHeader from './components/UserHeader'
 import getCollectionRole from './helpers/getCollectionRole'
 
 // TODO: likely move hooks to container...
@@ -73,11 +74,15 @@ function ProjectCollectionPage({
           {isLoading ? (
             <Paragraph>Loading...</Paragraph>
           ) : collection ? (
-            <>
+            <Box gap='small'>
               <CollectionHeader
                 collection={collection}
                 collectionRole={collectionRole}
                 projectDisplayName={projectDisplayName}
+                projectSlug={projectSlug}
+              />
+              <UserHeader
+                collection={collection}
                 projectSlug={projectSlug}
               />
               <StyledSubjectList>
@@ -94,7 +99,7 @@ function ProjectCollectionPage({
                   </li>
                 ))}
               </StyledSubjectList>
-            </>
+            </Box>
           ) : (
             <Paragraph>{t('Collection.notFound')}</Paragraph>
           )}
