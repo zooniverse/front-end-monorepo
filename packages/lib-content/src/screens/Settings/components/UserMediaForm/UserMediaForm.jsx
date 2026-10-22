@@ -1,5 +1,5 @@
 import { useId, useRef, useState } from 'react'
-import { Box, Button, Form, Paragraph, Text } from 'grommet'
+import { Box, Form, Paragraph, Text } from 'grommet'
 import { AddCircle as AddIcon, Trash as TrashIcon } from 'grommet-icons'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
@@ -8,6 +8,7 @@ import { shape, string } from 'prop-types'
 import { Loader, StatusMessage } from '@zooniverse/react-components'
 import { IconActionButton } from '@zooniverse/react-components'
 
+import Button from '../Button/Button'
 import useUserMedia from '../../helpers/useUserMedia'
 import uploadUserMedia from '../../helpers/uploadUserMedia'
 import deleteUserMedia from '../../helpers/deleteUserMedia'
@@ -446,6 +447,7 @@ function UserMediaForm ({
           justify='between'
           gap='1em'
           margin={{ vertical: 'small' }}
+          wrap={true}
         >
           <Button
             disabled={isBusy}
