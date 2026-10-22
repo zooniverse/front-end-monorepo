@@ -106,6 +106,7 @@
     }
   },
   "Collection": {
+    "linkedToProjectCollections": "Linked to <projectLink>{{projectName}}</projectLink> collections",
     "CollectionOptions": {
       "copied": "URL copied to clipboard",
       "settings": "Settings",

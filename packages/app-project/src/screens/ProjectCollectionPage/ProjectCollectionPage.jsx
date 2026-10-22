@@ -1,4 +1,4 @@
-import { Box, Heading, Paragraph } from 'grommet'
+import { Box, Paragraph } from 'grommet'
 import { SubjectCard } from '@zooniverse/react-components'
 import { MobXProviderContext, observer } from 'mobx-react'
 import { useTranslation } from 'next-i18next/pages'
@@ -9,7 +9,10 @@ import styled from 'styled-components'
 import StandardLayout from '@shared/components/StandardLayout'
 import ProjectAboutPageLayout from '../ProjectAboutPage/ProjectAboutPageLayout'
 
+
+import CollectionHeader from './components/CollectionHeader'
 import CollectionOptions from './components/CollectionOptions'
+import getCollectionRole from './helpers/getCollectionRole'
 
 // TODO: likely move hooks to container...
 import { useCollection, useCollectionRoles, useCollectionSubjects } from '@hooks'
@@ -31,28 +34,29 @@ function useStores() {
   const stores = useContext(MobXProviderContext)
   const { project } = stores.store
   return {
-    projectId: project?.id,
-    projectSlug: project?.slug
+    projectId: project?.id
   }
 }
 
-function ProjectCollectionPage({ collectionNameParam, loginParam }) {
+function ProjectCollectionPage({
+  collectionNameParam,
+  loginParam,
+  projectSlug,
+  projectDisplayName
+}) {
   const { t } = useTranslation('screens')
-  const { projectId, projectSlug } = useStores()
+  const { projectId } = useStores()
   // TODO: consider refactor for user loading state
   const { user } = useContext(PanoptesAuthContext)
   const { id: userId, login } = user || {}
   const slug = `${loginParam}/${collectionNameParam}`
 
   const { data: collection, isLoading } = useCollection({ slug })
-  const { data: collectionRoles, isLoading: isLoadingCollectionRoles } = useCollectionRoles({ collectionId: collection?.id })
+  const { data: collectionRoles } = useCollectionRoles({ collectionId: collection?.id })
   const { data: subjects = [] } = useCollectionSubjects({ collectionId: collection?.id })
-
-  const isOwner = !!userId && collection?.links?.owner?.id === userId
-  const isCollaborator = !!userId && !!collectionRoles?.some(role =>
-    role.links?.owner?.id === userId && role.roles?.some(r => r === 'owner' || r === 'collaborator')
-  )
-  const canEdit = isOwner || isCollaborator
+  
+  const collectionRole = getCollectionRole(collectionRoles, userId)
+  const canEdit = collectionRole === 'owner' || collectionRole === 'collaborator'
 
   return (
     <StandardLayout>
@@ -70,10 +74,12 @@ function ProjectCollectionPage({ collectionNameParam, loginParam }) {
             <Paragraph>Loading...</Paragraph>
           ) : collection ? (
             <>
-              <Heading level={2}>{collection.display_name}</Heading>
-              {collectionRoles?.length > 0 && (
-                <Paragraph>{collectionRoles[0].roles}</Paragraph>
-              )}
+              <CollectionHeader
+                collection={collection}
+                collectionRole={collectionRole}
+                projectDisplayName={projectDisplayName}
+                projectSlug={projectSlug}
+              />
               <StyledSubjectList>
                 {subjects.map(subject => (
                   <li key={subject.id}>
@@ -100,7 +106,9 @@ function ProjectCollectionPage({ collectionNameParam, loginParam }) {
 
 ProjectCollectionPage.propTypes = {
   collectionNameParam: string,
-  loginParam: string
+  loginParam: string,
+  projectSlug: string,
+  projectDisplayName: string
 }
 
 export default observer(ProjectCollectionPage)
