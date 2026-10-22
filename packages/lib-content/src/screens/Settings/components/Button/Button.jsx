@@ -16,8 +16,7 @@ const StyledButton = styled(GrommetButton)`
       background: ${props.theme.global.colors['dark-4']};  /* #404040 almost-black. This assumes page background is pure black. */
       border-color: ${props.theme.global.colors['accent-1']};  /* light teal */
       color: ${props.theme.global.colors['neutral-6']};  /* white */
-    `
-  }
+  `}
 `
 
 export default function Button (props) {
