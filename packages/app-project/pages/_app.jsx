@@ -1,7 +1,7 @@
 import { usePanoptesUser } from '@zooniverse/react-components/hooks'
 import { enableStaticRendering, Provider } from 'mobx-react'
 import Error from 'next/error'
-import { useEffect, useMemo } from 'react'
+import { useEffect, useRef } from 'react'
 import { createGlobalStyle } from 'styled-components'
 import { appWithTranslation } from 'next-i18next/pages'
 import { Grommet } from 'grommet'
@@ -13,7 +13,7 @@ import 'ol/ol.css'
 import Head from '@components/Head'
 import { addSentryUser, logToSentry } from '@helpers/logger'
 import { useAdminMode, usePreferredTheme, useSugarProject, useUserFavourites } from '@hooks'
-import initStore from '@stores'
+import initStore, { applyStoreSnapshot, getStore } from '@stores/initStore'
 import PanoptesAuthContext from '@shared/contexts/PanoptesAuthContext.js'
 import ThemeModeContext from '@shared/contexts/ThemeModeContext.js'
 
@@ -31,11 +31,21 @@ enableStaticRendering(typeof window === 'undefined')
 */
 function useStore(initialState) {
   const isServer = typeof window === 'undefined'
-  const store = useMemo(
-    () => initStore(isServer, initialState),
-    [isServer, initialState]
-  )
-  return store
+  const storeRef = useRef(null)
+
+  if (storeRef.current === null) {
+    storeRef.current = isServer
+      ? initStore(true, initialState)
+      : getStore() || initStore(false, initialState)
+  }
+
+  useEffect(() => {
+    if (!isServer) {
+      applyStoreSnapshot(initialState)
+    }
+  }, [initialState, isServer])
+
+  return storeRef.current
 }
 
 function MyApp({ Component, pageProps }) {
