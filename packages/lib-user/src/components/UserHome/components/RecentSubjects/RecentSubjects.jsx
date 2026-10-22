@@ -81,6 +81,7 @@ function RecentSubjects({
               )
               return (
                 <li key={recent?.id}>
+                  {/* Until the SLTP is fully migrated to FEM, it's ok these SubjectCard components do not handle locale */}
                   <SubjectCard
                     login={login}
                     projectId={recent?.projectId}

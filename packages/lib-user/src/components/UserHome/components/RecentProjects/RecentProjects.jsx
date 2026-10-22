@@ -6,7 +6,7 @@ import { Loader, ProjectCard, SpacedText } from '@zooniverse/react-components'
 import { useTranslation, Trans } from 'react-i18next'
 
 import { ContentBox } from '@components/shared'
-import { getHrefWithLocale } from '@utils'
+import { getHrefWithLocale, getProjectHrefWithLocale } from '@utils'
 
 const StyledBox = styled(Box)`
   list-style: none;
@@ -77,7 +77,7 @@ export default function RecentProjects({
               <ProjectCard
                 description={project?.description}
                 displayName={project?.display_name}
-                href={`https://www.zooniverse.org/projects/${project?.slug}`}
+                href={getProjectHrefWithLocale(`/${project?.slug}`, locale)}
                 imageSrc={project?.avatar_src}
                 size={size}
                 state={project?.state}
