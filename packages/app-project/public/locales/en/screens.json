@@ -107,6 +107,8 @@
   },
   "Collection": {
     "linkedToProjectCollections": "Linked to <projectLink>{{projectName}}</projectLink> collections",
+    "seeAllOwnerCollections": "<collectionsLink>See all {{displayName}}'s collections</collectionsLink>",
+    "ownerLoadError": "Collection owner details could not be loaded.",
     "CollectionOptions": {
       "copied": "URL copied to clipboard",
       "settings": "Settings",
