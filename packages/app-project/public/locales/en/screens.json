@@ -116,6 +116,7 @@
     },
     "resultsCount": "Showing {{range}} of {{total}} subjects",
     "selectSubjects": "Select Subjects",
+    "subjectsLoadError": "There was an error loading this collection's subjects.",
     "notFound": "There was an error retrieving this collection."
   },
   "ProjectStats": {
