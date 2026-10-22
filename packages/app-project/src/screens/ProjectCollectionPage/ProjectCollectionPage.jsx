@@ -1,35 +1,20 @@
 import { Box, Paragraph } from 'grommet'
-import { SubjectCard } from '@zooniverse/react-components'
 import { MobXProviderContext, observer } from 'mobx-react'
 import { useTranslation } from 'next-i18next/pages'
 import { useContext } from 'react'
 import { string } from 'prop-types'
-import styled from 'styled-components'
 
 import StandardLayout from '@shared/components/StandardLayout'
 import ProjectAboutPageLayout from '../ProjectAboutPage/ProjectAboutPageLayout'
 
-
 import CollectionHeader from './components/CollectionHeader'
 import CollectionOptions from './components/CollectionOptions'
+import SubjectsListContainer from './components/SubjectsListContainer'
 import UserHeader from './components/UserHeader'
 import getCollectionRole from './helpers/getCollectionRole'
 
-// TODO: likely move hooks to container...
-import { useCollection, useCollectionRoles, useCollectionSubjects } from '@hooks'
+import { useCollection, useCollectionRoles } from '@hooks'
 import PanoptesAuthContext from '@shared/contexts/PanoptesAuthContext.js'
-
-const StyledSubjectList = styled.ul`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  column-gap: 20px;
-  row-gap: 30px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-`
 
 function useStores() {
   const stores = useContext(MobXProviderContext)
@@ -54,8 +39,7 @@ function ProjectCollectionPage({
 
   const { data: collection, isLoading } = useCollection({ slug })
   const { data: collectionRoles } = useCollectionRoles({ collectionId: collection?.id })
-  const { data: subjects = [] } = useCollectionSubjects({ collectionId: collection?.id })
-  
+
   const collectionRole = getCollectionRole(collectionRoles, userId)
   const canEdit = collectionRole === 'owner' || collectionRole === 'collaborator'
 
@@ -85,20 +69,18 @@ function ProjectCollectionPage({
                 collection={collection}
                 projectSlug={projectSlug}
               />
-              <StyledSubjectList>
-                {subjects.map(subject => (
-                  <li key={subject.id}>
-                    <SubjectCard
-                      interactive={true}
-                      login={login}
-                      projectId={projectId}
-                      projectSlug={projectSlug}
-                      subject={subject}
-                      userId={userId}
-                    />
-                  </li>
-                ))}
-              </StyledSubjectList>
+              {collection?.description && (
+                <Paragraph margin='none'>
+                  {collection.description}
+                </Paragraph>
+              )}
+              <SubjectsListContainer
+                collectionId={collection.id}
+                login={login}
+                projectId={projectId}
+                projectSlug={projectSlug}
+                userId={userId}
+              />
             </Box>
           ) : (
             <Paragraph>{t('Collection.notFound')}</Paragraph>
