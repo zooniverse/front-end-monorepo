@@ -9,6 +9,8 @@ import styled from 'styled-components'
 import StandardLayout from '@shared/components/StandardLayout'
 import ProjectAboutPageLayout from '../ProjectAboutPage/ProjectAboutPageLayout'
 
+import CollectionOptions from './components/CollectionOptions'
+
 // TODO: likely move hooks to container...
 import { useCollection, useCollectionRoles, useCollectionSubjects } from '@hooks'
 import PanoptesAuthContext from '@shared/contexts/PanoptesAuthContext.js'
@@ -46,8 +48,18 @@ function ProjectCollectionPage({ collectionNameParam, loginParam }) {
   const { data: collectionRoles, isLoading: isLoadingCollectionRoles } = useCollectionRoles({ collectionId: collection?.id })
   const { data: subjects = [] } = useCollectionSubjects({ collectionId: collection?.id })
 
+  const isOwner = !!userId && collection?.links?.owner?.id === userId
+  const isCollaborator = !!userId && !!collectionRoles?.some(role =>
+    role.links?.owner?.id === userId && role.roles?.some(r => r === 'owner' || r === 'collaborator')
+  )
+  const canEdit = isOwner || isCollaborator
+
   return (
     <StandardLayout>
+      <CollectionOptions 
+        canEdit={canEdit}
+        isLoggedIn={!!userId}
+      />
       <ProjectAboutPageLayout>
         <Box
           margin={{ bottom: 'large' }}
