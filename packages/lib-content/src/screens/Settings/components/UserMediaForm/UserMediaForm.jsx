@@ -41,10 +41,16 @@ const FileInputContainer = styled(Box)`
 // When there's no current media file, NOR a selected media file to upload, show
 // a prompt that says "pls select a file thx".
 const ContainerBackgroundWhenThereIsNoCurrentOrSelectedImage = styled(Box)`
-  border: 0.5px solid #A6A7A9;
+  ${props => css`border: 0.5px solid ${props.theme.global.colors['light-5']};`}
   border-radius: 4px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.00) 0%, rgba(239, 242, 245, 0.40) 100%), rgba(255, 255, 255, 0.20);
+  ${props => !props.theme.dark
+    ? css` 
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.00) 0%, rgba(239, 242, 245, 0.40) 100%), rgba(255, 255, 255, 0.20);
+    ` : css`
+      background: linear-gradient(180deg, rgba(45, 45, 45, 0.00) 0%, rgba(51, 51, 51, 0.60) 100%), #404040;
+  `}
   box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.25) inset;
+
 `
 
 // Used to display the media image - either the user's current media file
