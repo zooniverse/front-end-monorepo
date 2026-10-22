@@ -1,4 +1,5 @@
 export const COLLECTIONS_PAGE_SIZE = 20
+export const SUBJECTS_PAGE_SIZE = 20
 export const DEFAULT_COLLECTION_MIN_SUBJECTS = 2
 export const DEFAULT_COLLECTION_SORT = 'display_name'
 

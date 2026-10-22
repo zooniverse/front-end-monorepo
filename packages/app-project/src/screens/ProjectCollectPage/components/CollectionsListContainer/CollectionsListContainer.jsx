@@ -12,18 +12,18 @@ import {
   DEFAULT_COLLECTION_SORT
 } from '@helpers/collectionQueryParams'
 import { useProjectCollections } from '@hooks'
-import RequireUser from '@shared/components/RequireUser/RequireUser'
+import Pagination from '@shared/components/Pagination'
 import PanoptesAuthContext from '@shared/contexts/PanoptesAuthContext.js'
+import RequireUser from '@shared/components/RequireUser/RequireUser'
 
 import CollectionsList from '../CollectionsList'
 import CollectionsToolbar from '../CollectionsToolbar'
 import EmptyPlaceholder from '../Placeholders/EmptyPlaceholder'
 import ErrorPlaceholder from '../Placeholders/ErrorPlaceholder'
-import Pagination from '../Pagination'
 
 const SORT_VALUES = COLLECTION_SORT_OPTIONS.map(option => option.value)
 
-function CollectionsListContainer({ loginParam }) {
+function CollectionsListContainer({ loginParam, projectSlug }) {
   const pathname = usePathname()
   const { store } = useContext(MobXProviderContext)
   const { isLoading: isUserLoading, user } = useContext(PanoptesAuthContext)
@@ -142,6 +142,7 @@ function CollectionsListContainer({ loginParam }) {
         <CollectionsList
           collections={data.collections}
           isLoading={loadingOrValidating}
+          projectSlug={projectSlug}
         />
       </Box>
       {pagination}
@@ -150,7 +151,8 @@ function CollectionsListContainer({ loginParam }) {
 }
 
 CollectionsListContainer.propTypes = {
-  loginParam: string
+  loginParam: string,
+  projectSlug: string.isRequired
 }
 
 export default CollectionsListContainer

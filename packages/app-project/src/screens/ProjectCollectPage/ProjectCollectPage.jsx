@@ -28,6 +28,7 @@ function ProjectCollectPage({
           />
           <CollectionsListContainer
             loginParam={loginParam}
+            projectSlug={projectSlug}
           />
         </Box>
       </ProjectAboutPageLayout>

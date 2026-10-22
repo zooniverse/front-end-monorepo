@@ -105,6 +105,21 @@
       "error": "There was an error loading collections."
     }
   },
+  "Collection": {
+    "linkedToProjectCollections": "Linked to <projectLink>{{projectName}}</projectLink> collections",
+    "seeAllOwnerCollections": "<collectionsLink>See all {{displayName}}'s collections</collectionsLink>",
+    "ownerLoadError": "Collection owner details could not be loaded.",
+    "CollectionOptions": {
+      "copied": "URL copied to clipboard",
+      "settings": "Settings",
+      "share": "Share"
+    },
+    "resultsCount": "Showing {{range}} of {{total}} subjects",
+    "selectSubjects": "Select Subjects",
+    "emptySubjects": "No subjects in this collection.",
+    "subjectsLoadError": "There was an error loading this collection's subjects.",
+    "notFound": "There was an error retrieving this collection."
+  },
   "ProjectStats": {
     "BarChart": {
       "a11y": "Bar chart of {{typeLabel}} by {{countLabel}} from {{startDate}} to {{endDate}}",
