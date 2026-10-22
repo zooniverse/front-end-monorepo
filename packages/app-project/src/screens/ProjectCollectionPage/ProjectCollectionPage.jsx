@@ -1,3 +1,4 @@
+import { Loader } from '@zooniverse/react-components'
 import { Box, Paragraph } from 'grommet'
 import { MobXProviderContext, observer } from 'mobx-react'
 import { useTranslation } from 'next-i18next/pages'
@@ -51,12 +52,20 @@ function ProjectCollectionPage({
       />
       <ProjectAboutPageLayout>
         <Box
+          height={{ min: '300px' }}
           margin={{ bottom: 'large' }}
           pad={{ horizontal: '20px' }}
           width={{ width: '100%', max: '85rem' }}
         >
           {isLoading ? (
-            <Paragraph>Loading...</Paragraph>
+            <Box
+              align='center'
+              fill
+              justify='center'
+              pad='medium'
+            >
+              <Loader />
+            </Box>
           ) : collection ? (
             <Box gap='small'>
               <CollectionHeader
@@ -83,7 +92,14 @@ function ProjectCollectionPage({
               />
             </Box>
           ) : (
-            <Paragraph>{t('Collection.notFound')}</Paragraph>
+            <Box
+              align='center'
+              fill
+              justify='center'
+              pad='medium'
+            >
+              <Paragraph>{t('Collection.notFound')}</Paragraph>
+            </Box>
           )}
         </Box>
       </ProjectAboutPageLayout>
