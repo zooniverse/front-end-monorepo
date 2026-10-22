@@ -5,8 +5,7 @@ import styled from 'styled-components'
 
 import addQueryParams from '@helpers/addQueryParams'
 import { usePanoptesUsers } from '@hooks'
-
-import Avatar from '../../../SubjectTalkPage/components/SubjectTalkData/components/TalkComment/components/Avatar/Avatar'
+import Avatar from '@shared/components/Avatar'
 
 const StyledOwnerLink = styled(Anchor)`
   display: flex;

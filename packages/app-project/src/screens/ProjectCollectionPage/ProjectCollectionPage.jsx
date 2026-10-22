@@ -33,8 +33,7 @@ function ProjectCollectionPage({
 }) {
   const { t } = useTranslation('screens')
   const { projectId } = useStores()
-  // TODO: consider refactor for user loading state
-  const { user } = useContext(PanoptesAuthContext)
+  const { user, isLoading: isUserLoading } = useContext(PanoptesAuthContext)
   const { id: userId, login } = user || {}
   const slug = `${loginParam}/${collectionNameParam}`
 
@@ -57,7 +56,7 @@ function ProjectCollectionPage({
           pad={{ horizontal: '20px' }}
           width={{ width: '100%', max: '85rem' }}
         >
-          {isLoading ? (
+          {isLoading || isUserLoading ? (
             <Box
               align='center'
               fill
