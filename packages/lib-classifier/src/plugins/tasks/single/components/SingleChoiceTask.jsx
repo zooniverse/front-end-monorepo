@@ -78,7 +78,7 @@ function SingleChoiceTask ({
         const checked = (value + 1) ? index === value : false
         return (
           <TaskInput
-            autoFocus={autoFocus && checked}
+            autoFocus={checked}
             checked={checked}
             disabled={disabled}
             index={index}
