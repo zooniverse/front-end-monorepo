@@ -22,7 +22,7 @@ function useStores() {
 
 function RecentsContainer() {
   const { projectId, projectSlug } = useStores()
-  const { isLoading: userIsLoading, user } = useContext(PanoptesAuthContext)
+  const { isLoading: isUserLoading, user } = useContext(PanoptesAuthContext)
   const { id: userId, login } = user || {}
   const { data: recents = [], error, isLoading } = useRecents({ projectId, userId })
   // Filter the recents to only include those with an attached valid subject.
@@ -36,7 +36,7 @@ function RecentsContainer() {
       justify='center'
       height={{ min: '50vh' }}
     >
-      {userIsLoading ? <Loader />
+      {isUserLoading ? <Loader />
         : !userId ? <SignedOutPlaceholder />
         : isLoading ? <Loader />
         : error ? <ErrorPlaceholder /> 

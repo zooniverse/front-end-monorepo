@@ -5,7 +5,7 @@ import { useTranslation } from 'next-i18next/pages'
 
 import { COLLECTIONS_PAGE_SIZE } from '@helpers/collectionQueryParams'
 
-function CollectionsResultCount({
+function ResultCount({
   count = 0,
   i18nKey = 'Collect.resultsCount',
   isLoading = false,
@@ -31,7 +31,7 @@ function CollectionsResultCount({
   )
 }
 
-CollectionsResultCount.propTypes = {
+ResultCount.propTypes = {
   count: number,
   i18nKey: string,
   isLoading: bool,
@@ -39,4 +39,4 @@ CollectionsResultCount.propTypes = {
   pageSize: number
 }
 
-export default CollectionsResultCount
+export default ResultCount

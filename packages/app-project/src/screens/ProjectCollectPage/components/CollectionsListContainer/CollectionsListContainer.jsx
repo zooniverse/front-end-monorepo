@@ -12,14 +12,14 @@ import {
   DEFAULT_COLLECTION_SORT
 } from '@helpers/collectionQueryParams'
 import { useProjectCollections } from '@hooks'
-import RequireUser from '@shared/components/RequireUser/RequireUser'
+import Pagination from '@shared/components/Pagination'
 import PanoptesAuthContext from '@shared/contexts/PanoptesAuthContext.js'
+import RequireUser from '@shared/components/RequireUser/RequireUser'
 
 import CollectionsList from '../CollectionsList'
 import CollectionsToolbar from '../CollectionsToolbar'
 import EmptyPlaceholder from '../Placeholders/EmptyPlaceholder'
 import ErrorPlaceholder from '../Placeholders/ErrorPlaceholder'
-import Pagination from '../Pagination'
 
 const SORT_VALUES = COLLECTION_SORT_OPTIONS.map(option => option.value)
 

@@ -7,9 +7,8 @@ import { useTranslation } from 'next-i18next/pages'
 
 import { SUBJECTS_PAGE_SIZE } from '@helpers/collectionQueryParams'
 import { useCollectionSubjects } from '@hooks'
-
-import CollectionsResultCount from '../../../ProjectCollectPage/components/CollectionsResultCount'
-import Pagination from '../../../ProjectCollectPage/components/Pagination'
+import ResultCount from '@shared/components/ResultCount'
+import Pagination from '@shared/components/Pagination'
 
 import SubjectsList from '../SubjectsList'
 
@@ -89,7 +88,7 @@ function SubjectsListContainer({
           direction='row' 
           justify='between'
         >
-          <CollectionsResultCount
+          <ResultCount
             count={count}
             i18nKey='Collection.resultsCount'
             isLoading={isLoading || isValidating}
