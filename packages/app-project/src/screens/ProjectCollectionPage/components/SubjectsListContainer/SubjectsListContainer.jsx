@@ -77,6 +77,7 @@ function SubjectsListContainer({
           />
         </Box>
         <SubjectsList
+          isLoading={isLoading || isValidating}
           login={login}
           projectId={projectId}
           projectSlug={projectSlug}
