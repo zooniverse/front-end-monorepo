@@ -9,13 +9,13 @@ This "Button" button...
 - has rounded corners.
 - has an ideal width.
 - has a border/outline.
-- has **no** background/fill by default.
+- has **no** colour background/fill by default. (It's white or dark instead, depending on dark mode.)
 
 Compare to the other options:
 
 - Grommet Button with current Zooniverse styles: has everything except the ideal width and rounded borders.
 - LRC's PlainButton: has no border/outline.
-- LRC's PrimaryButton: is a primary button, i.e. has background/fill by default.
+- LRC's PrimaryButton: is a primary button, i.e. has colour background/fill by default.
 
 Also compare with the buttons used in ResetPassword and Unsubscribe, which have rounded borders.
 
