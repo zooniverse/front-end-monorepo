@@ -11,6 +11,7 @@ export async function getServerSideProps({ locale, params }) {
   return ({
     notFound, // when notFound = true, this page returns a 404
     props: {
+      locale,
       ...(await serverSideTranslations(locale, ['components', 'screens'])),
       ...props
     },

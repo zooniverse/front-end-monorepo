@@ -10,6 +10,7 @@ export async function getServerSideProps({ locale, params }) {
   })
 
   return {
+    locale,
     notFound,
     props: {
       ...(await serverSideTranslations(locale, ['components', 'screens'])),
