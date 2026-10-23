@@ -4,13 +4,14 @@ import { autorun } from 'mobx'
 import logToSentry from '../src/helpers/logger/logToSentry.js'
 
 import Organization from './Organization'
+import OrganizationSet from './types/organizationSet'
 import Project from './Project'
 import UI from './UI'
 import User from './User'
 
 const Store = types
   .model('Store', {
-    organizations: types.array(Organization),
+    organizations: OrganizationSet,
     project: types.optional(Project, {}),
     ui: types.optional(UI, {}),
     user: types.optional(User, {})
@@ -52,6 +53,10 @@ const Store = types
     }
 
     return {
+      setOrganizations(organizations) {
+        self.organizations = organizations
+      },
+
       afterCreate () {
         createSignOutObserver()
         addMiddleware(self, (call, next, abort) => {

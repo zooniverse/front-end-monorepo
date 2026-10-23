@@ -47,7 +47,7 @@ export default async function getProjectCollectPageProps({ locale, params }) {
   })
   const strings = translations?.strings ?? projectData.strings
   const linkedOrganizations = await fetchLinkedOrganizations(projectData, language, env)
-  applySnapshot(store.organizations, linkedOrganizations)
+  store.setOrganizations(linkedOrganizations)
 
   const initialState = {
     project: {

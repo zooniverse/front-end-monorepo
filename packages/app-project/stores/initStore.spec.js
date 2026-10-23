@@ -134,8 +134,8 @@ describe('Stores > initStore', function () {
         }]
       }
       const store = initStore(true, snapshot)
-      expect(store.organizations[0].slug).to.equal('test-user/test-org')
-      expect(store.organizations[0].title).to.equal('Test Organization')
+      expect([...store.organizations][0].slug).to.equal('test-user/test-org')
+      expect([...store.organizations][0].title).to.equal('Test Organization')
     })
   })
 })

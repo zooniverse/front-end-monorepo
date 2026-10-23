@@ -67,7 +67,7 @@ function initStore (isServer, snapshot = null, client = defaultClient) {
     */
     const { organizations, project } = snapshot
     applySnapshot(store.project, project)
-    applySnapshot(store.organizations, organizations)
+    store.setOrganizations(organizations)
   }
 
   return store

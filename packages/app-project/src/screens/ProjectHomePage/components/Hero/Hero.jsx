@@ -41,6 +41,7 @@ function useStores() {
 
 function Hero({ workflows = [] }) {
   const { organizations, hideNotLaunchApprovedBanner } = useStores()
+  const organizationsList = Array.from(organizations)
   const size = useContext(ResponsiveContext)
   const theme = useTheme()
 
@@ -67,7 +68,7 @@ function Hero({ workflows = [] }) {
       >
         <Introduction />
         <OrganizationsLink
-          organizations={organizations}
+          organizations={organizationsList}
         />
         <WorkflowSelector workflows={workflows} />
       </Relative>

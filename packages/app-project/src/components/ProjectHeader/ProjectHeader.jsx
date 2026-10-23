@@ -44,14 +44,15 @@ function ProjectHeader({
   /** Widths were determined visually and can be updated as needed if ProjectHeader components are refactored */
   const maxTitleWidth = (hasTranslations && width >= 1200) ? '560px' : '600px'
 
-  const hasOrganizations = organizations.length > 0
+  const organizationsList = Array.from(organizations)
+  const hasOrganizations = organizationsList.length > 0
 
   return (
     <StyledBox ref={ref} className={className}>
       <Background />
       {(hasOrganizations && !useDropdownNav) ? (
         <OrganizationsLink
-          organizations={organizations}
+          organizations={organizationsList}
         />
       ) : null}
       <StyledBox
@@ -95,7 +96,7 @@ function ProjectHeader({
         {useDropdownNav ? (
           <DropdownNav
             margin={ isNarrow ? { top: 'xsmall' } : { top : '0' }}
-            organizations={organizations}
+            organizations={organizationsList}
           />
         ) : (
           <Nav />
