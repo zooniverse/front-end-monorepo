@@ -205,7 +205,8 @@ Input:
   - `login` (string): user's login (username).
 
 Output:
-- Standard useSWR() output. See example.
+- Standard useSWR() output.
+- `swrOutput.data` will either be a Panoptes User resource.
 
 ### Examples
 
@@ -252,7 +253,7 @@ Input:
     or `"profile_header"`
 
 Output:
-- Standard useSWR() output. See example in README.
+- Standard useSWR() output.
 - `swrOutput.data` will either be...
   - a Panoptes Media resource, OR
   - `null`, if user media resource doesn't exist.
