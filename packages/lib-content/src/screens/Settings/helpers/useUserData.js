@@ -6,7 +6,8 @@ Input:
   - `login` (string): user's login (username).
 
 Output:
-- Standard useSWR() output. See example.
+- Standard useSWR() output. See example in README.
+- `swrOutput.data` will either be a Panoptes User resource.
 
 Regarding SWR:
 
