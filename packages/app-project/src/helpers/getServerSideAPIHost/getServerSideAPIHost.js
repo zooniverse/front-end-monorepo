@@ -8,7 +8,7 @@ const ERASHosts = {
   staging: 'http://eras-staging-app'
 }
 
-const deploymentEnvironments = ['staging', 'production', 'static']
+const deploymentEnvironments = ['staging', 'production', 'branch']
 /**
   Return the internal service name for our API hosts when the app is deployed in our kubernetes cluster.
   Return undefined to use the default hostname in local development.
