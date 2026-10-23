@@ -5,6 +5,7 @@ import {
   projects as projectsClient
 } from '@zooniverse/panoptes-js'
 import Store from './Store'
+import organizationsToMap from './organizationsToMap'
 
 let store = null
 
@@ -67,7 +68,7 @@ function initStore (isServer, snapshot = null, client = defaultClient) {
     */
     const { organizations, project } = snapshot
     applySnapshot(store.project, project)
-    applySnapshot(store.organizations, organizations)
+    applySnapshot(store.organizations, organizationsToMap(organizations))
   }
 
   return store
