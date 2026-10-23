@@ -1,11 +1,12 @@
 import { useState } from 'react'
-import { Box, Button, Form } from 'grommet'
+import { Box, Form } from 'grommet'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import { shape, string } from 'prop-types'
 
 import { Loader, StatusMessage } from '@zooniverse/react-components'
 
+import Button from '../Button/Button'
 import FormInputField from '../FormInputField/FormInputField'
 import useUserData from '../../helpers/useUserData'
 import updateUserData from '../../helpers/updateUserData'
@@ -150,10 +151,11 @@ function AccountNameForm ({
           align='center'
           justify='between'
           gap='1em'
+          wrap={true}
         >
           <Button
             disabled={disableInput}
-            label={t('Settings.forms.save')}
+            label={t('Settings.forms.change')}
             type='submit'
           />
 
