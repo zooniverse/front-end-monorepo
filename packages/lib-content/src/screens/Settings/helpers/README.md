@@ -203,7 +203,6 @@ useUserData() is a hook for _fetching_ Panoptes user data.
 Input:
 - An Object containing:
   - `login` (string): user's login (username).
-  - `token` (string): user's Panoptes authentication token.
 
 Output:
 - Standard useSWR() output. See example.
