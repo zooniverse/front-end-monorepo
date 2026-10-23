@@ -3,6 +3,11 @@ const APIHosts = {
   staging: 'http://panoptes-staging-app/api'
 }
 
+const ERASHosts = {
+  production: 'http://eras-production-app',
+  staging: 'http://eras-staging-app'
+}
+
 const deploymentEnvironments = ['staging', 'production', 'static']
 /**
   Return the internal service name for our API hosts when the app is deployed in our kubernetes cluster.
@@ -15,6 +20,20 @@ export default function getServerSideAPIHost(env = 'production') {
 
   if (deploymentEnvironments.includes(deployEnvironment)) {
     host = APIHosts[env]
+  }
+  if (host) {
+    headers['X-Forwarded-Proto'] = 'https'
+  }
+  return { headers, host }
+}
+
+export function getServerSideERASHost(env = 'production') {
+  let host
+  const headers = {}
+  const deployEnvironment = process.env.APP_ENV
+
+  if (deploymentEnvironments.includes(deployEnvironment)) {
+    host = ERASHosts[env]
   }
   if (host) {
     headers['X-Forwarded-Proto'] = 'https'
