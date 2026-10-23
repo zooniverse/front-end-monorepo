@@ -14,6 +14,9 @@ export default function getCompleteData(data, dateInterval) {
       const day = startDate.getUTCDay()
       const diff = startDate.getUTCDate() - day + (day === 0 ? -6 : 1)
       currentDate.setUTCDate(diff)
+    } else if (period === 'month') {
+      // start on the 1st so stepping by month never skips a month (e.g. Jan 31 + 1 month)
+      currentDate.setUTCDate(1)
     } else if (period === 'year') {
       // set the end date to the last day of the year
       endDate.setUTCMonth(11)
