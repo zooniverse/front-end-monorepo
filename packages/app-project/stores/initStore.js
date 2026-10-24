@@ -35,6 +35,10 @@ function loadSnapshot(storageKey, storage) {
   }
 }
 
+export function getStore() {
+  return store
+}
+
 function initStore (isServer, snapshot = null, client = defaultClient) {
   // create a store during SSR
   if (isServer) {
@@ -65,10 +69,23 @@ function initStore (isServer, snapshot = null, client = defaultClient) {
       Only apply store state that was generated on the server.
       TODO: won't this overwrite local changes to the UI store?
     */
-    const { organizations, project } = snapshot
-    applySnapshot(store.project, project)
-    applySnapshot(store.organizations, organizations)
+    applyStoreSnapshot(snapshot)
   }
+
+  return store
+}
+
+export function applyStoreSnapshot(snapshot) {
+  if (!store || !snapshot) return store
+
+  /*
+    Don't overwrite the stored user, collections, or recents in the browser.
+    Only apply store state that was generated on the server.
+    TODO: won't this overwrite local changes to the UI store?
+  */
+  const { organizations, project } = snapshot
+  if (project) applySnapshot(store.project, project)
+  if (organizations) applySnapshot(store.organizations, organizations)
 
   return store
 }

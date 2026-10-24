@@ -2,7 +2,7 @@ import asyncStates from '@zooniverse/async-states'
 import { panoptes, projects } from '@zooniverse/panoptes-js'
 import { applySnapshot, getSnapshot } from 'mobx-state-tree'
 
-import initStore, { cleanStore } from './initStore'
+import initStore, { applyStoreSnapshot, cleanStore, getStore } from './initStore'
 import User from './User'
 
 describe('Stores > initStore', function () {
@@ -20,6 +20,45 @@ describe('Stores > initStore', function () {
     const store1 = initStore(true)
     const store2 = initStore(false)
     expect(store2).to.equal(store1)
+  })
+
+  it('should return the current store without updating it', function () {
+    cleanStore()
+    const store = initStore(false, {
+      project: {
+        id: '12345',
+        strings: { display_name: 'First project' }
+      }
+    })
+
+    expect(getStore()).to.equal(store)
+    expect(store.project.id).to.equal('12345')
+  })
+
+  it('should apply page snapshots to the current store', function () {
+    cleanStore()
+    const store = initStore(false, {
+      project: {
+        id: '12345',
+        strings: { display_name: 'First project' }
+      }
+    })
+
+    applyStoreSnapshot({
+      project: {
+        id: '54321',
+        strings: { display_name: 'Second project' }
+      },
+      organizations: [{
+        id: '67890',
+        slug: 'test-user/test-org',
+        strings: { title: 'Test Organization' }
+      }]
+    })
+
+    expect(store.project.id).to.equal('54321')
+    expect(store.project.displayName).to.equal('Second project')
+    expect(store.organizations[0].slug).to.equal('test-user/test-org')
   })
 
   it('should contain a project store', function () {
