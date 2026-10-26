@@ -11,7 +11,7 @@ const SWROptions = {
   refreshInterval: 0
 }
 
-async function fetchCollectionRoles({ collectionId, userId, token }) {
+async function fetchCollectionRoles({ collectionId, token }) {
   const authorization = token ? `Bearer ${token}` : undefined
 
   const response = await panoptes.get(

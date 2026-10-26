@@ -57,8 +57,8 @@ function CollectionOptions({
           />
         )}
         {!isLoggedIn && (
-          <Box aria-hidden='true' style={{ color: 'white' }}>
-            <ZooniverseLogotype id='collection-options-logotype' width={200} role='presentation' />
+          <Box aria-hidden='true'>
+            <ZooniverseLogotype id='collection-options-logotype' width={200} role='presentation' color='white' />
           </Box>
         )}
       </Box>

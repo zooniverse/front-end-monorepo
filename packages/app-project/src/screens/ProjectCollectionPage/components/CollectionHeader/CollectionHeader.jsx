@@ -55,7 +55,7 @@ function CollectionHeader({
             projectLink: (
               <Anchor
                 color={{ dark: 'accent-1', light: 'neutral-1' }}
-                href={addQueryParams(`/${projectSlug}/collections`)}
+                href={addQueryParams(`/projects/${projectSlug}/collections`)}
                 weight='500'
               />
             )

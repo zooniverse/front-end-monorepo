@@ -43,7 +43,6 @@ function OptionButton({ icon, label, onClick }) {
         </SpacedText>
       }
       onClick={onClick}
-      pad={{ horizontal: 'medium' }}
     />
   )
 }
