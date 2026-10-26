@@ -1,3 +1,4 @@
+import { SpacedText } from '@zooniverse/react-components'
 import { Anchor, Box, Heading, Text } from 'grommet'
 import { oneOf, shape, string } from 'prop-types'
 import { Trans } from 'next-i18next/pages'
@@ -35,14 +36,13 @@ function CollectionHeader({
             round='xsmall'
             width='90px'
           >
-            <Text
+            <SpacedText
               color='black'
               size='9px'
-              style={{ letterSpacing: '0.9px', textTransform: 'uppercase' }}
               weight='bold'
             >
               {collectionRole}
-            </Text>
+            </SpacedText>
           </Box>
         )}
       </Box>
