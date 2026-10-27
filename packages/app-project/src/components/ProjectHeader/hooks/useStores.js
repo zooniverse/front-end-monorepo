@@ -3,7 +3,7 @@ import { MobXProviderContext } from 'mobx-react'
 
 function storeMapper(store) {
   const {
-    organizations,
+    organizations: organizationsMap,
     project: {
       configuration: {
         languages
@@ -35,7 +35,7 @@ function storeMapper(store) {
     inBeta,
     isAdmin,
     isLoggedIn,
-    organizations,
+    organizations: Array.from(organizationsMap.values()),
     projectId,
     slug,
     title,
