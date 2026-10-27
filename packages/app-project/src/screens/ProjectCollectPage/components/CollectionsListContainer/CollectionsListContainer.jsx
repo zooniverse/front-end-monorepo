@@ -125,7 +125,11 @@ function CollectionsListContainer({ loginParam }) {
     <>
       {pagination}
       {toolbar}
-      <Box height={{ min: '180px' }} justify='center'>
+      <Box
+        align='center'
+        height={{ min: '180px' }}
+        justify='center'
+      >
         {placeholder || (
           <CollectionsList
             collections={data.collections}
