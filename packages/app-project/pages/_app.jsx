@@ -52,7 +52,7 @@ function MyApp({ Component, pageProps }) {
   const themeContext = { themeMode, toggleTheme }
 
   /* Initialize the mobx store */
-  const { initialState, locale } = pageProps
+  const { initialState } = pageProps
   const store = useStore(initialState)
 
   useEffect(
