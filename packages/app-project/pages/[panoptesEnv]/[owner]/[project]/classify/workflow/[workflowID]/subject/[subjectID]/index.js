@@ -12,7 +12,6 @@ export async function getStaticProps({ locale, params }) {
   return ({
     notFound,
     props: {
-      locale,
       ...(await serverSideTranslations(locale, ['components', 'screens'])),
       ...defaultProps,
       pageTitle,

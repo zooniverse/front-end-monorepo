@@ -33,7 +33,7 @@ export default function TranslationsModal({ locale }) {
   const { store } = useContext(MobXProviderContext)
   const { availableLocales } = storeMapper(store)
 
-  const { t } = useTranslation('components')
+  const { t } = useTranslation('screens')
 
   const [active, setActive] = useState(true)
 
@@ -54,22 +54,22 @@ export default function TranslationsModal({ locale }) {
       active={active}
       closeFn={closeFn}
       role='dialog'
-      title={t('TranslationsModal.title', { languageName })}
+      title={t('Home.TranslationsModal.title', { languageName })}
       pad='small'
     >
       <Paragraph margin='0' textAlign='center'>
-        {t('TranslationsModal.paragraph')}
+        {t('Home.TranslationsModal.paragraph')}
       </Paragraph>
       <Paragraph textAlign='center'>
         <Trans
-          i18nKey={t('TranslationsModal.cta')}
+          i18nKey={t('Home.TranslationsModal.cta')}
           t={t}
           components={[<Anchor key='contact-us-about-translations' href='about#contact' />]}
         />
       </Paragraph>
       <Button
         href={addQueryParams(`/projects${pathname}`)}
-        label={t('TranslationsModal.buttons.switchToEn')}
+        label={t('Home.TranslationsModal.buttons.switchToEn')}
         alignSelf='center'
         pad={{ horizontal: 'medium' }}
       />
