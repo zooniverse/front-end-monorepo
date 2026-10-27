@@ -23,13 +23,13 @@ import ErrorPlaceholder from '../Placeholders/ErrorPlaceholder'
 
 const SORT_VALUES = COLLECTION_SORT_OPTIONS.map(option => option.value)
 
-function CollectionsListContainer({ loginParam, projectSlug }) {
+function CollectionsListContainer({ loginParam }) {
   const pathname = usePathname()
   const { store } = useContext(MobXProviderContext)
   const { isLoading: isUserLoading, user } = useContext(PanoptesAuthContext)
   
   const favorite = pathname?.split('/').includes('favorites') ?? false
-  const projectId = store?.project?.id
+  const { id: projectId, slug: projectSlug } = store?.project || {}
   const isUserScoped = !!loginParam
 
   const [page, setUrlPage] = useQueryState('page', parseAsInteger.withDefault(1))
@@ -140,8 +140,7 @@ function CollectionsListContainer({ loginParam, projectSlug }) {
 }
 
 CollectionsListContainer.propTypes = {
-  loginParam: string,
-  projectSlug: string.isRequired
+  loginParam: string
 }
 
 export default CollectionsListContainer

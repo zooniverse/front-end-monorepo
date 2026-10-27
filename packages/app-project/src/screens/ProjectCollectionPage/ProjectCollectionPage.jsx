@@ -17,25 +17,19 @@ import getCollectionRole from './helpers/getCollectionRole'
 import { useCollection, useCollectionRoles } from '@hooks'
 import PanoptesAuthContext from '@shared/contexts/PanoptesAuthContext.js'
 
-function useStores() {
-  const stores = useContext(MobXProviderContext)
-  const { project } = stores.store
-  return {
-    projectId: project?.id
-  }
-}
-
 function ProjectCollectionPage({
   collectionNameParam,
   loginParam,
-  projectSlug,
   projectDisplayName
 }) {
   const { t } = useTranslation('screens')
-  const { projectId } = useStores()
+  const { store } = useContext(MobXProviderContext)
   const { user, isLoading: isUserLoading } = useContext(PanoptesAuthContext)
-  const { id: userId, login } = user || {}
+  
   const slug = `${loginParam}/${collectionNameParam}`
+  const { project } = store
+  const { id: projectId, slug: projectSlug } = project || {}
+  const { id: userId, login } = user || {}
 
   const { data: collection, isLoading } = useCollection({ slug })
   const { data: collectionRoles } = useCollectionRoles({ collectionId: collection?.id })
@@ -109,7 +103,6 @@ function ProjectCollectionPage({
 ProjectCollectionPage.propTypes = {
   collectionNameParam: string,
   loginParam: string,
-  projectSlug: string,
   projectDisplayName: string
 }
 

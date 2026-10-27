@@ -4,12 +4,20 @@ import { Provider } from 'mobx-react'
 import CollectTabs from './CollectTabs'
 
 const loggedOutStore = {
+  project: {
+    id: 'test-project-id',
+    slug: 'test-owner/test-project'
+  },
   user: {
     isLoggedIn: false
   }
 }
 
 const loggedInStore = {
+  project: {
+    id: 'test-project-id',
+    slug: 'test-owner/test-project'
+  },
   user: {
     isLoggedIn: true,
     login: 'test-user'

@@ -37,7 +37,6 @@ export default async function getProjectCollectPageProps({ locale, params }) {
   }
 
   const { project: projectData } = getSnapshot(store)
-  const projectSlug = projectData.slug
   const language = locale || projectData.primary_language
   const translations = await fetchTranslations({
     translated_id: projectData.id,
@@ -67,7 +66,6 @@ export default async function getProjectCollectPageProps({ locale, params }) {
       host,
       initialState,
       projectDisplayName: strings.display_name,
-      projectSlug,
       loginParam,
       collectionNameParam
     }

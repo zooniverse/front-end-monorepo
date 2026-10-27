@@ -10,8 +10,7 @@ import CollectionsListContainer from './components/CollectionsListContainer'
 
 function ProjectCollectPage({
   loginParam,
-  projectDisplayName,
-  projectSlug
+  projectDisplayName
 }) {
   return (
     <StandardLayout>
@@ -23,12 +22,10 @@ function ProjectCollectPage({
         >
           <CollectHeading />
           <CollectTabs
-            projectSlug={projectSlug}
             projectDisplayName={projectDisplayName}
           />
           <CollectionsListContainer
             loginParam={loginParam}
-            projectSlug={projectSlug}
           />
         </Box>
       </ProjectAboutPageLayout>
@@ -38,8 +35,7 @@ function ProjectCollectPage({
 
 ProjectCollectPage.propTypes = {
   loginParam: string,
-  projectDisplayName: string.isRequired,
-  projectSlug: string.isRequired
+  projectDisplayName: string.isRequired
 }
 
 export default ProjectCollectPage

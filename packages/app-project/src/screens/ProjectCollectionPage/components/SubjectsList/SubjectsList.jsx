@@ -30,7 +30,6 @@ function LoadingOverlay() {
     <StyledBox
       aria-hidden='true'
       background={{ light: 'neutral-6', dark: 'dark-3' }}
-      data-testid='subjects-loading-overlay'
       fill
     />
   )
