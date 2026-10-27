@@ -1,7 +1,7 @@
 import { SpacedText } from '@zooniverse/react-components'
 import { Anchor, Box, Heading, Text } from 'grommet'
 import { oneOf, shape, string } from 'prop-types'
-import { Trans } from 'next-i18next/pages'
+import { Trans, useTranslation } from 'next-i18next/pages'
 
 import addQueryParams from '@helpers/addQueryParams'
 
@@ -11,6 +11,8 @@ function CollectionHeader({
   projectDisplayName,
   projectSlug
 }) {
+  const { t } = useTranslation('screens')
+  const translatedRoleLabel = collectionRole ? t(`Collection.roles.${collectionRole}`) : ''
   const roleBackground = collectionRole === 'owner' ? 'neutral-2' : 'accent-1'
 
   return (
@@ -33,15 +35,16 @@ function CollectionHeader({
             background={roleBackground}
             height='18px'
             justify='center'
+            pad={{ horizontal: 'xxsmall' }}
             round='xsmall'
-            width='90px'
+            width={{ min: '90px' }}
           >
             <SpacedText
               color='black'
               size='9px'
               weight='bold'
             >
-              {collectionRole}
+              {translatedRoleLabel}
             </SpacedText>
           </Box>
         )}
