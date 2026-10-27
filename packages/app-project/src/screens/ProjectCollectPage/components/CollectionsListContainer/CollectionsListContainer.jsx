@@ -99,24 +99,11 @@ function CollectionsListContainer({ loginParam, projectSlug }) {
   if (isUserScoped && !isUserLoading && !user?.id) placeholder = <RequireUser />
   else if (error) placeholder = <ErrorPlaceholder />
   else if (!data) placeholder = <Loader />
-  else if (!data.collections.length && !loadingOrValidating) placeholder = <EmptyPlaceholder />
+  else if (!data?.collections?.length && !loadingOrValidating) placeholder = <EmptyPlaceholder />
 
-  if (placeholder) {
-    return (
-      <Box
-        align='center' 
-        justify='center' 
-        height={{ min: '50vh' }} 
-        pad='large'
-      >
-        {placeholder}
-      </Box>
-    )
-  }
-
-  const pagination = data.pageCount > 1 && (
+  const pagination = (
     <Pagination
-      pageCount={data.pageCount}
+      pageCount={data?.pageCount || 1}
       page={page}
       setPage={handlePageChange}
     />
@@ -124,7 +111,7 @@ function CollectionsListContainer({ loginParam, projectSlug }) {
       
   const toolbar = (
     <CollectionsToolbar
-      count={data.count}
+      count={data?.count}
       isLoading={loadingOrValidating}
       minSubjects={minSubjects}
       onMinSubjectsChange={handleMinSubjectsChange}
@@ -138,12 +125,14 @@ function CollectionsListContainer({ loginParam, projectSlug }) {
     <>
       {pagination}
       {toolbar}
-      <Box height={{ min: '180px' }}>
-        <CollectionsList
-          collections={data.collections}
-          isLoading={loadingOrValidating}
-          projectSlug={projectSlug}
-        />
+      <Box height={{ min: '180px' }} justify='center'>
+        {placeholder || (
+          <CollectionsList
+            collections={data.collections}
+            isLoading={loadingOrValidating}
+            projectSlug={projectSlug}
+          />
+        )}
       </Box>
       {pagination}
     </>

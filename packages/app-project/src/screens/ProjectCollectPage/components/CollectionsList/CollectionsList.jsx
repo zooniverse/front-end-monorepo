@@ -37,7 +37,7 @@ function LoadingOverlay() {
 }
 
 function CollectionsList({
-  collections,
+  collections = [],
   isLoading = false,
   projectSlug
 }) {
