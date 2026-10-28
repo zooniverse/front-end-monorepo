@@ -347,6 +347,7 @@ function UserMediaForm ({
   }
 
   // We don't worry about loading errors.
+  const loadErrorMessage = loadError?.toString() || (loadError && 'Unknown error')
   const saveErrorMessage = saveError?.errors?.[0]?.message || saveError?.toString() || (saveError && 'Unknown error')
   const deleteErrorMessage = deleteError?.errors?.[0]?.message || deleteError?.toString() || (deleteError && 'Unknown error')
 
@@ -354,11 +355,12 @@ function UserMediaForm ({
   // a Save/Delete/Selecting operation.
   const statusType =
     (saveSuccess || deleteSuccess) ? 'success'
-    : (saveError || deleteError) ? 'error'
+    : (loadError || saveError || deleteError) ? 'error'
     : selectionMessage ? 'warning'  // TODO: this would preferably just be an 'info' type.
     : ''
   const statusMessage =
-    saveSuccess ? t('Settings.forms.saveSuccess')
+    loadError ? loadErrorMessage
+    : saveSuccess ? t('Settings.forms.saveSuccess')
     : saveError ? saveErrorMessage
     : selectionMessage ? selectionMessage
     : deleteSuccess ? t('Settings.forms.deleteSuccess')
