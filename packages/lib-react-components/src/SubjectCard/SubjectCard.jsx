@@ -1,5 +1,5 @@
 import { Box } from 'grommet'
-import { arrayOf, bool, node, object, objectOf, oneOf, shape, string } from 'prop-types'
+import { arrayOf, bool, func, node, object, objectOf, oneOf, shape, string } from 'prop-types'
 import styled from 'styled-components'
 
 import { useTranslation } from '../translations/i18n'
@@ -9,6 +9,7 @@ import CollectIconButton from '../CollectIconButton'
 import ShareIconButton from '../ShareIconButton'
 import addQueryParams from '../helpers/addQueryParams'
 
+import CollectionCoverBanner from './components/CollectionCoverBanner'
 import SimpleMedia from './components/SimpleMedia'
 import InteractiveMedia from './components/InteractiveMedia'
 
@@ -17,6 +18,12 @@ const METATOOLS_HEIGHT = 45
 
 const StyledSubjectCard = styled(Box)`
   position: relative;
+  z-index: 0;
+
+  &:hover button[data-set-cover],
+  &:focus-within button[data-set-cover] {
+    opacity: 1;
+  }
 `
 
 function cardWidth(size) {
@@ -53,7 +60,9 @@ const DEFAULT_SUBJECT = {
 
 function SubjectCard({
   interactive = false,
+  isCover = false,
   login,
+  onSetCover = null,
   placeholder,
   projectId,
   projectSlug,
@@ -106,6 +115,10 @@ function SubjectCard({
           url={subjectTalkUrl}
         />
       )}
+      <CollectionCoverBanner
+        isCover={isCover}
+        onSetCover={onSetCover ? () => onSetCover(subject) : null}
+      />
       <Box
         align='center'
         background={{ dark: 'dark-3', light: 'white' }}
@@ -137,7 +150,9 @@ function SubjectCard({
 
 SubjectCard.propTypes = {
   interactive: bool,
+  isCover: bool,
   login: string,
+  onSetCover: func,
   placeholder: node,
   projectId: string,
   projectSlug: string.isRequired,

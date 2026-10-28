@@ -8,7 +8,6 @@ import {
   PENGUIN_WATCH_SUBJECT,
   PRINT_SUBJECT,
   RADIO_METEOR_ZOO_SUBJECT,
-  SMITHSONIAN_WILDLIFE_MULTI_IMAGE_SUBJECT,
   SQUIRREL_MAPPER_FAILED_SUBJECT,
   SQUIRREL_MAPPER_SUBJECT,
   WILDWATCH_KENYA_SUBJECT,
@@ -59,4 +58,20 @@ export const External = {
 
 export const ExternalFailed = {
   render: () => <InteractiveStory login={'TestUser'} subject={SQUIRREL_MAPPER_FAILED_SUBJECT} />
+}
+
+export const LandscapeWithCover = {
+  render: () => <InteractiveStory isCover={true} login={'TestUser'} subject={RADIO_METEOR_ZOO_SUBJECT} />
+}
+
+export const PortraitWithCover = {
+  render: () => <InteractiveStory isCover={true} login={'TestUser'} subject={PRINT_SUBJECT} />
+}
+
+export const LandscapeWithOnSetCover = {
+  render: ({ onSetCover = () => true } = {}) => <InteractiveStory onSetCover={onSetCover} login={'TestUser'} subject={RADIO_METEOR_ZOO_SUBJECT} />
+}
+
+export const PortraitWithOnSetCover = {
+  render: () => <InteractiveStory onSetCover={() => true} login={'TestUser'} subject={PRINT_SUBJECT} />
 }
