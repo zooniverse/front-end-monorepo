@@ -5,6 +5,13 @@ import styled from 'styled-components'
 
 import useTalkPreferences from '../../helpers/useTalkPreferences'
 
+const BigLabel = styled(Text)`
+  font-weight: 700;
+  font-size: 1rem;
+  font-style: bold;
+  text-transform: uppercase;
+`
+
 const EMAIL_DIGEST_OPTIONS = [
   'immediate',
   'daily',
@@ -54,8 +61,6 @@ const PseudoTable = styled(Box)`
   }
 `
 
-
-
 function TalkPreferenceForm ({
   authUser,
   ...rest
@@ -63,18 +68,21 @@ function TalkPreferenceForm ({
   const { t } = useTranslation()
   const { data: talkPreferences, isLoading, error: loadError, isValidating, mutate } = useTalkPreferences({ login: authUser?.login })
 
+  function onPreferenceChange (e) {
+    console.log('+++ e', e)
+  }
+
+  // "Is ready" means we have sufficient data to show the form input. We don't
+  // check for isValidating, because that that would make the form input
+  // disappear every time we validate.
   const isReady = !isLoading && !loadError
 
   return (
     <Form className="TalkPreferenceForm" {...rest}>
 
-      {isLoading && 'isLoading'} --
-
-      {isValidating && 'isValidating'} --
-
-      {loadError && 'loadError'}
-
-      <Text>EXAMPLE TEXT</Text>
+      <BigLabel as="h2">
+        {t(`Settings.EmailSettings.talkPreferences.title`)}
+      </BigLabel>
 
       <PseudoTable>
         <div className='pseudo-row'>
@@ -97,6 +105,7 @@ function TalkPreferenceForm ({
         {isReady && talkPreferences?.map?.(tpref => (
           <TalkPreferenceRow
             key={tpref.id}
+            onChange={onPreferenceChange}
             talkPreference={tpref}
           />
         ))}
@@ -106,7 +115,10 @@ function TalkPreferenceForm ({
   )
 }
 
+const DEFAULT_FUNCTION = () => {}
+
 function TalkPreferenceRow ({
+  onChange = DEFAULT_FUNCTION,
   talkPreference
 }) {
   const { t } = useTranslation()
@@ -135,6 +147,7 @@ function TalkPreferenceRow ({
                 name={name}
                 type="radio"
                 checked={isSelected}
+                onChange={onChange}
                 value={option}
               />
               <label className='sr-only' htmlFor={optionId}>
