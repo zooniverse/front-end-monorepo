@@ -123,6 +123,7 @@
       "viewer": "Viewer"
     },
     "seeAllOwnerCollections": "<collectionsLink>See all {{displayName}}'s collections</collectionsLink>",
+    "setCoverError": "The collection cover could not be updated. Please try again.",
     "selectSubjects": "Select Subjects",
     "subjectsLoadError": "There was an error loading this collection's subjects."
   },
