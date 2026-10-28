@@ -25,6 +25,7 @@ const FormFieldsContainer = styled(Box)`
 
 const BigLabel = styled(Text)`
   font-weight: 700;
+  font-size: 1rem;
   font-style: bold;
   text-transform: uppercase;
 `
