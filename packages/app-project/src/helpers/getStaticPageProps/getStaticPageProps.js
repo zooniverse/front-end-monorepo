@@ -8,7 +8,6 @@ import fetchSubject from '@helpers/fetchSubject'
 import fetchTranslations from '@helpers/fetchTranslations'
 import fetchWorkflowsHelper from '@helpers/fetchWorkflowsHelper'
 import initStore from '@stores'
-import organizationsToMap from '@stores/organizationsToMap'
 
 export default async function getStaticPageProps({ locale, params }) {
   const isServer = true
@@ -94,7 +93,7 @@ export default async function getStaticPageProps({ locale, params }) {
     Fetch the organizations linked to the project
   */
   const linkedOrganizations = await fetchLinkedOrganizations(project, locale, env)
-  applySnapshot(store.organizations, organizationsToMap(linkedOrganizations))
+  applySnapshot(store.organizations, linkedOrganizations)
   props.organizations = linkedOrganizations
 
   /*

@@ -5,7 +5,6 @@ import fetchProjectData from '@helpers/fetchProjectData'
 import fetchProjectPageTitles from '@helpers/fetchProjectPageTitles'
 import fetchTranslations from '@helpers/fetchTranslations'
 import initStore from '@stores'
-import organizationsToMap from '@stores/organizationsToMap'
 
 const environment = process.env.APP_ENV
 
@@ -47,7 +46,7 @@ export default async function getProjectCollectPageProps({ locale, params }) {
   })
   const strings = translations?.strings ?? projectData.strings
   const linkedOrganizations = await fetchLinkedOrganizations(projectData, language, env)
-  applySnapshot(store.organizations, organizationsToMap(linkedOrganizations))
+  applySnapshot(store.organizations, linkedOrganizations)
 
   const initialState = {
     project: {
