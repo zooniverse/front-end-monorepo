@@ -112,7 +112,9 @@
     }
   },
   "SubjectCard": {
+    "collectionCover": "Collection Cover",
     "linkTitle": "{{subjectId}} Talk page",
+    "setAsCollectionCover": "Set as Collection Cover",
     "subjectId": "Subject {{id}}",
     "FlipbookControls": {
       "frames": "Flipbook frames",
