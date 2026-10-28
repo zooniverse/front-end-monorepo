@@ -35,7 +35,7 @@ async function deleteUserMedia(userId, mediaType) {
 
   const authorization = `Bearer ${token}`
 
-  // Fetch latest copy of user, to get deatils for If-Match header, to make DELETE changes.
+  // Fetch latest copy of user, to get details for If-Match header, to make DELETE changes.
   const getResponse = await panoptes.get(`/users/${userId}/${mediaType}`, {}, { authorization })
 
   const headers = {
