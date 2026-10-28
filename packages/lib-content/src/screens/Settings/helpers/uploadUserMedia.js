@@ -7,7 +7,7 @@ Input:
 - `mediaType` (string): type of media we're interested in. Either `"avatar"`
   or `"profile_header"`
 - `file` (Blob): file to be uploaded to Panoptes.
-  - ⚠️ until we add modify this function to sanitises SVG files, we will only
+  - ⚠️ until we modify this function to sanitise SVG files, we will only
     accept PNG files.
 
 Output:
