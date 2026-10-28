@@ -9,18 +9,22 @@ import Project from './Project'
 import UI from './UI'
 import User from './User'
 
+const OrganizationsMap = types.snapshotProcessor(
+  types.map(Organization),
+  {
+    preProcessor(snapshot) {
+      return organizationsToMap(snapshot)
+    }
+  }
+)
+
 const Store = types
   .model('Store', {
-    organizations: types.map(Organization),
+    organizations: OrganizationsMap,
     project: types.optional(Project, {}),
     ui: types.optional(UI, {}),
     user: types.optional(User, {})
   })
-
-  .preProcessSnapshot(snapshot => ({
-    ...snapshot,
-    organizations: organizationsToMap(snapshot.organizations)
-  }))
 
   .views(self => ({
     get client () {
