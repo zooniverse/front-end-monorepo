@@ -633,13 +633,28 @@
       "title": "Account"
     },
     "ProfileSettings": {
-      "title": "Profile",
-      "s": {
-
-      }
+      "title": "Profile"
     },
     "EmailSettings": {
-      "title": "Email"
+      "title": "Email",
+      "talkPreferences": {
+        "title": "Talk Preferences",
+        "sendEmail": "Send me an email",
+        "categories": {
+          "participating_discussions": "When discussions I'm participating in are updated",
+          "mentions": "When I'm mentioned",
+          "messages": "When I receive a private message",
+          "followed_discussions": "When discussions I'm following are updated",
+          "group_mentions": "When I'm mentioned by group (@admins, @team, etc.)",
+          "started_discussions": "When a discussion is started in a board I'm following"
+        },
+        "emailDigestOptions": {
+          "immediate": "Immediately",
+          "daily": "Daily",
+          "weekly": "Weekly",
+          "never": "Never"
+        }
+      }
     },
     "forms": {
       "fields": {
