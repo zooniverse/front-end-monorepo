@@ -50,7 +50,7 @@ async function uploadUserMedia(userId, mediaType, file) {
   if (!userId) { throw new Error('No user ID provided.') }
   if (!file) { throw new Error('No file provided.') }
 
-  // ⚠️ DEV NOTE: until we add modify this function to sanitises SVG files, we
+  // ⚠️ DEV NOTE: until we modify this function to sanitise SVG files, we
   // will only accept PNG files. This means that, for now, uploadUserMedia() is
   // meant to be used exclusively in conjunction with resizeImageData().
   if (file.type !== 'image/png') {
