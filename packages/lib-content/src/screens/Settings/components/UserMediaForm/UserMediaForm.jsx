@@ -365,7 +365,7 @@ function UserMediaForm ({
     : deleteError ? deleteErrorMessage
     : ''
 
-  // If there user has an existing media resource (e.g. an existing avatar), OR
+  // If the user has an existing media resource (e.g. an existing avatar), OR
   // they've just selected a new image file to upload, we want to show that
   // image.
   const imageSrc = imageData || currentUserMedia?.src
