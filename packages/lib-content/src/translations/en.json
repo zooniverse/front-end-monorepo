@@ -633,10 +633,7 @@
       "title": "Account"
     },
     "ProfileSettings": {
-      "title": "Profile",
-      "s": {
-
-      }
+      "title": "Profile"
     },
     "EmailSettings": {
       "title": "Email"
