@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 import useTalkPreferences from '../../helpers/useTalkPreferences'
+import updateTalkPreference from '../../helpers/updateTalkPreference'
+import { Js } from 'grommet-icons'
 
 const BigLabel = styled(Text)`
   font-weight: 700;
@@ -68,8 +70,36 @@ function TalkPreferenceForm ({
   const { t } = useTranslation()
   const { data: talkPreferences, isLoading, error: loadError, isValidating, mutate } = useTalkPreferences({ login: authUser?.login })
 
-  function onPreferenceChange (e) {
-    console.log('+++ e', e)
+  async function onPreferenceChange (e) {
+    const preferenceId = e.target.dataset.talkPreferenceId
+    // const preferenceName = e.target.name // We don't actually use the preference name, but instead use the preference ID. Huh!
+    const newPreferenceValue = e.target.value
+
+    try {
+      // TODO: remove // let shouldRevalidate = false
+
+      await mutate(
+        async (prevData) => {
+          
+          updateTalkPreference({
+            email_digest: newPreferenceValue
+          }, preferenceId)
+
+          console.log('+++ prevData', prevData)
+
+          const newData = JSON.parse(JSON.stringify(prevData))
+          const updatedItem = newData.find(pref => pref.id === preferenceId)
+          updatedItem.email_digest = newPreferenceValue
+
+          return newData
+        }, {
+          // TODO: implement optimistic UI
+        }
+      )
+    } catch (err) {
+      console.error(err)
+      // ❗️ TODO: add StatusMessage for errors
+    }
   }
 
   // "Is ready" means we have sufficient data to show the form input. We don't
@@ -102,6 +132,7 @@ function TalkPreferenceForm ({
             </div>
           ))}
         </div>
+
         {isReady && talkPreferences?.map?.(tpref => (
           <TalkPreferenceRow
             key={tpref.id}
@@ -123,7 +154,7 @@ function TalkPreferenceRow ({
 }) {
   const { t } = useTranslation()
   const idPrefix = useId()
-  const name = `talkPreference-${talkPreference.category}`
+  const name = talkPreference.category
 
   return (
     <fieldset>
@@ -144,6 +175,7 @@ function TalkPreferenceRow ({
             >
               <input
                 id={optionId}
+                data-talk-preference-id={talkPreference.id}
                 name={name}
                 type="radio"
                 checked={isSelected}
