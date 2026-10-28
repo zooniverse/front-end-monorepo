@@ -77,7 +77,8 @@ function ProjectCollectionPage({
                 </Paragraph>
               )}
               <SubjectsListContainer
-                collectionId={collection.id}
+                collection={collection}
+                isOwner={collectionRole === 'owner'}
                 login={login}
                 projectId={projectId}
                 projectSlug={projectSlug}
