@@ -11,7 +11,12 @@ const host = HOSTS[environment] || 'https://localhost:3000'
 
 export default async function getProjectCollectPageProps({ locale, params }) {
   const initialStateResult = await getProjectInitialState(locale, params, params.panoptesEnv)
-  if (initialStateResult.notFound) return initialStateResult
+  if (initialStateResult.props?.notFound) {
+    return {
+      notFound: true,
+      props: initialStateResult.props
+    }
+  }
   const { initialState } = initialStateResult
   const { strings } = initialState.project
   const loginParam = params?.login ?? null
