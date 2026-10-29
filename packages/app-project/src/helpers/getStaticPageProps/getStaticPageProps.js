@@ -9,55 +9,71 @@ import fetchTranslations from '@helpers/fetchTranslations'
 import fetchWorkflowsHelper from '@helpers/fetchWorkflowsHelper'
 import initStore from '@stores'
 
-export default async function getStaticPageProps({ locale, params }) {
-  const isServer = true
-  // create a temporary store.
-  // we'll take a snapshot of this later, to pass as a page prop (initialState).
-  const store = initStore(isServer)
-  const env = params.panoptesEnv
+async function getInitialState(locale = 'en', params = {}, env = 'production') {
+   const isServer = true
+   // create a temporary store.
+   // we'll take a snapshot of this later, to pass as a page prop (initialState).
+   const store = initStore(isServer)
+ 
+   /*
+     Fetch the project
+   */
+   if (params.owner && params.project) {
+     const projectSlug = `${params.owner}/${params.project}`
+     const project = await fetchProjectData(projectSlug, { env })
+     if (!project.id) {
+       return notFoundError(`Project ${params.owner}/${params.project} was not found`)
+     }
+     project.about_pages = await fetchProjectPageTitles(project, params.panoptesEnv)
+ 
+     applySnapshot(store.project, project)
+   }
+ 
+   const { project } = getSnapshot(store)
+   const language = locale || project.primary_language
+   const translations = await fetchTranslations({
+     translated_id: project.id,
+     translated_type: 'project',
+     language,
+     fallback: project.primary_language,
+     env
+   })
+   const strings = translations?.strings ?? project.strings
+ 
+   /*
+     Fetch the organizations linked to the project
+   */
+   const linkedOrganizations = await fetchLinkedOrganizations(project, locale, env)
+   store.setOrganizations(linkedOrganizations)
+ 
+   /*
+     snapshot for store hydration in the browser
+   */
+   const initialState = {
+     project: {
+       ...project,
+       strings
+     },
+     organizations: getSnapshot(store.organizations)
+   }
 
-  /*
-    Fetch the project
-  */
-  if (params.owner && params.project) {
-    const projectSlug = `${params.owner}/${params.project}`
-    const project = await fetchProjectData(projectSlug, { env })
-    if (!project.id) {
-      return notFoundError(`Project ${params.owner}/${params.project} was not found`)
-    }
-    project.about_pages = await fetchProjectPageTitles(project, params.panoptesEnv)
+   return {
+      // State snapshot of fetched project and organisations.
+      initialState,
+      // Live MST store instance, with computed views, actions etc.
+      store
+   }
+ }
 
-    applySnapshot(store.project, project)
-  }
+export default async function getStaticPageProps({ locale = 'en', params = {} }) {
+  const env = params.panoptesEnv // API environment (NOT deployment environment.)
+  const initialStateResult = await getInitialState(locale, params, env)
+  if (initialStateResult.props?.notFound) return initialStateResult
 
-  const { project } = getSnapshot(store)
+  const { initialState, store } = initialStateResult
+  const project = initialState.project
   const language = locale || project.primary_language
-  const translations = await fetchTranslations({
-    translated_id: project.id,
-    translated_type: 'project',
-    language,
-    fallback: project.primary_language,
-    env
-  })
-  const strings = translations?.strings ?? project.strings
-
-  /*
-    Fetch the organizations linked to the project
-  */
-  const linkedOrganizations = await fetchLinkedOrganizations(project, locale, env)
-  store.setOrganizations(linkedOrganizations)
-
-  /*
-    snapshot for store hydration in the browser
-  */
-  const initialState = {
-    project: {
-      ...project,
-      strings
-    },
-    organizations: getSnapshot(store.organizations)
-  }
-
+  const defaultWorkflow = store.project.defaultWorkflow
   /*
     workflowID is defined:
       1. per URL param, or if no URL param...
@@ -72,7 +88,7 @@ export default async function getStaticPageProps({ locale, params }) {
       NOT a project's default workflow as defined by project.configuration.default_workflow
   */
 
-  const workflowID = params?.workflowID || store?.project?.defaultWorkflow
+  const workflowID = params.workflowID || defaultWorkflow
   /*
      snapshots don't include computed values, like defaultWorkflow,
      which is why when determining workflowID, defaultWorkflow is not determined from the project snapshot.
