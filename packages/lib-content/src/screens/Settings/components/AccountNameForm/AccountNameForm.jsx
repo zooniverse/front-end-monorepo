@@ -30,8 +30,6 @@ function AccountNameForm ({
   const [ saveError, setSaveError ] = useState(null)  // If the save failed, this is the error object/
   const [ hasUnsavedChanges, setHasUnsavedChanges ] = useState(false)
 
-  if (!user) return null
-
   // On input change, update the LOCAL data copy.
   // Changes aren't saved to Panoptes until updateUserData() is triggered.
   function onInputChange (e) {
@@ -55,7 +53,7 @@ function AccountNameForm ({
   async function onSubmit () {
 
     // Sanity check
-    if (isSaving) { return }
+    if (isBusy) { return }
     if (!hasUnsavedChanges) {
       setSaveSuccess(false)
       setSaveMessage(t('Settings.forms.saveUnnecessary'))
@@ -112,16 +110,22 @@ function AccountNameForm ({
     }
   }
 
-  const disableInput = isLoading || isValidating || isSaving
-  const errorMessage = saveError?.errors?.[0]?.message || saveError?.toString() || (saveError && 'Unknown error')  // We don't worry about loading errors.
+  // If a FETCH or SAVE operation is ongoing, don't let
+  // other operations trigger.
+  const isBusy = isLoading || isValidating || isSaving
+  const disableInput = isBusy || !user
+
+  const loadErrorMessage = loadError?.toString() || (loadError && 'Unknown error')
+  const saveErrorMessage = saveError?.errors?.[0]?.message || saveError?.toString() || (saveError && 'Unknown error')
   const statusType =
     saveSuccess ? 'success'
-    : saveError ? 'error'
+    : (loadError || saveError) ? 'error'
     : saveMessage ? 'warning'  // TODO: this would preferably just be an 'info' type.
     : ''
   const statusMessage =
-    saveSuccess ? t('Settings.forms.saveSuccess')
-    : saveError ? errorMessage
+    loadError ? loadErrorMessage
+    : saveSuccess ? t('Settings.forms.saveSuccess')
+    : saveError ? saveErrorMessage
     : saveMessage ? saveMessage
     : ''
   
