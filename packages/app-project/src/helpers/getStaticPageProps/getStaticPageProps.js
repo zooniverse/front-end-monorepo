@@ -6,7 +6,7 @@ import getProjectInitialState from '@helpers/getProjectInitialState'
 export default async function getStaticPageProps({ locale = 'en', params = {} }) {
   const env = params.panoptesEnv // API environment (NOT deployment environment.)
   const initialStateResult = await getProjectInitialState(locale, params, env)
-  if (initialStateResult.props?.notFound) return initialStateResult
+  if (initialStateResult.notFound) return initialStateResult
 
   const { initialState, store } = initialStateResult
   const project = initialState.project
@@ -38,10 +38,11 @@ export default async function getStaticPageProps({ locale = 'en', params = {} })
   */
   const workflowExists = project.links.workflows.includes(workflowID)
   if (workflowID && !workflowExists) {
-    const { props } = notFoundError(`Workflow ${workflowID} was not found`)
+    const response = notFoundError(`Workflow ${workflowID} was not found`)
+    const { props } = response
     props.project = project
     props.workflows = []
-    return { props }
+    return response
   }
 
   /*

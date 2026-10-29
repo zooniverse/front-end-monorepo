@@ -356,6 +356,7 @@ describe('Helpers > getStaticPageProps', function () {
     })
 
     describe('with an invalid project slug', function () {
+      let response
       let props
 
       before(async function () {
@@ -364,12 +365,12 @@ describe('Helpers > getStaticPageProps', function () {
           owner: 'test-owner',
           project: 'test-wrong-project'
         }
-        const response = await getStaticPageProps({ params })
+        response = await getStaticPageProps({ params })
         props = response.props
       })
 
       it('should return notFound', function () {
-        expect(props.notFound).to.equal(true)
+        expect(response.notFound).to.equal(true)
       })
 
       it('should return a project error message', function () {
@@ -378,6 +379,7 @@ describe('Helpers > getStaticPageProps', function () {
     })
 
     describe('with an invalid workflow ID', function () {
+      let response
       let props
 
       before(async function () {
@@ -387,12 +389,12 @@ describe('Helpers > getStaticPageProps', function () {
           project: 'test-project-single-active-workflow',
           workflowID: '3'
         }
-        const response = await getStaticPageProps({ params })
+        response = await getStaticPageProps({ params })
         props = response.props
       })
 
       it('should return notFound', function () {
-        expect(props.notFound).to.equal(true)
+        expect(response.notFound).to.equal(true)
       })
 
       it('should return a workflow error message', function () {
@@ -526,6 +528,7 @@ describe('Helpers > getStaticPageProps', function () {
     })
 
     describe('with an invalid project slug', function () {
+      let response
       let props
 
       before(async function () {
@@ -534,12 +537,12 @@ describe('Helpers > getStaticPageProps', function () {
           owner: 'test-owner',
           project: 'test-wrong-project'
         }
-        const response = await getStaticPageProps({ params })
+        response = await getStaticPageProps({ params })
         props = response.props
       })
 
       it('should return notFound', function () {
-        expect(props.notFound).to.equal(true)
+        expect(response.notFound).to.equal(true)
       })
 
       it('should return a project error message', function () {
@@ -548,6 +551,7 @@ describe('Helpers > getStaticPageProps', function () {
     })
 
     describe('with an invalid workflow ID', function () {
+      let response
       let props
 
       before(async function () {
@@ -557,12 +561,12 @@ describe('Helpers > getStaticPageProps', function () {
           project: 'test-project-single-active-workflow',
           workflowID: '3'
         }
-        const response = await getStaticPageProps({ params })
+        response = await getStaticPageProps({ params })
         props = response.props
       })
 
       it('should return notFound', function () {
-        expect(props.notFound).to.equal(true)
+        expect(response.notFound).to.equal(true)
       })
 
       it('should return a workflow error message', function () {
