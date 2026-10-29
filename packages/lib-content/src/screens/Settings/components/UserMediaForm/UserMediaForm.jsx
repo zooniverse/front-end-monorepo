@@ -346,7 +346,6 @@ function UserMediaForm ({
     }
   }
 
-  // We don't worry about loading errors.
   const loadErrorMessage = loadError?.toString() || (loadError && 'Unknown error')
   const saveErrorMessage = saveError?.errors?.[0]?.message || saveError?.toString() || (saveError && 'Unknown error')
   const deleteErrorMessage = deleteError?.errors?.[0]?.message || deleteError?.toString() || (deleteError && 'Unknown error')
