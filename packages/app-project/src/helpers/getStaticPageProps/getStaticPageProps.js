@@ -93,8 +93,8 @@ export default async function getStaticPageProps({ locale, params }) {
     Fetch the organizations linked to the project
   */
   const linkedOrganizations = await fetchLinkedOrganizations(project, locale, env)
-  applySnapshot(store.organizations, linkedOrganizations)
-  props.organizations = linkedOrganizations
+  store.setOrganizations(linkedOrganizations)
+  props.organizations = getSnapshot(store.organizations)
 
   /*
     Fetch the subject

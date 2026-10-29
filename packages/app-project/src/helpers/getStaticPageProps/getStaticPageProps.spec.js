@@ -331,7 +331,9 @@ describe('Helpers > getStaticPageProps', function () {
       })
 
       it('should return the project\'s organization', async function () {
-        expect(props.organizations).to.deep.equal([{ ...ORGANIZATION, strings: { display_name: 'Foo' } }])
+        expect(props.organizations).to.deep.equal({
+          [ORGANIZATION.id]: { ...ORGANIZATION, strings: { display_name: 'Foo' } }
+        })
       })
     })
 
@@ -349,7 +351,7 @@ describe('Helpers > getStaticPageProps', function () {
       })
 
       it('should not return the project\'s organization', async function () {
-        expect(props.organizations).toEqual([])
+        expect(props.organizations).to.deep.equal({})
       })
     })
 
@@ -499,7 +501,9 @@ describe('Helpers > getStaticPageProps', function () {
       })
 
       it('should return the project\'s organization', async function () {
-        expect(props.organizations).to.deep.equal([{ ...ORGANIZATION, strings: { display_name: 'Foo' } }])
+        expect(props.organizations).to.deep.equal({
+          [ORGANIZATION.id]: { ...ORGANIZATION, strings: { display_name: 'Foo' } }
+        })
       })
     })
 
@@ -517,7 +521,7 @@ describe('Helpers > getStaticPageProps', function () {
       })
 
       it('should not return the project\'s organization', async function () {
-        expect(props.organizations).toEqual([])
+        expect(props.organizations).to.deep.equal({})
       })
     })
 
