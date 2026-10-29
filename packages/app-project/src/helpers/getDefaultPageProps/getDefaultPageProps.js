@@ -8,10 +8,9 @@ const HOSTS = {
 }
 
 export default async function getDefaultPageProps({ locale, params }) {
-  const { props: staticProps } = await getStaticPageProps({ locale, params })
+  const { notFound, props: staticProps } = await getStaticPageProps({ locale, params })
   const {
     initialState,
-    notFound,
     title,
     workflowID,
     workflows,

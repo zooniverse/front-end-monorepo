@@ -16,7 +16,7 @@ const host = HOSTS[environment] || 'https://localhost:3000'
 export default async function getProjectStatsPageProps({ locale, params }) {
   const env = params.panoptesEnv
   const initialStateResult = await getProjectInitialState(locale, params, env)
-  if (initialStateResult.props?.notFound) return initialStateResult.props
+  if (initialStateResult.notFound) return initialStateResult
 
   const { initialState } = initialStateResult
   const project = initialState.project
