@@ -21,7 +21,7 @@
     "prepare": "pnpm run build:cjs && pnpm run build:es6",
     "start": "PANOPTES_ENV=production npm run dev",
     "test": "NODE_ENV=test vitest run",
-    "test:ci": "NODE_ENV=test vitest run --reporter=basic --silent='passed-only' --hideSkippedTests",
+    "test:ci": "NODE_ENV=test vitest run --silent='passed-only' --hideSkippedTests",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
@@ -121,7 +121,7 @@
     "storybook-react-i18next": "~4.0.11",
     "style-loader": "~4.0.0",
     "superagent": "~10.2.1",
-    "vitest": "~3.1.3",
+    "vitest": "~4.1.11",
     "webpack": "~5.104.1",
     "webpack-cli": "~6.0.1",
     "webpack-dev-server": "~5.2.6"
