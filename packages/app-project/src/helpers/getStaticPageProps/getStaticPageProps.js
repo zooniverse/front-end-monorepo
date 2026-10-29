@@ -12,7 +12,7 @@ import initStore from '@stores'
 export default async function getStaticPageProps({ locale, params }) {
   const isServer = true
   // create a temporary store.
-  // we'll take a snapshot of this later, to pass as a page prop.
+  // we'll take a snapshot of this later, to pass as a page prop (initialState).
   const store = initStore(isServer)
   const env = params.panoptesEnv
 
@@ -28,6 +28,34 @@ export default async function getStaticPageProps({ locale, params }) {
     project.about_pages = await fetchProjectPageTitles(project, params.panoptesEnv)
 
     applySnapshot(store.project, project)
+  }
+
+  const { project } = getSnapshot(store)
+  const language = locale || project.primary_language
+  const translations = await fetchTranslations({
+    translated_id: project.id,
+    translated_type: 'project',
+    language,
+    fallback: project.primary_language,
+    env
+  })
+  const strings = translations?.strings ?? project.strings
+
+  /*
+    Fetch the organizations linked to the project
+  */
+  const linkedOrganizations = await fetchLinkedOrganizations(project, locale, env)
+  store.setOrganizations(linkedOrganizations)
+
+  /*
+    snapshot for store hydration in the browser
+  */
+  const initialState = {
+    project: {
+      ...project,
+      strings
+    },
+    organizations: getSnapshot(store.organizations)
   }
 
   /*
@@ -47,22 +75,12 @@ export default async function getStaticPageProps({ locale, params }) {
   const workflowID = params?.workflowID || store?.project?.defaultWorkflow
   /*
      snapshots don't include computed values, like defaultWorkflow,
-     which is why when determining workflowID, defaultWorkflow is not determined from the following project snapshot
+     which is why when determining workflowID, defaultWorkflow is not determined from the project snapshot.
   */
-  const { project } = getSnapshot(store)
-  const language = locale || project.primary_language
-  const translations = await fetchTranslations({
-    translated_id: project.id,
-    translated_type: 'project',
-    language,
-    fallback: project.primary_language,
-    env
-  })
-  const strings = translations?.strings ?? project.strings
 
   const workflowOrder = project.configuration?.workflow_order || []
   /*
-    Validate any workflow URLs against a project's linked workflows
+    Validate any workflow URLs against a project's linked workflows.
   */
   const workflowExists = project.links.workflows.includes(workflowID)
   if (workflowID && !workflowExists) {
@@ -73,16 +91,13 @@ export default async function getStaticPageProps({ locale, params }) {
   }
 
   /*
-    Fetch the active project workflows
+    Fetch the active project workflows.
   */
   const workflows = await fetchWorkflowsHelper(language, project.links.active_workflows, workflowID, workflowOrder, env)
 
   const props = {
-    project: {
-      ...project,
-      strings,
-    },
-    workflows,
+    initialState,
+    workflows
   }
 
   if (workflowID) {
@@ -90,14 +105,7 @@ export default async function getStaticPageProps({ locale, params }) {
   }
 
   /*
-    Fetch the organizations linked to the project
-  */
-  const linkedOrganizations = await fetchLinkedOrganizations(project, locale, env)
-  store.setOrganizations(linkedOrganizations)
-  props.organizations = getSnapshot(store.organizations)
-
-  /*
-    Fetch the subject
+    Fetch the subject.
   */
   if (!params.workflowID && params.subjectID) {
     const subject = await fetchSubject(params.subjectID, env)

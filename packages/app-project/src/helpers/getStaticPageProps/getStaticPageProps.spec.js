@@ -255,7 +255,7 @@ describe('Helpers > getStaticPageProps', function () {
       })
 
       it('should return the project', function () {
-        const { project } = props
+        const { project } = props.initialState
         expect(project?.slug).to.equal('test-owner/test-project-single-active-workflow')
         expect(project?.strings?.display_name).to.equal('Foo')
       })
@@ -331,7 +331,7 @@ describe('Helpers > getStaticPageProps', function () {
       })
 
       it('should return the project\'s organization', async function () {
-        expect(props.organizations).to.deep.equal({
+        expect(props.initialState.organizations).to.deep.equal({
           [ORGANIZATION.id]: { ...ORGANIZATION, strings: { display_name: 'Foo' } }
         })
       })
@@ -351,7 +351,7 @@ describe('Helpers > getStaticPageProps', function () {
       })
 
       it('should not return the project\'s organization', async function () {
-        expect(props.organizations).to.deep.equal({})
+        expect(props.initialState.organizations).to.deep.equal({})
       })
     })
 
@@ -425,7 +425,7 @@ describe('Helpers > getStaticPageProps', function () {
       })
 
       it('should return the project', function () {
-        const { project } = props
+        const { project } = props.initialState
         expect(project?.slug).to.equal('test-owner/test-project-single-active-workflow')
         expect(project?.strings?.display_name).to.equal('Foo')
       })
@@ -501,7 +501,7 @@ describe('Helpers > getStaticPageProps', function () {
       })
 
       it('should return the project\'s organization', async function () {
-        expect(props.organizations).to.deep.equal({
+        expect(props.initialState.organizations).to.deep.equal({
           [ORGANIZATION.id]: { ...ORGANIZATION, strings: { display_name: 'Foo' } }
         })
       })
@@ -521,7 +521,7 @@ describe('Helpers > getStaticPageProps', function () {
       })
 
       it('should not return the project\'s organization', async function () {
-        expect(props.organizations).to.deep.equal({})
+        expect(props.initialState.organizations).to.deep.equal({})
       })
     })
 
