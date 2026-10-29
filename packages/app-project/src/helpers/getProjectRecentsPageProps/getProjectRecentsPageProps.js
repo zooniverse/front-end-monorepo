@@ -81,14 +81,14 @@ export default async function getProjectRecentsPageProps({ locale, params }) {
     language,
     env
   )
-  applySnapshot(store.organizations, linkedOrganizations)
+  store.setOrganizations(linkedOrganizations)
 
   /*
     Snapshot for store hydration in the browser via _app.jsx
   */
   const initialState = {
     ...projectData,
-    organizations: linkedOrganizations
+    organizations: getSnapshot(store.organizations)
   }
 
   /* pageProps */
