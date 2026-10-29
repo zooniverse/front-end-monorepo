@@ -1,73 +1,11 @@
-import { applySnapshot, getSnapshot } from 'mobx-state-tree'
-
 import notFoundError from '@helpers/notFoundError'
-import fetchProjectPageTitles from '@helpers/fetchProjectPageTitles'
-import fetchLinkedOrganizations from '@helpers/fetchLinkedOrganizations'
-import fetchProjectData from '@helpers/fetchProjectData'
 import fetchSubject from '@helpers/fetchSubject'
-import fetchTranslations from '@helpers/fetchTranslations'
 import fetchWorkflowsHelper from '@helpers/fetchWorkflowsHelper'
-import initStore from '@stores'
-
-async function getInitialState(locale = 'en', params = {}, env = 'production') {
-   const isServer = true
-   // create a temporary store.
-   // we'll take a snapshot of this later, to pass as a page prop (initialState).
-   const store = initStore(isServer)
- 
-   /*
-     Fetch the project
-   */
-   if (params.owner && params.project) {
-     const projectSlug = `${params.owner}/${params.project}`
-     const project = await fetchProjectData(projectSlug, { env })
-     if (!project.id) {
-       return notFoundError(`Project ${params.owner}/${params.project} was not found`)
-     }
-     project.about_pages = await fetchProjectPageTitles(project, params.panoptesEnv)
- 
-     applySnapshot(store.project, project)
-   }
- 
-   const { project } = getSnapshot(store)
-   const language = locale || project.primary_language
-   const translations = await fetchTranslations({
-     translated_id: project.id,
-     translated_type: 'project',
-     language,
-     fallback: project.primary_language,
-     env
-   })
-   const strings = translations?.strings ?? project.strings
- 
-   /*
-     Fetch the organizations linked to the project
-   */
-   const linkedOrganizations = await fetchLinkedOrganizations(project, locale, env)
-   store.setOrganizations(linkedOrganizations)
- 
-   /*
-     snapshot for store hydration in the browser
-   */
-   const initialState = {
-     project: {
-       ...project,
-       strings
-     },
-     organizations: getSnapshot(store.organizations)
-   }
-
-   return {
-      // State snapshot of fetched project and organisations.
-      initialState,
-      // Live MST store instance, with computed views, actions etc.
-      store
-   }
- }
+import getProjectInitialState from '@helpers/getProjectInitialState'
 
 export default async function getStaticPageProps({ locale = 'en', params = {} }) {
   const env = params.panoptesEnv // API environment (NOT deployment environment.)
-  const initialStateResult = await getInitialState(locale, params, env)
+  const initialStateResult = await getProjectInitialState(locale, params, env)
   if (initialStateResult.props?.notFound) return initialStateResult
 
   const { initialState, store } = initialStateResult
