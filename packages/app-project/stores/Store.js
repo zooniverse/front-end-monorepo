@@ -1,5 +1,5 @@
 import asyncStates from '@zooniverse/async-states'
-import { addDisposer, addMiddleware, getEnv, getSnapshot, onAction, types } from 'mobx-state-tree'
+import { addDisposer, addMiddleware, getEnv, onAction, types } from 'mobx-state-tree'
 import { autorun } from 'mobx'
 import logToSentry from '../src/helpers/logger/logToSentry.js'
 
