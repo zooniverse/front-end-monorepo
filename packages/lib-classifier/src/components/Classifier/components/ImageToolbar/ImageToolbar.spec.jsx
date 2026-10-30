@@ -1,7 +1,10 @@
 import { act, render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { composeStory } from '@storybook/react'
+import { useState } from 'react'
 import { Provider } from 'mobx-react'
+import { Button as GrommetButton, Grommet, Layer } from 'grommet'
+import zooTheme from '@zooniverse/grommet-theme'
 import mockStore from '@test/mockStore/mockStore.js'
 import ImageToolbar from './ImageToolbar'
 
@@ -56,6 +59,24 @@ function makeFocusgroupItemsVisible(container) {
       value: () => [{}]
     })
   })
+}
+
+function ImageToolbarWithLayer({ store }) {
+  const [layerOpen, setLayerOpen] = useState(false)
+
+  return (
+    <Grommet theme={zooTheme}>
+      <Provider classifierStore={store}>
+        <ImageToolbar />
+        <GrommetButton label='Open collections modal' onClick={() => setLayerOpen(true)} />
+        {layerOpen && (
+          <Layer animate={false} onEsc={() => setLayerOpen(false)}>
+            <GrommetButton label='Close collections modal' onClick={() => setLayerOpen(false)} />
+          </Layer>
+        )}
+      </Provider>
+    </Grommet>
+  )
 }
 
 describe('Component > ImageToolbar', function () {
@@ -126,6 +147,40 @@ describe('Component > ImageToolbar', function () {
     expect(invertButton).to.have.attribute('aria-pressed', 'true')
     await act(async () => user.keyboard('{ }'))
     expect(invertButton).to.have.attribute('aria-pressed', 'false')
+  })
+
+  it('should keep focusgroup navigation working after a Grommet Layer closes', async function () {
+    const store = mockStore()
+    const { container } = render(<ImageToolbarWithLayer store={store} />)
+    makeFocusgroupItemsVisible(container)
+
+    const menubar = await screen.findByRole('menubar')
+    const menuItems = within(menubar).getAllByRole('menuitem')
+    const user = userEvent.setup()
+
+    await user.click(screen.getByRole('button', { name: 'Open collections modal' }))
+    await user.click(await screen.findByRole('button', { name: 'Close collections modal' }))
+    await act(async () => menuItems[0].focus())
+    await act(async () => user.keyboard('{ArrowDown}'))
+
+    expect(document.activeElement).to.equal(menuItems[1])
+  })
+
+  it('should keep focusgroup navigation working when a Grommet Layer closes after toolbar item changes', async function () {
+    const store = mockStore()
+    const { container } = render(<ImageToolbarWithLayer store={store} />)
+    makeFocusgroupItemsVisible(container)
+    const menubar = await screen.findByRole('menubar')
+    const menuItems = within(menubar).getAllByRole('menuitem')
+    const user = userEvent.setup()
+
+    await act(async () => menuItems[1].focus())
+    await user.click(screen.getByRole('button', { name: 'Open collections modal' }))
+    await user.click(await screen.findByRole('button', { name: 'Close collections modal' }))
+    await act(async () => menuItems[1].focus())
+    await act(async () => user.keyboard('{ArrowDown}'))
+
+    expect(document.activeElement).to.equal(menuItems[2])
   })
 
   taskTypes.forEach(task => {
