@@ -186,6 +186,7 @@ function UserMediaForm ({
   // If a FETCH, SAVE, DELETE, or SELECTING operation is ongoing, don't let
   // other operations trigger.
   const isBusy = isLoading || isSaving || isDeleting || isSelecting
+  const disableInput = isBusy
   // ⚠️ Note: isBusy does NOT check for isValidating. isValidating can trigger
   // in a semi-unpredictable manner, so if we factored that in, users could
   // see the UI "stop working" randomly.
@@ -431,7 +432,7 @@ function UserMediaForm ({
             name={mediaType}
             accept='image/*'
             onChange={onInputChange}
-            disabled={isBusy}
+            disabled={disableInput}
             ref={fileInputRef}
             width={width}
             height={height}
@@ -441,7 +442,7 @@ function UserMediaForm ({
           {imageSrc && (
             <DeleteButton
               a11yTitle={t('Settings.forms.delete')}
-              disabled={isBusy}
+              disabled={disableInput}
               height='40px'
               icon={<TrashIcon color='red' />}
               onClick={doDelete}
@@ -460,7 +461,7 @@ function UserMediaForm ({
           wrap={true}
         >
           <Button
-            disabled={isBusy}
+            disabled={disableInput}
             label={t('Settings.forms.save')}
             type='submit'
           />
@@ -476,7 +477,7 @@ function UserMediaForm ({
             />
           </Box>
 
-          {isBusy && <Loader />}
+          {(isBusy || isValidating) && <Loader />}
         </Box>
       </FormFieldsContainer>
     </Form>
