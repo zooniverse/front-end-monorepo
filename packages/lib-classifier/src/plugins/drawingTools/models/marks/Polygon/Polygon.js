@@ -29,17 +29,12 @@ const PolygonModel = types
   }))
   .views((self) => ({
     get coords() {
-      return {
-        x: self.initialPoint?.x,
-        y: self.initialPoint?.y
-      }
+      return self.initialPoint
     },
 
     deleteButtonPosition(scale) {
       const BUFFER = 16
-      const x = self.points[0].x - BUFFER / scale
-      const y = self.points[0].y - BUFFER / scale
-      return { x, y }
+      return { x: -BUFFER / scale, y: -BUFFER / scale }
     },
 
     get isValid() {
@@ -78,7 +73,7 @@ const PolygonModel = types
 
     get toolComponent() {
       return PolygonComponent
-    }
+    },
   }))
   .actions((self) => ({
     initialDrag({ x, y }) {
