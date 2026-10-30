@@ -1,13 +1,14 @@
 import { Box, Paragraph } from 'grommet'
 import { PropTypes as MobXPropTypes } from 'mobx-react'
 import PropTypes from 'prop-types'
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { MovableModal } from '@zooniverse/react-components'
 import { useTranslation } from '@translations/i18n'
 
 import { useClientRect } from '@hooks'
 import * as taskRegister from '@plugins/tasks'
 import getDefaultPosition from '../InteractionLayer/helpers/getDefaultPosition'
+import { focusMark } from '@plugins/drawingTools/shared/markHelpers';
 import ConfirmModal from './components/ConfirmModal'
 import SaveButton from './components/SaveButton'
 
@@ -41,6 +42,17 @@ function SubTaskPopup({
   const [dimensions, measuredContentRef] = useClientRect()
   const [confirmationState, setConfirm] = useState('pending')
   const [position, setPosition] = useState(null)
+  const markNodeRef = useRef(document.activeElement) // mark node should be focused when popup opens
+
+  useEffect(() => () => { // cleanup only
+    // When the popup closes grommet's Layer automatically returns focus to the
+    // element that had it before the popup opened.
+    // However, Firefox bug https://bugzilla.mozilla.org/show_bug.cgi?id=1589164
+    // causes the browser to scroll to the top of the page when focus is set on a g element.
+    // Therefore, we call focusMark here to preemptively set focus while preserving scroll position.
+    
+    focusMark(markNodeRef.current)
+  }, [])
 
   if (!subTaskVisibility) return null
 
