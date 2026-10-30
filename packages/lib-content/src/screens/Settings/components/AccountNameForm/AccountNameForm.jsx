@@ -177,7 +177,7 @@ function AccountNameForm ({
             />
           </Box>
 
-          {(isLoading || isValidating || isSaving) && <Loader />}
+          {(isBusy || isValidating) && <Loader />}
         </Box>
       </FormFieldsContainer>
     </Form>
