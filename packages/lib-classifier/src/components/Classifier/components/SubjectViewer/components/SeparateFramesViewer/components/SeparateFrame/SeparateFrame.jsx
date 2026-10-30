@@ -1,8 +1,7 @@
 import { Box } from 'grommet'
 import PropTypes from 'prop-types'
-import { useCallback, useEffect, useRef, useState } from 'react'
-import { FocusGroup, supportsFocusGroup } from '@microsoft/focusgroup-polyfill'
-import { useStores, useSubjectImageOrVideo } from '@hooks'
+import { useCallback, useRef, useState } from 'react'
+import { useFocusGroup, useStores, useSubjectImageOrVideo } from '@hooks'
 import { defaultKeyMappings } from '../../../../../../../../hooks/useKeyZoom'
 import SingleImageViewer from '../../../SingleImageViewer/SingleImageViewer'
 import {
@@ -56,35 +55,9 @@ const SeparateFrame = ({
   const [separateFrameAnnotate, setSeparateFrameAnnotate] = useState(true)
   const [separateFrameMove, setSeparateFrameMove] = useState(false)
 
-  useEffect(function addFocusGroup() {
-    if (!menubar.current) return
-    menubar.current.setAttribute('focusgroup', 'menubar block')
-    menubar.current.setAttribute('aria-orientation', 'vertical')
-    menubar.current.setAttribute('role', 'menubar')
-    if (!menubar.current.focusGroup) menubar.current.focusGroup = 'menubar block'
-
-    // Native focusgroup support handles keyboard navigation without the
-    // polyfill. Keep the property in sync for browsers that expose it.
-    if (supportsFocusGroup()) return
-
-    // Avoid the polyfill's tabindex observer because Grommet Layers temporarily
-    // rewrite tabindex across the page and can break roving focus when closed.
-    const items = Array.from(menubar.current.querySelectorAll('button'))
-    items.forEach(item => item.setAttribute('role', 'menuitem'))
-    const itemCollection = {
-      items: () => items.map(element => ({ element })),
-      first: () => items[0] ?? null,
-      last: () => items[items.length - 1] ?? null,
-      next: current => items[items.indexOf(current) + 1] ?? null,
-      previous: current => items[items.indexOf(current) - 1] ?? null,
-      contains: element => items.includes(element)
-    }
-    const focusGroup = new FocusGroup(menubar.current, itemCollection, {
-      definition: { behavior: 'menubar', wrap: true, axis: 'block', memory: true }
-    })
-
-    return () => focusGroup.disconnect()
-  }, [])
+  useFocusGroup(menubar, {
+    behavior: 'menu'
+  }, mediaType === 'image')
 
   /** Image Viewer actions */
   const handleSetOnPan = useCallback((fn) => {
