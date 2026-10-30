@@ -2,14 +2,22 @@ import { render, screen, within } from '@testing-library/react'
 import { useRef } from 'react'
 import useFocusGroup from './useFocusGroup'
 
-function FocusGroupFixture({ behavior, axis, enabled = true, includeSecondTab = true, firstTabDisabled = false }) {
+function FocusGroupFixture({
+  behavior,
+  axis,
+  enabled = true,
+  includeSecondTab = true,
+  firstTabDisabled = false,
+  ownerRole,
+  firstTabRole
+}) {
   const focusGroup = useRef(null)
   useFocusGroup(focusGroup, { behavior, axis }, enabled)
 
   return (
     enabled && (
-      <div ref={focusGroup}>
-        <button type='button' disabled={firstTabDisabled}>First tab</button>
+      <div ref={focusGroup} role={ownerRole}>
+        <button type='button' disabled={firstTabDisabled} role={firstTabRole}>First tab</button>
         {includeSecondTab && <button type='button'>Second tab</button>}
       </div>
     )
@@ -62,6 +70,20 @@ describe('Hook > useFocusGroup', function () {
     expect(disabledButton).not.to.have.attribute('data-fg-ati')
     expect(enabledTab).to.have.attribute('data-fg-ati', 'none')
     expect(enabledTab).to.have.property('tabIndex', 0)
+  })
+
+  it('should preserve author-supplied owner and item roles', async function () {
+    const { container } = render(
+      <FocusGroupFixture behavior='menu' ownerRole='group' firstTabRole='menuitemcheckbox' />
+    )
+
+    const owner = container.querySelector('[focusgroup]')
+    const checkboxItem = within(owner).getByRole('menuitemcheckbox', { name: 'First tab' })
+    const inferredItem = within(owner).getByRole('menuitem', { name: 'Second tab' })
+
+    expect(owner).to.have.attribute('role', 'group')
+    expect(checkboxItem).to.have.attribute('role', 'menuitemcheckbox')
+    expect(inferredItem).to.have.attribute('role', 'menuitem')
   })
 
   it('should leave native focusgroup roles implicit', async function () {
