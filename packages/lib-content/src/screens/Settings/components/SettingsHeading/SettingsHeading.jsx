@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 const DecoDivider = styled('div')`
   width: 100%;
   height: 2px;
+  margin-bottom: 30px;
   ${props => props.theme.dark
     ? 'background: linear-gradient(90deg, #333333 0%, #A6A7A9 50%, #333333 100%);'
     : 'background: linear-gradient(90deg, #ffffff 0%, #A6A7A9 50%, #ffffff 100%);'
