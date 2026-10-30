@@ -16,4 +16,11 @@ describe('Component > SeparateFrame', function () {
     const zoomInBtn = screen.getByLabelText('Zoom in on subject')
     expect(zoomInBtn).to.exist
   })
+
+  it('should set up a vertical menubar focusgroup', async function () {
+    render(<DefaultStory />)
+    const menubar = await screen.findByRole('menubar')
+    expect(menubar).to.have.attribute('aria-orientation', 'vertical')
+    expect(menubar.focusGroup).to.equal('menubar block')
+  })
 })
