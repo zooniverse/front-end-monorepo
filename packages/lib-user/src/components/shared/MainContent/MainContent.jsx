@@ -4,7 +4,7 @@ import { arrayOf, bool, func, number, shape, string } from 'prop-types'
 import { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { useTranslation, Trans } from 'react-i18next'
-import { polyfill } from '@microsoft/focusgroup-polyfill'
+import { FocusGroup, supportsFocusGroup } from '@microsoft/focusgroup-polyfill'
 
 import {
   convertStatsSecondsToHours,
@@ -59,16 +59,45 @@ function MainContent({
   const [showCalendar, setShowCalendar] = useState(false)
   const [customDateRange, setCustomDateRange] = useState([selectedDateRange.startDate, selectedDateRange.endDate])
 
-  useEffect(function addFocusgroup() {
-    if (!tabList.current) return
-    // React 18 doesn't support the focusGroup DOM property, so we add the attribute manually to the tablist.
-    tabList.current.setAttribute('focusgroup', 'tablist')
-    // polyfill focusgroup in Safari, Firefox and Edge.
-    polyfill(tabList.current)
-    if (!tabList.current.focusGroup) {
-      tabList.current.focusGroup = 'tablist'
-    }
-  }, [])
+  useEffect(function addFocusGroup() {
+      if (!tabList.current) return
+      tabList.current.setAttribute('focusgroup', 'tablist')
+      if (!tabList.current.focusGroup) tabList.current.focusGroup = 'tablist'
+  
+      // Native focusgroup support handles keyboard navigation without the
+      // polyfill. Keep the property in sync for browsers that expose it.
+      if (supportsFocusGroup()) {
+        return
+      }
+  
+      /*
+       Polyfill focusgroup in Firefox, Safari, Edge and jsdom.
+       Use the `FocusGroup` API because the exported polyfill conflicts
+       with Grommet Layer's focus trap, breaking keyboard support if you
+       open then close a Grommet modal.
+      */
+      tabList.current.setAttribute('role', 'tablist')
+      const items = Array.from(tabList.current.querySelectorAll('button'))
+      items.forEach(item => item.setAttribute('role', 'tab'))
+      const itemCollection = {
+        items: () => items.map(element => ({ element })),
+        first: () => items[0] ?? null,
+        last: () => items[items.length - 1] ?? null,
+        next: current => items[items.indexOf(current) + 1] ?? null,
+        previous: current => items[items.indexOf(current) - 1] ?? null,
+        contains: element => items.includes(element)
+      }
+      const focusGroup = new FocusGroup(tabList.current, itemCollection, {
+        definition: {
+          behavior: 'tablist',
+          wrap: true,
+          axis: 'inline',
+          memory: true
+        }
+      })
+  
+      return () => focusGroup.disconnect()
+    }, [])
 
   const handleActiveTab = useCallback((tabIndex) => {
     setActiveTab(tabIndex)

@@ -31,8 +31,7 @@ describe('components > shared > MainContent', function () {
   it('should show "CLASSIFICATIONS" as the active tab', async function () {
     render(<DefaultStory />)
     const tabList = await screen.findByRole('tablist')
-    // this button is a tab in the browser's accessibility tree, but a button in JSDOM. 🤔
-    const activeTab = within(tabList).getByRole('button', { name: /Classifications/ })
+    const activeTab = within(tabList).getByRole('tab', { name: /Classifications/ })
 
     expect(activeTab.getAttribute('aria-selected')).to.equal('true')
   })
