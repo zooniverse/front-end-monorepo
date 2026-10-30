@@ -14,7 +14,13 @@ const paginationTheme = {
   }
 }
 
-function Pagination({ pageCount, page, setPage }) {
+const defaultSetPage = () => true
+
+function Pagination({
+  pageCount = 1,
+  page = 1,
+  setPage = defaultSetPage
+}) {
   return (
     <ThemeContext.Extend value={paginationTheme}>
       <GrommetPagination
@@ -30,9 +36,9 @@ function Pagination({ pageCount, page, setPage }) {
 }
 
 Pagination.propTypes = {
-  pageCount: number.isRequired,
-  page: number.isRequired,
-  setPage: func.isRequired
+  pageCount: number,
+  page: number,
+  setPage: func
 }
 
 export default Pagination
