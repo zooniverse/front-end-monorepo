@@ -1,6 +1,8 @@
 import { useEffect } from 'react'
 import { FocusGroup, supportsFocusGroup } from '@microsoft/focusgroup-polyfill'
 
+const FOCUSGROUP_ITEM_SELECTOR = 'button:not(:disabled)'
+
 const DEFAULT_DEFINITION = {
   behavior: null,
   memory: true
@@ -81,7 +83,7 @@ export default function useFocusGroup(ownerRef, options = {}, enabled = true) {
     }
     if (!owner.focusGroup) owner.focusGroup = focusgroupDefinition
 
-    const items = () => Array.from(owner.querySelectorAll('button:not(:disabled)'))
+    const items = () => Array.from(owner.querySelectorAll(FOCUSGROUP_ITEM_SELECTOR))
     const applyItemRoles = () => {
       if (!nativeFocusGroup && ITEM_ROLE[behavior]) {
         items().forEach(item => {
