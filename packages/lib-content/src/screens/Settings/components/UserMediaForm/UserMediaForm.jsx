@@ -185,7 +185,10 @@ function UserMediaForm ({
 
   // If a FETCH, SAVE, DELETE, or SELECTING operation is ongoing, don't let
   // other operations trigger.
-  const isBusy = isLoading || isValidating || isSaving || isDeleting || isSelecting
+  const isBusy = isLoading || isSaving || isDeleting || isSelecting
+  // ⚠️ Note: isBusy does NOT check for isValidating. isValidating can trigger
+  // in a semi-unpredictable manner, so if we factored that in, users could
+  // see the UI "stop working" randomly.
 
   /*
   When the File input changes, we'll do the following:
