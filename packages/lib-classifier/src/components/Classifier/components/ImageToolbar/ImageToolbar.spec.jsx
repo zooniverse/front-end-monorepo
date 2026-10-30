@@ -80,7 +80,7 @@ function ImageToolbarWithLayer({ store }) {
 }
 
 describe('Component > ImageToolbar', function () {
-  it('should set up a vertical menubar focusgroup', async function () {
+  it('should set up a vertical menu focusgroup', async function () {
     const store = mockStore()
 
     const { container } = render(
@@ -90,9 +90,9 @@ describe('Component > ImageToolbar', function () {
     )
 
     makeFocusgroupItemsVisible(container)
-    const menubar = await screen.findByRole('menubar')
-    expect(menubar).to.have.attribute('aria-orientation', 'vertical')
-    expect(menubar.focusGroup).to.equal('menubar block')
+    const menu = await screen.findByRole('menu')
+    expect(menu).to.have.attribute('aria-orientation', 'vertical')
+    expect(menu.focusGroup).to.equal('menu')
   })
 
   it('should navigate toolbar menuitems with one tab stop without panning the image', async function () {
@@ -107,8 +107,8 @@ describe('Component > ImageToolbar', function () {
     )
 
     makeFocusgroupItemsVisible(container)
-    const menubar = await screen.findByRole('menubar')
-    const menuItems = within(menubar).getAllByRole('menuitem')
+    const menu = await screen.findByRole('menu')
+    const menuItems = within(menu).getAllByRole('menuitem')
     expect(menuItems.filter(item => item.tabIndex === 0)).to.have.lengthOf(1)
 
     const user = userEvent.setup()
@@ -121,7 +121,7 @@ describe('Component > ImageToolbar', function () {
     await act(async () => user.tab())
 
     expect(panCalls).to.have.lengthOf(0)
-    expect(menubar.contains(document.activeElement)).to.equal(false)
+    expect(menu.contains(document.activeElement)).to.equal(false)
   })
 
   it('should activate menuitems with Enter and Space', async function () {
@@ -154,8 +154,8 @@ describe('Component > ImageToolbar', function () {
     const { container } = render(<ImageToolbarWithLayer store={store} />)
     makeFocusgroupItemsVisible(container)
 
-    const menubar = await screen.findByRole('menubar')
-    const menuItems = within(menubar).getAllByRole('menuitem')
+    const menu = await screen.findByRole('menu')
+    const menuItems = within(menu).getAllByRole('menuitem')
     const user = userEvent.setup()
 
     await user.click(screen.getByRole('button', { name: 'Open collections modal' }))
@@ -170,8 +170,8 @@ describe('Component > ImageToolbar', function () {
     const store = mockStore()
     const { container } = render(<ImageToolbarWithLayer store={store} />)
     makeFocusgroupItemsVisible(container)
-    const menubar = await screen.findByRole('menubar')
-    const menuItems = within(menubar).getAllByRole('menuitem')
+    const menu = await screen.findByRole('menu')
+    const menuItems = within(menu).getAllByRole('menuitem')
     const user = userEvent.setup()
 
     await act(async () => menuItems[1].focus())
