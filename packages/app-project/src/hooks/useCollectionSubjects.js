@@ -36,10 +36,6 @@ export default function useCollectionSubjects({
 }) {
   const token = usePanoptesAuthToken()
 
-  const key = collectionId ? { collectionId, page, pageSize } : null
-  return useSWR(
-    key,
-    ({ collectionId, page, pageSize }) => fetchCollectionSubjects({ collectionId, page, pageSize, token }),
-    SWROptions
-  )
+  const key = collectionId ? { collectionId, page, pageSize, token } : null
+  return useSWR(key, fetchCollectionSubjects, SWROptions)
 }
