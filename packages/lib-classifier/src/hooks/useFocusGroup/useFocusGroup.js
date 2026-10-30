@@ -1,56 +1,15 @@
 import { useEffect } from 'react'
 import { FocusGroup, supportsFocusGroup } from '@microsoft/focusgroup-polyfill'
-
-const FOCUSGROUP_ITEM_SELECTOR = 'button:not(:disabled)'
-
-const DEFAULT_DEFINITION = {
-  behavior: null,
-  memory: true
-}
-
-const DEFAULT_WRAP = {
-  none: false,
-  toolbar: false,
-  tablist: true,
-  radiogroup: true,
-  listbox: false,
-  menu: true,
-  menubar: true
-}
-
-const DEFAULT_AXIS = {
-  toolbar: 'inline',
-  tablist: 'inline',
-  listbox: 'block',
-  menu: 'block',
-  menubar: 'inline'
-}
-
-const OWNER_ROLE = {
-  toolbar: 'toolbar',
-  tablist: 'tablist',
-  radiogroup: 'radiogroup',
-  listbox: 'listbox',
-  menu: 'menu',
-  menubar: 'menubar'
-}
-
-const ITEM_ROLE = {
-  tablist: 'tab',
-  radiogroup: 'radio',
-  listbox: 'option',
-  menu: 'menuitem',
-  menubar: 'menuitem'
-}
-
-function getFocusgroupDefinition({ behavior, wrap, axis, memory }) {
-  return [
-    behavior,
-    axis !== DEFAULT_AXIS[behavior] ? axis : null,
-    wrap !== DEFAULT_WRAP[behavior] ? (wrap ? 'wrap' : 'nowrap') : null,
-    memory ? null : 'nomemory'
-  ].filter(Boolean).join(' ')
-}
+import {
+  DEFAULT_AXIS,
+  DEFAULT_DEFINITION,
+  DEFAULT_WRAP,
+  FOCUSGROUP_ITEM_SELECTOR,
+  ITEM_ROLE,
+  OWNER_ROLE,
+  getFocusgroupDefinition,
+  isKeyboardFocusable
+} from './polyfillUtils'
 
 export default function useFocusGroup(ownerRef, options = {}, enabled = true) {
   const behavior = options.behavior ?? DEFAULT_DEFINITION.behavior
@@ -83,7 +42,9 @@ export default function useFocusGroup(ownerRef, options = {}, enabled = true) {
     }
     if (!owner.focusGroup) owner.focusGroup = focusgroupDefinition
 
+    const originalTabIndexes = new WeakMap()
     const items = () => Array.from(owner.querySelectorAll(FOCUSGROUP_ITEM_SELECTOR))
+      .filter(item => isKeyboardFocusable(item, owner, originalTabIndexes))
     const applyItemRoles = () => {
       if (!nativeFocusGroup && ITEM_ROLE[behavior]) {
         items().forEach(item => {
@@ -98,7 +59,7 @@ export default function useFocusGroup(ownerRef, options = {}, enabled = true) {
     const useNativeFocusGroup = nativeFocusGroup || behavior === 'none'
     let focusGroup
     if (!useNativeFocusGroup) {
-      // Avoid the polyfill's tabindex observer because Grommet Layers temporarily
+      // Avoid the Microsoftpolyfill's tabindex observer because Grommet Layers temporarily
       // rewrite tabindex across the page and can break roving focus when closed.
       const itemCollection = {
         items: () => items().map(element => ({ element })),
@@ -127,7 +88,7 @@ export default function useFocusGroup(ownerRef, options = {}, enabled = true) {
     })
     observer.observe(owner, {
       attributes: true,
-      attributeFilter: ['disabled'],
+      attributeFilter: ['class', 'disabled', 'hidden', 'inert', 'style'],
       childList: true,
       subtree: true
     })
