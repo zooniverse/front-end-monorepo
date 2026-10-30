@@ -81,7 +81,7 @@ export default function useFocusGroup(ownerRef, options = {}, enabled = true) {
     }
     if (!owner.focusGroup) owner.focusGroup = focusgroupDefinition
 
-    const items = () => Array.from(owner.querySelectorAll('button'))
+    const items = () => Array.from(owner.querySelectorAll('button:not(:disabled)'))
     const applyItemRoles = () => {
       if (!nativeFocusGroup && ITEM_ROLE[behavior]) {
         items().forEach(item => item.setAttribute('role', ITEM_ROLE[behavior]))
@@ -119,7 +119,12 @@ export default function useFocusGroup(ownerRef, options = {}, enabled = true) {
       applyItemRoles()
       focusGroup?.update()
     })
-    observer.observe(owner, { childList: true, subtree: true })
+    observer.observe(owner, {
+      attributes: true,
+      attributeFilter: ['disabled'],
+      childList: true,
+      subtree: true
+    })
     return () => {
       observer.disconnect()
       focusGroup?.disconnect()
