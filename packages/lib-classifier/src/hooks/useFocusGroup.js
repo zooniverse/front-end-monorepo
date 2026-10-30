@@ -1,7 +1,18 @@
 import { useEffect } from 'react'
 import { FocusGroup, supportsFocusGroup } from '@microsoft/focusgroup-polyfill'
 
-const FOCUSGROUP_ITEM_SELECTOR = 'button:not(:disabled)'
+const FOCUSGROUP_ITEM_SELECTOR = [
+  'a',
+  'area',
+  'audio[controls]',
+  'button',
+  'input',
+  'select',
+  'textarea',
+  'video[controls]',
+  '[contenteditable]',
+  '[tabindex]'
+].join(', ')
 
 const DEFAULT_DEFINITION = {
   behavior: null,
@@ -52,6 +63,38 @@ function getFocusgroupDefinition({ behavior, wrap, axis, memory }) {
   ].filter(Boolean).join(' ')
 }
 
+function isVisible(element, owner) {
+  if (typeof element.checkVisibility === 'function') {
+    return element.checkVisibility({
+      visibilityProperty: true,
+      contentVisibilityAuto: true
+    })
+  }
+
+  for (let ancestor = element; ancestor; ancestor = ancestor.parentElement) {
+    const { display, visibility, contentVisibility } = window.getComputedStyle(ancestor)
+    if (display === 'none' || ['hidden', 'collapse'].includes(visibility) || contentVisibility === 'hidden') {
+      return false
+    }
+    if (ancestor === owner) break
+  }
+
+  return true
+}
+
+function isKeyboardFocusable(element, owner, originalTabIndexes) {
+  if (!originalTabIndexes.has(element)) originalTabIndexes.set(element, element.tabIndex)
+  const tabIndex = originalTabIndexes.get(element)
+  const isContentEditable = element.isContentEditable
+  const isControlledMedia = element.matches(':is(audio, video)[controls]')
+  const focusable = isContentEditable || isControlledMedia || tabIndex > -1
+  const excluded = element.disabled || element.hasAttribute('disabled') ||
+    element.matches(':is(a, area):not([href])') || element.inert ||
+    element.matches(':is(audio, video):not([controls])') || !isVisible(element, owner)
+
+  return focusable && !excluded
+}
+
 export default function useFocusGroup(ownerRef, options = {}, enabled = true) {
   const behavior = options.behavior ?? DEFAULT_DEFINITION.behavior
   const definition = {
@@ -83,7 +126,9 @@ export default function useFocusGroup(ownerRef, options = {}, enabled = true) {
     }
     if (!owner.focusGroup) owner.focusGroup = focusgroupDefinition
 
+    const originalTabIndexes = new WeakMap()
     const items = () => Array.from(owner.querySelectorAll(FOCUSGROUP_ITEM_SELECTOR))
+      .filter(item => isKeyboardFocusable(item, owner, originalTabIndexes))
     const applyItemRoles = () => {
       if (!nativeFocusGroup && ITEM_ROLE[behavior]) {
         items().forEach(item => {
@@ -127,7 +172,7 @@ export default function useFocusGroup(ownerRef, options = {}, enabled = true) {
     })
     observer.observe(owner, {
       attributes: true,
-      attributeFilter: ['disabled'],
+      attributeFilter: ['class', 'disabled', 'hidden', 'inert', 'style'],
       childList: true,
       subtree: true
     })
