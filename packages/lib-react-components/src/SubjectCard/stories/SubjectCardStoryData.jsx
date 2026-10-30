@@ -458,7 +458,10 @@ export function StoryRow({
 export function InteractiveStory({
   isCover = false,
   login,
+  onSelect = null,
   onSetCover = null,
+  selectable = false,
+  selected = false,
   subject
 }) {
   const projectSlug = 'team/example-project'
@@ -470,9 +473,12 @@ export function InteractiveStory({
         interactive={true}
         isCover={isCover}
         login={login}
+        onSelect={onSelect}
         onSetCover={onSetCover}
         projectId={subject.links.project}
         projectSlug={projectSlug}
+        selectable={selectable}
+        selected={selected}
         subject={subject}
         userId={userId}
       />
