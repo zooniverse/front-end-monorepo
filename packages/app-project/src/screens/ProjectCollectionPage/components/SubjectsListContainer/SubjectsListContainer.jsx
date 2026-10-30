@@ -2,17 +2,23 @@ import { Box, Button, Paragraph, ResponsiveContext } from 'grommet'
 import { useSearchParams } from 'next/navigation'
 import { parseAsInteger, useQueryState } from 'nuqs'
 import { bool, shape, string } from 'prop-types'
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'next-i18next/pages'
 
 import { SUBJECTS_PAGE_SIZE } from '@helpers/collectionQueryParams'
-import { useCollectionSubjects, useSetCollectionCover } from '@hooks'
+import {
+  useCollectionSubjects,
+  useRemoveCollectionSubjects,
+  useSetCollectionCover
+} from '@hooks'
 import ResultCount from '@shared/components/ResultCount'
 import Pagination from '@shared/components/Pagination'
 
+import SelectionToolbar from '../SelectionToolbar'
 import SubjectsList from '../SubjectsList'
 
 function SubjectsListContainer({
+  canDelete = false,
   collection,
   isOwner = false,
   login,
@@ -24,6 +30,9 @@ function SubjectsListContainer({
   const size = useContext(ResponsiveContext)
   const [page, setUrlPage] = useQueryState('page', parseAsInteger.withDefault(1))
   const searchParams = useSearchParams()
+  const [isSelecting, setIsSelecting] = useState(false)
+  // Selected subject IDs persist across pages.
+  const [selectedIds, setSelectedIds] = useState(() => new Set())
 
   // Clear an invalid page param (negative or non-integer) from the URL
   useEffect(function onMount() {
@@ -60,6 +69,74 @@ function SubjectsListContainer({
     setCover
   } = useSetCollectionCover({ slug: collectionSlug })
 
+  const {
+    error: deleteError,
+    isRemoving,
+    removeSubjects
+  } = useRemoveCollectionSubjects({ collectionId, slug: collectionSlug })
+
+  const pageSubjectIds = subjects.map(subject => subject.id)
+  const allSelected = pageSubjectIds.length > 0 && pageSubjectIds.every(id => selectedIds.has(id))
+
+  function clearSelection() {
+    setSelectedIds(new Set())
+  }
+
+  function exitSelectMode() {
+    clearSelection()
+    setIsSelecting(false)
+  }
+
+  function handleAdd() {
+    window.alert('Coming soon...')
+  }
+
+  function handleToggleSelecting() {
+    if (isSelecting) {
+      exitSelectMode()
+    } else {
+      setIsSelecting(true)
+    }
+  }
+
+  function handleSelect(subject, checked) {
+    setSelectedIds(prevIds => {
+      const nextIds = new Set(prevIds)
+      if (checked) {
+        nextIds.add(subject.id)
+      } else {
+        nextIds.delete(subject.id)
+      }
+      return nextIds
+    })
+  }
+
+  // Select all only applies to the current page
+  function handleSelectAll(checked) {
+    setSelectedIds(prevIds => {
+      const nextIds = new Set(prevIds)
+      pageSubjectIds.forEach(id => checked ? nextIds.add(id) : nextIds.delete(id))
+      return nextIds
+    })
+  }
+
+  async function handleDelete() {
+    if (isRemoving) return
+
+    const confirmed = window.confirm(`Are you sure you want to remove ${selectedIds.size} subjects from this collection?`)
+    if (!confirmed) return
+
+    const idsToDelete = [...selectedIds]
+    const success = await removeSubjects(idsToDelete)
+    if (success) {
+      exitSelectMode()
+      const remainingPageCount = Math.max(1, Math.ceil((count - idsToDelete.length) / SUBJECTS_PAGE_SIZE))
+      if (page > remainingPageCount) {
+        setUrlPage(remainingPageCount)
+      }
+    }
+  }
+
   if (error) {
     return (
       <Box
@@ -90,10 +167,6 @@ function SubjectsListContainer({
     setCover(subject.id)
   }
 
-  function onSelectSubjects() {
-    window.alert('Select Subjects coming soon...')
-  }
-
   const pagination = pageCount > 1 ? (
     <Pagination
       pageCount={pageCount}
@@ -112,10 +185,16 @@ function SubjectsListContainer({
           gap='small'
           justify='between'
         >
-          <Button
-            label={t('Collection.selectSubjects')}
-            onClick={onSelectSubjects}
-            size='small'
+          <SelectionToolbar
+            allSelected={allSelected}
+            canAdd={!!userId}
+            canDelete={canDelete}
+            isSelecting={isSelecting}
+            onAdd={handleAdd}
+            onDelete={handleDelete}
+            onSelectAll={handleSelectAll}
+            onToggleSelecting={handleToggleSelecting}
+            selectedCount={selectedIds.size}
           />
           <ResultCount
             count={count}
@@ -130,14 +209,22 @@ function SubjectsListContainer({
             {t('Collection.setCoverError')}
           </Paragraph>
         ) : null}
+        {deleteError ? (
+          <Paragraph margin='none' role='alert'>
+            {t('Collection.deleteError')}
+          </Paragraph>
+        ) : null}
         <SubjectsList
           defaultSubjectSrc={isOwner ? defaultSubjectSrc : undefined}
           isLoading={isLoading || isValidating}
           isSettingCover={isSettingCover}
           login={login}
-          onSetCover={isOwner ? handleSetCover : null}
+          onSelect={handleSelect}
+          onSetCover={isOwner && !isSelecting ? handleSetCover : null}
           projectId={projectId}
           projectSlug={projectSlug}
+          selectable={isSelecting}
+          selectedIds={selectedIds}
           subjects={subjects}
           userId={userId}
         />
@@ -148,6 +235,7 @@ function SubjectsListContainer({
 }
 
 SubjectsListContainer.propTypes = {
+  canDelete: bool,
   collection: shape({
     default_subject_src: string,
     id: string,
