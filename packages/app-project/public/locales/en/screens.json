@@ -113,6 +113,7 @@
     },
     "addToCollection": "Add to Collection",
     "delete": "Delete",
+    "deleteError": "The subjects could not be deleted. Please try again.",
     "emptySubjects": "No subjects in this collection.",
     "linkedToProjectCollections": "Linked to <projectLink>{{projectName}}</projectLink> collections",
     "notFound": "There was an error retrieving this collection.",
