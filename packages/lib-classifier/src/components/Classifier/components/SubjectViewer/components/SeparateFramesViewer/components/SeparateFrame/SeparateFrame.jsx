@@ -1,6 +1,7 @@
 import { Box } from 'grommet'
 import PropTypes from 'prop-types'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { polyfill } from '@microsoft/focusgroup-polyfill'
 import { useStores, useSubjectImageOrVideo } from '@hooks'
 import { defaultKeyMappings } from '../../../../../../../../hooks/useKeyZoom'
 import SingleImageViewer from '../../../SingleImageViewer/SingleImageViewer'
@@ -34,6 +35,7 @@ const SeparateFrame = ({
   onReady = DEFAULT_HANDLER,
   subject
 }) => {
+  const menubar = useRef(null)
   const mediaType = subject?.locations?.[frame]?.type
   const { media, mediaElementRef, loading, error } = useSubjectImageOrVideo({
     src: frameUrl,
@@ -53,6 +55,17 @@ const SeparateFrame = ({
   const [onZoom, setOnZoomState] = useState(DEFAULT_HANDLER)
   const [separateFrameAnnotate, setSeparateFrameAnnotate] = useState(true)
   const [separateFrameMove, setSeparateFrameMove] = useState(false)
+
+  useEffect(function addFocusGroup() {
+    if (!menubar.current) return
+    menubar.current.setAttribute('focusgroup', 'menubar block')
+    menubar.current.setAttribute('aria-orientation', 'vertical')
+    // polyfill focusgroup in Safari, Firefox and Edge.
+    polyfill(menubar.current)
+    if (!menubar.current.focusGroup) {
+      menubar.current.focusGroup = 'menubar block'
+    }
+  }, [])
 
   /** Image Viewer actions */
   const handleSetOnPan = useCallback((fn) => {
@@ -157,6 +170,7 @@ const SeparateFrame = ({
           subject={subject}
         />
         <Box
+          ref={menubar}
           background={{
             dark: 'dark-3',
             light: 'white'

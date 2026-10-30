@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@babel/runtime": "~7.28.4",
+    "@microsoft/focusgroup-polyfill": "^1.6.0",
     "@sentry/browser": "~10.12.0",
     "@turf/boolean-within": "^7.4.0",
     "@turf/buffer": "^7.4.0",

@@ -1,4 +1,5 @@
-import { render, screen } from '@testing-library/react'
+import { act, render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { composeStory } from '@storybook/react'
 import { Provider } from 'mobx-react'
 import mockStore from '@test/mockStore/mockStore.js'
@@ -45,6 +46,42 @@ const taskTypes = [
 ]
 
 describe('Component > ImageToolbar', function () {
+  it('should set up a vertical menubar focusgroup', async function () {
+    const store = mockStore()
+
+    render(
+      <Provider classifierStore={store}>
+        <ImageToolbar />
+      </Provider>
+    )
+
+    const menubar = await screen.findByRole('menubar')
+    expect(menubar).to.have.attribute('aria-orientation', 'vertical')
+    expect(menubar.focusGroup).to.equal('menubar block')
+  })
+
+  it('should not pan the image when navigating toolbar buttons', async function () {
+    const panCalls = []
+    const store = mockStore()
+    store.subjectViewer.setOnPan((...args) => panCalls.push(args))
+
+    render(
+      <Provider classifierStore={store}>
+        <ImageToolbar />
+      </Provider>
+    )
+
+    const menubar = await screen.findByRole('menubar')
+    const user = userEvent.setup()
+    await act(async () => {
+      screen.getByLabelText('Zoom in on subject').focus()
+      await user.keyboard('{ArrowDown}')
+    })
+
+    expect(panCalls).to.have.lengthOf(0)
+    expect(menubar).to.have.attribute('aria-orientation', 'vertical')
+  })
+
   taskTypes.forEach(task => {
     const withOrWithout = task.annotateShow ? 'with' : 'without'
 
