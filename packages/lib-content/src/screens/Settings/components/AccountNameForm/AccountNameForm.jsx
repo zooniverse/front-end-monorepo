@@ -112,8 +112,11 @@ function AccountNameForm ({
 
   // If a FETCH or SAVE operation is ongoing, don't let
   // other operations trigger.
-  const isBusy = isLoading || isValidating || isSaving
+  const isBusy = isLoading || isSaving
   const disableInput = isBusy || !user
+  // ⚠️ Note: isBusy does NOT check for isValidating. isValidating can trigger
+  // in a semi-unpredictable manner, so if we factored that in, users could
+  // see the UI "stop working" randomly.
 
   const loadErrorMessage = loadError?.toString() || (loadError && 'Unknown error')
   const saveErrorMessage = saveError?.errors?.[0]?.message || saveError?.toString() || (saveError && 'Unknown error')
