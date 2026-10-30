@@ -70,4 +70,5 @@ describe('Component > SeparateFrame', function () {
     await act(async () => user.keyboard('{ }'))
     expect(rotationTransform).to.have.attribute('transform', 'rotate(-180 400 300)')
   })
+
 })
