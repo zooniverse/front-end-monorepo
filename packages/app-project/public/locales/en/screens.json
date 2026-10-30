@@ -93,7 +93,7 @@
     "sortOptions": {
       "alphabeticalAscending": "Alphabetical A-Z",
       "alphabeticalDescending": "Alphabetical Z-A",
-      "recentlyAdded": "Recently added to",
+      "recentlyUpdated": "Recently updated",
       "recentlyCreated": "Recently created"
     },
     "tabs": {
