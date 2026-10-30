@@ -1,6 +1,7 @@
-import { Anchor, Box, Text } from 'grommet'
+import { Anchor, Box, ResponsiveContext, Text } from 'grommet'
 import { Trans, useTranslation } from 'next-i18next/pages'
 import { shape, string } from 'prop-types'
+import { useContext } from 'react'
 import styled from 'styled-components'
 
 import addQueryParams from '@helpers/addQueryParams'
@@ -22,6 +23,8 @@ const StyledCollectionsLink = styled(Anchor)`
 
 function UserHeader({ collection, projectSlug }) {
   const { t } = useTranslation('screens')
+  const size = useContext(ResponsiveContext)
+
   const ownerId = collection?.links?.owner?.id
   
   const { data: users, isLoading, error } = usePanoptesUsers(ownerId ? { id: ownerId } : null)
@@ -37,6 +40,7 @@ function UserHeader({ collection, projectSlug }) {
   return (
     <Box
       align='center'
+      alignSelf={size === 'small' ? 'center' : undefined}
       direction='row'
       justify='between'
       gap='medium'
@@ -67,20 +71,22 @@ function UserHeader({ collection, projectSlug }) {
           </Text>
         </Box>
       </StyledOwnerLink>
-      <Trans
-        components={{
-          collectionsLink: (
-            <StyledCollectionsLink
-              color={{ dark: 'accent-1', light: 'neutral-1' }}
-              href={addQueryParams(`/collections/${owner.login}`)}
-              size='1rem'
-            />
-          )
-        }}
-        i18nKey='Collection.seeAllOwnerCollections'
-        ns='screens'
-        values={{ displayName: owner.display_name }}
-      />
+      {size !== 'small' ? (
+        <Trans
+          components={{
+            collectionsLink: (
+              <StyledCollectionsLink
+                color={{ dark: 'accent-1', light: 'neutral-1' }}
+                href={addQueryParams(`/collections/${owner.login}`)}
+                size='1rem'
+              />
+            )
+          }}
+          i18nKey='Collection.seeAllOwnerCollections'
+          ns='screens'
+          values={{ displayName: owner.display_name }}
+        />
+      ) : null}
     </Box>
   )
 }

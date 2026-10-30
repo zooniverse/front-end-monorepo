@@ -1,8 +1,8 @@
-import { Box, Button, Paragraph } from 'grommet'
+import { Box, Button, Paragraph, ResponsiveContext } from 'grommet'
 import { useSearchParams } from 'next/navigation'
 import { parseAsInteger, useQueryState } from 'nuqs'
 import { string } from 'prop-types'
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import { useTranslation } from 'next-i18next/pages'
 
 import { SUBJECTS_PAGE_SIZE } from '@helpers/collectionQueryParams'
@@ -20,6 +20,7 @@ function SubjectsListContainer({
   userId
 }) {
   const { t } = useTranslation('screens')
+  const size = useContext(ResponsiveContext)
   const [page, setUrlPage] = useQueryState('page', parseAsInteger.withDefault(1))
   const searchParams = useSearchParams()
 
@@ -85,20 +86,21 @@ function SubjectsListContainer({
       <Box gap='small'>
         <Box
           align='center'
-          direction='row' 
+          direction={size === 'small' ? 'column' : 'row-reverse'}
+          gap='small'
           justify='between'
         >
+          <Button
+            label={t('Collection.selectSubjects')}
+            onClick={onSelectSubjects}
+            size='small'
+          />
           <ResultCount
             count={count}
             i18nKey='Collection.resultsCount'
             isLoading={isLoading || isValidating}
             page={page}
             pageSize={SUBJECTS_PAGE_SIZE}
-          />
-          <Button
-            label={t('Collection.selectSubjects')}
-            onClick={onSelectSubjects}
-            size='small'
           />
         </Box>
         <SubjectsList
