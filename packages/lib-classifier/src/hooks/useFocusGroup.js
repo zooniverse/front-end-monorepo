@@ -76,7 +76,7 @@ export default function useFocusGroup(ownerRef, options = {}, enabled = true) {
         owner.removeAttribute('aria-orientation')
       }
     }
-    if (!nativeFocusGroup && OWNER_ROLE[behavior]) {
+    if (!nativeFocusGroup && OWNER_ROLE[behavior] && !owner.hasAttribute('role')) {
       owner.setAttribute('role', OWNER_ROLE[behavior])
     }
     if (!owner.focusGroup) owner.focusGroup = focusgroupDefinition
@@ -84,7 +84,9 @@ export default function useFocusGroup(ownerRef, options = {}, enabled = true) {
     const items = () => Array.from(owner.querySelectorAll('button:not(:disabled)'))
     const applyItemRoles = () => {
       if (!nativeFocusGroup && ITEM_ROLE[behavior]) {
-        items().forEach(item => item.setAttribute('role', ITEM_ROLE[behavior]))
+        items().forEach(item => {
+          if (!item.hasAttribute('role')) item.setAttribute('role', ITEM_ROLE[behavior])
+        })
       }
     }
     applyItemRoles()
@@ -110,7 +112,9 @@ export default function useFocusGroup(ownerRef, options = {}, enabled = true) {
       focusGroup = new FocusGroup(owner, itemCollection, {
         definition: { behavior, wrap, axis, memory },
         decorateItem: (item, itemBehavior) => {
-          if (ITEM_ROLE[itemBehavior]) item.setAttribute('role', ITEM_ROLE[itemBehavior])
+          if (ITEM_ROLE[itemBehavior] && !item.hasAttribute('role')) {
+            item.setAttribute('role', ITEM_ROLE[itemBehavior])
+          }
         }
       })
     }
