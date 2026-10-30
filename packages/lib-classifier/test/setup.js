@@ -103,3 +103,7 @@ global.navigator = {
 window.cancelAnimationFrame = () => true // Required for '@visx'
 
 copyProps(window, global)
+// The focusgroup polyfill passes an AbortSignal to jsdom event listeners.
+// Use jsdom's AbortController so the signal belongs to the same realm as the DOM.
+global.AbortController = window.AbortController
+global.AbortSignal = window.AbortSignal

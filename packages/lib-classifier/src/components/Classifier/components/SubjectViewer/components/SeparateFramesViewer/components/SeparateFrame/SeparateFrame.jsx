@@ -1,7 +1,7 @@
 import { Box } from 'grommet'
 import PropTypes from 'prop-types'
-import { useCallback, useState } from 'react'
-import { useStores, useSubjectImageOrVideo } from '@hooks'
+import { useCallback, useRef, useState } from 'react'
+import { useFocusGroup, useStores, useSubjectImageOrVideo } from '@hooks'
 import { defaultKeyMappings } from '../../../../../../../../hooks/useKeyZoom'
 import SingleImageViewer from '../../../SingleImageViewer/SingleImageViewer'
 import {
@@ -34,6 +34,7 @@ const SeparateFrame = ({
   onReady = DEFAULT_HANDLER,
   subject
 }) => {
+  const menubar = useRef(null)
   const mediaType = subject?.locations?.[frame]?.type
   const { media, mediaElementRef, loading, error } = useSubjectImageOrVideo({
     src: frameUrl,
@@ -53,6 +54,10 @@ const SeparateFrame = ({
   const [onZoom, setOnZoomState] = useState(DEFAULT_HANDLER)
   const [separateFrameAnnotate, setSeparateFrameAnnotate] = useState(true)
   const [separateFrameMove, setSeparateFrameMove] = useState(false)
+
+  useFocusGroup(menubar, {
+    behavior: 'menu'
+  }, mediaType === 'image')
 
   /** Image Viewer actions */
   const handleSetOnPan = useCallback((fn) => {
@@ -157,6 +162,7 @@ const SeparateFrame = ({
           subject={subject}
         />
         <Box
+          ref={menubar}
           background={{
             dark: 'dark-3',
             light: 'white'
