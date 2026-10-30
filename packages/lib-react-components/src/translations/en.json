@@ -114,6 +114,7 @@
   "SubjectCard": {
     "collectionCover": "Collection Cover",
     "linkTitle": "{{subjectId}} Talk page",
+    "selectSubject": "Select {{subjectId}}",
     "setAsCollectionCover": "Set as Collection Cover",
     "subjectId": "Subject {{id}}",
     "FlipbookControls": {

@@ -14,9 +14,12 @@ A preview card for subjects.
 
 - `interactive` (boolean): Whether the card has interactive media or not.
 - `login` (string): The login of the current user for enabling favorite action.
+- `onSelect` (function): Called with `(subject, checked)` when the select checkbox changes.
 - `placeholder` (node): Placeholder passed to `Media`.
 - `projectId` (string): Project ID used for favoriting and collecting the subject.
 - `projectSlug` (string, required): Project slug used to build subject talk URL.
+- `selectable` (boolean): Shows the select checkbox.
+- `selected` (boolean): Whether the card is selected.
 - `size` (string): One of `large`, `medium`, or `small`.
 - `subject` (object): Subject resource with `id` and `locations`.
 - `userId` (string): User ID of the current user for enabling collect action.

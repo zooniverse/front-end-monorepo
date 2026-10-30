@@ -10,8 +10,9 @@ import ShareIconButton from '../ShareIconButton'
 import addQueryParams from '../helpers/addQueryParams'
 
 import CollectionCoverBanner from './components/CollectionCoverBanner'
-import SimpleMedia from './components/SimpleMedia'
 import InteractiveMedia from './components/InteractiveMedia'
+import SimpleMedia from './components/SimpleMedia'
+import SubjectCheckbox from './components/SubjectCheckbox'
 
 const INTERACTIVE_WIDTH = 300
 const METATOOLS_HEIGHT = 45
@@ -24,6 +25,13 @@ const StyledSubjectCard = styled(Box)`
   &:focus-within button[data-set-cover] {
     opacity: 1;
   }
+`
+
+const StyledSelectCheckbox = styled(Box)`
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  z-index: 3;
 `
 
 function cardWidth(size) {
@@ -62,10 +70,13 @@ function SubjectCard({
   interactive = false,
   isCover = false,
   login,
+  onSelect = null,
   onSetCover = null,
   placeholder,
   projectId,
   projectSlug,
+  selectable = false,
+  selected = false,
   size = 'large',
   subject = DEFAULT_SUBJECT,
   userId
@@ -119,6 +130,15 @@ function SubjectCard({
         isCover={isCover}
         onSetCover={onSetCover ? () => onSetCover(subject) : null}
       />
+      {selectable ? (
+        <StyledSelectCheckbox>
+          <SubjectCheckbox
+            a11yTitle={t('SubjectCard.selectSubject', { subjectId: subjectIdTitle })}
+            checked={selected}
+            onChange={event => onSelect?.(subject, event.target.checked)}
+          />
+        </StyledSelectCheckbox>
+      ) : null}
       <Box
         align='center'
         background={{ dark: 'dark-3', light: 'white' }}
@@ -152,10 +172,13 @@ SubjectCard.propTypes = {
   interactive: bool,
   isCover: bool,
   login: string,
+  onSelect: func,
   onSetCover: func,
   placeholder: node,
   projectId: string,
   projectSlug: string.isRequired,
+  selectable: bool,
+  selected: bool,
   size: oneOf(['large', 'medium', 'small']),
   subject: shape({
     id: string.isRequired,

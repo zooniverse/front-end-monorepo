@@ -1,9 +1,11 @@
 import { SubjectCard } from '@zooniverse/react-components'
 import { Box } from 'grommet'
-import { arrayOf, bool, func, object, string } from 'prop-types'
+import { arrayOf, bool, func, instanceOf, object, string } from 'prop-types'
 import styled from 'styled-components'
 
 import getCoverSubjectId from '../../helpers/getCoverSubjectId'
+
+const NO_SELECTION = new Set()
 
 const StyledSubjectList = styled.ul`
   position: relative;
@@ -42,9 +44,12 @@ function SubjectsList({
   isLoading = false,
   isSettingCover = false,
   login,
+  onSelect = null,
   onSetCover = null,
   projectId,
   projectSlug,
+  selectable = false,
+  selectedIds = NO_SELECTION,
   subjects = [],
   userId
 }) {
@@ -61,9 +66,12 @@ function SubjectsList({
             interactive={true}
             isCover={subject.id === coverSubjectId}
             login={login}
+            onSelect={onSelect}
             onSetCover={onSetCover}
             projectId={projectId}
             projectSlug={projectSlug}
+            selectable={selectable}
+            selected={selectedIds.has(subject.id)}
             subject={subject}
             userId={userId}
           />
@@ -78,9 +86,12 @@ SubjectsList.propTypes = {
   isLoading: bool,
   isSettingCover: bool,
   login: string,
+  onSelect: func,
   onSetCover: func,
   projectId: string,
   projectSlug: string,
+  selectable: bool,
+  selectedIds: instanceOf(Set),
   subjects: arrayOf(object),
   userId: string
 }
