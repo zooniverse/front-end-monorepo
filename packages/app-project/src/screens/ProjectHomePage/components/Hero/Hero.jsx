@@ -27,7 +27,8 @@ const Relative = styled(Box)`
 
 function useStores() {
   const { store } = useContext(MobXProviderContext)
-  const { organizations, project } = store
+  const { organizations: organizationsMap, project } = store
+  const organizations = Array.from(organizationsMap.values())
 
   const hideNotLaunchApprovedBanner =
     project?.launch_approved ||

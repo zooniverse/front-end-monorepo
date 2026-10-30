@@ -6,7 +6,6 @@ import styled, { css } from 'styled-components'
 import { convertEvent } from '@plugins/drawingTools/components/draggable/draggable'
 import DrawingToolMarks from './components/DrawingToolMarks'
 import TranscribedLines from './components/TranscribedLines'
-import SubTaskPopup from './components/SubTaskPopup'
 import { isInBounds } from './helpers/isInBounds'
 import getFixedNumber from '../../helpers/getFixedNumber'
 
@@ -115,6 +114,11 @@ function InteractionLayer({
   function onFinish(event) {
     event?.preventDefault?.()
     event?.stopPropagation?.()
+    // Cloned marks render in every frame: open the popup from the frame that was drawn on.
+    if (creating) {
+      const markNode = canvasRef.current?.parentNode?.querySelector(`[id="mark-${activeMark.id}"]`)
+      activeMark.setSubTaskVisibility(true, markNode?.getBoundingClientRect())
+    }
     setCreating(false)
 
     /*
@@ -163,10 +167,6 @@ function InteractionLayer({
         onPointerUp={onPointerUp}
       />
       <TranscribedLines />
-      <SubTaskPopup
-        activeMark={activeMark}
-        onDelete={deleteMark}
-      />
       <DrawingToolMarks
         activeMark={activeMark}
         marks={marks}

@@ -5,7 +5,7 @@ import { Box } from 'grommet'
 import WorkflowSelectButton from '../WorkflowSelectButton'
 import useAssignedLevel from '@hooks/useAssignedLevel.js'
 
-function LevelingUpButtons({ assignedWorkflowID = '', workflows = [] }) {
+function LevelingUpButtons({ assignedWorkflowID = '', externalWorkflowEnabled = false, workflows = [] }) {
   const { t } = useTranslation('components')
 
   const assignedWorkflowLevel = useAssignedLevel(assignedWorkflowID, workflows)
@@ -47,7 +47,7 @@ function LevelingUpButtons({ assignedWorkflowID = '', workflows = [] }) {
         <Box as='ul' pad='0' gap='10px' style={{ listStyle: 'none' }}>
           {filteredWorkflowsByLevel.allowed.map(workflow => (
             <li key={workflow.id}>
-              <WorkflowSelectButton workflow={workflow} />
+              <WorkflowSelectButton externalWorkflowEnabled={externalWorkflowEnabled} workflow={workflow} />
             </li>
           ))}
         </Box>
@@ -65,7 +65,7 @@ function LevelingUpButtons({ assignedWorkflowID = '', workflows = [] }) {
         <Box as='ul' pad='0' gap='10px' style={{ listStyle: 'none' }}>
           {filteredWorkflowsByLevel.disallowed.map(workflow => (
             <li key={workflow.id}>
-              <WorkflowSelectButton disabled={true} workflow={workflow} />
+              <WorkflowSelectButton disabled={true} externalWorkflowEnabled={externalWorkflowEnabled} workflow={workflow} />
             </li>
           ))}
         </Box>

@@ -47,7 +47,6 @@ const PFE_SLUGS = [
   'hugo-ferreira/where-is-spoony', // Uses experimental "slider" subtask
   'jenbays/beaver-dams', // CSSI project
   'lcjohnso/lcj-pfe-project', // LCJ PFE Reference Test Project
-  'low-sky/bubblezoo-v1', // Oval drawing tool is a worse experience in FEM
   'mappingprejudice/mapping-prejudice',
   'md68135/diode', // Dependent dropdowns aren't supported in FEM
   'md68135/notes-from-nature-big-bee-bonanza',
@@ -62,6 +61,7 @@ const PFE_SLUGS = [
   'md68135/notes-from-nature-natural-history-at-rom-revealed',
   'meteonetwork/redata',
   'mollysimon/galaxy-zoo-crowdsourcing-activity', // Classrooms
+  'mollysimon/planet-hunters-practice-module', // Classrooms
   'msbrhonclif/science-scribbler-key2cat', // Subject image sizes difficult in FEM's classifier layout
   'msbrhonclif/science-scribbler-placenta-profiles', // Subject image sizes difficult in FEM's classifier layout
   'mschwamb/planet-four', // Uses experimental "fan tool"

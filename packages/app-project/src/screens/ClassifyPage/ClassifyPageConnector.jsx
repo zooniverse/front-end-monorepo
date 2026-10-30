@@ -14,6 +14,7 @@ function useStore(store) {
 
   return {
     appLoadingState,
+    externalWorkflowEnabled: experimental_tools.includes('external workflow'),
     projectPreferences,
     workflowAssignmentEnabled: experimental_tools.includes('workflow assignment')
   }
@@ -23,6 +24,7 @@ function ClassifyPageConnector(props) {
   const { store } = useContext(MobXProviderContext)
   const {
     appLoadingState,
+    externalWorkflowEnabled = false,
     projectPreferences,
     workflowAssignmentEnabled = false
   } = useStore(store)
@@ -34,6 +36,7 @@ function ClassifyPageConnector(props) {
       {...props}
       appLoadingState={appLoadingState}
       assignedWorkflowLevel={assignedWorkflowLevel}
+      externalWorkflowEnabled={externalWorkflowEnabled}
       projectPreferences={projectPreferences}
       workflowAssignmentEnabled={workflowAssignmentEnabled}
     />

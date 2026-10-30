@@ -4,7 +4,7 @@ import { composeStory } from '@storybook/react'
 import { applyRequestHandlers } from 'msw-storybook-addon'
 import nock from 'nock'
 
-import Meta, { Default } from './SubjectPicker.stories'
+import Meta, { Default, SearchAPIError } from './SubjectPicker.stories'
 
 describe('Components > Subject Picker', function () {
   let columnHeadings, displayName, link, subjectSetSearchAPI, tableRows
@@ -77,5 +77,31 @@ describe('Components > Subject Picker', function () {
     expect(link.href).to.equal(
       'https://localhost/projects/test-owner/test-project/classify/workflow/12345'
     )
+  })
+
+  describe('when the subject set search API returns an error', function () {
+    let errorMessage, fetchingMessage
+
+    before(async function () {
+      nock('https://subject-set-search-api.zooniverse.org')
+        .get('/subjects/99999.json')
+        .query(true)
+        .reply(404, { ok: false, error: 'Table not found', status: 404, title: null })
+
+      const ErrorStory = composeStory(SearchAPIError, Meta)
+      await applyRequestHandlers(ErrorStory.parameters.msw)
+      render(<ErrorStory />)
+      errorMessage = await screen.findByRole('status')
+      await within(errorMessage).findByText('SubjectPicker.error')
+      fetchingMessage = screen.queryByText('SubjectPicker.fetching')
+    })
+
+    it('should show an error message', function () {
+      expect(errorMessage.textContent).to.include('SubjectPicker.error')
+    })
+
+    it('should stop showing the loading message', function () {
+      expect(fetchingMessage).to.be.null
+    })
   })
 })

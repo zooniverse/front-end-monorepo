@@ -75,6 +75,29 @@ const { img, error, loading } = useProgressiveImage({ delay: 0, src, onLoad, onE
 return <img src={img.src} alt='This is an example of an image with a placeholder.'/>
 ```
 
+## useRovingTabIndex
+
+Give a tab list a single tab stop with arrow-key navigation, as described in [WebAIM: Tabbed interfaces](https://webaim.org/techniques/tabs/).
+Adds the [`focusgroup`](https://open-ui.org/components/scoped-focusgroup.explainer/) attribute to the tab list, then manages a roving `tabindex` over the enabled tabs in browsers without native `focusgroup` support.
+Pass a ref to the tab list, or a ref to an ancestor plus a selector that finds it.
+
+```jsx
+const tabList = useRef(null)
+useRovingTabIndex(tabList)
+
+return (
+  <Box ref={tabList} direction='row'>
+    <Tab aria-selected={activeTab === 0} onClick={() => setActiveTab(0)} />
+    <Tab aria-selected={activeTab === 1} onClick={() => setActiveTab(1)} />
+  </Box>
+)
+```
+
+```jsx
+const root = useRef(null)
+useRovingTabIndex(root, '[role="tablist"]')
+```
+
 ## useUnreadMessages
 
 Fetch unread messages for a Zooniverse account, using [`useSWR`](https://swr.vercel.app/docs/api).

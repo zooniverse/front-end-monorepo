@@ -14,6 +14,7 @@ const StyledDiv = styled.div`
 
 const mark = {
   id: '',
+  isDragging: false,
   undo: () => true,
   redo: () => true,
   close: () => true

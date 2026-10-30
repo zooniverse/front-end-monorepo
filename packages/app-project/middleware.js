@@ -80,9 +80,11 @@ export function middleware(req, event) {
   /*
     Inject the locale, if present, into url.href.
     Is this a bug in Next.js 13? It used to be handled automatically.
+
+    Add back search params (i.e. ?page=7) to URL with `url.search`.
   */
   if (url.locale) {
-    url.href = `${url.origin}/projects/${url.locale}${url.pathname}`
+    url.href = `${url.origin}/projects/${url.locale}${url.pathname}${url.search}`
   }
 
   return NextResponse.rewrite(url)

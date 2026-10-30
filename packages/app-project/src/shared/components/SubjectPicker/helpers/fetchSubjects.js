@@ -14,6 +14,9 @@ export default async function fetchSubjects(
   const url = `${API_HOST}/${subjectSetID}.json?${query}&${sortOrderParam}=${sortField}`
   const mode = 'cors'
   const response = await fetch(url, { mode })
+  if (!response.ok) {
+    throw new Error(`Subject set search API returned ${response.status} for subject set ${subjectSetID}`)
+  }
   const { columns, rows } = await response.json()
   const subjects = rows.map(row => {
     const subject = {}

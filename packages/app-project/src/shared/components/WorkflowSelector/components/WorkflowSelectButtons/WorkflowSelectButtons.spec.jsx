@@ -51,6 +51,47 @@ describe('Component > WorkflowSelector > WorkflowSelectorButtons', function () {
     })
   })
 
+  describe('when the project has external workflows', function () {
+    const externalWorkflow = {
+      completeness: 0,
+      configuration: {
+        external_workflow_url: 'https://example.org/cfe'
+      },
+      displayName: 'external workflow',
+      id: '4'
+    }
+
+    it('should label the external workflow and keep it linked to the classify page', function () {
+      const { getAllByRole, getByText } = render(
+        <RouterContext.Provider value={mockRouter}>
+          <WorkflowSelectButtons externalWorkflowEnabled workflows={[...workflows, externalWorkflow]} />
+        </RouterContext.Provider>
+      )
+      const status = getByText(/WorkflowSelector.WorkflowSelectButton.externalWorkflow/)
+      const link = getAllByRole('link').find(el => el.contains(status))
+      expect(link.getAttribute('href')).to.equal('/zooniverse/snapshot-serengeti/classify/workflow/4')
+    })
+
+    it('should not label anything when the external workflow tool is not enabled', function () {
+      const { queryByText } = render(
+        <RouterContext.Provider value={mockRouter}>
+          <WorkflowSelectButtons workflows={[...workflows, externalWorkflow]} />
+        </RouterContext.Provider>
+      )
+      expect(queryByText(/WorkflowSelector.WorkflowSelectButton.externalWorkflow/)).to.equal(null)
+    })
+
+    it('should treat a whitespace-only url as unset', function () {
+      const workflow = { ...externalWorkflow, configuration: { external_workflow_url: '   ' } }
+      const { queryByText } = render(
+        <RouterContext.Provider value={mockRouter}>
+          <WorkflowSelectButtons externalWorkflowEnabled workflows={[...workflows, workflow]} />
+        </RouterContext.Provider>
+      )
+      expect(queryByText(/WorkflowSelector.WorkflowSelectButton.externalWorkflow/)).to.equal(null)
+    })
+  })
+
   describe('when workflow assignment is enabled', function () {
     describe('when there is an assigned workflow', function () {
       it('should only render links for unlocked workflows', function () {
@@ -81,7 +122,6 @@ describe('Component > WorkflowSelector > WorkflowSelectorButtons', function () {
         )
         expect(getByRole('link', { href: '/projects/undefined/undefined/classify/workflow/1' })).toBeDefined()
         expect(getAllByRole('link')).to.have.lengthOf(1)
-
       })
 
       it('should render other workflows as just text', function () {

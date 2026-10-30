@@ -11,6 +11,7 @@ function useStores(mockStore) {
     uppLoaded: store.user.personalization.projectPreferences.isLoaded,
     uppSettings: store.user.personalization.projectPreferences.settings,
     userReadyState: store.user.loadingState,
+    externalWorkflowEnabled: store.project.experimental_tools.includes('external workflow'),
     workflowAssignmentEnabled: store.project.experimental_tools.includes('workflow assignment'),
     workflowDescription: store.project.workflow_description
   }
@@ -18,6 +19,7 @@ function useStores(mockStore) {
 
 function WorkflowSelectorConnector({ mockStore, ...props }) {
   const {
+    externalWorkflowEnabled = false,
     uppLoaded,
     uppSettings,
     userReadyState,
@@ -28,6 +30,7 @@ function WorkflowSelectorConnector({ mockStore, ...props }) {
   return (
     <WorkflowSelector
       assignedWorkflowID={assignedWorkflowID}
+      externalWorkflowEnabled={externalWorkflowEnabled}
       uppLoaded={uppLoaded}
       userReadyState={userReadyState}
       workflowAssignmentEnabled={workflowAssignmentEnabled}

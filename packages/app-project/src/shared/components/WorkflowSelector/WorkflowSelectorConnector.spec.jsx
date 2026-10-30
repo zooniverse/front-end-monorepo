@@ -1,70 +1,69 @@
-// Old enzyme tests are here for reference, but we no longer use enzyme in this library (Aug '25)
-describe.skip('Component > WorkflowSelector > WorkflowSelectorConnector', function () {})
+import asyncStates from '@zooniverse/async-states'
+import { render } from '@testing-library/react'
+import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime'
 
-// import WorkflowSelectorConnector from './WorkflowSelectorConnector'
-// import WorkflowSelector from './WorkflowSelector'
+import WorkflowSelectorConnector from './WorkflowSelectorConnector'
 
-// describe('Component > Hero > WorkflowSelector > WorkflowSelectorConnector', function () {
-//   const WORKFLOW_DESCRIPTION = 'Sit nulla mi metus tellus aenean lobortis litora'
-//   let wrapper, mockStore, componentWrapper, workflows
+describe('Component > WorkflowSelector > WorkflowSelectorConnector', function () {
+  const mockRouter = {
+    asPath: '/zooniverse/snapshot-serengeti',
+    basePath: '/projects',
+    locale: 'en',
+    push() {},
+    prefetch: () => new Promise((resolve, reject) => {}),
+    query: {
+      owner: 'zooniverse',
+      project: 'snapshot-serengeti'
+    }
+  }
 
-//   before(function () {
-//     mockStore = {
-//       store: {
-//         project: {
-//           experimental_tools: [],
-//           workflow_description: WORKFLOW_DESCRIPTION
-//         },
-//         user: {
-//           loadingState: 'success',
-//           personalization: {
-//             projectPreferences: {
-//               isLoaded: true,
-//               settings: { workflow_id: '5' }
-//             }
-//           }
-//         }
-//       }
-//     }
-//     workflows = [{ id: '5' }]
-//     wrapper = shallow(
-//       <WorkflowSelectorConnector
-//         mockStore={mockStore.store}
-//         workflows={workflows}
-//       />
-//     )
-//     componentWrapper = wrapper.find(WorkflowSelector)
-//   })
+  const workflows = [
+    {
+      completeness: 0,
+      configuration: {
+        external_workflow_url: 'https://example.org/cfe'
+      },
+      displayName: 'External Workflow',
+      id: '32842'
+    }
+  ]
 
-//   it('should render without crashing', function () {
-//     expect(wrapper).to.be.ok()
-//   })
+  function buildStore(experimental_tools) {
+    return {
+      project: {
+        experimental_tools,
+        workflow_description: 'Pick a workflow'
+      },
+      user: {
+        loadingState: asyncStates.success,
+        personalization: {
+          projectPreferences: {
+            isLoaded: true,
+            settings: {}
+          }
+        }
+      }
+    }
+  }
 
-//   it('should render the `WorkflowSelector` component', function () {
-//     expect(componentWrapper).to.have.lengthOf(1)
-//   })
+  function renderConnector(experimental_tools) {
+    return render(
+      <RouterContext.Provider value={mockRouter}>
+        <WorkflowSelectorConnector
+          mockStore={buildStore(experimental_tools)}
+          workflows={workflows}
+        />
+      </RouterContext.Provider>
+    )
+  }
 
-//   it('should pass down the `workflowDescription`', function () {
-//     expect(componentWrapper.prop('workflowDescription')).to.equal(WORKFLOW_DESCRIPTION)
-//   })
+  it('should derive externalWorkflowEnabled from the external workflow experimental tool', function () {
+    const { queryByText } = renderConnector(['external workflow'])
+    expect(queryByText(/WorkflowSelector.WorkflowSelectButton.externalWorkflow/)).to.not.equal(null)
+  })
 
-//   it('should pass down the user loading state', function () {
-//     expect(componentWrapper.prop('userReadyState')).to.equal('success')
-//   })
-
-//   it('should pass down the user project preferences isLoaded state', function () {
-//     expect(componentWrapper.prop('uppLoaded')).to.be.true()
-//   })
-
-//   it('should pass down the assigned workflow id', function () {
-//     expect(componentWrapper.prop('assignedWorkflowID')).to.equal(mockStore.store.user.personalization.projectPreferences.settings.workflow_id)
-//   })
-
-//   it('should pass down if workflow assignment is enabled for the project', function () {
-//     expect(componentWrapper.prop('workflowAssignmentEnabled')).to.be.false()
-//   })
-
-//   it('should pass down parent props', function () {
-//     expect(componentWrapper.prop('workflows')).to.deep.equal(workflows)
-//   })
-// })
+  it('should not enable external workflows for a project without the tool', function () {
+    const { queryByText } = renderConnector([])
+    expect(queryByText(/WorkflowSelector.WorkflowSelectButton.externalWorkflow/)).to.equal(null)
+  })
+})

@@ -59,6 +59,10 @@
         "title": "There was an error in the classifier :("
       }
     },
+    "ExternalWorkflow": {
+      "button": "Continue to external workflow",
+      "fallback": "This workflow is hosted on an external site. Select the button below to continue there."
+    },
     "RecentSubjects": {
       "title": "Your recent classifications",
       "noSubjects": "The most recent subjects you've classified are shown here."
@@ -75,6 +79,30 @@
       "lastSeven": "Last 7 Days",
       "link": "See more",
       "title": "Your Stats"
+    }
+  },
+  "Collect": {
+    "title": "Collect",
+    "exploreLink": "Explore all Zooniverse collections",
+    "resultsCount": "Showing {{range}} of {{total}} collections",
+    "hideSingleSubject": "Hide collections with only 1 subject",
+    "sortBy": "Sort by:",
+    "sortOptions": {
+      "alphabeticalAscending": "Alphabetical A-Z",
+      "alphabeticalDescending": "Alphabetical Z-A",
+      "recentlyAdded": "Recently added",
+      "recentlyCreated": "Recently created"
+    },
+    "tabs": {
+      "title": "Collection pages",
+      "collections": "Collections",
+      "favorites": "Favorites",
+      "myCollections": "My {{projectName}} Collections",
+      "myFavorites": "My {{projectName}} Favorites"
+    },
+    "placeholders": {
+      "empty": "No collections found.",
+      "error": "There was an error loading collections."
     }
   },
   "ProjectStats": {
