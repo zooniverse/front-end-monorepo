@@ -54,6 +54,11 @@ global.navigator = {
 }
 copyProps(window, global)
 
+// The focusgroup polyfill passes an AbortSignal to jsdom event listeners.
+// Use jsdom's AbortController so the signal belongs to the same realm as the DOM.
+global.AbortController = window.AbortController
+global.AbortSignal = window.AbortSignal
+
 // Storybook composeStory creates the <I18nextProvider i18n={i18n}> in the
 // unit test env, but we must init the i18n instance here for Vitest.
 beforeAll(async () => {
