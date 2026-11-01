@@ -115,3 +115,97 @@ export function isKeyboardFocusable(element, owner, originalTabIndexes) {
 
   return focusable && !excluded
 }
+
+export function createFocusGroupItemCollection(getEligibleItems) {
+  let decoratedItems = []
+
+  return {
+    decorate() {
+      decoratedItems = getEligibleItems()
+    },
+    items() {
+      return decoratedItems.map(element => ({ element }))
+    },
+    undecorate() {
+      decoratedItems = []
+    },
+    first() {
+      return decoratedItems[0] ?? null
+    },
+    last() {
+      return decoratedItems[decoratedItems.length - 1] ?? null
+    },
+    next(current) {
+      return decoratedItems[decoratedItems.indexOf(current) + 1] ?? null
+    },
+    previous(current) {
+      return decoratedItems[decoratedItems.indexOf(current) - 1] ?? null
+    },
+    contains(element) {
+      return decoratedItems.includes(element)
+    }
+  }
+}
+
+export function createAttributeManager(element) {
+  const originalAttributes = new Map()
+
+  function set(name, value) {
+    if (!originalAttributes.has(name)) {
+      originalAttributes.set(name, {
+        present: element.hasAttribute(name),
+        value: element.getAttribute(name),
+        appliedValue: value
+      })
+    } else {
+      originalAttributes.get(name).appliedValue = value
+    }
+
+    if (value === null) element.removeAttribute(name)
+    else element.setAttribute(name, value)
+  }
+
+  function restore(name) {
+    const original = originalAttributes.get(name)
+    if (!original) return
+
+    const stillApplied = original.appliedValue === null
+      ? !element.hasAttribute(name)
+      : element.getAttribute(name) === original.appliedValue
+
+    if (stillApplied) {
+      if (original.present) element.setAttribute(name, original.value)
+      else element.removeAttribute(name)
+    }
+    originalAttributes.delete(name)
+  }
+
+  return {
+    set,
+    restore,
+    restoreAll() {
+      Array.from(originalAttributes.keys()).forEach(restore)
+    }
+  }
+}
+
+export function createRoleDecorator(roles) {
+  const inferredRoles = new WeakMap()
+
+  return function decorateRole(element, behavior) {
+    const role = roles[behavior]
+    if (role && !element.hasAttribute('role')) {
+      element.setAttribute('role', role)
+      inferredRoles.set(element, role)
+      return
+    }
+
+    if (!behavior) {
+      const inferredRole = inferredRoles.get(element)
+      if (inferredRole && element.getAttribute('role') === inferredRole) {
+        element.removeAttribute('role')
+      }
+      inferredRoles.delete(element)
+    }
+  }
+}
