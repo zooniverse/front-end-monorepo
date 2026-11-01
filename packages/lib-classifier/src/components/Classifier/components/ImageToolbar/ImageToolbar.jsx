@@ -1,6 +1,5 @@
 import { Box } from 'grommet'
 import { observer } from 'mobx-react'
-import { useRef } from 'react'
 
 import FieldGuide from '../FieldGuide'
 import AnnotateButton from './components/AnnotateButton'
@@ -21,11 +20,10 @@ function storeMapper(classifierStore) {
 
 // Generalized ...props here are css rules from the page layout
 function ImageToolbar (props) {
-  const menubar = useRef(null)
-  const { hasAnnotateTask } = useStores(storeMapper)
-  useFocusGroup(menubar, {
+  const menubar = useFocusGroup({
     behavior: 'menu',
   })
+  const { hasAnnotateTask } = useStores(storeMapper)
 
   return (
     <Box

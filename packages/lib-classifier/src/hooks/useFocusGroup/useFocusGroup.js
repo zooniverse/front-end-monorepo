@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { FocusGroup, supportsFocusGroup } from '@microsoft/focusgroup-polyfill'
 import {
   DEFAULT_AXIS,
@@ -11,7 +11,9 @@ import {
   isKeyboardFocusable
 } from './polyfillUtils'
 
-export default function useFocusGroup(ownerRef, options = {}, enabled = true) {
+export default function useFocusGroup(options = {}, enabled = true) {
+  const [owner, setOwner] = useState(null)
+  const ownerRef = useCallback(node => setOwner(node), [])
   const behavior = options.behavior ?? DEFAULT_DEFINITION.behavior
   const definition = {
     ...DEFAULT_DEFINITION,
@@ -25,7 +27,6 @@ export default function useFocusGroup(ownerRef, options = {}, enabled = true) {
 
   useEffect(function addFocusGroup() {
     if (!enabled) return
-    const owner = ownerRef.current
     if (!owner) return
     const nativeFocusGroup = supportsFocusGroup()
 
@@ -87,5 +88,7 @@ export default function useFocusGroup(ownerRef, options = {}, enabled = true) {
       observer.disconnect()
       focusGroup?.disconnect()
     }
-  }, [ownerRef, focusgroupDefinition, behavior, wrap, axis, memory, enabled])
+  }, [owner, focusgroupDefinition, behavior, wrap, axis, memory, enabled])
+
+  return ownerRef
 }
