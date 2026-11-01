@@ -18,16 +18,17 @@ const [rect, ref] = useClientRect()
 
 ## useFocusGroup
 
-Configure focusgroup keyboard navigation and roving tab stops on a referenced element. The default `behavior` is `null`, which produces an empty `focusgroup` attribute with no keyboard navigation. Set a behavior such as `'menu'` to enable navigation; `wrap` and `axis` then default to that behavior's settings. The explicit `'none'` token opts out of an ancestor focusgroup, and `memory` defaults to `true`. Uses native `focusgroup` support when available, and the Microsoft `focusgroup-polyfill` package otherwise.
+Configure focusgroup keyboard navigation and roving tab stops. Returns a ref to attach to the focusgroup owner element. The default `behavior` is `null`, which produces an empty `focusgroup` attribute with no keyboard navigation. Set a behavior such as `'menu'` to enable navigation; `wrap` and `axis` then default to that behavior's settings. The explicit `'none'` token opts out of an ancestor focusgroup, and `memory` defaults to `true`. Uses native `focusgroup` support when available, and the Microsoft `focusgroup-polyfill` package otherwise.
 
 ```js
-const menu = useRef(null)
-useFocusGroup(menu, {
+const menu = useFocusGroup({
   behavior: 'menu',
   wrap: true,
   axis: 'block',
   memory: true
 })
+
+<Menu ref={menu} />
 ```
 
 ## useHydratedStore

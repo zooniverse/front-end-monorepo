@@ -1,21 +1,20 @@
 import { render, screen, within } from '@testing-library/react'
-import { useRef } from 'react'
 import useFocusGroup from './useFocusGroup'
 
 function FocusGroupFixture({
   behavior,
   axis,
   enabled = true,
+  renderOwner = true,
   includeSecondTab = true,
   firstTabDisabled = false,
   ownerRole,
   firstTabRole
 }) {
-  const focusGroup = useRef(null)
-  useFocusGroup(focusGroup, { behavior, axis }, enabled)
+  const focusGroup = useFocusGroup({ behavior, axis }, enabled)
 
   return (
-    enabled && (
+    enabled && renderOwner && (
       <div ref={focusGroup} role={ownerRole}>
         <button type='button' disabled={firstTabDisabled} role={firstTabRole}>First tab</button>
         {includeSecondTab && <button type='button'>Second tab</button>}
@@ -57,6 +56,18 @@ describe('Hook > useFocusGroup', function () {
     rerender(<FocusGroupFixture behavior='tablist' enabled includeSecondTab />)
     const secondTab = await within(tablist).findByRole('tab', { name: 'Second tab' })
     expect(secondTab).to.have.property('tabIndex', -1)
+  })
+
+  it('should initialize when the owner appears while enabled', async function () {
+    const { rerender } = render(
+      <FocusGroupFixture behavior='tablist' enabled renderOwner={false} />
+    )
+
+    rerender(<FocusGroupFixture behavior='tablist' enabled />)
+    const tablist = await screen.findByRole('tablist')
+
+    expect(tablist).to.have.attribute('focusgroup', 'tablist')
+    expect(within(tablist).getByRole('tab', { name: 'First tab' })).to.have.property('tabIndex', 0)
   })
 
   it('should exclude disabled buttons from the focusgroup item collection', async function () {
