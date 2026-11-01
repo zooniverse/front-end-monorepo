@@ -30,37 +30,17 @@ export default function useFocusGroup(ownerRef, options = {}, enabled = true) {
     const nativeFocusGroup = supportsFocusGroup()
 
     owner.setAttribute('focusgroup', focusgroupDefinition)
-    if (!nativeFocusGroup) {
-      if (axis) {
-        owner.setAttribute('aria-orientation', axis === 'inline' ? 'horizontal' : 'vertical')
-      } else {
-        owner.removeAttribute('aria-orientation')
-      }
-    }
-    if (!nativeFocusGroup && OWNER_ROLE[behavior] && !owner.hasAttribute('role')) {
-      owner.setAttribute('role', OWNER_ROLE[behavior])
-    }
-    if (!owner.focusGroup) owner.focusGroup = focusgroupDefinition
-
     const originalTabIndexes = new WeakMap()
     const items = () => Array.from(owner.querySelectorAll(FOCUSGROUP_ITEM_SELECTOR))
       .filter(item => isKeyboardFocusable(item, owner, originalTabIndexes))
-    const applyItemRoles = () => {
-      if (!nativeFocusGroup && ITEM_ROLE[behavior]) {
-        items().forEach(item => {
-          if (!item.hasAttribute('role')) item.setAttribute('role', ITEM_ROLE[behavior])
-        })
-      }
-    }
-    applyItemRoles()
 
     // Native focusgroup support handles keyboard navigation without the
     // polyfill. Keep the property in sync for browsers that expose it.
     const useNativeFocusGroup = nativeFocusGroup || behavior === 'none'
     let focusGroup
     if (!useNativeFocusGroup) {
-      // Avoid the Microsoftpolyfill's tabindex observer because Grommet Layers temporarily
-      // rewrite tabindex across the page and can break roving focus when closed.
+      // Create an item collection to be managed by FocusGroup.
+      // Keyboard navigation is overridden only for this collection.
       const itemCollection = {
         items: () => items().map(element => ({ element })),
         first: () => items()[0] ?? null,
@@ -74,6 +54,18 @@ export default function useFocusGroup(ownerRef, options = {}, enabled = true) {
       }
       focusGroup = new FocusGroup(owner, itemCollection, {
         definition: { behavior, wrap, axis, memory },
+        decorateOwner: (element, ownerBehavior) => {
+          if (!element.focusGroup) element.focusGroup = focusgroupDefinition
+          if (axis) {
+            element.setAttribute('aria-orientation', axis === 'inline' ? 'horizontal' : 'vertical')
+          } else {
+            element.removeAttribute('aria-orientation')
+          }
+          if (element.hasAttribute('role')) return
+          if (OWNER_ROLE[ownerBehavior]) {
+            element.setAttribute('role', OWNER_ROLE[ownerBehavior])
+          }
+        },
         decorateItem: (item, itemBehavior) => {
           if (ITEM_ROLE[itemBehavior] && !item.hasAttribute('role')) {
             item.setAttribute('role', ITEM_ROLE[itemBehavior])
@@ -83,7 +75,6 @@ export default function useFocusGroup(ownerRef, options = {}, enabled = true) {
     }
 
     const observer = new MutationObserver(() => {
-      applyItemRoles()
       focusGroup?.update()
     })
     observer.observe(owner, {
