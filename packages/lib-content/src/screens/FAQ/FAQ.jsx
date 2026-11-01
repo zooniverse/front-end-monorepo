@@ -17,6 +17,7 @@ const StyledList = styled.ul`
   margin-block-end: 0;
   padding-inline-start: 0;
   list-style-type: none;
+  margin-bottom: 30px;
 `
 
 const Question = ({ children }) => (
@@ -25,9 +26,7 @@ const Question = ({ children }) => (
   </Text>
 )
 
-const Answer = ({ children }) => (
-  <Paragraph margin={{ vertical: 'small' }}>{children}</Paragraph>
-)
+const Answer = ({ children }) => <Paragraph margin={{ vertical: 'small' }}>{children}</Paragraph>
 
 function FAQPage() {
   const { i18n, t } = useTranslation()
@@ -41,11 +40,7 @@ function FAQPage() {
         </MobileHeading>
         <Box pad={{ horizontal: 'medium' }} align='center'>
           <MaxWidthContent>
-            <StyledHeading
-              color={{ light: 'neutral-1', dark: 'accent-1' }}
-              level={1}
-              size='small'
-            >
+            <StyledHeading color={{ light: 'neutral-1', dark: 'accent-1' }} level={1} size='small'>
               {t('FAQ.title')}
             </StyledHeading>
             <Paragraph margin={{ vertical: 'medium' }}>
@@ -57,10 +52,7 @@ function FAQPage() {
                     key='freshdesk-solutions'
                     href='https://zooniverse.freshdesk.com/support/solutions'
                   />,
-                  <Anchor
-                    key='talk-page'
-                    href='https://www.zooniverse.org/talk'
-                  />,
+                  <Anchor key='talk-page' href='https://www.zooniverse.org/talk' />,
                   <Anchor key='contact-us' href={getHrefWithLocale('/about#contact', locale)} />
                 ]}
               />
@@ -81,10 +73,7 @@ function FAQPage() {
                     i18nKey='FAQ.item2.answer'
                     t={t}
                     components={[
-                      <Anchor
-                        key='privacy-policy'
-                        href='https://www.zooniverse.org/privacy'
-                      />
+                      <Anchor key='privacy-policy' href='https://www.zooniverse.org/privacy' />
                     ]}
                   />
                 </Answer>
@@ -115,14 +104,8 @@ function FAQPage() {
                     i18nKey='FAQ.item5.answer'
                     t={t}
                     components={[
-                      <Anchor
-                        key='privacy-page'
-                        href='https://www.zooniverse.org/privacy'
-                      />,
-                      <Anchor
-                        key='security-page'
-                        href='https://www.zooniverse.org/security'
-                      />
+                      <Anchor key='privacy-page' href='https://www.zooniverse.org/privacy' />,
+                      <Anchor key='security-page' href='https://www.zooniverse.org/security' />
                     ]}
                   />
                 </Answer>
@@ -134,14 +117,8 @@ function FAQPage() {
                     i18nKey='FAQ.item6.answer'
                     t={t}
                     components={[
-                      <Anchor
-                        key='talk-page'
-                        href='https://www.zooniverse.org/talk'
-                      />,
-                      <Anchor
-                        key='FEM-github-issues'
-                        href='https://github.com/zooniverse'
-                      />,
+                      <Anchor key='talk-page' href='https://www.zooniverse.org/talk' />,
+                      <Anchor key='FEM-github-issues' href='https://github.com/zooniverse' />,
                       <Anchor key='contact-us' href={getHrefWithLocale('/about#contact', locale)} />
                     ]}
                   />
@@ -154,10 +131,7 @@ function FAQPage() {
                     i18nKey='FAQ.item7.answer'
                     t={t}
                     components={[
-                      <Anchor
-                        key='zooniverse-home-page'
-                        href='http://jobs.zooniverse.org'
-                      />
+                      <Anchor key='zooniverse-home-page' href='http://jobs.zooniverse.org' />
                     ]}
                   />
                 </Answer>
@@ -182,7 +156,10 @@ function FAQPage() {
                     i18nKey='FAQ.item8.answer2'
                     t={t}
                     components={[
-                      <Anchor key='donate-link' href={getHrefWithLocale('/get-involved/donate', locale)} />
+                      <Anchor
+                        key='donate-link'
+                        href={getHrefWithLocale('/get-involved/donate', locale)}
+                      />
                     ]}
                   />
                 </Answer>
@@ -194,17 +171,39 @@ function FAQPage() {
                     i18nKey='FAQ.item9.answer'
                     t={t}
                     components={[
-                      <Anchor key='resources-page' href={getHrefWithLocale('/about/resources', locale)} />
+                      <Anchor
+                        key='resources-page'
+                        href={getHrefWithLocale('/about/resources', locale)}
+                      />
                     ]}
                   />
                 </Answer>
               </Box>
               <Box as='li'>
                 <Question>{t('FAQ.item10.question')}</Question>
-                <Paragraph margin={{ top: 'small', bottom: 'medium' }}>
+                <Paragraph>
                   {t('FAQ.item10.answer')}
                 </Paragraph>
               </Box>
+              <Box as='li'>
+                <Question>{t('FAQ.item11.question')}</Question>
+              </Box>
+              <Answer>
+                <Trans i18nKey='FAQ.item11.answer0' t={t} components={[<strong />]} />
+              </Answer>
+              <Answer>
+                <Trans
+                  i18nKey='FAQ.item11.answer1'
+                  t={t}
+                  components={[
+                    <Anchor key='ai-ethics' href='https://www.zooniverse.org/about/ai-ethics' />,
+                    <Anchor
+                      key='help-zoo-translations'
+                      href='https://help.zooniverse.org/next-steps/translations'
+                    />
+                  ]}
+                />
+              </Answer>
             </StyledList>
           </MaxWidthContent>
         </Box>

@@ -7,7 +7,7 @@ import { useTranslation } from '../../../translations/i18n'
 import NarrowMenu from '../NarrowMenu'
 import NarrowMenuNavListItem from '../NarrowMenuNavListItem'
 import SpacedText from '../../../SpacedText'
-import { getHost } from '../../helpers'
+import getHost from '../../../helpers/getHost'
 
 // The standard xsmall size in the theme isn't small enough
 export const StyledFormDown = styled(FormDown)`

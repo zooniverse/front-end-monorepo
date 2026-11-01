@@ -69,7 +69,6 @@ function DrawingToolMarks({
       <g key={mark.id}>
         <Mark
           isActive={isActive}
-          coords={mark.coords}
           disabled={disabled}
           dragStart={selectMark}
           dragMove={moveMark}

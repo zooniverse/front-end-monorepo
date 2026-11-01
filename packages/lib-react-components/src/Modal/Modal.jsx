@@ -6,7 +6,7 @@ import ModalBody from './components/ModalBody'
 import ModalHeading from './components/ModalHeading'
 
 const DEFAULT_BACKGROUND = {
-  dark: 'dark-5',
+  dark: 'dark-3',
   light: 'neutral-6'
 }
 

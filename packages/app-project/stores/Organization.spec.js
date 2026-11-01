@@ -7,11 +7,13 @@ describe('Stores > Organization', function () {
 
   it('should exist', function () {
     rootStore = Store.create({
-      organizations: [{
-        strings: {
-          title: 'some text'
+      organizations: {
+        '1': {
+          strings: {
+            title: 'some text'
+          }
         }
-      }]
+      }
     }, placeholderEnv)
     organizationsStore = rootStore.organizations
     expect(organizationsStore).toBeDefined()
@@ -20,11 +22,13 @@ describe('Stores > Organization', function () {
   describe('default model properties', function () {
     before(function () {
       rootStore = Store.create({
-        organizations: [{
-          strings: {
-            title: 'some text'
+        organizations: {
+          '1': {
+            strings: {
+              title: 'some text'
+            }
           }
-        }]
+        }
       }, placeholderEnv)
       organizationsStore = rootStore.organizations
     })
@@ -35,15 +39,15 @@ describe('Stores > Organization', function () {
     })
 
     it('should have an `id` property', function () {
-      expect(organizationsStore[0].id).to.equal(null)
+      expect(organizationsStore.get('1').id).to.equal(null)
     })
 
     it('should have a `slug` property', function () {
-      expect(organizationsStore[0].slug).to.equal('')
+      expect(organizationsStore.get('1').slug).to.equal('')
     })
 
     it('should have a `title` property', function () {
-      expect(organizationsStore[0].title).to.be.a('string')
+      expect(organizationsStore.get('1').title).to.be.a('string')
     })
   })
 })

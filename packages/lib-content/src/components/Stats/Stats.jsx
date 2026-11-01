@@ -6,7 +6,6 @@ import AnimatedNumber from '@zooniverse/react-components/AnimatedNumber'
 import { useTranslation } from 'react-i18next'
 
 import { useTotalClassificationCount, useTotalVolunteerCount } from './hooks.js'
-import BillionsCoundown from './components/BillionsCountdown'
 
 const ClassificationsLabel = styled(Box)`
   background: linear-gradient(
@@ -91,15 +90,6 @@ export default function Stats() {
           </SpacedText>
         </VolunteersLabel>
       </Stat>
-
-      {/* Special Event: Countdown to 1 Billion Classifications. Remove after Jul 2026. */}
-      <a id='zooniverse-billion'></a>
-
-      <BillionsCoundown
-        error={classificationsError}
-        isLoading={classificationsLoading}
-        totalClassifications={totalClassifications}
-      />
     </Box>
   )
 }

@@ -6,6 +6,7 @@ import { Loader, ProjectCard } from '@zooniverse/react-components'
 import { useTranslation } from 'react-i18next'
 
 import { ContentBox } from '@components/shared'
+import { getProjectHrefWithLocale } from '@utils'
 
 const StyledGridList = styled(Grid)`
   list-style: none;
@@ -81,7 +82,8 @@ function TopProjects({
   loading = false,
   projects = []
 }) {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+  const locale = i18n.language
   const size = useContext(ResponsiveContext)
   const cardSize = grid ? 'small' : size
 
@@ -129,7 +131,7 @@ function TopProjects({
                   badge={topProject?.count}
                   description={topProject?.description}
                   displayName={topProject?.display_name}
-                  href={`https://www.zooniverse.org/projects/${topProject?.slug}`}
+                  href={getProjectHrefWithLocale(`/${topProject?.slug}`, locale)}
                   imageSrc={topProject?.avatar_src}
                   size={cardSize}
                   state={topProject?.state}

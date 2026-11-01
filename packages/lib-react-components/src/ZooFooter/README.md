@@ -10,6 +10,4 @@ The `ZooFooter` has two available theme variants with the light and dark themes 
 
 ### Props
 
-The navigation list props (the props ending with `URLs`) are available to you to have flexibility with absolute or relative links. The default props use absolute links.
-
 Locale is passed down from app-project. The page layout in FEM always includes ZooFooter, so calling i18n.changeLanguage in ZooFooter whenever locale changes results in all components imported from lib-react-components updating with the new language.

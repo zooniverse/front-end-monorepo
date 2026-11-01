@@ -1,5 +1,5 @@
 import { applySnapshot, getSnapshot } from 'mobx-state-tree'
-import { renderHook } from '@testing-library/react'
+import { renderHook, waitFor } from '@testing-library/react'
 
 import branchingWorkflow from '@test/mockStore/branchingWorkflow'
 import mockStore from '@test/mockStore'
@@ -14,7 +14,9 @@ describe('Hooks > useHydratedStore', function () {
     beforeEach(function () {
       cleanStore()
       const { authClient, client } = mockStore()
-      const { result } = renderHook(() => useHydratedStore({ authClient, client }, false, 'test-key'))
+      const { result } = renderHook(() =>
+        useHydratedStore({ authClient, client }, false, 'test-key')
+      )
       store = result.current
     })
 
@@ -36,9 +38,13 @@ describe('Hooks > useHydratedStore', function () {
     beforeEach(function () {
       cleanStore()
       const { authClient, client } = mockStore()
-      const { result: firstRun } = renderHook(() => useHydratedStore({ authClient, client }, false, 'test-key'))
+      const { result: firstRun } = renderHook(() =>
+        useHydratedStore({ authClient, client }, false, 'test-key')
+      )
       store = firstRun.current
-      const { result: secondRun } = renderHook(() => useHydratedStore({ authClient, client }, false, 'test-key'))
+      const { result: secondRun } = renderHook(() =>
+        useHydratedStore({ authClient, client }, false, 'test-key')
+      )
       newStore = secondRun.current
     })
 
@@ -57,7 +63,9 @@ describe('Hooks > useHydratedStore', function () {
     beforeEach(function () {
       const expectedStore = mockStore()
       const { authClient, client } = expectedStore
-      const { result } = renderHook(() => useHydratedStore({ authClient, client }, true, 'test-key'))
+      const { result } = renderHook(() =>
+        useHydratedStore({ authClient, client }, true, 'test-key')
+      )
       store = result.current
       const mockSnapshot = getSnapshot(expectedStore)
       applySnapshot(store.projects, mockSnapshot.projects)
@@ -84,7 +92,9 @@ describe('Hooks > useHydratedStore', function () {
       window.sessionStorage.setItem('test-key', JSON.stringify(mockSnapshot))
 
       const { authClient, client } = expectedStore
-      const { result } = renderHook(() => useHydratedStore({ authClient, client }, true, 'test-key'))
+      const { result } = renderHook(() =>
+        useHydratedStore({ authClient, client }, true, 'test-key')
+      )
       store = result.current
     })
 
@@ -97,14 +107,20 @@ describe('Hooks > useHydratedStore', function () {
       expect(snapshot.projects).to.deep.equal(mockSnapshot.projects)
     })
 
-    it('should restart the subject queue', function () {
-      const snapshot = getSnapshot(store)
-      expect(snapshot.subjects.queue.length).to.equal(0)
+    // waitFor: We're not testing the transient state here.
+    // SubjectStore's advance() triggers an asynchronous queue refill after reset
+    it('should restart the subject queue', async function () {
+      await waitFor(() => {
+        const snapshot = getSnapshot(store)
+        expect(snapshot.subjects.queue.length).to.equal(10)
+      })
     })
 
-    it('should reset the active subject', function () {
-      const snapshot = getSnapshot(store)
-      expect(snapshot.subjects.active).to.equal(undefined)
+    it('should select an active subject from the restarted queue', async function () {
+      await waitFor(() => {
+        const snapshot = getSnapshot(store)
+        expect(snapshot.subjects.active).to.equal(snapshot.subjects.queue[0])
+      })
     })
   })
 
@@ -121,7 +137,9 @@ describe('Hooks > useHydratedStore', function () {
       window.sessionStorage.setItem('test-key', JSON.stringify(mockSnapshot))
 
       const { authClient, client } = expectedStore
-      const { result } = renderHook(() => useHydratedStore({ authClient, client }, true, 'test-key'))
+      const { result } = renderHook(() =>
+        useHydratedStore({ authClient, client }, true, 'test-key')
+      )
       store = result.current
     })
 

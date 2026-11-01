@@ -2,8 +2,11 @@ import { Box, Grid, ResponsiveContext } from 'grommet'
 import { arrayOf, node, string } from 'prop-types'
 import { useContext, useEffect } from 'react'
 import styled from 'styled-components'
-import i18n, { useTranslation } from '../translations/i18n'
+
+import { useTranslation } from '../translations/i18n'
 import { useHasMounted } from '../hooks'
+import getHost from '../helpers/getHost'
+import getHrefWithLocale from '../helpers/getHrefWithLocale'
 
 import {
   InstituteLogos,
@@ -39,79 +42,32 @@ const StyledGrid = styled(Grid)`
   grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
 `
 
-const defaultProps = {
-  aboutNavListURLs: [
-    'https://www.zooniverse.org/about',
-    'https://www.zooniverse.org/about#contact',
-    'https://www.zooniverse.org/about/team',
-    'https://www.zooniverse.org/about/publications',
-    'https://www.zooniverse.org/about/resources',
-    'https://www.zooniverse.org/about/faq'
-  ],
-  adminContainer: null,
-  buildNavListURLs: [
-    'https://www.zooniverse.org/lab',
-    'https://www.zooniverse.org/help',
-    'https://www.zooniverse.org/help/glossary',
-    'https://www.zooniverse.org/help/lab-policies',
-    'https://www.zooniverse.org/lab-best-practices/introduction'
-  ],
-  getInvolvedNavListURLs: [
-    'https://www.zooniverse.org/get-involved',
-    'https://www.zooniverse.org/get-involved/volunteer',
-    'https://www.zooniverse.org/get-involved/educate',
-    'https://www.zooniverse.org/get-involved/collaborate',
-    'https://www.zooniverse.org/get-involved/donate'
-  ],
-  policyNavListURLs: [
-    'https://www.zooniverse.org/privacy',
-    'http://jobs.zooniverse.org/',
-    'https://status.zooniverse.org/',
-    'https://www.zooniverse.org/security'
-  ],
-  projectNavListURLs: [
-    'https://www.zooniverse.org/projects',
-    'https://www.zooniverse.org/projects?discipline=arts',
-    'https://www.zooniverse.org/projects?discipline=biology',
-    'https://www.zooniverse.org/projects?discipline=climate',
-    'https://www.zooniverse.org/projects?discipline=history',
-    'https://www.zooniverse.org/projects?discipline=language',
-    'https://www.zooniverse.org/projects?discipline=literature',
-    'https://www.zooniverse.org/projects?discipline=medicine',
-    'https://www.zooniverse.org/projects?discipline=nature',
-    'https://www.zooniverse.org/projects?discipline=physics',
-    'https://www.zooniverse.org/projects?discipline=space',
-    'https://www.zooniverse.org/projects?discipline=social+science'
-  ],
-  talkNavListURLs: [
-    'https://www.zooniverse.org/talk',
-    'https://www.zooniverse.org/talk/17',
-    'https://www.zooniverse.org/talk/2354',
-    'https://www.zooniverse.org/talk/18',
-    'https://www.zooniverse.org/talk/1322'
-  ]
-}
-
 export default function ZooFooter({
-  aboutNavListURLs = defaultProps.aboutNavListURLs,
-  adminContainer,
-  buildNavListURLs = defaultProps.buildNavListURLs,
+  adminContainer = null,
   className = '',
-  getInvolvedNavListURLs = defaultProps.getInvolvedNavListURLs,
-  locale,
-  policyNavListURLs = defaultProps.policyNavListURLs,
-  projectNavListURLs = defaultProps.projectNavListURLs,
-  talkNavListURLs = defaultProps.talkNavListURLs
+  locale = 'en' // default value mainly relevant for Storybook and test env
 }) {
   const hasMounted = useHasMounted()
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
   const size = useContext(ResponsiveContext)
+  const host = getHost()
 
+  // This useEffect can be removed when LRC is refactored to use its parent app's i18n instance as source of truth.
+  // See app-root as the parent app of lib-content for an example of react-i18next usage.
   useEffect(() => {
     if (locale) {
       i18n.changeLanguage(locale)
     }
   }, [locale])
+
+  const aboutNavListURLs = [
+    `${host}${getHrefWithLocale(`/about`, locale)}`,
+    `${host}${getHrefWithLocale(`/about#contact`, locale)}`,
+    `${host}${getHrefWithLocale(`/about/team`, locale)}`,
+    `${host}${getHrefWithLocale(`/about/publications`, locale)}`,
+    `${host}${getHrefWithLocale(`/about/resources`, locale)}`,
+    `${host}${getHrefWithLocale(`/about/faq`, locale)}`
+  ]
 
   const aboutNavListLabels = [
     t('ZooFooter.aboutLabels.about'),
@@ -122,12 +78,28 @@ export default function ZooFooter({
     t('ZooFooter.aboutLabels.faq')
   ]
 
+  const buildNavListURLs = [
+    `${host}/lab`,
+    'https://help.zooniverse.org/getting-started',
+    'https://help.zooniverse.org/glossary',
+    'https://help.zooniverse.org/getting-started/lab-policies',
+    'https://help.zooniverse.org/best-practices'
+  ]
+
   const buildNavListLabels = [
     t('ZooFooter.buildLabels.buildAProject'),
     t('ZooFooter.buildLabels.tutorial'),
     t('ZooFooter.buildLabels.glossary'),
     t('ZooFooter.buildLabels.policies'),
     t('ZooFooter.buildLabels.bestPractices')
+  ]
+
+  const getInvolvedNavListURLs = [
+    `${host}${getHrefWithLocale(`/get-involved`, locale)}`,
+    `${host}${getHrefWithLocale(`/get-involved/volunteer`, locale)}`,
+    `${host}${getHrefWithLocale(`/get-involved/educate`, locale)}`,
+    `${host}${getHrefWithLocale(`/get-involved/collaborate`, locale)}`,
+    `${host}${getHrefWithLocale(`/get-involved/donate`, locale)}`
   ]
 
   const getInvolvedNavListLabels = [
@@ -138,11 +110,33 @@ export default function ZooFooter({
     t('ZooFooter.getInvolvedLabels.donate')
   ]
 
+  const policyNavListURLs = [
+    `${host}/privacy`,
+    `https://jobs.zooniverse.org`,
+    `https://status.zooniverse.org`,
+    `${host}/security`
+  ]
+
   const policyNavListLabels = [
     t('ZooFooter.policyLabels.privacyPolicy'),
     t('ZooFooter.policyLabels.jobs'),
     t('ZooFooter.policyLabels.systemStatus'),
     t('ZooFooter.policyLabels.security')
+  ]
+
+  const projectNavListURLs = [
+    `${host}${getHrefWithLocale(`/projects`, locale)}`,
+    `${host}${getHrefWithLocale(`/projects?discipline=arts`, locale)}`,
+    `${host}${getHrefWithLocale(`/projects?discipline=biology`, locale)}`,
+    `${host}${getHrefWithLocale(`/projects?discipline=climate`, locale)}`,
+    `${host}${getHrefWithLocale(`/projects?discipline=history`, locale)}`,
+    `${host}${getHrefWithLocale(`/projects?discipline=language`, locale)}`,
+    `${host}${getHrefWithLocale(`/projects?discipline=literature`, locale)}`,
+    `${host}${getHrefWithLocale(`/projects?discipline=medicine`, locale)}`,
+    `${host}${getHrefWithLocale(`/projects?discipline=nature`, locale)}`,
+    `${host}${getHrefWithLocale(`/projects?discipline=physics`, locale)}`,
+    `${host}${getHrefWithLocale(`/projects?discipline=space`, locale)}`,
+    `${host}${getHrefWithLocale(`/projects?discipline=social+science`, locale)}`
   ]
 
   const projectNavListLabels = [
@@ -158,6 +152,14 @@ export default function ZooFooter({
     t('ZooFooter.projectLabels.physics'),
     t('ZooFooter.projectLabels.space'),
     t('ZooFooter.projectLabels.social')
+  ]
+
+  const talkNavListURLs = [
+    `${host}/talk`,
+    `${host}/talk/17`,
+    `${host}/talk/2354`,
+    `${host}/talk/18`,
+    `${host}/talk/1322`
   ]
 
   const talkNavListLabels = [
