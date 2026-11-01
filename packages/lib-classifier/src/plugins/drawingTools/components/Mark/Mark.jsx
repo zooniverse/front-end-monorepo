@@ -106,6 +106,11 @@ const Mark = forwardRef(function Mark(
     onSelect(mark)
   }
 
+  // All marks are drawn in local coordinates relative to coords
+  // Fixes Firefox bug https://bugzilla.mozilla.org/show_bug.cgi?id=1589164
+  // that scrolls to top of page when focus is set on a g element.
+  // See issue 7609 for details
+
   const { coords, angle } = mark
   let transform = ''
 
