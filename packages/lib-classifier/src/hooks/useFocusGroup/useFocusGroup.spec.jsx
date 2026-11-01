@@ -1,4 +1,4 @@
-import { render, screen, within } from '@testing-library/react'
+import { render, screen, waitFor, within } from '@testing-library/react'
 import useFocusGroup from './useFocusGroup'
 
 function FocusGroupFixture({
@@ -7,6 +7,7 @@ function FocusGroupFixture({
   enabled = true,
   renderOwner = true,
   includeSecondTab = true,
+  includeNestedFocusGroup = false,
   firstTabDisabled = false,
   ownerRole,
   firstTabRole
@@ -14,10 +15,15 @@ function FocusGroupFixture({
   const focusGroup = useFocusGroup({ behavior, axis }, enabled)
 
   return (
-    enabled && renderOwner && (
+    renderOwner && (
       <div ref={focusGroup} role={ownerRole}>
         <button type='button' disabled={firstTabDisabled} role={firstTabRole}>First tab</button>
         {includeSecondTab && <button type='button'>Second tab</button>}
+        {includeNestedFocusGroup && (
+          <div focusgroup='menu'>
+            <button type='button'>Nested item</button>
+          </div>
+        )}
       </div>
     )
   )
@@ -81,6 +87,54 @@ describe('Hook > useFocusGroup', function () {
     expect(disabledButton).not.to.have.attribute('data-fg-ati')
     expect(enabledTab).to.have.attribute('data-fg-ati', 'none')
     expect(enabledTab).to.have.property('tabIndex', 0)
+  })
+
+  it('should undecorate items that become disabled', async function () {
+    const { rerender } = render(<FocusGroupFixture behavior='menu' />)
+    const menu = await screen.findByRole('menu')
+    const firstItem = within(menu).getByRole('menuitem', { name: 'First tab' })
+
+    expect(firstItem).to.have.attribute('data-fg-ati', 'none')
+
+    rerender(<FocusGroupFixture behavior='menu' firstTabDisabled />)
+
+    await waitFor(() => {
+      expect(firstItem).not.to.have.attribute('role')
+      expect(firstItem).not.to.have.attribute('data-fg-ati')
+      expect(firstItem).not.to.have.attribute('tabindex')
+    })
+  })
+
+  it('should exclude items inside nested focusgroups', async function () {
+    const { container } = render(
+      <FocusGroupFixture behavior='menu' includeNestedFocusGroup />
+    )
+    const menu = await screen.findByRole('menu')
+    const nestedItem = within(menu).getByRole('button', { name: 'Nested item' })
+
+    expect(within(menu).getAllByRole('menuitem')).to.have.lengthOf(2)
+    expect(nestedItem).not.to.have.attribute('data-fg-ati')
+    expect(nestedItem).not.to.have.attribute('role')
+  })
+
+  it('should restore hook-owned attributes when disabled', async function () {
+    const { container, rerender } = render(<FocusGroupFixture behavior='menu' />)
+    const menu = await screen.findByRole('menu')
+    const items = within(menu).getAllByRole('menuitem')
+
+    rerender(<FocusGroupFixture behavior='menu' enabled={false} />)
+
+    await waitFor(() => {
+      expect(menu).not.to.have.attribute('focusgroup')
+      expect(menu).not.to.have.attribute('aria-orientation')
+      expect(menu).not.to.have.attribute('role')
+      items.forEach(item => {
+        expect(item).not.to.have.attribute('role')
+        expect(item).not.to.have.attribute('data-fg-ati')
+        expect(item).not.to.have.attribute('tabindex')
+      })
+    })
+    expect(container.querySelector('[focusgroup]')).to.be.null
   })
 
   it('should preserve author-supplied owner and item roles', async function () {
