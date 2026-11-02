@@ -36,7 +36,8 @@ const SeparateFrame = ({
 }) => {
   const mediaType = subject?.locations?.[frame]?.type
   const menubar = useFocusGroup({
-    behavior: 'menu'
+    behavior: 'menu',
+    memory: false,
   }, mediaType === 'image')
   const { media, mediaElementRef, loading, error } = useSubjectImageOrVideo({
     src: frameUrl,

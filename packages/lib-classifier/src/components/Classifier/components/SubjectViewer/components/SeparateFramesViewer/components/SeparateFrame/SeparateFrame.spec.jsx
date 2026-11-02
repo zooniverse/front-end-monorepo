@@ -39,7 +39,7 @@ describe('Component > SeparateFrame', function () {
     makeFocusgroupItemsVisible(container)
     const menu = await screen.findByRole('menu')
     expect(menu).to.have.attribute('aria-orientation', 'vertical')
-    expect(menu.focusGroup).to.equal('menu')
+    expect(menu.focusGroup).to.equal('menu nomemory')
   })
 
   it('should navigate toolbar menuitems with one tab stop', async function () {
