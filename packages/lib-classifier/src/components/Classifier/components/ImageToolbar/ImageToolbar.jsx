@@ -22,6 +22,7 @@ function storeMapper(classifierStore) {
 function ImageToolbar (props) {
   const menubar = useFocusGroup({
     behavior: 'menu',
+    memory: false,
   })
   const { hasAnnotateTask } = useStores(storeMapper)
 
