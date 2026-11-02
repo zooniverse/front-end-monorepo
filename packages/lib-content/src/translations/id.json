@@ -1,0 +1,445 @@
+{
+  "404": {
+    "Default404": {
+      "findNewProject": "Temukan proyek baru untuk dieksplorasi",
+      "heading": "Tidak ada apa-apa di sini.",
+      "message": "Halaman yang Anda cari sudah tidak ada lagi.",
+      "returnHome": "Kembali ke halaman utama"
+    }
+  },
+  "AboutHeader": {
+    "links": {
+      "about": "Tentang",
+      "collaborate": "Berkolaborasi",
+      "contact": "Hubungi kami",
+      "donate": "Menyumbangkan",
+      "educate": "Mendidik",
+      "faq": "Pertanyaan yang Sering Diajukan (FAQ)",
+      "publications": "Publikasi",
+      "resources": "Sumber daya",
+      "team": "Tim Kami",
+      "volunteer": "Sukarelawan"
+    },
+    "title": {
+      "about": "Tentang",
+      "getInvolved": "Terlibat"
+    }
+  },
+  "AboutPage": {
+    "contact": {
+      "categories": {
+        "first": "Pertanyaan umum tentang Zooniverse",
+        "second": "Berkolaborasi dalam sebuah proyek",
+        "third": "Permintaan informasi pers"
+      },
+      "heading": "Hubungi kami",
+      "paragraphs": {
+        "first": "Silakan baca halaman <0>FAQ</0> kami dan halaman web <1>Zooniverse Solutions</1>.",
+        "second": "Apakah Anda memiliki masalah terkait proyek tertentu? Kami sarankan untuk menghubungi tim peneliti secara langsung melalui halaman Diskusi mereka.",
+        "third": "Tidak dapat mengakses tombol Hubungi Kami? Kirim email langsung kepada kami di <0>contact@zooniverse.org</0>."
+      },
+      "subheading": "Apa yang bisa kami bantu?"
+    },
+    "highlights": {
+      "description": "Tersedia untuk dibeli di <0>Blurb.com</0>",
+      "heading": "Sorotan Kami",
+      "paragraphs": {
+        "first": "Sejak tahun 2007, proyek-proyek Zooniverse telah menghasilkan banyak penemuan tak terduga dan signifikan secara ilmiah serta banyak publikasi yang ditinjau oleh rekan sejawat. Semua ini tidak mungkin terjadi jika bukan karena komunitas global peserta Zooniverse yang terlibat dalam proyek-proyek ini bersama tim peneliti.",
+        "second": "Buku-buku 'Into the Zooniverse' ini memperingati dan menghormati upaya semua orang yang terlibat, memberikan sekilas gambaran tentang bagaimana anggota komunitas Zooniverse memberikan dampak nyata pada dunia di sekitar mereka. Setiap buku menyoroti sebagian dari proyek-proyek yang aktif pada tahun tersebut."
+      },
+      "pictures": {
+        "first": "Zooniverse menampilkan sampul buku tahun 2019.",
+        "second": "Zooniverse menampilkan sampul buku tahun 2020.",
+        "third": "Zooniverse menyoroti sampul buku tahun 2021."
+      },
+      "sidebar": "Highlight",
+      "subheading": "Proyek-proyek yang berkesan selama bertahun-tahun",
+      "tip": "Kami tidak memperoleh keuntungan apa pun dari penjualan buku fisik."
+    },
+    "howItWorks": {
+      "heading": "Cara Kerjanya",
+      "participants": {
+        "description": "Sebagai peserta",
+        "link": "Jelajahi proyek-proyek",
+        "steps": {
+          "first": "Temukan proyek yang menarik minat Anda.",
+          "fourth": "Hasilkan sertifikat resmi yang memverifikasi upaya Anda di platform ini.",
+          "second": "Pelajari proses pengklasifikasian proyek tersebut.",
+          "third": "Kirimkan klasifikasi Anda dan bantu penelitian nyata!"
+        }
+      },
+      "researchers": {
+        "description": "Sebagai seorang peneliti",
+        "link": "Bangun sebuah proyek",
+        "steps": {
+          "first": "Bangun proyek Anda menggunakan Zooniverse Project Builder.",
+          "fourth": "Unduh data Anda dan publikasikan hasilnya!",
+          "second": "Kirimkan proyek Anda untuk disetujui.",
+          "third": "Luncurkan proyek Anda dan berinteraksi dengan sukarelawan di Talk sementara klasifikasi sedang diproses."
+        }
+      },
+      "subheading": "Penelitian yang digerakkan oleh masyarakat"
+    },
+    "mobile": {
+      "altAppStore": "Unduh di App Store",
+      "altImage": "Gambar ponsel dengan aplikasi Zooniverse",
+      "altPlayStore": "Dapatkan di Google Play",
+      "description": "Akses Zooniverse di mana pun Anda berada. Unduh aplikasinya untuk perangkat iOS dan Android.",
+      "heading": "Coba Aplikasi Seluler Kami",
+      "sidebar": "Aplikasi Seluler",
+      "subheading": "Temukan, ajarkan, dan pelajari di mana saja"
+    },
+    "ourMission": {
+      "discoveries": {
+        "first": "Galaksi Kacang Hijau",
+        "fourth": "Bintang Boyajian",
+        "second": "Planet Ekso Baru Ditemukan",
+        "third": "Penggunaan Awal Istilah 'Kebohongan Putih'",
+        "tip": "Klik pada penemuan apa pun untuk informasi selengkapnya."
+      },
+      "heading": "Misi Kami",
+      "paragraphs": {
+        "first": "Zooniverse adalah platform terbesar dan terpopuler di dunia untuk penelitian yang digerakkan oleh masyarakat. Penelitian ini dimungkinkan berkat para sukarelawan—jutaan orang di seluruh dunia yang bersama-sama membantu para peneliti profesional. Tujuan kami adalah untuk memungkinkan penelitian yang tidak mungkin, atau tidak praktis, dilakukan jika tidak ada platform ini. Hasil penelitian Zooniverse menghasilkan penemuan baru, kumpulan data yang bermanfaat bagi komunitas penelitian yang lebih luas, dan banyak <0>publikasi</0>.",
+        "fourth": "Para sukarelawan dan profesional bersama-sama menciptakan penemuan nyata. Proyek-proyek Zooniverse dibangun dengan tujuan mengubah upaya sukarelawan menjadi hasil yang terukur. Dalam beberapa kasus, sukarelawan Zooniverse bahkan telah membuat penemuan yang sama sekali tidak terduga dan signifikan. Sebagian besar penelitian ini berlangsung di Talk, forum diskusi Zooniverse, tempat para sukarelawan bekerja sama dengan anggota tim peneliti dan satu sama lain. Forum-forum ini terintegrasi dalam setiap proyek untuk memungkinkan segala hal mulai dari pemberian tagar cepat hingga analisis kolaboratif yang mendalam. Terdapat juga <0>forum Talk Zooniverse pusat</0> untuk obrolan umum dan diskusi tentang hal-hal yang berkaitan dengan platform secara keseluruhan. Kami mendorong semua pengguna untuk bergabung dalam percakapan di Talk untuk partisipasi yang lebih mendalam.",
+        "second": "Anda tidak memerlukan latar belakang, pelatihan, atau keahlian khusus untuk berpartisipasi dalam proyek Zooniverse. Kami memudahkan siapa pun untuk berkontribusi pada penelitian akademis nyata, di komputer mereka sendiri, sesuai kenyamanan mereka. Anda akan dapat mempelajari data otentik yang dikumpulkan oleh para peneliti, seperti gambar galaksi yang jauh, catatan sejarah dan buku harian, atau video hewan di habitat alami mereka. Dengan berpartisipasi dalam proyek, Anda akan membantu berkontribusi pada pemahaman kita tentang dunia, alam semesta, dan banyak lagi. Dengan rangkaian proyek kami yang luas dan terus berkembang, yang mencakup banyak disiplin ilmu dan topik di seluruh ilmu pengetahuan dan humaniora, ada tempat bagi siapa pun untuk menjelajahi, belajar, dan bersenang-senang di Zooniverse. Untuk menjadi sukarelawan, kunjungi halaman <0>Proyek</0>, pilih salah satu yang Anda sukai, dan mulailah.",
+        "third": "Tantangan utama penelitian abad ke-21 adalah menangani banjir informasi yang kini dapat kita kumpulkan tentang dunia di sekitar kita. Komputer dapat membantu, tetapi di banyak bidang, kemampuan manusia untuk mengenali pola—dan kemampuan kita untuk terkejut—membuat kita lebih unggul. Dengan bantuan sukarelawan Zooniverse, para peneliti dapat menganalisis informasi mereka lebih cepat dan akurat daripada yang mungkin dilakukan sebelumnya, sehingga menghasilkan hasil yang menarik lebih cepat. Upaya Anda menghemat waktu dan sumber daya, meningkatkan kemampuan komputer untuk melakukan tugas yang sama, dan menghasilkan kemajuan serta pemahaman yang lebih cepat tentang dunia. Proyek-proyek kami menggabungkan kontribusi dari banyak sukarelawan individu, mengandalkan versi <0>'kebijaksanaan kolektif'</0> untuk menghasilkan hasil yang andal dan akurat. Banyak orang yang melihat data seringkali menghasilkan perkiraan yang lebih baik tentang seberapa besar kemungkinan kita melakukan kesalahan. Produk dari proyek Zooniverse seringkali tepat seperti yang dibutuhkan untuk membuat kemajuan di banyak bidang penelitian."
+      },
+      "stats": {
+        "classifications": "Progres klasifikasi",
+        "volunteers": "Relawan terdaftar"
+      },
+      "subheadings": {
+        "fifth": "Proyek-proyek kami menghasilkan penemuan-penemuan besar.",
+        "first": "Kebijaksanaan orang banyak",
+        "fourth": "Karya Zooniverse",
+        "second": "Siapa pun bisa menjadi peneliti.",
+        "third": "Kami mempercepat penelitian penting dengan bekerja sama."
+      },
+      "video": "Pengantar Singkat tentang Zooniverse"
+    },
+    "sidebarLabel": "Bagian",
+    "title": "Tentang Zooniverse"
+  },
+  "Article": {
+    "url": "Baca selengkapnya"
+  },
+  "Collaborate": {
+    "paragraphs": {
+      "eighth": "Jika Anda memiliki pertanyaan atau memerlukan panduan lebih lanjut, silakan hubungi Cliff Johnson, Pimpinan Sains Zooniverse dan Penghubung NASA: <0>cliff@zooniverse.org</0>.",
+      "fifth": "Jika Anda tertarik untuk bermitra dengan kami dalam menciptakan alat atau infrastruktur proyek khusus, silakan <0>hubungi kami</0>.",
+      "first": "Apakah penelitian Anda akan mendapat manfaat dari keterlibatan ribuan sukarelawan? Zooniverse adalah platform online terbesar dan tersukses di dunia untuk penelitian berbasis crowdsourcing; kami memiliki jutaan sukarelawan terdaftar yang bekerja sama dengan peneliti profesional dalam proyek penelitian di berbagai disiplin ilmu, dari astronomi hingga humaniora.",
+      "fourth": "Dalam kasus di mana alat yang tersedia di <0>Project Builder</0> tidak sepenuhnya sesuai dengan tujuan penelitian tim tertentu, para peneliti mungkin ingin mempertimbangkan untuk bermitra dengan Zooniverse untuk membuat alat baru yang disesuaikan. Kami bekerja sama dengan tim-tim ini untuk mengajukan pendanaan guna mendukung proses penelitian, desain, dan pengembangan. Mereka yang pernah mengajukan hibah pendanaan sebelumnya akan tahu bahwa proses ini dapat memakan waktu lama. Setelah kami mengajukan hibah, dibutuhkan waktu 6 bulan atau lebih untuk mendapatkan kabar apakah upaya kami berhasil atau tidak. Proyek yang didanai biasanya membutuhkan setidaknya 6 bulan untuk mendesain, membangun, dan menguji, tergantung pada kompleksitas fitur yang dibuat. Kemudian kami membutuhkan waktu tambahan untuk menggeneralisasi (dan seringkali merevisi) fitur tersebut untuk dimasukkan ke dalam perangkat Project Builder.",
+      "nineth": "Hingga saat ini, lebih dari setengah lusin organisasi telah memanfaatkan Adler Zooniverse sebagai kesempatan untuk memenuhi tanggung jawab sosial perusahaan mereka. Partisipasi dapat memenuhi persyaratan jam layanan bagi karyawan, kelulusan, beasiswa, dan lain-lain. Sebagai kesempatan sukarela yang unik, peserta meluangkan waktu untuk merenungkan bagaimana upaya mereka (dan upaya kolektif komunitas) berkontribusi pada pemahaman kita tentang dunia dan alam semesta yang lebih luas. <0>Hubungi kami</0> untuk mempelajari lebih lanjut tentang inisiatif ini.",
+      "second": "Tim peneliti dapat membangun proyek Zooniverse dengan dua cara.",
+      "seventh": "Baik Anda sudah membangun alur kerja menggunakan Project Builder atau baru mulai mempertimbangkan bagaimana kontribusi crowdsourcing dapat memajukan penelitian Anda, tim Zooniverse telah mendedikasikan upaya untuk mendukung tim selama pengembangan dan implementasi proyek yang berfokus pada NASA. Kami dengan senang hati akan membahas dan mendukung proposal untuk panggilan pendanaan sains warga NASA (termasuk Program Pendanaan Awal Sains Warga, Program Sains Warga untuk Sistem Bumi, dan peluang pendanaan NASA ROSES lainnya) untuk proyek-proyek yang tertarik menggunakan platform Zooniverse.",
+      "sixth": "Apakah Anda seorang peneliti yang mengerjakan proyek yang relevan dengan salah satu divisi Direktorat Misi Sains NASA (Astrofisika, Ilmu Biologi dan Fisika, Heliofisika, dan Ilmu Planet) yang akan mendapat manfaat dari kontribusi sukarelawan Zooniverse? Sebagai bagian dari kemitraan berkelanjutan dengan NASA, Zooniverse berupaya untuk membangun dukungan yang ada saat ini terhadap tim peneliti NASA dan mendorong pengembangan proyek-proyek baru di platform kami.",
+      "third": "Tim dapat menggunakan alat <0>Project Builder</0> gratis kami untuk membuat proyek Zooniverse mereka sendiri. Agar dapat diluncurkan secara publik dan ditampilkan di halaman proyek kami, tim harus melalui proses peninjauan kami untuk memastikan proyek tersebut sesuai untuk platform dan siap diluncurkan. Ini adalah opsi tercepat dan paling mudah untuk membuat proyek Zooniverse. Untuk informasi lebih lanjut tentang proses ini, termasuk perkiraan jangka waktu peninjauan, silakan lihat <1>Praktik Terbaik & Bagan Alur Peninjauan Proyek</1>."
+    },
+    "subheadings": {
+      "fifth": "Peluang tanggung jawab sosial perusahaan",
+      "first": "Berkolaborasi dengan kami",
+      "fourth": "Ajakan untuk mengajukan proyek",
+      "second": "Para pendukung kami",
+      "third": "Kolaborator terpilih",
+      "tools": "Alat terpilih"
+    },
+    "title": "Berkolaborasi"
+  },
+  "Donate": {
+    "button": "Donasi hari ini",
+    "paragraphs": {
+      "first": "Zooniverse adalah kolaborasi antara Adler Planetarium Chicago, Universitas Oxford, Universitas Minnesota - Twin Cities (UMN), ratusan peneliti, dan jutaan peserta dari seluruh dunia. Tim Zooniverse di Adler, Oxford, dan UMN meliputi tim kepemimpinan senior kami, pengembang web, desainer, pemimpin komunikasi, ilmuwan data, dan peneliti. Perpaduan unik keahlian dalam penelitian, keterlibatan publik, dan pengembangan web modern ini memungkinkan kami untuk mendukung komunitas sukarelawan dan tim peneliti yang berdedikasi yang menggunakan platform Zooniverse. Sebagian besar pendanaan Zooniverse berasal dari hibah, serta dukungan institusional dari Adler, Oxford, dan UMN.",
+      "second": "Jika Anda ingin mendukung Zooniverse, pertimbangkan untuk memberikan donasi yang dapat dikurangkan dari pajak kepada Adler Planetarium. Sumbangan Anda yang tidak dibatasi kepada Adler membantu para peneliti membuka data mereka melalui sains warga daring, para astronom membawa teleskop ke lingkungan di seluruh wilayah Chicago, para remaja meluncurkan eksperimen orisinal ke luar angkasa, dan orang-orang dari segala usia terhubung di bawah bintang-bintang.",
+      "third": "Ikuti tautan di bawah ini untuk melakukan donasi di situs web Adler Planetarium."
+    },
+    "subheading": "Dukung Zooniverse",
+    "title": "Menyumbangkan"
+  },
+  "Educate": {
+    "articles": {
+      "first": {
+        "datePublished": "28 Oktober 2022",
+        "excerpt": "Terdapat kebutuhan mendesak akan materi pembelajaran aktif berbasis riset untuk pengajaran dan pembelajaran STEM dalam kursus daring. Setiap tahun, ratusan ribu mahasiswa sarjana non-sains mendaftar dalam mata kuliah astronomi pendidikan umum untuk memenuhi persyaratan seni liberal institusi mereka. Saat merancang materi pembelajaran untuk populasi pembelajar ini, hal yang sentral...",
+        "title": "Model Pengembangan Kurikulum Baru untuk Meningkatkan Literasi Data dan Efikasi Diri Mahasiswa S1..."
+      },
+      "fourth": {
+        "datePublished": "29 April 2015",
+        "excerpt": "Postingan blog hari ini berasal dari Fran Wilson, seorang guru kelas dua di Sekolah Dasar Madeira. Fran berupaya menumbuhkan minat pada sains di kelasnya dan membantu siswa menemukan bahwa tidak semua ilmuwan bekerja di laboratorium mengenakan jas lab putih dan kacamata pengaman. Dia mencari peluang yang bermakna bagi siswanya untuk berpartisipasi dalam kegiatan ilmuwan warga agar bertanggung jawab...",
+        "title": "Hutan Terapung: Mengajarkan Anak-Anak Kecil Tentang Rumput Laut"
+      },
+      "heading": "Bagaimana para pendidik menggunakan Zooniverse?",
+      "second": {
+        "datePublished": "14 Agustus 2019",
+        "excerpt": "“Semuanya coba ambil galaksi yang sama,” seru seorang anak laki-laki sambil memberi isyarat kepada teman-teman sekelasnya. Di sekeliling meja, enam siswa mulai menyeret gambar galaksi dari tengah layar sentuh besar ke meja kerja mereka masing-masing. Sangat mungkin siswa-siswa ini adalah orang pertama yang melihat galaksi ini dan memutuskan bagaimana galaksi ini harus diklasifikasikan...",
+        "title": "U!Scientist dan Galaxy Zoo berinteraksi langsung di Planetarium Adler."
+      },
+      "third": {
+        "datePublished": "7 Februari 2018",
+        "excerpt": "Sebagai guru ilmu sosial, saya berharap siswa saya dapat mengembangkan apresiasi terhadap disiplin ilmu sejarah itu sendiri. Alih-alih menekankan hafalan tanggal dan nama – hal-hal yang langsung hilang dari ingatan kita begitu kita menuliskannya di ujian – tujuan saya termasuk memperkenalkan siswa pada seluk-beluk pekerjaan profesional yang dilakukan oleh sejarawan. Baru-baru ini, kelas 8 saya yang mempelajari Sejarah Dunia Kuno...",
+        "title": "Siswa kelas 8 di Missouri menyalin dokumen anti-perbudakan dan mempelajari tentang gerakan penghapusan perbudakan."
+      }
+    },
+    "buttons": {
+      "first": "Sumber Daya Online",
+      "second": "Zooniverse di sekolah untuk usia 9-12 tahun.",
+      "third": "Zooniverse untuk Mahasiswa S1"
+    },
+    "forEducators": {
+      "classrooms": "Jelajahi Ruang Kelas Zooniverse",
+      "heading": "Sumber Daya untuk Pendidik",
+      "paragraphs": {
+        "first": "Tetapkan tonggak klasifikasi, lacak upaya, dan rayakan dampak kolektif. Baca <0>pengumuman</0> kami untuk detail selengkapnya.",
+        "second": "Setiap tim proyek dapat berbagi sumber daya pendidik tambahan termasuk rencana pelajaran, tutorial video, tautan penelitian, dan banyak lagi. Pastikan untuk memeriksa tab <0>Pendidikan</0> proyek.",
+        "third": "Dukungan bagi mahasiswa yang memenuhi jam pengabdian masyarakat untuk beasiswa, persyaratan kelulusan, dan lainnya. Lihat <0>artikel blog ini</0> untuk detailnya."
+      },
+      "subheadings": {
+        "first": "Statistik grup",
+        "second": "Kesempatan pendidikan khusus proyek",
+        "third": "Sertifikat sukarelawan"
+      }
+    },
+    "introduction": "Apakah Anda seorang pendidik yang tertarik menggunakan Zooniverse di kelas? Bagus sekali! Jutaan orang di seluruh dunia berpartisipasi dalam sekitar 100 proyek aktif, masing-masing dengan forum diskusi yang mendukung dan ramah di mana para peneliti berinteraksi dengan publik seputar penelitian dan minat yang lebih luas. Zooniverse adalah tempat yang luar biasa bagi para siswa.",
+    "subheading": "Pendidikan di Zooniverse",
+    "takePart": {
+      "heading": "Ikut Serta dalam Percakapan",
+      "paragraph": "Ikuti terus upaya pendidikan terbaru Zooniverse di <0>Blog Zooniverse</0>. Anda juga dapat bergabung dalam percakapan di <1>forum diskusi kami seputar Pendidikan dan Zooniverse</1>."
+    },
+    "title": "Mendidik"
+  },
+  "FAQ": {
+    "help": "Tidak menemukan jawaban atas pertanyaan Anda? Kunjungi <0>halaman web Zooniverse Solutions</0>, ajukan pertanyaan di <1>Zooniverse Talk</1>, atau <2>hubungi kami</2>.",
+    "item0": {
+      "answer": "Manusia lebih unggul daripada komputer dalam banyak tugas. Untuk sebagian besar proyek Zooniverse, komputer saja tidak cukup baik untuk melakukan tugas yang dibutuhkan, atau mereka mungkin melewatkan fitur menarik yang akan dilihat manusia - inilah mengapa kami membutuhkan bantuan Anda. Beberapa proyek Zooniverse juga menggunakan klasifikasi manusia untuk membantu melatih komputer agar dapat melakukan tugas penelitian ini dengan lebih baik di masa mendatang. Ketika Anda berpartisipasi dalam proyek Zooniverse, Anda berkontribusi pada penelitian nyata.",
+      "question": "Mengapa para peneliti membutuhkan bantuan Anda? Mengapa komputer tidak dapat melakukan tugas-tugas ini?"
+    },
+    "item10": {
+      "answer": "Kami mendukung browser utama hingga versi kedua terakhir.",
+      "question": "Zooniverse mendukung versi browser apa?"
+    },
+    "item1": {
+      "answer": "Untuk sebagian besar subjek yang ditampilkan dalam proyek Zooniverse, para peneliti tidak mengetahui jawaban yang benar dan itulah mengapa mereka membutuhkan bantuan Anda. Manusia sangat pandai dalam tugas pengenalan pola, jadi umumnya tebakan pertama Anda kemungkinan besar adalah yang benar. Jangan terlalu khawatir jika sesekali membuat kesalahan - lebih dari satu orang akan meninjau setiap gambar, video, atau grafik dalam sebuah proyek. Sebagian besar proyek Zooniverse memiliki tombol Bantuan, halaman Pertanyaan yang Sering Diajukan (FAQ), dan Panduan Lapangan dengan informasi lebih lanjut untuk memandu Anda saat melakukan klasifikasi.",
+      "question": "Bagaimana saya tahu apakah saya melakukan ini dengan benar?"
+    },
+    "item2": {
+      "answer": "Klasifikasi Anda disimpan dalam basis data online Zooniverse yang aman. Tim peneliti proyek mengunduh data klasifikasi proyek mereka dan menggabungkan beberapa pengajuan untuk membuat respons 'akhir' untuk setiap subjek. Setelah Anda mengirimkan klasifikasi untuk subjek tertentu, Anda tidak dapat kembali dan mengeditnya. Untuk informasi tentang kepemilikan data, silakan lihat halaman <0>Perjanjian Pengguna dan Kebijakan Privasi Zooniverse</0> kami.",
+      "question": "Apa yang terjadi dengan klasifikasi saya setelah saya mengirimkannya?"
+    },
+    "item3": {
+      "answer": "Ya. Kunjungi zooniverse.org, masuk, klik 'Statistik Lainnya', lalu klik tombol 'Buat Sertifikat Relawan' di kanan bawah grafik batang statistik. Kemudian simpan atau cetak sertifikat Anda! Baca selengkapnya <0>di sini</0>.",
+      "question": "Bisakah saya mengunduh Sertifikat sukarelawan? Bisakah saya menggunakan Zooniverse untuk memenuhi persyaratan Pembelajaran Layanan Masyarakat?"
+    },
+    "item4": {
+      "answer": "Metadata klasifikasi disimpan dalam basis data kami dengan stempel waktu UTC, dan layanan statistik mengagregasi jumlah klasifikasi ke dalam kelompok berdasarkan rentang tanggal UTC. Semua statistik ditampilkan secara konsisten dalam rentang tanggal UTC.",
+      "question": "Mengapa statistik ditampilkan dalam zona waktu UTC?"
+    },
+    "item5": {
+      "answer": "Zooniverse sangat serius dalam melindungi informasi pribadi dan data klasifikasi para sukarelawan kami. Rincian tentang upaya ini dapat ditemukan di halaman <0>Perjanjian Pengguna dan Kebijakan Privasi Zooniverse</0> dan halaman <1>Keamanan Zooniverse</1>.",
+      "question": "Apa yang dilakukan Zooniverse dengan informasi akun saya?"
+    },
+    "item6": {
+      "answer": "Anda dapat mengirimkan saran untuk fitur baru dan melaporkan bug melalui <0>Zooniverse Talk</0>, melalui Issue di <1>repositori Github</1> yang relevan, atau <2>hubungi kami</2>.",
+      "question": "Saya memiliki permintaan fitur atau menemukan bug; kepada siapa saya harus berbicara/bagaimana cara saya melaporkannya?"
+    },
+    "item7": {
+      "answer": "Zooniverse adalah kolaborasi antara institusi dari Inggris Raya dan Amerika Serikat; semua anggota tim kami dipekerjakan oleh salah satu dari institusi mitra tersebut. Kunjungi halaman lowongan kerja Zooniverse untuk mengetahui lebih lanjut tentang peluang kerja di Zooniverse.",
+      "question": "Apakah Zooniverse sedang membuka lowongan pekerjaan?"
+    },
+    "item8": {
+      "answer0": "Zooniverse adalah platform untuk penelitian yang digerakkan oleh masyarakat, bukan sebuah entitas, perusahaan, atau organisasi nirlaba. Kami adalah kolaborasi multi-institusional.",
+      "answer1": "Planetarium Adler di Chicago, salah satu lembaga penyelenggara tim Zooniverse, adalah organisasi nirlaba 501(c)(3). Individu atau organisasi yang perlu secara eksplisit mencantumkan tautan ke organisasi nirlaba 501(c)(3) untuk kegiatan sukarelawan mereka menggunakan Planetarium Adler sebagai referensi. Dokumentasi status 501(c)(3) Planetarium Adler disediakan <0>di sini</0>, dan nomor EIN Planetarium Adler adalah 36-6210902. Saat memasukkan nama organisasi, harap gunakan “Planetarium Adler - Zooniverse” jika memungkinkan. Jika tidak memungkinkan, harap gunakan “Planetarium Adler” (yang sesuai dengan nomor EIN). Dalam semua kasus, Anda akan menjadi sukarelawan melalui Zooniverse.org.",
+      "answer2": "Untuk informasi mengenai cara berdonasi, silakan kunjungi halaman donasi kami.",
+      "question": "Apakah Zooniverse merupakan organisasi nirlaba?"
+    },
+    "item9": {
+      "answer": "Anda dapat menemukan detail selengkapnya tentang cara mengutip Zooniverse dalam publikasi penelitian menggunakan data yang diperoleh dari penggunaan Zooniverse Project Builder di halaman <0>Sumber Daya</0> kami.",
+      "question": "Saya adalah pemilik proyek/anggota tim peneliti, bagaimana cara saya mencantumkan Zooniverse dan Platform Project Builder dalam makalah, abstrak presentasi, dll.?"
+    },
+    "title": "Pertanyaan yang Sering Diajukan"
+  },
+  "Home": {
+    "Community": {
+      "feedOne": "Aktivitas Harian Zooniverse",
+      "feedTwo": "Blog Zooniverse",
+      "heading": "Komunitas Zooniverse",
+      "seeAll": "Lihat semua postingan",
+      "subheading": "Perkembangan Terbaru"
+    },
+    "DefaultHome": {
+      "FeaturedProjects": {
+        "heading": "Proyek Unggulan",
+        "none": "Tidak ada proyek unggulan"
+      },
+      "Introduction": {
+        "description1": "Zooniverse adalah platform penelitian kolaboratif terbesar di dunia. Kami menghubungkan peneliti profesional dengan jutaan relawan di seluruh dunia. Platform ini hadir untuk memfasilitasi beragam temuan empiris, mulai dari yang rumit hingga penelitian paling sulit sekalipun. Pendekatan inilah yang mendorong lahirnya temuan baru, pengaruh pada kebijakan, serta publikasi ilmiah.",
+        "description2": "Platform kami dimotori oleh relawan seperti Anda. Terbuka untuk relawan dari segala usia dan latar belakang. Tak harus bergelar PhD, cukup dengan rasa ingin tahu dan beberapa klik saja. Banyak temuan paling menarik dari proyek Zooniverse yang muncul lewat diskusi antara relawan dan peneliti. Bergabunglah sekarang, ikut serta dalam penelitian mutakhir, dan ciptakan penemuan ilmiah Anda!",
+        "register": "Daftar",
+        "signIn": "Masuk",
+        "video": "Sekilas tentang Zooniverse"
+      },
+      "Researchers": {
+        "build": "Buat proyek",
+        "description": "Peneliti lintas disiplin ilmu telah menggunakan fitur Pembuat Proyek untuk menciptakan beragam proyek yang menarik dan mudah diakses, mulai dari mengklasifikasikan hewan, menemukan eksoplanet, mentranskripsi dokumen bersejarah, dan lain-lain. Siapa pun bisa membuat proyek di Zooniverse. Cukup unggah data Anda, pilih tugas yang ingin dilakukan relawan, dan bergabunglah dengan kami untuk mengembangkan komunitas online inklusif dan ramah yang berkontribusi dalam penelitian empiris."
+      },
+      "headings": {
+        "first": "Apa itu Zooniverse?",
+        "fourth": "Coba aplikasi seluler kami",
+        "second": "Proyek Unggulan",
+        "third": "Peneliti empiris, hasil empiris"
+      },
+      "heroText": "Bergabunglah dengan jutaan orang yang berkontribusi memajukan penelitian empiris, sains, dan pengetahuan.",
+      "mainHeading": "Penelitian kolaboratif",
+      "projects": "Jelajahi proyek",
+      "subheadings": {
+        "first": "Pemahaman kolektif",
+        "fourth": "Temukan, ajarkan, dan pelajari di mana saja",
+        "second": "Proyek Zooniverse",
+        "third": "Temui para peneliti dengan beragam proyek di Zooniverse"
+      }
+    }
+  },
+  "OurTeam": {
+    "description": "Orang-orang yang membuat Zooniverse.",
+    "sidebarLabel": "Lembaga",
+    "title": "Tim Kami"
+  },
+  "Projects": {
+    "disciplines": {
+      "all": "Semua Disiplin",
+      "arts": "Seni",
+      "biology": "Biologi",
+      "climate": "Iklim",
+      "history": "Sejarah",
+      "language": "Bahasa",
+      "literature": "Literatur",
+      "medicine": "Obat",
+      "nature": "Alam",
+      "physics": "Fisika",
+      "social": "Ilmu Sosial",
+      "space": "Ruang angkasa"
+    },
+    "languages": {
+      "label": "Saring proyek berdasarkan terjemahan yang tersedia."
+    },
+    "organizations": {
+      "description": "Organisasi-organisasi tersebut menyatukan berbagai proyek Zooniverse yang saling terkait, sehingga memudahkan para peserta untuk menjelajahi upaya penelitian yang terhubung.",
+      "heading": "Organisasi",
+      "none": "Tidak ada organisasi yang ditemukan."
+    },
+    "projects": {
+      "description": "<0>Selamat datang! Kami sangat senang Anda berada di sini.</0> Gulir ke bawah untuk melihat semua proyek aktif kami, cari proyek tertentu, atau saring proyek berdasarkan minat Anda. Selamat bersenang-senang, dan selamat mengklasifikasikan!",
+      "empty": {
+        "clear": "Atur Ulang Filter",
+        "status": "Terkadang suatu proyek akan kehabisan data untuk sementara waktu, atau mungkin sudah selesai! Coba cari di <0>Status Proyek Apa Pun</0>"
+      },
+      "error": "Terjadi kesalahan saat mengambil proyek.",
+      "heading": "Semua proyek",
+      "none": "Tidak ada proyek yang ditemukan",
+      "showingNum": "{{range}} dari {{total}} proyek"
+    },
+    "search": {
+      "placeholder": "Cari proyek",
+      "warning": "Teks pencarian harus terdiri minimal 5 huruf."
+    },
+    "sortBy": {
+      "label": "Urutkan Berdasarkan",
+      "mostActive": "Paling Aktif",
+      "mostPopular": "Paling Populer",
+      "nameAZ": "Nama A - Z",
+      "nameZA": "Nama Z - A",
+      "newest": "Terbaru",
+      "oldest": "Tertua"
+    },
+    "status": {
+      "active": "Aktif",
+      "all": "Status Apa Pun",
+      "finished": "Selesai",
+      "label": "Saring proyek berdasarkan status",
+      "paused": "Dijeda"
+    }
+  },
+  "Publications": {
+    "description": "Daftar publikasi akademis yang menggunakan data yang dihasilkan oleh Zooniverse.",
+    "formInfo": "Kami bertujuan untuk memposting tautan ke makalah yang telah diterbitkan yang dapat diakses oleh publik. Artikel yang telah diterima untuk publikasi tetapi belum diterbitkan juga diperbolehkan.",
+    "formInstruction": "Untuk mengirimkan publikasi baru atau memperbarui publikasi yang sudah ada, ",
+    "formLabel": "Silakan gunakan formulir ini.",
+    "sidebarLabel": "Disiplin",
+    "title": "Publikasi"
+  },
+  "Resources": {
+    "brand": {
+      "heading": "Sumber Daya Merek",
+      "links": {
+        "first": "Unduh logo resmi Zooniverse",
+        "fourth": "Storybook - Komponen kode yang kami gunakan di situs ini",
+        "second": "Unduh materi cetak, templat presentasi, dan gambar proyek.",
+        "third": "Sistem Desain Zooniverse - Gaya, warna merek, dan aturan tipografi kami"
+      }
+    },
+    "cite": {
+      "heading": "Cara Mengutip Zooniverse",
+      "paragraphs": {
+        "fifth": "Saat menulis tentang Zooniverse secara umum, harap sertakan tautan atau URL ke halaman utama Zooniverse di suatu tempat dalam artikel Anda.",
+        "first": "Sesuai dengan <0>Kebijakan Zooniverse Project Builder</0>, semua publikasi penelitian yang menggunakan data yang berasal dari proyek Zooniverse diminta untuk mengakui Zooniverse dan platform Project Builder dengan menggunakan teks berikut:",
+        "fourth": "Saat menulis tentang proyek Zooniverse tertentu di media, harap sertakan tautan atau URL ke proyek tersebut, baik dalam edisi cetak maupun digital.",
+        "second": "Kami sangat menganjurkan para pemilik proyek untuk melaporkan publikasi penelitian yang diterima dan diterbitkan yang menggunakan data yang dihasilkan oleh Zooniverse kepada kami dengan mengisi <0>formulir ini</0>. Anda dapat menemukan daftar publikasi terkini yang dihasilkan dari proyek Zooniverse dan penelitian terkait di <1>halaman Publikasi</1> kami.",
+        "sixth": "Jika Anda tertarik untuk mewawancarai anggota tim Zooniverse, silakan <0>hubungi kami</0>.",
+        "third": "Jika Anda memiliki pertanyaan tentang cara memberikan pengakuan kepada Zooniverse, seperti menyebutkan individu tertentu atau kode khusus, silakan <0>hubungi kami</0>."
+      },
+      "quote": "Publikasi ini menggunakan data yang dihasilkan melalui platform <0>Zooniverse.org</0>, yang pengembangannya didanai oleh dukungan yang besar, termasuk Global Impact Award dari Google, dan oleh hibah dari Alfred P. Sloan Foundation.",
+      "subheadings": {
+        "first": "Untuk Peneliti",
+        "second": "Untuk Media"
+      }
+    },
+    "title": "Sumber daya"
+  },
+  "Sidebar": {
+    "all": "Semua"
+  },
+  "Volunteer": {
+    "beta": {
+      "button": "Daftar untuk Tes",
+      "heading": "Pengujian Beta",
+      "paragraphs": {
+        "first": "Jika Anda sudah menjadi sukarelawan dan ingin memberikan umpan balik tambahan, pertimbangkan untuk menjadi penguji beta. Penguji beta adalah sukarelawan Zooniverse yang membantu kami menguji proyek sebelum diluncurkan secara publik dan memberikan umpan balik kepada tim peneliti untuk membantu meningkatkan proyek-proyek tersebut. Penguji beta mengirimkan klasifikasi pengujian pada proyek, dan memberikan umpan balik kepada tim melalui kuesioner singkat.",
+        "second": "Proses ini membantu kami mengidentifikasi masalah apa pun dalam proyek, dan bahkan menilai apakah proyek tersebut sesuai untuk Zooniverse. Pendapat Anda sangat penting bagi kami! Anda dapat membaca panduan kami tentang apa yang membuat sebuah proyek sesuai di halaman <0>Kebijakan Lab</0>.",
+        "third": "Mendaftar sebagai penguji beta itu mudah, dan siapa pun bisa melakukannya. Cukup kunjungi <0>pengaturan</0> Anda dan centang kotak yang bertuliskan, “Dapatkan pembaruan email proyek beta dan jadilah penguji beta.” Kami akan mengirimkan email kepada Anda ketika proyek siap untuk diuji. Anda dapat mengubah pengaturan email Anda dan berhenti berlangganan email beta kapan pun Anda mau dengan mengunjungi halaman email yang sama dan menghapus centang pada kotak tersebut."
+      }
+    },
+    "classify": {
+      "heading": "Klasifikasikan Proyek",
+      "paragraphs": {
+        "first": "Menjadi sukarelawan dalam sebuah proyek adalah cara termudah dan paling umum untuk berpartisipasi. Kami selalu membutuhkan sukarelawan untuk membantu mengklasifikasikan data proyek. Tidak ada persyaratan waktu minimum; Anda dapat melakukan sebanyak atau sesedikit yang Anda inginkan.",
+        "second": "Untuk memulai, kunjungi halaman utama <0>Zooniverse</0> dan daftarkan akun."
+      }
+    },
+    "howTo": {
+      "heading": "Cara menjadi sukarelawan",
+      "paragraph": "Tertarik menjadi sukarelawan? Mudah saja: mulailah mengklasifikasikan! Setiap orang yang berkontribusi pada proyek Zooniverse adalah sukarelawan. Kami memiliki komunitas sukarelawan global yang luar biasa yang 'menggerakkan' penelitian berbasis komunitas kami. Sudah menjadi sukarelawan dan ingin berbuat lebih banyak? Pertimbangkan untuk menjadi penguji beta, atau membantu tim proyek dengan menjadi moderator Diskusi. Untuk informasi lebih lanjut tentang peran-peran ini, baca terus."
+    },
+    "moderate": {
+      "heading": "Memoderasi sebuah Proyek",
+      "paragraphs": {
+        "first": "Moderator sukarelawan membantu tim peneliti dengan alat diskusi Talk proyek. Mereka membantu memoderasi diskusi, bertindak sebagai penghubung untuk proyek, dan memiliki izin tambahan di Talk. Moderator dipilih oleh pemilik proyek. Jika Anda tertarik untuk menjadi moderator pada proyek yang Anda ikuti, kunjungi halaman Tentang proyek atau papan Talk dan hubungi peneliti. Untuk informasi lebih lanjut, lihat dokumentasi <0>'Apa Fungsi Moderator?'</0> kami.",
+        "second": "Jika Anda memerlukan informasi lebih lanjut mengenai berbagai peran ini, <0>hubungi kami</0>."
+      }
+    },
+    "register": {
+      "button": "Daftar Hari Ini",
+      "heading": "Manfaat Pendaftaran di Zooniverse",
+      "paragraphs": {
+        "fifth": "Versi terjemahan halaman pendaftaran tersedia dalam bahasa <0>Spanyol</0> dan <1>Prancis</1>. Harap dicatat bahwa tidak semua elemen pada suatu halaman mungkin diterjemahkan.",
+        "first": "Lacak klasifikasi, jam kerja, dan lainnya. Temukan proyek favorit Anda dan amati tren. Kemudian, ekspor data Anda untuk opsi yang lebih banyak lagi.",
+        "fourth": "Bagi mereka yang berusia di bawah 16 tahun, orang tua/wali perlu menandatangani pendaftaran mereka. <0>https://www.zooniverse.org/accounts/register</0> adalah tautan langsung untuk mendaftar.",
+        "second": "Hasilkan sertifikat resmi yang memverifikasi upaya Anda di platform Zooniverse. Cukup tentukan periode waktu atau proyek.",
+        "third": "Pengguna terdaftar dapat memposting di papan diskusi khusus proyek dan papan diskusi di seluruh Zooniverse, sehingga Anda dapat mengajukan pertanyaan kepada para ahli sungguhan."
+      },
+      "subheadings": {
+        "first": "Statistik pribadi",
+        "second": "Sertifikat sukarelawan",
+        "third": "Berbincanglah dengan sesama relawan dan para ahli."
+      }
+    },
+    "title": "Sukarelawan"
+  }
+}

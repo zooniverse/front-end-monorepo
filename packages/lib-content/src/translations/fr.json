@@ -1,0 +1,445 @@
+{
+  "404": {
+    "Default404": {
+      "findNewProject": "Trouvez un nouveau projet à explorer",
+      "heading": "Rien ici.",
+      "message": "La page que vous recherchez n'existe plus.",
+      "returnHome": "Retour à la page d'accueil"
+    }
+  },
+  "AboutHeader": {
+    "links": {
+      "about": "À propos",
+      "collaborate": "Collaborer",
+      "contact": "Contactez-nous",
+      "donate": "Faire un don",
+      "educate": "Éduquer",
+      "faq": "FAQ",
+      "publications": "Publications",
+      "resources": "Ressources",
+      "team": "Notre équipe",
+      "volunteer": "Bénévole"
+    },
+    "title": {
+      "about": "À propos",
+      "getInvolved": "Impliquez-vous"
+    }
+  },
+  "AboutPage": {
+    "contact": {
+      "categories": {
+        "first": "Questions générales sur Zooniverse",
+        "second": "Collaborer sur un projet",
+        "third": "Demande de la presse"
+      },
+      "heading": "Contactez-nous",
+      "paragraphs": {
+        "first": "Veuillez consulter notre <0>FAQ page</0> et la <1>page Web Zooniverse Solutions</1>.",
+        "second": "Vous rencontrez un problème lié à un projet spécifique ? Nous vous recommandons de contacter directement l’équipe de recherche via leur page de discussion.",
+        "third": "Vous n'arrivez pas à accéder au bouton « Nous contacter » ? Envoyez-nous un e-mail directement à <0>contact@zooniverse.org</0>."
+      },
+      "subheading": "De quoi pouvons-nous vous aider ?"
+    },
+    "highlights": {
+      "description": "Disponible à l'achat sur <0>Blurb.com</0>",
+      "heading": "Nos points forts",
+      "paragraphs": {
+        "first": "Depuis 2007, les projets Zooniverse ont permis de nombreuses découvertes inattendues et scientifiquement importantes, ainsi que de nombreuses publications évaluées par des pairs. Tout cela aurait été impossible sans notre communauté mondiale de participants Zooniverse, impliqués dans ces projets aux côtés des équipes de recherche.",
+        "second": "Ces livres \"Into the Zooniverse\" commémorent et honorent les efforts de toutes les personnes impliquées, en donnant un aperçu de la façon dont les membres de la communauté Zooniverse ont un impact réel sur le monde qui les entoure. Chaque livre met en lumière un sous-ensemble de projets qui ont été actifs cette année-là."
+      },
+      "pictures": {
+        "first": "Zooniverse met en avant la couverture du livre 2019",
+        "second": "Zooniverse met en avant la couverture du livre 2020",
+        "third": "Zooniverse met en avant la couverture du livre 2021"
+      },
+      "sidebar": "Points forts",
+      "subheading": "Projets mémorables au fil des ans",
+      "tip": "Nous ne réalisons aucun profit sur la vente des exemplaires papier des livres."
+    },
+    "howItWorks": {
+      "heading": "Comment ça marche",
+      "participants": {
+        "description": "En tant que participant",
+        "link": "Explorer les projets",
+        "steps": {
+          "first": "Trouvez un projet qui vous intéresse",
+          "fourth": "Générez un certificat officiel attestant de vos efforts sur la plateforme",
+          "second": "Apprenez le processus de classification de ce projet.",
+          "third": "Soumettez votre classification et contribuez à la recherche !"
+        }
+      },
+      "researchers": {
+        "description": "En tant que chercheur",
+        "link": "Élaborer un projet",
+        "steps": {
+          "first": "Créez votre projet à l'aide du générateur de projets Zooniverse.",
+          "fourth": "Téléchargez vos données et publiez vos résultats !",
+          "second": "Soumettez votre projet pour approbation",
+          "third": "Lancez votre projet et interagissez avec les bénévoles sur Talk pendant que les classifications arrivent."
+        }
+      },
+      "subheading": "Recherche participative"
+    },
+    "mobile": {
+      "altAppStore": "Téléchargez l’appli sur l’App Store",
+      "altImage": "Photo d’un téléphone portable où apparait l’application Zooniverse",
+      "altPlayStore": "Téléchargez l’appli sur Google Play",
+      "description": "Le Zooniverse à portée de main. Téléchargez notre application pour les appareils iOS et Android.",
+      "heading": "Découvrez notre application mobile",
+      "sidebar": "Application mobile",
+      "subheading": "Découvrez, partagez et apprenez où que vous soyez"
+    },
+    "ourMission": {
+      "discoveries": {
+        "first": "Galaxies des pois verts",
+        "fourth": "L'étoile de Boyajian",
+        "second": "Nouvelles exoplanètes découvertes",
+        "third": "Une utilisation antérieure de « mensonge blanc »",
+        "tip": "Cliquez sur une découverte pour plus d'informations."
+      },
+      "heading": "Notre mission",
+      "paragraphs": {
+        "first": "Zooniverse est la plus grande et la plus populaire plateforme mondiale de recherche participative. Cette recherche est rendue possible grâce à des bénévoles : des millions de personnes à travers le monde qui se mobilisent pour épauler les chercheurs professionnels. Notre objectif est de permettre des recherches qui seraient autrement impossibles ou impraticables. Les recherches menées sur Zooniverse débouchent sur de nouvelles découvertes, des ensembles de données utiles à l’ensemble de la communauté scientifique et de nombreuses publications.",
+        "fourth": "Bénévoles et professionnels font ensemble de véritables découvertes. Les projets Zooniverse sont conçus pour transformer les efforts des bénévoles en résultats concrets. Dans certains cas, les bénévoles de Zooniverse ont même fait des découvertes importantes et totalement inattendues. Une grande partie de ces recherches se déroule sur Talk, les forums de discussion de Zooniverse, où les bénévoles collaborent avec les membres de l'équipe de recherche et entre eux. Ces forums sont intégrés à chaque projet, permettant ainsi tout, du simple marquage par hashtag à l'analyse collaborative approfondie. Il existe également un forum central Zooniverse Talk pour les discussions générales sur les sujets concernant la plateforme. Nous encourageons tous les utilisateurs à rejoindre la conversation sur Talk pour une participation plus active.",
+        "second": "Nul besoin de formation, de compétences ou de connaissances particulières pour participer aux projets Zooniverse. Nous facilitons la contribution à la recherche universitaire, depuis son ordinateur et à son rythme. Vous pourrez étudier des données authentiques recueillies par des chercheurs, comme des images de galaxies lointaines, des documents historiques, des journaux intimes ou des vidéos d'animaux dans leur habitat naturel. En participant à nos projets, vous contribuerez à notre compréhension du monde, de l'univers et bien plus encore. Grâce à notre vaste gamme de projets, en constante expansion, qui couvrent de nombreuses disciplines et thématiques en sciences et en sciences humaines, chacun peut explorer, apprendre et s'amuser dans Zooniverse. Pour devenir bénévole, rendez-vous sur la page <0>Projets</0>, choisissez un projet qui vous intéresse et lancez-vous !",
+        "third": "Le principal défi de la recherche au XXIe siècle est de gérer le déluge d'informations que nous pouvons désormais collecter sur le monde qui nous entoure. Si l'informatique peut apporter une aide précieuse, dans de nombreux domaines, notre capacité à reconnaître des schémas et notre émerveillement face à la découverte nous confèrent un avantage certain. Grâce aux bénévoles de Zooniverse, les chercheurs peuvent analyser leurs données plus rapidement et avec une plus grande précision, et ainsi obtenir des résultats prometteurs plus vite. Votre contribution permet de gagner du temps et des ressources, d'améliorer les performances des ordinateurs dans ce domaine et d'accélérer les progrès et notre compréhension du monde. Nos projets combinent les contributions de nombreux bénévoles, s'appuyant sur l'intelligence collective pour produire des résultats fiables et précis. L'analyse des données par un grand nombre de personnes permet souvent de mieux évaluer la probabilité d'erreur. Les résultats des projets Zooniverse sont souvent exactement ce dont nous avons besoin pour progresser dans de nombreux domaines de la recherche."
+      },
+      "stats": {
+        "classifications": "Classifications à ce jour",
+        "volunteers": "Volontaires inscrits"
+      },
+      "subheadings": {
+        "fifth": "Nos projets mènent à de grandes découvertes.",
+        "first": "La sagesse du peuple",
+        "fourth": "Les œuvres de Zooniverse",
+        "second": "N'importe qui peut être chercheur",
+        "third": "Nous accélérons les recherches importantes en travaillant ensemble"
+      },
+      "video": "Une brève introduction au Zooniverse"
+    },
+    "sidebarLabel": "Section",
+    "title": "À propos du Zooniverse"
+  },
+  "Article": {
+    "url": "En savoir plus"
+  },
+  "Collaborate": {
+    "paragraphs": {
+      "eighth": "Si vous avez des questions ou si vous avez besoin de conseils supplémentaires, veuillez contacter Cliff Johnson, responsable scientifique de Zooniverse et agent de liaison de la NASA : <0>cliff@zooniverse.org</0>.",
+      "fifth": "Si vous souhaitez collaborer avec nous pour créer des outils ou une infrastructure de projet personnalisés, veuillez <0>nous contacter</0>.",
+      "first": "Vos recherches bénéficieraient-elles de l'implication de milliers de bénévoles ? Zooniverse est la plus grande et la plus performante plateforme en ligne au monde pour la recherche participative ; nous comptons des millions de bénévoles inscrits qui collaborent avec des chercheurs professionnels sur des projets de recherche dans un large éventail de disciplines, de l'astronomie aux sciences humaines.",
+      "fourth": "Lorsque les outils disponibles dans l'Éditeur de projets ne correspondent pas aux objectifs de recherche d'une équipe, les chercheurs peuvent envisager un partenariat avec Zooniverse pour créer des outils personnalisés. Nous accompagnons ces équipes dans leurs démarches de demande de financement afin de soutenir la recherche, la conception et le développement. Ceux qui ont déjà sollicité des subventions savent que ce processus peut être long. Une fois la demande déposée, il faut compter six mois, voire plus, avant d'obtenir une réponse. Les projets financés nécessitent généralement au moins six mois de conception, de développement et de test, selon la complexité des fonctionnalités créées. Un délai supplémentaire est ensuite nécessaire pour les généraliser (et souvent les réviser) en vue de leur intégration à l'Éditeur de projets.",
+      "nineth": "À ce jour, plus d'une demi-douzaine d'organisations ont choisi Adler Zooniverse pour concrétiser leur responsabilité sociale d'entreprise. La participation permet de valider les heures de bénévolat requises par les employés, pour l'obtention d'un diplôme, d'une bourse, etc. Cette expérience de bénévolat unique offre aux participants l'occasion de réfléchir à la manière dont leurs efforts (et ceux de la communauté) contribuent à notre compréhension du monde et de l'univers. <0>Contactez-nous</0> pour en savoir plus sur cette initiative.",
+      "second": "Les équipes de recherche peuvent construire des projets Zooniverse de deux manières.",
+      "seventh": "Que vous utilisiez déjà l'outil de création de projets pour concevoir des flux de travail ou que vous commenciez tout juste à explorer comment les contributions participatives pourraient faire progresser vos recherches, l'équipe Zooniverse s'engage à accompagner les équipes dans le développement et la mise en œuvre de projets destinés à la NASA. Nous sommes à votre disposition pour discuter et soutenir les propositions soumises aux appels à projets de la NASA en matière de sciences participatives (notamment le programme de financement d'amorçage pour les sciences participatives, le programme de sciences participatives pour les systèmes terrestres et les autres opportunités de financement ROSES de la NASA) pour les projets souhaitant utiliser la plateforme Zooniverse.",
+      "sixth": "Êtes-vous un chercheur travaillant sur un projet en lien avec l'une des divisions de la Direction des missions scientifiques de la NASA (astrophysique, sciences biologiques et physiques, héliophysique et sciences planétaires) et qui bénéficierait des contributions des bénévoles de Zooniverse ? Dans le cadre d'un partenariat continu avec la NASA, Zooniverse souhaite renforcer son soutien actuel aux équipes de recherche de la NASA et encourager le développement de nouveaux projets sur sa plateforme.",
+      "third": "Les équipes peuvent utiliser notre outil gratuit <0>Créateur de projets</0> pour créer leur propre projet Zooniverse. Pour être publiés et figurer sur notre page Projets, les projets doivent être validés par notre processus d'examen afin de garantir leur adéquation à la plateforme et leur disponibilité. C'est l'option la plus rapide et la plus simple pour créer un projet Zooniverse. Pour plus d'informations sur ce processus, notamment les délais estimés pour l'examen, veuillez consulter notre <1>Bonnes pratiques et organigramme de l'examen des projets</1>."
+    },
+    "subheadings": {
+      "fifth": "opportunités en matière de responsabilité sociale des entreprises",
+      "first": "Collaborez avec nous",
+      "fourth": "Appel à projets",
+      "second": "Nos supporters",
+      "third": "Collaborateurs sélectionnés",
+      "tools": "Outils sélectionnés"
+    },
+    "title": "Collaborer"
+  },
+  "Donate": {
+    "button": "Faites un don aujourd'hui",
+    "paragraphs": {
+      "first": "Zooniverse est une collaboration entre le planétarium Adler de Chicago, l'université d'Oxford, l'université du Minnesota – Twin Cities (UMN), des centaines de chercheurs et des millions de participants du monde entier. Les équipes Zooniverse d'Adler, d'Oxford et de l'UMN comprennent notre équipe de direction, des développeurs web, un concepteur, un responsable de la communication, des data scientists et des chercheurs. Cette combinaison unique d'expertises en recherche, en médiation culturelle et en développement web moderne nous permet d'accompagner la formidable communauté de bénévoles et les équipes de recherche dévouées qui utilisent la plateforme Zooniverse. Le financement de Zooniverse provient principalement de subventions, ainsi que du soutien institutionnel d'Adler, d'Oxford et de l'UMN.",
+      "second": "Si vous souhaitez soutenir Zooniverse, pensez à faire un don déductible d'impôt au planétarium Adler. Votre don, sans affectation particulière, permet aux chercheurs d'exploiter leurs données grâce à la science participative en ligne, aux astronomes d'installer des télescopes dans les quartiers de toute la région de Chicago, aux adolescents de lancer des expériences spatiales originales et aux personnes de tous âges de se connecter sous les étoiles.",
+      "third": "Suivez le lien ci-dessous pour faire un don sur le site web du planétarium Adler."
+    },
+    "subheading": "Soutenez le Zooniverse",
+    "title": "Faire un don"
+  },
+  "Educate": {
+    "articles": {
+      "first": {
+        "datePublished": "28 octobre 2022",
+        "excerpt": "Il existe un besoin crucial de ressources pédagogiques actives, fondées sur la recherche, pour l'enseignement et l'apprentissage des sciences, technologies, ingénierie et mathématiques (STEM) dans les cours en ligne. Chaque année, des centaines de milliers d'étudiants de premier cycle non scientifiques s'inscrivent à des cours d'astronomie de formation générale pour satisfaire aux exigences de leur établissement en matière de sciences humaines. Lors de la conception de ressources pédagogiques pour ce public, un élément central…",
+        "title": "Un nouveau modèle de développement de programmes d'études pour améliorer les compétences en matière de données et l'auto-efficacité des étudiants de premier cycle..."
+      },
+      "fourth": {
+        "datePublished": "29 avril 2015",
+        "excerpt": "L'article d'aujourd'hui est signé Fran Wilson, enseignante en CE1 à l'école primaire de Madeira. Fran s'efforce de susciter l'intérêt de ses élèves pour les sciences et de leur faire découvrir que les scientifiques ne travaillent pas tous en laboratoire, vêtus de blouses blanches et de lunettes de sécurité. Elle recherche des occasions concrètes pour ses élèves de participer à des projets de sciences participatives afin de les responsabiliser.",
+        "title": "Forêts flottantes : Apprendre aux jeunes enfants les algues"
+      },
+      "heading": "Comment les enseignants utilisent-ils Zooniverse ?",
+      "second": {
+        "datePublished": "14 août 2019",
+        "excerpt": "« Essayez tous de prendre la même galaxie ! » s'exclama un garçon en désignant ses camarades. Autour de la table, six élèves commencèrent à faire glisser l'image d'une galaxie depuis le centre d'un grand écran tactile vers leur poste de travail. Il est fort probable que ces élèves soient les premiers à observer cette galaxie et à décider de sa classification…",
+        "title": "U!Scientist et la table tactile Galaxy Zoo au planétarium Adler"
+      },
+      "third": {
+        "datePublished": "7 février 2018",
+        "excerpt": "En tant que professeur d'histoire-géographie, je souhaite que mes élèves développent une appréciation pour la discipline historique elle-même. Plutôt que de privilégier la mémorisation de dates et de noms – ces informations que l'on oublie aussitôt notées lors d'un examen –, mon objectif est de leur faire découvrir les subtilités du travail des historiens. Récemment, mon cours d'histoire du monde antique en classe de quatrième…",
+        "title": "Des élèves de 4e du Missouri transcrivent des documents anti-esclavagistes et découvrent le mouvement abolitionniste."
+      }
+    },
+    "buttons": {
+      "first": "Ressources en ligne",
+      "second": "Zooniverse dans les écoles (9-12 ans)",
+      "third": "Zooniverse pour les étudiants de premier cycle"
+    },
+    "forEducators": {
+      "classrooms": "Explorez les salles de classe de Zooniverse",
+      "heading": "Ressources pour les éducateurs",
+      "paragraphs": {
+        "first": "Définissez des étapes clés en matière de classification, suivez les efforts déployés et célébrez l'impact collectif. Consultez notre <0>annonce</0> pour plus de détails.",
+        "second": "Chaque équipe de projet peut partager des ressources pédagogiques supplémentaires, telles que des plans de cours, des tutoriels vidéo, des liens de recherche, etc. N'oubliez pas de consulter l'onglet <0>Éducation</0> du projet.",
+        "third": "Soutien aux étudiants effectuant des heures de service communautaire pour l'obtention de bourses, la validation de leurs exigences de diplomation, etc. Consultez cet article de blog pour plus de détails."
+      },
+      "subheadings": {
+        "first": "Statistiques du groupe",
+        "second": "opportunités éducatives spécifiques au projet",
+        "third": "Certificat de bénévolat"
+      }
+    },
+    "introduction": "Vous êtes enseignant et souhaitez utiliser Zooniverse en classe ? C’est formidable ! Des millions de personnes à travers le monde participent à une centaine de projets actifs, chacun disposant d’un forum de discussion convivial et stimulant où les chercheurs échangent avec le public sur leurs travaux et des sujets plus généraux. Zooniverse est une ressource précieuse pour les élèves et les étudiants.",
+    "subheading": "L'éducation dans le Zooniverse",
+    "takePart": {
+      "heading": "Participez à la conversation",
+      "paragraph": "Suivez les dernières initiatives éducatives de Zooniverse sur le <0>blog Zooniverse</0>. Vous pouvez également participer à la discussion sur notre <1>forum de discussion consacré à l'éducation et à Zooniverse</1>."
+    },
+    "title": "Éduquer"
+  },
+  "FAQ": {
+    "help": "Vous ne trouvez pas la réponse à votre question ? Visitez la <0>page Web Zooniverse Solutions</0>, posez votre question sur <1>Zooniverse Talk</1> ou <2>contactez-nous</2>.",
+    "item0": {
+      "answer": "Les humains sont plus performants que les ordinateurs dans de nombreuses tâches. Pour la plupart des projets Zooniverse, les ordinateurs ne sont tout simplement pas assez performants pour accomplir la tâche requise, ou ils peuvent passer à côté de détails intéressants qu'un humain remarquerait ; c'est pourquoi nous avons besoin de votre aide. Certains projets Zooniverse utilisent également les classifications humaines pour aider à entraîner les ordinateurs à être plus performants dans ces tâches de recherche à l'avenir. En participant à un projet Zooniverse, vous contribuez à la recherche.",
+      "question": "Pourquoi les chercheurs ont-ils besoin de votre aide ? Pourquoi les ordinateurs ne peuvent-ils pas effectuer ces tâches ?"
+    },
+    "item10": {
+      "answer": "Nous prenons en charge les principaux navigateurs jusqu'à l'avant-dernière version.",
+      "question": "Quelle version de navigateur Zooniverse prend-il en charge ?"
+    },
+    "item1": {
+      "answer": "Pour la plupart des sujets présentés dans les projets Zooniverse, les chercheurs ignorent la réponse exacte et ont besoin de votre aide. L'être humain excelle dans la reconnaissance de formes ; votre première intuition est donc généralement la bonne. Ne vous inquiétez pas si vous faites une erreur de temps en temps : plusieurs personnes examineront chaque image, vidéo ou graphique d'un projet. La plupart des projets Zooniverse proposent un bouton « Aide », une FAQ et un guide pratique contenant des informations supplémentaires pour vous accompagner dans la classification.",
+      "question": "Comment savoir si je fais les choses correctement ?"
+    },
+    "item2": {
+      "answer": "Vos classifications sont stockées dans la base de données en ligne sécurisée de Zooniverse. Les équipes de recherche téléchargent les données de classification de leur projet et combinent les différentes soumissions pour créer une réponse finale pour chaque sujet. Une fois votre classification soumise pour un sujet donné, vous ne pouvez plus la modifier. Pour plus d'informations sur la propriété des données, veuillez consulter notre page « Contrat d'utilisation et politique de confidentialité de Zooniverse ».",
+      "question": "Que devient ma classification après sa soumission ?"
+    },
+    "item3": {
+      "answer": "Oui. Rendez-vous sur zooniverse.org, connectez-vous, cliquez sur « Plus de statistiques », puis sur le bouton « Générer un certificat de bénévolat » en bas à droite du graphique. Ensuite, enregistrez ou imprimez votre certificat ! En savoir plus <0>ici</0>.",
+      "question": "Puis-je télécharger un certificat de bénévolat ? Puis-je utiliser Zooniverse pour satisfaire aux exigences d’apprentissage par le service ?"
+    },
+    "item4": {
+      "answer": "Les métadonnées de classification sont stockées dans notre base de données avec un horodatage UTC, et le service de statistiques regroupe les données de classification par intervalles de dates UTC. Toutes les statistiques sont affichées de manière cohérente par intervalles de dates UTC.",
+      "question": "Pourquoi les statistiques sont-elles affichées en fuseau horaire UTC ?"
+    },
+    "item5": {
+      "answer": "Zooniverse prend très au sérieux la protection des données personnelles et de classification de ses bénévoles. Vous trouverez plus d'informations à ce sujet sur la page <0>Contrat d'utilisation et politique de confidentialité de Zooniverse</0> et sur la page <1>Sécurité de Zooniverse</1>.",
+      "question": "Que fait Zooniverse avec les informations de mon compte ?"
+    },
+    "item6": {
+      "answer": "Vous pouvez poster vos suggestions de nouvelles fonctionnalités et signaler les bugs via <0>Zooniverse Talk</0>, via un Issue sur le <1>dépôt Github</1> pertinent, ou <2>nous contacter</2>.",
+      "question": "J'ai une suggestion d'amélioration ou j'ai trouvé un bug ; à qui dois-je m'adresser/comment puis-je le signaler ?"
+    },
+    "item7": {
+      "answer": "Zooniverse est une collaboration entre des institutions du Royaume-Uni et des États-Unis ; tous les membres de notre équipe travaillent pour l’une ou l’autre de ces institutions partenaires. Consultez la page « Emplois chez Zooniverse » pour en savoir plus sur les opportunités d’emploi au sein de Zooniverse.",
+      "question": "Zooniverse recrute-t-il ?"
+    },
+    "item8": {
+      "answer0": "Zooniverse est une plateforme de recherche participative, et non une entité, une entreprise ou une association à but non lucratif. Nous sommes une collaboration multi-institutionnelle.",
+      "answer1": "Le planétarium Adler de Chicago, l'un des établissements hôtes de l'équipe Zooniverse, est un organisme à but non lucratif (501(c)(3)). Les personnes ou organisations souhaitant faire du bénévolat en mentionnant explicitement un organisme à but non lucratif (501(c)(3)) doivent utiliser le planétarium Adler comme référence. La documentation attestant du statut 501(c)(3) du planétarium Adler est disponible ici. Son numéro d'identification fiscale (EIN) est le 36-6210902. Lors de la saisie du nom de l'organisation, veuillez indiquer « Planétarium Adler - Zooniverse » si possible. À défaut, veuillez indiquer « Planétarium Adler » (qui correspond au numéro d'identification fiscale). Dans tous les cas, le bénévolat se fera via Zooniverse.org.",
+      "answer2": "Pour plus d'informations sur la façon de faire un don, veuillez consulter notre <0>page de dons</0>.",
+      "question": "Zooniverse est-il une organisation à but non lucratif ?"
+    },
+    "item9": {
+      "answer": "Vous trouverez plus de détails sur la manière de citer Zooniverse dans les publications de recherche utilisant des données issues de l'utilisation du Zooniverse Project Builder sur notre <0>page Ressources</0>.",
+      "question": "Je suis propriétaire de projet/membre d'une équipe de recherche, comment puis-je mentionner Zooniverse et la plateforme Project Builder dans mon article, le résumé de ma présentation, etc. ?"
+    },
+    "title": "Foire aux questions"
+  },
+  "Home": {
+    "Community": {
+      "feedOne": "Le projet Zooniverse du jour",
+      "feedTwo": "Le blog Zooniverse",
+      "heading": "La communauté Zooniverse",
+      "seeAll": "Voir toutes les publications",
+      "subheading": "Quoi de neuf ?"
+    },
+    "DefaultHome": {
+      "FeaturedProjects": {
+        "heading": "Projets mis en avant",
+        "none": "Aucun projet mis en avant"
+      },
+      "Introduction": {
+        "description1": "Zooniverse est la plus grande plateforme de recherche citoyenne au monde. Nous mettons en relation des chercheurs professionnels avec des millions de volontaires à travers le monde. Nous rendons possible l’obtention de résultats concrets issus de recherches jusque-là irréalisables, voire impossibles qui mènent à de nouvelles découvertes, à de réels impacts politiques ainsi qu’à des publications scientifiques.",
+        "description2": "Ce sont des volontaires comme vous qui donnent vie à notre plateforme. Les personnes de tous âges et de tous horizons sont les bienvenues, sans conditions : il suffit de savoir s’émerveiller et cliquer. Les découvertes les plus intéressantes des projets Zooniverse sont souvent issues d’échanges entre volontaires et chercheurs. Rejoignez-nous dès aujourd’hui et prenez part à des recherches de pointe tout en faisant vos propres découvertes !",
+        "register": "S’inscrire",
+        "signIn": "Se connecter",
+        "video": "Une brève introduction au Zooniverse"
+      },
+      "Researchers": {
+        "build": "Élaborer un projet",
+        "description": "De la classification des animaux à la découverte d’exoplanètes en passant par la transcription de documents historiques, entre autres, des chercheurs de toutes disciplines ont utilisé l’outil d’élaboration de projets (Project Builder) de Zooniverse pour créer des projets fascinants et accessibles. Tout le monde peut créer un projet Zooniverse. Il vous suffit d’importer vos données, de choisir les tâches que vous souhaitez confier aux volontaires et de nous rejoindre pour créer une communauté en ligne inclusive, accueillante, et engagée en matière de recherche concrète."
+      },
+      "headings": {
+        "first": "En quoi consiste Zooniverse ?",
+        "fourth": "Découvrez notre application mobile",
+        "second": "Projets mis en avant",
+        "third": "Des vrais chercheurs, des résultats concrets"
+      },
+      "heroText": "Rejoignez des millions de personnes qui participent à faire avancer la recherche, la science et le savoir.",
+      "mainHeading": "Recherche collaborative",
+      "projects": "Explorer les projets",
+      "subheadings": {
+        "first": "La mise en commun des savoirs",
+        "fourth": "Découvrez, partagez et apprenez où que vous soyez",
+        "second": "Les projets Zooniverse",
+        "third": "Découvrez les chercheurs qui ont créé des projets sur Zooniverse"
+      }
+    }
+  },
+  "OurTeam": {
+    "description": "Les personnes qui créent le Zooniverse.",
+    "sidebarLabel": "Institution",
+    "title": "Notre équipe"
+  },
+  "Projects": {
+    "disciplines": {
+      "all": "Toutes les disciplines",
+      "arts": "Arts",
+      "biology": "Biologie",
+      "climate": "Climat",
+      "history": "L'histoire",
+      "language": "Langue",
+      "literature": "Littérature",
+      "medicine": "Médecine",
+      "nature": "Nature",
+      "physics": "Physique",
+      "social": "Sciences sociales",
+      "space": "L'espace"
+    },
+    "languages": {
+      "label": "Filtrer les projets en fonction des traductions disponibles"
+    },
+    "organizations": {
+      "description": "Les organisations rassemblent plusieurs projets Zooniverse apparentés, ce qui permet aux participants d'explorer plus facilement les efforts de recherche connexes.",
+      "heading": "Organisations",
+      "none": "Aucune organisation n'a été trouvée."
+    },
+    "projects": {
+      "description": "<0>Bienvenue ! Nous sommes ravis que vous soyez ici.</0> Faites défiler les pages pour parcourir tous nos projets actifs, rechercher un projet spécifique ou filtrer les projets en fonction de vos centres d'intérêt. Amusez-vous bien et bonne classification ! ",
+      "empty": {
+        "clear": "Réinitialiser les filtres",
+        "status": "Il peut arriver qu'un projet ne contienne temporairement plus de données ou qu'il soit terminé ! Essayez de rechercher <0>Tout statut de projet</0>"
+      },
+      "error": "Une erreur s'est produite lors de l'extraction des projets.",
+      "heading": "Tous les projets",
+      "none": "Aucun projet trouvé",
+      "showingNum": "{{gamme}} des projets {{total}}"
+    },
+    "search": {
+      "placeholder": "Recherche de projets",
+      "warning": "Le texte de la recherche doit comporter au moins 5 lettres"
+    },
+    "sortBy": {
+      "label": "Trier par",
+      "mostActive": "Les plus actifs",
+      "mostPopular": "Les plus populaires",
+      "nameAZ": "Nom A - Z",
+      "nameZA": "Nom Z - A",
+      "newest": "Le plus récent",
+      "oldest": "Le plus ancien"
+    },
+    "status": {
+      "active": "Actif",
+      "all": "Tout statut",
+      "finished": "Fini",
+      "label": "Filtrer les projets par statut",
+      "paused": "En pause"
+    }
+  },
+  "Publications": {
+    "description": "Liste des publications académiques utilisant des données générées par Zooniverse.",
+    "formInfo": "Notre objectif est de publier des liens vers des articles publiés et accessibles au public. Les articles acceptés pour publication mais non encore publiés sont également les bienvenus.",
+    "formInstruction": "Pour soumettre une nouvelle publication ou mettre à jour une publication existante, ",
+    "formLabel": "Veuillez utiliser ce formulaire",
+    "sidebarLabel": "Discipline",
+    "title": "Publications"
+  },
+  "Resources": {
+    "brand": {
+      "heading": "Ressources de marque",
+      "links": {
+        "first": "Télécharger les logos officiels de Zooniverse",
+        "fourth": "Storybook - Nos composants codés utilisés sur le site",
+        "second": "Téléchargez des documents à imprimer, des modèles de présentation et des images de projet.",
+        "third": "Système de conception Zooniverse - Nos styles, couleurs de marque et règles typographiques"
+      }
+    },
+    "cite": {
+      "heading": "Comment citer le Zooniverse",
+      "paragraphs": {
+        "fifth": "Lorsque vous écrivez sur le Zooniverse en général, veuillez inclure un lien ou une URL vers la page d'accueil du Zooniverse quelque part dans votre article.",
+        "first": "Conformément aux <0>Politiques de Zooniverse Project Builder</0>, toutes les publications de recherche utilisant des données issues de projets Zooniverse sont priées de mentionner Zooniverse et la plateforme Project Builder en utilisant le texte suivant :",
+        "fourth": "Lorsque vous écrivez sur des projets spécifiques de Zooniverse dans la presse, veuillez inclure un lien ou une URL vers le projet, aussi bien dans les éditions imprimées que numériques.",
+        "second": "Nous encourageons vivement les responsables de projets à nous signaler les publications de recherche acceptées et publiées utilisant des données produites par Zooniverse en remplissant <0>ce formulaire</0>. Vous trouverez une liste actualisée des publications issues des projets Zooniverse et des recherches connexes sur notre <1>page Publications</1>.",
+        "sixth": "Si vous souhaitez interviewer un membre de l'équipe Zooniverse, veuillez <0>nous contacter</0>.",
+        "third": "Si vous avez des questions sur la manière de mentionner Zooniverse, par exemple en faisant référence à une personne en particulier ou à un code personnalisé, veuillez <0>nous contacter</0>."
+      },
+      "quote": "Cette publication utilise des données générées via la plateforme <0>Zooniverse.org</0>, dont le développement est financé par un soutien généreux, notamment un Global Impact Award de Google et une subvention de la Fondation Alfred P. Sloan.",
+      "subheadings": {
+        "first": "Pour les chercheurs",
+        "second": "Pour les médias"
+      }
+    },
+    "title": "Ressources"
+  },
+  "Sidebar": {
+    "all": "Tous"
+  },
+  "Volunteer": {
+    "beta": {
+      "button": "Inscrivez-vous pour le test",
+      "heading": "Tests bêta",
+      "paragraphs": {
+        "first": "Si vous êtes déjà bénévole et souhaitez apporter des commentaires supplémentaires, envisagez de devenir bêta-testeur. Les bêta-testeurs sont des bénévoles de Zooniverse qui nous aident à tester les projets avant leur lancement public et à fournir des retours aux équipes de recherche afin de les améliorer. Les bêta-testeurs soumettent des classifications de tests sur les projets et font part de leurs commentaires aux équipes via un court questionnaire.",
+        "second": "Ce processus nous aide à identifier les éventuels problèmes liés aux projets et même à évaluer leur pertinence pour le Zooniverse. Votre avis est extrêmement important pour nous ! Vous pouvez consulter nos critères de sélection d'un projet sur la page <0>Politiques du laboratoire</0>.",
+        "third": "S'inscrire comme bêta-testeur est simple et accessible à tous. Il vous suffit d'aller dans vos <0>paramètres</0> et de cocher la case « Recevoir les mises à jour par e-mail concernant les projets bêta et devenir bêta-testeur ». Nous vous enverrons des e-mails lorsque des projets seront prêts à être testés. Vous pouvez modifier vos paramètres de messagerie et vous désabonner des e-mails bêta à tout moment en vous rendant sur la même page et en décochant la case."
+      }
+    },
+    "classify": {
+      "heading": "Classer les projets",
+      "paragraphs": {
+        "first": "Participer à un projet en tant que bénévole est la façon la plus simple et la plus courante de s'impliquer. Nous avons toujours besoin de bénévoles pour nous aider à classer les données. Il n'y a pas de durée minimale requise ; vous pouvez vous investir autant ou aussi peu que vous le souhaitez.",
+        "second": "Pour commencer, visitez la page d'accueil de <0>Zooniverse</0> et créez un compte."
+      }
+    },
+    "howTo": {
+      "heading": "Comment faire du bénévolat",
+      "paragraph": "Envie de devenir bénévole ? C’est simple : il suffit de vous inscrire ! Toute personne contribuant à un projet Zooniverse est bénévole. Nous avons une formidable communauté mondiale de bénévoles qui rendent possible notre recherche participative. Vous êtes déjà bénévole et souhaitez vous impliquer davantage ? Devenez testeur bêta ou rejoignez les équipes de projet en tant que modérateur de forum. Pour en savoir plus sur ces rôles, poursuivez votre lecture."
+    },
+    "moderate": {
+      "heading": "Modérer un projet",
+      "paragraphs": {
+        "first": "Les modérateurs bénévoles assistent les équipes de recherche sur l'outil de discussion Talk du projet. Ils contribuent à la modération des échanges, servent de point de contact pour le projet et disposent de droits d'accès supplémentaires sur Talk. Les modérateurs sont sélectionnés par le responsable du projet. Si vous souhaitez devenir modérateur pour un projet auquel vous participez, rendez-vous sur la page « À propos » du projet ou sur le forum Talk et contactez le chercheur. Pour plus d'informations, consultez notre documentation « Quel est le rôle des modérateurs ? ».",
+        "second": "Si vous souhaitez obtenir de plus amples informations sur l'un de ces rôles, <0>contactez-nous</0>."
+      }
+    },
+    "register": {
+      "button": "Inscrivez-vous dès aujourd'hui",
+      "heading": "Les avantages de l'inscription à Zooniverse",
+      "paragraphs": {
+        "fifth": "Des versions traduites de la page d'enregistrement sont disponibles en <0>espagnol</0> et <1>français</1>. Veuillez noter que tous les éléments d'une page ne peuvent pas être traduits.",
+        "first": "Suivez vos classifications, vos heures travaillées et bien plus encore. Découvrez vos projets préférés et observez les tendances. Exportez ensuite vos données pour encore plus d'options.",
+        "fourth": "Pour les moins de 16 ans, l'inscription doit être validée par un parent ou tuteur. <0>https://www.zooniverse.org/accounts/register</0> est le lien direct pour s'inscrire.",
+        "second": "Générez un certificat officiel attestant de votre contribution à la plateforme Zooniverse. Il vous suffit de préciser une période ou un projet.",
+        "third": "Les utilisateurs inscrits peuvent publier des messages sur les forums de discussion spécifiques à un projet et à l'ensemble de Zooniverse, ce qui leur permet de poser des questions à de véritables experts."
+      },
+      "subheadings": {
+        "first": "Statistiques personnelles",
+        "second": "Certificat de bénévolat",
+        "third": "Discuter avec des bénévoles et des experts"
+      }
+    },
+    "title": "Bénévole"
+  }
+}

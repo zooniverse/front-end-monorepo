@@ -1,0 +1,445 @@
+{
+  "404": {
+    "Default404": {
+      "findNewProject": "Vind een nieuw project om te ontdekken",
+      "heading": "Niets te vinden.",
+      "message": "De pagina die u zoekt bestaat niet meer.",
+      "returnHome": "Terug naar de homepage"
+    }
+  },
+  "AboutHeader": {
+    "links": {
+      "about": "Over",
+      "collaborate": "Samenwerken",
+      "contact": "Neem contact met ons op",
+      "donate": "Doneer",
+      "educate": "Onderwijs",
+      "faq": "Veelgestelde vragen",
+      "publications": "Publicaties",
+      "resources": "Bronnen",
+      "team": "Ons team",
+      "volunteer": "Vrijwilliger"
+    },
+    "title": {
+      "about": "Over",
+      "getInvolved": "Doe mee!"
+    }
+  },
+  "AboutPage": {
+    "contact": {
+      "categories": {
+        "first": "Algemene vragen over Zooniverse",
+        "second": "Samenwerken aan een project",
+        "third": "Persvraag"
+      },
+      "heading": "Neem contact met ons op",
+      "paragraphs": {
+        "first": "Lees alstublieft onze <0>FAQ-pagina</0> en de <1>Zooniverse Solutions-webpagina</1> door.",
+        "second": "Heeft u een probleem met betrekking tot een specifiek project? We raden u aan rechtstreeks contact op te nemen met het onderzoeksteam via hun overlegpagina.",
+        "third": "Kunt u de knop 'Contact opnemen' niet vinden? Stuur ons dan direct een e-mail naar <0>contact@zooniverse.org</0>."
+      },
+      "subheading": "Waarmee kunnen we u helpen?"
+    },
+    "highlights": {
+      "description": "Te koop via <0>Blurb.com</0>",
+      "heading": "Onze hoogtepunten",
+      "paragraphs": {
+        "first": "Sinds 2007 hebben Zooniverse-projecten geleid tot vele onverwachte en wetenschappelijk belangrijke ontdekkingen en vele <0>vakgerecenseerde publicaties</0>. Dit alles zou onmogelijk zijn geweest zonder onze wereldwijde gemeenschap van Zooniverse-deelnemers die samen met de onderzoeksteams aan deze projecten hebben gewerkt.",
+        "second": "Deze 'Into the Zooniverse'-boeken herdenken en eren de inspanningen van alle betrokkenen en geven een inkijkje in de manieren waarop leden van de Zooniverse-gemeenschap een daadwerkelijke impact hebben op de wereld om hen heen. Elk boek belicht een aantal projecten die dat jaar actief waren."
+      },
+      "pictures": {
+        "first": "Zooniverse hoogtepunten boekomslag 2019",
+        "second": "Zooniverse hoogtepunten boekomslag 2020",
+        "third": "Zooniverse hoogtepunten boekomslag 2021"
+      },
+      "sidebar": "Hoogtepunten",
+      "subheading": "Gedenkwaardige projecten door de jaren heen",
+      "tip": "We maken geen winst met de verkoop van de gedrukte exemplaren van de boeken."
+    },
+    "howItWorks": {
+      "heading": "Hoe het werkt",
+      "participants": {
+        "description": "Als deelnemer",
+        "link": "Verken projecten",
+        "steps": {
+          "first": "Zoek een project dat je interesseert.",
+          "fourth": "Genereer een officieel certificaat dat uw inspanningen op het platform bevestigt.",
+          "second": "Leer hoe je dat project kunt classificeren.",
+          "third": "Dien uw classificatie in en help mee aan echt onderzoek!"
+        }
+      },
+      "researchers": {
+        "description": "Als onderzoeker",
+        "link": "Bouw een project",
+        "steps": {
+          "first": "Bouw je project met de Zooniverse Project Builder.",
+          "fourth": "Download je gegevens en publiceer je resultaten!",
+          "second": "Dien uw project ter goedkeuring in",
+          "third": "Start je project en ga in gesprek met vrijwilligers op Talk terwijl de classificaties binnenkomen."
+        }
+      },
+      "subheading": "Onderzoek dat door mensen wordt gedreven"
+    },
+    "mobile": {
+      "altAppStore": "Downloaden vanuit de App Store",
+      "altImage": "Foto van telefoon met Zooniverse-app",
+      "altPlayStore": "Downloaden vanuit Google Play",
+      "description": "De Zooniverse in je achterzak. Download de app voor iOS en Android.",
+      "heading": "Check onze mobiele app",
+      "sidebar": "Mobiele app",
+      "subheading": "Ontdek, doceer en leer. Overal"
+    },
+    "ourMission": {
+      "discoveries": {
+        "first": "Groene Erwtenstelsels",
+        "fourth": "Boyajians ster",
+        "second": "Nieuwe exoplaneten ontdekt",
+        "third": "Een eerder gebruik van 'witte leugen'",
+        "tip": "Klik op een ontdekking voor meer informatie."
+      },
+      "heading": "Onze missie",
+      "paragraphs": {
+        "first": "Zooniverse is 's werelds grootste en populairste platform voor onderzoek dat door mensen wordt uitgevoerd. Dit onderzoek wordt mogelijk gemaakt door vrijwilligers – miljoenen mensen over de hele wereld die samenwerken om professionele onderzoekers te ondersteunen. Ons doel is om onderzoek mogelijk te maken dat anders niet mogelijk of praktisch zou zijn. Onderzoek op Zooniverse leidt tot nieuwe ontdekkingen, datasets die nuttig zijn voor de bredere onderzoeksgemeenschap en vele publicaties.",
+        "fourth": "Vrijwilligers en professionals doen samen echte ontdekkingen. Zooniverse-projecten zijn opgezet met als doel de inspanningen van vrijwilligers om te zetten in meetbare resultaten. In sommige gevallen hebben Zooniverse-vrijwilligers zelfs volledig onverwachte en belangrijke ontdekkingen gedaan. Een aanzienlijk deel van dit onderzoek vindt plaats op Talk, de discussieforums van Zooniverse, waar vrijwilligers samenwerken met leden van het onderzoeksteam en met elkaar. Deze forums zijn geïntegreerd in elk project en bieden ruimte voor alles, van snel hash-taggen tot diepgaande, gezamenlijke analyses. Er is ook een centraal Zooniverse Talk-forum voor algemene chat en discussie over platformbrede zaken. We moedigen alle gebruikers aan om deel te nemen aan de gesprekken op Talk voor een meer diepgaande betrokkenheid.",
+        "second": "Je hebt geen speciale achtergrond, training of expertise nodig om deel te nemen aan Zooniverse-projecten. We maken het voor iedereen gemakkelijk om bij te dragen aan echt wetenschappelijk onderzoek, gewoon op je eigen computer, wanneer het jou uitkomt. Je kunt authentieke data bestuderen die door onderzoekers zijn verzameld, zoals afbeeldingen van verre sterrenstelsels, historische documenten en dagboeken, of video's van dieren in hun natuurlijke leefomgeving. Door deel te nemen aan projecten help je mee aan ons begrip van de wereld, het universum en meer. Met ons brede en steeds groeiende aanbod aan projecten, die vele disciplines en onderwerpen binnen de wetenschappen en geesteswetenschappen bestrijken, is er voor iedereen wel iets te ontdekken, te leren en plezier te hebben in Zooniverse. Om je aan te melden als vrijwilliger, ga je naar de <0>Projectenpagina</0>, kies je een project dat je aanspreekt en ga je aan de slag.",
+        "third": "De grootste uitdaging voor onderzoek in de 21e eeuw is het omgaan met de enorme hoeveelheid informatie die we tegenwoordig over de wereld om ons heen kunnen verzamelen. Computers kunnen daarbij helpen, maar op veel gebieden is het menselijk vermogen tot patroonherkenning – en ons vermogen om verrast te worden – superieur. Met de hulp van Zooniverse-vrijwilligers kunnen onderzoekers hun gegevens sneller en nauwkeuriger analyseren dan anders mogelijk zou zijn, waardoor ze sneller tot boeiende resultaten komen. Uw inzet bespaart tijd en middelen, verbetert het vermogen van computers om dezelfde taken uit te voeren en leidt tot snellere vooruitgang en een beter begrip van de wereld. Onze projecten combineren bijdragen van meerdere individuele vrijwilligers en vertrouwen op een variant van de 'wijsheid van de massa' om betrouwbare en nauwkeurige resultaten te produceren. Doordat veel mensen naar de gegevens kijken, kunnen we vaak beter inschatten hoe groot de kans is dat we een fout maken. De resultaten van Zooniverse-projecten zijn vaak precies wat nodig is om vooruitgang te boeken op veel onderzoeksgebieden."
+      },
+      "stats": {
+        "classifications": "Waarnemingen tot dusver",
+        "volunteers": "Geregistreerde vrijwilligers"
+      },
+      "subheadings": {
+        "fifth": "Onze projecten leiden tot geweldige ontdekkingen.",
+        "first": "De wijsheid van de massa",
+        "fourth": "Het Zooniverse-systeem werkt",
+        "second": "Iedereen kan onderzoeker zijn.",
+        "third": "Door samen te werken versnellen we belangrijk onderzoek."
+      },
+      "video": "Een korte introductie tot het Zooniverse"
+    },
+    "sidebarLabel": "Sectie",
+    "title": "Over Zooniverse"
+  },
+  "Article": {
+    "url": "Lees meer"
+  },
+  "Collaborate": {
+    "paragraphs": {
+      "eighth": "Als u vragen heeft of verdere begeleiding nodig heeft, kunt u contact opnemen met Cliff Johnson, wetenschappelijk leider van Zooniverse en contactpersoon voor NASA: <0>cliff@zooniverse.org</0>.",
+      "fifth": "Als u geïnteresseerd bent in een samenwerking met ons voor het ontwikkelen van op maat gemaakte projecttools of infrastructuur, neem dan <0>contact met ons op</0>.",
+      "first": "Zou uw onderzoek baat hebben bij de betrokkenheid van duizenden vrijwilligers? Zooniverse is 's werelds grootste en meest succesvolle online platform voor crowdsourced onderzoek; we hebben miljoenen geregistreerde vrijwilligers die samenwerken met professionele onderzoekers aan onderzoeksprojecten in uiteenlopende disciplines, van astronomie tot de geesteswetenschappen.",
+      "fourth": "In gevallen waarin de beschikbare tools in de <0>Project Builder</0> niet helemaal aansluiten bij de onderzoeksdoelen van een bepaald team, kunnen onderzoekers overwegen om samen te werken met Zooniverse om nieuwe, op maat gemaakte tools te ontwikkelen. We werken met deze teams samen om financiering aan te vragen ter ondersteuning van het onderzoeks-, ontwerp- en ontwikkelingsproces. Degenen die eerder subsidie ​​hebben aangevraagd, weten dat dit proces lang kan duren. Nadat we een subsidieaanvraag hebben ingediend, kan het 6 maanden of langer duren voordat we bericht krijgen of onze inspanningen succesvol waren. Gesubsidieerde projecten vereisen doorgaans minstens 6 maanden voor het ontwerpen, bouwen en testen, afhankelijk van de complexiteit van de te ontwikkelen functionaliteiten. Vervolgens hebben we extra tijd nodig om ze te generaliseren (en vaak te herzien) voor opname in de Project Builder-toolkit.",
+      "nineth": "Tot nu toe hebben meer dan een half dozijn organisaties Adler Zooniverse ingezet als een manier om hun maatschappelijke verantwoordelijkheid te vervullen. Deelname kan meetellen voor de verplichte service-uren van werknemers, diploma's, beurzen, enzovoort. Het is een unieke vrijwilligersmogelijkheid waarbij deelnemers de tijd nemen om na te denken over hoe hun inspanningen (en de gezamenlijke inspanningen van de gemeenschap) bijdragen aan ons begrip van onze wereld en het universum in bredere zin. <0>Neem contact met ons op</0> voor meer informatie over dit initiatief.",
+      "second": "Onderzoeksteams kunnen Zooniverse-projecten op twee manieren opzetten.",
+      "seventh": "Of je nu al workflows bouwt met de Project Builder of net begint na te denken over hoe bijdragen van de community je onderzoek vooruit kunnen helpen, het Zooniverse-team zet zich in om teams te ondersteunen tijdens de ontwikkeling en implementatie van projecten gericht op NASA. We bespreken graag voorstellen voor NASA-subsidieprogramma's voor burgerwetenschap (waaronder het Citizen Science Seed Funding Program, het Citizen Science for Earth Systems Program en andere NASA ROSES-subsidiemogelijkheden) voor projecten die geïnteresseerd zijn in het gebruik van het Zooniverse-platform.",
+      "sixth": "Bent u een onderzoeker die werkt aan een project dat relevant is voor een van de afdelingen van NASA's Science Mission Directorate (astrofysica, biologische en fysische wetenschappen, heliofysica en planetaire wetenschappen) en zou u baat hebben bij bijdragen van Zooniverse-vrijwilligers? Als onderdeel van een doorlopend partnerschap met NASA wil Zooniverse voortbouwen op de huidige ondersteuning van NASA-onderzoeksteams en de ontwikkeling van nieuwe projecten op ons platform stimuleren.",
+      "third": "Teams kunnen onze gratis <0>Project Builder</0>-tool gebruiken om hun eigen Zooniverse-project te creëren. Om het project publiekelijk te lanceren en op onze projectenpagina te laten verschijnen, moeten teams ons beoordelingsproces doorlopen om ervoor te zorgen dat het project geschikt is voor het platform en klaar is om te worden gelanceerd. Dit is de snelste en meest eenvoudige optie om een ​​Zooniverse-project te creëren. Voor meer informatie over dit proces, inclusief geschatte tijdlijnen voor de beoordeling, kunt u onze <1>Best Practices & Flowchart voor projectbeoordeling</1> raadplegen."
+    },
+    "subheadings": {
+      "fifth": "Kansen voor maatschappelijk verantwoord ondernemen",
+      "first": "Werk met ons samen",
+      "fourth": "Oproep voor projecten",
+      "second": "Onze supporters",
+      "third": "Geselecteerde medewerkers",
+      "tools": "Geselecteerde gereedschappen"
+    },
+    "title": "Samenwerken"
+  },
+  "Donate": {
+    "button": "Doneer vandaag nog",
+    "paragraphs": {
+      "first": "Zooniverse is een samenwerking tussen het Adler Planetarium in Chicago, de Universiteit van Oxford, de Universiteit van Minnesota - Twin Cities (UMN), honderden onderzoekers en miljoenen deelnemers van over de hele wereld. De Zooniverse-teams bij Adler, Oxford en UMN bestaan ​​uit ons senior managementteam, webontwikkelaars, een ontwerper, een communicatieverantwoordelijke, datawetenschappers en onderzoekers. Deze unieke combinatie van expertise in onderzoek, publieksbetrokkenheid en moderne webontwikkeling stelt ons in staat de fantastische gemeenschap van vrijwilligers en toegewijde onderzoeksteams die het Zooniverse-platform gebruiken te ondersteunen. Een groot deel van de financiering van Zooniverse komt via subsidies, evenals institutionele steun van Adler, Oxford en UMN.",
+      "second": "Als u Zooniverse wilt steunen, overweeg dan een fiscaal aftrekbare donatie aan het Adler Planetarium. Uw onvoorwaardelijke gift aan het Adler helpt onderzoekers hun data te ontsluiten via online burgerwetenschap, astronomen telescopen naar wijken in heel Chicagoland te brengen, tieners originele experimenten de ruimte in te sturen en mensen van alle leeftijden met elkaar in contact te brengen onder de sterren.",
+      "third": "Volg de onderstaande link om een ​​donatie te doen via de website van het Adler Planetarium."
+    },
+    "subheading": "Steun Zooniverse",
+    "title": "Doneer"
+  },
+  "Educate": {
+    "articles": {
+      "first": {
+        "datePublished": "28 oktober 2022",
+        "excerpt": "Er is een grote behoefte aan op onderzoek gebaseerd, actief leermateriaal voor het onderwijzen en leren van STEM-vakken in online cursussen. Elk jaar schrijven honderdduizenden studenten die geen bètavakken studeren zich in voor algemene astronomiecursussen om te voldoen aan de eisen van hun instelling op het gebied van de vrije kunsten. Bij het ontwerpen van lesmateriaal voor deze groep studenten is een centrale factor...",
+        "title": "Een nieuw curriculumontwikkelingsmodel voor het verbeteren van de data-geletterdheid en het zelfvertrouwen van bachelorstudenten..."
+      },
+      "fourth": {
+        "datePublished": "29 april 2015",
+        "excerpt": "De blogpost van vandaag is geschreven door Fran Wilson, een leerkracht in groep 2 van de Madeira Elementary School. Fran streeft ernaar de interesse in wetenschap in haar klas te stimuleren en leerlingen te laten ontdekken dat niet alle wetenschappers in laboratoria werken in witte laboratoriumjassen en veiligheidsbrillen. Ze zoekt naar zinvolle mogelijkheden voor haar leerlingen om deel te nemen aan burgerwetenschappelijke projecten en zo verantwoordelijkheid te nemen...",
+        "title": "Drijvende bossen: jonge kinderen leren over zeewier"
+      },
+      "heading": "Hoe gebruiken docenten Zooniverse?",
+      "second": {
+        "datePublished": "14 augustus 2019",
+        "excerpt": "\"Iedereen moet proberen dezelfde melkweg te pakken!\", riep een jongen terwijl hij naar zijn klasgenoten gebaarde. Rond de tafel begonnen zes leerlingen een afbeelding van een melkwegstelsel van het midden van een groot touchscreen naar hun eigen werkstation te slepen. Het is zeer waarschijnlijk dat deze leerlingen de eersten zijn die dit melkwegstelsel zien en beslissen hoe het geclassificeerd moet worden...",
+        "title": "U!Scientist en de Galaxy Zoo-touchtafel in het Adler Planetarium"
+      },
+      "third": {
+        "datePublished": "7 februari 2018",
+        "excerpt": "Als docent maatschappijleer hoop ik dat mijn leerlingen waardering ontwikkelen voor de discipline geschiedenis zelf. In plaats van de nadruk te leggen op het memoriseren van data en namen – dingen die we toch meteen vergeten zodra we ze opschrijven tijdens een toets – wil ik leerlingen laten kennismaken met de complexiteit van het professionele werk van historici. Onlangs gaf mijn klas Oude Wereld (groep 8) les in...",
+        "title": "Leerlingen uit de achtste klas in Missouri transcriberen documenten tegen de slavernij en leren over de abolitionistische beweging."
+      }
+    },
+    "buttons": {
+      "first": "Online bronnen",
+      "second": "Zooniverse op scholen voor kinderen van 9 tot 12 jaar.",
+      "third": "Zooniverse voor studenten"
+    },
+    "forEducators": {
+      "classrooms": "Ontdek de klaslokalen van Zooniverse",
+      "heading": "Bronnen voor docenten",
+      "paragraphs": {
+        "first": "Stel mijlpalen vast voor de classificatie, volg de voortgang en vier de gezamenlijke impact. Lees onze <0>aankondiging</0> voor meer informatie.",
+        "second": "Elk projectteam kan aanvullende hulpmiddelen voor docenten delen, zoals lesplannen, videotutorials, links naar onderzoeksresultaten en meer. Kijk hiervoor zeker even op het tabblad <0>Onderwijs</0> van een project.",
+        "third": "Ondersteuning voor studenten die hun maatschappelijke stage-uren moeten vervullen voor beurzen, afstudeereisen en meer. Zie dit <0>blogbericht</0> voor meer informatie."
+      },
+      "subheadings": {
+        "first": "Groepsstatistieken",
+        "second": "Projectspecifieke opleidingsmogelijkheden",
+        "third": "Vrijwilligerscertificaat"
+      }
+    },
+    "introduction": "Bent u een docent en wilt u Zooniverse in de klas gebruiken? Geweldig! Miljoenen mensen wereldwijd doen mee aan zo'n 100 actieve projecten, elk met een ondersteunend en toegankelijk discussieforum waar onderzoekers met het publiek in gesprek gaan over hun onderzoek en andere onderwerpen. Zooniverse is een fantastische plek voor leerlingen.",
+    "subheading": "Onderwijs in het Zooniverse",
+    "takePart": {
+      "heading": "Neem deel aan het gesprek",
+      "paragraph": "Blijf op de hoogte van de nieuwste educatieve initiatieven van Zooniverse via de <0>Zooniverse Blog</0>. Je kunt ook meedoen aan de discussie in ons <1>discussieforum over onderwijs en Zooniverse</1>."
+    },
+    "title": "Onderwijs"
+  },
+  "FAQ": {
+    "help": "Staat het antwoord op je vraag er niet bij? Ga naar de <0>Zooniverse Solutions-webpagina</0>, stel je vraag op <1>Zooniverse Talk</1> of <2>neem contact met ons op</2>.",
+    "item0": {
+      "answer": "Mensen zijn in veel taken beter dan computers. Voor de meeste Zooniverse-projecten zijn computers simpelweg niet goed genoeg om de vereiste taak uit te voeren, of ze missen interessante kenmerken die een mens wel zou opmerken – daarom hebben we uw hulp nodig. Sommige Zooniverse-projecten gebruiken ook menselijke classificaties om computers te trainen zodat ze in de toekomst beter presteren bij deze onderzoekstaken. Wanneer u deelneemt aan een Zooniverse-project, draagt ​​u bij aan echt onderzoek.",
+      "question": "Waarom hebben onderzoekers uw hulp nodig? Waarom kunnen computers deze taken niet uitvoeren?"
+    },
+    "item10": {
+      "answer": "We ondersteunen de belangrijkste browsers tot en met de voorlaatste versie.",
+      "question": "Welke browserversies ondersteunt Zooniverse?"
+    },
+    "item1": {
+      "answer": "Voor de meeste onderwerpen die in Zooniverse-projecten worden getoond, weten de onderzoekers het juiste antwoord niet en daarom hebben ze jouw hulp nodig. Mensen zijn erg goed in patroonherkenning, dus over het algemeen is jouw eerste gok waarschijnlijk de juiste. Maak je geen zorgen als je af en toe een foutje maakt - meer dan één persoon zal elke afbeelding, video of grafiek in een project beoordelen. De meeste Zooniverse-projecten hebben een Help-knop, een pagina met veelgestelde vragen (FAQ) en een veldgids met meer informatie om je te helpen bij het classificeren.",
+      "question": "Hoe weet ik of ik dit goed doe?"
+    },
+    "item2": {
+      "answer": "Uw classificaties worden opgeslagen in de beveiligde online database van Zooniverse. Projectonderzoeksteams downloaden de classificatiegegevens van hun project en combineren de verschillende inzendingen tot een 'definitief' antwoord voor elk onderwerp. Nadat u uw classificatie voor een bepaald onderwerp hebt ingediend, kunt u deze niet meer wijzigen. Voor informatie over gegevenseigendom kunt u onze pagina <0>Gebruikersovereenkomst en privacybeleid van Zooniverse</0> raadplegen.",
+      "question": "Wat gebeurt er met mijn classificatie nadat ik deze heb ingediend?"
+    },
+    "item3": {
+      "answer": "Ja. Ga naar zooniverse.org, log in, klik op 'Meer statistieken' en klik vervolgens op de knop 'Vrijwilligerscertificaat genereren' rechtsonder in de statistiekengrafiek. Sla je certificaat daarna op of print het uit! Lees hier meer.",
+      "question": "Kan ik een vrijwilligerscertificaat downloaden? Kan ik Zooniverse gebruiken om te voldoen aan de eisen voor maatschappelijke stage?"
+    },
+    "item4": {
+      "answer": "Classificatiemetadata wordt in onze database opgeslagen met UTC-tijdstempels, en de statistiekenservice aggregeert classificatietellingen in groepen op basis van UTC-datumbereiken. Alle statistieken worden consistent weergegeven in UTC-datumbereiken.",
+      "question": "Waarom worden de statistieken weergegeven in de UTC-tijdzone?"
+    },
+    "item5": {
+      "answer": "Zooniverse neemt de bescherming van de persoonlijke gegevens en classificatiegegevens van onze vrijwilligers zeer serieus. Meer informatie over deze inspanningen vindt u op de pagina <0>Gebruikersovereenkomst en privacybeleid van Zooniverse</0> en de pagina <1>Beveiliging van Zooniverse</1>.",
+      "question": "Wat doet Zooniverse met mijn accountgegevens?"
+    },
+    "item6": {
+      "answer": "Je kunt je suggesties voor nieuwe functies plaatsen en bugs melden via <0>Zooniverse Talk</0>, via een Issue op de betreffende <1>Github-repository</1>, of <2>contact met ons opnemen</2>.",
+      "question": "Ik heb een functieverzoek of een bug gevonden; met wie moet ik contact opnemen/hoe kan ik dit melden?"
+    },
+    "item7": {
+      "answer": "Zooniverse is een samenwerkingsverband tussen instellingen uit het Verenigd Koninkrijk en de Verenigde Staten; al onze teamleden zijn in dienst van een van deze partnerinstellingen. Bekijk de vacaturepagina van Zooniverse voor meer informatie over carrièremogelijkheden binnen Zooniverse.",
+      "question": "Is Zooniverse op zoek naar nieuwe medewerkers?"
+    },
+    "item8": {
+      "answer0": "Zooniverse is een platform voor door mensen gedreven onderzoek, geen entiteit, bedrijf of non-profitorganisatie. We zijn een samenwerkingsverband van meerdere instellingen.",
+      "answer1": "Het Adler Planetarium in Chicago, een van de gastinstellingen voor het Zooniverse-team, is een 501(c)(3)-organisatie. Personen of organisaties die expliciet naar een 501(c)(3)-organisatie moeten verwijzen voor hun vrijwilligerswerk, gebruiken het Adler Planetarium als referentie. Documentatie over de 501(c)(3)-status van het Adler Planetarium is <0>hier</0> te vinden, en het EIN-nummer van het Adler Planetarium is 36-6210902. Gebruik bij het invullen van de organisatienaam indien mogelijk \"Adler Planetarium - Zooniverse\". Indien dit niet mogelijk is, gebruik dan \"Adler Planetarium\" (wat overeenkomt met het EIN-nummer). In alle gevallen kunt u zich aanmelden als vrijwilliger via Zooniverse.org.",
+      "answer2": "Voor informatie over hoe u kunt doneren, kunt u terecht op onze donatiepagina.",
+      "question": "Is Zooniverse een non-profitorganisatie?"
+    },
+    "item9": {
+      "answer": "Meer informatie over hoe u Zooniverse kunt citeren in wetenschappelijke publicaties waarin gegevens worden gebruikt die zijn verkregen met de Zooniverse Project Builder, vindt u op onze <0>pagina met bronnen</0>.",
+      "question": "Ik ben projecteigenaar/lid van een onderzoeksteam. Hoe kan ik Zooniverse en het Project Builder Platform vermelden in mijn publicatie, samenvatting van een presentatie, enz.?"
+    },
+    "title": "Veelgestelde vragen"
+  },
+  "Home": {
+    "Community": {
+      "feedOne": "De dagelijkse Zooniverse",
+      "feedTwo": "Het Zooniverse-blog",
+      "heading": "De Zooniverse-community",
+      "seeAll": "Bekijk alle berichten",
+      "subheading": "Wat gebeurt er allemaal?"
+    },
+    "DefaultHome": {
+      "FeaturedProjects": {
+        "heading": "Aanbevolen projecten",
+        "none": "Geen aanbevolen projecten"
+      },
+      "Introduction": {
+        "description1": "De Zooniverse is het grootste platform ter wereld voor onderzoek ondersteund door mensen. We brengen professionele onderzoekers wereldwijd in contact met miljoenen vrijwilligers. Onze resultaten komen voort uit logistiek uitdagend, soms onmogelijk lijkend onderzoek. Op basis hiervan zijn al talloze ontdekkingen gedaan, is beleid bepaald en zijn onderzoeksprojecten gepubliceerd.",
+        "description2": "Ons platform is succesvol dankzij vrijwilligers zoals jij. Iedereen mag meedoen, je leeftijd of achtergrond is niet belangrijk en je hoeft geen PhD op zak te hebben. Een gezonde dosis nieuwsgierigheid en een paar klikken is voldoende. Veel interessante onderzoeksresultaten van onderzoeksprojecten op Zooniverse zijn voortgekomen uit gesprekken tussen onderzoekers en vrijwilligers. Sluit je vandaag nog bij ons aan, neem deel aan relevante onderzoeksprojecten en doe je eigen ontdekkingen!",
+        "register": "Registreren",
+        "signIn": "Inloggen",
+        "video": "Een korte introductie van de Zooniverse"
+      },
+      "Researchers": {
+        "build": "Zet een project op",
+        "description": "Van de ontdekking van nieuwe diersoorten of exoplaneten, of de transcriptie van historische documenten, met onze projectmaker hebben onderzoekers uit verschillende vakgebieden overal ter wereld interessante en relevante projecten opgezet. Iedereen kan een Zooniverse-project opstarten. Upload je gegevens, kies de taken die je je vrijwilligers wilt geven en sluit je aan bij een ambitieuze en inclusieve online community met een passie voor praktisch onderzoek."
+      },
+      "headings": {
+        "first": "Wat is de Zooniverse?",
+        "fourth": "Check onze mobiele app",
+        "second": "Aanbevolen projecten",
+        "third": "Echte onderzoekers, echte resultaten"
+      },
+      "heroText": "Sluit je aan bij miljoenen mensen die helpen bij praktisch onderzoek, wetenschap en kennis.",
+      "mainHeading": "Onderzoek mogelijk gemaakt door mensen",
+      "projects": "Ontdek onze projecten",
+      "subheadings": {
+        "first": "De wijsheid van ons allemaal",
+        "fourth": "Ontdek, doceer en leer. Overal",
+        "second": "De Zooniverse werkt",
+        "third": "Ontmoet de onderzoekers die projecten zijn gestart op de Zooniverse"
+      }
+    }
+  },
+  "OurTeam": {
+    "description": "De mensen die Zooniverse creëren.",
+    "sidebarLabel": "Instelling",
+    "title": "Ons team"
+  },
+  "Projects": {
+    "disciplines": {
+      "all": "Alle disciplines",
+      "arts": "Kunst",
+      "biology": "Biologie",
+      "climate": "Klimaat",
+      "history": "Geschiedenis",
+      "language": "Taal",
+      "literature": "Literatuur",
+      "medicine": "Geneesmiddel",
+      "nature": "Natuur",
+      "physics": "Natuurkunde",
+      "social": "Sociale wetenschappen",
+      "space": "Ruimte"
+    },
+    "languages": {
+      "label": "Filter projecten op beschikbare vertalingen"
+    },
+    "organizations": {
+      "description": "Organisaties bundelen meerdere gerelateerde Zooniverse-projecten, waardoor het voor deelnemers gemakkelijker wordt om verbonden onderzoeksinitiatieven te verkennen.",
+      "heading": "Organisaties",
+      "none": "Geen organisaties gevonden."
+    },
+    "projects": {
+      "description": "Welkom! We zijn erg blij dat je er bent. Scroll naar beneden om al onze actieve projecten te bekijken, naar een specifiek project te zoeken of projecten te filteren op basis van je interesses. Veel plezier met classificeren!",
+      "empty": {
+        "clear": "Filters resetten",
+        "status": "Soms zijn er tijdelijk geen gegevens meer beschikbaar voor een project, of is het project afgerond! Probeer te zoeken naar <0>Status van elk project</0>"
+      },
+      "error": "Er is een fout opgetreden bij het ophalen van projecten.",
+      "heading": "Alle projecten",
+      "none": "Geen projecten gevonden",
+      "showingNum": "{{bereik}} van {{totaal}} projecten"
+    },
+    "search": {
+      "placeholder": "Zoekprojecten",
+      "warning": "De zoektekst moet minimaal 5 letters bevatten."
+    },
+    "sortBy": {
+      "label": "Sorteren op",
+      "mostActive": "Meest actief",
+      "mostPopular": "Meest populair",
+      "nameAZ": "Naam A - Z",
+      "nameZA": "Naam Z - A",
+      "newest": "Nieuwste",
+      "oldest": "Oudste"
+    },
+    "status": {
+      "active": "Actief",
+      "all": "Elke status",
+      "finished": "Afgerond",
+      "label": "Filter projecten op status",
+      "paused": "Gepauzeerd"
+    }
+  },
+  "Publications": {
+    "description": "Een lijst met wetenschappelijke publicaties die gebruikmaken van door Zooniverse gegenereerde data.",
+    "formInfo": "We streven ernaar links te plaatsen naar gepubliceerde artikelen die voor het publiek toegankelijk zijn. Artikelen die zijn geaccepteerd voor publicatie maar nog niet zijn gepubliceerd, zijn ook welkom.",
+    "formInstruction": "Om een ​​nieuwe publicatie in te dienen of een bestaande te actualiseren, ",
+    "formLabel": "Gebruik dit formulier.",
+    "sidebarLabel": "Discipline",
+    "title": "Publicaties"
+  },
+  "Resources": {
+    "brand": {
+      "heading": "Merkbronnen",
+      "links": {
+        "first": "Download de officiële Zooniverse-logo's",
+        "fourth": "Storybook - Onze codecomponenten die op de site worden gebruikt.",
+        "second": "Download afdrukbare handouts, presentatiesjablonen en projectafbeeldingen.",
+        "third": "Zooniverse Design System - Onze stijlregels, merkkleuren en typografieregels"
+      }
+    },
+    "cite": {
+      "heading": "Hoe citeer je Zooniverse?",
+      "paragraphs": {
+        "fifth": "Wanneer je over Zooniverse schrijft, voeg dan ergens in je artikel een link of URL naar de homepage van Zooniverse toe.",
+        "first": "Volgens het <0>Zooniverse Project Builder-beleid</0> wordt van alle onderzoekspublicaties die gebruikmaken van gegevens afkomstig van Zooniverse-projecten verwacht dat ze Zooniverse en het Project Builder-platform vermelden met de volgende tekst:",
+        "fourth": "Wanneer u in de pers over specifieke Zooniverse-projecten schrijft, verzoeken wij u een link of URL naar het project op te nemen, zowel in de gedrukte als de digitale editie.",
+        "second": "We moedigen projecteigenaren ten zeerste aan om geaccepteerde en gepubliceerde onderzoekspublicaties waarin gebruik is gemaakt van door Zooniverse geproduceerde data aan ons te melden door <0>dit formulier</0> in te vullen. Een actuele lijst met publicaties die voortkomen uit Zooniverse-projecten en gerelateerd onderzoek is te vinden op onze <1>pagina Publicaties</1>.",
+        "sixth": "Als u geïnteresseerd bent in een interview met een lid van het Zooniverse-team, neem dan <0>contact met ons op</0>.",
+        "third": "Als u vragen heeft over hoe u Zooniverse kunt vermelden, bijvoorbeeld over het verwijzen naar een specifieke persoon of aangepaste code, neem dan <0>contact met ons op</0>."
+      },
+      "quote": "Deze publicatie maakt gebruik van gegevens die zijn gegenereerd via het <0>Zooniverse.org</0>-platform, waarvan de ontwikkeling wordt gefinancierd door genereuze steun, waaronder een Global Impact Award van Google en een subsidie ​​van de Alfred P. Sloan Foundation.",
+      "subheadings": {
+        "first": "Voor onderzoekers",
+        "second": "Voor de media"
+      }
+    },
+    "title": "Bronnen"
+  },
+  "Sidebar": {
+    "all": "Alle"
+  },
+  "Volunteer": {
+    "beta": {
+      "button": "Meld je aan voor de test",
+      "heading": "Bètatesten",
+      "paragraphs": {
+        "first": "Als je al vrijwilliger bent en extra feedback wilt geven, overweeg dan om bètatester te worden. Bètatesters zijn vrijwilligers van Zooniverse die ons helpen projecten te testen voordat ze publiekelijk worden gelanceerd en feedback geven aan onderzoeksteams om die projecten te verbeteren. Bètatesters geven testclassificaties voor projecten en delen hun feedback met de teams via een korte vragenlijst.",
+        "second": "Dit proces helpt ons eventuele problemen in projecten te identificeren en zelfs te beoordelen of een project geschikt is voor Zooniverse. Uw mening is voor ons van groot belang! U kunt onze richtlijnen voor een geschikt project lezen op de pagina <0>Labbeleid</0>.",
+        "third": "Aanmelden als bètatester is eenvoudig en iedereen kan het. Ga naar je <0>instellingen</0> en vink het vakje aan met de tekst 'Ontvang e-mailupdates over bètaprojecten en word bètatester'. We sturen je e-mails wanneer projecten klaar zijn om te worden getest. Je kunt je e-mailinstellingen wijzigen en je op elk gewenst moment afmelden voor bèta-e-mails door naar dezelfde e-mailpagina te gaan en het vakje uit te vinken."
+      }
+    },
+    "classify": {
+      "heading": "Projecten classificeren",
+      "paragraphs": {
+        "first": "Vrijwilligerswerk is de gemakkelijkste en meest gebruikelijke manier om deel te nemen aan een project. We hebben altijd vrijwilligers nodig om te helpen bij het classificeren van projectgegevens. Er is geen minimale tijdsbesteding; u kunt zoveel of zo weinig doen als u wilt.",
+        "second": "Om te beginnen, ga naar de homepage van <0>Zooniverse</0> en registreer een account."
+      }
+    },
+    "howTo": {
+      "heading": "Hoe word je vrijwilliger?",
+      "paragraph": "Wil je vrijwilliger worden? Dat is makkelijk: begin gewoon met classificeren! Iedereen die bijdraagt ​​aan een Zooniverse-project is vrijwilliger. We hebben een fantastische, wereldwijde gemeenschap van vrijwilligers die ons door mensen gedreven onderzoek mogelijk maken. Ben je al vrijwilliger en wil je meer doen? Overweeg dan om bètatester te worden of projectteams te helpen door Talk-moderator te worden. Lees verder voor meer informatie over deze rollen."
+    },
+    "moderate": {
+      "heading": "Een project begeleiden",
+      "paragraphs": {
+        "first": "Vrijwillige moderators ondersteunen onderzoeksteams met de discussietool Talk van het project. Ze helpen bij het modereren van discussies, fungeren als contactpersoon voor het project en hebben extra rechten op Talk. Moderators worden geselecteerd door de projecteigenaar. Als je geïnteresseerd bent om moderator te worden voor een project waaraan je deelneemt, ga dan naar de 'Over'-pagina van het project of het Talk-forum en neem contact op met de onderzoeker. Zie voor meer informatie onze documentatie 'Waar zijn moderators voor?'.",
+        "second": "Als u meer informatie wilt over een van deze verschillende functies, <0>neem dan contact met ons op</0>."
+      }
+    },
+    "register": {
+      "button": "Schrijf je vandaag nog in",
+      "heading": "De voordelen van registratie bij Zooniverse",
+      "paragraphs": {
+        "fifth": "Vertaalde versies van de registratiepagina zijn beschikbaar in het Spaans en Frans. Houd er rekening mee dat mogelijk niet alle elementen op een pagina vertaald zijn.",
+        "first": "Houd uw classificaties, uren en meer bij. Ontdek uw favoriete projecten en observeer trends. Exporteer vervolgens uw gegevens voor nog meer mogelijkheden.",
+        "fourth": "Voor personen jonger dan 16 jaar is toestemming van een ouder/voogd vereist voor de registratie. De directe link naar het registratieformulier is <0>https://www.zooniverse.org/accounts/register</0>.",
+        "second": "Genereer een officieel certificaat dat uw inspanningen op het Zooniverse-platform bevestigt. Geef eenvoudigweg een periode of project op.",
+        "third": "Geregistreerde gebruikers kunnen berichten plaatsen op projectspecifieke en Zooniverse-brede discussieforums, waardoor je vragen kunt stellen aan echte experts."
+      },
+      "subheadings": {
+        "first": "Persoonlijke statistieken",
+        "second": "Vrijwilligerscertificaat",
+        "third": "Praat met andere vrijwilligers en experts."
+      }
+    },
+    "title": "Vrijwilliger"
+  }
+}
