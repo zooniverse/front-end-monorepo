@@ -1,0 +1,192 @@
+{
+  "AllProjects": {
+    "error": "發生錯誤",
+    "noProjects": "找不到專案",
+    "recent": "最近的",
+    "sortBy": "排序方式",
+    "title": "{{displayName}} 的專案",
+    "top": "熱門專案"
+  },
+  "BarChart": {
+    "a11y": "{{startDate}} 至 {{endDate}} 之間，依 {{countLabel}} 分類的 {{typeLabel}} 長條圖",
+    "day": "日",
+    "hourAbbrev": "時",
+    "minAbbrev": "分",
+    "monthOf": "月",
+    "time": "時間",
+    "weekOf": "週",
+    "year": "年"
+  },
+  "Contributors": {
+    "ContributorsList": {
+      "a11y": "{{name}} 成員統計資料",
+      "privateProject": "私人專案 {{index}}",
+      "projectStats": "{{name}} 專案統計資料"
+    },
+    "ExportStats": {
+      "cancel": "取消",
+      "close": "關閉",
+      "complete": "匯出完成",
+      "confirm": "確認",
+      "confirmMessage": "是否產生包含 {{memberCount}} 位成員的群組統計資料 CSV？",
+      "download": "點擊鏈接以下載 CSV：",
+      "downloading": "資料下載中…",
+      "error": "匯出錯誤",
+      "errorMessage": "無法產生匯出檔。",
+      "fileSize": "大約 {{fileSize}}。",
+      "generating": "正在產生統計資料的匯出檔。請勿關閉此瀏覽器分頁。",
+      "progress": "進度：{{progress}}%",
+      "retry": "重試"
+    },
+    "ProjectStats": {
+      "a11y": "{{project}} 成員統計資料"
+    },
+    "error": "發生錯誤",
+    "exportLink": "匯出所有統計資料",
+    "generating": "正在匯出統計資料…",
+    "noPermission": "您沒有權限查看此群組的貢獻者。",
+    "none": "此群組尚無貢獻者。",
+    "title": "群組完整統計資料"
+  },
+  "GroupContainer": {
+    "deactivated": "此群組已停用。如有疑問，請離開群組或聯絡群組管理員。",
+    "joinFail": "加入失敗。",
+    "joined": "已加入新群組！",
+    "joining": "正在加入群組…",
+    "leaveGroup": "離開群組",
+    "loginToJoin": "登入以加入此群組。",
+    "noAuth": "必須登入後才能存取私人群組。",
+    "notFound": "找不到群組"
+  },
+  "GroupForm": {
+    "anyone": "您可以與任何人分享此群組",
+    "createNew": "建立新群組",
+    "deactivate": "停用群組",
+    "deactivateHelp": "確定要刪除此群組？",
+    "greaterThanChar": "最少應超過 3 個字元",
+    "lessThanChar": "長度不得超過 60 個字元",
+    "name": "群組名稱",
+    "nameHelp": "建立新群組後，您將自動成為管理員。",
+    "onlyMembers": "只有群組成員能查看此群組",
+    "private": "私人",
+    "privateAggOnly": "否，不顯示個別統計資料給群組成員",
+    "privateShowAggAndInd": "是，顯示個別統計資料給群組成員",
+    "pubVis": "公開可見",
+    "public": "公開",
+    "publicAggOnly": "否，永不顯示個別統計資料",
+    "publicAggShowInd": "是，如果為群組成員則顯示個人統計資料",
+    "publicShowAll": "是，始終顯示個別統計資料",
+    "saveChanges": "儲存變更",
+    "showInd": "顯示個別統計資料",
+    "showIndHelp": "管理員一律可查看個別統計資料。",
+    "showIndInfo": "建立新群組後，您可透過加入鏈接邀請其他成員加入。",
+    "visibility": "統計資料可見範圍"
+  },
+  "GroupStats": {
+    "GroupUpdateFormContainer": {
+      "error": "發生錯誤，請再試一次。"
+    },
+    "MemberListItem": {
+      "a11y": "編輯或移除 {{name}} 的群組成員資格",
+      "giveAdmin": "指派管理員權限",
+      "remove": "移除成員",
+      "removeAdmin": "移除管理員權限"
+    },
+    "MembersList": {
+      "title": "群組成員",
+      "warning": "成員移除後將喪失其群組成員資格。他們將無法再存取此群組，但在擔任成員期間的貢獻仍會保留。"
+    },
+    "TopContributors": {
+      "error": "擷取主要貢獻者時發生錯誤。",
+      "linkLabel": "查看所有貢獻者及詳細統計資料",
+      "tip": "包含活躍與非活躍成員。",
+      "title": "主要貢獻者"
+    },
+    "headerItems": {
+      "all": "我的所有群組",
+      "copied": "群組鏈接已複製！",
+      "copy": "複製加入鏈接",
+      "leave": "離開群組",
+      "share": "分享群組"
+    },
+    "leaveQuestion": "確定要離開此群組？",
+    "manage": "管理群組"
+  },
+  "HeaderDropdown": {
+    "label": "群組選項"
+  },
+  "MainContent": {
+    "allProjects": "所有專案",
+    "calendarBtn": "完成",
+    "calendarTitle": "自訂日期範圍",
+    "certificate": "產生志工證書",
+    "dateRange": {
+      "allTime": "所有時間",
+      "custom": "自訂",
+      "lastSevenDays": "過去 7 天",
+      "lastThirtyDays": "過去 30 天",
+      "lastThreeMonths": "過去 3 個月",
+      "lastTwelveMonths": "過去 12 個月",
+      "thisMonth": "本月",
+      "thisYear": "今年"
+    },
+    "error": "發生錯誤。",
+    "hoursTip": "時數是根據您進行分類的開始與結束時間計算，不包含您在 Talk 上所花費的時間。",
+    "noData": "查無資料。",
+    "selectDateRange": "選擇日期範圍",
+    "selectProject": "選擇專案",
+    "start": "<0>開始進行專案分類</0>，或調整日期範圍。",
+    "tabContents": "分頁內容"
+  },
+  "MyGroups": {
+    "GroupCard": {
+      "admin": "管理員",
+      "member": "成員"
+    },
+    "PreviewLayout": {
+      "seeAll": "查看全部"
+    },
+    "createNew": "建立新群組",
+    "error": "擷取您的群組時發生錯誤",
+    "learnMore": "進一步了解群組",
+    "noGroups": "您尚未加入任何群組。<0/>可在下方建立一個群組。",
+    "title": "我的群組"
+  },
+  "TopProjects": {
+    "title": "熱門專案"
+  },
+  "UserHome": {
+    "Dashboard": {
+      "allTime": "所有時間",
+      "collections": "收藏夾",
+      "comments": "留言",
+      "favorites": "我的最愛",
+      "messages": "訊息",
+      "moreStats": "更多統計資料",
+      "thisWeek": "本週"
+    },
+    "RecentProjects": {
+      "error": "取得您近期的專案時發生錯誤",
+      "noProjects": "找不到近期專案",
+      "start": "您可以從<0>任一專案開始進行分類</0>。",
+      "title": "繼續分類"
+    },
+    "RecentSubjects": {
+      "error": "取得近期分類記錄時發生錯誤",
+      "noSubjects": "找不到近期的分類記錄",
+      "title": "您最近完成的分類"
+    },
+    "SubjectCard": {
+      "subject": "主題"
+    }
+  },
+  "common": {
+    "avatarAlt": "{{login}} 頭像",
+    "back": "返回",
+    "classifications": "分類紀錄",
+    "contributors": "貢獻者",
+    "hours": "時數",
+    "projects": "專案",
+    "seeAll": "查看全部"
+  }
+}

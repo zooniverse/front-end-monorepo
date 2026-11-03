@@ -1,0 +1,192 @@
+{
+  "AllProjects": {
+    "error": "Se ha producido un error",
+    "noProjects": "No se ha encontrado ningún proyecto",
+    "recent": "reciente",
+    "sortBy": "Ordenar por",
+    "title": "Proyectos de {{displayName}}",
+    "top": "Principales proyectos"
+  },
+  "BarChart": {
+    "a11y": "Gráfico de barras de {{typeLabel}} por {{countLabel}} del {{startDate}} al {{endDate}}",
+    "day": "Día",
+    "hourAbbrev": "h",
+    "minAbbrev": "min",
+    "monthOf": "Mes de",
+    "time": "Hora",
+    "weekOf": "Semana del",
+    "year": "Año"
+  },
+  "Contributors": {
+    "ContributorsList": {
+      "a11y": "Estadísticas de miembros de {{name}}",
+      "privateProject": "{{index}} de proyecto privado",
+      "projectStats": "Estadísticas del proyecto de {{name}}"
+    },
+    "ExportStats": {
+      "cancel": "Cancelar",
+      "close": "Cerrar",
+      "complete": "Exportación completada",
+      "confirm": "Confirmar",
+      "confirmMessage": "¿Generar CSV de las estadísticas del grupo para {{memberCount}} miembros?",
+      "download": "Haz clic en el enlace para descargar el CSV:",
+      "downloading": "Descargando datos...",
+      "error": "Error de exportación",
+      "errorMessage": "No se ha podido generar la exportación.",
+      "fileSize": "Aproximadamente {{fileSize}}.",
+      "generating": "Generando el archivo de exportación de las estadísticas. No cierres esta pestaña del navegador.",
+      "progress": "Progreso: {{progress}} %",
+      "retry": "Reintentar"
+    },
+    "ProjectStats": {
+      "a11y": "Estadísticas de miembros de {{project}}"
+    },
+    "error": "Se ha producido un error",
+    "exportLink": "Exportar todas las estadísticas",
+    "generating": "Generando exportación de estadísticas...",
+    "noPermission": "No tienes permiso para ver los colaboradores de este grupo.",
+    "none": "No hay colaboradores en este grupo.",
+    "title": "Estadísticas de todo el grupo"
+  },
+  "GroupContainer": {
+    "deactivated": "Este es un grupo desactivado. Deja el grupo o ponte en contacto con el administrador del grupo si crees que esto es un error.",
+    "joinFail": "Error al unirte.",
+    "joined": "¡Te has unido a un grupo nuevo!",
+    "joining": "Uniéndote al grupo...",
+    "leaveGroup": "Dejar grupo",
+    "loginToJoin": "Inicia sesión para unirte al grupo.",
+    "noAuth": "Debes haber iniciado sesión para acceder a un grupo privado.",
+    "notFound": "Grupo no encontrado"
+  },
+  "GroupForm": {
+    "anyone": "puedes compartir este grupo con quien quieras",
+    "createNew": "Crear grupo nuevo",
+    "deactivate": "Desactivar grupo",
+    "deactivateHelp": "¿Seguro que quieres eliminar este grupo?",
+    "greaterThanChar": "debe tener > 3 caracteres",
+    "lessThanChar": "debe tener < 60 caracteres",
+    "name": "Nombre del grupo",
+    "nameHelp": "Al crear un grupo nuevo te convertirás en el administrador.",
+    "onlyMembers": "solo los miembros pueden ver este grupo",
+    "private": "Privado",
+    "privateAggOnly": "No, no mostrar las estadísticas individuales a los miembros",
+    "privateShowAggAndInd": "Sí, mostrar las estadísticas individuales a los miembros",
+    "pubVis": "Visibilidad pública",
+    "public": "Público",
+    "publicAggOnly": "No, no mostrar nunca las estadísticas individuales",
+    "publicAggShowInd": "Sí, mostrar las estadísticas individuales si es miembro",
+    "publicShowAll": "Sí, mostrar siempre las estadísticas individuales",
+    "saveChanges": "Guardar cambios",
+    "showInd": "Mostrar estadísticas individuales",
+    "showIndHelp": "El administrador siempre puede ver las estadísticas individuales.",
+    "showIndInfo": "Puedes añadir a los demás miembros mediante un enlace para que se unan después de crear el grupo nuevo a continuación.",
+    "visibility": "Visibilidad de estadísticas"
+  },
+  "GroupStats": {
+    "GroupUpdateFormContainer": {
+      "error": "Algo salió mal. Inténtalo de nuevo."
+    },
+    "MemberListItem": {
+      "a11y": "Menú para actualizar o eliminar la pertenencia de {{name}} al grupo",
+      "giveAdmin": "Dar acceso de administrador",
+      "remove": "Eliminar miembro",
+      "removeAdmin": "Eliminar acceso de administrador"
+    },
+    "MembersList": {
+      "title": "Miembros del grupo",
+      "warning": "Al eliminar un miembro, se desactiva su pertenencia al grupo. Ya no tendrá acceso al grupo, pero las contribuciones realizadas mientras era miembro se mantendrán."
+    },
+    "TopContributors": {
+      "error": "Se ha producido un error al obtener los principales colaboradores",
+      "linkLabel": "Ver todos los colaboradores y estadísticas detalladas",
+      "tip": "Incluye miembros activos e inactivos.",
+      "title": "Principales colaboradores"
+    },
+    "headerItems": {
+      "all": "Todos mis grupos",
+      "copied": "¡Enlace de grupo copiado!",
+      "copy": "Copiar enlace para unirse",
+      "leave": "Dejar grupo",
+      "share": "Compartir grupo"
+    },
+    "leaveQuestion": "¿Seguro que quieres dejar este grupo?",
+    "manage": "Gestionar grupo"
+  },
+  "HeaderDropdown": {
+    "label": "Opciones de grupo"
+  },
+  "MainContent": {
+    "allProjects": "Todos los proyectos",
+    "calendarBtn": "Hecho",
+    "calendarTitle": "Intervalo de fechas personalizado",
+    "certificate": "Generar certificado de voluntario",
+    "dateRange": {
+      "allTime": "Todo el tiempo",
+      "custom": "Personalizado",
+      "lastSevenDays": "Últimos 7 días",
+      "lastThirtyDays": "Últimos 30 días",
+      "lastThreeMonths": "Últimos 3 meses",
+      "lastTwelveMonths": "Últimos 12 meses",
+      "thisMonth": "Este mes",
+      "thisYear": "Este año"
+    },
+    "error": "Se ha producido un error.",
+    "hoursTip": "Las horas se calculan en función de la hora de inicio y fin de tus tareas de clasificación. Las horas no reflejan el tiempo que pasas en Talk.",
+    "noData": "No se ha encontrado ningún dato.",
+    "selectDateRange": "Seleccionar intervalo de fechas",
+    "selectProject": "Seleccionar proyecto",
+    "start": "<0>Haz una clasificación en un proyecto</0> ya o cambia el intervalo de fechas.",
+    "tabContents": "Contenidos de la pestaña"
+  },
+  "MyGroups": {
+    "GroupCard": {
+      "admin": "Administrador",
+      "member": "Miembro"
+    },
+    "PreviewLayout": {
+      "seeAll": "Ver todo"
+    },
+    "createNew": "Crear grupo nuevo",
+    "error": "Se ha producido un error al obtener tus grupos",
+    "learnMore": "Más información sobre grupos",
+    "noGroups": "No eres miembro de ningún grupo.<0/>Crea uno a continuación",
+    "title": "Mis grupos"
+  },
+  "TopProjects": {
+    "title": "Principales proyectos"
+  },
+  "UserHome": {
+    "Dashboard": {
+      "allTime": "Todo el tiempo",
+      "collections": "Colecciones",
+      "comments": "Comentarios",
+      "favorites": "Favoritos",
+      "messages": "Mensajes",
+      "moreStats": "Más estadísticas",
+      "thisWeek": "Esta semana"
+    },
+    "RecentProjects": {
+      "error": "Se ha producido un error al obtener tus proyectos recientes",
+      "noProjects": "No se ha encontrado ningún proyecto reciente",
+      "start": "Empieza por <0>hacer una clasificación en cualquier proyecto</0>.",
+      "title": "Seguir clasificando"
+    },
+    "RecentSubjects": {
+      "error": "Se ha producido un error al obtener clasificaciones recientes",
+      "noSubjects": "No se ha encontrado ninguna clasificación reciente",
+      "title": "Tus clasificaciones recientes"
+    },
+    "SubjectCard": {
+      "subject": "Imagen de datos"
+    }
+  },
+  "common": {
+    "avatarAlt": "Avatar {{login}}",
+    "back": "Volver",
+    "classifications": "Clasificaciones",
+    "contributors": "Colaboradores",
+    "hours": "Horas",
+    "projects": "Proyectos",
+    "seeAll": "Ver todo"
+  }
+}
