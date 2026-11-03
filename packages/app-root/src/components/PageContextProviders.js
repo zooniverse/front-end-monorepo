@@ -25,10 +25,10 @@ const GlobalStyle = createGlobalStyle`
   - Panoptes auth (user account and admin mode.)
   - Translations via i18next
 */
-export default function PageContextProviders({ children, locale }) {
+export default function PageContextProviders({ children, dictionary, locale }) {
   /* i18next Provider */
   const i18n = createInstance()
-  initTranslations(locale, i18n)
+  initTranslations(locale, i18n, dictionary)
 
   /* Authenticated User / Admin Mode */
   const { data: user, error, isLoading } = usePanoptesUser()
