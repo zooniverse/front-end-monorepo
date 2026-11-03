@@ -1,9 +1,10 @@
 import { Loader, Modal, MovableModal, SpacedText } from '@zooniverse/react-components'
 import { Anchor, Box, Calendar, ResponsiveContext, Text } from 'grommet'
 import { arrayOf, bool, func, number, shape, string } from 'prop-types'
-import { useCallback, useContext, useEffect, useState } from 'react'
+import { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { useTranslation, Trans } from 'react-i18next'
+import { FocusGroup, supportsFocusGroup } from '@microsoft/focusgroup-polyfill'
 
 import {
   convertStatsSecondsToHours,
@@ -53,9 +54,50 @@ function MainContent({
 }) {
   const { i18n, t } = useTranslation()
   const locale = i18n.language
+  const tabList = useRef(null)
   const [activeTab, setActiveTab] = useState(0)
   const [showCalendar, setShowCalendar] = useState(false)
   const [customDateRange, setCustomDateRange] = useState([selectedDateRange.startDate, selectedDateRange.endDate])
+
+  useEffect(function addFocusGroup() {
+      if (!tabList.current) return
+      tabList.current.setAttribute('focusgroup', 'tablist')
+      if (!tabList.current.focusGroup) tabList.current.focusGroup = 'tablist'
+  
+      // Native focusgroup support handles keyboard navigation without the
+      // polyfill. Keep the property in sync for browsers that expose it.
+      if (supportsFocusGroup()) {
+        return
+      }
+  
+      /*
+       Polyfill focusgroup in Firefox, Safari, Edge and jsdom.
+       Use the `FocusGroup` API because the exported polyfill conflicts
+       with Grommet Layer's focus trap, breaking keyboard support if you
+       open then close a Grommet modal.
+      */
+      tabList.current.setAttribute('role', 'tablist')
+      const items = Array.from(tabList.current.querySelectorAll('button'))
+      items.forEach(item => item.setAttribute('role', 'tab'))
+      const itemCollection = {
+        items: () => items.map(element => ({ element })),
+        first: () => items[0] ?? null,
+        last: () => items[items.length - 1] ?? null,
+        next: current => items[items.indexOf(current) + 1] ?? null,
+        previous: current => items[items.indexOf(current) - 1] ?? null,
+        contains: element => items.includes(element)
+      }
+      const focusGroup = new FocusGroup(tabList.current, itemCollection, {
+        definition: {
+          behavior: 'tablist',
+          wrap: true,
+          axis: 'inline',
+          memory: true
+        }
+      })
+  
+      return () => focusGroup.disconnect()
+    }, [])
 
   const handleActiveTab = useCallback((tabIndex) => {
     setActiveTab(tabIndex)
@@ -191,26 +233,22 @@ function MainContent({
             gap='xsmall'
           >
             <Box
-              role='tablist'
+              ref={tabList}
               direction='row'
               fill={size === 'small' ? 'horizontal' : false}
               gap='medium'
             >
               <StyledTab
-                role='tab'
-                aria-expanded={activeTab === 0}
                 aria-selected={activeTab === 0}
-                active={activeTab === 0}
+                aria-expanded={activeTab === 0}
                 label={t('common.classifications')}
                 onClick={() => handleActiveTab(0)}
                 plain
                 fill={size === 'small' ? 'horizontal' : false}
               />
               <StyledTab
-                role='tab'
-                aria-expanded={activeTab === 1}
                 aria-selected={activeTab === 1}
-                active={activeTab === 1}
+                aria-expanded={activeTab === 1}
                 label={t('common.hours')}
                 onClick={() => handleActiveTab(1)}
                 plain
@@ -248,6 +286,7 @@ function MainContent({
         </Box>
         <Box
           role='tabpanel'
+          tabIndex={0}
           aria-label={activeTab === 0 ? `${t('common.classifications')} ${t('MainContent.tabContents')}` : `${t('common.hours')} ${t('MainContent.tabContents')}`}
           height='15rem'
           width='100%'

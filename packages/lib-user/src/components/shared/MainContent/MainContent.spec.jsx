@@ -1,5 +1,5 @@
 import { composeStory } from '@storybook/react'
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
 
 import { getStatsDateString } from '@utils'
 
@@ -28,11 +28,12 @@ describe('components > shared > MainContent', function () {
     expect(screen.getByText(STATS.total_count.toLocaleString())).toBeTruthy()
   })
 
-  it('should show "CLASSIFICATIONS" as the active tab', function () {
+  it('should show "CLASSIFICATIONS" as the active tab', async function () {
     render(<DefaultStory />)
-    const activeTab = screen.getByRole('tab', { name: 'Classifications', selected: true })
+    const tabList = await screen.findByRole('tablist')
+    const activeTab = within(tabList).getByRole('tab', { name: /Classifications/ })
 
-    expect(activeTab).toBeTruthy()
+    expect(activeTab.getAttribute('aria-selected')).to.equal('true')
   })
 
   it('should show "ALL PROJECTS" as the selected project', function () {
