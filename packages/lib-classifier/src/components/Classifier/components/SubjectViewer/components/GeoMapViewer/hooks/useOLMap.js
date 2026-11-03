@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Map, View } from 'ol'
 import { defaults as defaultControls } from 'ol/control/defaults'
 import ScaleLine from 'ol/control/ScaleLine'
+import { defaults as defaultInteractions } from 'ol/interaction/defaults'
 import VectorLayer from 'ol/layer/Vector'
 import VectorSource from 'ol/source/Vector'
 
@@ -38,7 +39,9 @@ export default function useOLMap(containerRef, tileLayers = [], overlayLayers = 
       target: containerRef.current,
       layers: [...baseTileLayers, ...overlayOlLayers, layer],
       view: new View({ center: [0, 0], zoom: 0 }),
-      controls: defaultControls({ zoom: false }).extend([scaleLine])
+      controls: defaultControls({ zoom: false }).extend([scaleLine]),
+      // The container's tabindex would otherwise make OL gate drag-pan and wheel-zoom behind focus.
+      interactions: defaultInteractions({ onFocusOnly: false })
     })
 
     setState({ map, source, layer, scaleLine, baseLayers: baseTileLayers, overlays: overlayOlLayers })
