@@ -76,8 +76,6 @@ function TalkPreferenceForm ({
     const newPreferenceValue = e.target.value
 
     try {
-      // TODO: remove // let shouldRevalidate = false
-
       await mutate(
         async (prevData) => {
           
@@ -93,7 +91,14 @@ function TalkPreferenceForm ({
 
           return newData
         }, {
-          // TODO: implement optimistic UI
+          // Optimistic UI: no need to revalidate, assume everything is working
+          // unless an error triggers.
+          revalidate: false,
+          rollbackOnError(err) {
+            // TODO
+            console.error(err)
+            return true
+          }
         }
       )
     } catch (err) {
