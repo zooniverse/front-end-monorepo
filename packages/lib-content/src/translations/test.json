@@ -409,6 +409,11 @@
       "answer": "Translated",
       "question": "Translated"
     },
+    "item11": {
+      "answer0": "Translated <0>Translated</0>",
+      "answer1": "Translated <0>Translated</0>",
+      "question": "Translated"
+    },
     "item1": {
       "answer": "Translated",
       "question": "Translated"
@@ -632,6 +637,22 @@
       "backHome": "Translated",
       "sidebar": "Translated",
       "title": "Translated"
+    },
+    "forms": {
+      "fields": {
+        "credited_name": {
+          "help": "Translated",
+          "label": "Translated"
+        },
+        "display_name": {
+          "help": "Translated",
+          "label": "Translated"
+        }
+      },
+      "optional": "Translated",
+      "save": "Translated",
+      "saveSuccess": "Translated",
+      "saveUnnecessary": "Translated"
     }
   },
   "Sidebar": {
@@ -699,6 +720,14 @@
         "third": "Translated"
       }
     },
-    "title": "Translated"
+    "title": "Translated",
+    "translate": {
+      "heading": "Translated",
+      "paragraphs": {
+        "first": "Translated",
+        "second": "Translated <0>Translated</0>",
+        "third": "Translated <0>Translated</0>"
+      }
+    }
   }
 }
