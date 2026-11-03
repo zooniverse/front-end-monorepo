@@ -10,6 +10,7 @@ import ShareIconButton from '../ShareIconButton'
 import addQueryParams from '../helpers/addQueryParams'
 
 import CollectionCoverBanner from './components/CollectionCoverBanner'
+import SubjectCardMenu from './components/SubjectCardMenu'
 import SimpleMedia from './components/SimpleMedia'
 import InteractiveMedia from './components/InteractiveMedia'
 
@@ -111,9 +112,12 @@ function SubjectCard({
         />
       )}
       {isCover ? <CollectionCoverBanner /> : null}
-        isCover={isCover}
-        onSetCover={onSetCover ? () => onSetCover(subject) : null}
-      />
+      {onSetCover ? (
+        <SubjectCardMenu
+          isCover={isCover}
+          onSetCover={() => onSetCover(subject)}
+        />
+      ) : null}
       <Box
         align='center'
         background={{ dark: 'dark-3', light: 'white' }}
