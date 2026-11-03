@@ -69,7 +69,7 @@ export const PortraitWithCover = {
 }
 
 export const LandscapeWithOnSetCover = {
-  render: () => <InteractiveStory onSetCover={() => true} login={'TestUser'} subject={RADIO_METEOR_ZOO_SUBJECT} />
+  render: ({ onSetCover = () => true } = {}) => <InteractiveStory onSetCover={onSetCover} login={'TestUser'} subject={RADIO_METEOR_ZOO_SUBJECT} />
 }
 
 export const PortraitWithOnSetCover = {
