@@ -1,0 +1,445 @@
+{
+  "404": {
+    "Default404": {
+      "findNewProject": "Keşfedilecek yeni bir proje bulun.",
+      "heading": "Burada hiçbir şey yok.",
+      "message": "Aradığınız sayfa artık mevcut değil.",
+      "returnHome": "Ana sayfaya geri dön"
+    }
+  },
+  "AboutHeader": {
+    "links": {
+      "about": "Hakkında",
+      "collaborate": "İşbirliği yapın",
+      "contact": "Bize Ulaşın",
+      "donate": "Bağış yapmak",
+      "educate": "Eğitmek",
+      "faq": "SSS",
+      "publications": "Yayınlar",
+      "resources": "Kaynaklar",
+      "team": "Ekibimiz",
+      "volunteer": "Gönüllü"
+    },
+    "title": {
+      "about": "Hakkında",
+      "getInvolved": "Katılın"
+    }
+  },
+  "AboutPage": {
+    "contact": {
+      "categories": {
+        "first": "Zooniverse ile ilgili genel sorular",
+        "second": "Bir projede iş birliği yapmak",
+        "third": "Basın sorgusu"
+      },
+      "heading": "Bize Ulaşın",
+      "paragraphs": {
+        "first": "Lütfen <0>Sıkça Sorulan Sorular sayfamızı</0> ve <1>Zooniverse Çözümleri web sayfamızı</1> okuyun.",
+        "second": "Belirli bir projeyle ilgili bir sorununuz mu var? Araştırma ekibiyle doğrudan iletişime geçmenizi öneririz. Bunun için onların \"Talk\" sayfasını kullanabilirsiniz.",
+        "third": "\"Bize Ulaşın\" butonuna erişemiyor musunuz? Doğrudan <0>contact@zooniverse.org</0> adresine e-posta gönderin."
+      },
+      "subheading": "Size nasıl yardımcı olabiliriz?"
+    },
+    "highlights": {
+      "description": "Blurb.com adresinden satın alınabilir.",
+      "heading": "Öne Çıkanlarımız",
+      "paragraphs": {
+        "first": "2007'den beri Zooniverse projeleri, birçok beklenmedik ve bilimsel açıdan önemli keşfe ve çok sayıda hakemli yayına yol açmıştır. Tüm bunlar, araştırma ekipleriyle birlikte bu projelerde yer alan küresel Zooniverse katılımcı topluluğumuz olmasaydı imkansız olurdu.",
+        "second": "Bu 'Into the Zooniverse' kitapları, emeği geçen herkesin çabalarını anmak ve onurlandırmak amacıyla hazırlanmıştır ve Zooniverse topluluğu üyelerinin çevrelerindeki dünyaya gerçek bir etki yaratma biçimlerine dair kısa bir bakış sunmaktadır. Her kitap, o yıl aktif olan projelerin bir alt kümesini öne çıkarmaktadır."
+      },
+      "pictures": {
+        "first": "Zooniverse 2019 kitap kapağı öne çıkanlar",
+        "second": "Zooniverse 2020 kitap kapağı öne çıkanlar",
+        "third": "Zooniverse 2021 kitap kapağı öne çıkanlar"
+      },
+      "sidebar": "Öne çıkanlar",
+      "subheading": "Yıllar boyunca unutulmaz projeler",
+      "tip": "Kitapların basılı satışından hiçbir kar elde etmiyoruz."
+    },
+    "howItWorks": {
+      "heading": "Nasıl Çalışır",
+      "participants": {
+        "description": "Katılımcı olarak",
+        "link": "Projeleri keşfedin",
+        "steps": {
+          "first": "İlginizi çeken bir proje bulun.",
+          "fourth": "Platformdaki çalışmalarınızı doğrulayan resmi bir sertifika oluşturun.",
+          "second": "Bu projenin sınıflandırılması sürecini öğrenin.",
+          "third": "Sınıflandırmanızı gönderin ve gerçek araştırmalara katkıda bulunun!"
+        }
+      },
+      "researchers": {
+        "description": "Bir araştırmacı olarak",
+        "link": "Bir proje oluşturun",
+        "steps": {
+          "first": "Zooniverse Proje Oluşturucu'yu kullanarak projenizi oluşturun.",
+          "fourth": "Verilerinizi indirin ve sonuçlarınızı yayınlayın!",
+          "second": "Projenizi onay için gönderin.",
+          "third": "Sınıflandırmalar gelirken projenizi başlatın ve Talk platformunda gönüllülerle etkileşim kurun."
+        }
+      },
+      "subheading": "İnsan odaklı araştırma"
+    },
+    "mobile": {
+      "altAppStore": "App Store'dan İndir",
+      "altImage": "Zooniverse uygulaması yüklü bir cep telefonunun resmi",
+      "altPlayStore": "Google Play'den İndir",
+      "description": "Zooniverse'ü yanınızda taşıyın. IOS ve Android cihazlar için uygulamayı indirin.",
+      "heading": "Mobil Uygulamamıza Göz Atın",
+      "sidebar": "Mobil Uygulama",
+      "subheading": "Her yerde keşfedin, öğretin ve öğrenin"
+    },
+    "ourMission": {
+      "discoveries": {
+        "first": "Yeşil Bezelye Galaksileri",
+        "fourth": "Boyajian'ın Yıldızı",
+        "second": "Yeni Ötegezegenler Keşfedildi",
+        "third": "'Beyaz Yalan'ın Daha Önceki Bir Kullanımı",
+        "tip": "Daha fazla bilgi için herhangi bir keşfe tıklayın."
+      },
+      "heading": "Misyonumuz",
+      "paragraphs": {
+        "first": "Zooniverse, insan gücüne dayalı araştırmalar için dünyanın en büyük ve en popüler platformudur. Bu araştırmalar, profesyonel araştırmacılara yardımcı olmak için bir araya gelen dünyanın dört bir yanından milyonlarca gönüllü sayesinde mümkün olmaktadır. Amacımız, aksi takdirde mümkün veya pratik olmayacak araştırmaları mümkün kılmaktır. Zooniverse araştırmaları, yeni keşiflere, daha geniş araştırma topluluğu için yararlı veri kümelerine ve birçok yayına yol açmaktadır.",
+        "fourth": "Gönüllüler ve profesyoneller birlikte gerçek keşifler yapıyorlar. Zooniverse projeleri, gönüllülerin çabalarını ölçülebilir sonuçlara dönüştürme amacıyla oluşturulmuştur. Bazı durumlarda, Zooniverse gönüllüleri tamamen beklenmedik ve önemli keşifler bile yapmışlardır. Bu araştırmanın önemli bir kısmı, gönüllülerin araştırma ekibi üyeleri ve birbirleriyle birlikte çalıştığı Zooniverse tartışma forumları olan Talk'ta gerçekleşmektedir. Bu forumlar, hızlı hashtag kullanımından derinlemesine işbirlikçi analize kadar her şeyi mümkün kılmak için her projeye entegre edilmiştir. Ayrıca, platform genelindeki konular hakkında genel sohbet ve tartışma için <0>merkezi bir Zooniverse Talk forumu</0> bulunmaktadır. Daha derinlemesine katılım için tüm kullanıcıları Talk'taki sohbete katılmaya teşvik ediyoruz.",
+        "second": "Zooniverse projelerine katılmak için özel bir geçmişe, eğitime veya uzmanlığa ihtiyacınız yok. Herkesin kendi bilgisayarında, kendi rahatlığında gerçek akademik araştırmalara katkıda bulunmasını kolaylaştırıyoruz. Uzak galaksilerin görüntüleri, tarihi kayıtlar ve günlükler veya doğal yaşam alanlarındaki hayvanların videoları gibi araştırmacılar tarafından toplanan gerçek verileri inceleyebileceksiniz. Projelere katılarak, dünyayı, evreni ve daha fazlasını anlamamıza katkıda bulunacaksınız. Bilim ve beşeri bilimler genelinde birçok disiplini ve konuyu kapsayan geniş ve sürekli genişleyen proje yelpazemizle, Zooniverse'de herkesin keşfedebileceği, öğrenebileceği ve eğlenebileceği bir yer var. Gönüllü olmak için <0>Projeler sayfasını</0> ziyaret edin, beğendiğiniz birini seçin ve başlayın.",
+        "third": "21. yüzyıl araştırmalarının en büyük zorluğu, çevremizdeki dünya hakkında toplayabildiğimiz bilgi seline karşı koymaktır. Bilgisayarlar yardımcı olabilir, ancak birçok alanda insan yeteneğinin kalıpları tanıma ve şaşırmaya açık olma özelliği bizi üstün kılıyor. Zooniverse gönüllülerinin yardımıyla araştırmacılar, bilgilerini aksi takdirde mümkün olandan daha hızlı ve doğru bir şekilde analiz edebilir ve heyecan verici sonuçlara daha çabuk ulaşabilirler. Çabalarınız zaman ve kaynak tasarrufu sağlar, bilgisayarların aynı görevleri yapma yeteneğini geliştirir ve dünyanın daha hızlı anlaşılmasına ve ilerlemesine yol açar. Projelerimiz, güvenilir ve doğru sonuçlar üretmek için <0>'kalabalığın bilgeliği'</0>nin bir versiyonuna dayanarak, birden fazla bireysel gönüllünün katkılarını birleştirir. Verilere birçok kişinin bakması, hata yapma olasılığımızın ne kadar yüksek olduğuna dair daha iyi tahminlere yol açar. Zooniverse projelerinin ürünleri, birçok araştırma alanında ilerleme kaydetmek için tam olarak ihtiyaç duyulan şeydir."
+      },
+      "stats": {
+        "classifications": "Şimdiye kadarki sınıflandırmalar",
+        "volunteers": "Kayıtlı gönüllüler"
+      },
+      "subheadings": {
+        "fifth": "Projelerimiz büyük keşiflere yol açıyor.",
+        "first": "Kalabalığın bilgeliği",
+        "fourth": "Zooniverse Eserleri",
+        "second": "Herkes araştırmacı olabilir.",
+        "third": "Birlikte çalışarak önemli araştırmaları hızlandırıyoruz."
+      },
+      "video": "Zooniverse'e Kısa Bir Giriş"
+    },
+    "sidebarLabel": "Bölüm",
+    "title": "Zooniverse Hakkında"
+  },
+  "Article": {
+    "url": "Devamını oku"
+  },
+  "Collaborate": {
+    "paragraphs": {
+      "eighth": "Sorularınız varsa veya daha fazla yardıma ihtiyacınız varsa, lütfen Zooniverse Bilim Lideri ve NASA İrtibat Görevlisi Cliff Johnson ile iletişime geçin: <0>cliff@zooniverse.org</0>.",
+      "fifth": "Özel proje araçları veya altyapısı oluşturmak için bizimle ortaklık kurmakla ilgileniyorsanız, lütfen <0>bizimle iletişime geçin</0>.",
+      "first": "Araştırmanız binlerce gönüllünün katılımından fayda görür müydü? Zooniverse, kitlesel katılımlı araştırmalar için dünyanın en büyük ve en başarılı çevrimiçi platformudur; astronomiden beşeri bilimlere kadar çeşitli disiplinlerdeki araştırma projelerinde profesyonel araştırmacılarla işbirliği içinde çalışan milyonlarca kayıtlı gönüllümüz var.",
+      "fourth": "<0>Proje Oluşturucu</0>da bulunan araçların belirli bir ekibin araştırma hedeflerine tam olarak uymadığı durumlarda, araştırmacılar yeni, özel araçlar oluşturmak için Zooniverse ile ortaklık kurmayı düşünebilirler. Bu ekiplerle araştırma, tasarım ve geliştirme sürecini desteklemek için fon başvurularında bulunuyoruz. Daha önce hibe başvurusunda bulunanlar, bu sürecin uzun zaman alabileceğini bilirler. Bir hibe başvurusunda bulunduktan sonra, çabalarımızın başarılı olup olmadığı konusunda geri dönüş almak 6 ay veya daha fazla sürebilir. Fonlanan projeler, oluşturulan özelliklerin karmaşıklığına bağlı olarak, tasarım, geliştirme ve test için genellikle en az 6 ay gerektirir. Daha sonra, bunları Proje Oluşturucu araç setine dahil etmek için genelleştirmek (ve genellikle revize etmek) için ek zamana ihtiyacımız olur.",
+      "nineth": "Bugüne kadar altıdan fazla kuruluş, kurumsal sosyal sorumluluklarını yerine getirmek için Adler Zooniverse'ü bir fırsat olarak kullanmaktadır. Katılım, çalışanlar için hizmet saati gereksinimlerini, mezuniyet şartlarını, bursları vb. karşılayabilir. Eşsiz bir gönüllülük fırsatı olan bu programda, katılımcılar çabalarının (ve topluluğun kolektif çabalarının) dünyamızı ve daha geniş evreni anlamamıza nasıl katkıda bulunduğunu düşünmek için zaman ayırırlar. Bu girişim hakkında daha fazla bilgi edinmek için <0>Bizimle iletişime geçin</0>.",
+      "second": "Araştırma ekipleri Zooniverse projelerini iki şekilde oluşturabilirler.",
+      "seventh": "İster Proje Oluşturucu'yu kullanarak iş akışları oluşturuyor olun, ister kitlesel kaynaklı katkıların araştırmalarınızı nasıl ilerletebileceğini düşünmeye yeni başlıyor olun, Zooniverse ekibi NASA odaklı projelerin geliştirilmesi ve uygulanması sırasında ekipleri desteklemek için büyük çaba sarf etmektedir. Zooniverse platformunu kullanmakla ilgilenen projeler için NASA vatandaş bilimi fonlama çağrılarına (Vatandaş Bilimi Tohum Fonlama Programı, Dünya Sistemleri için Vatandaş Bilimi Programı ve diğer NASA ROSES fonlama fırsatları dahil) yönelik teklifleri görüşmek ve desteklemekten memnuniyet duyarız.",
+      "sixth": "NASA'nın Bilim Misyonu Direktörlüğü bölümlerinden (Astrofizik, Biyolojik ve Fiziksel Bilimler, Güneş Fiziği ve Gezegen Bilimi) biriyle ilgili bir proje üzerinde çalışan ve Zooniverse gönüllülerinin katkılarından faydalanabilecek bir araştırmacı mısınız? NASA ile devam eden ortaklığımızın bir parçası olarak Zooniverse, NASA araştırma ekiplerine verdiği mevcut desteği geliştirmeyi ve platformumuzda yeni projelerin geliştirilmesini teşvik etmeyi amaçlamaktadır.",
+      "third": "Ekipler, kendi Zooniverse projelerini oluşturmak için ücretsiz <0>Proje Oluşturucu</0> aracımızı kullanabilirler. Projeyi herkese açık olarak yayınlamak ve projeler sayfamızda yer almak için, ekiplerin projenin platforma uygun olduğundan ve yayınlanmaya hazır olduğundan emin olmak için inceleme sürecimizden geçmeleri gerekir. Bu, bir Zooniverse projesi oluşturmanın en hızlı ve en basit yoludur. İnceleme için tahmini süreler de dahil olmak üzere bu süreç hakkında daha fazla bilgi için lütfen <1>Proje İnceleme En İyi Uygulamaları ve Akış Şeması</1> bölümüne bakın."
+    },
+    "subheadings": {
+      "fifth": "Kurumsal sosyal sorumluluk fırsatları",
+      "first": "Bizimle işbirliği yapın",
+      "fourth": "Proje çağrısı",
+      "second": "Destekçilerimiz",
+      "third": "Seçilmiş işbirlikçiler",
+      "tools": "Seçilen araçlar"
+    },
+    "title": "İşbirliği yapın"
+  },
+  "Donate": {
+    "button": "Bugün bağış yapın",
+    "paragraphs": {
+      "first": "Zooniverse, Chicago'daki Adler Planetaryumu, Oxford Üniversitesi, Minnesota Üniversitesi - Twin Cities (UMN), yüzlerce araştırmacı ve dünyanın dört bir yanından milyonlarca katılımcının iş birliğidir. Adler, Oxford ve UMN'deki Zooniverse ekipleri, üst düzey yönetim ekibimizi, web geliştiricilerimizi, tasarımcımızı, iletişim sorumlumuzu, veri bilimcilerimizi ve araştırmacılarımızı içerir. Araştırma, halkla ilişkiler ve modern web geliştirme alanlarındaki bu eşsiz uzmanlık karışımı, Zooniverse platformunu kullanan muhteşem gönüllü topluluğunu ve özverili araştırma ekiplerini desteklememizi sağlar. Zooniverse'in finansmanının büyük bir kısmı hibelerden ve Adler, Oxford ve UMN'den gelen kurumsal destekten sağlanmaktadır.",
+      "second": "Zooniverse'ü desteklemek isterseniz, lütfen Adler Planetaryumu'na vergi indiriminden yararlanabileceğiniz bir bağış yapmayı düşünün. Adler'e yapacağınız kısıtlama olmaksızın bağışınız, araştırmacıların çevrimiçi vatandaş bilimi yoluyla verilerinin kilidini açmasına, gökbilimcilerin Chicago ve çevresindeki mahallelere teleskoplar getirmesine, gençlerin uzaya özgün deneyler göndermesine ve her yaştan insanın yıldızların altında bağlantı kurmasına yardımcı olur.",
+      "third": "Aşağıdaki bağlantıyı takip ederek Adler Planetaryumu'nun internet sitesinden bağış yapabilirsiniz."
+    },
+    "subheading": "Zooniverse'ü destekleyin",
+    "title": "Bağış yapmak"
+  },
+  "Educate": {
+    "articles": {
+      "first": {
+        "datePublished": "28 Ekim 2022",
+        "excerpt": "Çevrimiçi kurslarda STEM'in öğretimi ve öğrenimi için araştırmaya dayalı aktif öğrenme öğretim materyallerine kritik bir ihtiyaç vardır. Her yıl yüz binlerce lisans öğrencisi, kurumlarının liberal sanatlar gereksinimlerini karşılamak için genel eğitim astronomi derslerine kaydolmaktadır. Bu öğrenci popülasyonu için öğretim materyalleri tasarlanırken, temel bir unsur...",
+        "title": "Lisans Öğrencilerinin Veri Okuryazarlığını ve Öz Yeterliliğini Geliştirmeye Yönelik Yeni Bir Müfredat Geliştirme Modeli..."
+      },
+      "fourth": {
+        "datePublished": "29 Nisan 2015",
+        "excerpt": "Bugünkü blog yazısı, Madeira İlkokulu'nda ikinci sınıf öğretmeni olan Fran Wilson'dan geliyor. Fran, sınıfında bilime olan ilgiyi artırmayı ve öğrencilerin tüm bilim insanlarının beyaz laboratuvar önlükleri ve koruyucu gözlükler takarak laboratuvarlarda çalışmadığını keşfetmelerine yardımcı olmayı amaçlıyor. Öğrencilerinin sorumlu birer vatandaş bilimci olarak çalışmalara katılmaları için anlamlı fırsatlar arıyor...",
+        "title": "Yüzen Ormanlar: Küçük Çocuklara Deniz Yosunu Hakkında Bilgi Vermek"
+      },
+      "heading": "Eğitimciler Zooniverse'ü nasıl kullanıyor?",
+      "second": {
+        "datePublished": "14 Ağustos 2019",
+        "excerpt": "“Herkes aynı galaksiyi yakalamaya çalışsın!” diye bağırdı bir çocuk, sınıf arkadaşlarına işaret ederek. Masanın etrafında, altı öğrenci büyük bir dokunmatik ekranın ortasındaki galaksi görüntüsünü kendi çalışma istasyonlarına sürüklemeye başladı. Bu öğrencilerin bu galaksiyi ilk gören ve nasıl sınıflandırılması gerektiğine karar veren kişiler olması çok muhtemel...",
+        "title": "ABD'li bilim insanı ve Adler Planetaryumu'ndaki Galaksi Hayvanat Bahçesi dokunmatik masası."
+      },
+      "third": {
+        "datePublished": "7 Şubat 2018",
+        "excerpt": "Sosyal bilgiler öğretmeni olarak, öğrencilerimin tarih disiplinine dair bir takdir geliştirmelerini umuyorum. Tarih ve isimleri ezberlemeye – yani sınavda yazdığımız anda hafızamızdan silinen türden şeylere – odaklanmak yerine, öğrencileri tarihçilerin yaptığı profesyonel çalışmaların incelikleriyle tanıştırmayı hedefliyorum. Son zamanlarda, 8. sınıf Antik Çağ dersimde...",
+        "title": "Missouri'deki 8. sınıf öğrencileri kölelik karşıtı belgeleri yazıya döküyor ve köleliğin kaldırılması hareketi hakkında bilgi ediniyor."
+      }
+    },
+    "buttons": {
+      "first": "Çevrimiçi Kaynaklar",
+      "second": "Zooniverse okullarda, 9-12 yaş arası çocuklar için.",
+      "third": "Lisans Öğrencileri için Zooniverse"
+    },
+    "forEducators": {
+      "classrooms": "Zooniverse Sınıflarını Keşfedin",
+      "heading": "Eğitimciler için Kaynaklar",
+      "paragraphs": {
+        "first": "Sınıflandırma kilometre taşlarını belirleyin, çabayı takip edin ve kolektif etkiyi kutlayın. Daha fazla ayrıntı için <0>duyurumuzu</0> okuyun.",
+        "second": "Her proje ekibi, ders planları, video eğitimleri, araştırma bağlantıları ve daha fazlasını içeren ek eğitimci kaynaklarını paylaşabilir. Projenin <0>Eğitim</0> sekmesini kontrol ettiğinizden emin olun.",
+        "third": "Burslar, mezuniyet şartları ve daha fazlası için öğrenci hizmet saatlerini tamamlayan öğrencilere destek. Ayrıntılar için bu <0>blog yazısına</0> bakın."
+      },
+      "subheadings": {
+        "first": "Grup istatistikleri",
+        "second": "Projeye özel eğitim fırsatları",
+        "third": "Gönüllü sertifikası"
+      }
+    },
+    "introduction": "Sınıfta Zooniverse'ü kullanmakla ilgilenen bir eğitimci misiniz? Harika! Dünyanın dört bir yanından milyonlarca insan, her biri araştırmacıların kamuoyuyla araştırma ve daha geniş ilgi alanları etrafında etkileşim kurduğu destekleyici ve samimi bir tartışma forumuna sahip yaklaşık 100 aktif projeye katılıyor. Zooniverse, öğrenciler için harika bir yer.",
+    "subheading": "Zooniverse'de Eğitim",
+    "takePart": {
+      "heading": "Sohbete Katılın",
+      "paragraph": "Zooniverse'ün en son eğitim çalışmalarıyla ilgili gelişmeleri <0>Zooniverse Blogu</0> üzerinden takip edin. Ayrıca <1>Eğitim ve Zooniverse hakkındaki tartışma forumumuzda</1> da sohbete katılabilirsiniz."
+    },
+    "title": "Eğitmek"
+  },
+  "FAQ": {
+    "help": "Sorunuzun cevabını bulamadınız mı? <0>Zooniverse Çözümleri web sayfasını</0> ziyaret edin, <1>Zooniverse Sohbeti</1>nde soru sorun veya <2>bizimle iletişime geçin</2>.",
+    "item0": {
+      "answer": "İnsanlar birçok görevde bilgisayarlardan daha iyidir. Çoğu Zooniverse projesi için bilgisayarlar gerekli görevi yerine getirmek için yeterince iyi değildir veya bir insanın fark edeceği ilginç özellikleri kaçırabilirler - bu yüzden yardımınıza ihtiyacımız var. Bazı Zooniverse projeleri ayrıca, bilgisayarların gelecekte bu araştırma görevlerinde daha iyi performans göstermelerine yardımcı olmak için insan sınıflandırmalarını kullanmaktadır. Bir Zooniverse projesine katıldığınızda, gerçek araştırmaya katkıda bulunuyorsunuz.",
+      "question": "Araştırmacılar neden sizin yardımınıza ihtiyaç duyuyor? Bilgisayarlar neden bu görevleri yapamıyor?"
+    },
+    "item10": {
+      "answer": "Son sürümden bir önceki sürüme kadar olan başlıca tarayıcıları destekliyoruz.",
+      "question": "Zooniverse hangi tarayıcı sürümlerini destekliyor?"
+    },
+    "item1": {
+      "answer": "Zooniverse projelerinde gösterilen konuların çoğu için araştırmacılar doğru cevabı bilmiyor ve bu yüzden sizin yardımınıza ihtiyaç duyuyorlar. İnsanlar desen tanıma görevlerinde gerçekten iyidir, bu nedenle genellikle ilk tahmininiz doğru olanıdır. Ara sıra hata yapmaktan çok fazla endişelenmeyin - bir projedeki her görüntü, video veya grafik birden fazla kişi tarafından incelenecektir. Çoğu Zooniverse projesinde bir Yardım düğmesi, Sıkça Sorulan Sorular (SSS) sayfası ve sınıflandırma yaparken size rehberlik edecek daha fazla bilgi içeren bir Saha Kılavuzu bulunur.",
+      "question": "Bunu doğru yapıp yapmadığımı nasıl anlarım?"
+    },
+    "item2": {
+      "answer": "Sınıflandırmalarınız Zooniverse'ün güvenli çevrimiçi veritabanında saklanır. Proje araştırma ekipleri, projelerinin sınıflandırma verilerini indirir ve her konu için 'nihai' bir yanıt oluşturmak üzere birden fazla gönderimi bir araya getirir. Belirli bir konu için sınıflandırmanızı gönderdikten sonra, geri dönüp düzenleyemezsiniz. Veri sahipliği hakkında bilgi için lütfen <0>Zooniverse Kullanıcı Sözleşmesi ve Gizlilik Politikası</0> sayfamıza bakın.",
+      "question": "Başvurumu gönderdikten sonra notuma ne olacak?"
+    },
+    "item3": {
+      "answer": "Evet. zooniverse.org adresine gidin, giriş yapın, 'Daha Fazla İstatistik'e tıklayın ve ardından istatistik çubuk grafiğinin sağ alt köşesindeki 'Gönüllü Sertifikası Oluştur' düğmesine tıklayın. Sonra sertifikanızı kaydedin veya yazdırın! Daha fazla bilgi için <0>buraya</0> bakın.",
+      "question": "Gönüllülük sertifikasını indirebilir miyim? Hizmet Öğrenimi gereksinimlerini karşılamak için Zooniverse'ü kullanabilir miyim?"
+    },
+    "item4": {
+      "answer": "Sınıflandırma meta verileri, veritabanımızda UTC zaman damgalarıyla birlikte saklanır ve istatistik hizmeti, sınıflandırma sayılarını UTC tarih aralıklarına göre gruplara ayırır. Tüm istatistikler tutarlı bir şekilde UTC tarih aralıklarında görüntülenir.",
+      "question": "İstatistikler neden UTC saat diliminde gösteriliyor?"
+    },
+    "item5": {
+      "answer": "Zooniverse, gönüllülerimizin kişisel bilgilerini ve gizlilik verilerini koruma görevini çok ciddiye almaktadır. Bu çabalarla ilgili ayrıntıları <0>Zooniverse Kullanıcı Sözleşmesi ve Gizlilik Politikası sayfası</0> ve <1>Zooniverse Güvenlik sayfası</1>nda bulabilirsiniz.",
+      "question": "Zooniverse hesap bilgilerimle ne yapıyor?"
+    },
+    "item6": {
+      "answer": "Yeni özellikler için önerilerinizi ve hataları <0>Zooniverse Tartışma Bölümü</0> aracılığıyla, ilgili <1>Github deposunda</1> bir sorun bildirerek veya <2>bizimle iletişime geçerek</2> iletebilirsiniz.",
+      "question": "Bir özellik isteğim var veya bir hata buldum; kiminle iletişime geçmeliyim/nasıl bildirmeliyim?"
+    },
+    "item7": {
+      "answer": "Zooniverse, Birleşik Krallık ve Amerika Birleşik Devletleri'ndeki kurumlar arasında bir iş birliğidir; ekibimizin tamamı bu ortak kurumlardan birinde veya diğerinde çalışmaktadır. Zooniverse'deki iş fırsatları hakkında daha fazla bilgi edinmek için <0>Zooniverse iş ilanları sayfasına</0> göz atın.",
+      "question": "Zooniverse işe alım yapıyor mu?"
+    },
+    "item8": {
+      "answer0": "Zooniverse, bir kuruluş, şirket veya kar amacı gütmeyen bir örgüt değil, insan gücüne dayalı araştırmalar için bir platformdur. Çok kurumlu bir iş birliğiyiz.",
+      "answer1": "Zooniverse ekibinin ev sahibi kurumlarından biri olan Chicago'daki Adler Planetaryumu, 501(c)(3) statüsüne sahip bir kuruluştur. Gönüllülük çalışmaları için açıkça 501(c)(3) ile bağlantı kurması gereken kişi veya kuruluşlar, referans olarak Adler Planetaryumunu kullanmalıdır. Adler Planetaryumunun 501(c)(3) statüsüne ilişkin belgeler <0>burada</0> mevcuttur ve Adler Planetaryumunun EIN numarası 36-6210902'dir. Kuruluş adını girerken, mümkünse \"Adler Planetaryumu - Zooniverse\" ifadesini kullanın. Mümkün değilse, lütfen \"Adler Planetaryumu\" (EIN numarasıyla eşleşen) ifadesini kullanın. Her durumda, Zooniverse.org aracılığıyla gönüllü olacaksınız.",
+      "answer2": "Bağış yapma yöntemleri hakkında bilgi için lütfen <0>bağış sayfamızı</0> ziyaret edin.",
+      "question": "Zooniverse kar amacı gütmeyen bir kuruluş mu?"
+    },
+    "item9": {
+      "answer": "Zooniverse Proje Oluşturucusu'nun kullanımından elde edilen verileri kullanarak araştırma yayınlarında Zooniverse'e nasıl atıfta bulunacağınıza dair daha fazla ayrıntıyı <0>Kaynaklar sayfamızda</0> bulabilirsiniz.",
+      "question": "Proje sahibi/araştırma ekibi üyesiyim, makalemde, sunum özetimde vb. Zooniverse ve Project Builder Platform'u nasıl kaynak olarak gösterebilirim?"
+    },
+    "title": "Sıkça Sorulan Sorular"
+  },
+  "Home": {
+    "Community": {
+      "feedOne": "Zooniverse Haberleri",
+      "feedTwo": "Zooniverse Blogu",
+      "heading": "Zooniverse Topluluğu",
+      "seeAll": "Tüm gönderileri göster",
+      "subheading": "Neler Oluyor?"
+    },
+    "DefaultHome": {
+      "FeaturedProjects": {
+        "heading": "Öne Çıkan Projeler",
+        "none": "Öne çıkan proje yok"
+      },
+      "Introduction": {
+        "description1": "Zooniverse, dünyanın en büyük insan destekli araştırma platformudur. Profesyonel araştırmacıları dünyanın dört bir yanındaki milyonlarca gönüllüyle buluşturan platform, uygulanması zor ya da imkânsız görünen araştırmalardan gerçek sonuçlar elde edilmesini sağlar. Bu sayede yeni keşifler yapılması sağlanmış, politikalar üzerinde etki yaratılmış ve bilimsel yayınlar ortaya çıkmıştır.",
+        "description2": "Platformumuz sizin gibi gönüllülerle hayat buluyor. Her yaş ve alt yapıdan katılımcıya kapımız açık. Doktoranız olması şart değil; biraz merak ve birkaç tıklama yeterli. Zooniverse projelerinden çıkan en ilginç bulguların çoğu, gönüllülerle araştırmacıların sohbetlerinden doğdu. Öncü araştırmalara katkı sağlamak ve kendi keşiflerinizi yapmak için hemen bize katılın!",
+        "register": "Kayıt ol",
+        "signIn": "Giriş yap",
+        "video": "Zooniverse'ü Kısaca Tanıyalım"
+      },
+      "Researchers": {
+        "build": "Bir proje oluşturun",
+        "description": "Hayvanları sınıflandırmaktan ötegezegenler keşfetmeye, tarihi belgeleri dijital ortama aktarmaktan daha fazlasına kadar farklı alanlardaki araştırmacılar, Proje Oluşturucuyu kullanarak ilgi çekici ve erişilebilir projeler oluşturdu. Zooniverse'te herkes proje oluşturabilir. Verilerinizi yükleyip gönüllülerin yapmasını istediğiniz görevleri seçin ve gerçek araştırmalara katkı sağlayan kapsayıcı ve samimi bir çevrimiçi topluluğun parçası olun."
+      },
+      "headings": {
+        "first": "Zooniverse nedir?",
+        "fourth": "Mobil uygulamamıza göz atın",
+        "second": "Öne Çıkan Projeler",
+        "third": "Gerçek araştırmacılar, gerçek sonuçlar"
+      },
+      "heroText": "Gerçek araştırma, bilim ve bilginin ilerlemesine yardımcı olan milyonlarca insana katılın.",
+      "mainHeading": "İnsan destekli araştırma",
+      "projects": "Projeleri keşfedin",
+      "subheadings": {
+        "first": "Kalabalığın bilgeliği",
+        "fourth": "Her yerde keşfedin, öğretin ve öğrenin",
+        "second": "Zooniverse çalışıyor",
+        "third": "Zooniverse'te proje üreten araştırmacılarla tanışın"
+      }
+    }
+  },
+  "OurTeam": {
+    "description": "Zooniverse'ü yaratan insanlar.",
+    "sidebarLabel": "Kurum",
+    "title": "Ekibimiz"
+  },
+  "Projects": {
+    "disciplines": {
+      "all": "Tüm Disiplinler",
+      "arts": "Sanat",
+      "biology": "Biyoloji",
+      "climate": "İklim",
+      "history": "Tarih",
+      "language": "Dil",
+      "literature": "Edebiyat",
+      "medicine": "İlaç",
+      "nature": "Doğa",
+      "physics": "Fizik",
+      "social": "Sosyal Bilimler",
+      "space": "Uzay"
+    },
+    "languages": {
+      "label": "Çeviri seçeneklerine göre projeleri filtrele"
+    },
+    "organizations": {
+      "description": "Organizasyonlar, birden fazla ilgili Zooniverse projesini bir araya getirerek katılımcıların bağlantılı araştırma çalışmalarını keşfetmelerini kolaylaştırıyor.",
+      "heading": "Organizasyonlar",
+      "none": "Hiçbir kuruluş bulunamadı."
+    },
+    "projects": {
+      "description": "<0>Hoş geldiniz! Burada olduğunuz için çok mutluyuz.</0> Aktif projelerimizin tamamına göz atmak, belirli bir projeyi aramak veya ilgi alanlarınıza göre projeleri filtrelemek için aşağı kaydırın. İyi eğlenceler ve mutlu sınıflandırmalar!",
+      "empty": {
+        "clear": "Filtreleri Sıfırla",
+        "status": "Bazen bir proje geçici olarak güncel olmayabilir veya tamamlanmış olabilir! <0>Herhangi Bir Proje Durumu</0> araması yapmayı deneyin."
+      },
+      "error": "Projeler alınırken bir hata oluştu.",
+      "heading": "Tüm projeler",
+      "none": "Hiçbir proje bulunamadı.",
+      "showingNum": "{{toplam}} projeden oluşan {{aralık}}"
+    },
+    "search": {
+      "placeholder": "Arama projeleri",
+      "warning": "Arama metni en az 5 harften oluşmalıdır."
+    },
+    "sortBy": {
+      "label": "Göre sırala",
+      "mostActive": "En Aktif",
+      "mostPopular": "En Popüler",
+      "nameAZ": "İsimler A - Z",
+      "nameZA": "İsim Z - A",
+      "newest": "En Yeni",
+      "oldest": "En Yaşlı"
+    },
+    "status": {
+      "active": "Aktif",
+      "all": "Herhangi bir durum",
+      "finished": "Tamamlandı",
+      "label": "Projeleri durumuna göre filtrele",
+      "paused": "Duraklatıldı"
+    }
+  },
+  "Publications": {
+    "description": "Zooniverse tarafından üretilen verileri kullanan akademik yayınların listesi.",
+    "formInfo": "Amacımız, kamuoyunun erişebileceği yayınlanmış makalelere bağlantılar paylaşmaktır. Yayınlanmak üzere kabul edilmiş ancak henüz yayınlanmamış makaleler de kabul edilebilir.",
+    "formInstruction": "Yeni bir yayın göndermek veya mevcut bir yayını güncellemek için, ",
+    "formLabel": "Lütfen bu formu kullanın.",
+    "sidebarLabel": "Disiplin",
+    "title": "Yayınlar"
+  },
+  "Resources": {
+    "brand": {
+      "heading": "Marka Kaynakları",
+      "links": {
+        "first": "Zooniverse'ün resmi logolarını indirin.",
+        "fourth": "Storybook - Sitede kullanılan kodlanmış bileşenlerimiz.",
+        "second": "Yazdırılabilir el kitapçıklarını, sunum şablonlarını ve proje görsellerini indirin.",
+        "third": "Zooniverse Tasarım Sistemi - Stillerimiz, marka renklerimiz ve tipografi kurallarımız"
+      }
+    },
+    "cite": {
+      "heading": "Zooniverse'e Nasıl Kaynak Gösterilir?",
+      "paragraphs": {
+        "fifth": "Zooniverse hakkında genel olarak yazarken, lütfen makalenizin bir yerinde Zooniverse ana sayfasına bir bağlantı veya URL ekleyin.",
+        "first": "<0>Zooniverse Proje Oluşturucu Politikaları</0> uyarınca, Zooniverse projelerinden elde edilen verileri kullanan tüm araştırma yayınlarının, Zooniverse'ü ve Proje Oluşturucu platformunu aşağıdaki metni kullanarak belirtmesi istenmektedir:",
+        "fourth": "Basında Zooniverse projelerinden bahsederken, lütfen hem basılı hem de dijital yayınlarda projeye ait bir bağlantı veya URL ekleyin.",
+        "second": "Proje sahiplerini, Zooniverse tarafından üretilen verileri kullanarak kabul edilen ve yayınlanan araştırma yayınlarını <0>bu formu</0> doldurarak bize bildirmeye şiddetle teşvik ediyoruz. Zooniverse projeleri ve ilgili araştırmalardan kaynaklanan yayınların güncel listesini <1>Yayınlar sayfamızda</1> bulabilirsiniz.",
+        "sixth": "Zooniverse ekibinin bir üyesiyle röportaj yapmakla ilgileniyorsanız, lütfen <0>bizimle iletişime geçin</0>.",
+        "third": "Zooniverse'e nasıl atıfta bulunacağınız, örneğin belirli bir kişiye veya özel koda nasıl atıfta bulunacağınız konusunda herhangi bir sorunuz varsa, lütfen <0>bizimle iletişime geçin</0>."
+      },
+      "quote": "Bu yayın, geliştirilmesi Google'dan alınan Küresel Etki Ödülü ve Alfred P. Sloan Vakfı'ndan alınan bir hibe de dahil olmak üzere cömert desteklerle finanse edilen <0>Zooniverse.org</0> platformu aracılığıyla oluşturulan verileri kullanmaktadır.",
+      "subheadings": {
+        "first": "Araştırmacılar için",
+        "second": "Medya için"
+      }
+    },
+    "title": "Kaynaklar"
+  },
+  "Sidebar": {
+    "all": "Tüm"
+  },
+  "Volunteer": {
+    "beta": {
+      "button": "Teste Kayıt Ol",
+      "heading": "Beta Testi",
+      "paragraphs": {
+        "first": "Eğer zaten gönüllüyseniz ve ek geri bildirim sağlamak istiyorsanız, beta test kullanıcısı olmayı düşünebilirsiniz. Beta test kullanıcıları, Zooniverse'te projelerin halka açık olarak yayınlanmadan önce test edilmesine yardımcı olan ve araştırma ekiplerine bu projeleri daha iyi hale getirmek için geri bildirim sağlayan gönüllülerdir. Beta test kullanıcıları projelere test sınıflandırmaları gönderir ve kısa bir anket aracılığıyla ekiplere geri bildirimde bulunur.",
+        "second": "Bu süreç, projelerdeki sorunları belirlememize ve hatta projenin Zooniverse için uygun olup olmadığını değerlendirmemize yardımcı olur. Görüşleriniz bizim için son derece önemlidir! Uygun bir projeyi neyin oluşturduğuna dair yönergelerimizi <0>Laboratuvar Politikaları sayfasında</0> okuyabilirsiniz.",
+        "third": "Beta test kullanıcısı olmak çok kolay ve herkes yapabilir. Sadece <0>ayarlar</0> bölümünü ziyaret edin ve “Beta proje e-posta güncellemelerini alın ve beta test kullanıcısı olun” yazan kutuyu işaretleyin. Projeler test edilmeye hazır olduğunda size e-posta göndereceğiz. E-posta ayarlarınızı istediğiniz zaman değiştirebilir ve aynı e-posta sayfasına giderek kutunun işaretini kaldırarak beta e-postalarından aboneliğinizi iptal edebilirsiniz."
+      }
+    },
+    "classify": {
+      "heading": "Projeleri Sınıflandır",
+      "paragraphs": {
+        "first": "Bir projede gönüllü olmak, katılmanın en kolay ve en yaygın yoludur. Proje verilerini sınıflandırmaya yardımcı olacak gönüllülere her zaman ihtiyacımız var. Minimum zaman şartı yok; istediğiniz kadar veya az çalışabilirsiniz.",
+        "second": "Başlamak için <0>Zooniverse</0> ana sayfasını ziyaret edin ve bir hesap oluşturun."
+      }
+    },
+    "howTo": {
+      "heading": "Gönüllü olmak için neler yapılır?",
+      "paragraph": "Gönüllü olmakla ilgileniyor musunuz? Çok kolay: sadece sınıflandırmaya başlayın! Zooniverse projesine katkıda bulunan herkes gönüllüdür. İnsan gücüne dayalı araştırmalarımızı 'güçlendiren' harika, küresel bir gönüllü topluluğumuz var. Zaten gönüllüsünüz ve daha fazlasını yapmak mı istiyorsunuz? Beta test kullanıcısı olmayı veya proje ekiplerine Talk moderatörü olarak yardımcı olmayı düşünün. Bu roller hakkında daha fazla bilgi için okumaya devam edin."
+    },
+    "moderate": {
+      "heading": "Bir Projeyi Yönetmek",
+      "paragraphs": {
+        "first": "Gönüllü moderatörler, araştırma ekiplerine projenin Talk tartışma aracında yardımcı olurlar. Tartışmaları yönetmeye yardımcı olurlar, proje için iletişim noktası görevi görürler ve Talk'ta ek yetkilere sahiptirler. Moderatörler proje sahibi tarafından seçilir. Katıldığınız bir projede moderatör olmakla ilgileniyorsanız, projenin Hakkında sayfasına veya Talk panosuna gidin ve araştırmacıyla iletişime geçin. Daha fazla bilgi için <0>'Moderatörler Ne İşe Yarar?'</0> dokümanımıza bakın.",
+        "second": "Bu farklı rollerden herhangi biri hakkında daha fazla bilgi edinmek isterseniz, <0>bizimle iletişime geçin</0>."
+      }
+    },
+    "register": {
+      "button": "Bugün Kayıt Olun",
+      "heading": "Zooniverse'e Kayıt Olmanın Faydaları",
+      "paragraphs": {
+        "fifth": "Kayıt sayfasının çevrilmiş sürümleri <0>İspanyolca</0> ve <1>Fransızca</1> olarak mevcuttur. Lütfen bir sayfadaki tüm öğelerin çevrilmiş olmayabileceğini unutmayın.",
+        "first": "Sınıflandırmalarınızı, çalışma saatlerinizi ve daha fazlasını takip edin. Favori projelerinizi keşfedin ve trendleri gözlemleyin. Ardından, daha fazla seçenek için verilerinizi dışa aktarın.",
+        "fourth": "16 yaşından küçükler için, kayıt işleminin ebeveyn/veli tarafından onaylanması gerekmektedir. Kayıt için doğrudan bağlantı <0>https://www.zooniverse.org/accounts/register</0> adresindedir.",
+        "second": "Zooniverse platformundaki çalışmalarınızı doğrulayan resmi bir sertifika oluşturun. Sadece bir zaman dilimi veya proje belirtmeniz yeterli.",
+        "third": "Kayıtlı kullanıcılar, projeye özel ve Zooniverse genelindeki tartışma panolarında paylaşım yapabilir ve gerçek uzmanlara sorular sorabilirler."
+      },
+      "subheadings": {
+        "first": "Kişisel istatistikler",
+        "second": "Gönüllü sertifikası",
+        "third": "Diğer gönüllüler ve uzmanlarla konuşun."
+      }
+    },
+    "title": "Gönüllü"
+  }
+}

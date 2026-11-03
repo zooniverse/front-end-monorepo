@@ -1,0 +1,445 @@
+{
+  "404": {
+    "Default404": {
+      "findNewProject": "Tafuta mradi mpya wa kuchunguza",
+      "heading": "Hakuna kitu hapa.",
+      "message": "Ukurasa unaoutafuta haupo tena.",
+      "returnHome": "Rudi kwenye ukurasa wa nyumbani"
+    }
+  },
+  "AboutHeader": {
+    "links": {
+      "about": "Kuhusu",
+      "collaborate": "Shirikiana",
+      "contact": "Wasiliana Nasi",
+      "donate": "Toa mchango",
+      "educate": "Elimisha",
+      "faq": "Maswali Yanayoulizwa Mara kwa Mara",
+      "publications": "Machapisho",
+      "resources": "Rasilimali",
+      "team": "Timu Yetu",
+      "volunteer": "Kujitolea"
+    },
+    "title": {
+      "about": "Kuhusu",
+      "getInvolved": "Shiriki"
+    }
+  },
+  "AboutPage": {
+    "contact": {
+      "categories": {
+        "first": "Maswali ya Jumla ya Zooniverse",
+        "second": "Kushirikiana katika mradi",
+        "third": "Uchunguzi kwa vyombo vya habari"
+      },
+      "heading": "Wasiliana Nasi",
+      "paragraphs": {
+        "first": "Tafadhali soma ukurasa wetu wa <0>Maswali Yanayoulizwa Mara kwa Mara</0> na ukurasa wa wavuti wa <1>Zooniverse Solutions</1>.",
+        "second": "Je, una tatizo linalohusiana na mradi fulani? Tunapendekeza kuwasiliana moja kwa moja na timu ya utafiti kwenye ukurasa wao wa Majadiliano.",
+        "third": "Huwezi kufikia kitufe cha Wasiliana Nasi? Tutumie barua pepe moja kwa moja kwa <0>contact@zooniverse.org</0>."
+      },
+      "subheading": "Tunaweza kukusaidia nini?"
+    },
+    "highlights": {
+      "description": "Inapatikana kwa ununuzi katika <0>Blurb.com</0>",
+      "heading": "Mambo Muhimu Yetu",
+      "paragraphs": {
+        "first": "Tangu 2007, miradi ya Zooniverse imesababisha uvumbuzi mwingi usiotarajiwa na muhimu kisayansi na machapisho mengi yaliyopitiwa na wenzao. Yote haya yasingewezekana kama isingekuwa kwa jumuiya yetu ya kimataifa ya washiriki wa Zooniverse wanaoshiriki katika miradi hii pamoja na timu za utafiti.",
+        "second": "Vitabu hivi vya 'Into the Zooniverse' vinaadhimisha na kuheshimu juhudi za kila mtu anayehusika, na kutoa muhtasari tu wa jinsi wanajamii wa Zooniverse wanavyoathiri ulimwengu unaowazunguka. Kila kitabu kinaangazia miradi michache iliyokuwa ikifanya kazi mwaka huo."
+      },
+      "pictures": {
+        "first": "Jalada la kitabu cha Zooniverse 2019",
+        "second": "Jalada la kitabu cha Zooniverse 2020",
+        "third": "Jalada la kitabu cha Zooniverse 2021"
+      },
+      "sidebar": "Vivutio",
+      "subheading": "Miradi isiyokumbukwa kwa miaka mingi",
+      "tip": "Hatupati faida yoyote kupitia mauzo ya nakala ngumu za vitabu."
+    },
+    "howItWorks": {
+      "heading": "Jinsi Inavyofanya Kazi",
+      "participants": {
+        "description": "Kama mshiriki",
+        "link": "Gundua miradi",
+        "steps": {
+          "first": "Tafuta mradi unaokuvutia",
+          "fourth": "Tengeneza cheti rasmi kinachothibitisha juhudi zako kwenye jukwaa",
+          "second": "Jifunze mchakato wa kuainisha mradi huo",
+          "third": "Wasilisha uainishaji wako na usaidizi kuhusu utafiti halisi!"
+        }
+      },
+      "researchers": {
+        "description": "Kama mtafiti",
+        "link": "Jenga mradi",
+        "steps": {
+          "first": "Jenga mradi wako kwa kutumia Mjenzi wa Mradi wa Zooniverse",
+          "fourth": "Pakua data yako na uchapishe matokeo yako!",
+          "second": "Wasilisha mradi wako kwa ajili ya idhini",
+          "third": "Anzisha mradi wako na ushirikiane na watu wa kujitolea kwenye Majadiliano huku uainishaji ukiingia"
+        }
+      },
+      "subheading": "Utafiti unaoendeshwa na watu"
+    },
+    "mobile": {
+      "altAppStore": "Pakua kwenye App Store",
+      "altImage": "Picha ya simu ya mkononi na programu ya Zooniverse",
+      "altPlayStore": "Ipate Kwenye Google Play",
+      "description": "Kuwa na Zooniverse popote ulipo. Pakua programu ya vifaa vya iOS na Android.",
+      "heading": "Angalia Programu Yetu ya Simu ya Mkononi",
+      "sidebar": "Programu ya Simu ya Mkononi",
+      "subheading": "Gundua, funza na ujifunze - popote ulipo"
+    },
+    "ourMission": {
+      "discoveries": {
+        "first": "Galaksi za Mbaazi za Kijani",
+        "fourth": "Nyota ya Boyajian",
+        "second": "Sayari Mpya za Exoplaneti Zinapatikana",
+        "third": "Matumizi ya Awali ya 'Uongo Mweupe'",
+        "tip": "Bonyeza ugunduzi wowote kwa maelezo zaidi"
+      },
+      "heading": "Dhamira Yetu",
+      "paragraphs": {
+        "first": "Zooniverse ni jukwaa kubwa na maarufu zaidi duniani la utafiti unaoendeshwa na watu. Utafiti huu unawezeshwa na watu wa kujitolea—mamilioni ya watu kote ulimwenguni wanaokusanyika pamoja kuwasaidia watafiti wa kitaalamu. Lengo letu ni kuwezesha utafiti ambao usingewezekana, au wa vitendo, vinginevyo. Utafiti wa Zooniverse husababisha uvumbuzi mpya, seti za data muhimu kwa jamii pana ya utafiti, na machapisho mengi <0>.",
+        "fourth": "Wajitolea na wataalamu hufanya uvumbuzi halisi pamoja. Miradi ya Zooniverse hujengwa kwa lengo la kubadilisha juhudi za wajitolea kuwa matokeo yanayopimika. Katika baadhi ya matukio, wajitolea wa Zooniverse hata wamefanya uvumbuzi usiotarajiwa na muhimu kabisa. Kiasi kikubwa cha utafiti huu hufanyika kwenye Talk, bodi za majadiliano za Zooniverse, ambapo wajitolea hufanya kazi pamoja na wanachama wa timu ya utafiti na kila mmoja. Bodi hizi zimeunganishwa ndani ya kila mradi ili kuruhusu kila kitu kuanzia uwekaji alama wa haraka wa hash hadi uchambuzi wa kina wa ushirikiano. Pia kuna ubao wa <0>mazungumzo ya Zooniverse</0> kwa ajili ya gumzo la jumla na majadiliano kuhusu masuala ya jukwaa zima. Tunawahimiza watumiaji wote kujiunga na mazungumzo kwenye Talk kwa ushiriki wa kina zaidi.",
+        "second": "Huhitaji historia yoyote maalum, mafunzo, au utaalamu ili kushiriki katika miradi ya Zooniverse. Tunarahisisha mtu yeyote kuchangia katika utafiti halisi wa kitaaluma, kwenye kompyuta yake mwenyewe, kwa urahisi wake. Utaweza kusoma data halisi iliyokusanywa na watafiti, kama vile picha za galaksi za mbali, rekodi za kihistoria na shajara, au video za wanyama katika makazi yao ya asili. Kwa kushiriki katika miradi, utasaidia kuchangia katika uelewa wetu wa ulimwengu, ulimwengu, na zaidi. Kwa seti yetu pana na inayopanuka ya miradi, ambayo inashughulikia taaluma na mada nyingi katika sayansi na ubinadamu, kuna mahali pa mtu yeyote na kila mtu kuchunguza, kujifunza, na kufurahia katika Zooniverse. Ili kujitolea, tembelea <0>ukurasa wa Miradi</0>, chagua moja unayopenda mwonekano wake, na uanze.",
+        "third": "Changamoto kubwa ya utafiti wa karne ya 21 ni kushughulika na mafuriko ya taarifa tunazoweza kukusanya kuhusu ulimwengu unaotuzunguka. Kompyuta zinaweza kusaidia, lakini katika nyanja nyingi uwezo wa binadamu wa kutambua ruwaza—na uwezo wetu wa kushangazwa—hutufanya kuwa bora zaidi. Kwa msaada wa wajitolea wa Zooniverse, watafiti wanaweza kuchambua taarifa zao haraka na kwa usahihi zaidi kuliko vile ambavyo ingewezekana, na kufikia matokeo ya kusisimua haraka zaidi. Jitihada zako huokoa muda na rasilimali, huongeza uwezo wa kompyuta kufanya kazi zile zile, na husababisha maendeleo ya haraka na uelewa wa ulimwengu. Miradi yetu huchanganya michango kutoka kwa wajitolea wengi binafsi, kutegemea toleo la <0>'hekima ya umati'</0> ili kutoa matokeo ya kuaminika na sahihi. Kuwa na watu wengi kutazama data mara nyingi husababisha makadirio bora ya jinsi tunavyoweza kufanya kosa. Bidhaa za miradi ya Zooniverse mara nyingi ndizo hasa zinazohitajika ili kupiga hatua katika nyanja nyingi za utafiti."
+      },
+      "stats": {
+        "classifications": "Aina za kufikia sasa",
+        "volunteers": "Watu wa kujitolea walioandikishwa"
+      },
+      "subheadings": {
+        "fifth": "Miradi yetu inaongoza kwa uvumbuzi mkubwa",
+        "first": "Hekima ya umati",
+        "fourth": "Kazi za Zooniverse",
+        "second": "Mtu yeyote anaweza kuwa mtafiti",
+        "third": "Tunaharakisha utafiti muhimu kwa kufanya kazi pamoja"
+      },
+      "video": "Utangulizi Mfupi wa Zooniverse"
+    },
+    "sidebarLabel": "Sehemu",
+    "title": "Kuhusu Zooniverse"
+  },
+  "Article": {
+    "url": "Soma zaidi"
+  },
+  "Collaborate": {
+    "paragraphs": {
+      "eighth": "Ikiwa una maswali au unahitaji mwongozo zaidi, tafadhali wasiliana na Cliff Johnson, Kiongozi wa Sayansi ya Zooniverse na Mshirika wa NASA: <0>cliff@zooniverse.org</0>.",
+      "fifth": "Ikiwa una nia ya kushirikiana nasi ili kuunda zana au miundombinu maalum ya mradi, tafadhali <0>wasiliana nasi</0>.",
+      "first": "Je, utafiti wako ungefaidika kutokana na ushiriki wa maelfu ya watu wanaojitolea? Zooniverse ni jukwaa kubwa na lenye mafanikio zaidi mtandaoni duniani kwa ajili ya utafiti wa watu wengi; tuna mamilioni ya watu wanaojitolea waliosajiliwa wanaofanya kazi kwa ushirikiano na watafiti wa kitaalamu katika miradi ya utafiti katika taaluma mbalimbali, kuanzia unajimu hadi ubinadamu.",
+      "fourth": "Katika hali ambapo zana zinazopatikana katika <0>Mjenzi wa Mradi</0> hazifai kabisa kwa malengo ya utafiti ya timu fulani, watafiti wanaweza kutaka kufikiria kushirikiana na Zooniverse ili kuunda zana mpya, maalum. Tunafanya kazi na timu hizi kuomba ufadhili ili kusaidia mchakato wa utafiti, usanifu, na uendelezaji. Wale ambao wameomba ufadhili wa ruzuku hapo awali watajua kwamba mchakato huu unaweza kuchukua muda mrefu. Mara tu tunapoomba ruzuku, inaweza kuchukua miezi 6 au zaidi kusikia kuhusu kama juhudi zetu zilifanikiwa au la. Miradi inayofadhiliwa kwa kawaida inahitaji angalau miezi 6 kubuni, kujenga, na kujaribu, kulingana na ugumu wa vipengele vinavyoundwa. Kisha tunahitaji muda wa ziada wa kuzijumlisha (na mara nyingi kuzirekebisha) ili zijumuishwe katika zana ya zana ya Mjenzi wa Mradi.",
+      "nineth": "Zaidi ya mashirika sita hadi sasa yanatumia Adler Zooniverse kama fursa ya kutimiza wajibu wao wa kijamii wa shirika. Ushiriki unaweza kutimiza mahitaji ya saa za huduma kwa wafanyakazi, kuhitimu, ufadhili wa masomo, n.k. Fursa ya kipekee ya kujitolea, washiriki huchukua muda kutafakari jinsi juhudi zao (na juhudi za pamoja za jamii) zinavyochangia katika uelewa wetu wa ulimwengu wetu na ulimwengu mpana. <0>Wasiliana nasi</0> ili kujifunza zaidi kuhusu mpango huu.",
+      "second": "Timu za utafiti zinaweza kujenga miradi ya Zooniverse kwa njia mbili.",
+      "seventh": "Ikiwa tayari unaunda mtiririko wa kazi kwa kutumia Mjenzi wa Mradi au unaanza tu kufikiria jinsi michango ya watu wengi inavyoweza kuendeleza utafiti wako, timu ya Zooniverse imejitolea kusaidia timu wakati wa uundaji na utekelezaji wa miradi inayolenga NASA. Tunafurahi kujadili na kuunga mkono mapendekezo ya wito wa ufadhili wa sayansi ya raia wa NASA (ikiwa ni pamoja na Programu ya Ufadhili wa Mbegu za Sayansi ya Raia, Programu ya Sayansi ya Raia kwa Mifumo ya Dunia, na fursa zingine za ufadhili wa NASA ROSES) kwa miradi inayopenda kutumia jukwaa la Zooniverse.",
+      "sixth": "Je, wewe ni mtafiti anayefanya kazi kwenye mradi unaohusiana na mojawapo ya idara za Kurugenzi ya Misheni ya Sayansi ya NASA (Astrofizikia, Sayansi ya Biolojia na Fizikia, Heliofizikia, na Sayansi ya Sayari) ambaye angefaidika na michango kutoka kwa wajitolea wa Zooniverse? Kama sehemu ya ushirikiano unaoendelea na NASA, Zooniverse inatafuta kujenga juu ya usaidizi wake wa sasa wa timu za utafiti za NASA na kuhimiza maendeleo ya miradi mipya kwenye jukwaa letu.",
+      "third": "Timu zinaweza kutumia zana yetu ya <0>Mjenzi wa Mradi</0> inayotumika bila malipo ili kuunda mradi wao wenyewe wa Zooniverse. Ili kuzinduliwa hadharani na kuangaziwa kwenye ukurasa wetu wa miradi, timu lazima zipitie mchakato wetu wa ukaguzi ili kuhakikisha mradi unafaa kwa jukwaa na uko tayari kuzinduliwa. Huu ndio chaguo la haraka na rahisi zaidi la kuunda mradi wa Zooniverse. Kwa maelezo zaidi kuhusu mchakato huu, ikiwa ni pamoja na muda uliokadiriwa wa ukaguzi, tafadhali angalia <1>Kanuni Bora na Chati ya Mtiririko wa Mapitio ya Mradi</1>."
+    },
+    "subheadings": {
+      "fifth": "Fursa za uwajibikaji wa kijamii wa kampuni",
+      "first": "Shirikiana nasi",
+      "fourth": "Wito kwa miradi",
+      "second": "Wafuasi wetu",
+      "third": "Washirika waliochaguliwa",
+      "tools": "Zana zilizochaguliwa"
+    },
+    "title": "Shirikiana"
+  },
+  "Donate": {
+    "button": "Toa mchango leo",
+    "paragraphs": {
+      "first": "Zooniverse ni ushirikiano kati ya Adler Planetarium ya Chicago, Chuo Kikuu cha Oxford, Chuo Kikuu cha Minnesota - Twin Cities (UMN), mamia ya watafiti, na mamilioni ya washiriki kutoka kote ulimwenguni. Timu za Zooniverse huko Adler, Oxford, na UMN zinajumuisha timu yetu ya uongozi wa juu, watengenezaji wa wavuti, wabunifu, viongozi wa mawasiliano, wanasayansi wa data, na watafiti. Mchanganyiko huu wa kipekee wa utaalamu katika utafiti, ushiriki wa umma, na ukuzaji wa kisasa wa wavuti unaturuhusu kuunga mkono jamii ya ajabu ya watu wa kujitolea na timu za utafiti zilizojitolea kwa kutumia jukwaa la Zooniverse. Sehemu kubwa ya ufadhili wa Zooniverse huja kupitia ruzuku, pamoja na usaidizi wa kitaasisi kutoka Adler, Oxford, na UMN.",
+      "second": "Ikiwa ungependa kuunga mkono Zooniverse, tafadhali fikiria kutoa mchango unaopunguzwa kodi kwa Adler Planetarium. Zawadi yako isiyo na kikomo kwa Adler huwasaidia watafiti kufungua data zao kupitia sayansi ya raia mtandaoni, wanaastronomia huleta darubini katika vitongoji kote Chicagoland, vijana huzindua majaribio ya awali angani, na watu wa rika zote huunganishwa chini ya nyota.",
+      "third": "Fuata kiungo kilicho hapa chini ili kutoa mchango kwenye tovuti ya Adler Planetarium."
+    },
+    "subheading": "Saidia Zooniverse",
+    "title": "Toa mchango"
+  },
+  "Educate": {
+    "articles": {
+      "first": {
+        "datePublished": "Oktoba 28, 2022",
+        "excerpt": "Kuna hitaji kubwa la vifaa vya kufundishia vinavyotegemea utafiti kwa ajili ya kufundisha na kujifunza STEM katika kozi za mtandaoni. Kila mwaka, mamia ya maelfu ya wanafunzi wa shahada ya kwanza wasio wa sayansi hujiandikisha katika kozi za elimu ya jumla ya unajimu ili kutimiza mahitaji ya sanaa huria ya taasisi zao. Wakati wa kubuni vifaa vya kufundishia kwa idadi hii ya wanafunzi,...",
+        "title": "Mfano Mpya wa Ukuzaji wa Mtaala kwa ajili ya Kuboresha Ujuzi wa Data wa Wanafunzi wa Shahada ya Kwanza na Ufanisi wa Kujitegemea..."
+      },
+      "fourth": {
+        "datePublished": "Aprili 29, 2015",
+        "excerpt": "Chapisho la blogu la leo linatoka kwa Fran Wilson, mwalimu wa darasa la pili katika Shule ya Msingi ya Madeira. Fran anajitahidi kukuza shauku katika sayansi darasani mwake na kuwasaidia wanafunzi kugundua kwamba si wanasayansi wote wanaofanya kazi katika maabara wakiwa wamevaa makoti meupe ya maabara na miwani ya usalama. Anatafuta fursa zenye maana kwa wanafunzi wake kushiriki katika kazi ya wanasayansi raia ili kuwajibika...",
+        "title": "Misitu Inayoelea: Kufundisha Watoto Wadogo Kuhusu Kelp"
+      },
+      "heading": "Waelimishaji wanatumiaje Zooniverse?",
+      "second": {
+        "datePublished": "Agosti 14, 2019",
+        "excerpt": "\"Kila mtu anajaribu kukamata galaksi moja,\" mvulana mmoja alisema huku akiwaashiria wanafunzi wenzake. Kuzunguka meza, wanafunzi sita walianza kuburuta picha ya galaksi kutoka katikati ya skrini kubwa ya kugusa hadi kwenye kituo chao cha kazi. Inawezekana sana kwamba wanafunzi hawa ndio watu wa kwanza kutazama galaksi hii na kuamua jinsi inavyopaswa kuainishwa...",
+        "title": "Mwanasayansi wa Marekani na meza ya kugusa ya Galaxy Zoo katika Adler Planetarium"
+      },
+      "third": {
+        "datePublished": "Februari 7, 2018",
+        "excerpt": "Kama mwalimu wa masomo ya jamii, natumai wanafunzi wangu watathamini taaluma ya historia yenyewe. Badala ya kusisitiza kukariri tarehe na majina - aina ya vitu vinavyoangukia kwenye kumbukumbu zetu mara tu tunapoviweka kwenye mtihani - malengo yangu ni pamoja na kuwaonyesha wanafunzi ugumu wa kazi za kitaalamu zinazofanywa na wanahistoria. Hivi majuzi, darasa langu la 8 Ulimwengu wa Kale...",
+        "title": "Wanafunzi wa darasa la 8 huko Missouri wanaandika hati za kupinga utumwa na kujifunza kuhusu harakati za kukomesha utumwa"
+      }
+    },
+    "buttons": {
+      "first": "Rasilimali za Mtandaoni",
+      "second": "Zooniverse shuleni Umri wa miaka 9 - 12",
+      "third": "Zooniverse kwa Wanafunzi wa Shahada ya Kwanza"
+    },
+    "forEducators": {
+      "classrooms": "Gundua Madarasa ya Zooniverse",
+      "heading": "Rasilimali kwa Waelimishaji",
+      "paragraphs": {
+        "first": "Weka hatua muhimu za uainishaji, fuatilia juhudi, na usherehekee athari za pamoja. Soma <0>tangazo</0> letu kwa maelezo zaidi.",
+        "second": "Kila timu ya mradi inaweza kushiriki rasilimali za ziada za waelimishaji ikiwa ni pamoja na mipango ya masomo, mafunzo ya video, viungo vya utafiti, na zaidi. Hakikisha umeangalia kichupo cha <0>Elimu</0> cha mradi.",
+        "third": "Usaidizi kwa wanafunzi wanaotimiza saa za huduma kwa wanafunzi kwa ajili ya ufadhili wa masomo, mahitaji ya kuhitimu, na zaidi. Tazama <0>chapisho hili la blogu</0> kwa maelezo zaidi."
+      },
+      "subheadings": {
+        "first": "Takwimu za kikundi",
+        "second": "Fursa za kielimu mahususi kwa mradi",
+        "third": "Cheti cha kujitolea"
+      }
+    },
+    "introduction": "Je, wewe ni mwalimu unayependa kutumia Zooniverse darasani? Vizuri sana! Mamilioni ya watu kote ulimwenguni wanashiriki katika miradi ipatayo 100 inayofanya kazi, kila moja ikiwa na jukwaa la majadiliano linalounga mkono na kukaribisha ambapo watafiti hushirikiana na umma kuhusu utafiti na mambo yanayowavutia kwa mapana. Zooniverse ni mahali pazuri kwa wanafunzi.",
+    "subheading": "Elimu katika Zooniverse",
+    "takePart": {
+      "heading": "Shiriki katika Mazungumzo",
+      "paragraph": "Endelea kupata taarifa mpya kuhusu juhudi za kielimu za Zooniverse kwenye <0>Blogu ya Zooniverse</0>. Unaweza pia kujiunga na mazungumzo katika jukwaa letu la <1>majadiliano kuhusu Elimu na Zooniverse</1>."
+    },
+    "title": "Elimisha"
+  },
+  "FAQ": {
+    "help": "Huoni jibu la swali lako? Tembelea <0>Ukurasa wa wavuti wa Suluhisho za Zooniverse</0>, uliza kwenye <1>Zooniverse Talk</1>, au <2>wasiliana nasi</2>.",
+    "item0": {
+      "answer": "Wanadamu ni bora kuliko kompyuta katika kazi nyingi. Kwa miradi mingi ya Zooniverse, kompyuta hazitoshi kufanya kazi inayohitajika, au zinaweza kukosa vipengele vya kuvutia ambavyo mwanadamu angeviona - hii ndiyo sababu tunahitaji msaada wako. Baadhi ya miradi ya Zooniverse pia hutumia uainishaji wa kibinadamu ili kusaidia kufunza kompyuta kufanya vyema katika kazi hizi za utafiti katika siku zijazo. Unaposhiriki katika mradi wa Zooniverse, unachangia utafiti halisi.",
+      "question": "Kwa nini watafiti wanahitaji msaada wako? Kwa nini kompyuta haziwezi kufanya kazi hizi?"
+    },
+    "item10": {
+      "answer": "Tunaunga mkono vivinjari vikuu hadi toleo la pili hadi la mwisho.",
+      "question": "Zooniverse inasaidia toleo gani la kivinjari?"
+    },
+    "item1": {
+      "answer": "Kwa mada nyingi zinazoonyeshwa katika miradi ya Zooniverse, watafiti hawajui jibu sahihi na ndiyo maana wanahitaji msaada wako. Binadamu ni wazuri sana katika kazi za utambuzi wa ruwaza, kwa hivyo kwa ujumla nadhani yako ya kwanza huenda ikawa ndiyo sahihi. Usijali sana kuhusu kufanya makosa ya mara kwa mara - zaidi ya mtu mmoja atakagua kila picha, video au grafu katika mradi. Miradi mingi ya Zooniverse ina kitufe cha Usaidizi, ukurasa wa Maswali Yanayoulizwa Mara kwa Mara (FAQ), na Mwongozo wa Sehemu wenye taarifa zaidi za kukuongoza unapoainisha.",
+      "question": "Nitajuaje kama ninafanya hivi kwa usahihi?"
+    },
+    "item2": {
+      "answer": "Uainishaji wako umehifadhiwa katika hifadhidata salama ya mtandaoni ya Zooniverse. Timu za utafiti wa miradi hupakua data ya uainishaji wa mradi wao na kuchanganya mawasilisho mengi pamoja ili kuunda jibu la 'mwisho' kwa kila mada. Ukishawasilisha uainishaji wako kwa mada fulani, huwezi kurudi nyuma na kuihariri. Kwa maelezo kuhusu umiliki wa data, tafadhali angalia ukurasa wetu wa <0>Makubaliano ya Mtumiaji wa Zooniverse na Sera ya Faragha</0>.",
+      "question": "Nini kitatokea kwa uainishaji wangu baada ya kuuwasilisha?"
+    },
+    "item3": {
+      "answer": "Ndiyo. Nenda kwa zooniverse.org, ingia, bofya 'Takwimu Zaidi', kisha bofya kitufe cha 'Tengeneza Cheti cha Kujitolea' chini kulia mwa chati ya upau wa takwimu. Kisha hifadhi au chapisha cheti chako! Soma zaidi <0>hapa</0>.",
+      "question": "Je, ninaweza kupakua Cheti cha Kujitolea? Je, ninaweza kutumia Zooniverse kutimiza mahitaji ya Kujifunza Huduma?"
+    },
+    "item4": {
+      "answer": "Metadata ya uainishaji huhifadhiwa katika hifadhidata yetu kwa kutumia mihuri ya muda ya UTC, na huduma ya takwimu hukusanya hesabu za uainishaji katika ndoo kwa safu za tarehe za UTC. Takwimu zote huonyeshwa mfululizo katika safu za tarehe za UTC.",
+      "question": "Kwa nini takwimu zinaonyeshwa katika eneo la saa la UTC?"
+    },
+    "item5": {
+      "answer": "Zooniverse inachukua kwa uzito sana kazi ya kulinda taarifa binafsi za wajitolea wetu na data ya uainishaji. Maelezo kuhusu juhudi hizi yanaweza kupatikana kwenye ukurasa wa <0>Makubaliano ya Mtumiaji wa Zooniverse na Sera ya Faragha</0> na ukurasa wa <1>Usalama wa Zooniverse.</1>",
+      "question": "Zooniverse hufanya nini na taarifa za akaunti yangu?"
+    },
+    "item6": {
+      "answer": "Unaweza kuchapisha mapendekezo yako ya vipengele vipya na kuripoti hitilafu kupitia <0>Zooniverse Talk</0>, kupitia Tatizo kwenye hazina husika ya <1>Github</1>, au <2>wasiliana nasi</2>.",
+      "question": "Nina ombi la kipengele au nimepata hitilafu; ninapaswa kuzungumza na nani/ninawezaje kuiripoti?"
+    },
+    "item7": {
+      "answer": "Zooniverse ni ushirikiano kati ya taasisi kutoka Uingereza na Marekani; timu yetu yote imeajiriwa na moja au nyingine ya taasisi hizi washirika. Angalia <0>ukurasa wa kazi wa Zooniverse</0> ili kujua zaidi kuhusu fursa za ajira ndani ya Zooniverse.",
+      "question": "Je, Zooniverse inaajiri?"
+    },
+    "item8": {
+      "answer0": "Zooniverse ni jukwaa la utafiti unaoendeshwa na watu, si shirika, kampuni, au shirika lisilo la faida. Sisi ni ushirikiano wa taasisi nyingi.",
+      "answer1": "Sayari ya Adler huko Chicago, moja ya taasisi mwenyeji wa timu ya Zooniverse, ni 501(c)(3). Watu binafsi au mashirika ambayo yanahitaji kuunganishwa waziwazi na 501(c)(3) kwa juhudi zao za kujitolea hutumia Sayari ya Adler kama marejeleo. Nyaraka za hali ya 501(c)(3) ya Adler Planetarium zimetolewa <0>hapa</0>, na nambari ya EIN ya Adler Planetarium ni 36-6210902. Unapoingiza jina la shirika, tafadhali tumia \"Adler Planetarium - Zooniverse\" ikiwezekana. Ikiwa haiwezekani, tafadhali tumia \"Adler Planetarium\" (ambayo inalingana na nambari ya EIN). Katika visa vyote, utajitolea kupitia Zooniverse.org.",
+      "answer2": "Kwa maelezo kuhusu jinsi ya kuchangia, tafadhali tembelea ukurasa wetu wa <0>mchango.</0>",
+      "question": "Je, Zooniverse ni shirika lisilo la faida?"
+    },
+    "item9": {
+      "answer": "Unaweza kupata maelezo zaidi kuhusu jinsi ya kutaja Zooniverse katika machapisho ya utafiti kwa kutumia data inayotokana na matumizi ya Mjenzi wa Mradi wa Zooniverse kwenye ukurasa wetu wa <0>Rasilimali</0>.",
+      "question": "Mimi ni mmiliki wa mradi/mwanachama wa timu ya utafiti, ninawezaje kutambua Zooniverse na Jukwaa la Wajenzi wa Mradi katika karatasi yangu, muhtasari wa mazungumzo, n.k.?"
+    },
+    "title": "Maswali Yanayoulizwa Mara kwa Mara"
+  },
+  "Home": {
+    "Community": {
+      "feedOne": "Zooniverse ya Kila Siku",
+      "feedTwo": "Blogu ya Zooniverse",
+      "heading": "Jumuiya ya Zooniverse",
+      "seeAll": "Ona machapisho yote",
+      "subheading": "Ni Nini Kinachofanyika?"
+    },
+    "DefaultHome": {
+      "FeaturedProjects": {
+        "heading": "Miradi Inayoangaziwa",
+        "none": "Hakuna miradi inayoangaziwa"
+      },
+      "Introduction": {
+        "description1": "Zooniverse ni mfumo mkubwa zaidi duniani wa utafiti unaoendeshwa na watu. Tunaunganisha watafiti wataalamu na mamilioni ya watu wa kujitolea duniani kote. Tunawezesha upatikanaji wa matokeo halisi au vinginevyo utafiti usiowezekana. Hii imesababisha kugunduliwa kwa mambo mapya, mabadiliko ya sera na machapisho ya utafiti.",
+        "description2": "Mfumo wetu unaendeshwa na watu wa kujitolea, kama wewe. Tunaalika watu wa umri na misingi yote washiriki, huhitaji PhD  — unahitaji tu hisia ya kutaka kugundua mambo na mibofyo michache. Matokeo mengi ya kuvutia kutoka katika miradi ya Zooniverse yametokana na majadiliano kati ya watu wa kujitolea na watafiti. Jiunge nasi leo ili ushiriki katika utafiti wa kipekee na ugundue mambo yako binafsi!",
+        "register": "Jiandikishe",
+        "signIn": "Ingia katika akaunti",
+        "video": "Utangulizi Mfupi wa Zooniverse"
+      },
+      "Researchers": {
+        "build": "Tayarisha mradi",
+        "description": "Kutoka kwa kuainisha wanyama hadi kwa kugundua  sayari zinazozunguka nyota nje ya mfumo wa sola hadi kwa kunukuu hati za kihistoria na mengineyo, watafiti kutoka nyanja zote wametumia Project Builder kutayarisha miradi ya kuvutia inayopatikana. Mtu yeyote anaweza kutayarisha mradi wa Zooniverse. Pakia tu data yako, chagua majukumu ambayo unataka watu wa kujitolea wafanye na ujiunge nasi katika kukuza jumuiya ya umoja na ya kirafiki ya mtandaoni inayojihusisha na utafiti halisi."
+      },
+      "headings": {
+        "first": "Zooniverse ni nini?",
+        "fourth": "Angalia programu yetu ya simu ya mkononi",
+        "second": "Miradi Inayoangaziwa",
+        "third": "Watafiti halisi, matokeo halisi"
+      },
+      "heroText": "Jiunge na mamilioni ya watu wanaosaidia kuimarisha utafiti, sayansi na ufahamu halisi.",
+      "mainHeading": "Utafiti unaoendeshwa na watu",
+      "projects": "Gundua miradi",
+      "subheadings": {
+        "first": "Busara ya umati",
+        "fourth": "Gundua, funza na ujifunze - popote ulipo",
+        "second": "Kazi za Zooniverse",
+        "third": "Kutana na watafiti ambao wametayarisha miradi kwenye Zooniverse"
+      }
+    }
+  },
+  "OurTeam": {
+    "description": "Watu wanaotengeneza Zooniverse.",
+    "sidebarLabel": "Taasisi",
+    "title": "Timu Yetu"
+  },
+  "Projects": {
+    "disciplines": {
+      "all": "Nidhamu Zote",
+      "arts": "Sanaa",
+      "biology": "Biolojia",
+      "climate": "Hali ya hewa",
+      "history": "Historia",
+      "language": "Lugha",
+      "literature": "Fasihi",
+      "medicine": "Dawa",
+      "nature": "Asili",
+      "physics": "Fizikia",
+      "social": "Sayansi ya Jamii",
+      "space": "Nafasi"
+    },
+    "languages": {
+      "label": "Chuja miradi kulingana na tafsiri zinazopatikana"
+    },
+    "organizations": {
+      "description": "Mashirika huleta pamoja miradi mingi inayohusiana ya Zooniverse, na kurahisisha washiriki kuchunguza juhudi za utafiti zinazohusiana.",
+      "heading": "Mashirika",
+      "none": "Hakuna mashirika yaliyopatikana."
+    },
+    "projects": {
+      "description": "<0>Karibu! Tunafurahi sana kuwa uko hapa.</0> Sogeza chini ili kuvinjari miradi yetu yote inayoendelea, tafuta mradi maalum, au chuja miradi kulingana na mambo yanayokuvutia. Furahia, na upange kwa furaha!",
+      "empty": {
+        "clear": "Weka Vichujio Vipya",
+        "status": "Wakati mwingine mradi utakuwa nje ya data kwa muda, au huenda umeisha! Jaribu kutafuta <0>Hali Yoyote ya Mradi</0>"
+      },
+      "error": "Kulikuwa na hitilafu katika kuleta miradi.",
+      "heading": "Miradi yote",
+      "none": "Hakuna miradi iliyopatikana",
+      "showingNum": "{{range}} ya miradi {{total}}"
+    },
+    "search": {
+      "placeholder": "Tafuta miradi",
+      "warning": "Maandishi ya utafutaji lazima yawe na angalau herufi 5"
+    },
+    "sortBy": {
+      "label": "Panga Kulingana na",
+      "mostActive": "Amilifu Zaidi",
+      "mostPopular": "Maarufu Zaidi",
+      "nameAZ": "Jina A - Z",
+      "nameZA": "Jina Z - A",
+      "newest": "Mpya zaidi",
+      "oldest": "Kongwe zaidi"
+    },
+    "status": {
+      "active": "Inayotumika",
+      "all": "Hali Yoyote",
+      "finished": "Imekamilika",
+      "label": "Chuja miradi kwa hali",
+      "paused": "Imesitishwa"
+    }
+  },
+  "Publications": {
+    "description": "Orodha ya machapisho ya kitaaluma yanayotumia data inayotokana na Zooniverse.",
+    "formInfo": "Tunalenga kuchapisha viungo vya magazeti yaliyochapishwa ambayo yanaweza kufikiwa na umma. Makala zinazokubaliwa kuchapishwa lakini bado hazijachapishwa pia ni sawa.",
+    "formInstruction": "Ili kuwasilisha chapisho jipya au kusasisha lililopo, ",
+    "formLabel": "tafadhali tumia fomu hii",
+    "sidebarLabel": "Nidhamu",
+    "title": "Machapisho"
+  },
+  "Resources": {
+    "brand": {
+      "heading": "Rasilimali za Chapa",
+      "links": {
+        "first": "Pakua nembo rasmi za Zooniverse",
+        "fourth": "Kitabu cha Hadithi - Vipengele vyetu vilivyosimbwa vilivyotumika kwenye tovuti",
+        "second": "Pakua vipeperushi vinavyoweza kuchapishwa, violezo vya uwasilishaji, na picha za mradi",
+        "third": "Mfumo wa Ubunifu wa Zooniverse - Mitindo yetu, rangi za chapa, na sheria za uchapaji"
+      }
+    },
+    "cite": {
+      "heading": "Jinsi ya Kutaja Zooniverse",
+      "paragraphs": {
+        "fifth": "Unapoandika kuhusu Zooniverse kwa ujumla, tafadhali jumuisha kiungo au URL ya ukurasa wa nyumbani wa Zooniverse mahali fulani katika makala yako.",
+        "first": "Kwa mujibu wa <0>Sera za Wajenzi wa Mradi wa Zooniverse</0>, machapisho yote ya utafiti yanayotumia data inayotokana na miradi ya Zooniverse yanaombwa kutambua Zooniverse na jukwaa la Wajenzi wa Mradi kwa kutumia maandishi yafuatayo:",
+        "fourth": "Unapoandika kuhusu miradi maalum ya Zooniverse kwenye vyombo vya habari, tafadhali jumuisha kiungo au URL ya mradi huo, katika matoleo ya kuchapishwa na pia ya kidijitali.",
+        "second": "Tunawahimiza sana wamiliki wa miradi kuripoti machapisho ya utafiti yaliyokubaliwa na kuchapishwa kwa kutumia data iliyotengenezwa na Zooniverse kwetu kwa kujaza <0>fomu hii</0>. Unaweza kupata orodha ya sasa ya machapisho yanayotokana na miradi ya Zooniverse na utafiti unaohusiana kwenye <1>ukurasa wetu wa Machapisho</1>.",
+        "sixth": "Ikiwa una nia ya kumhoji mshiriki wa timu ya Zooniverse, tafadhali <0>wasiliana nasi</0>.",
+        "third": "Ikiwa una maswali yoyote kuhusu jinsi ya kutambua Zooniverse, kama vile kurejelea mtu binafsi au msimbo maalum, tafadhali <0>wasiliana nasi</0>."
+      },
+      "quote": "Chapisho hili linatumia data inayozalishwa kupitia jukwaa la <0>Zooniverse.org</0>, ambalo uundaji wake unafadhiliwa na usaidizi mkubwa, ikiwa ni pamoja na Tuzo ya Athari ya Kimataifa kutoka Google, na kwa ruzuku kutoka kwa Wakfu wa Alfred P. Sloan.",
+      "subheadings": {
+        "first": "Kwa Watafiti",
+        "second": "Kwa Vyombo vya Habari"
+      }
+    },
+    "title": "Rasilimali"
+  },
+  "Sidebar": {
+    "all": "Zote"
+  },
+  "Volunteer": {
+    "beta": {
+      "button": "Jisajili kwa ajili ya Kupima",
+      "heading": "Upimaji wa Beta",
+      "paragraphs": {
+        "first": "Ikiwa tayari wewe ni mtu wa kujitolea na unataka kutoa maoni ya ziada, fikiria kuwa mtu wa kujaribu beta. Wajaribu beta ni watu wa kujitolea wa Zooniverse ambao hutusaidia kujaribu miradi kabla ya kuizindua hadharani na kutoa maoni kwa timu za utafiti ili kusaidia kuboresha miradi hiyo. Wajaribu beta huwasilisha uainishaji wa majaribio kwenye miradi, na huwapa timu maoni yao kupitia dodoso fupi.",
+        "second": "Utaratibu huu unatusaidia kutambua masuala yoyote katika miradi, na hata kutathmini kama mradi unafaa kwa Zooniverse. Maoni yako ni muhimu sana kwetu! Unaweza kusoma miongozo yetu kuhusu kinachofanya mradi ufaa kwenye <0>ukurasa wa Sera za Maabara</0>.",
+        "third": "Kujisajili kuwa mjaribu wa beta ni rahisi, na mtu yeyote anaweza kufanya hivyo. Tembelea <0>mipangilio</0> yako na uchague kisanduku kinachosema, \"Pata masasisho ya barua pepe ya mradi wa beta na uwe mjaribu wa beta.\" Tutakutumia barua pepe miradi itakapokuwa tayari kujaribiwa. Unaweza kubadilisha mipangilio yako ya barua pepe na kujiondoa kutoka kwa barua pepe za beta wakati wowote unapotaka kwa kutembelea ukurasa huo huo wa barua pepe na kuondoa tiki kwenye kisanduku."
+      }
+    },
+    "classify": {
+      "heading": "Ainisha Miradi",
+      "paragraphs": {
+        "first": "Kujitolea katika mradi ndiyo njia rahisi na ya kawaida ya kushiriki. Daima tunahitaji watu wa kujitolea ili kusaidia kuainisha data ya mradi. Hakuna muda wa chini unaohitajika; unaweza kufanya mengi au machache upendavyo.",
+        "second": "Ili kuanza, tembelea ukurasa wa nyumbani wa <0>Zooniverse</0> na ujiandikishe kwa akaunti."
+      }
+    },
+    "howTo": {
+      "heading": "Jinsi ya kujitolea",
+      "paragraph": "Una nia ya kuwa mtu wa kujitolea? Ni rahisi: anza tu kuainisha! Kila mtu anayechangia mradi wa Zooniverse ni mtu wa kujitolea. Tuna jumuiya nzuri ya kimataifa ya watu wa kujitolea ambao 'wanaimarisha' utafiti wetu unaoendeshwa na watu. Tayari ni mtu wa kujitolea na unataka kufanya zaidi? Fikiria kuwa mjaribu wa beta, au kusaidia timu za mradi kwa kuwa msimamizi wa Majadiliano. Kwa maelezo zaidi kuhusu majukumu haya, endelea kusoma."
+    },
+    "moderate": {
+      "heading": "Wastani wa Mradi",
+      "paragraphs": {
+        "first": "Wasimamizi wa kujitolea husaidia timu za utafiti kwa kutumia zana ya majadiliano ya mradi. Wanasaidia kusimamia majadiliano, hufanya kazi kama sehemu ya mawasiliano ya mradi, na wana ruhusa za ziada kwenye Talk. Wasimamizi huchaguliwa na mmiliki wa mradi. Ikiwa una nia ya kuwa msimamizi wa mradi unaoshiriki, nenda kwenye ukurasa wa Kuhusu wa mradi au ubao wa Talk na uwasiliane na mtafiti. Kwa maelezo zaidi, angalia hati yetu ya <0>'Wasimamizi ni wa nini?'</0>.",
+        "second": "Ikiwa ungependa maelezo zaidi kuhusu majukumu yoyote kati ya haya tofauti, <0>wasiliana nasi</0>."
+      }
+    },
+    "register": {
+      "button": "Jisajili Leo",
+      "heading": "Faida za Usajili na Zooniverse",
+      "paragraphs": {
+        "fifth": "Matoleo yaliyotafsiriwa ya ukurasa wa usajili yanapatikana katika <0>Kihispania</0> na <1>Kifaransa</1>. Tafadhali kumbuka kuwa si vipengele vyote kwenye ukurasa vinaweza kutafsiriwa.",
+        "first": "Fuatilia uainishaji wako, saa, na zaidi. Gundua miradi yako uipendayo na uangalie mitindo. Kisha, hamisha data yako kwa chaguo zaidi.",
+        "fourth": "Kwa wale walio chini ya umri wa miaka 16, mzazi/mlezi anahitaji kusaini usajili wao. <0>https://www.zooniverse.org/accounts/register</0> ni kiungo cha moja kwa moja cha kujiandikisha.",
+        "second": "Toa cheti rasmi kinachothibitisha juhudi zako kwenye jukwaa la Zooniverse. Taja tu kipindi au mradi.",
+        "third": "Watumiaji waliosajiliwa wanaweza kuchapisha kwenye bodi maalum za Majadiliano za mradi na Zooniverse nzima, na hivyo kukupa uwezo wa kuuliza maswali kwa wataalamu halisi."
+      },
+      "subheadings": {
+        "first": "Takwimu za kibinafsi",
+        "second": "Cheti cha kujitolea",
+        "third": "Zungumza na wafanyakazi wenzako wa kujitolea na wataalamu"
+      }
+    },
+    "title": "Kujitolea"
+  }
+}
