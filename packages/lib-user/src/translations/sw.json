@@ -1,0 +1,192 @@
+{
+  "AllProjects": {
+    "error": "Kulikuwa na hitilafu",
+    "noProjects": "Hakuna miradi iliyopatikana",
+    "recent": "hivi karibuni",
+    "sortBy": "panga kwa",
+    "title": "Miradi ya {{displayName}}",
+    "top": "Miradi Mikuu"
+  },
+  "BarChart": {
+    "a11y": "Chati ya miraba ya {{typeLabel}} ya {{countLabel}} kuanzia {{startDate}} hadi {{endDate}}",
+    "day": "Siku",
+    "hourAbbrev": "saa",
+    "minAbbrev": "dakika",
+    "monthOf": "Mwezi wa",
+    "time": "Saa",
+    "weekOf": "Wiki ya",
+    "year": "Mwaka"
+  },
+  "Contributors": {
+    "ContributorsList": {
+      "a11y": "Takwimu za wanachama wa {{name}}",
+      "privateProject": "Mradi wa Faragha wa {{index}}",
+      "projectStats": "Takwimu za mradi wa {{name}}"
+    },
+    "ExportStats": {
+      "cancel": "Ghairi",
+      "close": "Funga",
+      "complete": "Uhamishaji Umekamilika",
+      "confirm": "Thibitisha",
+      "confirmMessage": "Ungependa kuzalisha CSV ya takwimu za kikundi kwa ajili ya wanachama {{memberCount}}?",
+      "download": "Bofya kiungo ili upakue CSV:",
+      "downloading": "Inapakua data...",
+      "error": "Hitilafu ya Uhamishaji",
+      "errorMessage": "Imeshindwa kuzalisha uhamishaji.",
+      "fileSize": "Takribani {{fileSize}}.",
+      "generating": "Inazalisha faili ya uhamishaji wa takwimu. Usifunge kichupo hiki cha kivinjari.",
+      "progress": "Maendeleo: {{progress}}%",
+      "retry": "Jaribu tena"
+    },
+    "ProjectStats": {
+      "a11y": "Takwimu za wanachama wa {{project}}"
+    },
+    "error": "Kulikuwa na hitilafu",
+    "exportLink": "Hamisha takwimu zote",
+    "generating": "Inazalisha uhamishaji wa takwimu...",
+    "noPermission": "Huna ruhusa ya kutazama wachangiaji wa kikundi hiki.",
+    "none": "Hakuna wachangiaji kwenye kikundi hiki.",
+    "title": "Takwimu za Kikundi Kamili"
+  },
+  "GroupContainer": {
+    "deactivated": "Hiki ni kikundi kilicholemazwa. Tafadhali ondoka kwenye kikundi au wasiliana na msimamizi wa kikundi ikiwa unaamini hili ni kosa.",
+    "joinFail": "Kujiunga kumeshindikana.",
+    "joined": "Umejiunga kwenye Kikundi Kipya!",
+    "joining": "Unajiunga kwenye kikundi...",
+    "leaveGroup": "Ondoka kwenye Kikundi",
+    "loginToJoin": "Ingia kwenye akaunti ili ujiunge kwenye kikundi.",
+    "noAuth": "Lazima uingie kwenye akaunti ili kufikia kikundi cha faragha.",
+    "notFound": "Kikundi hakijapatikana"
+  },
+  "GroupForm": {
+    "anyone": "unaweza kushiriki kikundi hiki na mtu yeyote",
+    "createNew": "Unda kikundi kipya",
+    "deactivate": "Lemaza Kikundi",
+    "deactivateHelp": "Je, una uhakika unataka kufuta kikundi hiki?",
+    "greaterThanChar": "lazima iwe vibambo > 3",
+    "lessThanChar": "lazima iwe vibambo < 60",
+    "name": "Jina la Kikundi",
+    "nameHelp": "Kwa kuunda Kikundi kipya utakuwa msimamizi.",
+    "onlyMembers": "ni wanachama pekee wanaoweza kutazama kikundi hiki",
+    "private": "Cha Faragha",
+    "privateAggOnly": "Hapana, usionyeshe takwimu za mtu binafsi kwa wanachama",
+    "privateShowAggAndInd": "Ndiyo, onyesha takwimu za mtu binafsi kwa wanachama",
+    "pubVis": "Kuonekana kwa Umma",
+    "public": "Cha Umma",
+    "publicAggOnly": "Hapana, kamwe usionyeshe takwimu za mtu binafsi",
+    "publicAggShowInd": "Ndiyo, onyesha takwimu za mtu binafsi ikiwa ni mwanachama",
+    "publicShowAll": "Ndiyo, onyesha takwimu za mtu binafsi kila wakati",
+    "saveChanges": "Hifadhi mabadiliko",
+    "showInd": "Onyesha Takwimu za Mtu Binafsi",
+    "showIndHelp": "Msimamizi anaweza kuona takwimu za mtu binafsi kila wakati.",
+    "showIndInfo": "Unaweza kuongeza wanachama wengine wote kupitia Kiungo cha Kujiunga baada ya kuunda kikundi kipya hapa chini.",
+    "visibility": "Anayeweza Kuona Takwimu"
+  },
+  "GroupStats": {
+    "GroupUpdateFormContainer": {
+      "error": "Hitilafu fulani imetokea. Tafadhali jaribu tena."
+    },
+    "MemberListItem": {
+      "a11y": "Menyu ya kusasisha au kuondoa uanachama wa kikundi wa {{name}}",
+      "giveAdmin": "Ruhusu ufikiaji wa msimamizi",
+      "remove": "Ondoa mwanachama",
+      "removeAdmin": "Ondoa ufikiaji wa msimamizi"
+    },
+    "MembersList": {
+      "title": "Wanachama wa Kikundi",
+      "warning": "Kuondoa mwanachama hulemaza uanachama wake kwenye kikundi. Hataweza kufikia kikundi tena lakini michango aliyotoa alipokuwa mwanachama itaendelea kuwepo."
+    },
+    "TopContributors": {
+      "error": "Kulikuwa na hitilafu katika kuleta wachangiaji wakuu.",
+      "linkLabel": "Angalia wachangiaji wote na takwimu za kina",
+      "tip": "Jumuisha wanachama amilifu na wasio amilifu.",
+      "title": "Wachangiaji Wakuu"
+    },
+    "headerItems": {
+      "all": "Vikundi Vyangu Vyote",
+      "copied": "Kiungo cha Kikundi Kimenakiliwa!",
+      "copy": "Nakili Kiungo cha Kujiunga",
+      "leave": "Ondoka kwenye Kikundi",
+      "share": "Shiriki Kikundi"
+    },
+    "leaveQuestion": "Je, una uhakika unataka kuondoka kwenye kikundi hiki?",
+    "manage": "Dhibiti Kikundi"
+  },
+  "HeaderDropdown": {
+    "label": "Machaguo ya Kikundi"
+  },
+  "MainContent": {
+    "allProjects": "Miradi Yote",
+    "calendarBtn": "Imekamilika",
+    "calendarTitle": "Kipindi Maalum cha Tarehe",
+    "certificate": "Zalisha Cheti cha Mtu wa Kujitolea",
+    "dateRange": {
+      "allTime": "Muda Wote",
+      "custom": "Maalum",
+      "lastSevenDays": "Siku 7 Zilizopita",
+      "lastThirtyDays": "Siku 30 Zilizopita",
+      "lastThreeMonths": "Miezi 3 Iliyopita",
+      "lastTwelveMonths": "Miezi 12 Iliyopita",
+      "thisMonth": "Mwezi Huu",
+      "thisYear": "Mwaka Huu"
+    },
+    "error": "Kulikuwa na hitilafu.",
+    "hoursTip": "Saa huhesabiwa kulingana na muda wa kuanza na kuisha wa juhudi zako za uainishaji. Saa haziakisi muda uliotumia kwenye Talk.",
+    "noData": "Hakuna data iliyopatikana.",
+    "selectDateRange": "Chagua kipindi cha tarehe",
+    "selectProject": "Chagua mradi",
+    "start": "<0>Ainisha kwenye mradi</0> sasa au ubadilishe kipindi cha tarehe.",
+    "tabContents": "Maudhui ya Kichupo"
+  },
+  "MyGroups": {
+    "GroupCard": {
+      "admin": "Msimamizi",
+      "member": "Mwanachama"
+    },
+    "PreviewLayout": {
+      "seeAll": "Angalia yote"
+    },
+    "createNew": "Unda kikundi kipya",
+    "error": "Kulikuwa na hitilafu katika kuleta vikundi vyako",
+    "learnMore": "Pata maelezo zaidi kuhusu vikundi",
+    "noGroups": "Wewe si mwanachama wa Vikundi vyovyote.<0/>Unda kimoja hapa chini",
+    "title": "Vikundi Vyangu"
+  },
+  "TopProjects": {
+    "title": "Miradi Mikuu"
+  },
+  "UserHome": {
+    "Dashboard": {
+      "allTime": "Muda Wote",
+      "collections": "Mikusanyiko",
+      "comments": "Maoni",
+      "favorites": "Pendwa",
+      "messages": "Ujumbe",
+      "moreStats": "Takwimu Zaidi",
+      "thisWeek": "Wiki Hii"
+    },
+    "RecentProjects": {
+      "error": "Kulikuwa na hitilafu katika kuleta miradi yako ya hivi karibuni",
+      "noProjects": "Hakuna Miradi ya Hivi Karibuni iliyopatikana",
+      "start": "Anza kwa <0>kuainisha kwenye mradi wowote</0>.",
+      "title": "Endelea Kuainisha"
+    },
+    "RecentSubjects": {
+      "error": "Kulikuwa na hitilafu katika kuleta uainishaji wa hivi karibuni",
+      "noSubjects": "Hakuna uainishaji wa hivi karibuni uliopatikana",
+      "title": "Uainishaji wako wa hivi majuzi"
+    },
+    "SubjectCard": {
+      "subject": "Mada"
+    }
+  },
+  "common": {
+    "avatarAlt": "Avata ya {{login}}",
+    "back": "Rudi",
+    "classifications": "Uainishaji",
+    "contributors": "Wachangiaji",
+    "hours": "Saa",
+    "projects": "Miradi",
+    "seeAll": "Angalia yote"
+  }
+}
