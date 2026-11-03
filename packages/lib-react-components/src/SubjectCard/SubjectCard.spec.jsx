@@ -92,12 +92,13 @@ describe('SubjectCard', function() {
       expect(screen.queryByText('Set as Collection Cover')).toBeNull()
     })
 
-    it('should call onSetCover with the subject when the button is clicked', async function () {
+    it('should call onSetCover with the subject when the menu item is clicked', async function () {
       const user = userEvent.setup()
       const onSetCover = vi.fn()
       render(<WithOnSetCoverStory onSetCover={onSetCover} />)
 
-      await user.click(screen.getByRole('button', { name: 'Set as Collection Cover' }))
+      await user.click(screen.getByRole('button', { name: 'More options' }))
+      await user.click(await screen.findByRole('menuitem', { name: 'Set as Collection Cover' }))
       expect(onSetCover).toHaveBeenCalledWith(RADIO_METEOR_ZOO_SUBJECT)
     })
 
