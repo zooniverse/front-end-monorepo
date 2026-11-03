@@ -1,0 +1,192 @@
+{
+  "AllProjects": {
+    "error": "エラーが生じました",
+    "noProjects": "プロジェクトが見つかりません",
+    "recent": "最近の",
+    "sortBy": "並べ替え",
+    "title": "{{displayName}}のプロジェクト",
+    "top": "トッププロジェクト"
+  },
+  "BarChart": {
+    "a11y": "{{startDate}}から{{endDate}}までの{{countLabel}}による{{typeLabel}}の棒グラフ",
+    "day": "日",
+    "hourAbbrev": "時間",
+    "minAbbrev": "分",
+    "monthOf": "月",
+    "time": "時間",
+    "weekOf": "週",
+    "year": "年"
+  },
+  "Contributors": {
+    "ContributorsList": {
+      "a11y": "{{name}}メンバー統計",
+      "privateProject": "プライベートプロジェクト{{index}}",
+      "projectStats": "{{name}}プロジェクト統計"
+    },
+    "ExportStats": {
+      "cancel": "キャンセル",
+      "close": "閉じる",
+      "complete": "エクスポートが完了しました",
+      "confirm": "確認する",
+      "confirmMessage": "{{memberCount}}人のメンバーのグループ統計のCSVを生成しますか？",
+      "download": "CSVをダウンロードするには、リンクをクリックしてください。",
+      "downloading": "データをダウンロード中...",
+      "error": "エクスポートエラー",
+      "errorMessage": "エクスポートを生成できませんでした。",
+      "fileSize": "約{{fileSize}}です。",
+      "generating": "統計エクスポートファイルを生成中です。このブラウザタブを閉じないでください。",
+      "progress": "進捗：{{progress}}%",
+      "retry": "再試行"
+    },
+    "ProjectStats": {
+      "a11y": "{{project}}メンバー統計"
+    },
+    "error": "エラーが生じました",
+    "exportLink": "すべての統計のエクスポート",
+    "generating": "統計エクスポートを生成中です...",
+    "noPermission": "このグループの貢献者を表示する権限がありません。",
+    "none": "このグループには貢献者がいません。",
+    "title": "詳細グループ統計"
+  },
+  "GroupContainer": {
+    "deactivated": "これは非アクティブなグループです。エラーと思われる場合、グループから脱退するか、グループ管理者に問い合わせてください。",
+    "joinFail": "参加できませんでした。",
+    "joined": "新しいグループに参加しました！",
+    "joining": "グループに参加しています...",
+    "leaveGroup": "グループからの脱退",
+    "loginToJoin": "グループに参加するにはログインしてください。",
+    "noAuth": "プライベートグループにアクセスするには、ログインする必要があります。",
+    "notFound": "グループが見つかりません。"
+  },
+  "GroupForm": {
+    "anyone": "このグループを誰とでも共有できます",
+    "createNew": "新しいグループの作成",
+    "deactivate": "グループの非アクティブ化",
+    "deactivateHelp": "本当にこのグループを削除しますか？",
+    "greaterThanChar": "3文字超である必要があります",
+    "lessThanChar": "60文字未満である必要があります",
+    "name": "グループ名",
+    "nameHelp": "新しいグループを作成すると、あなたが管理者になります。",
+    "onlyMembers": "メンバーのみこのグループを表示できます",
+    "private": "プライベート",
+    "privateAggOnly": "いいえ。メンバーに個人統計を表示しません",
+    "privateShowAggAndInd": "はい。メンバーに個人統計を表示します",
+    "pubVis": "パブリック表示",
+    "public": "パブリック",
+    "publicAggOnly": "いいえ。個人統計を表示しません",
+    "publicAggShowInd": "はい。メンバーにのみ個人統計を表示します",
+    "publicShowAll": "はい。常に個人統計を表示します",
+    "saveChanges": "変更を保存する",
+    "showInd": "個人統計の表示",
+    "showIndHelp": "管理者はいつでも個人統計を確認できます。",
+    "showIndInfo": "以下で新しいグループを作成した後、参加リンクを介して他のすべてのメンバーを追加できます。",
+    "visibility": "統計の表示"
+  },
+  "GroupStats": {
+    "GroupUpdateFormContainer": {
+      "error": "何らかの問題が発生しました。もう一度お試しください。"
+    },
+    "MemberListItem": {
+      "a11y": "{{name}}のグループメンバーシップを更新または削除するためのメニュー",
+      "giveAdmin": "管理者アクセスの付与",
+      "remove": "メンバーの削除",
+      "removeAdmin": "管理者アクセスの削除"
+    },
+    "MembersList": {
+      "title": "グループメンバー",
+      "warning": "メンバーを削除すると、そのグループにおけるそのメンバーのメンバーシップは非アクティブになります。そのメンバーはグループにアクセスできなくなりますが、メンバーである間の貢献にはアクセスできます。"
+    },
+    "TopContributors": {
+      "error": "上位の貢献者の取得中にエラーが発生しました",
+      "linkLabel": "すべての貢献者と詳細な統計を見る",
+      "tip": "アクティブなメンバーと非アクティブなメンバーが含まれます。",
+      "title": "上位の貢献者"
+    },
+    "headerItems": {
+      "all": "すべてのマイグループ",
+      "copied": "グループリンクをコピーしました！",
+      "copy": "参加リンクのコピー",
+      "leave": "グループからの脱退",
+      "share": "グループの共有"
+    },
+    "leaveQuestion": "本当にこのグループを脱退しますか？",
+    "manage": "グループの管理"
+  },
+  "HeaderDropdown": {
+    "label": "グループオプション"
+  },
+  "MainContent": {
+    "allProjects": "すべてのプロジェクト",
+    "calendarBtn": "完了",
+    "calendarTitle": "カスタム日付範囲",
+    "certificate": "ボランティア証明書を生成する",
+    "dateRange": {
+      "allTime": "全期間",
+      "custom": "カスタム",
+      "lastSevenDays": "過去7日間",
+      "lastThirtyDays": "過去30日間",
+      "lastThreeMonths": "過去3か月",
+      "lastTwelveMonths": "過去12か月",
+      "thisMonth": "今月",
+      "thisYear": "今年"
+    },
+    "error": "エラーが生じました。",
+    "hoursTip": "時間は、分類作業の開始時刻と終了時刻に基づいて計算されます。時間には、トークに費やされた時間は反映されません。",
+    "noData": "データが見つかりません。",
+    "selectDateRange": "日付範囲を選択する",
+    "selectProject": "プロジェクトを変更する",
+    "start": "<0>プロジェクトで分類</0>するか、日付範囲を変更してください。",
+    "tabContents": "タブの内容"
+  },
+  "MyGroups": {
+    "GroupCard": {
+      "admin": "管理者",
+      "member": "メンバー"
+    },
+    "PreviewLayout": {
+      "seeAll": "すべてを見る"
+    },
+    "createNew": "新しいグループの作成",
+    "error": "最近のグループの取得にエラーが生じました",
+    "learnMore": "グループについてさらに詳しく",
+    "noGroups": "あなたはどのグループのメンバーでもありません。<0/>以下でグループを作成してください",
+    "title": "マイグループ"
+  },
+  "TopProjects": {
+    "title": "トッププロジェクト"
+  },
+  "UserHome": {
+    "Dashboard": {
+      "allTime": "全期間",
+      "collections": "コレクション",
+      "comments": "コメント",
+      "favorites": "お気に入り",
+      "messages": "メッセージ",
+      "moreStats": "さらに詳しい統計",
+      "thisWeek": "今週"
+    },
+    "RecentProjects": {
+      "error": "最近のプロジェクトの取得にエラーが生じました",
+      "noProjects": "最近のプロジェクトが見つかりません",
+      "start": "<0>プロジェクトで分類</0>して開始します。",
+      "title": "分類を続ける"
+    },
+    "RecentSubjects": {
+      "error": "最近の分類の取得にエラーが生じました",
+      "noSubjects": "最近行った分類が見つかりませんでした",
+      "title": "最近行った分類"
+    },
+    "SubjectCard": {
+      "subject": "サブジェクト"
+    }
+  },
+  "common": {
+    "avatarAlt": "{{login}}アバター",
+    "back": "戻る",
+    "classifications": "分類数",
+    "contributors": "貢献者",
+    "hours": "時間",
+    "projects": "プロジェクト",
+    "seeAll": "すべてを見る"
+  }
+}

@@ -1,0 +1,192 @@
+{
+  "AllProjects": {
+    "error": "Tapahtui virhe",
+    "noProjects": "Projekteja ei löytynyt",
+    "recent": "viimeaikainen",
+    "sortBy": "lajitteluperuste",
+    "title": "Käyttäjän {{displayName}} projektit",
+    "top": "Suositut projektit"
+  },
+  "BarChart": {
+    "a11y": "{{typeLabel}}-pylväskaavio {{countLabel}} mukaan ajalta {{startDate}}–{{endDate}}",
+    "day": "Päivä",
+    "hourAbbrev": "h",
+    "minAbbrev": "min",
+    "monthOf": "Kuukausi:",
+    "time": "Aika",
+    "weekOf": "Viikko:",
+    "year": "Vuosi"
+  },
+  "Contributors": {
+    "ContributorsList": {
+      "a11y": "Ryhmän {{name}} jäsenten tilastot",
+      "privateProject": "Yksityinen projekti {{index}}",
+      "projectStats": "Projektin {{name}} tilastot"
+    },
+    "ExportStats": {
+      "cancel": "Peruuta",
+      "close": "Sulje",
+      "complete": "Vienti suoritettu",
+      "confirm": "Vahvista",
+      "confirmMessage": "Haluatko luoda {{memberCount}} jäsenen ryhmän tilastojen CSV-tiedoston?",
+      "download": "Napsauta ladataksesi CSV-tiedoston:",
+      "downloading": "Ladataan tietoja...",
+      "error": "Vientivirhe",
+      "errorMessage": "Raportin luonti epäonnistui.",
+      "fileSize": "Noin {{fileSize}}.",
+      "generating": "Tilastojen vientitiedostoa luodaan. Älä sulje tätä selainvälilehteä.",
+      "progress": "Edistyminen: {{progress}} %",
+      "retry": "Yritä uudelleen"
+    },
+    "ProjectStats": {
+      "a11y": "Projektin {{project}} jäsenten tilastot"
+    },
+    "error": "Tapahtui virhe",
+    "exportLink": "Vie kaikki tilastot",
+    "generating": "Luodaan tilastojen vientitiedostoa...",
+    "noPermission": "Sinulla ei ole oikeutta tarkstella tämän ryhmän osallistujia.",
+    "none": "Tässä ryhmässä ei ole osallistujia.",
+    "title": "Täydet ryhmän tilastot"
+  },
+  "GroupContainer": {
+    "deactivated": "Tämä ryhmä ei ole aktiivinen. Poistu ryhmästä tai ota yhteyttä ryhmän pääkäyttäjään, jos tämä on mielestäsi virhe.",
+    "joinFail": "Liittyminen epäonnistui.",
+    "joined": "Liityit uuteen ryhmään!",
+    "joining": "Liitytään ryhmään...",
+    "leaveGroup": "Poistu ryhmästä",
+    "loginToJoin": "Kirjaudu sisään liittyäksesi ryhmään.",
+    "noAuth": "Sinun täytyy kirjautua sisään nähdäksesi yksityisen ryhmän.",
+    "notFound": "Ryhmää ei löytynyt"
+  },
+  "GroupForm": {
+    "anyone": "Voit jakaa tämän ryhmän kenelle tahansa",
+    "createNew": "Luo uusi ryhmä",
+    "deactivate": "Deaktivoi ryhmä",
+    "deactivateHelp": "Haluatko varmasti poistaa tämän ryhmän?",
+    "greaterThanChar": "Täytyy olla alle 3 merkkiä,",
+    "lessThanChar": "Täytyy olla alle 60 merkkiä.",
+    "name": "Ryhmän nimi",
+    "nameHelp": "Kun olet uuden ryhmän, sinusta tulee sen pääkäyttäjä.",
+    "onlyMembers": "Vain jäsenet näkevät tämän ryhmän",
+    "private": "Yksityinen",
+    "privateAggOnly": "Ei, älä näytä yksittäisiä tilastoja jäsenille",
+    "privateShowAggAndInd": "Kyllä, näytä yksittäiset tilastot jäsenille",
+    "pubVis": "Julkinen näkyvyys",
+    "public": "Julkinen",
+    "publicAggOnly": "Ei, älä näytä yksittäisiä tilastoja koskaan",
+    "publicAggShowInd": "Kyllä, näytä yksittäiset tilastot jäsenille",
+    "publicShowAll": "Kyllä, näytä yksittäiset tilastot aina",
+    "saveChanges": "Tallenna muutokset",
+    "showInd": "Näytä yksittäiset tilastot",
+    "showIndHelp": "Pääkäyttäjät näkevät yksittäiset tilastot aina.",
+    "showIndInfo": "Voi lisätä kaikki muut jäsenet kutsulinkillä, kun olet luonut uuden profiilin alta.",
+    "visibility": "Tilastojen näkyvyys"
+  },
+  "GroupStats": {
+    "GroupUpdateFormContainer": {
+      "error": "Jokin meni vikaan. Yritä uudelleen."
+    },
+    "MemberListItem": {
+      "a11y": "Valikko, josta voi käyttäjän {{name}} ryhmän jäsenyyden voi päivittää tai poistaa.",
+      "giveAdmin": "Myönnä pääkäyttäjän oikeudet",
+      "remove": "Poista jäsen",
+      "removeAdmin": "Poista pääkäyttäjän oikeudet"
+    },
+    "MembersList": {
+      "title": "Ryhmän jäsenet",
+      "warning": "Jäsenen poistaminen deaktivoi hänen jäsenyytensä ryhmässä. Hän ei voi enää käyttää ryhmää, mutta työt, jotka hän teki ollessaan ryhmän jäsen, säilytetään."
+    },
+    "TopContributors": {
+      "error": "Aktiivisimpia osallistujia noudettaessa ilmeni virhe.",
+      "linkLabel": "Katso kaikki osallistujat ja yksityiskohtaiset tilastot",
+      "tip": "Sisällytä aktiiviset ja ei-aktiiviset jäsenet mukaan.",
+      "title": "Aktiivisimmat osallistujat"
+    },
+    "headerItems": {
+      "all": "Kaikki omat ryhmät",
+      "copied": "Ryhmän linkki kopioitu!",
+      "copy": "Kopioi kutsulinkki",
+      "leave": "Poistu ryhmästä",
+      "share": "Jaa ryhmä"
+    },
+    "leaveQuestion": "Haluatko varmasti poistua tästä ryhmästä?",
+    "manage": "Ryhmän hallinta"
+  },
+  "HeaderDropdown": {
+    "label": "Ryhmävaihtoehdot"
+  },
+  "MainContent": {
+    "allProjects": "Kaikki projektit",
+    "calendarBtn": "Valmis",
+    "calendarTitle": "Mukautettu ajanjakso",
+    "certificate": "Luo vapaaehtoisen sertifikaatti",
+    "dateRange": {
+      "allTime": "Koko aika",
+      "custom": "Mukautettu",
+      "lastSevenDays": "Edelliset 7 päivää",
+      "lastThirtyDays": "Edelliset 30 päivää",
+      "lastThreeMonths": "Edelliset 3 kuukautta",
+      "lastTwelveMonths": "Edelliset 12 kuukautta",
+      "thisMonth": "Tämä kuukausi",
+      "thisYear": "Tämä vuosi"
+    },
+    "error": "Tapahtui virhe.",
+    "hoursTip": "Tunnit lasketaan luokittelutöidesi alkamis- ja päättymisaikojen perusteella. Tunnit eivät vastaa Talkissa kuluttamaasi aikaa.",
+    "noData": "Tietoja ei löytynyt.",
+    "selectDateRange": "Valitse ajanjakso",
+    "selectProject": "Valitse projekti",
+    "start": "<0>Osallistu luokitteluprojektiin</0> nyt tai muuta ajanjaksoa.",
+    "tabContents": "Välilehden sisältö"
+  },
+  "MyGroups": {
+    "GroupCard": {
+      "admin": "Pääkäyttäjä",
+      "member": "Jäsen"
+    },
+    "PreviewLayout": {
+      "seeAll": "Näytä kaikki"
+    },
+    "createNew": "Luo uusi ryhmä",
+    "error": "Ryhmiäsi noudettaessa ilmeni virhe",
+    "learnMore": "Lue lisää ryhmistä",
+    "noGroups": "Et ole minkään ryhmän jäsen.<0/>Luo sellainen alta.",
+    "title": "Omat ryhmät"
+  },
+  "TopProjects": {
+    "title": "Suositut projektit"
+  },
+  "UserHome": {
+    "Dashboard": {
+      "allTime": "Koko aika",
+      "collections": "Kokoelmat",
+      "comments": "Kommentit",
+      "favorites": "Suosikit",
+      "messages": "Viestit",
+      "moreStats": "Enemmän tilastoja",
+      "thisWeek": "Tämä viikko"
+    },
+    "RecentProjects": {
+      "error": "Viimeaikaisia projektejasi noudettaessa ilmeni virhe",
+      "noProjects": "Viimeaikaisia projekteja ei löytynyt",
+      "start": "Aloita <0>osallistumalla mihin tahansa luokitteluprojektiin</0>.",
+      "title": "Jatka luokittelua"
+    },
+    "RecentSubjects": {
+      "error": "Viimeaikaisia luokitteluita noudettaessa ilmeni virhe",
+      "noSubjects": "Viimeaikaisia luokitteluita ei löytynyt",
+      "title": "Viimeaikaiset luokittelusi"
+    },
+    "SubjectCard": {
+      "subject": "Aihe"
+    }
+  },
+  "common": {
+    "avatarAlt": "Käyttäjän {{login}} avatar",
+    "back": "Takaisin",
+    "classifications": "Luokittelut",
+    "contributors": "Osallistujat",
+    "hours": "Tunnit",
+    "projects": "Projektit",
+    "seeAll": "Näytä kaikki"
+  }
+}

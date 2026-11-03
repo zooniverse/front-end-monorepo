@@ -1,0 +1,192 @@
+{
+  "AllProjects": {
+    "error": "Terjadi kesalahan",
+    "noProjects": "Tidak ditemukan proyek",
+    "recent": "terkini",
+    "sortBy": "Urutkan berdasarkan",
+    "title": "Proyek {{displayName}}",
+    "top": "Proyek Teratas"
+  },
+  "BarChart": {
+    "a11y": "Diagram batang {{typeLabel}} berdasarkan {{countLabel}} dari {{startDate}} hingga {{endDate}}",
+    "day": "Hari",
+    "hourAbbrev": "jam",
+    "minAbbrev": "mnt",
+    "monthOf": "Bulan",
+    "time": "Waktu",
+    "weekOf": "Pekan tanggal",
+    "year": "Tahun"
+  },
+  "Contributors": {
+    "ContributorsList": {
+      "a11y": "Statistik anggota {{name}}",
+      "privateProject": "{{index}} Proyek Pribadi",
+      "projectStats": "Statistik proyek {{name}}"
+    },
+    "ExportStats": {
+      "cancel": "Batal",
+      "close": "Tutup",
+      "complete": "Ekspor Selesai",
+      "confirm": "Konfirmasi",
+      "confirmMessage": "Membuat CSV statistik grup untuk {{memberCount}} anggota?",
+      "download": "Klik tautan untuk mengunduh CSV:",
+      "downloading": "Mengunduh data...",
+      "error": "Kesalahan Ekspor",
+      "errorMessage": "Gagal membuat ekspor.",
+      "fileSize": "Sekitar {{fileSize}}.",
+      "generating": "Membuat file ekspor statistik. Jangan tutup tab browser ini.",
+      "progress": "Progres: {{progress}}%",
+      "retry": "Coba lagi"
+    },
+    "ProjectStats": {
+      "a11y": "Statistik anggota {{project}}"
+    },
+    "error": "Terjadi kesalahan",
+    "exportLink": "Ekspor semua statistik",
+    "generating": "Membuat ekspor statistik...",
+    "noPermission": "Anda tidak memiliki izin untuk melihat kontributor grup ini.",
+    "none": "Tidak ada kontributor untuk grup ini.",
+    "title": "Statistik Grup Lengkap"
+  },
+  "GroupContainer": {
+    "deactivated": "Grup ini sudah dinonaktifkan. Harap keluar dari grup atau hubungi administrator jika menurut Anda status ini keliru.",
+    "joinFail": "Gagal bergabung.",
+    "joined": "Bergabung ke Grup baru!",
+    "joining": "Bergabung ke grup...",
+    "leaveGroup": "Keluar dari Grup",
+    "loginToJoin": "Masuk untuk bergabung ke grup.",
+    "noAuth": "Anda harus masuk untuk mengakses grup pribadi.",
+    "notFound": "Grup tidak ditemukan"
+  },
+  "GroupForm": {
+    "anyone": "Anda dapat membagikan grup ini kepada siapa saja",
+    "createNew": "Buat grup baru",
+    "deactivate": "Nonaktifkan Grup",
+    "deactivateHelp": "Yakin ingin menghapus grup ini?",
+    "greaterThanChar": "harus > 3 karakter",
+    "lessThanChar": "harus < 60 karakter",
+    "name": "Nama Grup",
+    "nameHelp": "Dengan membuat Grup baru, Anda akan menjadi adminnya.",
+    "onlyMembers": "hanya anggota yang dapat melihat grup ini",
+    "private": "Pribadi",
+    "privateAggOnly": "Tidak, jangan tampilkan statistik per individu ke anggota",
+    "privateShowAggAndInd": "Ya, tampilkan statistik per individu ke anggota",
+    "pubVis": "Visibilitas Publik",
+    "public": "Publik",
+    "publicAggOnly": "Tidak, jangan pernah tampilkan statistik per individu",
+    "publicAggShowInd": "Ya, tampilkan statistik per individu jika anggota",
+    "publicShowAll": "Ya, selalu tampilkan statistik per individu",
+    "saveChanges": "Simpan perubahan",
+    "showInd": "Tampilkan Statistik Per Individu",
+    "showIndHelp": "Admin selalu dapat melihat statistik per individu.",
+    "showIndInfo": "Anda dapat menambahkan semua anggota lainnya melalui Tautan Bergabung setelah membuat grup baru di bawah ini.",
+    "visibility": "Visibilitas Statistik"
+  },
+  "GroupStats": {
+    "GroupUpdateFormContainer": {
+      "error": "Terjadi kesalahan. Coba lagi."
+    },
+    "MemberListItem": {
+      "a11y": "Menu untuk memperbarui atau menghapus keanggotaan grup {{name}}",
+      "giveAdmin": "Beri akses pada admin",
+      "remove": "Hapus anggota",
+      "removeAdmin": "Hapus akses admin"
+    },
+    "MembersList": {
+      "title": "Anggota Grup",
+      "warning": "Dengan menghapus anggota, maka keanggotaan mereka dalam grup menjadi nonaktif. Mereka tidak akan memiliki akses lagi ke grup, tetapi kontribusinya saat menjadi anggota akan tetap tersedia."
+    },
+    "TopContributors": {
+      "error": "Terjadi kesalahan saat memuat kontributor teratas.",
+      "linkLabel": "Lihat semua kontributor dan statistik mendetail",
+      "tip": "Sertakan anggota aktif dan nonaktif.",
+      "title": "Kontributor Teratas"
+    },
+    "headerItems": {
+      "all": "Semua Grup Saya",
+      "copied": "Tautan Grup Disalin!",
+      "copy": "Salin Tautan Bergabung",
+      "leave": "Keluar dari Grup",
+      "share": "Bagikan Grup"
+    },
+    "leaveQuestion": "Yakin ingin keluar dari grup ini?",
+    "manage": "Kelola Grup"
+  },
+  "HeaderDropdown": {
+    "label": "Opsi Grup"
+  },
+  "MainContent": {
+    "allProjects": "Semua Proyek",
+    "calendarBtn": "Selesai",
+    "calendarTitle": "Rentang Tanggal Khusus",
+    "certificate": "Buat Sertifikat Relawan",
+    "dateRange": {
+      "allTime": "Sepanjang Waktu",
+      "custom": "Khusus",
+      "lastSevenDays": "7 Hari Terakhir",
+      "lastThirtyDays": "30 Hari Terakhir",
+      "lastThreeMonths": "3 Bulan Terakhir",
+      "lastTwelveMonths": "12 Bulan Terakhir",
+      "thisMonth": "Bulan Ini",
+      "thisYear": "Tahun Ini"
+    },
+    "error": "Terjadi kesalahan.",
+    "hoursTip": "Jam dihitung berdasarkan waktu mulai dan berakhirnya klasifikasi. Jam tidak menunjukkan waktu yang Anda gunakan di Talk.",
+    "noData": "Tidak ditemukan data.",
+    "selectDateRange": "Pilih rentang tanggal",
+    "selectProject": "Pilih proyek",
+    "start": "<0>Lakukan klasifikasi pada proyek</0> sekarang, atau ubah rentang tanggal.",
+    "tabContents": "Konten Tab"
+  },
+  "MyGroups": {
+    "GroupCard": {
+      "admin": "Admin",
+      "member": "Anggota"
+    },
+    "PreviewLayout": {
+      "seeAll": "Lihat semua"
+    },
+    "createNew": "Buat grup baru",
+    "error": "Terjadi kesalahan saat memuat grup",
+    "learnMore": "Pelajari selengkapnya tentang grup",
+    "noGroups": "Anda bukan anggota Grup mana pun.<0/>Buat grup di bawah ini",
+    "title": "Grup Saya"
+  },
+  "TopProjects": {
+    "title": "Proyek Teratas"
+  },
+  "UserHome": {
+    "Dashboard": {
+      "allTime": "Sepanjang Waktu",
+      "collections": "Koleksi",
+      "comments": "Komentar",
+      "favorites": "Favorit",
+      "messages": "Pesan",
+      "moreStats": "Statistik Lainnya",
+      "thisWeek": "Minggu Ini"
+    },
+    "RecentProjects": {
+      "error": "Terjadi kesalahan saat memuat proyek terkini",
+      "noProjects": "Tidak ditemukan Proyek Terkini",
+      "start": "Mulai dengan <0>melakukan klasifikasi pada proyek</0>.",
+      "title": "Lanjutkan Klasifikasi"
+    },
+    "RecentSubjects": {
+      "error": "Terjadi kesalahan saat memuat klasifikasi terkini",
+      "noSubjects": "Tidak ditemukan klasifikasi terkini",
+      "title": "Klasifikasi terbaru Anda"
+    },
+    "SubjectCard": {
+      "subject": "Subjek"
+    }
+  },
+  "common": {
+    "avatarAlt": "Avatar {{login}}",
+    "back": "Kembali",
+    "classifications": "Klasifikasi",
+    "contributors": "Kontributor",
+    "hours": "Jam",
+    "projects": "Proyek",
+    "seeAll": "Lihat semua"
+  }
+}
