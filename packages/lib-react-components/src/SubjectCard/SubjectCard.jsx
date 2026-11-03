@@ -19,11 +19,6 @@ const METATOOLS_HEIGHT = 45
 const StyledSubjectCard = styled(Box)`
   position: relative;
   z-index: 0;
-
-  &:hover button[data-set-cover],
-  &:focus-within button[data-set-cover] {
-    opacity: 1;
-  }
 `
 
 function cardWidth(size) {
@@ -115,7 +110,7 @@ function SubjectCard({
           url={subjectTalkUrl}
         />
       )}
-      <CollectionCoverBanner
+      {isCover ? <CollectionCoverBanner /> : null}
         isCover={isCover}
         onSetCover={onSetCover ? () => onSetCover(subject) : null}
       />
