@@ -1,14 +1,12 @@
 const locales = [
   'ar', // Arabic
   'bn', // Bengali
-  'ca', // Catalan
   'cs', // Czech
   'da', // Danish
   'de', // German
   'el', // Greek
   'en', // English
   'es', // Spanish
-  'fa', // Persian / Farsi
   'fi', // Finnish
   'fr', // French
   'ha', // Hausa
@@ -29,7 +27,6 @@ const locales = [
   'ru', // Russian
   'sw', // Swahili
   'sv', // Swedish
-  'ta', // Tamil
   'te', // Telugu
   'test', // Test Language
   'tr', // Turkish

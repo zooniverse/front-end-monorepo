@@ -4,6 +4,7 @@ import { GoogleTagManager } from '@next/third-parties/google'
 import { notFound } from 'next/navigation'
 
 import i18nConfig from '../../../i18nConfig'
+import { getDictionary } from '@/utils/dictionaries'
 
 export const metadata = {
   title: {
@@ -31,8 +32,28 @@ export const metadata = {
 
 const isProduction = process.env.NODE_ENV === 'production'
 
+const DEFAULT_LOCALE = i18nConfig.defaultLocale // 'en'
+
 export default async function NextLayout(props) {
-  const { locale } = await props.params // pass this locale from the dynamic URL subpath to ZooFooter because that client component is on every webpage
+  // pass this locale from the dynamic URL subpath to ZooFooter because that lib-react-component client component is on every webpage
+  const { locale } = await props.params
+
+  // Dynamically import the JSON dictionary for the current locale in this server component.
+  const dictionary = await getDictionary(locale)
+
+  // Always provide the default lang dictionary as a fallback in cases where other locale dictionary keys are empty.
+  const defaultDict = await getDictionary(DEFAULT_LOCALE)
+
+  // Syntax required by i18next is --> [locale]: { translation: { ...dictionaries } }
+  const dictionaries =
+    locale === DEFAULT_LOCALE
+      ? {
+          [DEFAULT_LOCALE]: { translation: defaultDict }
+        }
+      : {
+          [DEFAULT_LOCALE]: { translation: defaultDict },
+          [locale]: { translation: dictionary }
+        }
 
   if (!i18nConfig.locales.includes(locale)) {
     notFound()
@@ -42,7 +63,9 @@ export default async function NextLayout(props) {
     <html lang={locale === 'test' ? 'en' : locale}>
       {isProduction && <GoogleTagManager gtmId='GTM-WDW6V4' />}
       <StyledComponentsRegistry>
-        <RootLayout locale={locale}>{props.children}</RootLayout>
+        <RootLayout dictionaries={dictionaries} locale={locale}>
+          {props.children}
+        </RootLayout>
       </StyledComponentsRegistry>
     </html>
   )
