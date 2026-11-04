@@ -76,15 +76,22 @@
     "classify": "Classifier",
     "collect": "Collectionner",
     "exploreProject": "Explorer le project",
+    "lab": "Laboratoire",
     "organization": "De l'organisation:",
     "recents": "Récents",
     "talk": "Discussions"
   },
   "ProjectStatistics": {
+    "active": "Statistiques actives",
+    "allTime": "Statistiques complètes",
+    "byTheNumbers": "En chiffres",
     "classifications": "Classifications",
     "completedSubjects": "Sujets terminés",
+    "launched": "Projet lancé le {{date}}",
+    "notLaunched": "Projet non lancé",
     "percentComplete": "Pourcentage d'achèvement",
     "subjects": "Sujets",
+    "subtitle": "Gardez une trace des progrès que vous et vos collègues bénévoles avez accomplis sur ce projet.",
     "text": "Chaque clic compte! Rejoignez la communauté de {{projectName}} pour mener à bien ce projet et aider les chercheurs à produire des résultats importants. Cliquez sur \"Afficher plus de statistiques\" pour voir encore plus de statistiques.",
     "title": "Statistiques de {{projectName}}",
     "viewMoreStats": "Afficher plus de statistiques",
@@ -100,6 +107,7 @@
     "alreadySeen": "Déjà vu",
     "back": "Choisissez un autre ensemble de sujets",
     "byline": "Triez la liste en cliquant sur les noms de colonnes. Vous verrez les sujets de manière séquentielle, en commençant par celui que vous choisissez.",
+    "error": "Désolé, nous n'avons pas pu charger les sujets de cet ensemble. Veuillez réessayer plus tard ou en informer l'équipe du projet sur Talk.",
     "fetching": "Veuillez patienter...",
     "heading": "Commencez par choisir un sujet",
     "retired": "Retiré",
@@ -124,6 +132,7 @@
   "WorkflowSelector": {
     "WorkflowSelectButton": {
       "complete": "Terminé à {{completeness}}%",
+      "externalWorkflow": "flux de travail externe",
       "setSelection": "définir la sélection",
       "subjectSelection": "sélection de sujets"
     },

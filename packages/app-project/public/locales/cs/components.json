@@ -76,15 +76,22 @@
     "classify": "Klasifikujte",
     "collect": "Sbírejte",
     "exploreProject": "Prozkoumejte Projekt",
+    "lab": "Laboratoř",
     "organization": "Z organizace:",
     "recents": "Nedávné",
     "talk": "Diskutujte"
   },
   "ProjectStatistics": {
+    "active": "Aktivní statistiky",
+    "allTime": "Statistiky za všechny časy",
+    "byTheNumbers": "Podle čísel",
     "classifications": "Klasifikace",
     "completedSubjects": "Dokončené předměty",
+    "launched": "Projekt byl spuštěn {{date}}",
+    "notLaunched": "Projekt nebyl spuštěn",
     "percentComplete": "Procento dokončení",
     "subjects": "Témata",
+    "subtitle": "Sledujte pokrok, kterého jste vy a vaši dobrovolníci v tomto projektu dosáhli.",
     "text": "Každé kliknutí se počítá! Připojte se k {{projectName}} a pomozte výzkumníkům dosáhnout důležitých výsledků. Kliknutím na \"Zobrazit další statistiky\" si můžete prohlédnout ještě více statistik.",
     "title": "Statistiky {{projectName}}",
     "viewMoreStats": "Zobrazit další statistiky",
@@ -100,6 +107,7 @@
     "alreadySeen": "Již prohlédnuté",
     "back": "Zvolte jinou sadu předmětů",
     "byline": "Seznam seřadíte kliknutím na názvy sloupců. Předměty se zobrazí postupně, počínaje tím, který jste vybrali.",
+    "error": "Omlouváme se, ale nepodařilo se nám načíst témata z této sady témat. Zkuste to prosím znovu později, nebo dejte vědět projektovému týmu na Talku.",
     "fetching": "Čekejte prosím...",
     "heading": "Vyberte si předmět a začněte",
     "retired": "Vysloužilé",
@@ -124,6 +132,7 @@
   "WorkflowSelector": {
     "WorkflowSelectButton": {
       "complete": "{{completeness}}% dokončeno",
+      "externalWorkflow": "externí pracovní postup",
       "setSelection": "nastavení výběru",
       "subjectSelection": "výběr předmětu"
     },

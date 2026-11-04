@@ -14,6 +14,7 @@
     },
     "SidebarHeading": "关于",
     "TeamMember": {
+      "admin": "Zooniverse 团队",
       "collaborator": "协作者",
       "expert": "专家",
       "moderator": "管理员",
@@ -30,7 +31,12 @@
         "title": "该分类器出现错误 :("
       }
     },
+    "ExternalWorkflow": {
+      "button": "继续外部工作流程",
+      "fallback": "此工作流程托管在外部网站上。请点击下方按钮前往该网站继续操作。"
+    },
     "RecentSubjects": {
+      "noSubjects": "这里显示的是您最近分类的主题。",
       "text": "在 Talk 上就某个主体展开讨论，或者将其添加到您的收藏夹或某个合集中。",
       "title": "您近期的分类"
     },
@@ -47,6 +53,51 @@
       "link": "查看更多",
       "title": "您的统计数据"
     }
+  },
+  "Collect": {
+    "exploreLink": "探索 Zooniverse 的所有系列",
+    "hideSingleSubject": "隐藏仅包含 1 个主题的收藏集",
+    "placeholders": {
+      "empty": "未找到任何收藏集。",
+      "error": "加载集合时出错。"
+    },
+    "resultsCount": "显示 {{range}} 个系列中的 {{total}} 个系列",
+    "sortBy": "排序方式：",
+    "sortOptions": {
+      "alphabeticalAscending": "按字母顺序排列的 AZ",
+      "alphabeticalDescending": "按字母顺序排列 ZA",
+      "recentlyCreated": "最近创建",
+      "recentlyUpdated": "最近更新"
+    },
+    "tabs": {
+      "collections": "收藏",
+      "favorites": "收藏夹",
+      "myCollections": "我的 {{projectName}} 系列",
+      "myFavorites": "我的 {{projectName}} 收藏夹",
+      "title": "收藏页"
+    },
+    "title": "收集"
+  },
+  "Collection": {
+    "CollectionOptions": {
+      "copied": "URL 已复制到剪贴板",
+      "settings": "设置",
+      "share": "分享"
+    },
+    "emptySubjects": "此系列中没有主题。",
+    "linkedToProjectCollections": "链接到 <projectLink>{{projectName}}<\/projectLink> 集合",
+    "notFound": "检索此集合时出错。",
+    "ownerLoadError": "无法加载藏品所有者的详细信息。",
+    "resultsCount": "显示 {{range}} 个 {{total}} 个主题",
+    "roles": {
+      "collaborator": "合作者",
+      "contributor": "贡献者",
+      "owner": "所有者",
+      "viewer": "观众"
+    },
+    "seeAllOwnerCollections": "<collectionsLink>查看所有 {{displayName}} 的收藏<\/collectionsLink>",
+    "selectSubjects": "选择科目",
+    "subjectsLoadError": "加载此合集的主题时出错。"
   },
   "Home": {
     "AboutProject": {
@@ -75,5 +126,96 @@
       "message": "和研究团队以及其他志愿者聊一聊吧！",
       "title": "Zooniverse Talk"
     }
+  },
+  "ProjectRecents": {
+    "empty": "这里显示的是您在过去 90 天内分类的 20 个最新主题。",
+    "emptyTitle": "未找到近期分类",
+    "error": "加载最近使用的应用时出错。",
+    "signedOut": "登录即可查看您最近分类的主题。",
+    "title": "最新分类"
+  },
+  "ProjectStats": {
+    "BarChart": {
+      "a11y": "从 {{startDate}} 到 {{endDate}}，按 {{countLabel}} 个计数绘制的 {{typeLabel}} 条形图",
+      "allWorkflows": "所有工作流程",
+      "dateRange": {
+        "allTime": "所有时间",
+        "custom": "风俗",
+        "lastSevenDays": "过去7天",
+        "lastThirtyDays": "过去30天",
+        "lastThreeMonths": "过去三个月",
+        "lastTwelveMonths": "过去12个月",
+        "thisMonth": "本月",
+        "thisYear": "今年"
+      },
+      "empty": "没有数据。请更改工作流程或日期范围。",
+      "selectDateRange": "选择日期范围",
+      "selectWorkflow": "选择工作流程"
+    },
+    "calendarBtn": "完毕",
+    "calendarTitle": "自定义日期范围",
+    "comments": "评论",
+    "count": "分类",
+    "endDate": "结束日期",
+    "heading": "{{projectName}} 统计信息",
+    "startDate": "开始日期",
+    "workflows": {
+      "empty": "没有相关的工作流程",
+      "percentComplete": "完成百分比",
+      "retireLimit": "退休限额：{{number}}",
+      "subjectsRetired": "退休对象：{{retired}}\/{{total}}",
+      "tip": "预计完成时间是根据过去 14 天的分类率计算的，对于某些工作流程来说可能不准确或不可用。",
+      "title": "工作流程"
+    }
+  },
+  "Talk": {
+    "Comment": {
+      "avatarAlt": "{{login}} 头像",
+      "comment": "评论",
+      "goToComment": "前往评论",
+      "reply": "回复",
+      "userDisplayNamePossessive": "{{userDisplayName}} 的"
+    },
+    "Discussions": {
+      "addComment": "添加您的评论",
+      "commentMessage": "要回复特定评论，请点击该评论进入讨论区。",
+      "comments": "评论",
+      "commentsViewing": "正在查看 {{count}} 条评论，共 {{total}} 条。",
+      "discussionBoard": "讨论区",
+      "discussionTitle": "讨论标题",
+      "discussions": "{{count}} 讨论",
+      "initialComment": "初步评论",
+      "newComment": "新评论",
+      "noDiscussions": "暂无讨论",
+      "oneDiscussion": "1 讨论",
+      "participants": "参与者",
+      "sortBy": "排序方式",
+      "sortedNewestFirst": "最新优先",
+      "sortedOldestFirst": "最早的在前",
+      "startDiscussion": "发起新的讨论"
+    },
+    "Metadata": {
+      "collapse": "坍塌",
+      "expand": "扩张",
+      "noMetadata": "暂无元数据可用",
+      "subjectMetadata": "主题元数据"
+    },
+    "Tags": {
+      "add": "添加",
+      "addATag": "添加标签",
+      "addVote": "请投出您的一票",
+      "createTag": "创建标签",
+      "noTags": "无标签",
+      "popularTagsFrom": "来自 {{projectDisplayName}} 的热门标签",
+      "removeVote": "取消投票",
+      "signInToTag": "登录以添加标签",
+      "tagValidationMessage": "请使用 3-40 个字符，包括字母、数字、连字符和下划线。请勿使用空格或其他特殊字符。",
+      "tags": "标签"
+    },
+    "ancillaryData": "辅助数据",
+    "ancillaryDataTip": "这是关于您正在查看的主题的辅助数据。更多信息，请参阅“关于”页面。",
+    "mentions": "提及",
+    "searchPlaceholder": "在此项目中搜索标签、主题或@用户",
+    "somethingWentWrong": "出问题了。"
   }
 }

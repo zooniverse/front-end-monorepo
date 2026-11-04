@@ -14,6 +14,7 @@
     },
     "SidebarHeading": "Translated",
     "TeamMember": {
+      "admin": "Translated",
       "collaborator": "Translated",
       "expert": "Translated",
       "moderator": "Translated",
@@ -30,7 +31,12 @@
         "title": "Translated"
       }
     },
+    "ExternalWorkflow": {
+      "button": "Translated",
+      "fallback": "Translated"
+    },
     "RecentSubjects": {
+      "noSubjects": "Translated",
       "text": "Translated",
       "title": "Translated"
     },
@@ -47,6 +53,51 @@
       "link": "Translated",
       "title": "Translated"
     }
+  },
+  "Collect": {
+    "exploreLink": "Translated",
+    "hideSingleSubject": "Translated",
+    "placeholders": {
+      "empty": "Translated",
+      "error": "Translated"
+    },
+    "resultsCount": "Translated {{range}} {{total}}",
+    "sortBy": "Translated:",
+    "sortOptions": {
+      "alphabeticalAscending": "Translated",
+      "alphabeticalDescending": "Translated",
+      "recentlyCreated": "Translated",
+      "recentlyUpdated": "Translated"
+    },
+    "tabs": {
+      "collections": "Translated",
+      "favorites": "Translated",
+      "myCollections": "{{projectName}} Translated",
+      "myFavorites": "{{projectName}} Translated",
+      "title": "Translated"
+    },
+    "title": "Translated"
+  },
+  "Collection": {
+    "CollectionOptions": {
+      "copied": "Translated",
+      "settings": "Translated",
+      "share": "Translated"
+    },
+    "emptySubjects": "Translated",
+    "linkedToProjectCollections": "Translated <projectLink>{{projectName}}<\/projectLink>",
+    "notFound": "Translated",
+    "ownerLoadError": "Translated",
+    "resultsCount": "Translated {{range}} {{total}} ",
+    "roles": {
+      "collaborator": "Translated",
+      "contributor": "Translated",
+      "owner": "Translated",
+      "viewer": "Translated"
+    },
+    "seeAllOwnerCollections": "<collectionsLink> Translated {{displayName}}<\/collectionsLink>",
+    "selectSubjects": "Translated",
+    "subjectsLoadError": "Translated"
   },
   "Home": {
     "AboutProject": {
@@ -75,5 +126,96 @@
       "message": "Translated",
       "title": "Translated"
     }
+  },
+  "ProjectRecents": {
+    "empty": "Translated",
+    "emptyTitle": "Translated",
+    "error": "Translated",
+    "signedOut": "Translated",
+    "title": "Translated"
+  },
+  "ProjectStats": {
+    "BarChart": {
+      "a11y": "Translated {{typeLabel}} {{countLabel}} {{startDate}} {{endDate}}",
+      "allWorkflows": "Translated",
+      "dateRange": {
+        "allTime": "Translated",
+        "custom": "Translated",
+        "lastSevenDays": "Translated",
+        "lastThirtyDays": "Translated",
+        "lastThreeMonths": "Translated",
+        "lastTwelveMonths": "Translated",
+        "thisMonth": "Translated",
+        "thisYear": "Translated"
+      },
+      "empty": "Translated",
+      "selectDateRange": "Translated",
+      "selectWorkflow": "Translated"
+    },
+    "calendarBtn": "Translated",
+    "calendarTitle": "Translated",
+    "comments": "Translated",
+    "count": "Translated",
+    "endDate": "Translated",
+    "heading": "{{projectName}} Translated",
+    "startDate": "Translated",
+    "workflows": {
+      "empty": "Translated",
+      "percentComplete": "{{percent}}% Translated",
+      "retireLimit": "Translated {{number}}",
+      "subjectsRetired": "Translated {{retired}}\/{{total}}",
+      "tip": "Translated",
+      "title": "Translated"
+    }
+  },
+  "Talk": {
+    "Comment": {
+      "avatarAlt": "{{login}} Translated",
+      "comment": "Translated",
+      "goToComment": "Translated",
+      "reply": "Translated",
+      "userDisplayNamePossessive": "{{userDisplayName}}"
+    },
+    "Discussions": {
+      "addComment": "Translated",
+      "commentMessage": "Translated",
+      "comments": "Translated",
+      "commentsViewing": "Translated {{count}} {{total}} Translated",
+      "discussionBoard": "Translated",
+      "discussionTitle": "Translated",
+      "discussions": "{{count}} Translated",
+      "initialComment": "Translated",
+      "newComment": "Translated",
+      "noDiscussions": "Translated",
+      "oneDiscussion": "Translated",
+      "participants": "Translated",
+      "sortBy": "Translated",
+      "sortedNewestFirst": "Translated",
+      "sortedOldestFirst": "Translated",
+      "startDiscussion": "Translated"
+    },
+    "Metadata": {
+      "collapse": "Translated",
+      "expand": "Translated",
+      "noMetadata": "Translated",
+      "subjectMetadata": "Translated"
+    },
+    "Tags": {
+      "add": "Translated",
+      "addATag": "Translated",
+      "addVote": "Translated",
+      "createTag": "Translated",
+      "noTags": "Translated",
+      "popularTagsFrom": "Translated {{projectDisplayName}}",
+      "removeVote": "Translated",
+      "signInToTag": "Translated",
+      "tagValidationMessage": "Translated",
+      "tags": "Translated"
+    },
+    "ancillaryData": "Translated",
+    "ancillaryDataTip": "Translated",
+    "mentions": "Translated",
+    "searchPlaceholder": "Translated",
+    "somethingWentWrong": "Translated"
   }
 }
