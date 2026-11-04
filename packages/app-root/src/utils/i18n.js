@@ -1,7 +1,8 @@
 import { createInstance } from 'i18next'
 import { initReactI18next } from 'react-i18next/initReactI18next'
 
-import i18nConfig from '../../i18nConfig'
+import i18nConfig from './i18nConfig'
+import { supportedLocales } from './localeMenu'
 
 const DEFAULT_LOCALE = i18nConfig.defaultLocale // 'en'
 
@@ -13,7 +14,7 @@ export default async function initTranslations(locale, i18nInstance, dictionarie
   await i18nInstance.init({
     lng: locale,
     fallbackLng: DEFAULT_LOCALE,
-    supportedLngs: i18nConfig.locales,
+    supportedLngs: supportedLocales,
     interpolation: {
       escapeValue: false // not needed for react as it escapes by default
     },
