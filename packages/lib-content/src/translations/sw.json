@@ -7,9 +7,202 @@
       "returnHome": "Rudi kwenye ukurasa wa nyumbani"
     }
   },
+  "AIEthics": {
+    "about": {
+      "acknowledgements": {
+        "heading": "Shukrani",
+        "paragraph": "Timu ya Zooniverse ingependa kuwatambua watu wafuatao kwa ushiriki wao katika warsha za mtandaoni zilizosababisha kutengenezwa kwa mapendekezo haya:"
+      },
+      "advisors": {
+        "heading": "Washauri wa Miradi"
+      },
+      "funding": {
+        "heading": "Ufadhili",
+        "paragraph": "Kazi hii inafadhiliwa na The Kavli Foundation, tuzo nambari SS-2025-GR-05-3064."
+      },
+      "paragraphs": {
+        "first": "Katika kipindi cha miaka 15 iliyopita, timu za utafiti zimeunganisha ujifunzaji wa mashine (ML) katika miradi mbalimbali ya Zooniverse na katika hatua tofauti. Takriban theluthi moja ya miradi yote inayofanya kazi ya Zooniverse sasa inajumuisha ujifunzaji wa mashine kwa njia fulani. Kadri teknolojia hizi zinavyokua na ufahamu wa umma kuhusu uwepo wake umeongezeka, maoni ya hivi karibuni ya kujitolea ya Zooniverse yalionyesha hitaji la uwazi zaidi kuhusu matumizi ya 'AI' kwenye jukwaa letu. Tulitaka kushughulikia wasiwasi huu kwa kuanzisha mfumo ulio wazi na sanifu wa utekelezaji wa maadili ya AI/ML katika miradi ya Zooniverse, kuhakikisha kwamba watafiti wanaweza kuwasiliana vyema mbinu zao huku wakidumisha uaminifu na ushirikiano wa jamii yetu ya kujitolea. Kwa ufadhili kutoka kwa Wakfu wa Kavli tuliunda mfumo wa kwanza wa maadili ya AI/ML kwa Zooniverse, ambao tuliuzindua mwaka wa 2026. Mfumo huo unawasilishwa hapa na utasasishwa kila mwaka, inapohitajika.",
+        "fourth": "Matokeo hayo yanajumuisha: kanuni muhimu zinazotumika kama mfumo na muhtasari wa malengo makuu; mapendekezo ya vitendo vya ndani ambavyo jukwaa la Zooniverse litachukua ili kurahisisha mapendekezo kwa timu za mradi; na mapendekezo kwa timu za mradi kuchukua wakati wa kuingiza AI/ML katika miradi ya Zooniverse.",
+        "second": "Ili kutengeneza mfumo huu, tulifanya mfululizo wa warsha pepe zilizohusisha wataalamu wa mada, uongozi wa Zooniverse, viongozi wa miradi, watafiti wa nje, na watu wa kujitolea. Warsha hizo zilifanyika mwaka mzima wa 2025 na zililenga mada nne muhimu: kuanzisha mbinu bora za uwazi na mawasiliano; kutambua mbinu za kimaadili za kujifunza kwa mashine zinazosawazisha hatari na fursa; kuimarisha uelewa wetu wa muktadha wa mbinu hizi za kimaadili; na kuzingatia changamoto za ulinzi wa data wa chini.  ",
+        "third": "Ili kujumuisha maarifa kutoka kwa kundi kubwa kuliko wangeweza kushiriki moja kwa moja katika warsha, tulituma tafiti kwa jamii nzima ya Zooniverse. Matokeo kutoka kwa tafiti hizo yaliunda mwelekeo wetu wa kimkakati. Baada ya kila warsha, kikundi kidogo kilikutana ili kutafsiri majadiliano katika mada muhimu na matokeo yanayoweza kutekelezwa. Matokeo yalishirikiwa na washiriki wote wa warsha ambao walipata fursa ya kutoa maoni, marekebisho, na nyongeza."
+      },
+      "projectTeamList": {
+        "coord": "Mratibu wa Mradi",
+        "eval": "Mwezeshaji na Mtathmini",
+        "heading": "Timu ya Mradi",
+        "pi": "Mchunguzi Mkuu",
+        "ra": "Wasaidizi wa Utafiti"
+      }
+    },
+    "actions": {
+      "first": "<0>Kukubali au kurekebisha </0><1>hali ya kawaida ya kuelezea matumizi ya AI/ML</1> <0>(kulingana na lugha iliyopo au uainishaji uliopo) ndani ya jukwaa la Zooniverse.</0> Mapendekezo mengine mengi yaliyopendekezwa yanategemea uundaji na utekelezaji wa uainishaji huu, ikiwa ni pamoja na mbinu za uwazi, uwakala, na uwasilishaji thabiti.",
+      "fourth": "<0>Mapitio ya sera ya kila mwaka na timu ya uongozi ya Zooniverse.</0> Anzisha kasi ya kawaida ambayo rasilimali hizi zitatathminiwa na/au kusasishwa, k.m. kila mwaka. Tumejitolea kufanya mapitio ya kila mwaka na tutachapisha chapisho la blogu au sasisho lingine lililoandikwa ili kuendana na masasisho yoyote yaliyofanywa kwa mfumo huu kama sehemu ya mapitio haya.",
+      "second": "<0>Toa ukurasa wa tovuti ya Zooniverse kwa taarifa na rasilimali zinazohusiana na akili bandia/mchanganuzi bandia na matumizi yake kwenye Zooniverse.</0> Huu ndio ukurasa huo! Unahifadhi uainishaji ulio hapo juu, mapendekezo ya timu yetu ya mradi, pamoja na taarifa zaidi kuhusu jinsi teknolojia hii inavyotumika (na imekuwa ikitumika) kwenye Zooniverse, faida na wasiwasi ni zipi, na jinsi ya kutambua wakati mradi unaitumia.",
+      "third": "<0>Ingiza miongozo katika mchakato wa ukaguzi wa ndani wa mradi wa Zooniverse.</0> Kufikia uzinduzi wa ukurasa huu, michakato yetu ya ukaguzi wa ndani imesasishwa ili kuakisi mapendekezo yaliyoorodheshwa hapa. Hii itahakikisha utendaji wa kawaida kwa viongozi wa mradi kushiriki taarifa kuhusu matumizi yoyote ya AI/ML yanayohusiana na mradi na ahadi za utawala wa data, ili kuhakikisha wajitolea watarajiwa wanapata taarifa hii."
+    },
+    "faq": {
+      "first": {
+        "answer": "Hapana. Watafiti huja Zooniverse kwa sababu wanataka mchango wa kibinadamu katika mchakato wao. Isipokuwa ruhusa ya wazi ya kufanya hivyo, watu wa kujitolea hawapaswi kutumia zana za kuzalisha AI nje ya Zooniverse ili kusaidia katika juhudi zao za uainishaji.",
+        "question": "Mimi ni mtu wa kujitolea na ninahitaji msaada wa kuainisha mradi. Je, ninaweza kutumia zana za AI za kuzalisha kama vile ChatGPT au Gemini kunisaidia?"
+      },
+      "paragraph": "Huoni swali lako likijibiwa hapa? Tutumie maswali yako kwa <0>contact@zooniverse.org</0>! Tutasasisha orodha hii inapohitajika.",
+      "second": {
+        "answerOne": "Anza kwa kuchanganua ukurasa wa nyumbani wa mradi, hasa Maelezo ya Mradi na Maelezo yoyote ya Mtiririko wa Kazi. Ikiwa bado huna uhakika, angalia ukurasa wa Kuhusu, pamoja na Mafunzo ya mradi. Ikiwa bado huna uhakika baada ya hapo, unaweza kuuliza kwenye Majadiliano, lakini sehemu ya madhumuni ya mfumo huu ni kusaidia kuhakikisha miradi yote inawasilisha wazi jinsi inavyotumia (au kutotumia) teknolojia hii.",
+        "answerTwo": "Ikiwa unafikiri mradi haufichui ipasavyo matumizi ya AI/ML, tunatumai utajisikia vizuri kuwasiliana na timu ya utafiti kwenye Talk na kupendekeza mabadiliko fulani au kuelezea kutokuwa na uhakika kwako. Ikiwa hujisikii vizuri kufanya hivyo, unaweza pia kututumia ujumbe kwa <0>contact@zooniverse.org</0> nasi tutauchunguza. Sehemu ya kazi hii ni pamoja na kusasisha michakato yetu ya ukaguzi wa ndani, kwa hivyo maoni yako yatatusaidia kujua kama michakato yetu mipya inafaa.",
+        "question": "Nataka kujua kama mradi wa Zooniverse unatumia akili bandia au mashine ya kujifunza. Ninawezaje kupata taarifa hiyo?"
+      }
+    },
+    "fivews": {
+      "list": {
+        "first": "<0>Nani</0> ana jukumu la kuhakikisha ubora na uadilifu wa data? ",
+        "fourth": "<0>Kwa nini</0> AI/ML inatumika? Inasaidia kutimiza nini na ni nani anayefaidika? Utafiti ungekuwaje kama AI/ML isingetumika?",
+        "second": "<0>Ni mbinu gani za AI/ML zinazotumika?",
+        "third": "<0>Ni lini</0> na <0>Ni wapi</0> katika mzunguko wa maisha wa ukusanyaji, usindikaji, na uchambuzi wa data AI/ML inatumika? Ni katika hatua gani (watu) wa kujitolea wanaingia katika mzunguko wa maisha? Je, wawili hao huingiliana? Ikiwa ndivyo, vipi?"
+      },
+      "paragraph": "Wakati wa kutengeneza mradi mpya wa Zooniverse unaohusisha AI/ML, watafiti wanapaswa kutafakari na kuwa tayari kujibu maswali yafuatayo. Kwa hakika, majibu ya maswali haya yatapatikana mahali fulani katika nakala ya mradi (km ukurasa wa Kuhusu, Maswali Yanayoulizwa Mara kwa Mara, n.k.)."
+    },
+    "heading": {
+      "eighth": "Rasilimali",
+      "fifth": "Mapendekezo ya Mradi",
+      "fifthext": "Mapendekezo kwa Timu za Mradi",
+      "first": "Utangulizi",
+      "fourth": "Vitendo vya Ndani",
+      "fourthext": "Hatua za Ndani Zilizochukuliwa na Zooniverse",
+      "nineth": "Maswali Yanayoulizwa Mara kwa Mara",
+      "ninethext": "Maswali Yanayoulizwa Mara kwa Mara",
+      "second": "Orodha ya Yaliyomo",
+      "seventh": "AI/ML kwenye Zooniverse",
+      "seventhext": "AI na Kujifunza kwa Mashine kwenye Zooniverse",
+      "sixth": "5 Ws",
+      "sixthext": "Miradi 5 Inayohusisha AI/ML",
+      "tenth": "Kuhusu Mfumo huu",
+      "third": "Kanuni Muhimu"
+    },
+    "onZooniverse": {
+      "fifthQ": {
+        "heading": "Ninajuaje wakati mradi unatumia akili bandia au mashine ya kujifunza?",
+        "list": {
+          "first": "Ni jukumu la timu za mradi kuonyesha wazi mahali fulani kwenye ukurasa wa nyumbani kama mradi wao unatumia AI/ML. Zaidi ya hayo, ikiwa mradi una njia nyingi za kazi, timu zinapaswa kutofautisha kati ya njia za kazi zinazojumuisha AI/ML, na zile ambazo hazitumii.",
+          "fourth": "Ikiwa huna uhakika kama mradi unatumia akili bandia/ufahamu bandia (AI/ML), jisikie huru kuchapisha kwenye ubao wa mazungumzo ya mradi na uulize timu ya utafiti moja kwa moja.",
+          "second": "Timu pia zinahitajika kutoa maelezo kuhusu kwa nini hasa na jinsi AI/ML zinavyounganishwa katika miradi yao. Taarifa hii itaonekana kwenye ukurasa wa Kuhusu mradi.",
+          "third": "Ikiwa mafunzo ya mfumo wa AI/ML ni lengo la mradi, timu zinatarajiwa kutoa masasisho kuhusu mchakato huu kama sehemu ya ukurasa wa Matokeo, yanapopatikana."
+        }
+      },
+      "firstQ": {
+        "heading": "AI ni nini? Kujifunza kwa Mashine ni nini?",
+        "list": {
+          "first": "Hakuna ufafanuzi rahisi na mmoja, lakini AI kwa ujumla inarejelea mifumo ya kompyuta ambayo imeundwa kuiga mawazo ya binadamu. AI ni neno pana linalojumuisha teknolojia na matumizi mbalimbali. Maneno haya mara nyingi hutumika kwa kubadilishana, lakini ML ni sehemu ndogo ya AI inayotumia data na algoriti kufunza kompyuta kufanya uainishaji, kutoa utabiri, na kufichua kufanana au mitindo katika seti kubwa za data. (Ufafanuzi umechukuliwa kutoka Fortson et al. (2024) na <0>https://www.nasa.gov/what-is-artificial-intelligence)</0>.",
+          "second": "Kuna njia kadhaa ambazo mbinu na mbinu za AI/ML huainishwa kulingana na teknolojia inayotumika na uwezo wa teknolojia hiyo.",
+          "third": "Kwa sehemu kwa sababu teknolojia inasonga mbele haraka sana, ni rahisi kutoeleweka kuhusu kile ambacho akili bandia inafanya. Uwazi ndani ya Zooniverse unalenga kile ambacho teknolojia hii inachangia, na kwa nini, unaweza kusaidia kuepuka kutoelewana au mkanganyiko, huku pia ukiunda hatua za uwajibikaji kwa timu za mradi."
+        }
+      },
+      "fourthQ": {
+        "heading": "Kwa nini timu za miradi zinahitaji au zinataka kutumia AI na Machine Learning kwenye Zooniverse?",
+        "list": {
+          "first": "Hata kwa nguvu ya umati wa Zooniverse, timu nyingi za miradi zinafanya kazi na seti kubwa na ngumu za data. Mara nyingi, watafiti hugundua kuwa wanadamu na mashine zinazofanya kazi pamoja hutoa data ya ubora wa juu kuliko zote mbili pekee. Mifumo ya mashine za binadamu pia inaweza kusaidia kuharakisha ratiba za miradi na kuwawezesha watafiti kufikia matokeo mapema kuliko kwa uainishaji wa binadamu pekee.",
+          "second": "Kuna machapisho mengi yanayoelezea mafanikio katika kuchanganya uainishaji wa mashine za binadamu yanayopatikana kwenye ukurasa wa <0>Zooniverse publishing</0>."
+        }
+      },
+      "secondQ": {
+        "heading": "Je, akili bandia na mashine ya kujifunza hutumikaje kwenye Zooniverse?",
+        "list": {
+          "fifth": "Ikiwa timu za mradi zitachagua kutumia AI ili kutoa maudhui ya mradi, zinahitajika kufichua taarifa hii kwenye ukurasa ulio na maudhui yaliyozalishwa na AI. Hii inaweza kujumuisha mfano nakala ya mradi, avatar, picha za vyombo vya habari, tafsiri, na/au data ya mradi.",
+          "first": "Kwa ujumla, AI/ML hazijajumuishwa kwenye mfumo nje ya matumizi maalum ya mradi. Timu ya Zooniverse inajitolea kwa uwazi na uwekaji sahihi wa lebo katika visa vyovyote vya baadaye ambapo AI/ML inatumika nje ya miradi maalum.",
+          "fourth": {
+            "subFifth": "<0>Mapitio ya Wajitolea</0> mada zisizo za kawaida au zisizo za kawaida zilizoathiri mashine.",
+            "subFirst": "<0>Hakuna AI/ML.</0> Wajitolea huainisha masomo. Hakuna jukumu la AI/ML lililokusudiwa hapo awali au lililokusudiwa.",
+            "subFourth": "<0>Akili bandia/ML hukaguliwa ubora.</0> Wajitolea hukagua na kufanya marekebisho ya uainishaji unaozalishwa na mashine, na kusaidia kuboresha Akili bandia/ML baada ya muda.",
+            "subSecond": "<0>Masomo ya kupanga mapema ya AI/ML.</0> Wajitolea huainisha masomo ambayo yamepangwa mapema au kuchujwa na mashine. Mifano ni pamoja na kuondoa nafasi zilizo wazi (picha zisizo na maudhui husika), na kutengeneza uainishaji wa kiwango cha juu ili wajitolea waweze kuzingatia juhudi zao kwenye kazi zenye changamoto zaidi.",
+            "subThird": "<0>Mafunzo ya AI/ML.</0> Wajitolea huainisha masomo na mashine hujifunza kutokana na mifumo kwa lengo ambalo AI/ML itachukua majukumu.",
+            "sublist": "Baadhi ya mifano:"
+          },
+          "second": "Matumizi ya AI/ML yatatofautiana katika miradi mbalimbali.",
+          "third": "AI/ML hujumuishwa katika baadhi ya miradi maalum ya Zooniverse ili kukamilisha usaidizi wa utafiti unaotolewa na watu wa kujitolea, kusindika data kabla au baada ya watu wa kujitolea kukamilisha kazi zao. Baadhi ya miradi hujumuisha vipengele vya kujifunza vinavyosaidia mbinu za AI/ML zinazofanywa na binadamu, ambazo hujumuisha michango ya kujitolea katika michakato otomatiki ili kuongeza ubora wa matokeo."
+        }
+      },
+      "seventhQ": {
+        "heading": "Vipi kuhusu AI na Machine Learning nje ya Zooniverse? Je, uainishaji wangu unaingia katika mipango ya AI/ML isiyo ya Zooniverse?",
+        "list": {
+          "fifth": "Timu za mradi zinatarajiwa kushiriki mipango yao ya matumizi na uhifadhi wa data kwenye ukurasa wa Kuhusu mradi.",
+          "first": "Sisi, kama jumuiya ya Zooniverse, tuna udhibiti wa jinsi tunavyotumia au tusivyotumia AI/ML kwenye jukwaa na katika miradi. Hata hivyo, hatuna udhibiti mkubwa wa jinsi wengine wanavyoweza kutumia data ya mradi, hasa mara tu inapotolewa kwa umma.",
+          "fourth": "Ili kupunguza matumizi yasiyokusudiwa ya data ya mradi (km kwa madhumuni ya kibiashara), baadhi ya timu huchagua kutumia makubaliano ya leseni ya data kwenye data yao ya mradi (kama vile <0>Creative Commons</0>), au kuishiriki kwa ombi pekee.",
+          "second": "Sera za sasa za Zooniverse za <0>Wajenzi wa Miradi</0> zinasema kwamba timu za miradi lazima \"zifungue data zao za uainishaji baada ya kipindi cha umiliki, ambacho kwa kawaida huchukua miaka miwili tangu uzinduzi wa mradi.\"",
+          "sixth": "Ikiwa huna uhakika na mipango ya mradi ya kushiriki data na/au leseni, jisikie huru kuchapisha kwenye bodi za Majadiliano ya mradi na kuuliza timu ya utafiti moja kwa moja.",
+          "third": "Data huria huruhusu ulinganifu, kuridhisha mara moja, na matumizi ya haraka ya data kufanya maamuzi au kuchukua hatua. Inaweza pia kusaidia katika uhifadhi wa data, kwani data ina uwezekano mdogo wa kupotea ikiwa imehifadhiwa kwenye hazina au ikiwa wengine wameandika nakala. Hata hivyo, pia inamaanisha kwamba watu wengine, mashirika, au makampuni yanaweza kutumia data inayozalishwa kupitia miradi ya Zooniverse kwa sababu zingine isipokuwa malengo ya utafiti yaliyotajwa."
+        }
+      },
+      "sixthQ": {
+        "heading": "Zooniverse inahakikishaje teknolojia hizi zinatumika kwa usalama na kimaadili?",
+        "list": {
+          "first": "Zooniverse ilifanya juhudi ya miezi <0>18 na wadau na wataalamu</0> ili kufafanua maana ya hii kwa jukwaa. <1>Kanuni Muhimu</1>, <2>Hatua za Ndani Zilizochukuliwa na Zooniverse</2>, na <3>Mapendekezo kwa Timu za Mradi</3> yanawakilisha mbinu yetu.",
+          "second": "Tumejitolea kuendelea na tathmini ya miundo hii ili kuhakikisha kuwa ina ufanisi, hasa kadri teknolojia na matumizi yanayowezekana kwenye Zooniverse yanavyoendelea kupanuka. Mapendekezo yetu yanajumuisha mapitio ya kila mwaka ya sera zetu za maadili za AI ili kuhakikisha kwamba zinabaki kuwa muhimu kwa jamii zetu za kujitolea na watafiti."
+        }
+      },
+      "thirdQ": {
+        "heading": "Je, ni faida gani, na wasiwasi gani kuhusu, kutumia AI na Machine Learning kwenye Zooniverse?",
+        "list": {
+          "first": "AI/ML inaweza kuongeza kasi na nguvu katika uwezo wetu wa kuzalisha, kuchakata, na kuchambua data. Kwa upande mwingine, tunaweza kuuliza maswali mapya na kupata majibu haraka zaidi.",
+          "fourth": "Ukuzaji na matumizi ya baadhi ya aina za AI/ML yanaweza kuhitaji nishati na rasilimali nyingi.",
+          "second": "Kukabidhi kazi fulani kwa mashine kunaweza kuruhusu watu kuzingatia kazi za ubunifu au ngumu zaidi. Mapendekezo yetu yanabainisha kuwa timu za miradi zinapaswa kuwa waangalifu zisifanye kazi kwa njia bora zaidi, hata hivyo, kwa kuwa ushiriki wa ngazi ya kwanza ni muhimu katika kufanya miradi ipatikane kwa urahisi.",
+          "third": "Ni muhimu kujumuisha usimamizi wa kibinadamu katika hatua fulani ili kutathmini na kuhakikisha ubora wa data."
+        }
+      }
+    },
+    "preamble": {
+      "list": {
+        "first": "Jukwaa la Zooniverse lina jukumu la <0>kutengeneza</0> na <0>kutekeleza</0> mapendekezo haya.",
+        "second": "Timu za mradi zina jukumu la <0>kutafsiri</0> na <0>kutekeleza</0> mapendekezo. ",
+        "third": "Wajitolea wana mamlaka ya <0>kuthibitisha</0> au <0>kuhoji</0> utekelezaji kupitia maoni au utekelezaji wa uwakala (km kuchagua kutoshiriki katika mradi)."
+      },
+      "paragraphs": {
+        "first": "Ukurasa huu unawasilisha Mfumo wa Maadili wa AI wa Zooniverse, ikiwa ni pamoja na mapendekezo ya kuendesha miradi kwenye Zooniverse inayohusisha akili bandia (AI) na/au kujifunza kwa mashine (ML). Huu ni mfumo hai, na tumejitolea kuboresha na kurudia tunapopokea maoni na kadri miktadha ya kiteknolojia, kijamii, na kitamaduni inavyoendelea kubadilika. Ukurasa huu umekusudiwa kimsingi kutoa taarifa kwa wajitolea wa Zooniverse. Timu za mradi zinaweza kusoma <0>mwongozo maalum katika hati zetu za Zooniverse</0>.",
+        "second": "Ingawa matumizi ya teknolojia ya 'AI' kwenye Zooniverse kwa kawaida yamekuwa kupitia michakato maalum ya ML (\"zana na teknolojia za algoritimu zinazojifunza kutoka kwa data iliyopo ili kutatua kazi\"), neno 'AI' limekuwa kigezo cha kuelezea aina hii ya otomatiki. AI kwa ujumla inarejelea \"kompyuta zinazoweza kuiga mawazo ya mwanadamu,\" na ujifunzaji wa mashine ni sehemu ndogo ya dhana hii. Katika mfumo huu, tutatumia 'AI/ML' kote kurejelea michakato hii, ili kujumuisha kwa upana mbinu mbalimbali, na pia kudumisha tofauti kati ya maneno haya mawili.",
+        "third": "Kuunda, kudumisha, na kutumia mfumo huu kunahitaji majukumu tofauti—kwa jukwaa la Zooniverse, timu za mradi, na watu wa kujitolea, ili kuhakikisha kwamba ujumuishaji wa AI/ML katika utafiti shirikishi unabaki kuwa wazi, wa kimaadili, na unaoendeshwa na jamii."
+      }
+    },
+    "principles": {
+      "fifth": "Tumia na uendane na <0>rasilimali zilizopo zinazohusiana za uundaji wa AI/ML</0> na endelea kushirikiana na jamii pana na wadau ili <0>kuunda na kupitisha mbinu bora</0> kuhusu utafiti shirikishi unaohusisha AI/ML.",
+      "first": "Jenga <0>uwazi</0> katika utawala wa mifumo inayohusiana na akili bandia/mtazamo bandia, uundaji wa miradi, na utoaji.",
+      "fourth": "Jitolee kwa mazungumzo yanayoendelea na mradi na jukwaa la <0>mwitikio</0> kwa mitazamo na mazungumzo yanayobadilika kuhusu AI/ML.",
+      "second": "Buni kwa ajili ya uzoefu wa kujitolea na upe kipaumbele <0>uwakala na ridhaa</0> kwa wajitolea katika tendo la kuchagua miradi; fikiria <0>faida</0> na <0>motisha</0> za wajitolea katika miradi inayohusika na AI/ML.",
+      "third": "Kuwezesha <0>uwajibikaji</0> kwa kuonyesha uzingatiaji wa miongozo iliyo wazi kama sharti la kuzindua mradi rasmi wa Zooniverse."
+    },
+    "recs": {
+      "eighth": "<0>Unapofichua matumizi yako yaliyokusudiwa ya matokeo/data ya mradi, fikiria jinsi matumizi yako yaliyokusudiwa yanavyoweza kubadilika baada ya muda.</0> Wajitolea wanaweza kuchagua kushiriki katika mradi wako kulingana na malengo ya mradi na matumizi yaliyokusudiwa ya matokeo/data yaliyoonyeshwa kwenye ukurasa wa Kuhusu. Baadaye, kuna uwezekano gani kwamba utapanua matumizi hayo? ",
+      "fifth": "<0>Ufuatiliaji.</0> Toa maoni kuhusu kiwango cha mafanikio kilichopatikana kadri mifumo ya AI/ML inavyofunzwa. Mbinu hiyo itaamuliwa na timu ya mradi, na inaweza kujumuisha mfano chapisho la Majadiliano, jarida la barua pepe, n.k.",
+      "first": "<0>Buni mradi wako kwa kuzingatia uwakala wa kujitolea (chaguo).</0> Hii inahitaji uwazi na mawasiliano wazi kwa wajitolea kufanya maamuzi sahihi kuhusu kama wanataka kushiriki katika mradi wako. Ikiwa unajumuisha AI/ML katika hatua yoyote ya kazi yako (kabla au baada ya usindikaji, mifumo ya uainishaji wa kibinadamu, n.k.), unahitaji kutoa maelezo mahususi kuhusu jinsi michakato hii inavyofanya kazi, na kwa nini ni muhimu. Kwa mfano, kusema \"tutatumia data inayotokana kufunza modeli\" haitoshi kutoa maelezo.",
+      "fourth": "<0>Dumisha muktadha.</0> Kwa miradi inayowaalika watu wa kujitolea kushiriki au kukagua matokeo yanayotokana na mashine, fikiria kama na jinsi muktadha unavyoweza kuathiri kazi—ikiwa ni pamoja na ubora wa data na ubora wa uzoefu wa watu wa kujitolea. Kwa mfano, ikiwa kazi inawaomba watu wa kujitolea kukagua ubora wa unukuzi wa mashine lakini inajumuisha sehemu tu ya hati (km neno moja au kifungu cha maneno), ikijumuisha kiungo cha picha kamili au hati itahakikisha kwamba watu wa kujitolea wanaweza kuendelea kuingiliana na nyenzo chanzo na maana yake, ikihitajika. Taarifa hii inaweza kujumuishwa ndani ya metadata ya mhusika.",
+      "nineth": "<0>Fikiria fursa na hatari zinazowezekana za kuendesha mradi unaohusisha AI/ML.</0> Tunawahimiza watafiti kuelewa hatari zinazowezekana—pamoja na fursa—kabla ya kuzindua miradi na kuwaelekeza kwenye zana zilizokaguliwa na udhamini uliochapishwa kama vile Ceccaroni et al. (2019), ambayo inatoa utafiti wa hatari na fursa zinazohusiana na matumizi ya AI katika sayansi ya raia, na mapendekezo ya kupunguza hatari.",
+      "second": "<0>Onyesha watu wa kujitolea wapi/lini/kwa nini AI/ML imejumuishwa katika mradi wako.</0> Baadhi ya mtiririko wa kazi ndani ya mradi unaweza kuwa na AI/ML inayohusika/kusaidiwa na mingine si. Hizi zinapaswa kuwekwa lebo wazi katika sehemu ya Jina la Mtiririko wa Kazi, au eneo la Maelezo ya Mtiririko wa Kazi, ili watu wa kujitolea waweze kuchagua ipasavyo (ikiwa wana upendeleo). Ikiwa ulitumia AI/ML kusindika data yako mapema, eleza vipimo vyako vya udhibiti wa ubora ni vipi (ikiwa ni pamoja na ikiwa hii ndiyo sababu yako ya kuendesha mtiririko wa kazi wa uthibitishaji kwenye Zooniverse).",
+      "seventh": "<0>Ubora wa anwani.</0> Eleza jinsi unavyotathmini na kushughulikia athari yoyote inayowezekana kwenye ubora wa data ndani ya mradi wako kutokana na matumizi ya AI/ML. ",
+      "sixth": "<0>Unda njia za kutoa maoni.</0> Mradi wowote wenye kipengele cha AI/ML unapaswa kuwa na njia kwa wajitolea kushiriki maoni yao na wanachama wa timu ya mradi. Kwa mfano, timu zinaweza kutaka kuunda Bodi ya Majadiliano maalum ili kuelezea matumizi ya AI/ML, kujibu maswali, na kutoa taarifa mpya kuhusu mafunzo au matokeo yoyote.",
+      "third": "<0>Fikiria matokeo ya uboreshaji.</0> Unapofikiria 'kupakua' kazi rahisi kwa AI/ML na kuwafanya wanadamu wafanye kazi ngumu/ngumu zaidi, kumbuka kwamba mtiririko wa kazi ulioendelea zaidi unaweza kupunguza ni nani anayeweza/anayestahili kushiriki, isipokuwa kuna njia ya kuingilia. Kazi za mafunzo zinaweza kuhitajika ili kupata ustadi wa kufanya kazi ambazo AI/ML haiwezi kufanya. Mchakato wowote wa njia ya kuingilia au mtiririko wa kazi wa mafunzo unapaswa kuwekwa lebo wazi, ikiwa ni pamoja na mtiririko wa kazi kwa kutumia kipengele cha Maoni ya Zooniverse."
+    },
+    "resources": {
+      "first": "Pata maelezo zaidi kuhusu AI/ML",
+      "fourth": "Mifano ya taarifa za wajibu wa mradi wa Zooniverse AI/ML",
+      "second": "Jifunze zaidi kuhusu maadili na sayansi shirikishi",
+      "third": "Mifano ya miradi ya Zooniverse yenye maelezo ya kina ya matumizi ya AI/ML"
+    },
+    "sidebarLabel": "Sehemu",
+    "title": "Mfumo wa Maadili wa AI wa Zooniverse",
+    "toc": {
+      "descriptions": {
+        "eighth": "Viungo vya taarifa zaidi, ikiwa ni pamoja na machapisho na sera za nje, na mifano kutoka miradi ya Zooniverse ikiwa ni pamoja na maelezo ya AI/ML na kauli za uwajibikaji.",
+        "fifth": "Mapendekezo kwa timu zinazoendesha, au zinazotaka kuendesha, mradi wa Zooniverse unaohusisha AI/ML.",
+        "fourth": "Hatua ambazo timu yetu inachukua ili kurahisisha mapendekezo kwa timu za mradi.",
+        "nineth": "Kwa watu wa kujitolea.",
+        "seventh": "Taarifa kuhusu AI/ML na jinsi inavyotumika (na imekuwa ikitumika) kwenye Zooniverse. Inajumuisha majadiliano ya kwa nini timu za mradi zinahitaji au zinataka kutumia AI/ML, jinsi ya kujua wakati mradi unatumia AI/ML, na zaidi.",
+        "sixth": "Maswali ambayo watafiti wote wanaoendesha miradi ya Zooniverse inayohusisha AI/ML wanapaswa kuwa tayari kuyajibu.",
+        "tenth": "Taarifa zaidi kuhusu mfumo na jinsi ulivyotengenezwa, ikiwa ni pamoja na taarifa kuhusu ni nani aliyehusika katika kuuunda, na jinsi kazi hii ilivyofadhiliwa.",
+        "third": "Kanuni zetu za upangaji zilizo nyuma ya mfumo huu. Zinafupisha malengo makuu ambayo yatasaidia kushughulikia hatari na wasiwasi uliotolewa na wanajamii wetu kuhusu AI/ML."
+      }
+    }
+  },
   "AboutHeader": {
     "links": {
       "about": "Kuhusu",
+      "aiethics": "Maadili ya AI",
       "collaborate": "Shirikiana",
       "contact": "Wasiliana Nasi",
       "donate": "Toa mchango",
@@ -216,6 +409,11 @@
       "answer": "Tunaunga mkono vivinjari vikuu hadi toleo la pili hadi la mwisho.",
       "question": "Zooniverse inasaidia toleo gani la kivinjari?"
     },
+    "item11": {
+      "answer0": "Baadhi ya tafsiri za maudhui ya kiwango cha jukwaa (yaani maandishi yanayoshirikiwa katika kurasa zote za wavuti za Zooniverse kama vile lebo za menyu, vichwa vya habari, vitufe, n.k.) zinatoka kwa watafsiri wa kujitolea. Hata hivyo, pia tumejaribu tafsiri za AI kwenye idadi ndogo ya lugha <0>kwa maandishi ya kiwango cha jukwaa pekee</0>. Tunatambua kwamba ubora wa tafsiri ya AI hutofautiana katika lugha mbalimbali, na kwamba hii inakuja na hatari ya tafsiri kuwa si sahihi. Tunawakaribisha wajitolea kusaidia kuongeza ubora wa tafsiri katika jukwaa letu.",
+      "answer1": "Tafadhali kumbuka kwamba tafsiri ya maandishi ya kiwango cha mradi inasimamiwa na timu za utafiti, na tafsiri yoyote inayotokana na AI ya maandishi mahususi ya mradi inapaswa kufichuliwa na timu, kwa mujibu wa <0>Mfumo wetu wa Maadili ya AI</0>. Maelezo ya ziada kuhusu tafsiri za Zooniverse yanapatikana katika <1>https://help.zooniverse.org/next-steps/translations</1>.",
+      "question": "Nifanye nini nikigundua kuwa tafsiri za kiwango cha jukwaa si sahihi?"
+    },
     "item1": {
       "answer": "Kwa mada nyingi zinazoonyeshwa katika miradi ya Zooniverse, watafiti hawajui jibu sahihi na ndiyo maana wanahitaji msaada wako. Binadamu ni wazuri sana katika kazi za utambuzi wa ruwaza, kwa hivyo kwa ujumla nadhani yako ya kwanza huenda ikawa ndiyo sahihi. Usijali sana kuhusu kufanya makosa ya mara kwa mara - zaidi ya mtu mmoja atakagua kila picha, video au grafu katika mradi. Miradi mingi ya Zooniverse ina kitufe cha Usaidizi, ukurasa wa Maswali Yanayoulizwa Mara kwa Mara (FAQ), na Mwongozo wa Sehemu wenye taarifa zaidi za kukuongoza unapoainisha.",
       "question": "Nitajuaje kama ninafanya hivi kwa usahihi?"
@@ -365,6 +563,38 @@
     "sidebarLabel": "Nidhamu",
     "title": "Machapisho"
   },
+  "ResetPassword": {
+    "CommitResetForm": {
+      "body": "Ingiza nenosiri lako mara mbili ili kulithibitisha, kisha utakuwa tayari kurudi kusaidia katika utafiti halisi.",
+      "infoConfirmation": "Sehemu zote mbili lazima zilingane",
+      "infoPassword": "Angalau herufi 8",
+      "inputConfirmation": "Thibitisha nenosiri jipya",
+      "inputPassword": "Nenosiri jipya",
+      "status": {
+        "errorInvalidInput": "Hitilafu: ingizo batili",
+        "errorPasswordsDoNotMatch": "Hitilafu: manenosiri hayalingani, tafadhali jaribu tena.",
+        "success": "Nenosiri lako limebadilishwa! Utaelekezwa kwenye ukurasa wa <0>kuingia</0> baada ya sekunde chache, tafadhali tumia nenosiri lako jipya."
+      },
+      "submit": "Wasilisha",
+      "titleForInputPattern": "Kiwango cha chini cha herufi 8"
+    },
+    "NoAccessMessage": {
+      "body": "Kwa sasa umeingia. Tafadhali ondoka ikiwa ungependa kuweka upya nenosiri lako."
+    },
+    "RequestResetForm": {
+      "body": "Ingiza anwani yako ya barua pepe nasi tutakutumia kiungo cha kuweka upya nenosiri lako.",
+      "footer": "Ikiwa barua pepe ya kuweka upya haijafika, angalia kwenye folda yako ya barua taka. Ikiwa haipo, jaribu anwani nyingine ya barua pepe ambayo huenda umetumia kujiunga na Zooniverse.",
+      "inputEmail": "Anwani ya barua pepe",
+      "status": {
+        "errorTooManyRequests": "Hitilafu: maombi mengi mno ya kuweka upya nenosiri. Tafadhali jaribu tena baadaye.",
+        "success": "Tumetuma barua pepe yenye kiungo cha kuweka upya nenosiri lako."
+      },
+      "submit": "Tuma"
+    },
+    "common": {
+      "header": "Weka upya Nenosiri"
+    }
+  },
   "Resources": {
     "brand": {
       "heading": "Rasilimali za Chapa",
@@ -393,8 +623,58 @@
     },
     "title": "Rasilimali"
   },
+  "Settings": {
+    "AccountSettings": {
+      "title": "Akaunti"
+    },
+    "EmailSettings": {
+      "title": "Barua pepe"
+    },
+    "ProfileSettings": {
+      "title": "Wasifu"
+    },
+    "common": {
+      "backHome": "Kurudi Nyumbani",
+      "sidebar": "Mipangilio",
+      "title": "Mipangilio ya Mtumiaji"
+    },
+    "forms": {
+      "fields": {
+        "credited_name": {
+          "help": "Hili ndilo jina tutakalotumia kutoa shukrani katika machapisho, mabango, vyeti vya kujitolea, na vifaa vingine.",
+          "label": "Jina Halisi"
+        },
+        "display_name": {
+          "help": "Jinsi jina lako litakavyoonekana kwa wengine kote kwenye jukwaa.",
+          "label": "Jina la Onyesho"
+        }
+      },
+      "optional": "Hiari",
+      "save": "Badilisha",
+      "saveSuccess": "Mabadiliko yamehifadhiwa.",
+      "saveUnnecessary": "Hakuna mabadiliko yatakayohifadhiwa."
+    }
+  },
   "Sidebar": {
     "all": "Zote"
+  },
+  "Unsubscribe": {
+    "form": {
+      "body": {
+        "p1": "Tunaelewa - hakuna mtu anayependa kuendelea kupokea barua pepe ambazo hataki.",
+        "p2": "Ingiza tu anwani yako ya barua pepe hapa nasi tutakuondoa kwenye orodha zetu zote za barua pepe."
+      },
+      "errors": {
+        "general": "Hitilafu imetokea. Tafadhali angalia anwani ya barua pepe na ujaribu tena."
+      },
+      "header": "Jiondoe kwenye orodha ya barua pepe zote za Zooniverse, isipokuwa Talk.",
+      "inputEmail": "Anwani ya barua pepe",
+      "submit": "Wasilisha"
+    },
+    "processed": {
+      "body": "Ukibadilisha mawazo yako, tembelea mipangilio ya akaunti yako ili <0>kusasisha mapendeleo yako ya barua pepe</0>.",
+      "header": "Kujiondoa kwa usajili kumefanikiwa"
+    }
   },
   "Volunteer": {
     "beta": {
@@ -440,6 +720,14 @@
         "third": "Zungumza na wafanyakazi wenzako wa kujitolea na wataalamu"
       }
     },
-    "title": "Kujitolea"
+    "title": "Kujitolea",
+    "translate": {
+      "heading": "Tafsiri Mradi",
+      "paragraphs": {
+        "first": "Watafsiri wa kujitolea husaidia timu za utafiti katika kutafsiri miradi ya Zooniverse ya lugha ya Kiingereza katika lugha zingine, wakisaidia jamii yetu ya kimataifa ya wajitolea. Watafsiri wa mradi hufanya kazi moja kwa moja na timu za mradi ili kuongezwa kwenye mradi wao kama Mtafsiri, ambapo wanaweza kufikia tovuti ya tafsiri ya kiwango cha mradi na kuingiza tafsiri kwa kila sehemu ya mradi.",
+        "second": "Pia tunawakaribisha watu wa kujitolea kusaidia kusahihisha tafsiri zinazozalishwa na AI za maudhui ya kiwango cha jukwaa, yaani maandishi yanayoshirikiwa katika miradi yote kama vile lebo za menyu, vichwa vya habari, vitufe, n.k. Maudhui haya <0>si</0> mahususi kwa mradi, na yanasimamiwa na kudumishwa na timu ya Zooniverse.",
+        "third": "Ikiwa una nia ya kujitolea kama mtafsiri wa mradi, au kusaidia kuhariri tafsiri za kiwango cha jukwaa, tafadhali <0>wasiliana nasi</0>."
+      }
+    }
   }
 }

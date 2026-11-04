@@ -7,9 +7,202 @@
       "returnHome": "Povratak na početnu stranicu"
     }
   },
+  "AIEthics": {
+    "about": {
+      "acknowledgements": {
+        "heading": "Zahvale",
+        "paragraph": "Tim Zooniversea želi zahvaliti sljedećim osobama za njihovo sudjelovanje u virtualnim radionicama koje su dovele do razvoja ovih preporuka:"
+      },
+      "advisors": {
+        "heading": "Savjetnici za projekte"
+      },
+      "funding": {
+        "heading": "Financiranje",
+        "paragraph": "Ovaj rad je podržan od strane Kavli Foundation, broj nagrade SS-2025-GR-05-3064."
+      },
+      "paragraphs": {
+        "first": "Tijekom proteklih 15 godina, istraživački timovi su integrirali strojno učenje (ML) u širok raspon Zooniverse projekata i u različitim fazama. Otprilike jedna trećina svih aktivnih Zooniverse projekata sada na neki način uključuje strojno učenje. Kako su ove tehnologije sazrijevale i svijest javnosti o njihovom postojanju rasla, nedavne povratne informacije volontera Zooniversea istaknule su potrebu za većom transparentnošću u vezi s korištenjem 'AI' na našoj platformi. Nastojali smo riješiti ove probleme uspostavljanjem jasnog, standardiziranog okvira za etičku implementaciju AI/ML u Zooniverse projektima, osiguravajući da istraživači mogu učinkovito komunicirati svoje metodologije uz održavanje povjerenja i suradnje naše volonterske zajednice. Uz financiranje Kavli Foundation stvorili smo prvi <0>etički okvir AI/ML za Zooniverse</0>, koji smo pokrenuli 2026. godine. Taj okvir je ovdje predstavljen i ažurirat će se godišnje, prema potrebi.",
+        "fourth": "Rezultati uključuju: ključna načela koja služe kao okvir i sažimaju sveobuhvatne ciljeve; preporuke za interne akcije koje će platforma Zooniverse poduzeti, a koje će olakšati preporuke za projektne timove; i preporuke koje projektni timovi trebaju poduzeti prilikom uključivanja umjetne inteligencije/strojnog učenja u Zooniverse projekte.",
+        "second": "Kako bismo razvili ovaj okvir, održali smo niz virtualnih radionica u kojima su sudjelovali stručnjaci za predmetnu materiju, vodstvo Zooniversea, voditelji projekata, vanjski istraživači i volonteri. Radionice su se održavale tijekom 2025. godine i usredotočile su se na četiri ključne teme: uspostavljanje najboljih praksi za transparentnost i komunikaciju; identificiranje etičkih pristupa strojnom učenju koji uravnotežuju rizik i priliku; produbljivanje našeg kontekstualnog razumijevanja ovih etičkih pristupa; i razmatranje izazova zaštite podataka u nizu.  ",
+        "third": "Kako bismo uključili uvide šire skupine od one koja je mogla izravno sudjelovati u radionicama, poslali smo ankete cijeloj Zooniverse zajednici. Rezultati tih anketa oblikovali su naš strateški smjer. Nakon svake radionice, sastala se manja skupina kako bi raspravu prevela u ključne teme i praktične ishode. Rezultati su podijeljeni sa svim sudionicima radionice koji su imali priliku dati povratne informacije, ispravke i dopune."
+      },
+      "projectTeamList": {
+        "coord": "Koordinator projekta",
+        "eval": "Facilitator i evaluator",
+        "heading": "Projektni tim",
+        "pi": "Glavni istraživač",
+        "ra": "Istraživački asistenti"
+      }
+    },
+    "actions": {
+      "first": "<0>Usvojite ili prilagodite </0><1>standardni način opisivanja upotrebe umjetne inteligencije/strojnog učenja</1> <0>(u skladu s prevladavajućim jezikom ili postojećom kategorizacijom) unutar platforme Zooniverse.</0> Mnoge druge predložene preporuke ovise o razvoju i uvođenju ove kategorizacije, uključujući pristupe transparentnosti, agenciji i dosljednoj signalizaciji.",
+      "fourth": "<0>Godišnji pregled politike od strane vodstva Zooniversea.</0> Utvrdite redovitu brzinu kojom će se ovi resursi ocjenjivati ​​i/ili ažurirati, npr. godišnje. Obvezali smo se na godišnji pregled i objavit ćemo objavu na blogu ili drugo pisano ažuriranje koje će se podudarati sa svim ažuriranjima ovog okvira kao dio ovog pregleda.",
+      "second": "<0>Posvetite stranicu Zooniverse web stranice informacijama i resursima vezanim uz umjetnu inteligenciju/strojno učenje i njegovu upotrebu na Zooniverseu.</0> Ovo je ta stranica! Na njoj se nalazi gornja kategorizacija, preporuke našeg projektnog tima, kao i više informacija o tome kako se ova tehnologija koristi (i koristila se) na Zooniverseu, koje su prednosti i nedoumice te kako prepoznati kada je projekt koristi.",
+      "third": "<0>Uključite smjernice u interni proces pregleda projekta Zooniverse.</0> Od pokretanja ove stranice, naši interni procesi pregleda ažurirani su kako bi odražavali ovdje navedene preporuke. To će osigurati standardnu ​​praksu za voditelje projekata da dijele informacije o svim obvezama korištenja umjetne inteligencije/strojnog učenja i upravljanja podacima povezanim s projektom, kako bi se osiguralo da potencijalni volonteri imaju pristup tim informacijama."
+    },
+    "faq": {
+      "first": {
+        "answer": "Ne. Istraživači dolaze u Zooniverse jer žele ljudski doprinos svom procesu. Osim ako im nije izričito dano dopuštenje za to, volonteri ne bi smjeli koristiti generativne alate umjetne inteligencije izvan Zooniversea kako bi im pomogli u klasifikacijskim naporima.",
+        "question": "Volonter sam i trebam pomoć s klasifikacijom na projektu. Mogu li koristiti generativne alate umjetne inteligencije poput ChatGPT-a ili Geminija?"
+      },
+      "paragraph": "Ne vidite odgovor na svoje pitanje ovdje? Pošaljite nam svoja pitanja na <0>contact@zooniverse.org</0>! Ažurirat ćemo ovaj popis prema potrebi.",
+      "second": {
+        "answerOne": "Započnite skeniranjem početne stranice projekta, posebno Opisa projekta i Opisa tijeka rada. Ako i dalje niste sigurni, pogledajte stranicu O nama, kao i Vodič(e) projekta. Ako nakon toga i dalje niste sigurni, možete pitati na Talku, ali dio svrhe ovog okvira je osigurati da svi projekti jasno komuniciraju kako koriste (ili ne koriste) ovu tehnologiju.",
+        "answerTwo": "Ako smatrate da neki projekt ne otkriva na odgovarajući način korištenje umjetne inteligencije/strojnog učenja, nadamo se da ćete se osjećati ugodno obratiti istraživačkom timu na Talku i predložiti neke promjene ili izraziti svoju nedoumicu. Ako se ne osjećate ugodno, možete nam poslati i poruku na <0>contact@zooniverse.org</0> i mi ćemo to istražiti. Dio ovog rada uključuje ažuriranje naših internih procesa pregleda, tako da će nam vaše povratne informacije pomoći da znamo jesu li naši novi procesi učinkoviti.",
+        "question": "Želim saznati koristi li Zooniverse projekt umjetnu inteligenciju ili strojno učenje. Kako mogu pronaći te informacije?"
+      }
+    },
+    "fivews": {
+      "list": {
+        "first": "<0>Tko</0> je odgovoran za osiguravanje kvalitete i integriteta podataka? ",
+        "fourth": "<0>Zašto</0> se koristi umjetna inteligencija/strojno učenje? Što se postiže i tko ima koristi? Kako bi istraživanje izgledalo da se umjetna inteligencija/strojno učenje ne koristi?",
+        "second": "**Koje** se tehnike umjetne inteligencije/strojnog učenja primjenjuju?",
+        "third": "<0>Kada</0> i <0>Gdje</0> se u životnom ciklusu prikupljanja, obrade i analize podataka koristi umjetna inteligencija/strojno učenje? U kojim trenucima volonteri ulaze u životni ciklus? Jesu li to dvoje ikada u interakciji? Ako da, kako?"
+      },
+      "paragraph": "Prilikom razvoja novog Zooniverse projekta koji uključuje umjetnu inteligenciju/strojno učenje, istraživači bi trebali razmisliti i biti spremni odgovoriti na sljedeća pitanja. Idealno bi bilo da odgovori na ta pitanja budu dostupni negdje u kopiji projekta (npr. na stranici O nama, u Često postavljanim pitanjima itd.)."
+    },
+    "heading": {
+      "eighth": "Resursi",
+      "fifth": "Preporuke za projekt",
+      "fifthext": "Preporuke za projektne timove",
+      "first": "Preambula",
+      "fourth": "Interne akcije",
+      "fourthext": "Interne mjere koje je poduzeo Zooniverse",
+      "nineth": "Često postavljana pitanja",
+      "ninethext": "Često postavljana pitanja",
+      "second": "Sadržaj",
+      "seventh": "Umjetna inteligencija/strojno učenje na Zooniverseu",
+      "seventhext": "Umjetna inteligencija i strojno učenje na Zooniverseu",
+      "sixth": "5 W-ova",
+      "sixthext": "5 ključnih stvari za projekte angažirane u umjetnoj inteligenciji/strojnom učenju",
+      "tenth": "O ovom okviru",
+      "third": "Ključna načela"
+    },
+    "onZooniverse": {
+      "fifthQ": {
+        "heading": "Kako mogu znati kada projekt koristi umjetnu inteligenciju ili strojno učenje?",
+        "list": {
+          "first": "Odgovornost je projektnih timova da negdje na početnoj stranici jasno naznače koristi li njihov projekt umjetnu inteligenciju/strojno učenje. Osim toga, ako projekt ima više tijekova rada, timovi bi trebali razlikovati tijekove rada koji uključuju umjetnu inteligenciju/strojno učenje od onih koji ne uključuju.",
+          "fourth": "Ako ikada niste sigurni koristi li neki projekt umjetnu inteligenciju/strojno učenje, slobodno objavite na forumima za razgovor o projektu i izravno pitajte istraživački tim.",
+          "second": "Timovi također moraju detaljno objasniti zašto i kako su umjetna inteligencija/strojno učenje integrirani u njihove projekte. Ove će se informacije pojaviti na stranici O projektu.",
+          "third": "Ako je cilj projekta treniranje AI/ML modela, od timova se očekuje da dostave ažuriranja o ovom procesu kao dio stranice s rezultatima, kada budu dostupna."
+        }
+      },
+      "firstQ": {
+        "heading": "Što je umjetna inteligencija? Što je strojno učenje?",
+        "list": {
+          "first": "Ne postoji jednostavna, jedinstvena definicija, ali umjetna inteligencija (UI) se općenito odnosi na računalne sustave koji su dizajnirani za oponašanje ljudske misli. UI je širok pojam koji obuhvaća širok raspon tehnologija i primjena. Pojmovi se često koriste naizmjenično, ali strojno učenje (ML) je podskup UI koji koristi podatke i algoritme za obuku računala za izradu klasifikacija, generiranje predviđanja i otkrivanje sličnosti ili trendova u velikim skupovima podataka. (Definicija prilagođena od Fortsona i suradnika (2024.) i <0>https://www.nasa.gov/what-is-artificial-intelligence)</0>.",
+          "second": "Postoji niz načina na koje se metode i pristupi umjetne inteligencije/strojnog učenja kategoriziraju na temelju korištene tehnologije i mogućnosti te tehnologije.",
+          "third": "Djelomično zato što tehnologija napreduje tako brzo, lako je biti nejasno što umjetna inteligencija radi. Transparentnost unutar Zooniverse projekata o tome što točno ova tehnologija doprinosi i zašto može pomoći u izbjegavanju nesporazuma ili zbrke, a istovremeno stvara mjere odgovornosti za projektne timove."
+        }
+      },
+      "fourthQ": {
+        "heading": "Zašto projektni timovi trebaju ili žele koristiti umjetnu inteligenciju i strojno učenje na Zooniverseu?",
+        "list": {
+          "first": "Čak i uz moć Zooniversea, mnogi projektni timovi rade s ogromnim i složenim skupovima podataka. U većini slučajeva, istraživači otkrivaju da ljudi i strojevi koji rade zajedno proizvode podatke više kvalitete nego samostalno. Sustavi čovjek-stroj također mogu pomoći u ubrzavanju rokova projekta i omogućiti istraživačima da postignu rezultate brže nego samo s ljudskom klasifikacijom.",
+          "second": "Na <0>stranici publikacija Zooniversea</0> dostupno je više publikacija koje detaljno opisuju uspjehe u kombiniranju klasifikacije ljudi i strojeva."
+        }
+      },
+      "secondQ": {
+        "heading": "Kako se umjetna inteligencija i strojno učenje koriste na Zooniverseu?",
+        "list": {
+          "fifth": "Ako projektni timovi odluče koristiti umjetnu inteligenciju za generiranje sadržaja projekta, dužni su otkriti te informacije na stranici koja sadrži sadržaj generiran umjetnom inteligencijom. To može uključivati ​​npr. tekst projekta, avatare, medijske slike, prijevode i/ili podatke o projektu.",
+          "first": "Općenito, umjetna inteligencija/strojno učenje nisu uključeni u platformu izvan specifičnih projektnih upotreba. Tim Zooniversea obvezuje se na transparentnost i jasno označavanje u svim budućim slučajevima gdje se umjetna inteligencija/strojno učenje koristi izvan specifičnih projekata.",
+          "fourth": {
+            "subFifth": "<0>Volonteri pregledavaju</0> neobične ili anomalne subjekte koji su zbunjivali stroj.",
+            "subFirst": "<0>Nema umjetne inteligencije/strojnog učenja.</0> Volonteri klasificiraju subjekte. Ne postoji prethodna ili namjeravana uloga u umjetnoj inteligenciji/strojnom učenju.",
+            "subFourth": "<0>AI/ML se provjerava.</0> Volonteri pregledavaju i ispravljaju strojno generirane klasifikacije, pomažući u poboljšanju AI/ML-a tijekom vremena.",
+            "subSecond": "<0>AI/ML prethodno sortira predmete.</0> Volonteri klasificiraju predmete koje su strojevi prethodno sortirali ili filtrirali. Primjeri uključuju uklanjanje praznih mjesta (slika bez relevantnog sadržaja) i izradu klasifikacija visoke razine kako bi volonteri mogli usredotočiti svoje napore na zahtjevnije zadatke.",
+            "subThird": "<0>Obuka za umjetnu inteligenciju/strojno učenje.</0> Volonteri klasificiraju subjekte, a strojevi uče iz obrazaca s ciljem da umjetna inteligencija/strojno učenje preuzme zadatke.",
+            "sublist": "Neki primjeri:"
+          },
+          "second": "Upotreba umjetne inteligencije/strojnog učenja razlikovat će se ovisno o projektu.",
+          "third": "Umjetna inteligencija/strojno učenje integrirani su u neke specifične Zooniverse projekte kako bi nadopunili istraživačku podršku koju pružaju volonteri, obrađujući podatke prije ili nakon što volonteri završe svoje zadatke. Neki projekti uključuju elemente aktivnog učenja koji podržavaju metode umjetne inteligencije/strojnog učenja s ljudskim djelovanjem, koje uključuju doprinos volontera u automatizirane procese kako bi se povećala kvaliteta rezultata."
+        }
+      },
+      "seventhQ": {
+        "heading": "Što je s umjetnom inteligencijom i strojnim učenjem izvan Zooniversea? Uključuju li se moje klasifikacije u inicijative umjetne inteligencije/strojnog učenja koje nisu povezane s Zooniverseom?",
+        "list": {
+          "fifth": "Očekuje se da će projektni timovi podijeliti svoje planove za korištenje i pohranu podataka na stranici O projektu.",
+          "first": "Mi, kao Zooniverse zajednica, imamo kontrolu nad time kako koristimo ili ne koristimo umjetnu inteligenciju/strojno učenje na platformi i u projektima. Međutim, imamo malo kontrole nad time kako drugi mogu koristiti podatke projekta, posebno nakon što budu objavljeni javnosti.",
+          "fourth": "Kako bi smanjili nenamjernu upotrebu podataka projekta (npr. u komercijalne svrhe), neki timovi odlučuju primijeniti ugovore o licenciranju podataka na svoje podatke projekta (kao što je npr. <0>Creative Commons</0>) ili ih dijeliti samo na zahtjev.",
+          "second": "Trenutne Zooniverseove <0>Politike za izradu projekata</0> navode da projektni timovi moraju „učiniti svoje klasifikacijske podatke otvorenima nakon vlasničkog razdoblja, koje obično traje dvije godine od pokretanja projekta“.",
+          "sixth": "Ako niste sigurni u planove projekta za dijeljenje podataka i/ili licenciranje, slobodno objavite na projektnim oglasnim pločama i izravno pitajte istraživački tim.",
+          "third": "Otvoreni podaci omogućuju reciprocitet, trenutno zadovoljstvo i brzu upotrebu podataka za donošenje odluka ili poduzimanje radnji. Također mogu pomoći u očuvanju podataka, jer je manja vjerojatnost da će se podaci izgubiti ako se čuvaju u repozitoriju ili ako su drugi napravili kopije. Međutim, to također znači da druge osobe, organizacije ili tvrtke mogu koristiti podatke proizvedene putem Zooniverse projekata iz razloga koji nisu navedeni istraživački ciljevi."
+        }
+      },
+      "sixthQ": {
+        "heading": "Kako Zooniverse osigurava da se ove tehnologije koriste sigurno i etički?",
+        "list": {
+          "first": "Zooniverse je proveo <0>18-mjesečni rad sa zainteresiranim stranama i stručnjacima</0> kako bi definirao što to znači za platformu. Rezultirajući <1>Ključna načela</1>, <2>Interne mjere koje je poduzeo Zooniverse</2> i <3>Preporuke za projektne timove</3> predstavljaju naš pristup.",
+          "second": "Posvećeni smo kontinuiranoj procjeni ovih struktura kako bismo osigurali njihovu učinkovitost, posebno kako se tehnologije i potencijalni slučajevi upotrebe na Zooniverseu nastavljaju širiti. Naše preporuke uključuju godišnji pregled vlastitih politika etike umjetne inteligencije kako bismo osigurali da ostanu relevantne za naše volonterske i istraživačke zajednice."
+        }
+      },
+      "thirdQ": {
+        "heading": "Koje su prednosti i nedoumice u vezi s korištenjem umjetne inteligencije i strojnog učenja na Zooniverseu?",
+        "list": {
+          "first": "Umjetna inteligencija/strojno učenje mogu povećati brzinu i snagu naše sposobnosti generiranja, obrade i analize podataka. Zauzvrat, možemo postavljati nova pitanja i brže dobivati ​​odgovore.",
+          "fourth": "Razvoj i korištenje nekih vrsta umjetne inteligencije/strojnog učenja mogu biti energetski i resursno intenzivni.",
+          "second": "Delegiranje određenih zadataka strojevima može omogućiti ljudima da se usredotoče na kreativnije ili složenije zadatke. Naše preporuke napominju da projektni timovi trebaju paziti da ne pretjeraju s optimizacijom, budući da je sudjelovanje na početnoj razini ključno za široku dostupnost projekata.",
+          "third": "Bitno je uključiti ljudski nadzor u nekoj fazi kako bi se procijenila i osigurala kvaliteta podataka."
+        }
+      }
+    },
+    "preamble": {
+      "list": {
+        "first": "Platforma Zooniverse odgovorna je za <0>razvoj</0> i <0>podržavanje</0> ovih preporuka.",
+        "second": "Projektni timovi odgovorni su za <0>tumačenje</0> i <0>provedbu</0> preporuka. ",
+        "third": "Volonteri imaju ovlasti <0>potvrditi</0> ili <0>propitati</0> provedbu putem povratnih informacija ili korištenja vlastite sposobnosti (npr. odabirom da ne sudjeluju u projektu)."
+      },
+      "paragraphs": {
+        "first": "Ova stranica predstavlja Zooniverseov etički okvir za umjetnu inteligenciju, uključujući preporuke za provođenje projekata na Zooniverseu koji se bave umjetnom inteligencijom (AI) i/ili strojnim učenjem (ML). Ovo je živi okvir i predani smo poboljšanju i ponavljanju kako primamo povratne informacije i kako se tehnološki, društveni i kulturni konteksti nastavljaju razvijati. Ova stranica prvenstveno je namijenjena pružanju informacija volonterima Zooniversea. Projektni timovi mogu pročitati <0>posebne smjernice u našoj Zooniverse dokumentaciji</0>.",
+        "second": "Iako se primjena 'AI' tehnologije na Zooniverseu tradicionalno odvijala kroz specifične ML procese („algoritamski alati i tehnologije koji uče iz postojećih podataka kako bi rješavali zadatke“), pojam 'AI' postao je sveobuhvatni naziv za opis ove vrste automatizacije. AI se općenito odnosi na „računala koja mogu oponašati ljudsku misao“, a strojno učenje je podskup ovog koncepta. U ovom okviru koristit ćemo 'AI/ML' za označavanje ovih procesa, kako bismo široko obuhvatili niz metoda, kao i zadržali određenu razliku između ova dva pojma.",
+        "third": "Stvaranje, održavanje i korištenje ovog okvira zahtijeva različite odgovornosti - za platformu Zooniverse, projektne timove i volontere, kako bi se osiguralo da integracija umjetne inteligencije/strojnog učenja u participativno istraživanje ostane transparentna, etična i vođena zajednicom."
+      }
+    },
+    "principles": {
+      "fifth": "Koristiti i uskladiti se s <0>postojećim srodnim resursima za oblikovanje umjetne inteligencije/strojnog učenja</0> te nastaviti surađivati ​​sa širim zajednicama i dionicima kako bi se <0>razvile i usvojile najbolje prakse</0> oko participativnih istraživanja usmjerenih na umjetnu inteligenciju/strojno učenje.",
+      "first": "Ugradite <0>transparentnost</0> u upravljanje platformama, razvoj projekata i isporuku povezanih s umjetnom inteligencijom/strojnim učenjem.",
+      "fourth": "Posvetite se kontinuiranom dijalogu i *reaktivnosti* projekata i platformi na promjenjive stavove i razgovore o umjetnoj inteligenciji/strojnom učenju.",
+      "second": "Osmislite za volontersko iskustvo i dajte prioritet <0>djelovanju i pristanku</0> volontera prilikom odabira projekata; uzmite u obzir <0>koristi za</0> i <0>motivacije</0> volontera u projektima koji uključuju umjetnu inteligenciju/strojno učenje.",
+      "third": "Olakšajte <0>odgovornost</0> demonstriranjem pridržavanja jasnih smjernica kao preduvjeta za pokretanje službenog Zooniverse projekta."
+    },
+    "recs": {
+      "eighth": "<0>Prilikom otkrivanja namjeravane upotrebe rezultata/podataka projekta, razmislite o tome kako bi se vaša namjeravana upotreba mogla mijenjati tijekom vremena.</0> Volonteri mogu odlučiti sudjelovati u vašem projektu na temelju ciljeva projekta i namjeravane upotrebe rezultata/podataka navedene na stranici O nama. Kasnije, kakve su šanse da ćete proširiti tu upotrebu? ",
+      "fifth": "<0>Praćenje.</0> Pružite povratne informacije o stupnju uspjeha postignutom tijekom obuke AI/ML modela. Metodu će odrediti projektni tim, a može uključivati ​​npr. objavu u Talku, e-mail bilten itd.",
+      "first": "<0>Osmislite svoj projekt imajući na umu volonterski izbor (agenciju).</0> To zahtijeva transparentnost i jasnu komunikaciju kako bi volonteri mogli donositi informirane odluke o tome žele li sudjelovati u vašem projektu. Ako uključujete umjetnu inteligenciju/strojno učenje u bilo kojoj fazi svog rada (prethodna ili naknadna obrada, sustavi klasifikacije s ljudskim djelovanjem itd.), morate navesti konkretne detalje o tome kako ti procesi funkcioniraju i zašto su potrebni. Na primjer, reći „koristit ćemo dobivene podatke za obuku modela“ nije dovoljno detaljno.",
+      "fourth": "<0>Zadržite kontekst.</0> Za projekte koji pozivaju volontere da se uključe u strojno generirane rezultate ili ih pregledaju, razmotrite može li i kako kontekst utjecati na zadatak - uključujući i kvalitetu podataka i kvalitetu volonterskog iskustva. Na primjer, ako zadatak traži od volontera da pregledaju kvalitetu strojnih transkripcija, ali uključuje samo dio dokumenta (npr. jednu riječ ili frazu), uključivanje poveznice na cijelu sliku ili dokument osigurat će da volonteri mogu nastaviti interakciju s izvornim materijalom i njegovim značenjem, ako je to potrebno. Ove informacije mogu se uključiti u metapodatke subjekta.",
+      "nineth": "<0>Razmotrite i prilike i potencijalne rizike vođenja projekta koji se bavi umjetnom inteligencijom/strojnim učenjem.</0> Potičemo istraživače da razumiju potencijalne rizike – uz prilike – prije pokretanja projekata te ih upućujemo na provjerene alate i objavljene znanstvene radove poput Ceccaroni i suradnika (2019.), koji predstavljaju pregled rizika i prilika povezanih s korištenjem umjetne inteligencije u građanskoj znanosti te preporuke za ublažavanje rizika.",
+      "second": "<0>Pokažite volonterima gdje/kada/zašto je umjetna inteligencija/strojno učenje uključena u vaš projekt.</0> Neki tijekovi rada unutar projekta mogu biti uključeni/potpomognuti umjetnom inteligencijom/strojnim učenjem, a drugi ne. To bi trebalo biti jasno označeno u polju Naziv tijeka rada ili u području Opis tijeka rada kako bi volonteri mogli odabrati u skladu s tim (ako imaju preferenciju). Ako ste koristili umjetnu inteligenciju/strojno učenje za prethodnu obradu podataka, opišite koje su vaše metrike kontrole kvalitete (uključujući i je li to vaš razlog za pokretanje tijeka rada za validaciju na Zooniverseu).",
+      "seventh": "<0>Obratite pažnju na kvalitetu.</0> Opišite kako procjenjujete i rješavate svaki potencijalni utjecaj na kvalitetu podataka unutar vašeg projekta zbog korištenja umjetne inteligencije/strojnog učenja. ",
+      "sixth": "<0>Stvorite putove za povratne informacije.</0> Svaki projekt s komponentom umjetne inteligencije/strojnog učenja trebao bi imati put za volontere da podijele svoje povratne informacije s članovima projektnog tima. Na primjer, timovi mogu htjeti stvoriti namjensku ploču za razgovor kako bi opisali upotrebu umjetne inteligencije/strojnog učenja, odgovorili na pitanja i pružili ažuriranja o bilo kojoj obuci ili rezultatima.",
+      "third": "<0>Razmotrite posljedice optimizacije.</0> Prilikom razmatranja 'prebacivanja' jednostavnih zadataka na umjetnu inteligenciju/strojno učenje i prepuštanja težim/složenijim zadacima ljudima, imajte na umu da napredniji tijekovi rada mogu suziti krug onih koji su sposobni/kvalificirani za sudjelovanje, osim ako ne postoji uvodni proces. Zadaci obuke mogu biti potrebni kako bi se stekla vještina za obavljanje zadataka koje umjetna inteligencija/strojno učenje ne mogu obaviti. Svaki uvodni proces ili tijek rada obuke treba biti jasno označen, uključujući tijekove rada koji koriste značajku Zooniverse Feedback."
+    },
+    "resources": {
+      "first": "Saznajte više o umjetnoj inteligenciji/strojnom učenju",
+      "fourth": "Primjeri izjava o odgovornosti za umjetnu inteligenciju/strojno učenje projekta Zooniverse",
+      "second": "Saznajte više o etici i participativnoj znanosti",
+      "third": "Primjeri Zooniverse projekata s detaljnim objašnjenjima korištenja umjetne inteligencije/strojnog učenja"
+    },
+    "sidebarLabel": "Odjeljak",
+    "title": "Etički okvir Zooniverse AI-a",
+    "toc": {
+      "descriptions": {
+        "eighth": "Poveznice na više informacija, uključujući vanjske publikacije i politike te primjere iz Zooniverse projekata, uključujući objašnjenja umjetne inteligencije/strojnog učenja i izjave o odgovornosti.",
+        "fifth": "Preporuka za timove koji vode ili žele voditi Zooniverse projekt koji uključuje umjetnu inteligenciju/strojno učenje.",
+        "fourth": "Radnje koje naš tim poduzima kako bi olakšao preporuke za projektne timove.",
+        "nineth": "Za volontere.",
+        "seventh": "Informacije o umjetnoj inteligenciji/strojnom učenju i kako se koristi (i koristio je) na Zooniverseu. Uključuje raspravu o tome zašto projektni timovi trebaju ili žele koristiti umjetnu inteligenciju/strojno učenje, kako znati kada projekt koristi umjetnu inteligenciju/strojno učenje i još mnogo toga.",
+        "sixth": "Pitanja na koja bi svi istraživači koji vode projekte Zooniversea povezane s umjetnom inteligencijom/strojnim učenjem trebali biti spremni odgovoriti.",
+        "tenth": "Više informacija o okviru i načinu na koji je razvijen, uključujući informacije o tome tko je bio uključen u njegovo stvaranje i kako je ovaj rad financiran.",
+        "third": "Naši organizacijski principi koji stoje iza ovog okvira. Oni sažimaju sveobuhvatne ciljeve koji će pomoći u rješavanju rizika i zabrinutosti koje su izrazili članovi naše zajednice u vezi s umjetnom inteligencijom/strojnim učenjem."
+      }
+    }
+  },
   "AboutHeader": {
     "links": {
       "about": "Oko",
+      "aiethics": "Etika umjetne inteligencije",
       "collaborate": "Suradnja",
       "contact": "Kontaktirajte nas",
       "donate": "Donirajte",
@@ -216,6 +409,11 @@
       "answer": "Podržavamo glavne preglednike do pretposljednje verzije.",
       "question": "Koju verziju preglednika podržava Zooniverse?"
     },
+    "item11": {
+      "answer0": "Neki prijevodi sadržaja na razini platforme (tj. teksta koji se dijeli na svim Zooniverse web stranicama, kao što su oznake izbornika, zaglavlja, gumbi itd.) dolaze od volontera prevoditelja. Međutim, testirali smo i AI prijevode na malom broju jezika <0>samo za tekst na razini platforme</0>. Svjesni smo da se kvaliteta AI prijevoda razlikuje ovisno o jeziku i da to nosi rizik od netočnih prijevoda. Pozdravljamo volontere koji će pomoći u povećanju kvalitete prijevoda na našoj platformi.",
+      "answer1": "Imajte na umu da prijevod teksta na razini projekta obavljaju istraživački timovi, a svaki prijevod teksta specifičnog za projekt koji generira umjetna inteligencija tim treba otkriti u skladu s našim <0>Okvirom etike umjetne inteligencije</0>. Dodatne informacije o prijevodima Zooniversea dostupne su na <1>https://help.zooniverse.org/next-steps/translations</1>.",
+      "question": "Što trebam učiniti ako primijetim da su prijevodi na razini platforme netočni?"
+    },
     "item1": {
       "answer": "Za većinu subjekata prikazanih u Zooniverse projektima, istraživači ne znaju točan odgovor i zato im je potrebna vaša pomoć. Ljudi su jako dobri u zadacima prepoznavanja uzoraka, tako da je općenito vaša prva pretpostavka vjerojatno točna. Ne brinite previše ako povremeno napravite pogrešku - više od jedne osobe pregledat će svaku sliku, videozapis ili graf u projektu. Većina Zooniverse projekata ima gumb Pomoć, stranicu s često postavljanim pitanjima (FAQ) i Terenski vodič s više informacija koje će vas voditi pri klasifikaciji.",
       "question": "Kako da znam radim li ovo ispravno?"
@@ -365,6 +563,38 @@
     "sidebarLabel": "Disciplina",
     "title": "Publikacije"
   },
+  "ResetPassword": {
+    "CommitResetForm": {
+      "body": "Dvaput unesite lozinku da biste je potvrdili, a zatim ćete biti spremni vratiti se pomaganju u stvarnom istraživanju.",
+      "infoConfirmation": "Oba polja se moraju podudarati",
+      "infoPassword": "Najmanje 8 znakova",
+      "inputConfirmation": "Potvrdite novu lozinku",
+      "inputPassword": "Nova lozinka",
+      "status": {
+        "errorInvalidInput": "Pogreška: nevažeći unos",
+        "errorPasswordsDoNotMatch": "Greška: lozinke se ne podudaraju, pokušajte ponovno.",
+        "success": "Vaša je lozinka promijenjena! Za nekoliko sekundi bit ćete preusmjereni na <0>stranicu za prijavu</0>, molimo vas da koristite svoju novu lozinku."
+      },
+      "submit": "Pošalji",
+      "titleForInputPattern": "Minimalno 8 znakova"
+    },
+    "NoAccessMessage": {
+      "body": "Trenutno ste prijavljeni. Molimo vas da se odjavite ako želite resetirati lozinku."
+    },
+    "RequestResetForm": {
+      "body": "Unesite svoju adresu e-pošte i poslat ćemo vam poveznicu za resetiranje lozinke.",
+      "footer": "Ako e-poruka za resetiranje nije stigla, pogledajte u mapu neželjene pošte. Ako je nema tamo, pokušajte s drugom adresom e-pošte koju ste možda koristili za pridruživanje Zooniverseu.",
+      "inputEmail": "E-mail adresa",
+      "status": {
+        "errorTooManyRequests": "Pogreška: previše zahtjeva za resetiranje lozinke. Pokušajte ponovno kasnije.",
+        "success": "Upravo smo vam poslali e-poruku s poveznicom za resetiranje lozinke."
+      },
+      "submit": "Poslati"
+    },
+    "common": {
+      "header": "Poništi lozinku"
+    }
+  },
   "Resources": {
     "brand": {
       "heading": "Resursi robne marke",
@@ -393,8 +623,58 @@
     },
     "title": "Resursi"
   },
+  "Settings": {
+    "AccountSettings": {
+      "title": "Račun"
+    },
+    "EmailSettings": {
+      "title": "E-pošta"
+    },
+    "ProfileSettings": {
+      "title": "Profil"
+    },
+    "common": {
+      "backHome": "Natrag kući",
+      "sidebar": "Postavke",
+      "title": "Korisničke postavke"
+    },
+    "forms": {
+      "fields": {
+        "credited_name": {
+          "help": "Ovo je ime koje ćemo koristiti za priznanje u publikacijama, plakatima, volonterskim potvrdama i drugim materijalima.",
+          "label": "Pravo ime"
+        },
+        "display_name": {
+          "help": "Kako će se vaše ime prikazivati ​​drugima na platformi.",
+          "label": "Prikazno ime"
+        }
+      },
+      "optional": "Izborno",
+      "save": "Promijeniti",
+      "saveSuccess": "Promjene spremljene.",
+      "saveUnnecessary": "Nema promjena za spremanje."
+    }
+  },
   "Sidebar": {
     "all": "Sve"
+  },
+  "Unsubscribe": {
+    "form": {
+      "body": {
+        "p1": "Razumijemo - nitko ne voli stalno primati e-poštu koju ne želi.",
+        "p2": "Samo unesite svoju adresu e-pošte ovdje i odjavit ćemo vas sa svih naših popisa e-pošte."
+      },
+      "errors": {
+        "general": "Nešto je pošlo po zlu. Molimo provjerite adresu e-pošte i pokušajte ponovno."
+      },
+      "header": "Odjavite se sa svih Zooniverse e-poruka, osim Talk-a.",
+      "inputEmail": "E-mail adresa",
+      "submit": "Pošalji"
+    },
+    "processed": {
+      "body": "Ako se predomislite, posjetite postavke računa kako biste <0>ažurirali postavke e-pošte</0>.",
+      "header": "Odjava uspješna"
+    }
   },
   "Volunteer": {
     "beta": {
@@ -440,6 +720,14 @@
         "third": "Razgovarajte s kolegama volonterima i stručnjacima"
       }
     },
-    "title": "Volonter"
+    "title": "Volonter",
+    "translate": {
+      "heading": "Prevedi projekt",
+      "paragraphs": {
+        "first": "Volonteri prevoditelji pomažu istraživačkim timovima u prevođenju projekata Zooniverse s engleskog jezika na druge jezike, pomažući našoj globalnoj zajednici volontera. Prevoditelji projekata izravno surađuju s projektnim timovima kako bi bili dodani njihovom projektu kao prevoditelji, nakon čega mogu pristupiti web stranici za prijevode na razini projekta i unijeti prijevode za svaki dio projekta.",
+        "second": "Također pozdravljamo volontere koji će pomoći u ispravljanju prijevoda sadržaja na razini platforme generiranih umjetnom inteligencijom, tj. teksta koji se dijeli na svim projektima, kao što su oznake izbornika, zaglavlja, gumbi itd. Ovaj sadržaj <0>nije</0> specifičan za projekt, već ga upravlja i održava Zooniverse tim.",
+        "third": "Ako ste zainteresirani za volontiranje kao prevoditelj na projektu ili za pomoć u uređivanju prijevoda na razini platforme, molimo vas da nas <0>kontaktirate</0>."
+      }
+    }
   }
 }

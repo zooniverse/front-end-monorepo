@@ -7,9 +7,202 @@
       "returnHome": "Terug naar de homepage"
     }
   },
+  "AIEthics": {
+    "about": {
+      "acknowledgements": {
+        "heading": "Dankbetuigingen",
+        "paragraph": "Het Zooniverse-team wil de volgende personen bedanken voor hun deelname aan de virtuele workshops die hebben geleid tot de ontwikkeling van deze aanbevelingen:"
+      },
+      "advisors": {
+        "heading": "Projectadviseurs"
+      },
+      "funding": {
+        "heading": "Financiering",
+        "paragraph": "Dit werk wordt ondersteund door de Kavli Foundation, subsidienummer SS-2025-GR-05-3064."
+      },
+      "paragraphs": {
+        "first": "De afgelopen 15 jaar hebben onderzoeksteams machine learning (ML) geïntegreerd in een breed scala aan Zooniverse-projecten, in verschillende stadia. Ongeveer een derde van alle actieve Zooniverse-projecten maakt nu op de een of andere manier gebruik van machine learning. Naarmate deze technologieën volwassener zijn geworden en het publieke bewustzijn van hun bestaan ​​is toegenomen, wees recente feedback van Zooniverse-vrijwilligers op de behoefte aan meer transparantie met betrekking tot het gebruik van 'AI' op ons platform. We wilden deze zorgen aanpakken door een duidelijk, gestandaardiseerd kader te creëren voor de ethische implementatie van AI/ML in Zooniverse-projecten. Dit kader zorgt ervoor dat onderzoekers hun methodologieën effectief kunnen communiceren, terwijl het vertrouwen en de samenwerking binnen onze vrijwilligersgemeenschap behouden blijven. Met financiering van de Kavli Foundation hebben we het allereerste <0>AI/ML-ethiekkader voor Zooniverse</0> ontwikkeld, dat we in 2026 hebben gelanceerd. Dit kader wordt hier gepresenteerd en zal jaarlijks, indien nodig, worden bijgewerkt.",
+        "fourth": "De resultaten omvatten: kernprincipes die als raamwerk dienen en de overkoepelende doelen samenvatten; aanbevelingen voor interne acties die het Zooniverse-platform zal ondernemen om de aanbevelingen voor projectteams te faciliteren; en aanbevelingen voor projectteams om te volgen bij de integratie van AI/ML in Zooniverse-projecten.",
+        "second": "Om dit raamwerk te ontwikkelen, organiseerden we een reeks virtuele workshops met vakdeskundigen, leidinggevenden van Zooniverse, projectleiders, externe onderzoekers en vrijwilligers. De workshops vonden plaats gedurende 2025 en waren gericht op vier belangrijke thema's: het vaststellen van best practices voor transparantie en communicatie; het identificeren van ethische benaderingen van machine learning die een balans vinden tussen risico en kansen; het verdiepen van ons contextuele begrip van deze ethische benaderingen; en het overwegen van de uitdagingen van gegevensbescherming in de latere fasen van het proces.  ",
+        "third": "Om inzichten te verkrijgen van een bredere groep dan die direct aan de workshops kon deelnemen, verstuurden we enquêtes naar de gehele Zooniverse-gemeenschap. De resultaten van deze enquêtes bepaalden onze strategische richting. Na elke workshop kwam een ​​kleinere groep bijeen om de discussie te vertalen naar belangrijke thema's en concrete actiepunten. De resultaten werden gedeeld met alle workshopdeelnemers, die de mogelijkheid kregen om feedback, correcties en aanvullingen te geven."
+      },
+      "projectTeamList": {
+        "coord": "Projectcoördinator",
+        "eval": "Begeleider en evaluator",
+        "heading": "Projectteam",
+        "pi": "Hoofdonderzoeker",
+        "ra": "Onderzoeksassistenten"
+      }
+    },
+    "actions": {
+      "first": "<0>Neem een ​​standaardmanier van beschrijven van AI/ML-gebruik aan of pas deze aan</0><1> (in overeenstemming met de gangbare taal of bestaande categorisatie) binnen het Zooniverse-platform.</0> Veel andere voorgestelde aanbevelingen zijn afhankelijk van de ontwikkeling en uitrol van deze categorisatie, waaronder benaderingen voor transparantie, zeggenschap en consistente signalering.",
+      "fourth": "<0>Jaarlijkse evaluatie van het beleid door het Zooniverse-managementteam.</0> Stel een vast tempo vast waarin deze middelen worden geëvalueerd en/of bijgewerkt, bijvoorbeeld jaarlijks. We hebben ons gecommitteerd aan een jaarlijkse evaluatie en zullen een blogbericht of andere schriftelijke update publiceren die samenvalt met eventuele wijzigingen die in dit kader worden aangebracht als onderdeel van deze evaluatie.",
+      "second": "<0>Wijd een pagina van de Zooniverse-website aan informatie en bronnen met betrekking tot AI/ML en het gebruik ervan op Zooniverse.</0> Dit is die pagina! Hier vindt u de bovenstaande categorisatie, de aanbevelingen van ons projectteam, en meer informatie over hoe deze technologie op Zooniverse wordt (en is gebruikt), wat de voordelen en aandachtspunten zijn en hoe u kunt herkennen wanneer een project deze technologie gebruikt.",
+      "third": "<0>Neem richtlijnen op in het interne projectbeoordelingsproces van Zooniverse.</0> Sinds de lancering van deze pagina zijn onze interne beoordelingsprocessen bijgewerkt om de hier vermelde aanbevelingen te weerspiegelen. Dit zorgt ervoor dat projectleiders standaardinformatie delen over elk projectgerelateerd gebruik van AI/ML en verplichtingen op het gebied van gegevensbeheer, zodat potentiële vrijwilligers toegang hebben tot deze informatie."
+    },
+    "faq": {
+      "first": {
+        "answer": "Nee. Onderzoekers komen naar Zooniverse omdat ze menselijke input in hun proces willen. Tenzij expliciet toestemming is verleend, mogen vrijwilligers geen generatieve AI-tools van buiten Zooniverse gebruiken ter ondersteuning van hun classificatie-inspanningen.",
+        "question": "Ik ben vrijwilliger en heb hulp nodig bij het classificeren van een project. Kan ik hiervoor generatieve AI-tools zoals ChatGPT of Gemini gebruiken?"
+      },
+      "paragraph": "Staat uw vraag hier niet beantwoord? Stuur uw vragen naar <0>contact@zooniverse.org</0>! We zullen deze lijst indien nodig bijwerken.",
+      "second": {
+        "answerOne": "Begin met het bekijken van de projectpagina, met name de projectbeschrijving en eventuele workflowbeschrijvingen. Als je het nog steeds niet zeker weet, bekijk dan de 'Over'-pagina en de projecthandleiding(en). Als je het daarna nog steeds niet zeker weet, kun je het op Talk vragen. Een van de doelen van dit raamwerk is ervoor te zorgen dat alle projecten duidelijk communiceren hoe ze deze technologie wel (of niet) gebruiken.",
+        "answerTwo": "Als u denkt dat een project het gebruik van AI/ML niet op de juiste manier openbaar maakt, hopen we dat u zich vrij voelt om contact op te nemen met het onderzoeksteam via Talk en suggesties voor wijzigingen te doen of uw twijfels te uiten. Als u zich daar niet prettig bij voelt, kunt u ons ook een bericht sturen naar <0>contact@zooniverse.org</0> en dan zullen we het onderzoeken. Een onderdeel van dit werk is het bijwerken van onze interne beoordelingsprocessen, dus uw feedback zal ons helpen te bepalen of onze nieuwe processen effectief zijn.",
+        "question": "Ik wil graag weten of een Zooniverse-project gebruikmaakt van AI of machine learning. Hoe vind ik die informatie?"
+      }
+    },
+    "fivews": {
+      "list": {
+        "first": "Wie is verantwoordelijk voor het waarborgen van de datakwaliteit en -integriteit? ",
+        "fourth": "Waarom wordt AI/ML gebruikt? Wat helpt het te bereiken en wie profiteert ervan? Hoe zou het onderzoek eruitzien als AI/ML niet gebruikt zou worden?",
+        "second": "Welke AI/ML-technieken worden toegepast?",
+        "third": "Wanneer en waar in de levenscyclus van dataverzameling, -verwerking en -analyse wordt AI/ML gebruikt? Op welk(e) punt(en) komen vrijwilligers in de levenscyclus terecht? Is er ooit interactie tussen beide? Zo ja, hoe?"
+      },
+      "paragraph": "Bij het ontwikkelen van een nieuw Zooniverse-project dat gebruikmaakt van AI/ML, moeten onderzoekers nadenken over de volgende vragen en bereid zijn deze te beantwoorden. Idealiter zijn de antwoorden op deze vragen ergens in de projectdocumentatie te vinden (bijvoorbeeld op de 'Over ons'-pagina, in de FAQ, enz.)."
+    },
+    "heading": {
+      "eighth": "Bronnen",
+      "fifth": "Projectaanbevelingen",
+      "fifthext": "Aanbevelingen voor projectteams",
+      "first": "Preambule",
+      "fourth": "Interne acties",
+      "fourthext": "Interne maatregelen genomen door Zooniverse",
+      "nineth": "Veelgestelde vragen",
+      "ninethext": "Veelgestelde vragen",
+      "second": "Inhoudsopgave",
+      "seventh": "AI/ML op Zooniverse",
+      "seventhext": "AI en machine learning op Zooniverse",
+      "sixth": "De 5 W's",
+      "sixthext": "De 5 W's van AI/ML-projecten",
+      "tenth": "Over dit framework",
+      "third": "Kernprincipes"
+    },
+    "onZooniverse": {
+      "fifthQ": {
+        "heading": "Hoe weet ik of een project gebruikmaakt van AI of machine learning?",
+        "list": {
+          "first": "Het is de verantwoordelijkheid van projectteams om ergens op de homepage duidelijk aan te geven of hun project gebruikmaakt van AI/ML. Daarnaast moeten teams, als een project meerdere workflows omvat, onderscheid maken tussen workflows die AI/ML integreren en workflows die dat niet doen.",
+          "fourth": "Mocht je twijfelen of een project gebruikmaakt van AI/ML, aarzel dan niet om een ​​bericht te plaatsen op de projectdiscussieforums en het onderzoeksteam rechtstreeks te vragen.",
+          "second": "Teams moeten ook gedetailleerd uitleggen waarom en hoe AI/ML in hun projecten is geïntegreerd. Deze informatie verschijnt op de 'Over'-pagina van het project.",
+          "third": "Als het trainen van een AI/ML-model een doel van het project is, wordt van de teams verwacht dat ze, zodra de resultaten beschikbaar zijn, updates over dit proces op de resultatenpagina vermelden."
+        }
+      },
+      "firstQ": {
+        "heading": "Wat is AI? Wat is machine learning?",
+        "list": {
+          "first": "Er bestaat geen eenvoudige, eenduidige definitie, maar AI verwijst in brede zin naar computersystemen die zijn ontworpen om menselijk denken na te bootsen. AI is een brede term die een breed scala aan technologieën en toepassingen omvat. De termen worden vaak door elkaar gebruikt, maar ML is een subset van AI die data en algoritmen gebruikt om computers te trainen in het maken van classificaties, het genereren van voorspellingen en het ontdekken van overeenkomsten of trends in grote datasets. (Definitie aangepast van Fortson et al. (2024) en <0>https://www.nasa.gov/what-is-artificial-intelligence</0>.",
+          "second": "Er zijn verschillende manieren waarop AI/ML-methoden en -benaderingen worden gecategoriseerd op basis van de gebruikte technologie en de mogelijkheden van die technologie.",
+          "third": "Mede doordat de technologie zich zo snel ontwikkelt, is het gemakkelijk onduidelijk te maken wat AI precies doet. Transparantie binnen Zooniverse-projecten over de precieze bijdrage van deze technologie en de redenen daarvoor, kan misverstanden en verwarring voorkomen en tegelijkertijd de verantwoordelijkheid van projectteams vergroten."
+        }
+      },
+      "fourthQ": {
+        "heading": "Waarom hebben projectteams behoefte aan, of willen ze gebruikmaken van, AI en machine learning op Zooniverse?",
+        "list": {
+          "first": "Zelfs met de kracht van de Zooniverse-community werken veel projectteams met enorme en complexe datasets. In de meeste gevallen merken onderzoekers dat de samenwerking tussen mens en machine data van hogere kwaliteit oplevert dan wanneer elk van beide afzonderlijk werkt. Mens-machine-systemen kunnen ook helpen om projecten sneller af te ronden en onderzoekers in staat te stellen sneller resultaten te behalen dan met alleen menselijke classificatie.",
+          "second": "Er zijn diverse publicaties te vinden op de <0>Zooniverse-publicatiepagina</0> waarin successen worden beschreven van het combineren van mens-machine-classificatie."
+        }
+      },
+      "secondQ": {
+        "heading": "Hoe worden AI en machine learning gebruikt op Zooniverse?",
+        "list": {
+          "fifth": "Als projectteams ervoor kiezen om AI te gebruiken voor het genereren van projectcontent, zijn ze verplicht deze informatie te vermelden op de pagina met de door AI gegenereerde content. Dit kan bijvoorbeeld projectteksten, avatars, afbeeldingen, vertalingen en/of projectgegevens omvatten.",
+          "first": "Over het algemeen worden AI/ML niet in het platform geïntegreerd, behalve voor specifieke projecten. Het Zooniverse-team streeft naar transparantie en duidelijke labeling in alle toekomstige gevallen waarin AI/ML buiten specifieke projecten wordt gebruikt.",
+          "fourth": {
+            "subFifth": "Vrijwilligers beoordelen ongebruikelijke of afwijkende onderwerpen die de machine niet aankonden.",
+            "subFirst": "<0>Geen AI/ML.</0> Vrijwilligers classificeren de onderwerpen. Er is geen voorafgaande of beoogde rol van AI/ML.",
+            "subFourth": "<0>AI/ML wordt op kwaliteit gecontroleerd.</0> Vrijwilligers beoordelen en corrigeren door de machine gegenereerde classificaties, waardoor AI/ML in de loop der tijd wordt verbeterd.",
+            "subSecond": "<0>AI/ML sorteert onderwerpen vooraf.</0> Vrijwilligers classificeren onderwerpen die vooraf door machines zijn gesorteerd of gefilterd. Voorbeelden hiervan zijn het verwijderen van lege afbeeldingen (afbeeldingen zonder relevante inhoud) en het maken van classificaties op hoog niveau, zodat vrijwilligers zich kunnen concentreren op meer uitdagende taken.",
+            "subThird": "<0>AI/ML-training.</0> Vrijwilligers classificeren onderwerpen en machines leren van de patronen, met als doel dat AI/ML de taken overneemt.",
+            "sublist": "Enkele voorbeelden:"
+          },
+          "second": "Het gebruik van AI/ML zal per project verschillen.",
+          "third": "AI/ML is in sommige specifieke Zooniverse-projecten geïntegreerd om de onderzoeksondersteuning van vrijwilligers aan te vullen. Hierbij worden gegevens verwerkt voordat of nadat vrijwilligers hun taken hebben voltooid. Sommige projecten bevatten actieve leerelementen die AI/ML-methoden met menselijke tussenkomst ondersteunen. Hierbij wordt de input van vrijwilligers in geautomatiseerde processen verwerkt om de kwaliteit van de resultaten te verbeteren."
+        }
+      },
+      "seventhQ": {
+        "heading": "En hoe zit het met AI en machine learning buiten Zooniverse? Worden mijn classificaties ook gebruikt in AI/ML-initiatieven buiten Zooniverse?",
+        "list": {
+          "fifth": "Van projectteams wordt verwacht dat ze hun plannen voor het gebruik en de opslag van gegevens delen op de 'Over ons'-pagina van het project.",
+          "first": "Wij, als Zooniverse-community, hebben controle over hoe we AI/ML wel of niet gebruiken op het platform en in projecten. We hebben echter weinig controle over hoe anderen projectgegevens gebruiken, met name nadat deze openbaar zijn gemaakt.",
+          "fourth": "Om onbedoeld gebruik van projectgegevens (bijvoorbeeld voor commerciële doeleinden) te beperken, kiezen sommige teams ervoor om licentieovereenkomsten voor hun projectgegevens toe te passen (zoals bijvoorbeeld <0>Creative Commons</0>), of om deze alleen op verzoek te delen.",
+          "second": "Volgens het huidige <0>Project Builder Policies</0> van Zooniverse moeten projectteams hun classificatiegegevens openbaar maken na een periode waarin ze eigendomsrecht hebben, meestal twee jaar na de start van het project.",
+          "sixth": "Als je niet zeker bent van de plannen van een project met betrekking tot het delen en/of licentiëren van gegevens, kun je gerust een bericht plaatsen op de projectforums en het onderzoeksteam rechtstreeks vragen.",
+          "third": "Open data maakt wederkerigheid, directe bevrediging en snel gebruik van data voor besluitvorming of actie mogelijk. Het kan ook bijdragen aan databehoud, omdat data minder snel verloren gaan als ze in een repository worden bewaard of als anderen er kopieën van hebben gemaakt. Dit betekent echter ook dat andere personen, organisaties of bedrijven data die via Zooniverse-projecten worden gegenereerd, kunnen gebruiken voor andere doeleinden dan de vermelde onderzoeksdoelen."
+        }
+      },
+      "sixthQ": {
+        "heading": "Hoe zorgt Zooniverse ervoor dat deze technologieën veilig en ethisch worden gebruikt?",
+        "list": {
+          "first": "Zooniverse heeft gedurende <0>18 maanden samengewerkt met belanghebbenden en experts</0> om te bepalen wat dit voor het platform betekent. De daaruit voortvloeiende <1>Kernprincipes</1>, <2>Interne acties ondernomen door Zooniverse</2> en <3>Aanbevelingen voor projectteams</3> vertegenwoordigen onze aanpak.",
+          "second": "We zetten ons in voor een continue evaluatie van deze structuren om ervoor te zorgen dat ze effectief zijn, vooral omdat technologieën en potentiële toepassingen op Zooniverse zich blijven ontwikkelen. Onze aanbevelingen omvatten een jaarlijkse herziening van ons eigen AI-ethisch beleid om te garanderen dat dit relevant blijft voor onze vrijwilligers en onderzoekers."
+        }
+      },
+      "thirdQ": {
+        "heading": "Wat zijn de voordelen en de aandachtspunten bij het gebruik van AI en machine learning op Zooniverse?",
+        "list": {
+          "first": "AI/ML kan de snelheid en kracht van datageneratie, -verwerking en -analyse vergroten. Hierdoor kunnen we sneller nieuwe vragen stellen en sneller antwoorden krijgen.",
+          "fourth": "De ontwikkeling en het gebruik van bepaalde soorten AI/ML kunnen veel energie en middelen vergen.",
+          "second": "Door bepaalde taken aan machines uit te besteden, kunnen mensen zich richten op creatievere of complexere taken. Onze aanbevelingen benadrukken echter dat projectteams moeten oppassen dat ze niet te veel optimaliseren, aangezien deelname van instapniveau cruciaal is om projecten breed toegankelijk te maken.",
+          "third": "Het is essentieel om op een bepaald moment menselijk toezicht in te schakelen om de kwaliteit van de gegevens te evalueren en te waarborgen."
+        }
+      }
+    },
+    "preamble": {
+      "list": {
+        "first": "Het Zooniverse-platform is verantwoordelijk voor het <0>ontwikkelen</0> en <0>handhaven</0> van deze aanbevelingen.",
+        "second": "Projectteams zijn verantwoordelijk voor het <0>interpreteren</0> en <0>implementeren</0> van aanbevelingen. ",
+        "third": "Vrijwilligers worden in staat gesteld de implementatie te bevestigen of in twijfel te trekken door middel van feedback of door zelf te beslissen (bijvoorbeeld door ervoor te kiezen niet aan een project deel te nemen)."
+      },
+      "paragraphs": {
+        "first": "Deze pagina presenteert het Zooniverse AI-ethiekraamwerk, inclusief aanbevelingen voor het uitvoeren van projecten op Zooniverse die gebruikmaken van kunstmatige intelligentie (AI) en/of machine learning (ML). Dit is een dynamisch raamwerk en we streven ernaar het te verbeteren en aan te passen op basis van feedback en de voortdurende evolutie van de technologische, sociale en culturele context. Deze pagina is voornamelijk bedoeld om informatie te verstrekken aan Zooniverse-vrijwilligers. Projectteams kunnen <0>specifieke richtlijnen in onze Zooniverse-documentatie</0> raadplegen.",
+        "second": "Hoewel de toepassing van 'AI'-technologie op Zooniverse traditioneel plaatsvindt via specifieke ML-processen (\"algoritmische tools en technologieën die leren van bestaande data om taken op te lossen\"), is de term 'AI' een verzamelnaam geworden voor dit type automatisering. AI verwijst in brede zin naar \"computers die menselijk denken kunnen nabootsen\", en machine learning is een subset van dit concept. In dit kader zullen we consequent 'AI/ML' gebruiken om naar deze processen te verwijzen, om een ​​breed scala aan methoden te omvatten en tegelijkertijd een onderscheid tussen deze twee termen te behouden.",
+        "third": "Het creëren, onderhouden en gebruiken van dit raamwerk vereist specifieke verantwoordelijkheden – voor het Zooniverse-platform, projectteams en vrijwilligers – om ervoor te zorgen dat de integratie van AI/ML in participatief onderzoek transparant, ethisch en gemeenschapsgedreven blijft."
+      }
+    },
+    "principles": {
+      "fifth": "Maak gebruik van en stem af op <0>bestaande gerelateerde AI/ML-kaderbronnen</0> en blijf in gesprek met bredere gemeenschappen en belanghebbenden om <0>beste praktijken</0> te ontwikkelen en toe te passen op het gebied van participatief onderzoek met behulp van AI/ML.",
+      "first": "Integreer transparantie in het platformbeheer, de projectontwikkeling en de oplevering van AI/ML-gerelateerde projecten.",
+      "fourth": "Zet in op een voortdurende dialoog en zorg ervoor dat het project en het platform <0>responsief</0> zijn ten aanzien van veranderende opvattingen en gesprekken over AI/ML.",
+      "second": "Ontwerp met het oog op de vrijwilligerservaring en geef prioriteit aan autonomie en toestemming van vrijwilligers bij het selecteren van projecten; houd rekening met de voordelen voor en de motivaties van vrijwilligers bij projecten waarbij AI/ML betrokken is.",
+      "third": "Bevorder verantwoording door aan te tonen dat duidelijke richtlijnen worden nageleefd als voorwaarde voor het lanceren van een officieel Zooniverse-project."
+    },
+    "recs": {
+      "eighth": "<0>Houd bij het bekendmaken van uw beoogde gebruik van projectresultaten/gegevens rekening met hoe dit beoogde gebruik in de loop van de tijd kan veranderen.</0> Vrijwilligers kunnen ervoor kiezen om deel te nemen aan uw project op basis van de projectdoelen en het beoogde gebruik van resultaten/gegevens zoals vermeld op de 'Over ons'-pagina. Hoe groot is de kans dat u dit gebruik later zult uitbreiden? ",
+      "fifth": "<0>Vervolg.</0> Geef feedback over de mate van succes die is behaald tijdens het trainen van de AI/ML-modellen. De methode wordt bepaald door het projectteam en kan bijvoorbeeld een bericht op Talk, een e-mailnieuwsbrief, enzovoort omvatten.",
+      "first": "<0>Ontwerp je project met de keuzevrijheid van vrijwilligers in gedachten.</0> Dit vereist transparantie en duidelijke communicatie, zodat vrijwilligers weloverwogen beslissingen kunnen nemen over hun deelname aan je project. Als je AI/ML in een van de fasen van je werk integreert (voor- of nabewerking, classificatiesystemen met menselijke tussenkomst, enz.), moet je specifieke details geven over hoe deze processen werken en waarom ze nodig zijn. Bijvoorbeeld: \"we zullen de resulterende data gebruiken om een ​​model te trainen\" is onvoldoende gedetailleerd.",
+      "fourth": "<0>Behoud de context.</0> Bij projecten waarbij vrijwilligers worden uitgenodigd om machinaal gegenereerde output te bekijken of te beoordelen, is het belangrijk om te overwegen of en hoe de context de taak kan beïnvloeden – zowel de kwaliteit van de data als de kwaliteit van de ervaring van de vrijwilliger. Als een taak bijvoorbeeld van vrijwilligers vraagt ​​om de kwaliteit van machinaal gegenereerde transcripties te beoordelen, maar slechts een deel van het document bevat (bijvoorbeeld een enkel woord of een zin), zorgt een link naar de volledige afbeelding of het volledige document ervoor dat vrijwilligers, indien gewenst, verder kunnen interageren met het bronmateriaal en de betekenis ervan. Deze informatie kan worden opgenomen in de metadata van een onderwerp.",
+      "nineth": "Overweeg zowel de kansen als de potentiële risico's van het uitvoeren van een project met AI/ML. We moedigen onderzoekers aan om de potentiële risico's – naast de kansen – te begrijpen voordat ze projecten starten en verwijzen hen naar beproefde tools en gepubliceerde studies zoals Ceccaroni et al. (2019), waarin een overzicht wordt gegeven van de risico's en kansen met betrekking tot het gebruik van AI in burgerwetenschap, en aanbevelingen worden gedaan voor risicobeperking.",
+      "second": "<0>Laat vrijwilligers zien waar/wanneer/waarom AI/ML in uw project is opgenomen.</0> Sommige workflows binnen een project kunnen AI/ML-ondersteuning bevatten en andere niet. Deze moeten duidelijk worden aangegeven in het veld 'Workflownaam' of 'Workflowbeschrijving', zodat vrijwilligers de juiste keuze kunnen maken (indien ze een voorkeur hebben). Als u AI/ML hebt gebruikt om uw gegevens voor te bewerken, beschrijf dan uw kwaliteitscontrolemetrieken (inclusief of dit de reden is waarom u een validatieworkflow op Zooniverse uitvoert).",
+      "seventh": "<0>Pak de kwaliteit aan.</0> Beschrijf hoe u de mogelijke impact van het gebruik van AI/ML op de datakwaliteit binnen uw project evalueert en aanpakt. ",
+      "sixth": "<0>Creëer mogelijkheden voor feedback.</0> Elk project met een AI/ML-component moet een manier hebben waarop vrijwilligers hun feedback kunnen delen met projectteamleden. Teams kunnen bijvoorbeeld een speciaal discussieforum (Talk Board) opzetten om het gebruik van AI/ML te beschrijven, vragen te beantwoorden en updates te geven over trainingen of resultaten.",
+      "third": "<0>Denk na over de gevolgen van optimalisatie.</0> Wanneer je overweegt om eenvoudige taken uit te besteden aan AI/ML en complexere taken door mensen te laten uitvoeren, houd er dan rekening mee dat geavanceerdere workflows de groep mensen die kunnen/kunnen deelnemen kunnen beperken, tenzij er een instaptraject is. Trainingstaken kunnen nodig zijn om de benodigde vaardigheden te verwerven voor taken die AI/ML niet kan uitvoeren. Elk instaptraject of trainingsworkflow moet duidelijk worden gelabeld, inclusief workflows die gebruikmaken van de Zooniverse Feedback-functie."
+    },
+    "resources": {
+      "first": "Leer meer over AI/ML",
+      "fourth": "Voorbeelden van verantwoordelijkheidsverklaringen met betrekking tot AI/ML binnen het Zooniverse-project.",
+      "second": "Leer meer over ethiek en participatieve wetenschap.",
+      "third": "Voorbeelden van Zooniverse-projecten met gedetailleerde uitleg over het gebruik van AI/ML."
+    },
+    "sidebarLabel": "Sectie",
+    "title": "Zooniverse AI-ethisch kader",
+    "toc": {
+      "descriptions": {
+        "eighth": "Links naar meer informatie, waaronder externe publicaties en beleidsdocumenten, en voorbeelden van Zooniverse-projecten, zoals uitleg over AI/ML en verklaringen over verantwoordelijkheid.",
+        "fifth": "Aanbeveling voor teams die een Zooniverse-project uitvoeren of willen uitvoeren waarbij AI/ML betrokken is.",
+        "fourth": "Acties die ons team onderneemt om de aanbevelingen voor projectteams te ondersteunen.",
+        "nineth": "Voor vrijwilligers.",
+        "seventh": "Informatie over AI/ML en hoe het wordt (en is gebruikt) op Zooniverse. Inclusief een bespreking van waarom projectteams AI/ML nodig hebben of willen gebruiken, hoe je kunt herkennen of een project AI/ML gebruikt, en meer.",
+        "sixth": "Dit zijn de vragen waarop alle onderzoekers die AI/ML-projecten binnen Zooniverse uitvoeren, voorbereid moeten zijn.",
+        "tenth": "Meer informatie over het raamwerk en hoe het is ontwikkeld, inclusief informatie over wie erbij betrokken was en hoe dit werk is gefinancierd.",
+        "third": "De organisatorische principes die aan dit raamwerk ten grondslag liggen, vatten de overkoepelende doelen samen die zullen helpen bij het aanpakken van de risico's en zorgen die door onze communityleden zijn geuit met betrekking tot AI/ML."
+      }
+    }
+  },
   "AboutHeader": {
     "links": {
       "about": "Over",
+      "aiethics": "AI-ethiek",
       "collaborate": "Samenwerken",
       "contact": "Neem contact met ons op",
       "donate": "Doneer",
@@ -216,6 +409,11 @@
       "answer": "We ondersteunen de belangrijkste browsers tot en met de voorlaatste versie.",
       "question": "Welke browserversies ondersteunt Zooniverse?"
     },
+    "item11": {
+      "answer0": "Sommige vertalingen van platformspecifieke content (dat wil zeggen de tekst die op alle Zooniverse-webpagina's wordt gedeeld, zoals menulabels, kopteksten, knoppen, enz.) zijn afkomstig van vrijwillige vertalers. We hebben echter ook AI-vertalingen getest in een klein aantal talen <0>alleen voor platformspecifieke tekst</0>. We erkennen dat de kwaliteit van AI-vertalingen per taal verschilt en dat dit het risico met zich meebrengt dat vertalingen onjuist zijn. We verwelkomen vrijwilligers die willen helpen de kwaliteit van de vertalingen op ons platform te verbeteren.",
+      "answer1": "Houd er rekening mee dat de vertaling van projectspecifieke tekst wordt beheerd door onderzoeksteams, en dat elke door AI gegenereerde vertaling van projectspecifieke tekst door het team moet worden gemeld, conform ons <0>AI-ethisch kader</0>. Aanvullende informatie over Zooniverse-vertalingen is beschikbaar op <1>https://help.zooniverse.org/next-steps/translations</1>.",
+      "question": "Wat moet ik doen als ik merk dat vertalingen op platformniveau onjuist zijn?"
+    },
     "item1": {
       "answer": "Voor de meeste onderwerpen die in Zooniverse-projecten worden getoond, weten de onderzoekers het juiste antwoord niet en daarom hebben ze jouw hulp nodig. Mensen zijn erg goed in patroonherkenning, dus over het algemeen is jouw eerste gok waarschijnlijk de juiste. Maak je geen zorgen als je af en toe een foutje maakt - meer dan één persoon zal elke afbeelding, video of grafiek in een project beoordelen. De meeste Zooniverse-projecten hebben een Help-knop, een pagina met veelgestelde vragen (FAQ) en een veldgids met meer informatie om je te helpen bij het classificeren.",
       "question": "Hoe weet ik of ik dit goed doe?"
@@ -365,6 +563,38 @@
     "sidebarLabel": "Discipline",
     "title": "Publicaties"
   },
+  "ResetPassword": {
+    "CommitResetForm": {
+      "body": "Voer uw wachtwoord twee keer in ter bevestiging, daarna kunt u weer aan de slag met echt onderzoek.",
+      "infoConfirmation": "Beide velden moeten overeenkomen.",
+      "infoPassword": "Minimaal 8 tekens",
+      "inputConfirmation": "Bevestig nieuw wachtwoord",
+      "inputPassword": "Nieuw wachtwoord",
+      "status": {
+        "errorInvalidInput": "Fout: ongeldige invoer",
+        "errorPasswordsDoNotMatch": "Fout: de wachtwoorden komen niet overeen, probeer het opnieuw.",
+        "success": "Je wachtwoord is gewijzigd! Je wordt over een paar seconden doorgestuurd naar de <0>aanmeldpagina</0>. Gebruik je nieuwe wachtwoord."
+      },
+      "submit": "Indienen",
+      "titleForInputPattern": "Minimaal 8 tekens"
+    },
+    "NoAccessMessage": {
+      "body": "U bent momenteel ingelogd. Log uit als u uw wachtwoord wilt wijzigen."
+    },
+    "RequestResetForm": {
+      "body": "Voer uw e-mailadres in en wij sturen u een link om uw wachtwoord opnieuw in te stellen.",
+      "footer": "Als je de e-mail met de resetlink niet hebt ontvangen, kijk dan in je spammap. Staat de e-mail daar ook niet? Probeer dan een ander e-mailadres dat je mogelijk hebt gebruikt om je aan te melden bij Zooniverse.",
+      "inputEmail": "E-mailadres",
+      "status": {
+        "errorTooManyRequests": "Fout: te veel verzoeken om het wachtwoord opnieuw in te stellen. Probeer het later opnieuw.",
+        "success": "We hebben zojuist een e-mail met een link verzonden waarmee u uw wachtwoord kunt resetten."
+      },
+      "submit": "Versturen"
+    },
+    "common": {
+      "header": "Wachtwoord opnieuw instellen"
+    }
+  },
   "Resources": {
     "brand": {
       "heading": "Merkbronnen",
@@ -393,8 +623,58 @@
     },
     "title": "Bronnen"
   },
+  "Settings": {
+    "AccountSettings": {
+      "title": "Rekening"
+    },
+    "EmailSettings": {
+      "title": "E-mail"
+    },
+    "ProfileSettings": {
+      "title": "Profiel"
+    },
+    "common": {
+      "backHome": "Terug naar de homepage",
+      "sidebar": "Instellingen",
+      "title": "Gebruikersinstellingen"
+    },
+    "forms": {
+      "fields": {
+        "credited_name": {
+          "help": "Dit is de naam die we zullen gebruiken voor vermelding in publicaties, posters, vrijwilligerscertificaten en ander materiaal.",
+          "label": "Echte naam"
+        },
+        "display_name": {
+          "help": "Hoe uw naam aan anderen wordt getoond op het platform.",
+          "label": "Weergavenaam"
+        }
+      },
+      "optional": "Optioneel",
+      "save": "Wijziging",
+      "saveSuccess": "Wijzigingen opgeslagen.",
+      "saveUnnecessary": "Er hoeven geen wijzigingen te worden opgeslagen."
+    }
+  },
   "Sidebar": {
     "all": "Alle"
+  },
+  "Unsubscribe": {
+    "form": {
+      "body": {
+        "p1": "We snappen het – niemand vindt het leuk om ongewenste e-mails te blijven ontvangen.",
+        "p2": "Vul hier uw e-mailadres in en we schrijven u uit van al onze e-maillijsten."
+      },
+      "errors": {
+        "general": "Er is iets misgegaan. Controleer het e-mailadres en probeer het opnieuw."
+      },
+      "header": "Schrijf je uit voor alle Zooniverse-e-mails, behalve Talk.",
+      "inputEmail": "E-mailadres",
+      "submit": "Indienen"
+    },
+    "processed": {
+      "body": "Als je van gedachten verandert, ga dan naar je accountinstellingen om <0>je e-mailvoorkeuren bij te werken</0>.",
+      "header": "Afmelden gelukt"
+    }
   },
   "Volunteer": {
     "beta": {
@@ -440,6 +720,14 @@
         "third": "Praat met andere vrijwilligers en experts."
       }
     },
-    "title": "Vrijwilliger"
+    "title": "Vrijwilliger",
+    "translate": {
+      "heading": "Een project vertalen",
+      "paragraphs": {
+        "first": "Vrijwillige vertalers helpen onderzoeksteams bij het vertalen van Engelstalige Zooniverse-projecten naar andere talen, waarmee ze onze wereldwijde gemeenschap van vrijwilligers ondersteunen. Projectvertalers werken rechtstreeks samen met projectteams om als vertaler aan hun project te worden toegevoegd. Vervolgens krijgen ze toegang tot de projectwebsite voor vertalingen en kunnen ze vertalingen invoeren voor elk onderdeel van het project.",
+        "second": "We verwelkomen ook vrijwilligers die willen helpen bij het corrigeren van door AI gegenereerde vertalingen van platformspecifieke content, oftewel de tekst die in alle projecten wordt gedeeld, zoals menulabels, kopteksten, knoppen, enz. Deze content is <0>niet</0> projectspecifiek en wordt beheerd en onderhouden door het Zooniverse-team.",
+        "third": "Als je interesse hebt om als vrijwilliger mee te werken aan projectvertalingen, of om te helpen bij het redigeren van vertalingen op platformniveau, neem dan <0>contact met ons op</0>."
+      }
+    }
   }
 }
