@@ -1,5 +1,5 @@
-import { Language } from 'grommet-icons'
-import { DropButton, Nav, Anchor } from 'grommet'
+import { CircleInformation, Language } from 'grommet-icons'
+import { Anchor, Box, DropButton, Nav, Text } from 'grommet'
 import styled from 'styled-components'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { useTranslation } from 'react-i18next'
@@ -48,6 +48,8 @@ const StyledAnchor = styled(Anchor)`
   There are specific route segments where we do NOT want to display the LocaleDropdown.
   The following regex tests the stripLocale(pathname) against the exclusionRoutes array
   because the content on those pages does not have translations enabled.
+
+  This LocaleDropdown component is not intended for use in app-project.
 */
 const exclusionRoutes = [
   '/users/[login]/stats/certificate',
@@ -96,10 +98,29 @@ function LocaleDropdown() {
     return null
   }
 
+  // To be translated once it's decided where to store dictionaries of text content definied directly in app-root (like metadata too)
+  const LearnMoreLabel = (
+    <Box direction='row' gap='5px' align='center'>
+      <CircleInformation size='0.8rem' color='white' alignSelf='center' />
+      <Text size='1rem' weight='normal'>
+        Learn More
+      </Text>
+    </Box>
+  )
+
   // lang={localeCode} lets screen readers pronounce each name correctly.
   const dropContent = (
     <Nav aria-label='List of languages' width='100%' background='neutral-1'>
       <StyledUl as='ul' pad='0' align='center'>
+        <StyledLi key={'learn-more'}>
+          <StyledAnchor
+            href={getHrefWithLocale('/about/faq#about-platform-level-translations', locale)}
+            label={LearnMoreLabel}
+            color='white'
+            plain
+            size='1rem'
+          />
+        </StyledLi>
         {Object.entries(localeMenu).map(([localeCode, name]) => (
           <StyledLi key={localeCode}>
             <StyledAnchor
