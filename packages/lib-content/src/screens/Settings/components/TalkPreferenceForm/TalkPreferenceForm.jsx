@@ -103,11 +103,19 @@ function TalkPreferenceForm ({
         // If this succeeds, the changes are "confirmed" into the local data.
         // If this fails, rollbackOnError() will catch the thrown exception and
         // roll back to a previous value.
-        // ❗️ WARNING: if multiple operations are performing at the same time
-        // over a slow network, this WILL lead to race conditions!
         async (prevData) => {
           const newData = updateData(prevData)
 
+          // ❗️ WARNING: if multiple operations are performing at the same time
+          // over a slow network, this can lead to race conditions.
+          // ‼️ QUESTION: should this have await, or not?
+          // The problem occurs if we have multiple operations (e.g. changing 6
+          // radio buttons at a time, OR using keyboard nav to quickly switch
+          // between radio buttons) on a **slow network.** 
+          // - If have `await`, multiple ops on a slow network causes the UI to
+          //   flip between old & new states.
+          // - If we don't have a `await`, then (maybe???) there's no guarantee
+          //   the UI matches the data saved in Panoptes?
           await updateTalkPreference(
             { email_digest: newPreferenceValue },
             preferenceId
