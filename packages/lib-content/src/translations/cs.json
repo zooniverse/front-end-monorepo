@@ -7,9 +7,202 @@
       "returnHome": "Zpět na domovskou stránku"
     }
   },
+  "AIEthics": {
+    "about": {
+      "acknowledgements": {
+        "heading": "Poděkování",
+        "paragraph": "Tým Zooniverse by rád poděkoval následujícím lidem za jejich účast na virtuálních workshopech, které vedly k vytvoření těchto doporučení:"
+      },
+      "advisors": {
+        "heading": "Projektoví poradci"
+      },
+      "funding": {
+        "heading": "Financování",
+        "paragraph": "Tuto práci podporuje Nadace Kavli, číslo grantu SS-2025-GR-05-3064."
+      },
+      "paragraphs": {
+        "first": "Během posledních 15 let výzkumné týmy integrovaly strojové učení (ML) do široké škály projektů Zooniverse a v různých fázích. Přibližně třetina všech aktivních projektů Zooniverse nyní nějakým způsobem zahrnuje strojové učení. S tím, jak tyto technologie dozrávaly a povědomí veřejnosti o jejich existenci rostlo, nedávná zpětná vazba od dobrovolníků Zooniverse zdůraznila potřebu větší transparentnosti ohledně používání „AI“ na naší platformě. Snažili jsme se tyto obavy řešit vytvořením jasného a standardizovaného rámce pro etickou implementaci AI/ML v projektech Zooniverse, který zajistí, aby výzkumníci mohli efektivně sdělovat své metodiky a zároveň si zachovat důvěru a spolupráci naší dobrovolnické komunity. S financováním od Kavli Foundation jsme vytvořili vůbec první <0>etický rámec AI/ML pro Zooniverse</0>, který jsme spustili v roce 2026. Tento rámec je zde prezentován a bude každoročně aktualizován podle potřeby.",
+        "fourth": "Výsledky zahrnují: klíčové principy, které slouží jako rámec a shrnují zastřešující cíle; doporučení pro interní opatření, která platforma Zooniverse podnikne a která usnadní doporučení pro projektové týmy; a doporučení, která by projektové týmy měly dodržovat při začleňování umělé inteligence/strojového učení do projektů Zooniverse.",
+        "second": "Pro vytvoření tohoto rámce jsme uspořádali sérii virtuálních workshopů, kterých se zúčastnili odborníci na danou problematiku, vedení Zooniverse, vedoucí projektů, externí výzkumníci a dobrovolníci. Workshopy se konaly v průběhu roku 2025 a zaměřovaly se na čtyři klíčová témata: stanovení osvědčených postupů pro transparentnost a komunikaci; identifikace etických přístupů ke strojovému učení, které vyvažují rizika a příležitosti; prohloubení našeho kontextového chápání těchto etických přístupů; a zvážení výzev v oblasti ochrany následných dat.  ",
+        "third": "Abychom zahrnuli postřehy širší skupiny, než se mohla přímo zúčastnit workshopů, rozeslali jsme dotazníky celé komunitě Zooniverse. Výsledky těchto dotazníků formovaly náš strategický směr. Po každém workshopu se sešla menší skupina, aby diskusi převedla do klíčových témat a akčních výsledků. Výstupy byly sdíleny se všemi účastníky workshopu, kteří měli možnost poskytnout zpětnou vazbu, opravy a doplnění."
+      },
+      "projectTeamList": {
+        "coord": "Koordinátor projektu",
+        "eval": "Facilitátor a hodnotitel",
+        "heading": "Projektový tým",
+        "pi": "Hlavní řešitel",
+        "ra": "Výzkumní asistenti"
+      }
+    },
+    "actions": {
+      "first": "<0>Přijměte nebo upravte </0><1>standardní způsob popisu použití umělé inteligence/strojového učení</1> <0>(v souladu s převládajícím jazykem nebo existující kategorizací) v rámci platformy Zooniverse.</0> Mnoho dalších navrhovaných doporučení závisí na vývoji a zavedení této kategorizace, včetně přístupů k transparentnosti, zastoupení a konzistentní signalizaci.",
+      "fourth": "<0>Vedoucí tým Zooniverse každoročně přezkoumává zásady.</0> Stanovte pravidelné tempo, jakým budou tyto zdroje vyhodnocovány a/nebo aktualizovány, např. každoročně. Zavázali jsme se k každoročnímu přezkumu a budeme zveřejňovat příspěvek na blogu nebo jinou písemnou aktualizaci, která se bude shodovat s veškerými aktualizacemi tohoto rámce provedenými v rámci tohoto přezkumu.",
+      "second": "<0>Věnujte stránku webových stránek Zooniverse informacím a zdrojům týkajícím se umělé inteligence/strojového učení a jejího použití na Zooniverse.</0> Toto je ta stránka! Obsahuje výše uvedenou kategorizaci, doporučení našeho projektového týmu a také další informace o tom, jak se tato technologie používá (a používá) na Zooniverse, jaké jsou její výhody a obavy a jak rozpoznat, kdy ji projekt používá.",
+      "third": "<0>Začleňte pokyny do interního procesu kontroly projektů Zooniverse.</0> Od spuštění této stránky byly naše interní procesy kontroly aktualizovány tak, aby odrážely zde uvedená doporučení. Tím se zajistí standardní postup pro vedoucí projektů při sdílení informací o veškerém využití umělé inteligence/strojového učení a závazcích v oblasti správy dat souvisejících s projektem, aby se zajistil přístup potenciálních dobrovolníků k těmto informacím."
+    },
+    "faq": {
+      "first": {
+        "answer": "Ne. Výzkumníci přicházejí do Zooniverse, protože chtějí do svého procesu zapojit lidi. Dobrovolníci by neměli používat generativní nástroje umělé inteligence mimo Zooniverse k podpoře klasifikace, pokud k tomu nemají výslovné povolení.",
+        "question": "Jsem dobrovolník a potřebuji pomoc s klasifikací v rámci projektu. Mohu k tomu použít generativní nástroje umělé inteligence, jako je ChatGPT nebo Gemini?"
+      },
+      "paragraph": "Nenašli jste zde odpověď na svou otázku? Pošlete nám své dotazy na adresu <0>contact@zooniverse.org</0>! Tento seznam budeme dle potřeby aktualizovat.",
+      "second": {
+        "answerOne": "Začněte procházením domovské stránky projektu, zejména popisu projektu a případného popisu pracovního postupu. Pokud si stále nejste jisti, podívejte se na stránku „O projektu“ a také na tutoriál(y) projektu. Pokud si ani poté nejste jisti, můžete se zeptat na Talku, ale jedním z účelů tohoto rámce je zajistit, aby všechny projekty jasně sdělovaly, jak tuto technologii používají (nebo nepoužívají).",
+        "answerTwo": "Pokud se domníváte, že projekt dostatečně nezveřejňuje informace o používání umělé inteligence/strojového učení, doufáme, že se nebudete cítit dobře, když se obrátíte na výzkumný tým na Talku a navrhnete nějaké změny nebo vyjádříte své pochybnosti. Pokud se s tím necítíte dobře, můžete nám také poslat zprávu na adresu <0>contact@zooniverse.org</0> a my se na to podíváme. Součástí této práce je aktualizace našich interních kontrolních procesů, takže vaše zpětná vazba nám pomůže zjistit, zda jsou naše nové procesy efektivní.",
+        "question": "Chci zjistit, zda projekt Zooniverse používá umělou inteligenci nebo strojové učení. Jak tuto informaci najdu?"
+      }
+    },
+    "fivews": {
+      "list": {
+        "first": "<0>Kdo</0> je zodpovědný za zajištění kvality a integrity dat? ",
+        "fourth": "<0>Proč</0> se používá AI/ML? Čeho pomáhá dosáhnout a kdo z toho má prospěch? Jak by výzkum vypadal, kdyby se AI/ML nepoužívala?",
+        "second": "**Jaké** techniky umělé inteligence/strojového učení se používají?",
+        "third": "<0>Kdy</0> a <0>Kde</0> se v životním cyklu sběru, zpracování a analýzy dat používá AI/ML? V jakém bodě (bodech) do životního cyklu vstupují dobrovolníci? Interagují tyto dva procesy? Pokud ano, jak?"
+      },
+      "paragraph": "Při vývoji nového projektu Zooniverse, který zahrnuje umělou inteligenci/strojové učení, by se výzkumníci měli zamyslet nad následujícími otázkami a být připraveni na ně odpovědět. V ideálním případě budou odpovědi na tyto otázky k dispozici někde v kopii projektu (např. na stránce O nás, v Často kladených otázkách atd.)."
+    },
+    "heading": {
+      "eighth": "Zdroje",
+      "fifth": "Doporučení k projektu",
+      "fifthext": "Doporučení pro projektové týmy",
+      "first": "Preambule",
+      "fourth": "Interní akce",
+      "fourthext": "Interní opatření přijatá společností Zooniverse",
+      "nineth": "Často kladené otázky",
+      "ninethext": "Často kladené otázky",
+      "second": "Obsah",
+      "seventh": "AI/ML na Zooniverse",
+      "seventhext": "Umělá inteligence a strojové učení na Zooniverse",
+      "sixth": "5 W",
+      "sixthext": "5 zásadních otázek (W) u projektů zaměřených na umělou inteligenci/strojové učení (ML)",
+      "tenth": "O tomto rámci",
+      "third": "Klíčové principy"
+    },
+    "onZooniverse": {
+      "fifthQ": {
+        "heading": "Jak poznám, kdy projekt využívá umělou inteligenci nebo strojové učení?",
+        "list": {
+          "first": "Je odpovědností projektových týmů jasně uvést někde na domovské stránce, zda jejich projekt využívá AI/ML. Pokud má projekt více pracovních postupů, měly by týmy rozlišovat mezi pracovními postupy, které AI/ML zahrnují, a těmi, které je nezahrnují.",
+          "fourth": "Pokud si nejste jisti, zda projekt používá umělou inteligenci/strojové učení, neváhejte se zeptat přímo výzkumného týmu na diskusních fórech projektu.",
+          "second": "Týmy jsou také povinny poskytnout podrobné informace o tom, proč a jak je umělá inteligence/strojové učení integrována do jejich projektů. Tyto informace se zobrazí na stránce O projektu.",
+          "third": "Pokud je cílem projektu trénování modelu AI/ML, očekává se, že týmy poskytnou aktualizace o tomto procesu na stránce s výsledky, jakmile budou k dispozici."
+        }
+      },
+      "firstQ": {
+        "heading": "Co je umělá inteligence? Co je strojové učení?",
+        "list": {
+          "first": "Neexistuje jednoduchá a jednotná definice, ale umělá inteligence (AI) se obecně vztahuje na počítačové systémy navržené tak, aby napodobovaly lidské myšlení. AI je široký pojem, který zahrnuje širokou škálu technologií a aplikací. Tyto pojmy se často používají zaměnitelně, ale strojové učení (ML) je podmnožinou AI, která využívá data a algoritmy k učení počítačů k provádění klasifikací, generování predikcí a odhalování podobností nebo trendů napříč velkými datovými sadami. (Definice převzata z Fortson et al. (2024) a <0>https://www.nasa.gov/what-is-artificial-intelligence)</0>.",
+          "second": "Existuje řada způsobů, jak jsou metody a přístupy AI/ML kategorizovány na základě použité technologie a jejích možností.",
+          "third": "Částečně proto, že se technologie vyvíjí tak rychle, je snadné si uvědomit, co umělá inteligence dělá. Transparentnost v rámci projektů Zooniverse ohledně toho, k čemu přesně tato technologie přispívá a proč, může pomoci předejít nedorozuměním nebo nejasnostem a zároveň vytvořit opatření pro zajištění odpovědnosti projektových týmů."
+        }
+      },
+      "fourthQ": {
+        "heading": "Proč projektové týmy potřebují nebo chtějí používat umělou inteligenci a strojové učení na Zooniverse?",
+        "list": {
+          "first": "I přes sílu Zooniverse pracuje mnoho projektových týmů s obrovskými a složitými datovými sadami. Ve většině případů vědci zjišťují, že lidé a stroje, kteří pracují společně, produkují kvalitnější data než jednotliví lidé. Systémy člověk-stroj mohou také pomoci urychlit časové harmonogramy projektů a umožnit vědcům dosáhnout výsledků dříve než pouze s lidskou klasifikací.",
+          "second": "Na <0>stránce publikací Zooniverse</0> je k dispozici několik publikací, které podrobně popisují úspěchy v kombinování klasifikace člověk-stroj."
+        }
+      },
+      "secondQ": {
+        "heading": "Jak se na Zooniverse využívá umělá inteligence a strojové učení?",
+        "list": {
+          "fifth": "Pokud se projektové týmy rozhodnou použít umělou inteligenci k generování obsahu projektu, jsou povinny tyto informace zveřejnit na stránce obsahující obsah generovaný umělou inteligencí. To může zahrnovat např. text projektu, avatary, mediální obrázky, překlady a/nebo data projektu.",
+          "first": "Obecně se umělá inteligence/strojové učení (AI/ML) nezapojuje do platformy mimo specifické projektové použití. Tým Zooniverse se zavazuje k transparentnosti a jasnému označování ve všech budoucích případech použití AI/ML mimo specifické projekty.",
+          "fourth": {
+            "subFifth": "**Dobrovolníci** recenzují neobvyklé nebo anomální subjekty, které způsobily problémy s fungováním stroje.",
+            "subFirst": "<0>Žádná umělá inteligence/strojové učení.</0> Dobrovolníci klasifikují subjekty. Neexistuje žádná předchozí ani zamýšlená role v oblasti umělé inteligence/strojového učení.",
+            "subFourth": "<0>AI/ML prochází kontrolou kvality.</0> Dobrovolníci kontrolují a opravují strojově generované klasifikace, čímž pomáhají AI/ML v průběhu času vylepšovat.",
+            "subSecond": "<0>AI/ML předběžně třídí předměty.</0> Dobrovolníci klasifikují předměty, které byly předběžně tříděny nebo filtrovány stroji. Mezi příklady patří odstraňování prázdných míst (obrázků bez relevantního obsahu) a vytváření klasifikací na vysoké úrovni, aby se dobrovolníci mohli soustředit na náročnější úkoly.",
+            "subThird": "<0>Školení v oblasti AI/ML.</0> Dobrovolníci klasifikují subjekty a stroje se učí ze vzorců s cílem, aby AI/ML tyto úkoly převzala.",
+            "sublist": "Některé příklady:"
+          },
+          "second": "Využití AI/ML se bude v jednotlivých projektech lišit.",
+          "third": "Umělá inteligence/strojové učení jsou integrovány do některých specifických projektů Zooniverse, aby doplnily výzkumnou podporu poskytovanou dobrovolníky a zpracovávaly data před nebo po dokončení úkolů dobrovolníků. Některé projekty zahrnují prvky aktivního učení, které podporují metody umělé inteligence/strojového učení s lidskou interakcí, jež zahrnují vstupy dobrovolníků do automatizovaných procesů s cílem zvýšit kvalitu výstupů."
+        }
+      },
+      "seventhQ": {
+        "heading": "A co umělá inteligence a strojové učení mimo Zooniverse? Dostávají se mé klasifikace do iniciativ v oblasti umělé inteligence/strojového učení mimo Zooniverse?",
+        "list": {
+          "fifth": "Od projektových týmů se očekává, že se o své plány pro využití a ukládání dat podělí na stránce O projektu.",
+          "first": "My, jako komunita Zooniverse, máme kontrolu nad tím, jak na platformě a v projektech používáme nebo nepoužíváme umělou inteligenci/strojové učení. Máme však jen malou kontrolu nad tím, jak by ostatní mohli data z projektů používat, zejména po jejich zveřejnění.",
+          "fourth": "Aby se omezilo neúmyslné použití projektových dat (např. pro komerční účely), některé týmy se rozhodnou aplikovat na svá projektová data licenční smlouvy (například <0>Creative Commons</0>) nebo je sdílet pouze na vyžádání.",
+          "second": "Aktuální <0>Zásady pro tvorbu projektů</0> společnosti Zooniverse uvádějí, že projektové týmy musí „zpřístupnit svá klasifikační data po uplynutí proprietárního období, které obvykle trvá dva roky od spuštění projektu“.",
+          "sixth": "Pokud si nejste jisti plány projektu ohledně sdílení dat a/nebo licencování, neváhejte se zeptat přímo výzkumného týmu na diskusních fórech projektu.",
+          "third": "Otevřená data umožňují reciprocitu, okamžité uspokojení a rychlé využití dat k rozhodování nebo provádění akcí. Mohou také pomoci s uchováním dat, protože je méně pravděpodobné, že se data ztratí, pokud jsou uložena v úložišti nebo pokud si jiní vytvořili kopie. Znamená to však také, že jiní lidé, organizace nebo společnosti mohou data vytvořená v rámci projektů Zooniverse používat k jiným účelům, než jsou uvedené výzkumné cíle."
+        }
+      },
+      "sixthQ": {
+        "heading": "Jak Zooniverse zajišťuje bezpečné a etické používání těchto technologií?",
+        "list": {
+          "first": "Společnost Zooniverse provedla <0>18měsíční spolupráci se zúčastněnými stranami a odborníky</0>, aby definovala, co to pro platformu znamená. Náš přístup představují <1>Klíčové principy</1>, <2>Interní opatření přijatá společností Zooniverse</2> a <3>Doporučení pro projektové týmy</3>.",
+          "second": "Zavázali jsme se k průběžnému hodnocení těchto struktur, abychom zajistili jejich efektivitu, zejména s ohledem na to, že se technologie a potenciální případy využití na Zooniverse neustále rozšiřují. Naše doporučení zahrnují každoroční revizi našich vlastních etických zásad pro umělou inteligenci, abychom zajistili, že zůstanou relevantní pro naše dobrovolnické a výzkumné komunity."
+        }
+      },
+      "thirdQ": {
+        "heading": "Jaké jsou výhody a obavy z používání umělé inteligence a strojového učení na Zooniverse?",
+        "list": {
+          "first": "Umělá inteligence/strojové učení může zvýšit rychlost a výkon naší schopnosti generovat, zpracovávat a analyzovat data. Díky tomu můžeme klást nové otázky a rychleji dostávat odpovědi.",
+          "fourth": "Vývoj a používání některých typů umělé inteligence/strojového učení může být energeticky a zdrojově náročné.",
+          "second": "Delegování určitých úkolů na stroje může lidem umožnit soustředit se na kreativnější nebo složitější úkoly. Naše doporučení však upozorňují, že projektové týmy by si měly dávat pozor, aby nepřeháněly optimalizaci, protože účast na základní úrovni je klíčová pro širokou dostupnost projektů.",
+          "third": "Je nezbytné v určité fázi zahrnout lidský dohled pro vyhodnocení a zajištění kvality dat."
+        }
+      }
+    },
+    "preamble": {
+      "list": {
+        "first": "Platforma Zooniverse je zodpovědná za <0>vypracování</0> a <0>dodržování</0> těchto doporučení.",
+        "second": "Projektové týmy jsou zodpovědné za <0>interpretaci</0> a <0>implementaci</0> doporučení. ",
+        "third": "Dobrovolníci mají možnost <0>potvrdit</0> nebo <0>zpochybnit</0> implementaci prostřednictvím zpětné vazby nebo uplatněním vlastního rozhodnutí (např. rozhodnutím se projektu neúčastnit)."
+      },
+      "paragraphs": {
+        "first": "Tato stránka představuje etický rámec pro umělou inteligenci na Zooniverse, včetně doporučení pro projekty na Zooniverse, které se zabývají umělou inteligencí (AI) a/nebo strojovým učením (ML). Jedná se o živý rámec a my se zavazujeme jej vylepšovat a iterovat na základě zpětné vazby a vývoje technologického, sociálního a kulturního kontextu. Tato stránka je primárně určena k poskytování informací dobrovolníkům na Zooniverse. Projektové týmy si mohou přečíst <0>konkrétní pokyny v naší dokumentaci k Zooniverse</0>.",
+        "second": "Zatímco aplikace technologie „AI“ na Zooniverse tradičně probíhala prostřednictvím specifických procesů strojového učení („algoritmické nástroje a technologie, které se učí z existujících dat k řešení úkolů“), termín „AI“ se stal univerzálním pojmem pro popis tohoto typu automatizace. AI se obecně vztahuje na „počítače, které dokáží napodobit lidské myšlení“ a strojové učení je podmnožinou tohoto konceptu. V tomto rámci budeme pro označení těchto procesů používat termín „AI/ML“, abychom široce zahrnuli řadu metod a zároveň zachovali určitý rozdíl mezi těmito dvěma pojmy.",
+        "third": "Vytvoření, údržba a používání tohoto rámce vyžaduje specifické odpovědnosti – pro platformu Zooniverse, projektové týmy a dobrovolníky, aby se zajistilo, že integrace AI/ML do participativního výzkumu zůstane transparentní, etická a řízená komunitou."
+      }
+    },
+    "principles": {
+      "fifth": "Využívat a sladit se s <0>stávajícími souvisejícími zdroji pro tvorbu rámců v oblasti umělé inteligence/strojního učení</0> a nadále spolupracovat s širšími komunitami a zúčastněnými stranami na <0>vyvíjet a přijímat osvědčené postupy</0> v oblasti participativního výzkumu zaměřeného na umělou inteligenci/strojní učení.",
+      "first": "Zajistěte <0>transparentnost</0> v řízení platforem souvisejících s umělou inteligencí/strojovým učením, vývoji projektů a jejich realizaci.",
+      "fourth": "Zavázat se k průběžnému dialogu a k **reakci** projektů a platforem na vyvíjející se postoje a diskuse o umělé inteligenci/strojovém učení.",
+      "second": "Navrhněte s ohledem na zkušenosti dobrovolníků a upřednostněte jejich <0>svobodu jednání a souhlas</0> při výběru projektů; zvažte <0>přínosy</0> pro</0> a <0>motivaci</0> dobrovolníků v projektech zahrnujících umělou inteligenci/strojní učení.",
+      "third": "Usnadněte <0>odpovědnost</0> prokázáním dodržování jasných pokynů jako předpokladu pro spuštění oficiálního projektu Zooniverse."
+    },
+    "recs": {
+      "eighth": "<0>Při zveřejňování zamýšleného použití výsledků/dat projektu zvažte, jak se toto zamýšlené použití může v průběhu času změnit.</0> Dobrovolníci se mohou rozhodnout k účasti na vašem projektu na základě cílů projektu a zamýšleného použití výsledků/dat uvedených na stránce O nás. Jaká je pravděpodobnost, že toto použití později rozšíříte? ",
+      "fifth": "<0>Následná opatření.</0> Poskytněte zpětnou vazbu o míře úspěšnosti dosažené při trénování modelů AI/ML. Metodu určí projektový tým a může zahrnovat např. příspěvek v diskuzi, e-mailový newsletter atd.",
+      "first": "<0>Navrhněte svůj projekt s ohledem na dobrovolnickou volbu (svobodu volby).</0> To vyžaduje transparentnost a jasnou komunikaci, aby se dobrovolníci mohli informovaně rozhodnout, zda se chtějí vašeho projektu zúčastnit. Pokud začleňujete umělou inteligenci/strojní učení v jakékoli fázi své práce (předběžné nebo následné zpracování, klasifikační systémy s lidskou interakcí atd.), musíte poskytnout konkrétní podrobnosti o tom, jak tyto procesy fungují a proč jsou nezbytné. Například tvrzení „výsledná data použijeme k trénování modelu“ není dostatečné.",
+      "fourth": "<0>Zachovejte kontext.</0> U projektů, které vyzývají dobrovolníky k zapojení se do strojově generovaného výstupu nebo k jeho kontrole, zvažte, zda a jak může kontext ovlivnit úkol – včetně kvality dat i kvality dobrovolnické zkušenosti. Pokud například úkol požaduje od dobrovolníků kontrolu kvality strojového přepisu, ale zahrnuje pouze část dokumentu (např. jedno slovo nebo frázi), zahrnutí odkazu na celý obrázek nebo dokument zajistí, že dobrovolníci budou moci v případě potřeby i nadále interagovat se zdrojovým materiálem a jeho významem. Tyto informace lze zahrnout do metadat subjektu.",
+      "nineth": "<0>Zvažte jak příležitosti, tak potenciální rizika realizace projektu zaměřeného na umělou inteligenci/strojové učení.</0> Doporučujeme výzkumníkům, aby před zahájením projektů porozuměli potenciálním rizikům – a také příležitostem – a odkazovali je na ověřené nástroje a publikované práce, jako je Ceccaroni et al. (2019), která představuje přehled rizik a příležitostí souvisejících s využitím umělé inteligence v občanské vědě a doporučení pro zmírnění rizik.",
+      "second": "<0>Ukažte dobrovolníkům, kde/kdy/proč je AI/ML začleněna do vašeho projektu.</0> Některé pracovní postupy v rámci projektu mohou být zapojeny/podporovány AI/ML a jiné ne. Tyto postupy by měly být jasně označeny v poli Název pracovního postupu nebo v oblasti Popis pracovního postupu, aby si dobrovolníci mohli podle toho vybrat (pokud mají preferenci). Pokud jste k předběžnému zpracování dat použili AI/ML, popište, jaké jsou vaše metriky kontroly kvality (včetně toho, zda je to váš důvod pro spuštění ověřovacího pracovního postupu na Zooniverse).",
+      "seventh": "<0>Řešte kvalitu.</0> Popište, jak vyhodnocujete a řešíte potenciální dopad na kvalitu dat ve vašem projektu v důsledku používání umělé inteligence/strojového učení. ",
+      "sixth": "<0>Vytvořte způsoby zpětné vazby.</0> Každý projekt s komponentou AI/ML by měl mít způsob, jakým mohou dobrovolníci sdílet svou zpětnou vazbu s členy projektového týmu. Týmy si například mohou vytvořit specializovanou diskusní nástěnku, kde budou popisovat použití AI/ML, odpovídat na otázky a poskytovat aktuální informace o školeních nebo výsledcích.",
+      "third": "<0>Zvažte důsledky optimalizace.</0> Při zvažování „přenesení“ snadných úkolů na AI/ML a pověření lidí prováděním těžších/složitějších úkolů mějte na paměti, že pokročilejší pracovní postupy mohou zúžit okruh lidí, kteří jsou schopni/kvalifikováni k účasti, pokud neexistuje úvodní fáze. Pro získání znalostí v provádění úkolů, které AI/ML nedokáže, mohou být zapotřebí školicí úkoly. Jakýkoli úvodní proces nebo školicí pracovní postup by měl být jasně označen, včetně pracovních postupů využívajících funkci Zooniverse Feedback."
+    },
+    "resources": {
+      "first": "Zjistěte více o umělé inteligenci/strojovém učení",
+      "fourth": "Příklady prohlášení o odpovědnosti za umělou inteligenci/strojové učení v projektu Zooniverse",
+      "second": "Zjistěte více o etice a participativní vědě",
+      "third": "Příklady projektů Zooniverse s podrobným vysvětlením použití AI/ML"
+    },
+    "sidebarLabel": "Sekce",
+    "title": "Etický rámec pro umělou inteligenci Zooniverse",
+    "toc": {
+      "descriptions": {
+        "eighth": "Odkazy na další informace, včetně externích publikací a zásad, a příklady z projektů Zooniverse, včetně vysvětlení a prohlášení o odpovědnosti v oblasti umělé inteligence/strojního učení.",
+        "fifth": "Doporučení pro týmy, které provozují nebo chtějí provozovat projekt Zooniverse zahrnující AI/ML.",
+        "fourth": "Opatření, která náš tým podniká a která usnadňují doporučení pro projektové týmy.",
+        "nineth": "Pro dobrovolníky.",
+        "seventh": "Informace o AI/ML a o tom, jak se (a používalo) na Zooniverse. Zahrnuje diskusi o tom, proč projektové týmy potřebují nebo chtějí používat AI/ML, jak poznat, kdy projekt AI/ML používá, a další.",
+        "sixth": "Otázky, na které by měli být připraveni odpovědět všichni výzkumníci, kteří vedou projekty Zooniverse zaměřené na umělou inteligenci/strojové učení.",
+        "tenth": "Více informací o rámci a o tom, jak byl vyvinut, včetně informací o tom, kdo se na jeho tvorbě podílel a jak byla tato práce financována.",
+        "third": "Naše organizační principy, na kterých je tento rámec založen. Shrnují zastřešující cíle, které pomohou řešit rizika a obavy členů naší komunity ohledně umělé inteligence/strojového učení."
+      }
+    }
+  },
   "AboutHeader": {
     "links": {
       "about": "O",
+      "aiethics": "Etika umělé inteligence",
       "collaborate": "Spolupracovat",
       "contact": "Kontaktujte nás",
       "donate": "Darovat",
@@ -216,6 +409,11 @@
       "answer": "Podporujeme hlavní prohlížeče až do předposlední verze.",
       "question": "Jakou verzi prohlížeče Zooniverse podporuje?"
     },
+    "item11": {
+      "answer0": "Některé překlady obsahu na úrovni platformy (tj. textu sdíleného na všech webových stránkách Zooniverse, jako jsou popisky nabídek, záhlaví, tlačítka atd.) pocházejí od dobrovolných překladatelů. Testovali jsme však také překlady s využitím umělé inteligence v malém počtu jazyků <0>pouze pro text na úrovni platformy</0>. Uznáváme, že kvalita překladu s využitím umělé inteligence se v jednotlivých jazycích liší a že s tím souvisí riziko nesprávných překladů. Vítáme dobrovolníky, kteří nám pomohou zvýšit kvalitu překladů napříč naší platformou.",
+      "answer1": "Upozorňujeme, že překlad textu na úrovni projektu je spravován výzkumnými týmy a jakýkoli překlad textu specifického pro projekt vygenerovaný umělou inteligencí by měl být týmem zveřejněn v souladu s naším <0>etickým rámcem pro umělou inteligenci</0>. Další informace o překladech Zooniverse jsou k dispozici na adrese <1>https://help.zooniverse.org/next-steps/translations</1>.",
+      "question": "Co mám dělat, když si všimnu, že překlady na úrovni platformy jsou nesprávné?"
+    },
     "item1": {
       "answer": "U většiny témat zobrazených v projektech Zooniverse vědci neznají správnou odpověď, a proto potřebují vaši pomoc. Lidé jsou v úlohách rozpoznávání vzorů opravdu dobří, takže váš první odhad je obvykle pravděpodobně ten správný. Nebojte se příliš toho, že občas uděláte chybu – každý obrázek, video nebo graf v projektu zkontroluje více než jedna osoba. Většina projektů Zooniverse má tlačítko Nápověda, stránku s často kladenými otázkami (FAQ) a terénního průvodce s dalšími informacemi, které vám pomohou při klasifikaci.",
       "question": "Jak poznám, jestli to dělám správně?"
@@ -365,6 +563,38 @@
     "sidebarLabel": "Disciplína",
     "title": "Publikace"
   },
+  "ResetPassword": {
+    "CommitResetForm": {
+      "body": "Zadejte heslo dvakrát pro jeho ověření a poté budete moci znovu pomáhat se skutečným výzkumem.",
+      "infoConfirmation": "Obě pole se musí shodovat",
+      "infoPassword": "Minimálně 8 znaků",
+      "inputConfirmation": "Potvrdit nové heslo",
+      "inputPassword": "Nové heslo",
+      "status": {
+        "errorInvalidInput": "Chyba: neplatný vstup",
+        "errorPasswordsDoNotMatch": "Chyba: hesla se neshodují, zkuste to prosím znovu.",
+        "success": "Vaše heslo bylo změněno! Za několik sekund budete přesměrováni na <0>přihlašovací stránku</0>, použijte prosím své nové heslo."
+      },
+      "submit": "Předložit",
+      "titleForInputPattern": "Minimálně 8 znaků"
+    },
+    "NoAccessMessage": {
+      "body": "Momentálně jste přihlášeni. Pokud si chcete obnovit heslo, odhlaste se."
+    },
+    "RequestResetForm": {
+      "body": "Zadejte svou e-mailovou adresu a my vám zašleme odkaz pro obnovení hesla.",
+      "footer": "Pokud vám e-mail s požadavkem na resetování nedorazil, podívejte se do složky s nevyžádanou poštou. Pokud tam není, zkuste jinou e-mailovou adresu, kterou jste mohli použít k registraci do Zooniverse.",
+      "inputEmail": "E-mailová adresa",
+      "status": {
+        "errorTooManyRequests": "Chyba: příliš mnoho požadavků na resetování hesla. Zkuste to prosím znovu později.",
+        "success": "Právě jsme vám odeslali e-mail s odkazem pro obnovení hesla."
+      },
+      "submit": "Poslat"
+    },
+    "common": {
+      "header": "Obnovit heslo"
+    }
+  },
   "Resources": {
     "brand": {
       "heading": "Zdroje značek",
@@ -393,8 +623,58 @@
     },
     "title": "Zdroje"
   },
+  "Settings": {
+    "AccountSettings": {
+      "title": "Účet"
+    },
+    "EmailSettings": {
+      "title": "E-mail"
+    },
+    "ProfileSettings": {
+      "title": "Profil"
+    },
+    "common": {
+      "backHome": "Zpátky domů",
+      "sidebar": "Nastavení",
+      "title": "Uživatelská nastavení"
+    },
+    "forms": {
+      "fields": {
+        "credited_name": {
+          "help": "Toto je jméno, které budeme používat k poděkování v publikacích, na plakátech, v certifikátech pro dobrovolníky a dalších materiálech.",
+          "label": "Skutečné jméno"
+        },
+        "display_name": {
+          "help": "Jak se vaše jméno bude zobrazovat ostatním na platformě.",
+          "label": "Zobrazovaný název"
+        }
+      },
+      "optional": "Volitelný",
+      "save": "Přeměna",
+      "saveSuccess": "Změny uloženy.",
+      "saveUnnecessary": "Žádné změny k uložení."
+    }
+  },
   "Sidebar": {
     "all": "Vše"
+  },
+  "Unsubscribe": {
+    "form": {
+      "body": {
+        "p1": "Chápeme to – nikdo nechce neustále dostávat e-maily, které nechce.",
+        "p2": "Stačí sem zadat svou e-mailovou adresu a my vás odhlásíme ze všech našich e-mailových seznamů."
+      },
+      "errors": {
+        "general": "Něco se pokazilo. Zkontrolujte prosím e-mailovou adresu a zkuste to znovu."
+      },
+      "header": "Odhlásit se ze všech e-mailů Zooniverse, s výjimkou Talku.",
+      "inputEmail": "E-mailová adresa",
+      "submit": "Předložit"
+    },
+    "processed": {
+      "body": "Pokud si to rozmyslíte, přejděte do nastavení svého účtu a <0>aktualizujte si předvolby e-mailu</0>.",
+      "header": "Odhlášení úspěšné"
+    }
   },
   "Volunteer": {
     "beta": {
@@ -440,6 +720,14 @@
         "third": "Promluvte si s ostatními dobrovolníky a odborníky"
       }
     },
-    "title": "Dobrovolník"
+    "title": "Dobrovolník",
+    "translate": {
+      "heading": "Přeložit projekt",
+      "paragraphs": {
+        "first": "Dobrovolní překladatelé pomáhají výzkumným týmům s překladem anglicky psaných projektů Zooniverse do jiných jazyků a pomáhají tak naší globální komunitě dobrovolníků. Překladatelé projektů spolupracují přímo s projektovými týmy a jsou do svého projektu přidáni jako překladatelé. V takovém případě mají přístup k webovým stránkám pro překlady na úrovni projektu a mohou zadávat překlady pro každou část projektu.",
+        "second": "Vítáme také dobrovolníky, kteří nám pomohou s opravou překladů obsahu na úrovni platformy generovaného umělou inteligencí, tj. textu sdíleného napříč všemi projekty, jako jsou popisky nabídek, záhlaví, tlačítka atd. Tento obsah <0>není</0> specifický pro daný projekt a spravuje a udržuje jej tým Zooniverse.",
+        "third": "Pokud máte zájem o dobrovolnickou práci jako překladatel projektu nebo o pomoc s úpravou překladů na úrovni platformy, <0>kontaktujte nás</0>."
+      }
+    }
   }
 }
