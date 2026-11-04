@@ -28,7 +28,10 @@ function storeMapper(store) {
   }
 }
 
-/* Only show the modal when project.configuration.languages does not includes the current locale */
+/*
+  Only show the modal when project.configuration.languages does not include the current locale
+  OR when locale === 'en' because that is the default language for the entire website.
+*/
 export default function TranslationsModal({ locale }) {
   const { store } = useContext(MobXProviderContext)
   const { availableLocales } = storeMapper(store)
@@ -45,7 +48,9 @@ export default function TranslationsModal({ locale }) {
     setActive(false)
   }
 
-  if (availableLocales?.includes(locale)) {
+  // New projects with no translations support do NOT spawn with project.configuration.languages = ['en'].
+  // It is possible for the current locale to be 'en' and availabledLocales === undefined.
+  if (!locale || locale === 'en' || availableLocales?.includes(locale)) {
     return null
   }
 
