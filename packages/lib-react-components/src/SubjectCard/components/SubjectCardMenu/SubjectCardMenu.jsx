@@ -1,14 +1,11 @@
 import { Box, Menu } from 'grommet'
-import { More } from 'grommet-icons'
 import { bool, func } from 'prop-types'
 import styled from 'styled-components'
 
 import { useTranslation } from '../../../translations/i18n'
+import MoreOptionsIcon from './MoreOptionsIcon'
 
 const MenuContainer = styled(Box)`
-  backdrop-filter: blur(2px);
-  background: rgba(64, 64, 64, 0.6);
-  box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.25);
   position: absolute;
   right: 4px;
   top: 4px;
@@ -16,12 +13,45 @@ const MenuContainer = styled(Box)`
 `
 
 const StyledMenu = styled(Menu)`
+  align-items: center;
+  border: 1.5px solid transparent;
+  border-radius: 50%;
+  display: flex;
   height: 100%;
+  justify-content: center;
   width: 100%;
 
   div {
     justify-content: center;
     padding: 0;
+  }
+
+  &:hover:not(:disabled) {
+    background-color: ${props => props.theme.global.colors['accent-1']};
+  }
+
+  &:focus-visible:not(:disabled) {
+    border: 1.5px solid ${props => props.theme.global.colors['accent-1']};
+    box-shadow: 0px 0px 8px ${props => props.theme.global.colors['accent-1']};
+    outline: none;
+  }
+
+  &:active:not(:disabled),
+  &[aria-expanded='true'] {
+    background-color: ${props => props.theme.global.colors['neutral-1']};
+  }
+
+  &:hover:not(:disabled),
+  &:active:not(:disabled),
+  &[aria-expanded='true'] {
+    svg {
+      filter: none;
+    }
+
+    circle {
+      fill: ${props => props.theme.global.colors['neutral-6']};
+      stroke: ${props => props.theme.global.colors['neutral-6']};
+    }
   }
 `
 
@@ -48,7 +78,7 @@ function SubjectCardMenu({
       <StyledMenu
         a11yTitle={t('SubjectCard.moreOptions')}
         dropAlign={{ right: 'right', top: 'bottom' }}
-        icon={<More color='white' size='medium' />}
+        icon={<MoreOptionsIcon size='22px' />}
         items={items}
       />
     </MenuContainer>
