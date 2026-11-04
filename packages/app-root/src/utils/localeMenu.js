@@ -1,4 +1,6 @@
-/* locales supported in app-root for platform-level content */
+/*
+  locales supported in app-root for platform-level content managed in Lokalise.
+*/
 
 const localeMenu = {
   ar: 'العربية', // Arabic

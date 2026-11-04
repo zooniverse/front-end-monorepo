@@ -1,6 +1,6 @@
 import { i18nRouter } from 'next-i18n-router'
 import { NextResponse } from 'next/server'
-import i18nConfig from '../i18nConfig'
+import i18nConfig from './utils/i18nConfig'
 
 export function middleware(req) {
   // ignore the commit_id.txt for deployment actions

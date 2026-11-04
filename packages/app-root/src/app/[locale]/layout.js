@@ -3,8 +3,9 @@ import StyledComponentsRegistry from './style-registry'
 import { GoogleTagManager } from '@next/third-parties/google'
 import { notFound } from 'next/navigation'
 
-import i18nConfig from '../../../i18nConfig'
+import i18nConfig from '@/utils/i18nConfig'
 import { getDictionary } from '@/utils/dictionaries'
+import { supportedLocales } from '@/utils/localeMenu'
 
 export const metadata = {
   title: {
@@ -55,7 +56,7 @@ export default async function NextLayout(props) {
           [locale]: { translation: dictionary }
         }
 
-  if (!i18nConfig.locales.includes(locale)) {
+  if (!supportedLocales.includes(locale)) {
     notFound()
   }
 
