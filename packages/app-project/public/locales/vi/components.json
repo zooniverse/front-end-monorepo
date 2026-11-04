@@ -76,15 +76,22 @@
     "classify": "Phân loại",
     "collect": "Thu thập",
     "exploreProject": "Khám phá Dự án",
+    "lab": "Phòng thí nghiệm",
     "organization": "Từ tổ chức:",
     "recents": "Mới nhất",
     "talk": "Trò chuyện"
   },
   "ProjectStatistics": {
+    "active": "Thống kê hoạt động",
+    "allTime": "Thống kê mọi thời đại",
+    "byTheNumbers": "Theo các con số",
     "classifications": "Phân loại",
     "completedSubjects": "Các chủ đề đã hoàn thành",
+    "launched": "Dự án được khởi động vào ngày {{date}}",
+    "notLaunched": "Dự án chưa được khởi động",
     "percentComplete": "Phần trăm hoàn thành",
     "subjects": "Chủ đề",
+    "subtitle": "Theo dõi tiến độ mà bạn và các tình nguyện viên khác đã đạt được trong dự án này.",
     "text": "Mỗi cú nhấp chuột đều quan trọng! Tham gia cộng đồng của {{projectName}} để hoàn thành dự án này và giúp các nhà nghiên cứu tạo ra những kết quả quan trọng. Nhấp vào \"Xem thêm thống kê\" để xem thêm các thống kê khác.",
     "title": "Thống kê {{projectName}}",
     "viewMoreStats": "Xem thêm thống kê",
@@ -100,6 +107,7 @@
     "alreadySeen": "Đã xem",
     "back": "Chọn một set chủ đề khác",
     "byline": "Sắp xếp danh sách bằng cách nhấp vào tên cột. Bạn sẽ thấy các chủ đề theo thứ tự, bắt đầu từ chủ đề bạn chọn.",
+    "error": "Rất tiếc, chúng tôi không thể tải các chủ đề trong bộ chủ đề này. Vui lòng thử lại sau hoặc thông báo cho nhóm dự án trên Talk.",
     "fetching": "Vui lòng chờ...",
     "heading": "Chọn một chủ đề để bắt đầu",
     "retired": "Đã dừng",
@@ -124,6 +132,7 @@
   "WorkflowSelector": {
     "WorkflowSelectButton": {
       "complete": "Hoàn thành {{completeness}}%",
+      "externalWorkflow": "quy trình làm việc bên ngoài",
       "setSelection": "chọn set",
       "subjectSelection": "lựa chọn chủ đề"
     },

@@ -2,7 +2,7 @@
   "404": {
     "findNewProject": "新たに取り組むプロジェクトを見つける",
     "heading": "ここには何もありません。",
-    "message": "お探しのページは存在しません。",
+    "message": "お探しのページは存在しません。もしページアクセスについてお困りでしたら<0>contact@zooniverse.org<\/0>へ連絡してください。",
     "returnHome": "トップページに戻る"
   },
   "Announcements": {
@@ -76,17 +76,24 @@
     "classify": "分類",
     "collect": "コレクション",
     "exploreProject": "プロジェクトを見る",
+    "lab": "ラボ",
     "organization": "組織より",
     "recents": "最近分類したもの",
     "talk": "トーク"
   },
   "ProjectStatistics": {
+    "active": "アクティブ期間の統計",
+    "allTime": "全期間の統計",
+    "byTheNumbers": "数字で見る",
     "classifications": "分類",
     "completedSubjects": "完了したサブジェクト",
+    "launched": "プロジェクト開始日:{{date}}",
+    "notLaunched": "プロジェクトは開始されていません",
     "percentComplete": "進捗率",
     "subjects": "サブジェクト",
+    "subtitle": "あなたと仲間のボランティアがこのプロジェクトで行った進捗を追跡します。",
     "text": "すべてのクリックがカウントされます。 {{projectName}}のコミュニティに参加して、このプロジェクトを完了させ、研究者が重要な結果を生み出すのを手伝ってください。",
-    "title": "{{projectName}} 統計",
+    "title": "{{projectName}} の統計",
     "viewMoreStats": "さらに詳しい統計を見る",
     "volunteers": "参加ボランティア数"
   },
@@ -100,6 +107,7 @@
     "alreadySeen": "既に見たサブジェクトです",
     "back": "異なるサブジェクトセットの選択",
     "byline": "列の名前をクリックするとリストを並び替えます。選択したものから順番にサブジェクトが表示されます。",
+    "error": "申し訳ありませんが、この科目セットの科目を読み込むことができませんでした。しばらくしてからもう一度お試しいただくか、Talkでプロジェクトチームにご連絡ください。",
     "fetching": "お待ちください...",
     "heading": "始めるにはサブジェクトを選択してください。",
     "retired": "完了済み",
@@ -124,6 +132,7 @@
   "WorkflowSelector": {
     "WorkflowSelectButton": {
       "complete": "{{completeness}}%が完了しました",
+      "externalWorkflow": "外部ワークフロー",
       "setSelection": "セットの選択",
       "subjectSelection": "サブジェクトの選択"
     },

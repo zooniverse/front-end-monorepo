@@ -76,15 +76,22 @@
     "classify": "Classifica",
     "collect": "Colleziona",
     "exploreProject": "Esplora il progetto",
+    "lab": "Laboratorio",
     "organization": "Dall'organizzazione:",
     "recents": "Recenti",
     "talk": "Forum"
   },
   "ProjectStatistics": {
+    "active": "Statistiche attive",
+    "allTime": "Statistiche di tutti i tempi",
+    "byTheNumbers": "In numeri",
     "classifications": "Contributi",
     "completedSubjects": "Oggetti completati",
+    "launched": "Progetto avviato il {{date}}",
+    "notLaunched": "Progetto non avviato",
     "percentComplete": "Percentuale completata",
     "subjects": "Oggetti",
+    "subtitle": "Monitora i tuoi progressi e quelli degli altri volontari in questo progetto.",
     "text": "Ogni clic conta! Entra nella community di {{projectName}} per completare questo progetto e aiutare i ricercatori a ottenere risultati importanti. Premi \"Mostra altre statistiche\" per vedere ancora più statistiche.",
     "title": "Statistiche {{projectName}}",
     "viewMoreStats": "Mostra altre statistiche",
@@ -100,6 +107,7 @@
     "alreadySeen": "Già visto",
     "back": "Scegli un'altra serie di oggetti",
     "byline": "Ordina la lista cliccando sui nomi delle colonne. Vedrai gli oggetti in sequenza a partire da quello scelto.",
+    "error": "Spiacenti, non è stato possibile caricare le materie in questo set di materie. Riprova più tardi oppure contatta il team del progetto su Talk.",
     "fetching": "Attendi...",
     "heading": "Scegli un oggetto per iniziare",
     "retired": "Ritirato",
@@ -124,6 +132,7 @@
   "WorkflowSelector": {
     "WorkflowSelectButton": {
       "complete": "{{completeness}}% completato",
+      "externalWorkflow": "flusso di lavoro esterno",
       "setSelection": "selezione serie",
       "subjectSelection": "selezione oggetto"
     },

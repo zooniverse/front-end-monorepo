@@ -76,15 +76,22 @@
     "classify": "Classificar",
     "collect": "Coleccionar",
     "exploreProject": "Explorar o Projecto",
+    "lab": "Laboratório",
     "organization": "Da organização:",
     "recents": "Recentes",
     "talk": "Debater"
   },
   "ProjectStatistics": {
+    "active": "Estatísticas ativas",
+    "allTime": "Estatísticas de todos os tempos",
+    "byTheNumbers": "Pelos números",
     "classifications": "Classificações",
     "completedSubjects": "Objetos concluídos",
+    "launched": "Projeto lançado em {{date}}",
+    "notLaunched": "Projeto não lançado",
     "percentComplete": "Percentagem completada",
     "subjects": "Objetos",
+    "subtitle": "Mantenha-se a par do progresso alcançado por si e pelos seus colegas voluntários do projeto.",
     "text": "Todos os toques contam! Junte-se à comunidade do projecto {{projectName}} para o completar e ajudar os investigadores a produzir resultados importantes.",
     "title": "{{projectName}} estatísticas",
     "viewMoreStats": "Ver mais estatísticas",
@@ -100,6 +107,7 @@
     "alreadySeen": "Já visto",
     "back": "Escolha um conjunto de objetos diferente",
     "byline": "Ordene a lista clicando nos nomes das colunas. Os objetos serão apresentados sequencialmente, a começar pelo objeto que escolher.",
+    "error": "Desculpe, não foi possível carregar os assuntos deste conjunto de assuntos. Tente novamente mais tarde ou informe a equipe do projeto no Talk.",
     "fetching": "Aguarde…",
     "heading": "Escolha um objeto para começar",
     "retired": "Removido",
@@ -124,6 +132,7 @@
   "WorkflowSelector": {
     "WorkflowSelectButton": {
       "complete": "{{completeness}}% concluído",
+      "externalWorkflow": "fluxo de trabalho externo",
       "setSelection": "seleção do conjunto",
       "subjectSelection": "seleção do objeto"
     },
