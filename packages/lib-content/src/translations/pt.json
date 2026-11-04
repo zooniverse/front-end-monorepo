@@ -7,9 +7,202 @@
       "returnHome": "Volte à página inicial"
     }
   },
+  "AIEthics": {
+    "about": {
+      "acknowledgements": {
+        "heading": "Agradecimentos",
+        "paragraph": "A equipe do Zooniverse gostaria de agradecer às seguintes pessoas por sua participação nas oficinas virtuais que levaram ao desenvolvimento destas recomendações:"
+      },
+      "advisors": {
+        "heading": "Consultores de Projeto"
+      },
+      "funding": {
+        "heading": "Financiamento",
+        "paragraph": "Este trabalho foi financiado pela Fundação Kavli, número de concessão SS-2025-GR-05-3064."
+      },
+      "paragraphs": {
+        "first": "Ao longo dos últimos 15 anos, equipes de pesquisa integraram aprendizado de máquina (ML) em uma ampla gama de projetos do Zooniverse, em diferentes estágios de desenvolvimento. Aproximadamente um terço de todos os projetos ativos do Zooniverse agora incorporam aprendizado de máquina de alguma forma. À medida que essas tecnologias amadureceram e a conscientização pública sobre sua existência cresceu, o feedback recente de voluntários do Zooniverse destacou a necessidade de maior transparência em relação ao uso de IA em nossa plataforma. Buscamos abordar essas preocupações estabelecendo uma estrutura clara e padronizada para a implementação ética de IA/ML em projetos do Zooniverse, garantindo que os pesquisadores possam comunicar suas metodologias de forma eficaz, mantendo a confiança e a colaboração de nossa comunidade de voluntários. Com financiamento da Fundação Kavli, criamos a primeira estrutura ética de IA/ML para o Zooniverse, lançada em 2026. Essa estrutura é apresentada aqui e será atualizada anualmente, conforme necessário.",
+        "fourth": "Os resultados incluem: princípios-chave que servem como estrutura e resumem os objetivos gerais; recomendações de ações internas que a plataforma Zooniverse adotará para facilitar as recomendações às equipes de projeto; e recomendações para as equipes de projeto seguirem ao incorporar IA/ML em projetos da Zooniverse.",
+        "second": "Para desenvolver essa estrutura, realizamos uma série de workshops virtuais com a participação de especialistas no assunto, a liderança do Zooniverse, líderes de projeto, pesquisadores externos e voluntários. Os workshops foram realizados ao longo de 2025 e focaram em quatro temas principais: estabelecer as melhores práticas para transparência e comunicação; identificar abordagens éticas para aprendizado de máquina que equilibrem risco e oportunidade; aprofundar nossa compreensão contextual dessas abordagens éticas; e considerar os desafios da proteção de dados subsequente.  ",
+        "third": "Para incluir as perspectivas de um grupo mais amplo do que aquele que poderia participar diretamente das oficinas, enviamos questionários para toda a comunidade Zooniverse. Os resultados desses questionários moldaram nossa direção estratégica. Após cada oficina, um grupo menor se reunia para traduzir a discussão em temas-chave e resultados práticos. Os resultados eram compartilhados com todos os participantes da oficina, que tinham a oportunidade de fornecer feedback, correções e acréscimos."
+      },
+      "projectTeamList": {
+        "coord": "Coordenador de Projeto",
+        "eval": "Facilitador e Avaliador",
+        "heading": "Equipe do Projeto",
+        "pi": "Investigador Principal",
+        "ra": "Assistentes de pesquisa"
+      }
+    },
+    "actions": {
+      "first": "<0>Adotar ou adaptar um </0><1>modo padrão de descrever o uso de IA/ML</1><0>(em consonância com a linguagem predominante ou a categorização existente) na plataforma Zooniverse.</0> Muitas outras recomendações propostas dependem do desenvolvimento e da implementação dessa categorização, incluindo abordagens para transparência, autonomia e sinalização consistente.",
+      "fourth": "<0>Revisão anual da política pela equipe de liderança do Zooniverse.</0> Estabelecer um ritmo regular para a avaliação e/ou atualização desses recursos, por exemplo, anualmente. Nos comprometemos com uma revisão anual e publicaremos um post no blog ou outra atualização por escrito para coincidir com quaisquer atualizações feitas nesta estrutura como parte desta revisão.",
+      "second": "<0>Dedique uma página do site do Zooniverse a informações e recursos relacionados à IA/ML e seu uso no Zooniverse.</0> Esta é a página! Ela contém a categorização acima, as recomendações da nossa equipe de projeto, além de mais informações sobre como essa tecnologia é (e foi) usada no Zooniverse, quais são os benefícios e as preocupações, e como reconhecer quando um projeto a está utilizando.",
+      "third": "<0>Incorporar diretrizes ao processo interno de revisão de projetos do Zooniverse.</0> A partir do lançamento desta página, nossos processos internos de revisão foram atualizados para refletir as recomendações listadas aqui. Isso garantirá que os líderes de projeto compartilhem informações sobre qualquer uso de IA/ML relacionado ao projeto e compromissos de governança de dados, para garantir que os potenciais voluntários tenham acesso a essas informações."
+    },
+    "faq": {
+      "first": {
+        "answer": "Não. Os pesquisadores vêm ao Zooniverse porque desejam contribuições humanas em seus processos. A menos que recebam permissão explícita para tal, os voluntários não devem usar ferramentas de IA generativa externas ao Zooniverse para auxiliar em seus esforços de classificação.",
+        "question": "Sou voluntário e preciso de ajuda para classificar dados em um projeto. Posso usar ferramentas de IA generativa como ChatGPT ou Gemini para me auxiliar?"
+      },
+      "paragraph": "Não encontrou a resposta para sua pergunta aqui? Envie suas perguntas para <0>contact@zooniverse.org</0>! Atualizaremos esta lista conforme necessário.",
+      "second": {
+        "answerOne": "Comece examinando a página inicial do projeto, especialmente a Descrição do Projeto e qualquer Descrição do Fluxo de Trabalho. Se ainda tiver dúvidas, consulte a página Sobre, bem como os Tutoriais do projeto. Se ainda assim não tiver certeza, você pode perguntar no fórum de discussão, mas parte do objetivo desta estrutura é garantir que todos os projetos comuniquem claramente como estão (ou não estão) usando esta tecnologia.",
+        "answerTwo": "Se você acha que um projeto não está divulgando adequadamente o uso de IA/ML, esperamos que se sinta à vontade para entrar em contato com a equipe de pesquisa no Talk e sugerir algumas mudanças ou expressar suas dúvidas. Caso não se sinta confortável para fazer isso, você também pode nos enviar uma mensagem para <0>contact@zooniverse.org</0> e analisaremos a situação. Parte desse trabalho inclui a atualização de nossos processos internos de revisão, portanto, seu feedback nos ajudará a saber se nossos novos processos são eficazes.",
+        "question": "Quero descobrir se um projeto do Zooniverse está usando IA ou aprendizado de máquina. Como posso encontrar essa informação?"
+      }
+    },
+    "fivews": {
+      "list": {
+        "first": "Quem é responsável por garantir a qualidade e a integridade dos dados? ",
+        "fourth": "<0>Por que a IA/ML está sendo usada? O que ela ajuda a realizar e quem se beneficia? Como seria a pesquisa se a IA/ML não fosse usada?",
+        "second": "<0>Quais</0> técnicas de IA/ML estão sendo aplicadas?",
+        "third": "<0>Quando</0> e <0>Onde</0> do ciclo de vida da coleta, processamento e análise de dados a IA/ML está sendo usada? Em que ponto(s) os voluntários entram no ciclo de vida? Os dois interagem em algum momento? Se sim, como?"
+      },
+      "paragraph": "Ao desenvolver um novo projeto no Zooniverse que envolva IA/ML, os pesquisadores devem refletir sobre as seguintes questões e estar preparados para respondê-las. Idealmente, as respostas a essas perguntas estarão disponíveis em algum lugar na descrição do projeto (por exemplo, na página \"Sobre\", nas perguntas frequentes etc.)."
+    },
+    "heading": {
+      "eighth": "Recursos",
+      "fifth": "Recomendações do projeto",
+      "fifthext": "Recomendações para equipes de projeto",
+      "first": "Preâmbulo",
+      "fourth": "Ações internas",
+      "fourthext": "Ações internas tomadas pela Zooniverse",
+      "nineth": "Perguntas frequentes",
+      "ninethext": "Perguntas frequentes",
+      "second": "Índice",
+      "seventh": "IA/ML no Zooniverse",
+      "seventhext": "Inteligência Artificial e Aprendizado de Máquina no Zooniverse",
+      "sixth": "Os 5 Ws",
+      "sixthext": "Os 5 Ws dos projetos que envolvem IA/ML",
+      "tenth": "Sobre esta estrutura",
+      "third": "Princípios-chave"
+    },
+    "onZooniverse": {
+      "fifthQ": {
+        "heading": "Como posso saber quando um projeto está usando IA ou aprendizado de máquina?",
+        "list": {
+          "first": "É responsabilidade das equipes de projeto indicar claramente em algum lugar da página inicial se o projeto utiliza IA/ML. Além disso, se um projeto tiver vários fluxos de trabalho, as equipes devem distinguir entre os fluxos de trabalho que incorporam IA/ML e aqueles que não incorporam.",
+          "fourth": "Se você tiver alguma dúvida sobre se um projeto utiliza IA/ML, fique à vontade para postar nos fóruns de discussão do projeto e perguntar diretamente à equipe de pesquisa.",
+          "second": "As equipes também devem fornecer detalhes sobre exatamente por que e como a IA/ML são integradas em seus projetos. Essas informações aparecerão na página \"Sobre\" do projeto.",
+          "third": "Se o treinamento de um modelo de IA/ML for um objetivo do projeto, espera-se que as equipes forneçam atualizações sobre esse processo na página de Resultados, quando disponível."
+        }
+      },
+      "firstQ": {
+        "heading": "O que é IA? O que é Aprendizado de Máquina?",
+        "list": {
+          "first": "Não existe uma definição única e simples, mas, de forma geral, IA refere-se a sistemas computacionais projetados para emular o pensamento humano. IA é um termo amplo que engloba uma vasta gama de tecnologias e aplicações. Os termos são frequentemente usados ​​como sinônimos, mas ML (Aprendizado de Máquina) é um subconjunto da IA ​​que utiliza dados e algoritmos para treinar computadores a fazer classificações, gerar previsões e descobrir similaridades ou tendências em grandes conjuntos de dados. (Definição adaptada de Fortson et al. (2024) e <0>https://www.nasa.gov/what-is-artificial-intelligence</0>.",
+          "second": "Existem diversas maneiras de categorizar os métodos e abordagens de IA/ML com base na tecnologia utilizada e nas capacidades dessa tecnologia.",
+          "third": "Em parte devido ao rápido avanço da tecnologia, é fácil haver dúvidas sobre o que a IA está fazendo. A transparência nos projetos do Zooniverse sobre qual é exatamente a contribuição dessa tecnologia e por quê pode ajudar a evitar mal-entendidos ou confusões, além de criar mecanismos de responsabilização para as equipes de projeto."
+        }
+      },
+      "fourthQ": {
+        "heading": "Por que as equipes de projeto precisam ou desejam usar IA e aprendizado de máquina no Zooniverse?",
+        "list": {
+          "first": "Mesmo com o poder da comunidade Zooniverse, muitas equipes de projeto trabalham com conjuntos de dados enormes e complexos. Na maioria dos casos, os pesquisadores descobrem que humanos e máquinas trabalhando juntos produzem dados de qualidade superior aos obtidos isoladamente. Os sistemas humano-máquina também podem ajudar a acelerar os cronogramas dos projetos e permitir que os pesquisadores alcancem resultados mais rapidamente do que apenas com a classificação humana.",
+          "second": "Existem diversas publicações que detalham os sucessos na combinação da classificação humano-máquina disponíveis na <0>página de publicações do Zooniverse</0>."
+        }
+      },
+      "secondQ": {
+        "heading": "Como a IA e o aprendizado de máquina são usados ​​no Zooniverse?",
+        "list": {
+          "fifth": "Caso as equipes de projeto optem por usar IA para gerar conteúdo, elas são obrigadas a divulgar essa informação na página que contém o conteúdo gerado por IA. Isso pode incluir, por exemplo, texto do projeto, avatares, imagens, traduções e/ou dados do projeto.",
+          "first": "Em geral, IA/ML não são incorporadas à plataforma fora de usos específicos de projetos. A equipe do Zooniverse se compromete com a transparência e a rotulagem clara em quaisquer casos futuros em que IA/ML seja usada fora de projetos específicos.",
+          "fourth": {
+            "subFifth": "<0>Voluntários revisam</0> assuntos incomuns ou anômalos que deixaram a máquina perplexa.",
+            "subFirst": "<0>Sem IA/ML.</0> Os voluntários classificam os participantes. Não há nenhuma função prévia ou planejada de IA/ML.",
+            "subFourth": "<0>A IA/ML passa por verificação de qualidade.</0> Voluntários revisam e corrigem as classificações geradas por máquinas, ajudando a aprimorar a IA/ML ao longo do tempo.",
+            "subSecond": "<0>IA/ML pré-classifica os assuntos.</0> Voluntários classificam os assuntos que foram pré-classificados ou filtrados por máquinas. Exemplos incluem a remoção de imagens em branco (imagens sem conteúdo relevante) e a realização de classificações de alto nível para que os voluntários possam concentrar seus esforços em tarefas mais complexas.",
+            "subThird": "<0>Treinamento de IA/ML.</0> Voluntários classificam os objetos e as máquinas aprendem com os padrões, com o objetivo de que a IA/ML assuma as tarefas.",
+            "sublist": "Alguns exemplos:"
+          },
+          "second": "As aplicações de IA/ML variam de projeto para projeto.",
+          "third": "A IA/ML está integrada em alguns projetos específicos do Zooniverse para complementar o apoio à pesquisa fornecido por voluntários, processando dados antes ou depois da conclusão das tarefas por parte deles. Alguns projetos incluem elementos de aprendizado ativo que dão suporte a métodos de IA/ML com interação humana, incorporando a contribuição dos voluntários em processos automatizados para aumentar a qualidade dos resultados."
+        }
+      },
+      "seventhQ": {
+        "heading": "E quanto à IA e ao aprendizado de máquina fora do Zooniverse? Minhas classificações estão sendo incorporadas em iniciativas de IA/ML que não fazem parte do Zooniverse?",
+        "list": {
+          "fifth": "Espera-se que as equipes de projeto compartilhem seus planos de uso e armazenamento de dados na página \"Sobre\" do projeto.",
+          "first": "Nós, como comunidade Zooniverse, temos controle sobre como usamos ou não IA/ML na plataforma e em projetos. No entanto, temos pouco controle sobre como outros podem usar os dados do projeto, principalmente depois que eles são disponibilizados ao público.",
+          "fourth": "Para reduzir o uso não intencional dos dados do projeto (por exemplo, para fins comerciais), algumas equipes optam por aplicar contratos de licenciamento de dados aos dados do projeto (como, por exemplo, <0>Creative Commons</0>), ou compartilhá-los somente mediante solicitação.",
+          "second": "As <0>Políticas de Criação de Projetos</0> atuais do Zooniverse estabelecem que as equipes de projeto devem \"tornar seus dados de classificação públicos após um período de confidencialidade, normalmente de dois anos a partir do lançamento do projeto\".",
+          "sixth": "Caso tenha dúvidas sobre os planos de um projeto em relação ao compartilhamento e/ou licenciamento de dados, sinta-se à vontade para publicar nos fóruns de discussão do projeto e perguntar diretamente à equipe de pesquisa.",
+          "third": "Dados abertos permitem reciprocidade, gratificação imediata e uso rápido dos dados para tomada de decisões ou execução de ações. Também podem auxiliar na preservação de dados, já que a probabilidade de perda é menor se os dados forem mantidos em um repositório ou se outras pessoas tiverem feito cópias. No entanto, isso também significa que outras pessoas, organizações ou empresas podem usar os dados produzidos por meio de projetos do Zooniverse para fins diferentes dos objetivos de pesquisa declarados."
+        }
+      },
+      "sixthQ": {
+        "heading": "Como a Zooniverse garante que essas tecnologias sejam usadas de forma segura e ética?",
+        "list": {
+          "first": "A Zooniverse realizou um esforço de <0>18 meses com as partes interessadas e especialistas</0> para definir o que isso significa para a plataforma. Os <1>Princípios-chave</1>, as <2>Ações internas tomadas pela Zooniverse</2> e as <3>Recomendações para as equipes de projeto</3> resultantes representam nossa abordagem.",
+          "second": "Estamos comprometidos com a avaliação contínua dessas estruturas para garantir sua eficácia, especialmente à medida que as tecnologias e os potenciais casos de uso no Zooniverse continuam a se expandir. Nossas recomendações incluem uma revisão anual de nossas próprias políticas de ética em IA para garantir que elas permaneçam relevantes para nossas comunidades de voluntários e pesquisadores."
+        }
+      },
+      "thirdQ": {
+        "heading": "Quais são os benefícios e as preocupações em relação ao uso de IA e aprendizado de máquina no Zooniverse?",
+        "list": {
+          "first": "A IA/ML pode aumentar a velocidade e o poder da nossa capacidade de gerar, processar e analisar dados. Por sua vez, podemos fazer novas perguntas e obter respostas mais rapidamente.",
+          "fourth": "O desenvolvimento e a utilização de alguns tipos de IA/ML podem exigir muita energia e recursos.",
+          "second": "Delegar certas tarefas a máquinas pode permitir que as pessoas se concentrem em tarefas mais criativas ou complexas. Nossas recomendações ressaltam, contudo, que as equipes de projeto devem ter cuidado para não otimizar em excesso, visto que a participação de iniciantes é crucial para tornar os projetos amplamente acessíveis.",
+          "third": "É essencial incorporar a supervisão humana em algum estágio para avaliar e garantir a qualidade dos dados."
+        }
+      }
+    },
+    "preamble": {
+      "list": {
+        "first": "A plataforma Zooniverse é responsável por <0>desenvolver</0> e <0>manter</0> essas recomendações.",
+        "second": "As equipes de projeto são responsáveis ​​por <0>interpretar</0> e <0>implementar</0> as recomendações. ",
+        "third": "Os voluntários têm autonomia para <0>confirmar</0> ou <0>questionar</0> a implementação por meio de feedback ou exercendo sua autonomia (por exemplo, optando por não participar de um projeto)."
+      },
+      "paragraphs": {
+        "first": "Esta página apresenta a Estrutura Ética de IA do Zooniverse, incluindo recomendações para a execução de projetos no Zooniverse que utilizam inteligência artificial (IA) e/ou aprendizado de máquina (ML). Esta é uma estrutura em constante desenvolvimento, e estamos comprometidos em aprimorá-la e iterá-la à medida que recebemos feedback e os contextos tecnológico, social e cultural continuam a evoluir. Esta página destina-se principalmente a fornecer informações aos voluntários do Zooniverse. As equipes de projeto podem consultar as orientações específicas em nossa documentação do Zooniverse.",
+        "second": "Embora a aplicação da tecnologia de 'IA' no Zooniverse tenha tradicionalmente ocorrido por meio de processos específicos de aprendizado de máquina (ferramentas e tecnologias algorítmicas que aprendem com dados existentes para resolver tarefas), o termo 'IA' tornou-se um termo genérico para descrever esse tipo de automação. A IA, em termos gerais, refere-se a \"computadores que podem emular o pensamento humano\", e o aprendizado de máquina é um subconjunto desse conceito. Neste contexto, usaremos 'IA/ML' para nos referirmos a esses processos, a fim de abranger uma ampla gama de métodos, bem como manter alguma distinção entre esses dois termos.",
+        "third": "Criar, manter e usar essa estrutura exige responsabilidades distintas — para a plataforma Zooniverse, as equipes de projeto e os voluntários — para garantir que a integração de IA/ML na pesquisa participativa permaneça transparente, ética e orientada pela comunidade."
+      }
+    },
+    "principles": {
+      "fifth": "Utilize e alinhe-se com os <0>recursos existentes de enquadramento de IA/ML</0> e continue a interagir com comunidades e partes interessadas mais amplas para <0>desenvolver e adotar as melhores práticas</0> em torno da pesquisa participativa com IA/ML.",
+      "first": "Incorporar a transparência na governança da plataforma, no desenvolvimento de projetos e na entrega relacionados à IA/ML.",
+      "fourth": "Comprometa-se com o diálogo contínuo e com a capacidade de resposta do projeto e da plataforma às mudanças de atitudes e conversas sobre IA/ML.",
+      "second": "Projetar para a experiência do voluntário e priorizar a autonomia e o consentimento dos voluntários no ato de selecionar projetos; considerar os benefícios e as motivações dos voluntários em projetos que envolvam IA/ML.",
+      "third": "Promova a responsabilização demonstrando a adesão a diretrizes claras como pré-requisito para o lançamento de um projeto oficial no Zooniverse."
+    },
+    "recs": {
+      "eighth": "<0>Ao divulgar o uso pretendido dos resultados/dados do projeto, considere como esse uso poderá mudar ao longo do tempo.</0> Os voluntários podem optar por participar do seu projeto com base nos objetivos e nos usos pretendidos dos resultados/dados indicados na página \"Sobre\". Posteriormente, quais são as chances de você expandir esses usos? ",
+      "fifth": "<0>Acompanhamento.</0> Forneça feedback sobre o grau de sucesso alcançado durante o treinamento dos modelos de IA/ML. O método será determinado pela equipe do projeto e pode incluir, por exemplo, uma postagem no fórum de discussão, um boletim informativo por e-mail, etc.",
+      "first": "<0>Projete seu projeto considerando a autonomia (escolha) dos voluntários.</0> Isso exige transparência e comunicação clara para que os voluntários possam tomar decisões informadas sobre se desejam participar do seu projeto. Se você estiver incorporando IA/ML em qualquer etapa do seu trabalho (pré ou pós-processamento, sistemas de classificação com intervenção humana, etc.), você precisa fornecer detalhes específicos sobre como esses processos funcionam e por que são necessários. Por exemplo, dizer \"usaremos os dados resultantes para treinar um modelo\" não fornece detalhes suficientes.",
+      "fourth": "<0>Mantenha o contexto.</0> Para projetos que convidam voluntários a interagir com ou revisar resultados gerados por máquinas, considere se e como o contexto pode impactar a tarefa — incluindo tanto a qualidade dos dados quanto a qualidade da experiência do voluntário. Por exemplo, se uma tarefa pede aos voluntários que revisem a qualidade de transcrições automáticas, mas inclui apenas uma parte do documento (como uma única palavra ou frase), incluir um link para a imagem ou documento completo garantirá que os voluntários possam continuar interagindo com o material original e seu significado, se desejarem. Essas informações podem ser incluídas nos metadados do sujeito.",
+      "nineth": "<0>Considere as oportunidades e os riscos potenciais de executar um projeto que envolva IA/ML.</0> Incentivamos os pesquisadores a entender os riscos potenciais — juntamente com as oportunidades — antes de lançar projetos e a indicar ferramentas validadas e pesquisas publicadas, como Ceccaroni et al. (2019), que apresenta um levantamento de riscos e oportunidades relacionados ao uso de IA na ciência cidadã e recomendações para mitigação de riscos.",
+      "second": "<0>Mostre aos voluntários onde/quando/por que a IA/ML está incorporada em seu projeto.</0> Alguns fluxos de trabalho dentro de um projeto podem envolver/contar com o auxílio de IA/ML, enquanto outros não. Esses fluxos devem ser claramente identificados no campo Nome do Fluxo de Trabalho ou na área Descrição do Fluxo de Trabalho, para que os voluntários possam escolher de acordo com sua preferência. Se você utilizou IA/ML para pré-processar seus dados, descreva quais são suas métricas de controle de qualidade (incluindo se essa é a sua justificativa para executar um fluxo de trabalho de validação no Zooniverse).",
+      "seventh": "<0>Qualidade de dados.</0> Descreva como você está avaliando e abordando qualquer impacto potencial na qualidade dos dados em seu projeto devido ao uso de IA/ML. ",
+      "sixth": "<0>Crie canais de feedback.</0> Qualquer projeto com um componente de IA/ML deve ter um canal para que os voluntários compartilhem seus feedbacks com os membros da equipe do projeto. Por exemplo, as equipes podem criar um Fórum dedicado para descrever o uso de IA/ML, responder a perguntas e fornecer atualizações sobre treinamentos ou resultados.",
+      "third": "<0>Considere as consequências da otimização.</0> Ao considerar \"delegar\" tarefas fáceis para IA/ML e fazer com que humanos realizem tarefas mais difíceis/complexas, lembre-se de que fluxos de trabalho mais avançados podem restringir quem é capaz/qualificado para participar, a menos que haja um processo de integração. Tarefas de treinamento podem ser necessárias para adquirir proficiência em tarefas que a IA/ML não consegue executar. Qualquer processo de integração ou fluxo de trabalho de treinamento deve ser claramente identificado, incluindo fluxos de trabalho que utilizam o recurso de Feedback do Zooniverse."
+    },
+    "resources": {
+      "first": "Saiba mais sobre IA/ML",
+      "fourth": "Exemplos de declarações de responsabilidade de IA/ML do projeto Zooniverse",
+      "second": "Saiba mais sobre ética e ciência participativa.",
+      "third": "Exemplos de projetos do Zooniverse com explicações detalhadas sobre o uso de IA/ML"
+    },
+    "sidebarLabel": "Seção",
+    "title": "Estrutura Ética de IA do Zooniverse",
+    "toc": {
+      "descriptions": {
+        "eighth": "Links para mais informações, incluindo publicações e políticas externas, e exemplos de projetos do Zooniverse, incluindo explicações sobre IA/ML e declarações de responsabilidade.",
+        "fifth": "Recomendação para equipes que estão executando, ou desejam executar, um projeto no Zooniverse envolvendo IA/ML.",
+        "fourth": "Ações que nossa equipe está tomando para facilitar as recomendações às equipes de projeto.",
+        "nineth": "Para voluntários.",
+        "seventh": "Informações sobre IA/ML e como ela é (e foi) usada no Zooniverse. Inclui discussões sobre por que as equipes de projeto precisam ou desejam usar IA/ML, como saber quando um projeto está usando IA/ML e muito mais.",
+        "sixth": "Questões que todos os pesquisadores que conduzem projetos do Zooniverse envolvendo IA/ML devem estar preparados para responder.",
+        "tenth": "Mais informações sobre a estrutura e como ela foi desenvolvida, incluindo informações sobre quem esteve envolvido em sua criação e como esse trabalho foi financiado.",
+        "third": "Nossos princípios organizacionais por trás dessa estrutura. Eles resumem os objetivos gerais que ajudarão a abordar os riscos e as preocupações levantadas pelos membros de nossa comunidade em relação à IA/ML."
+      }
+    }
+  },
   "AboutHeader": {
     "links": {
       "about": "Sobre",
+      "aiethics": "Ética da IA",
       "collaborate": "Colaborar",
       "contact": "Contato",
       "donate": "Doar",
@@ -216,6 +409,11 @@
       "answer": "Oferecemos suporte aos principais navegadores até a penúltima versão.",
       "question": "Qual versão de navegador o Zooniverse suporta?"
     },
+    "item11": {
+      "answer0": "Algumas traduções de conteúdo da plataforma (ou seja, o texto compartilhado em todas as páginas da web do Zooniverse, como rótulos de menu, cabeçalhos, botões etc.) são feitas por tradutores voluntários. No entanto, também testamos traduções por IA em um pequeno número de idiomas <0>apenas para texto da plataforma</0>. Reconhecemos que a qualidade da tradução por IA varia entre os idiomas e que isso acarreta o risco de traduções incorretas. Agradecemos a colaboração de voluntários para melhorar a qualidade das traduções em toda a nossa plataforma.",
+      "answer1": "Observe que a tradução de textos de projetos específicos é gerenciada pelas equipes de pesquisa, e qualquer tradução de texto específico de um projeto gerada por IA deve ser divulgada pela equipe, conforme nossa <0>Estrutura de Ética em IA</0>. Informações adicionais sobre traduções no Zooniverse estão disponíveis em <1>https://help.zooniverse.org/next-steps/translations</1>.",
+      "question": "O que devo fazer se perceber que as traduções ao nível da plataforma estão incorretas?"
+    },
     "item1": {
       "answer": "Para a maioria dos assuntos apresentados nos projetos do Zooniverse, os pesquisadores não sabem a resposta correta e é por isso que precisam da sua ajuda. Os seres humanos são muito bons em tarefas de reconhecimento de padrões, então, geralmente, seu primeiro palpite provavelmente é o correto. Não se preocupe muito em cometer um erro ocasionalmente — mais de uma pessoa revisará cada imagem, vídeo ou gráfico em um projeto. A maioria dos projetos do Zooniverse possuem um botão de Ajuda, uma página de Perguntas Frequentes (FAQ) e um Guia de Campo com mais informações para orientá-lo na classificação.",
       "question": "Como posso saber se estou fazendo isso corretamente?"
@@ -365,6 +563,38 @@
     "sidebarLabel": "Disciplina",
     "title": "Publicações"
   },
+  "ResetPassword": {
+    "CommitResetForm": {
+      "body": "Digite sua senha duas vezes para confirmá-la e, em seguida, você estará pronto para voltar a ajudar com pesquisas de verdade.",
+      "infoConfirmation": "Ambos os campos devem corresponder.",
+      "infoPassword": "Mínimo de 8 caracteres",
+      "inputConfirmation": "Confirme a nova senha",
+      "inputPassword": "Nova Senha",
+      "status": {
+        "errorInvalidInput": "Erro: entrada inválida",
+        "errorPasswordsDoNotMatch": "Erro: as senhas não coincidem. Tente novamente.",
+        "success": "Sua senha foi alterada! Você será redirecionado para a <0>página de login</0> em alguns segundos. Por favor, use sua nova senha."
+      },
+      "submit": "Enviar",
+      "titleForInputPattern": "Mínimo de 8 caracteres"
+    },
+    "NoAccessMessage": {
+      "body": "Você está conectado(a). Por favor, desconecte-se se desejar redefinir sua senha."
+    },
+    "RequestResetForm": {
+      "body": "Insira seu endereço de e-mail e enviaremos um link para redefinir sua senha.",
+      "footer": "Se o e-mail de redefinição não chegou, verifique sua pasta de spam. Se não estiver lá, tente outro endereço de e-mail que você possa ter usado para se cadastrar no Zooniverse.",
+      "inputEmail": "Endereço de email",
+      "status": {
+        "errorTooManyRequests": "Erro: muitas solicitações de redefinição de senha. Tente novamente mais tarde.",
+        "success": "Acabamos de enviar um e-mail com um link para redefinir sua senha."
+      },
+      "submit": "Enviar"
+    },
+    "common": {
+      "header": "Redefinir senha"
+    }
+  },
   "Resources": {
     "brand": {
       "heading": "Recursos de Marca",
@@ -393,8 +623,58 @@
     },
     "title": "Recursos"
   },
+  "Settings": {
+    "AccountSettings": {
+      "title": "Conta"
+    },
+    "EmailSettings": {
+      "title": "E-mail"
+    },
+    "ProfileSettings": {
+      "title": "Perfil"
+    },
+    "common": {
+      "backHome": "Voltar para a página inicial",
+      "sidebar": "Configurações",
+      "title": "Configurações do usuário"
+    },
+    "forms": {
+      "fields": {
+        "credited_name": {
+          "help": "Este é o nome que usaremos para dar os devidos agradecimentos em publicações, pôsteres, certificados de voluntários e outros materiais.",
+          "label": "Nome verdadeiro"
+        },
+        "display_name": {
+          "help": "Como seu nome aparecerá para outros usuários em toda a plataforma.",
+          "label": "Nome de exibição"
+        }
+      },
+      "optional": "Opcional",
+      "save": "Mudar",
+      "saveSuccess": "Alterações salvas.",
+      "saveUnnecessary": "Nenhuma alteração a ser salva."
+    }
+  },
   "Sidebar": {
     "all": "Todos"
+  },
+  "Unsubscribe": {
+    "form": {
+      "body": {
+        "p1": "Nós entendemos - ninguém gosta de continuar recebendo e-mails indesejados.",
+        "p2": "Basta inserir seu endereço de e-mail aqui e nós o removeremos de todas as nossas listas de e-mail."
+      },
+      "errors": {
+        "general": "Algo deu errado. Por favor, verifique seu endereço de e-mail e tente novamente."
+      },
+      "header": "Cancele a inscrição de todos os e-mails do Zooniverse, exceto o da seção Talk.",
+      "inputEmail": "Endereço de email",
+      "submit": "Enviar"
+    },
+    "processed": {
+      "body": "Se mudar de ideia, visite as configurações da sua conta para <0>atualizar suas preferências de e-mail</0>.",
+      "header": "Cancelamento de inscrição realizado com sucesso"
+    }
   },
   "Volunteer": {
     "beta": {
@@ -440,6 +720,14 @@
         "third": "Converse com outros voluntários e especialistas"
       }
     },
-    "title": "Voluntário"
+    "title": "Voluntário",
+    "translate": {
+      "heading": "Traduzir um projeto",
+      "paragraphs": {
+        "first": "Tradutores voluntários auxiliam as equipes de pesquisa na tradução de projetos do Zooniverse, do inglês para outros idiomas, beneficiando nossa comunidade global de voluntários. Os tradutores de projeto trabalham diretamente com as equipes de projeto para serem adicionados como tradutores, momento em que podem acessar o site de traduções do projeto e inserir traduções para cada seção do projeto.",
+        "second": "Também aceitamos voluntários para ajudar a corrigir traduções geradas por IA de conteúdo de nível de plataforma, ou seja, o texto compartilhado em todos os projetos, como rótulos de menu, cabeçalhos, botões etc. Esse conteúdo <0>não</0> é específico de um projeto e é gerenciado e mantido pela equipe do Zooniverse.",
+        "third": "Se você estiver interessado em ser um tradutor voluntário para o projeto ou em ajudar a editar traduções de plataformas, entre em contato conosco."
+      }
+    }
   }
 }

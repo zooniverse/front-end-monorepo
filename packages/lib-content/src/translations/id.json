@@ -7,9 +7,202 @@
       "returnHome": "Kembali ke halaman utama"
     }
   },
+  "AIEthics": {
+    "about": {
+      "acknowledgements": {
+        "heading": "Ucapan Terima Kasih",
+        "paragraph": "Tim Zooniverse ingin mengucapkan terima kasih kepada orang-orang berikut atas partisipasi mereka dalam lokakarya virtual yang menghasilkan pengembangan rekomendasi ini:"
+      },
+      "advisors": {
+        "heading": "Penasihat Proyek"
+      },
+      "funding": {
+        "heading": "Pendanaan",
+        "paragraph": "Karya ini didukung oleh Yayasan Kavli, dengan nomor hibah SS-2025-GR-05-3064."
+      },
+      "paragraphs": {
+        "first": "Selama 15 tahun terakhir, tim peneliti telah mengintegrasikan pembelajaran mesin (ML) ke dalam berbagai proyek Zooniverse dan pada berbagai tahapan. Sekitar sepertiga dari semua proyek Zooniverse yang aktif sekarang menggabungkan pembelajaran mesin dalam beberapa cara. Seiring dengan kematangan teknologi ini dan meningkatnya kesadaran publik akan keberadaannya, umpan balik sukarelawan Zooniverse baru-baru ini menyoroti kebutuhan akan transparansi yang lebih besar mengenai penggunaan 'AI' di platform kami. Kami berupaya mengatasi kekhawatiran ini dengan menetapkan kerangka kerja yang jelas dan terstandarisasi untuk implementasi etis AI/ML dalam proyek Zooniverse, memastikan bahwa para peneliti dapat secara efektif mengkomunikasikan metodologi mereka sambil mempertahankan kepercayaan dan kolaborasi komunitas sukarelawan kami. Dengan pendanaan dari Yayasan Kavli, kami menciptakan <0>kerangka kerja etika AI/ML pertama untuk Zooniverse</0>, yang kami luncurkan pada tahun 2026. Kerangka kerja tersebut disajikan di sini dan akan diperbarui setiap tahun, sesuai kebutuhan.",
+        "fourth": "Hasilnya meliputi: prinsip-prinsip utama yang berfungsi sebagai kerangka kerja dan merangkum tujuan menyeluruh; rekomendasi untuk tindakan internal yang akan diambil oleh platform Zooniverse yang memfasilitasi rekomendasi bagi tim proyek; dan rekomendasi bagi tim proyek untuk diambil ketika menggabungkan AI/ML ke dalam proyek Zooniverse.",
+        "second": "Untuk mengembangkan kerangka kerja ini, kami mengadakan serangkaian lokakarya virtual yang melibatkan para ahli di bidangnya, pimpinan Zooniverse, pemimpin proyek, peneliti eksternal, dan sukarelawan. Lokakarya tersebut diadakan sepanjang tahun 2025 dan berfokus pada empat tema utama: menetapkan praktik terbaik untuk transparansi dan komunikasi; mengidentifikasi pendekatan etis terhadap pembelajaran mesin yang menyeimbangkan risiko dan peluang; memperdalam pemahaman kontekstual kita tentang pendekatan etis ini; dan mempertimbangkan tantangan perlindungan data hilir.  ",
+        "third": "Untuk mendapatkan wawasan dari kelompok yang lebih luas daripada yang dapat berpartisipasi langsung dalam lokakarya, kami mengirimkan survei kepada seluruh komunitas Zooniverse. Hasil dari survei tersebut membentuk arah strategis kami. Setelah setiap lokakarya, kelompok yang lebih kecil berkumpul untuk menerjemahkan diskusi ke dalam tema-tema utama dan hasil yang dapat ditindaklanjuti. Hasilnya dibagikan kepada semua peserta lokakarya yang memiliki kesempatan untuk memberikan umpan balik, koreksi, dan tambahan."
+      },
+      "projectTeamList": {
+        "coord": "Koordinator Proyek",
+        "eval": "Fasilitator dan Evaluator",
+        "heading": "Tim Proyek",
+        "pi": "Peneliti Utama",
+        "ra": "Asisten Penelitian"
+      }
+    },
+    "actions": {
+      "first": "<0>Mengadopsi atau menyesuaikan </0><1>cara standar untuk mendeskripsikan penggunaan AI/ML</1> <0>(sesuai dengan bahasa yang berlaku atau kategorisasi yang ada) dalam platform Zooniverse.</0> Banyak rekomendasi lain yang diusulkan bergantung pada pengembangan dan peluncuran kategorisasi ini, termasuk pendekatan terhadap transparansi, agensi, dan sinyal yang konsisten.",
+      "fourth": "<0>Tinjauan tahunan kebijakan oleh tim kepemimpinan Zooniverse.</0> Tetapkan kecepatan reguler di mana sumber daya ini akan dievaluasi dan/atau diperbarui, misalnya setiap tahun. Kami telah berkomitmen untuk melakukan tinjauan tahunan dan akan menerbitkan postingan blog atau pembaruan tertulis lainnya yang bertepatan dengan pembaruan apa pun yang dilakukan pada kerangka kerja ini sebagai bagian dari tinjauan ini.",
+      "second": "<0>Dedikasikan satu halaman di situs web Zooniverse untuk informasi dan sumber daya terkait AI/ML dan penggunaannya di Zooniverse.</0> Inilah halaman tersebut! Halaman ini memuat kategorisasi di atas, rekomendasi tim proyek kami, serta informasi lebih lanjut tentang bagaimana teknologi ini digunakan (dan telah digunakan) di Zooniverse, apa manfaat dan kekhawatirannya, dan bagaimana mengenali kapan suatu proyek menggunakannya.",
+      "third": "<0>Mengintegrasikan pedoman ke dalam proses peninjauan proyek internal Zooniverse.</0> Sejak peluncuran halaman ini, proses peninjauan internal kami telah diperbarui untuk mencerminkan rekomendasi yang tercantum di sini. Hal ini akan memastikan praktik standar bagi pimpinan proyek untuk berbagi informasi tentang penggunaan AI/ML terkait proyek dan komitmen tata kelola data, untuk memastikan calon relawan memiliki akses ke informasi ini."
+    },
+    "faq": {
+      "first": {
+        "answer": "Tidak. Para peneliti datang ke Zooniverse karena mereka menginginkan masukan dari manusia dalam proses mereka. Kecuali diberikan izin secara eksplisit, para sukarelawan tidak boleh menggunakan alat AI generatif di luar Zooniverse untuk membantu upaya klasifikasi mereka.",
+        "question": "Saya seorang sukarelawan dan membutuhkan bantuan dalam mengklasifikasikan data untuk sebuah proyek. Bisakah saya menggunakan alat AI generatif seperti ChatGPT atau Gemini untuk membantu saya?"
+      },
+      "paragraph": "Pertanyaan Anda belum terjawab di sini? Kirimkan pertanyaan Anda ke <0>contact@zooniverse.org</0>! Kami akan memperbarui daftar ini sesuai kebutuhan.",
+      "second": {
+        "answerOne": "Mulailah dengan memindai halaman beranda proyek, terutama Deskripsi Proyek dan Deskripsi Alur Kerja. Jika Anda masih ragu, lihat halaman Tentang, serta Tutorial proyek. Jika Anda masih ragu setelah itu, Anda dapat bertanya di Talk, tetapi sebagian tujuan dari kerangka kerja ini adalah untuk membantu memastikan semua proyek mengomunikasikan dengan jelas bagaimana mereka menggunakan (atau tidak menggunakan) teknologi ini.",
+        "answerTwo": "Jika Anda merasa suatu proyek tidak mengungkapkan penggunaan AI/ML dengan tepat, kami harap Anda merasa nyaman menghubungi tim peneliti di Talk dan menyarankan beberapa perubahan atau menyampaikan ketidakpastian Anda. Jika Anda merasa tidak nyaman melakukannya, Anda juga dapat mengirimkan pesan kepada kami di <0>contact@zooniverse.org</0> dan kami akan menindaklanjutinya. Bagian dari pekerjaan ini termasuk memperbarui proses peninjauan internal kami, jadi umpan balik Anda akan membantu kami mengetahui apakah proses baru kami efektif.",
+        "question": "Saya ingin mengetahui apakah sebuah proyek Zooniverse menggunakan AI atau Machine Learning. Bagaimana cara saya menemukan informasi tersebut?"
+      }
+    },
+    "fivews": {
+      "list": {
+        "first": "Siapa yang bertanggung jawab untuk memastikan kualitas dan integritas data? ",
+        "fourth": "Mengapa AI/ML digunakan? Apa yang ingin dicapai dan siapa yang mendapat manfaat? Bagaimana hasil penelitian jika AI/ML tidak digunakan?",
+        "second": "<0>Teknik AI/ML apa saja yang diterapkan?</0>",
+        "third": "<0>Kapan</0> dan <0>Di mana</0> dalam siklus hidup pengumpulan, pemrosesan, dan analisis data, AI/ML digunakan? Pada titik mana sukarelawan memasuki siklus hidup? Apakah keduanya pernah berinteraksi? Jika ya, bagaimana?"
+      },
+      "paragraph": "Saat mengembangkan proyek Zooniverse baru yang melibatkan AI/ML, para peneliti harus merenungkan dan bersiap untuk menjawab pertanyaan-pertanyaan berikut. Idealnya, jawaban atas pertanyaan-pertanyaan ini akan tersedia di suatu tempat dalam dokumen proyek (misalnya halaman Tentang, FAQ, dll.)."
+    },
+    "heading": {
+      "eighth": "Sumber daya",
+      "fifth": "Rekomendasi Proyek",
+      "fifthext": "Rekomendasi untuk Tim Proyek",
+      "first": "Pembukaan",
+      "fourth": "Tindakan Internal",
+      "fourthext": "Tindakan Internal yang Dilakukan oleh Zooniverse",
+      "nineth": "Pertanyaan yang Sering Diajukan (FAQ)",
+      "ninethext": "Pertanyaan yang Sering Diajukan",
+      "second": "Daftar isi",
+      "seventh": "AI/ML di Zooniverse",
+      "seventhext": "AI dan Pembelajaran Mesin di Zooniverse",
+      "sixth": "5 W",
+      "sixthext": "5 W dalam Proyek yang Melibatkan AI/ML",
+      "tenth": "Tentang Kerangka Kerja Ini",
+      "third": "Prinsip-prinsip Utama"
+    },
+    "onZooniverse": {
+      "fifthQ": {
+        "heading": "Bagaimana saya tahu kapan suatu proyek menggunakan AI atau Machine Learning?",
+        "list": {
+          "first": "Merupakan tanggung jawab tim proyek untuk secara jelas menunjukkan di halaman beranda apakah proyek mereka menggunakan AI/ML. Selain itu, jika suatu proyek memiliki beberapa alur kerja, tim harus membedakan antara alur kerja yang menggabungkan AI/ML dan yang tidak.",
+          "fourth": "Jika Anda ragu apakah suatu proyek menggunakan AI/ML, jangan ragu untuk memposting di forum diskusi proyek dan bertanya langsung kepada tim peneliti.",
+          "second": "Tim juga diharuskan memberikan detail tentang mengapa dan bagaimana AI/ML diintegrasikan ke dalam proyek mereka. Informasi ini akan muncul di halaman Tentang proyek.",
+          "third": "Jika pelatihan model AI/ML merupakan tujuan proyek, tim diharapkan memberikan pembaruan tentang proses ini sebagai bagian dari halaman Hasil, jika tersedia."
+        }
+      },
+      "firstQ": {
+        "heading": "Apa itu AI? Apa itu Pembelajaran Mesin?",
+        "list": {
+          "first": "Tidak ada definisi tunggal yang sederhana, tetapi AI secara luas merujuk pada sistem komputer yang dirancang untuk meniru pemikiran manusia. AI adalah istilah luas yang mencakup berbagai teknologi dan aplikasi. Istilah-istilah tersebut sering digunakan secara bergantian, tetapi ML adalah bagian dari AI yang menggunakan data dan algoritma untuk melatih komputer agar dapat melakukan klasifikasi, menghasilkan prediksi, dan mengungkap kesamaan atau tren di seluruh kumpulan data besar. (Definisi diadaptasi dari Fortson et al. (2024) dan <0>https://www.nasa.gov/what-is-artificial-intelligence</0>.",
+          "second": "Ada sejumlah cara pengkategorian metode dan pendekatan AI/ML berdasarkan teknologi yang digunakan dan kemampuan teknologi tersebut.",
+          "third": "Sebagian karena teknologi berkembang begitu pesat, mudah untuk tidak memahami apa yang sebenarnya dilakukan AI. Transparansi dalam proyek Zooniverse mengenai kontribusi teknologi ini secara tepat, dan mengapa, dapat membantu menghindari kesalahpahaman atau kebingungan, sekaligus menciptakan langkah-langkah akuntabilitas bagi tim proyek."
+        }
+      },
+      "fourthQ": {
+        "heading": "Mengapa tim proyek perlu atau ingin menggunakan AI dan Pembelajaran Mesin di Zooniverse?",
+        "list": {
+          "first": "Bahkan dengan kekuatan komunitas Zooniverse, banyak tim proyek bekerja dengan kumpulan data yang sangat besar dan kompleks. Dalam kebanyakan kasus, para peneliti menemukan bahwa manusia dan mesin yang bekerja bersama menghasilkan data berkualitas lebih tinggi daripada jika dilakukan secara terpisah. Sistem manusia-mesin juga dapat membantu mempercepat jadwal proyek dan memungkinkan para peneliti untuk mencapai hasil lebih cepat daripada hanya dengan klasifikasi manusia saja.",
+          "second": "Terdapat beberapa publikasi yang merinci keberhasilan dalam menggabungkan klasifikasi manusia-mesin yang tersedia di <0>halaman publikasi Zooniverse</0>."
+        }
+      },
+      "secondQ": {
+        "heading": "Bagaimana AI dan Pembelajaran Mesin digunakan di Zooniverse?",
+        "list": {
+          "fifth": "Jika tim proyek memilih untuk menggunakan AI untuk menghasilkan konten proyek, mereka wajib mengungkapkan informasi ini pada halaman yang berisi konten yang dihasilkan AI. Ini dapat mencakup misalnya teks proyek, avatar, gambar media, terjemahan, dan/atau data proyek.",
+          "first": "Secara umum, AI/ML tidak diintegrasikan ke dalam platform di luar penggunaan proyek tertentu. Tim Zooniverse berkomitmen pada transparansi dan pelabelan yang jelas dalam kasus-kasus di masa mendatang di mana AI/ML digunakan di luar proyek tertentu.",
+          "fourth": {
+            "subFifth": "<0>Para sukarelawan meninjau</0> subjek yang tidak biasa atau anomali yang membuat mesin kebingungan.",
+            "subFirst": "<0>Tidak ada AI/ML.</0> Para sukarelawan mengklasifikasikan subjek. Tidak ada peran AI/ML sebelumnya atau yang direncanakan.",
+            "subFourth": "<0>AI/ML diperiksa kualitasnya.</0> Para sukarelawan meninjau dan melakukan koreksi terhadap klasifikasi yang dihasilkan mesin, membantu meningkatkan AI/ML dari waktu ke waktu.",
+            "subSecond": "<0>AI/ML melakukan pra-penyortiran subjek.</0> Para sukarelawan mengklasifikasikan subjek yang telah disortir atau difilter sebelumnya oleh mesin. Contohnya termasuk menghapus gambar kosong (gambar tanpa konten yang relevan), dan melakukan klasifikasi tingkat tinggi sehingga para sukarelawan dapat memfokuskan upaya mereka pada tugas-tugas yang lebih menantang.",
+            "subThird": "<0>Pelatihan AI/ML.</0> Para sukarelawan mengklasifikasikan subjek dan mesin belajar dari pola-pola tersebut dengan tujuan agar AI/ML dapat mengambil alih tugas-tugas tersebut.",
+            "sublist": "Beberapa contoh:"
+          },
+          "second": "Penggunaan AI/ML akan bervariasi di setiap proyek.",
+          "third": "AI/ML diintegrasikan ke dalam beberapa proyek Zooniverse tertentu untuk melengkapi dukungan penelitian yang diberikan oleh sukarelawan, memproses data sebelum atau setelah sukarelawan menyelesaikan tugas mereka. Beberapa proyek mencakup elemen pembelajaran aktif yang mendukung metode AI/ML dengan keterlibatan manusia, yang menggabungkan masukan sukarelawan ke dalam proses otomatis untuk meningkatkan kualitas hasil."
+        }
+      },
+      "seventhQ": {
+        "heading": "Bagaimana dengan AI dan Pembelajaran Mesin di luar Zooniverse? Apakah klasifikasi saya diterapkan dalam inisiatif AI/ML di luar Zooniverse?",
+        "list": {
+          "fifth": "Tim proyek diharapkan untuk membagikan rencana mereka terkait penggunaan dan penyimpanan data di halaman Tentang proyek.",
+          "first": "Kita, sebagai komunitas Zooniverse, memiliki kendali atas bagaimana kita menggunakan atau tidak menggunakan AI/ML di platform dan dalam proyek. Namun, kita memiliki sedikit kendali atas bagaimana orang lain mungkin menggunakan data proyek, terutama setelah data tersebut dirilis ke publik.",
+          "fourth": "Untuk mengurangi penggunaan data proyek yang tidak disengaja (misalnya untuk tujuan komersial), beberapa tim memilih untuk menerapkan perjanjian lisensi data pada data proyek mereka (seperti misalnya <0>Creative Commons</0>), atau membagikannya hanya berdasarkan permintaan.",
+          "second": "Kebijakan Pembangun Proyek Zooniverse saat ini menyatakan bahwa tim proyek harus “membuka data klasifikasi mereka setelah periode kepemilikan, yang biasanya berlangsung selama dua tahun sejak peluncuran proyek.”",
+          "sixth": "Jika Anda ragu mengenai rencana proyek terkait berbagi data dan/atau perizinan, jangan ragu untuk memposting di papan diskusi proyek dan bertanya langsung kepada tim peneliti.",
+          "third": "Data terbuka memungkinkan adanya timbal balik, kepuasan langsung, dan penggunaan data yang cepat untuk pengambilan keputusan atau tindakan. Hal ini juga dapat membantu pelestarian data, karena data cenderung tidak hilang jika disimpan dalam repositori atau jika orang lain telah membuat salinannya. Namun, ini juga berarti bahwa orang lain, organisasi, atau perusahaan dapat menggunakan data yang dihasilkan melalui proyek Zooniverse untuk alasan selain tujuan penelitian yang dinyatakan."
+        }
+      },
+      "sixthQ": {
+        "heading": "Bagaimana Zooniverse memastikan teknologi ini digunakan dengan aman dan etis?",
+        "list": {
+          "first": "Zooniverse melakukan upaya selama <0>18 bulan</0> dengan para pemangku kepentingan dan ahli</0> untuk mendefinisikan apa artinya ini bagi platform tersebut. <1>Prinsip Utama</1>, <2>Tindakan Internal yang Dilakukan oleh Zooniverse</2>, dan <3>Rekomendasi untuk Tim Proyek</3> yang dihasilkan mewakili pendekatan kami.",
+          "second": "Kami berkomitmen untuk terus melakukan penilaian terhadap struktur-struktur ini guna memastikan efektivitasnya, terutama karena teknologi dan potensi penggunaan di Zooniverse terus berkembang. Rekomendasi kami mencakup tinjauan tahunan terhadap kebijakan etika AI kami sendiri untuk memastikan kebijakan tersebut tetap relevan bagi komunitas sukarelawan dan peneliti kami."
+        }
+      },
+      "thirdQ": {
+        "heading": "Apa saja manfaat dan kekhawatiran terkait penggunaan AI dan Machine Learning di Zooniverse?",
+        "list": {
+          "first": "AI/ML dapat menambah kecepatan dan kekuatan pada kemampuan kita untuk menghasilkan, memproses, dan menganalisis data. Pada gilirannya, kita dapat mengajukan pertanyaan baru dan mendapatkan jawaban dengan lebih cepat.",
+          "fourth": "Pengembangan dan penggunaan beberapa jenis AI/ML dapat memakan banyak energi dan sumber daya.",
+          "second": "Pendelegasian tugas-tugas tertentu kepada mesin dapat memungkinkan orang untuk fokus pada tugas-tugas yang lebih kreatif atau kompleks. Rekomendasi kami mencatat bahwa tim proyek harus berhati-hati agar tidak melakukan optimasi berlebihan, karena partisipasi tingkat awal sangat penting untuk membuat proyek dapat diakses secara luas.",
+          "third": "Penting untuk menyertakan pengawasan manusia pada tahap tertentu untuk mengevaluasi dan memastikan kualitas data."
+        }
+      }
+    },
+    "preamble": {
+      "list": {
+        "first": "Platform Zooniverse bertanggung jawab untuk <0>mengembangkan</0> dan <0>menegakkan</0> rekomendasi ini.",
+        "second": "Tim proyek bertanggung jawab untuk <0>menafsirkan</0> dan <0>menerapkan</0> rekomendasi. ",
+        "third": "Para sukarelawan diberdayakan untuk <0>mengkonfirmasi</0> atau <0>mempertanyakan</0> pelaksanaan melalui umpan balik atau menggunakan wewenang (misalnya memilih untuk tidak berpartisipasi dalam suatu proyek)."
+      },
+      "paragraphs": {
+        "first": "Halaman ini menyajikan Kerangka Etika AI Zooniverse, termasuk rekomendasi untuk menjalankan proyek di Zooniverse yang melibatkan kecerdasan buatan (AI) dan/atau pembelajaran mesin (ML). Ini adalah kerangka kerja yang dinamis, dan kami berkomitmen untuk meningkatkan dan memperbaruinya seiring dengan umpan balik yang kami terima dan seiring dengan perkembangan konteks teknologi, sosial, dan budaya. Halaman ini terutama ditujukan untuk memberikan informasi kepada para sukarelawan Zooniverse. Tim proyek dapat membaca <0>panduan khusus dalam dokumentasi Zooniverse kami</0>.",
+        "second": "Meskipun penerapan teknologi 'AI' di Zooniverse secara tradisional dilakukan melalui proses ML spesifik (“alat dan teknologi algoritmik yang belajar dari data yang ada untuk menyelesaikan tugas”), istilah 'AI' telah menjadi istilah umum untuk menggambarkan jenis otomatisasi ini. AI secara luas merujuk pada “komputer yang dapat meniru pemikiran manusia,” dan pembelajaran mesin adalah bagian dari konsep ini. Dalam kerangka kerja ini, kita akan menggunakan 'AI/ML' untuk merujuk pada proses-proses ini, agar mencakup berbagai metode secara luas, serta untuk mempertahankan beberapa perbedaan antara kedua istilah ini.",
+        "third": "Menciptakan, memelihara, dan menggunakan kerangka kerja ini membutuhkan tanggung jawab yang berbeda—bagi platform Zooniverse, tim proyek, dan para sukarelawan, untuk memastikan bahwa integrasi AI/ML dalam penelitian partisipatif tetap transparan, etis, dan didorong oleh komunitas."
+      }
+    },
+    "principles": {
+      "fifth": "Manfaatkan dan selaraskan dengan <0>sumber daya kerangka kerja AI/ML terkait yang sudah ada</0> dan terus berinteraksi dengan komunitas dan pemangku kepentingan yang lebih luas untuk <0>mengembangkan dan mengadopsi praktik terbaik</0> seputar penelitian partisipatif yang melibatkan AI/ML.",
+      "first": "Bangun <0>transparansi</0> ke dalam tata kelola platform terkait AI/ML, pengembangan proyek, dan penyampaian.",
+      "fourth": "Berkomitmen pada dialog berkelanjutan dan <0>responsif</0> terhadap proyek dan platform yang terus berkembang terkait sikap dan percakapan tentang AI/ML.",
+      "second": "Rancanglah pengalaman sukarelawan dan prioritaskan <0>kebebasan dan persetujuan</0> bagi sukarelawan dalam memilih proyek; pertimbangkan <0>manfaat bagi</0> dan <0>motivasi</0> sukarelawan dalam proyek yang melibatkan AI/ML.",
+      "third": "Memfasilitasi <0>akuntabilitas</0> dengan menunjukkan kepatuhan terhadap pedoman yang jelas sebagai prasyarat untuk meluncurkan proyek Zooniverse resmi."
+    },
+    "recs": {
+      "eighth": "<0>Saat mengungkapkan tujuan penggunaan hasil/data proyek Anda, pertimbangkan bagaimana tujuan penggunaan tersebut dapat berubah seiring waktu.</0> Relawan dapat memilih untuk berpartisipasi dalam proyek Anda berdasarkan tujuan proyek dan tujuan penggunaan hasil/data yang tercantum di halaman Tentang. Nantinya, seberapa besar kemungkinan Anda akan memperluas penggunaan tersebut? ",
+      "fifth": "<0>Tindak lanjut.</0> Berikan umpan balik mengenai tingkat keberhasilan yang dicapai saat model AI/ML dilatih. Metodenya akan ditentukan oleh tim proyek, dan dapat mencakup misalnya postingan Talk, buletin email, dll.",
+      "first": "<0>Rancang proyek Anda dengan mempertimbangkan pilihan (keterlibatan) sukarelawan.</0> Hal ini membutuhkan transparansi dan komunikasi yang jelas agar para sukarelawan dapat membuat keputusan yang tepat tentang apakah mereka ingin berpartisipasi dalam proyek Anda. Jika Anda menggabungkan AI/ML pada tahap apa pun dalam pekerjaan Anda (pra- atau pasca-pemrosesan, sistem klasifikasi dengan campur tangan manusia, dll.), Anda perlu memberikan detail spesifik tentang bagaimana proses ini bekerja, dan mengapa proses ini diperlukan. Misalnya, mengatakan \"kami akan menggunakan data yang dihasilkan untuk melatih model\" tidak cukup detail.",
+      "fourth": "<0>Pertahankan konteks.</0> Untuk proyek yang mengundang sukarelawan untuk terlibat dengan atau meninjau keluaran yang dihasilkan mesin, pertimbangkan apakah dan bagaimana konteks dapat memengaruhi tugas—termasuk kualitas data dan kualitas pengalaman sukarelawan. Misalnya, jika suatu tugas meminta sukarelawan untuk meninjau kualitas transkripsi mesin tetapi hanya mencakup sebagian dokumen (misalnya satu kata atau frasa), menyertakan tautan ke gambar atau dokumen lengkap akan memastikan bahwa sukarelawan dapat terus berinteraksi dengan materi sumber dan maknanya, jika diinginkan. Informasi ini dapat disertakan dalam metadata subjek.",
+      "nineth": "<0>Pertimbangkan baik peluang maupun potensi risiko menjalankan proyek yang melibatkan AI/ML.</0> Kami mendorong para peneliti untuk memahami potensi risiko—bersamaan dengan peluang—sebelum meluncurkan proyek dan mengarahkan mereka ke alat yang telah diverifikasi dan publikasi ilmiah seperti Ceccaroni et al. (2019), yang menyajikan survei risiko dan peluang terkait penggunaan AI dalam sains warga, dan rekomendasi untuk mitigasi risiko.",
+      "second": "<0>Tunjukkan kepada sukarelawan di mana/kapan/mengapa AI/ML diintegrasikan dalam proyek Anda.</0> Beberapa alur kerja dalam sebuah proyek mungkin melibatkan/dibantu AI/ML dan yang lainnya tidak. Hal ini harus diberi label dengan jelas di kolom Nama Alur Kerja, atau area Deskripsi Alur Kerja, sehingga sukarelawan dapat memilih sesuai kebutuhan (jika mereka memiliki preferensi). Jika Anda menggunakan AI/ML untuk memproses data Anda terlebih dahulu, jelaskan metrik kontrol kualitas Anda (termasuk jika ini adalah alasan Anda menjalankan alur kerja validasi di Zooniverse).",
+      "seventh": "<0>Jaga kualitas data.</0> Jelaskan bagaimana Anda mengevaluasi dan mengatasi potensi dampak pada kualitas data dalam proyek Anda akibat penggunaan AI/ML. ",
+      "sixth": "<0>Buat jalur untuk umpan balik.</0> Setiap proyek dengan komponen AI/ML harus memiliki jalur bagi sukarelawan untuk berbagi umpan balik mereka dengan anggota tim proyek. Misalnya, tim mungkin ingin membuat Papan Diskusi khusus untuk menjelaskan penggunaan AI/ML, menjawab pertanyaan, dan memberikan pembaruan tentang pelatihan atau hasil apa pun.",
+      "third": "<0>Pertimbangkan konsekuensi dari optimasi.</0> Saat mempertimbangkan 'mengalihkan' tugas-tugas mudah ke AI/ML dan meminta manusia melakukan tugas-tugas yang lebih sulit/kompleks, perlu diingat bahwa alur kerja yang lebih canggih dapat mempersempit siapa yang mampu/berkualifikasi untuk berpartisipasi, kecuali ada jalur masuk (onramp). Tugas pelatihan mungkin diperlukan untuk mendapatkan kemahiran dalam melakukan tugas-tugas yang tidak dapat dilakukan oleh AI/ML. Setiap proses jalur masuk atau alur kerja pelatihan harus diberi label dengan jelas, termasuk alur kerja yang menggunakan fitur Umpan Balik Zooniverse."
+    },
+    "resources": {
+      "first": "Pelajari lebih lanjut tentang AI/ML",
+      "fourth": "Contoh pernyataan tanggung jawab AI/ML proyek Zooniverse",
+      "second": "Pelajari lebih lanjut tentang etika dan sains partisipatif.",
+      "third": "Contoh proyek Zooniverse dengan penjelasan rinci tentang penggunaan AI/ML."
+    },
+    "sidebarLabel": "Bagian",
+    "title": "Kerangka Etika AI Zooniverse",
+    "toc": {
+      "descriptions": {
+        "eighth": "Tautan ke informasi lebih lanjut, termasuk publikasi dan kebijakan eksternal, serta contoh dari proyek Zooniverse termasuk penjelasan AI/ML dan pernyataan tanggung jawab.",
+        "fifth": "Rekomendasi untuk tim yang sedang menjalankan, atau ingin menjalankan, proyek Zooniverse yang melibatkan AI/ML.",
+        "fourth": "Tindakan yang dilakukan tim kami untuk mempermudah rekomendasi bagi tim proyek.",
+        "nineth": "Untuk para sukarelawan.",
+        "seventh": "Informasi tentang AI/ML dan bagaimana penggunaannya (dan bagaimana penggunaannya selama ini) di Zooniverse. Termasuk pembahasan mengapa tim proyek perlu atau ingin menggunakan AI/ML, bagaimana mengetahui kapan suatu proyek menggunakan AI/ML, dan banyak lagi.",
+        "sixth": "Pertanyaan-pertanyaan yang harus siap dijawab oleh semua peneliti yang menjalankan proyek Zooniverse yang melibatkan AI/ML.",
+        "tenth": "Informasi lebih lanjut tentang kerangka kerja dan bagaimana kerangka kerja tersebut dikembangkan, termasuk informasi tentang siapa saja yang terlibat dalam pembuatannya, dan bagaimana pekerjaan ini didanai.",
+        "third": "Prinsip-prinsip dasar di balik kerangka kerja ini merangkum tujuan-tujuan menyeluruh yang akan membantu mengatasi risiko dan kekhawatiran yang diangkat oleh anggota komunitas kami tentang AI/ML."
+      }
+    }
+  },
   "AboutHeader": {
     "links": {
       "about": "Tentang",
+      "aiethics": "Etika AI",
       "collaborate": "Berkolaborasi",
       "contact": "Hubungi kami",
       "donate": "Menyumbangkan",
@@ -216,6 +409,11 @@
       "answer": "Kami mendukung browser utama hingga versi kedua terakhir.",
       "question": "Zooniverse mendukung versi browser apa?"
     },
+    "item11": {
+      "answer0": "Beberapa terjemahan konten tingkat platform (yaitu teks yang digunakan bersama di semua halaman web Zooniverse seperti label menu, judul, tombol, dll.) berasal dari penerjemah sukarelawan. Namun, kami juga telah menguji terjemahan AI pada sejumlah kecil bahasa <0>hanya untuk teks tingkat platform</0>. Kami menyadari bahwa kualitas terjemahan AI berbeda di setiap bahasa, dan hal ini membawa risiko kesalahan terjemahan. Kami menyambut sukarelawan untuk membantu meningkatkan kualitas terjemahan di seluruh platform kami.",
+      "answer1": "Harap dicatat bahwa penerjemahan teks tingkat proyek dikelola oleh tim peneliti, dan setiap terjemahan teks spesifik proyek yang dihasilkan oleh AI harus diungkapkan oleh tim tersebut, sesuai dengan <0>Kerangka Etika AI</0> kami. Informasi tambahan tentang terjemahan Zooniverse tersedia di <1>https://help.zooniverse.org/next-steps/translations</1>.",
+      "question": "Apa yang harus saya lakukan jika saya menyadari bahwa terjemahan di tingkat platform tidak akurat?"
+    },
     "item1": {
       "answer": "Untuk sebagian besar subjek yang ditampilkan dalam proyek Zooniverse, para peneliti tidak mengetahui jawaban yang benar dan itulah mengapa mereka membutuhkan bantuan Anda. Manusia sangat pandai dalam tugas pengenalan pola, jadi umumnya tebakan pertama Anda kemungkinan besar adalah yang benar. Jangan terlalu khawatir jika sesekali membuat kesalahan - lebih dari satu orang akan meninjau setiap gambar, video, atau grafik dalam sebuah proyek. Sebagian besar proyek Zooniverse memiliki tombol Bantuan, halaman Pertanyaan yang Sering Diajukan (FAQ), dan Panduan Lapangan dengan informasi lebih lanjut untuk memandu Anda saat melakukan klasifikasi.",
       "question": "Bagaimana saya tahu apakah saya melakukan ini dengan benar?"
@@ -365,6 +563,38 @@
     "sidebarLabel": "Disiplin",
     "title": "Publikasi"
   },
+  "ResetPassword": {
+    "CommitResetForm": {
+      "body": "Masukkan kata sandi Anda dua kali untuk mengkonfirmasinya, lalu Anda siap untuk kembali membantu dalam penelitian yang sebenarnya.",
+      "infoConfirmation": "Kedua kolom harus cocok",
+      "infoPassword": "Minimal 8 karakter",
+      "inputConfirmation": "Konfirmasi kata sandi baru",
+      "inputPassword": "Kata sandi baru",
+      "status": {
+        "errorInvalidInput": "Kesalahan: masukan tidak valid",
+        "errorPasswordsDoNotMatch": "Kesalahan: Kata sandi tidak cocok, silakan coba lagi.",
+        "success": "Kata sandi Anda telah diubah! Anda akan dialihkan ke halaman masuk dalam beberapa detik, silakan gunakan kata sandi baru Anda."
+      },
+      "submit": "Kirim",
+      "titleForInputPattern": "Minimal 8 karakter"
+    },
+    "NoAccessMessage": {
+      "body": "Anda saat ini sedang masuk. Silakan keluar jika Anda ingin mengatur ulang kata sandi Anda."
+    },
+    "RequestResetForm": {
+      "body": "Masukkan alamat email Anda dan kami akan mengirimkan tautan untuk mengatur ulang kata sandi Anda.",
+      "footer": "Jika email pengaturan ulang belum sampai, periksa folder spam Anda. Jika tidak ada di sana, coba alamat email lain yang mungkin pernah Anda gunakan untuk bergabung dengan Zooniverse.",
+      "inputEmail": "Alamat email",
+      "status": {
+        "errorTooManyRequests": "Kesalahan: terlalu banyak permintaan pengaturan ulang kata sandi. Silakan coba lagi nanti.",
+        "success": "Kami baru saja mengirimkan email berisi tautan untuk mengatur ulang kata sandi Anda."
+      },
+      "submit": "Mengirim"
+    },
+    "common": {
+      "header": "Atur Ulang Kata Sandi"
+    }
+  },
   "Resources": {
     "brand": {
       "heading": "Sumber Daya Merek",
@@ -393,8 +623,58 @@
     },
     "title": "Sumber daya"
   },
+  "Settings": {
+    "AccountSettings": {
+      "title": "Akun"
+    },
+    "EmailSettings": {
+      "title": "E-mail"
+    },
+    "ProfileSettings": {
+      "title": "Profil"
+    },
+    "common": {
+      "backHome": "Kembali ke Beranda",
+      "sidebar": "Pengaturan",
+      "title": "Pengaturan Pengguna"
+    },
+    "forms": {
+      "fields": {
+        "credited_name": {
+          "help": "Ini adalah nama yang akan kami gunakan untuk memberikan pengakuan dalam publikasi, poster, sertifikat sukarelawan, dan materi lainnya.",
+          "label": "Nama Asli"
+        },
+        "display_name": {
+          "help": "Bagaimana nama Anda akan terlihat oleh orang lain di seluruh platform.",
+          "label": "Nama Tampilan"
+        }
+      },
+      "optional": "Opsional",
+      "save": "Mengubah",
+      "saveSuccess": "Perubahan telah disimpan.",
+      "saveUnnecessary": "Tidak ada perubahan yang perlu disimpan."
+    }
+  },
   "Sidebar": {
     "all": "Semua"
+  },
+  "Unsubscribe": {
+    "form": {
+      "body": {
+        "p1": "Kami paham - tidak ada yang suka terus menerima email yang tidak diinginkan.",
+        "p2": "Cukup masukkan alamat email Anda di sini dan kami akan menghapus Anda dari semua daftar email kami."
+      },
+      "errors": {
+        "general": "Terjadi kesalahan. Mohon periksa alamat email dan coba lagi."
+      },
+      "header": "Berhenti berlangganan semua email Zooniverse, kecuali Talk.",
+      "inputEmail": "Alamat email",
+      "submit": "Kirim"
+    },
+    "processed": {
+      "body": "Jika Anda berubah pikiran, kunjungi pengaturan akun Anda untuk <0>memperbarui preferensi email Anda</0>.",
+      "header": "Berhenti berlangganan berhasil"
+    }
   },
   "Volunteer": {
     "beta": {
@@ -440,6 +720,14 @@
         "third": "Berbincanglah dengan sesama relawan dan para ahli."
       }
     },
-    "title": "Sukarelawan"
+    "title": "Sukarelawan",
+    "translate": {
+      "heading": "Menerjemahkan sebuah Proyek",
+      "paragraphs": {
+        "first": "Penerjemah sukarelawan membantu tim peneliti dalam menerjemahkan proyek Zooniverse berbahasa Inggris ke bahasa lain, membantu komunitas sukarelawan global kami. Penerjemah proyek bekerja langsung dengan tim proyek untuk ditambahkan ke proyek mereka sebagai Penerjemah, di mana mereka dapat mengakses situs web terjemahan tingkat proyek dan memasukkan terjemahan untuk setiap bagian proyek.",
+        "second": "Kami juga menerima sukarelawan untuk membantu mengoreksi terjemahan yang dihasilkan AI dari konten tingkat platform, yaitu teks yang digunakan bersama di semua proyek seperti label menu, judul, tombol, dll. Konten ini <0>tidak</0> spesifik untuk proyek tertentu, dan dikelola serta dipelihara oleh tim Zooniverse.",
+        "third": "Jika Anda tertarik untuk menjadi sukarelawan sebagai penerjemah proyek, atau membantu mengedit terjemahan tingkat platform, silakan <0>hubungi kami</0>."
+      }
+    }
   }
 }

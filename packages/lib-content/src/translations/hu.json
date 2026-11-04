@@ -7,9 +7,202 @@
       "returnHome": "Vissza a kezdőlapra"
     }
   },
+  "AIEthics": {
+    "about": {
+      "acknowledgements": {
+        "heading": "Köszönetnyilvánítás",
+        "paragraph": "A Zooniverse csapata szeretné elismerni a következő személyeket a virtuális workshopokon való részvételükért, amelyek ezen ajánlások kidolgozásához vezettek:"
+      },
+      "advisors": {
+        "heading": "Projekttanácsadók"
+      },
+      "funding": {
+        "heading": "Finanszírozás",
+        "paragraph": "Ezt a munkát a Kavli Alapítvány támogatja, díj száma: SS-2025-GR-05-3064."
+      },
+      "paragraphs": {
+        "first": "Az elmúlt 15 évben a kutatócsoportok a gépi tanulást (ML) a Zooniverse projektek széles skálájába és különböző szakaszaiban integrálták. Az összes aktív Zooniverse projekt körülbelül egyharmada valamilyen módon beépíti a gépi tanulást. Ahogy ezek a technológiák kiforrtak, és a létezésükről való köztudat nőtt, a Zooniverse önkénteseinek legutóbbi visszajelzései rávilágítottak arra, hogy nagyobb átláthatóságra van szükség a platformunkon a „mesterséges intelligencia” használatával kapcsolatban. Arra törekedtünk, hogy ezeket az aggályokat egy világos, szabványosított keretrendszer létrehozásával kezeljük a mesterséges intelligencia/gépi tanulás etikus megvalósítására a Zooniverse projektekben, biztosítva, hogy a kutatók hatékonyan kommunikálhassák módszertanaikat, miközben fenntartják önkéntes közösségünk bizalmát és együttműködését. A Kavli Alapítvány finanszírozásával létrehoztuk a Zooniverse legelső <0>AI/ML etikai keretrendszerét</0>, amelyet 2026-ban indítottunk el. Ez a keretrendszer itt kerül bemutatásra, és szükség szerint évente frissül.",
+        "fourth": "Az eredmények a következők: kulcsfontosságú alapelvek, amelyek keretrendszerként szolgálnak és összefoglalják az átfogó célokat; ajánlások a Zooniverse platform által megteendő belső intézkedésekre vonatkozóan, amelyek elősegítik a projektcsapatok számára kidolgozott ajánlásokat; valamint ajánlások a projektcsapatok számára a mesterséges intelligencia/gépi tanulás Zooniverse projektekbe való beépítése során.",
+        "second": "A keretrendszer kidolgozása érdekében virtuális workshopokat tartottunk a téma szakértőinek, a Zooniverse vezetőinek, projektvezetőknek, külső kutatóknak és önkénteseknek a részvételével. A workshopokat 2025 folyamán tartottuk, és négy fő témára összpontosítottak: az átláthatóság és a kommunikáció legjobb gyakorlatainak meghatározása; a gépi tanulással kapcsolatos etikai megközelítések azonosítása, amelyek egyensúlyt teremtenek a kockázatok és a lehetőségek között; ezen etikai megközelítések kontextuális megértésének elmélyítése; valamint a downstream adatvédelem kihívásainak figyelembevétele.  ",
+        "third": "Annak érdekében, hogy a workshopokon közvetlenül részt venni nem tudó szélesebb csoport meglátásait is bevonjuk, kérdőíveket küldtünk a teljes Zooniverse közösségnek. Ezen felmérések eredményei alakították stratégiai irányunkat. Minden workshop után egy kisebb csoport gyűlt össze, hogy a megbeszélést kulcsfontosságú témákká és gyakorlatias eredményekké alakítsák. Az eredményeket megosztották a workshop összes résztvevőjével, akiknek lehetőségük volt visszajelzést adni, javításokat és kiegészítéseket tenni."
+      },
+      "projectTeamList": {
+        "coord": "Projektkoordinátor",
+        "eval": "Moderátor és értékelő",
+        "heading": "Projektcsapat",
+        "pi": "Fő kutató",
+        "ra": "Kutatási asszisztensek"
+      }
+    },
+    "actions": {
+      "first": "<0>A Zooniverse platformon belül a mesterséges intelligencia/gépi tanulás használatának leírására szolgáló </0><1>szabványos mód elfogadása vagy adaptálása</1> <0>(az uralkodó nyelvezettel vagy a meglévő kategorizációval összhangban).</0> Számos más javasolt ajánlás ezen kategorizáció fejlesztésétől és bevezetésétől függ, beleértve az átláthatóságra, a cselekvőképességre és a következetes jelzésre vonatkozó megközelítéseket.",
+      "fourth": "<0>A Zooniverse vezetői csapata éves felülvizsgálata a szabályzattal kapcsolatban.</0> Határozzon meg egy rendszeres ütemtervet, amellyel ezeket az erőforrásokat értékelni és/vagy frissíteni fogják, pl. évente. Elköteleztük magunkat az éves felülvizsgálat mellett, és blogbejegyzést vagy más írásos frissítést teszünk közzé a felülvizsgálat részeként a keretrendszerben végrehajtott frissítésekkel összhangban.",
+      "second": "<0>Kérjünk, hogy a Zooniverse weboldalán szenteljünk egy oldalt a mesterséges intelligenciával/gépi tanulással (MI/ML) és annak Zooniverse-en való használatával kapcsolatos információknak és forrásoknak.</0> Ez az oldal! Itt található a fenti kategorizálás, a projektcsapatunk ajánlásai, valamint további információk arról, hogyan használják (és használták) ezt a technológiát a Zooniverse-en, milyen előnyei és aggályai vannak, és hogyan lehet felismerni, hogy egy projekt mikor használja.",
+      "third": "<0>Irányelvek beépítése a Zooniverse belső projektfelülvizsgálati folyamatába.</0> Az oldal indulásakor belső felülvizsgálati folyamatainkat frissítettük, hogy tükrözzék az itt felsorolt ​​ajánlásokat. Ez biztosítja a projektvezetők számára a projekttel kapcsolatos MI/ML-használattal és adatkezelési kötelezettségekkel kapcsolatos információk megosztásának standard gyakorlatát, hogy a potenciális önkéntesek hozzáférhessenek ezekhez az információkhoz."
+    },
+    "faq": {
+      "first": {
+        "answer": "Nem. A kutatók azért jönnek a Zooniverse-hez, mert emberi közreműködést szeretnének a folyamataikban. Hacsak kifejezett engedélyt nem kapnak rá, az önkéntesek nem használhatnak a Zooniverse-en kívüli generatív mesterséges intelligencia eszközöket az osztályozási munkájuk elősegítésére.",
+        "question": "Önkéntes vagyok és segítségre van szükségem egy projekt osztályozásában. Használhatok-e generatív mesterséges intelligencia eszközöket, mint például a ChatGPT vagy a Gemini, segítségül?"
+      },
+      "paragraph": "Nem találja itt a kérdésére választ? Küldje el kérdéseit a <0>contact@zooniverse.org</0> címre! Szükség szerint frissítjük ezt a listát.",
+      "second": {
+        "answerOne": "Kezd azzal, hogy átfutod a projekt kezdőlapját, különösen a Projektleírást és az esetleges Munkafolyamat-leírást. Ha továbbra sem vagy biztos benne, nézd meg a Névjegy oldalt, valamint a projekt oktatóanyagát/oktatóanyagait. Ha ezután sem vagy biztos benne, kérdezhetsz a Talkon, de ennek a keretrendszernek az egyik célja, hogy segítsen biztosítani, hogy minden projekt világosan kommunikálja, hogyan (vagy hogyan nem) használja ezt a technológiát.",
+        "answerTwo": "Ha úgy gondolod, hogy egy projekt nem megfelelően hozza nyilvánosságra a mesterséges intelligencia/gépi tanulás használatát, reméljük, hogy nyugodt szívvel fordulsz a Talk kutatócsoportjához, és javasolsz néhány változtatást, vagy kifejezed a kétségeidet. Ha nem érzed magad ilyen helyzetben, küldhetsz nekünk üzenetet a <0>contact@zooniverse.org</0> címre, és mi kivizsgáljuk az ügyet. Ennek a munkának a része a belső felülvizsgálati folyamataink frissítése is, így visszajelzésed segít nekünk abban, hogy megtudjuk, hatékonyak-e az új folyamataink.",
+        "question": "Szeretném megtudni, hogy egy Zooniverse projekt mesterséges intelligenciát vagy gépi tanulást használ-e. Hogyan találom meg ezt az információt?"
+      }
+    },
+    "fivews": {
+      "list": {
+        "first": "<0>Ki</0> felelős az adatok minőségének és integritásának biztosításáért? ",
+        "fourth": "<0>Miért</0> alkalmazzák a mesterséges intelligenciát/gépi tanulást? Mit segít elérni, és kinek hasznos? Hogyan nézne ki a kutatás, ha nem alkalmaznák a mesterséges intelligenciát/gépi tanulást?",
+        "second": "<0>Milyen</0> MI/ML technikákat alkalmaznak?",
+        "third": "<0>Mikor</0> és <0>Hol</0> alkalmazzák a mesterséges intelligenciát/gépi tanulást az adatgyűjtés, -feldolgozás és -elemzés életciklusának során? Az önkéntesek mely pont(ok)on lépnek be az életciklusba? Interakcióba lép-e valaha a kettő? Ha igen, hogyan?"
+      },
+      "paragraph": "Egy új, mesterséges intelligenciát/gépi tanulást alkalmazó Zooniverse projekt fejlesztésekor a kutatóknak a következő kérdéseket kell átgondolniuk és megválaszolniuk. Ideális esetben a kérdésekre adott válaszok valahol elérhetőek lesznek a projekt szövegében (pl. a Névjegy oldalon, GYIK stb.)."
+    },
+    "heading": {
+      "eighth": "Erőforrás",
+      "fifth": "Projektjavaslatok",
+      "fifthext": "Ajánlások projektcsapatok számára",
+      "first": "Preambulum",
+      "fourth": "Belső műveletek",
+      "fourthext": "A Zooniverse által hozott belső intézkedések",
+      "nineth": "GYIK",
+      "ninethext": "Gyakran ismételt kérdések",
+      "second": "Tartalomjegyzék",
+      "seventh": "AI/ML a Zooniverse-en",
+      "seventhext": "MI és gépi tanulás a Zooniverse-en",
+      "sixth": "Az 5 W",
+      "sixthext": "Az AI/ML-alapú projektek 5 W-je",
+      "tenth": "Erről a keretrendszerről",
+      "third": "Kulcsfontosságú alapelvek"
+    },
+    "onZooniverse": {
+      "fifthQ": {
+        "heading": "Honnan tudom, hogy egy projekt mesterséges intelligenciát vagy gépi tanulást használ?",
+        "list": {
+          "first": "A projektcsapatok felelőssége, hogy a kezdőlapon valahol egyértelműen jelezzék, hogy a projektjük használ-e mesterséges intelligenciát/gépi tanulást. Továbbá, ha egy projekt több munkafolyamattal rendelkezik, a csapatoknak különbséget kell tenniük a mesterséges intelligenciát/gépi tanulást alkalmazó és a nem alkalmazó munkafolyamatok között.",
+          "fourth": "Ha bizonytalan vagy abban, hogy egy projekt mesterséges intelligenciát/gépi tanulást használ-e, nyugodtan tegyél fel kérdést a projekt vitafórumain, és kérdezd meg közvetlenül a kutatócsoportot.",
+          "second": "A csapatoknak azt is részletesen meg kell adniuk, hogy pontosan miért és hogyan integrálják a mesterséges intelligenciát/gépi tanulást a projektjeikbe. Ez az információ a projekt Névjegy oldalán jelenik meg.",
+          "third": "Ha a projekt célja egy AI/ML modell betanítása, a csapatoktól elvárás, hogy az Eredmények oldalon frissítéseket tegyenek közzé erről a folyamatról, amikor azok elérhetőek."
+        }
+      },
+      "firstQ": {
+        "heading": "Mi a mesterséges intelligencia? Mi a gépi tanulás?",
+        "list": {
+          "first": "Nincs egyszerű, egységes definíció, de a mesterséges intelligencia (MI) tágabb értelemben olyan számítógépes rendszereket jelent, amelyeket az emberi gondolkodás utánzására terveztek. A MI egy tág fogalom, amely a technológiák és alkalmazások széles skáláját öleli fel. A kifejezéseket gyakran felcserélhetően használják, de a gépi tanulás (ML) a MI egy olyan részhalmaza, amely adatokat és algoritmusokat használ a számítógépek osztályozására, előrejelzések generálására, valamint hasonlóságok vagy trendek feltárására nagy adathalmazokban. (A definíció Fortson és munkatársai (2024) és <0>https://www.nasa.gov/what-is-artificial-intelligence)</0> forrásaiból adaptálva.",
+          "second": "A mesterséges intelligencia/gépi tanulás (MI/ML) módszereit és megközelítéseit többféleképpen kategorizálhatják a használt technológia és annak képességei alapján.",
+          "third": "Részben azért, mert a technológia olyan gyorsan fejlődik, könnyű nem egyértelműnek lenni azzal kapcsolatban, hogy mit csinál a mesterséges intelligencia. A Zooniverse projekteken belüli átláthatóság azzal kapcsolatban, hogy pontosan mit is tesz hozzá ez a technológia, és miért, segíthet elkerülni a félreértéseket vagy zavarokat, miközben elszámoltathatósági intézkedéseket is teremthet a projektcsapatok számára."
+        }
+      },
+      "fourthQ": {
+        "heading": "Miért van szükségük vagy miért akarnak a projektcsapatoknak mesterséges intelligenciát és gépi tanulást használni a Zooniverse-en?",
+        "list": {
+          "first": "A Zooniverse tömegeinek ereje ellenére számos projektcsapat hatalmas és összetett adathalmazokkal dolgozik. A legtöbb esetben a kutatók azt tapasztalják, hogy az emberek és a gépek együttműködése jobb minőségű adatokat eredményez, mint bármelyikük külön-külön. Az ember-gép rendszerek segíthetnek a projektek ütemtervének felgyorsításában is, és lehetővé teszik a kutatók számára, hogy hamarabb érjenek el eredményeket, mint pusztán az emberi osztályozással.",
+          "second": "A <0>Zooniverse publikációs oldalán</0> számos publikáció található, amelyek részletesen ismertetik az ember-gép osztályozás kombinálásának sikereit."
+        }
+      },
+      "secondQ": {
+        "heading": "Hogyan használják a mesterséges intelligenciát és a gépi tanulást a Zooniverse-en?",
+        "list": {
+          "fifth": "Ha a projektcsapatok úgy döntenek, hogy mesterséges intelligenciát használnak a projekttartalom létrehozásához, akkor ezt az információt közzé kell tenniük a mesterséges intelligencia által generált tartalmat tartalmazó oldalon. Ez magában foglalhatja például a projekt szövegét, avatarokat, médiaképeket, fordításokat és/vagy projektadatokat.",
+          "first": "Általánosságban elmondható, hogy a mesterséges intelligenciát/gépi tanulást (MI/ML) nem építik be a platformba konkrét projekteken kívüli felhasználásokon kívül. A Zooniverse csapata elkötelezett az átláthatóság és az egyértelmű címkézés mellett minden olyan jövőbeni esetben, ahol a mesterséges intelligenciát/gépi tanulást konkrét projekteken kívül használják.",
+          "fourth": {
+            "subFifth": "<0>Önkéntesek vizsgálják felül</0> a gépet megakasztó szokatlan vagy rendellenes témákat.",
+            "subFirst": "<0>Nincs mesterséges intelligencia/gépi tanulás.</0> Az önkéntesek osztályozzák a vizsgálati alanyokat. Nincs korábbi vagy tervezett mesterséges intelligencia/gépi tanulási szerepkör.",
+            "subFourth": "<0>A mesterséges intelligencia/gépi tanulás minőségellenőrzésen esik át.</0> Önkéntesek felülvizsgálják és javítják a géppel generált osztályozásokat, segítve ezzel a mesterséges intelligencia/gépi tanulás időbeli fejlesztését.",
+            "subSecond": "<0>A mesterséges intelligencia/gépi tanulás előre szétválogatja a témákat.</0> Az önkéntesek osztályozzák a gépek által előre szétválogatott vagy szűrt témákat. Ilyen például az üres részek (releváns tartalom nélküli képek) eltávolítása, valamint a magas szintű osztályozások létrehozása, hogy az önkéntesek a kihívást jelentőbb feladatokra összpontosíthassák erőfeszítéseiket.",
+            "subThird": "<0>MI/ML képzés.</0> Az önkéntesek osztályozzák a résztvevőket, a gépek pedig a mintákból tanulnak azzal a céllal, hogy a MI/ML ellássa a feladatokat.",
+            "sublist": "Néhány példa:"
+          },
+          "second": "A mesterséges intelligencia/gépi tanulás felhasználási módjai projektenként eltérőek lesznek.",
+          "third": "A mesterséges intelligencia/gépi tanulás (MI/ML) egyes specifikus Zooniverse projektekbe integrálva kiegészíti az önkéntesek által nyújtott kutatási támogatást, és az önkéntesek feladatainak elvégzése előtt vagy után dolgozza fel az adatokat. Egyes projektek olyan aktív tanulási elemeket tartalmaznak, amelyek támogatják az ember által vezérelt MI/ML módszereket, amelyek az önkéntesek hozzájárulását automatizált folyamatokba építik be az eredmények minőségének javítása érdekében."
+        }
+      },
+      "seventhQ": {
+        "heading": "Mi a helyzet a Zooniverse-en kívüli mesterséges intelligenciával és gépi tanulással? Vajon az osztályozásaim bekerülnek a Zooniverse-en kívüli mesterséges intelligencia/gépi tanulás kezdeményezésekbe?",
+        "list": {
+          "fifth": "A projektcsapatoktól elvárás, hogy megosszák az adatfelhasználással és -tárolással kapcsolatos terveiket a projekt Névjegy oldalán.",
+          "first": "Zooniverse közösségként mi magunk irányítjuk, hogy hogyan használjuk vagy nem használjuk a mesterséges intelligenciát/gépi tanulást a platformon és a projektekben. Azonban kevés beleszólásunk van abba, hogy mások hogyan használhatják fel a projektadatokat, különösen miután azok nyilvánosságra kerülnek.",
+          "fourth": "A projektadatok nem kívánt felhasználásának (pl. kereskedelmi célú) csökkentése érdekében egyes csapatok úgy döntenek, hogy adatlicenc-szerződéseket alkalmaznak a projektadataikra (például <0>Creative Commons</0>), vagy csak kérésre osztják meg azokat.",
+          "second": "A Zooniverse jelenlegi <0>Projektszerkesztő Szabályzata</0> kimondja, hogy a projektcsapatoknak „egy, általában a projekt elindításától számított két évig tartó, védett időszak után nyilvánossá kell tenniük osztályozási adataikat”.",
+          "sixth": "Ha bizonytalan egy projekt adatmegosztási és/vagy licencelési terveiben, nyugodtan tegye fel kérdéseit a projekt vitafórumain, és kérdezze közvetlenül a kutatócsoportot.",
+          "third": "A nyílt adatok kölcsönösséget, azonnali kielégítést és az adatok gyors felhasználását teszik lehetővé döntéshozatalhoz vagy cselekvéshez. Segíthetnek az adatmegőrzésben is, mivel az adatok kisebb valószínűséggel vesznek el, ha adattárban tárolják őket, vagy ha mások másolatokat készítettek róluk. Ez azonban azt is jelenti, hogy más személyek, szervezetek vagy vállalatok a Zooniverse projektek során előállított adatokat a meghatározott kutatási céloktól eltérő célokra is felhasználhatják."
+        }
+      },
+      "sixthQ": {
+        "heading": "Hogyan biztosítja a Zooniverse, hogy ezeket a technológiákat biztonságosan és etikusan használják?",
+        "list": {
+          "first": "A Zooniverse <0>18 hónapos munkát végzett az érdekelt felekkel és szakértőkkel</0>, hogy meghatározza, mit jelent ez a platform számára. Az így létrejött <1>Kulcselvek</1>, <2>A Zooniverse által hozott belső intézkedések</2> és <3>Ajánlások a projektcsapatok számára</3> képviselik a megközelítésünket.",
+          "second": "Elkötelezettek vagyunk ezen struktúrák folyamatos értékelése iránt, hogy biztosítsuk azok hatékonyságát, különösen a Zooniverse technológiáinak és potenciális felhasználási eseteinek folyamatos bővülésével. Ajánlásaink között szerepel saját mesterséges intelligencia etikai szabályzataink éves felülvizsgálata annak biztosítása érdekében, hogy azok továbbra is relevánsak legyenek önkéntes és kutatói közösségeink számára."
+        }
+      },
+      "thirdQ": {
+        "heading": "Milyen előnyei és aggályai vannak a mesterséges intelligencia és a gépi tanulás használatának a Zooniverse-en?",
+        "list": {
+          "first": "A mesterséges intelligencia/gépi tanulás felgyorsíthatja és hatékonyabbá teheti az adatok generálását, feldolgozását és elemzését. Ezáltal új kérdéseket tehetünk fel, és gyorsabban kaphatunk válaszokat.",
+          "fourth": "Bizonyos típusú mesterséges intelligencia/gépi tanulás fejlesztése és használata energia- és erőforrás-igényes lehet.",
+          "second": "Bizonyos feladatok gépekre delegálása lehetővé teheti az emberek számára, hogy kreatívabb vagy összetettebb feladatokra összpontosítsanak. Javaslataink szerint a projektcsapatoknak ügyelniük kell arra, hogy ne optimalizáljanak túlságosan, mivel a belépő szintű részvétel kulcsfontosságú a projektek széles körű hozzáférhetővé tételéhez.",
+          "third": "Elengedhetetlen az emberi felügyelet beépítése bizonyos szakaszokban az adatok minőségének értékelése és biztosítása érdekében."
+        }
+      }
+    },
+    "preamble": {
+      "list": {
+        "first": "A Zooniverse platform felelős ezen ajánlások <0>kidolgozásáért</0> és <0>fenntartásáért</0>.",
+        "second": "A projektcsapatok felelősek a javaslatok <0>értelmezéséért</0> és <0>megvalósításáért</0>. ",
+        "third": "Az önkéntesek felhatalmazást kapnak arra, hogy visszajelzés vagy cselekvőképességük gyakorlása révén (pl. úgy döntenek, hogy nem vesznek részt egy projektben) <0>megerősítsék</0> vagy <0>megkérdőjelezzék</0> a megvalósítást."
+      },
+      "paragraphs": {
+        "first": "Ez az oldal a Zooniverse MI Etikai Keretrendszerét mutatja be, beleértve a Zooniverse-en futtatott, mesterséges intelligenciával (MI) és/vagy gépi tanulással (ML) foglalkozó projektek ajánlásait. Ez egy élő keretrendszer, és elkötelezettek vagyunk a fejlesztés és a folyamatos fejlesztés iránt a visszajelzések beérkezése, valamint a technológiai, társadalmi és kulturális kontextusok folyamatos fejlődése során. Ez az oldal elsősorban a Zooniverse önkénteseinek szóló információk nyújtására szolgál. A projektcsapatok <0>specifikus útmutatást olvashatnak a Zooniverse dokumentációjában</0>.",
+        "second": "Míg a „mesterséges intelligencia” technológia alkalmazása a Zooniverse-en hagyományosan specifikus gépi tanulási folyamatokon („algoritmikus eszközök és technológiák, amelyek a meglévő adatokból tanulva oldják meg a feladatokat”) keresztül történt, a „mesterséges intelligencia” kifejezés mára gyűjtőfogalommá vált az ilyen típusú automatizálás leírására. A mesterséges intelligencia tágabb értelemben az „emberi gondolkodást emulálni képes számítógépekre” utal, és a gépi tanulás ennek a fogalomnak egy részhalmaza. Ebben a keretrendszerben az „AI/ML” kifejezést fogjuk használni ezekre a folyamatokra, hogy széles körben magába foglalja a módszerek skáláját, valamint hogy megőrizzük a két kifejezés közötti különbségtételt.",
+        "third": "Ennek a keretrendszernek a létrehozása, fenntartása és használata különálló felelősségeket igényel – a Zooniverse platform, a projektcsapatok és az önkéntesek részéről annak biztosítása érdekében, hogy a mesterséges intelligencia/gépi tanulás integrációja a részvételen alapuló kutatásba átlátható, etikus és közösségvezérelt maradjon."
+      }
+    },
+    "principles": {
+      "fifth": "Használja ki és igazítsa a <0>meglévő kapcsolódó MI/ML keretrendszer-forrásokat</0>, és továbbra is működjön együtt a szélesebb közösségekkel és érdekelt felekkel a <0>bevált gyakorlatok kidolgozása és alkalmazása</0> érdekében a MI/ML-alapú részvételen alapuló kutatás terén.",
+      "first": "Építsen be <0>átláthatóságot</0> a mesterséges intelligenciával/gépi tanulással kapcsolatos platformirányításba, projektfejlesztésbe és megvalósításba.",
+      "fourth": "Kötelezd el magad a folyamatos párbeszéd mellett, és <0>reagálj</0> a projekt és a platform a mesterséges intelligenciával/gépi tanulással kapcsolatos változó attitűdökre és beszélgetésekre.",
+      "second": "Az önkéntesek tapasztalatait szem előtt tartva tervezzük meg a projekteket, és a projektek kiválasztása során helyezzük előtérbe az önkéntesek <0>cselekvőképességét és beleegyezését</0>; vegyük figyelembe az önkéntesek <0>előnyeit</0> és <0>motivációit</0> a mesterséges intelligenciát/gépi tanulást alkalmazó projektekben.",
+      "third": "Az <0>elszámoltathatóság</0> elősegítése egyértelmű irányelvek betartásának bemutatásával, mint a hivatalos Zooniverse projekt elindításának előfeltétele."
+    },
+    "recs": {
+      "eighth": "<0>Amikor nyilvánosságra hozza a projekt eredményeinek/adatainak tervezett felhasználását, vegye figyelembe, hogy a tervezett felhasználás hogyan változhat az idő múlásával.</0> Az önkéntesek a projekt céljai és az eredmények/adatok „Rólunk” oldalon feltüntetett tervezett felhasználási módjai alapján dönthetnek úgy, hogy részt vesznek a projektben. Később mekkora az esélye annak, hogy ezeket a felhasználási módokat kibővíti? ",
+      "fifth": "<0>Utánkövetés.</0> Adjon visszajelzést az AI/ML modellek betanítása során elért siker mértékéről. A módszert a projektcsapat határozza meg, és tartalmazhat például egy Talk bejegyzést, e-mail hírlevelet stb.",
+      "first": "<0>Tervezze meg projektjét az önkéntesek cselekvőképességének (választásának) szem előtt tartásával.</0> Ehhez átláthatóságra és egyértelmű kommunikációra van szükség az önkéntesek számára, hogy megalapozott döntéseket hozhassanak arról, hogy részt kívánnak-e venni a projektben. Ha a munkája bármely szakaszában (elő- vagy utófeldolgozás, ember által vezérelt osztályozási rendszerek stb.) beépíti a mesterséges intelligenciát/gépi tanulást, akkor konkrét részleteket kell megadnia arról, hogyan működnek ezek a folyamatok, és miért szükségesek. Például az, hogy „a kapott adatokat egy modell betanításához fogjuk felhasználni”, nem elegendő részlet.",
+      "fourth": "<0>Őrizze meg a kontextust.</0> Azoknál a projekteknél, amelyek önkénteseket hívnak meg géppel generált kimenettel való interakcióra vagy annak áttekintésére, mérlegelje, hogy a kontextus befolyásolhatja-e a feladatot, és ha igen, hogyan – beleértve mind az adatok minőségét, mind az önkéntes élmény minőségét. Például, ha egy feladat arra kéri az önkénteseket, hogy ellenőrizzék a gépi átírások minőségét, de csak a dokumentum egy részét tartalmazza (pl. egyetlen szót vagy kifejezést), a teljes képre vagy dokumentumra mutató link beillesztése biztosítja, hogy az önkéntesek szükség esetén továbbra is interakcióba léphessenek a forrásanyaggal és annak jelentésével. Ez az információ belefoglalható az alany metaadataiba.",
+      "nineth": "<0>Vegye figyelembe mind a lehetőségeket, mind a potenciális kockázatokat egy mesterséges intelligencián/gépi tanuláson alapuló projekt futtatásakor.</0> Arra ösztönözzük a kutatókat, hogy a projektek elindítása előtt értsék meg a potenciális kockázatokat – a lehetőségek mellett –, és irányítsák figyelmüket ellenőrzött eszközökre és publikált tudományos munkákra, mint például Ceccaroni és munkatársai (2019), amelyek áttekintést nyújtanak a mesterséges intelligencia civil tudományban való használatával kapcsolatos kockázatokról és lehetőségekről, valamint ajánlásokat tesznek a kockázatok enyhítésére.",
+      "second": "<0>Mutasd meg az önkénteseknek, hogy hol/mikor/miért épül be a projektedbe a mesterséges intelligencia/gépi tanulás.</0> Egy projekten belül egyes munkafolyamatok mesterséges intelligenciát/gépi tanulást is igénybe vehetnek/segíthetnek, mások pedig nem. Ezeket egyértelműen fel kell tüntetni a Munkafolyamat neve mezőben vagy a Munkafolyamat leírása részben, hogy az önkéntesek ennek megfelelően választhassanak (ha van preferenciájuk). Ha mesterséges intelligenciát/gépi tanulást használtál az adataid előfeldolgozásához, írd le, hogy mik a minőségellenőrzési mutatóid (beleértve azt is, hogy ez az indokod-e a validációs munkafolyamat Zooniverse-en történő futtatására).",
+      "seventh": "<0>A minőség kezelése.</0> Írja le, hogyan értékeli és kezeli a projektjén belüli, mesterséges intelligencia/gépi tanulás használatának az adatminőségre gyakorolt ​​lehetséges hatását. ",
+      "sixth": "<0>Visszajelzési útvonalak létrehozása.</0> Minden mesterséges intelligencia/gépi tanulási komponenst tartalmazó projektnek rendelkeznie kell egy útvonallal, amelyen keresztül az önkéntesek megoszthatják visszajelzéseiket a projektcsapat tagjaival. A csapatok például létrehozhatnak egy külön vitafórumot, ahol leírják a mesterséges intelligencia/gépi tanulás használatát, válaszolnak a kérdésekre, és frissítéseket tesznek közzé a képzésekről vagy az eredményekről.",
+      "third": "<0>Vegye figyelembe az optimalizálás következményeit.</0> Amikor fontolóra veszi az egyszerű feladatok mesterséges intelligenciára/gépi tanulásra való „átruházását”, és a nehezebb/összetettebb feladatokat emberekre bízza, vegye figyelembe, hogy a fejlettebb munkafolyamatok leszűkíthetik a részvételre képes/képes személyek körét, kivéve, ha van egy bevezető szakasz. Betanítási feladatokra lehet szükség ahhoz, hogy jártasságot szerezzenek olyan feladatok elvégzésében, amelyeket a mesterséges intelligencia/gépi tanulás nem tud elvégezni. Minden bevezető folyamatot vagy betanítási munkafolyamatot egyértelműen meg kell jelölni, beleértve a Zooniverse Visszajelzés funkciót használó munkafolyamatokat is."
+    },
+    "resources": {
+      "first": "Tudjon meg többet a mesterséges intelligenciáról/gépi tanulásról",
+      "fourth": "Példák a Zooniverse projekt AI/ML felelősségi nyilatkozataira",
+      "second": "Tudjon meg többet az etikáról és a részvételi tudományról",
+      "third": "Zooniverse projektek példái a mesterséges intelligencia/gépi gépi tanulás használatának részletes magyarázatával"
+    },
+    "sidebarLabel": "Szakasz",
+    "title": "Zooniverse mesterséges intelligencia etikai keretrendszer",
+    "toc": {
+      "descriptions": {
+        "eighth": "További információkhoz vezető linkek, beleértve a külső kiadványokat és szabályzatokat, valamint a Zooniverse projektekből származó példákat, beleértve a mesterséges intelligencia/gépi tanulás magyarázatait és a felelősségvállalási nyilatkozatokat.",
+        "fifth": "Ajánlás olyan csapatoknak, akik mesterséges intelligenciát/gépi tanulást alkalmazó Zooniverse projektet futtatnak, vagy futtatni szeretnének.",
+        "fourth": "Csapatunk által tett intézkedések, amelyek elősegítik a projektcsapatok számára kidolgozott ajánlásokat.",
+        "nineth": "Önkénteseknek.",
+        "seventh": "Információk a mesterséges intelligenciáról/gépi tanulásról és annak használatáról a Zooniverse-en. Tartalmazza annak megvitatását, hogy miért van szükségük vagy miért akarnak a projektcsapatoknak mesterséges intelligenciát/gépi tanulást használni, hogyan lehet tudni, hogy egy projekt mesterséges intelligenciát/gépi tanulást használ, és sok mást.",
+        "sixth": "Azok a kérdések, amelyek megválaszolására minden, mesterséges intelligenciával/gépi tanulással (ML) foglalkozó Zooniverse projektet vezető kutatónak fel kell készülnie.",
+        "tenth": "További információk a keretrendszerről és annak kidolgozásáról, beleértve azt is, hogy kik vettek részt a létrehozásában, és hogyan finanszírozták ezt a munkát.",
+        "third": "A keretrendszer mögött álló szervezőelveink. Ezek összefoglalják azokat az átfogó célokat, amelyek segítenek kezelni a közösségünk tagjai által a mesterséges intelligenciával/gépi tanulással kapcsolatban felvetett kockázatokat és aggályokat."
+      }
+    }
+  },
   "AboutHeader": {
     "links": {
       "about": "Körülbelül",
+      "aiethics": "MI etika",
       "collaborate": "Együttműködik",
       "contact": "Kapcsolat",
       "donate": "Adományoz",
@@ -216,6 +409,11 @@
       "answer": "A főbb böngészőket az utolsó előtti verzióig támogatjuk.",
       "question": "Milyen böngésző verziót támogat a Zooniverse?"
     },
+    "item11": {
+      "answer0": "Néhány platformszintű tartalom fordítása (azaz a Zooniverse összes weboldalán megosztott szöveg, például menücímkék, fejlécek, gombok stb.) önkéntes fordítóktól származik. Ugyanakkor teszteltünk mesterséges intelligencia általi fordításokat néhány nyelven is <0>csak platformszintű szövegekhez</0>. Elismerjük, hogy a mesterséges intelligencia általi fordítások minősége nyelvenként eltérő, és ez azzal a kockázattal jár, hogy a fordítások helytelenek lesznek. Szívesen fogadjuk az önkéntesek jelentkezését, akik segítenek javítani a fordítások minőségét platformunkon.",
+      "answer1": "Felhívjuk figyelmét, hogy a projekt szintű szövegek fordítását kutatócsoportok kezelik, és a projektspecifikus szövegek mesterséges intelligencia által generált fordítását a csapatnak kell közzétennie a <0>MI Etikai Keretrendszerünk</0> értelmében. További információ a Zooniverse fordításairól a <1>https://help.zooniverse.org/next-steps/translations</1> címen található.",
+      "question": "Mit tegyek, ha azt veszem észre, hogy a platformszintű fordítások helytelenek?"
+    },
     "item1": {
       "answer": "A Zooniverse projektekben bemutatott legtöbb alany esetében a kutatók nem tudják a helyes választ, ezért szükségük van a segítségedre. Az emberek nagyon jók a mintázatfelismerési feladatokban, így általában az első tipped a helyes. Ne aggódj túlságosan az alkalmankénti hibák miatt - egynél több ember fogja áttekinteni a projektben szereplő minden egyes képet, videót vagy grafikont. A legtöbb Zooniverse projekthez tartozik egy Súgó gomb, egy Gyakran Ismételt Kérdések (GYIK) oldal és egy Terepi Útmutató, amely további információkat tartalmaz az osztályozás során.",
       "question": "Honnan tudom, hogy jól csinálom-e?"
@@ -365,6 +563,38 @@
     "sidebarLabel": "Fegyelem",
     "title": "Publikációk"
   },
+  "ResetPassword": {
+    "CommitResetForm": {
+      "body": "Add meg a jelszavad kétszer a megerősítéshez, majd visszatérhetsz a valódi kutatáshoz.",
+      "infoConfirmation": "Mindkét mezőnek meg kell egyeznie",
+      "infoPassword": "Minimum 8 karakter",
+      "inputConfirmation": "Új jelszó megerősítése",
+      "inputPassword": "Új jelszó",
+      "status": {
+        "errorInvalidInput": "Hiba: érvénytelen bemenet",
+        "errorPasswordsDoNotMatch": "Hiba: a jelszavak nem egyeznek, kérjük, próbálja újra.",
+        "success": "A jelszava megváltozott! Néhány másodperc múlva átirányítjuk a <0>bejelentkezési oldalra</0>, kérjük, használja az új jelszavát."
+      },
+      "submit": "Küldés",
+      "titleForInputPattern": "Minimum 8 karakter"
+    },
+    "NoAccessMessage": {
+      "body": "Jelenleg be van jelentkezve. Kérjük, jelentkezzen ki, ha vissza szeretné állítani jelszavát."
+    },
+    "RequestResetForm": {
+      "body": "Add meg az e-mail címedet, és küldünk neked egy linket a jelszavad visszaállításához.",
+      "footer": "Ha a visszaállító e-mail nem érkezett meg, nézd meg a spam mappádat is. Ha ott sincs, próbálj meg egy másik e-mail címet megadni, amelyet esetleg a Zooniverse-hez való csatlakozáshoz használtál.",
+      "inputEmail": "E-mail cím",
+      "status": {
+        "errorTooManyRequests": "Hiba: túl sok jelszó-visszaállítási kérés érkezett. Kérjük, próbálja újra később.",
+        "success": "Épp most küldtünk egy e-mailt egy linkkel, amellyel visszaállíthatja jelszavát."
+      },
+      "submit": "Elküld"
+    },
+    "common": {
+      "header": "Jelszó visszaállítása"
+    }
+  },
   "Resources": {
     "brand": {
       "heading": "Márkaforrások",
@@ -393,8 +623,58 @@
     },
     "title": "Erőforrás"
   },
+  "Settings": {
+    "AccountSettings": {
+      "title": "Fiók"
+    },
+    "EmailSettings": {
+      "title": "Email"
+    },
+    "ProfileSettings": {
+      "title": "Profil"
+    },
+    "common": {
+      "backHome": "Haza",
+      "sidebar": "Beállítások",
+      "title": "Felhasználói beállítások"
+    },
+    "forms": {
+      "fields": {
+        "credited_name": {
+          "help": "Ezt a nevet fogjuk használni a kiadványokban, plakátokon, önkéntes oklevelekben és egyéb anyagokban történő elismeréskor.",
+          "label": "Valódi név"
+        },
+        "display_name": {
+          "help": "Hogyan fog megjelenni a neved mások számára a platformon.",
+          "label": "Megjelenített név"
+        }
+      },
+      "optional": "Választható",
+      "save": "Változás",
+      "saveSuccess": "Változtatások mentve.",
+      "saveUnnecessary": "Nincsenek mentendő módosítások."
+    }
+  },
   "Sidebar": {
     "all": "Minden"
+  },
+  "Unsubscribe": {
+    "form": {
+      "body": {
+        "p1": "Értjük – senki sem szeret olyan e-maileket kapni, amiket nem akar.",
+        "p2": "Csak add meg az e-mail címedet, és leiratkozunk az összes e-mail listánkról."
+      },
+      "errors": {
+        "general": "Valami hiba történt. Kérjük, ellenőrizze az e-mail címet, és próbálja újra."
+      },
+      "header": "Leiratkozás az összes Zooniverse e-mailről, kivéve a Talk-ot.",
+      "inputEmail": "E-mail cím",
+      "submit": "Küldés"
+    },
+    "processed": {
+      "body": "Ha meggondolja magát, látogasson el a fiókbeállításaihoz, és <0>frissítse e-mail beállításait</0>.",
+      "header": "Leiratkozás sikeres"
+    }
   },
   "Volunteer": {
     "beta": {
@@ -440,6 +720,14 @@
         "third": "Beszélgess önkéntes társaiddal és szakértőkkel"
       }
     },
-    "title": "Önkéntes"
+    "title": "Önkéntes",
+    "translate": {
+      "heading": "Projekt fordítása",
+      "paragraphs": {
+        "first": "Az önkéntes fordítók segítik a kutatócsoportokat az angol nyelvű Zooniverse projektek más nyelvekre fordításában, segítve ezzel önkéntesek globális közösségét. A projektfordítók közvetlenül a projektcsapatokkal dolgoznak együtt, hogy fordítóként bekerüljenek a projektjükbe, ahol hozzáférhetnek a projektszintű fordítási weboldalhoz, és fordításokat adhatnak meg a projekt minden egyes részéhez.",
+        "second": "Önkénteseket is szívesen látunk, akik segítenek a platformszintű tartalmak mesterséges intelligencia által generált fordításainak javításában, azaz az összes projektben megosztott szövegekben, például menücímkékben, fejlécekben, gombokban stb. Ez a tartalom <0>nem</0> projektspecifikus, és a Zooniverse csapata kezeli és tartja karban.",
+        "third": "Ha érdekel az önkénteskedés projektfordítóként, vagy a platformszintű fordítások szerkesztésében való segítségnyújtás, kérjük, <0>lépj kapcsolatba velünk</0>."
+      }
+    }
   }
 }

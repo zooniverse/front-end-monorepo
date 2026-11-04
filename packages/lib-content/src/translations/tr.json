@@ -7,9 +7,202 @@
       "returnHome": "Ana sayfaya geri dön"
     }
   },
+  "AIEthics": {
+    "about": {
+      "acknowledgements": {
+        "heading": "Teşekkürler",
+        "paragraph": "Zooniverse ekibi, bu önerilerin geliştirilmesine yol açan sanal çalıştaylara katılan aşağıdaki kişilere teşekkürlerini sunmak ister:"
+      },
+      "advisors": {
+        "heading": "Proje Danışmanları"
+      },
+      "funding": {
+        "heading": "Finansman",
+        "paragraph": "Bu çalışma, Kavli Vakfı'nın SS-2025-GR-05-3064 numaralı ödülüyle desteklenmiştir."
+      },
+      "paragraphs": {
+        "first": "Son 15 yıldır, araştırma ekipleri makine öğrenimini (ML) çok çeşitli Zooniverse projelerine ve farklı aşamalara entegre etti. Aktif Zooniverse projelerinin yaklaşık üçte biri artık bir şekilde makine öğrenimini içeriyor. Bu teknolojiler olgunlaştıkça ve varlıklarına dair kamuoyu farkındalığı arttıkça, son Zooniverse gönüllü geri bildirimleri, platformumuzda 'yapay zeka' kullanımına ilişkin daha fazla şeffaflığa duyulan ihtiyacı vurguladı. Araştırmacıların metodolojilerini etkili bir şekilde iletebilmelerini ve gönüllü topluluğumuzun güvenini ve işbirliğini koruyabilmelerini sağlamak amacıyla, Zooniverse projelerinde yapay zeka/makine öğreniminin etik olarak uygulanması için açık ve standartlaştırılmış bir çerçeve oluşturarak bu endişeleri gidermeyi amaçladık. Kavli Vakfı'ndan aldığımız fonlarla, 2026 yılında kullanıma sunduğumuz ilk <0>Zooniverse için yapay zeka/makine öğrenimi etik çerçevesini</0> oluşturduk. Bu çerçeve burada sunulmaktadır ve gerektiğinde yıllık olarak güncellenecektir.",
+        "fourth": "Sonuçlar şunları içermektedir: genel hedefleri özetleyen ve bir çerçeve görevi gören temel ilkeler; proje ekiplerine yönelik önerileri kolaylaştırmak için Zooniverse platformunun alacağı dahili eylemlere ilişkin öneriler; ve proje ekiplerinin Zooniverse projelerine yapay zeka/makine öğrenimi entegre ederken dikkate alması gereken öneriler.",
+        "second": "Bu çerçeveyi geliştirmek için, konu uzmanları, Zooniverse liderliği, proje yöneticileri, dış araştırmacılar ve gönüllülerin katılımıyla bir dizi sanal çalıştay düzenledik. 2025 yılı boyunca gerçekleştirilen çalıştaylar dört temel temaya odaklandı: şeffaflık ve iletişim için en iyi uygulamaların oluşturulması; risk ve fırsatı dengeleyen makine öğrenimine yönelik etik yaklaşımların belirlenmesi; bu etik yaklaşımların bağlamsal anlayışının derinleştirilmesi; ve veri korumasının zorluklarının ele alınması.  ",
+        "third": "Atölye çalışmalarına doğrudan katılabilecek kişilerin ötesinde daha geniş bir gruptan görüş almak için, Zooniverse topluluğunun tamamına anketler gönderdik. Bu anketlerin sonuçları stratejik yönümüzü şekillendirdi. Her atölye çalışmasının ardından, tartışmayı temel temalara ve uygulanabilir sonuçlara dönüştürmek için daha küçük bir grup toplandı. Çıktılar, geri bildirim, düzeltme ve eklemeler yapma fırsatı bulan tüm atölye katılımcılarıyla paylaşıldı."
+      },
+      "projectTeamList": {
+        "coord": "Proje Koordinatörü",
+        "eval": "Kolaylaştırıcı ve Değerlendirici",
+        "heading": "Proje Ekibi",
+        "pi": "Baş Araştırmacı",
+        "ra": "Araştırma Asistanları"
+      }
+    },
+    "actions": {
+      "first": "Zooniverse platformunda yapay zeka/makine öğrenimi kullanımını tanımlamak için standart bir yöntem benimseyin veya uyarlayın (mevcut dil veya sınıflandırmayla uyumlu olarak). Şeffaflık, yetkilendirme ve tutarlı sinyalleme yaklaşımları da dahil olmak üzere diğer birçok öneri, bu sınıflandırmanın geliştirilmesine ve uygulanmasına bağlıdır.",
+      "fourth": "<0>Zooniverse liderlik ekibi tarafından politikanın yıllık olarak gözden geçirilmesi.</0> Bu kaynakların değerlendirilmesi ve/veya güncellenmesi için düzenli bir tempo belirleyin, örneğin yıllık olarak. Yıllık bir gözden geçirme yapmayı taahhüt ettik ve bu çerçeveye yapılan güncellemelerle eş zamanlı olarak bir blog yazısı veya başka bir yazılı güncelleme yayınlayacağız.",
+      "second": "<0>Zooniverse web sitesinde yapay zeka/makine öğrenimi ve Zooniverse'deki kullanımıyla ilgili bilgi ve kaynaklara ayrılmış bir sayfa.</0> İşte o sayfa! Yukarıdaki kategorizasyonu, proje ekibimizin önerilerini ve bu teknolojinin Zooniverse'de nasıl kullanıldığı (ve kullanıldığı), faydaları ve endişeleri ve bir projenin bunu kullandığını nasıl anlayacağınız hakkında daha fazla bilgiyi barındırıyor.",
+      "third": "<0>Yönergeleri Zooniverse iç proje değerlendirme sürecine dahil edin.</0> Bu sayfanın yayınlanmasından itibaren, iç değerlendirme süreçlerimiz burada listelenen önerileri yansıtacak şekilde güncellenmiştir. Bu, proje liderlerinin proje ile ilgili yapay zeka/makine öğrenimi kullanımı ve veri yönetimi taahhütleri hakkında bilgi paylaşmaları için standart bir uygulama olmasını ve potansiyel gönüllülerin bu bilgilere erişebilmesini sağlayacaktır."
+    },
+    "faq": {
+      "first": {
+        "answer": "Hayır. Araştırmacılar, süreçlerine insan girdisi katmak istedikleri için Zooniverse'e geliyorlar. Açıkça izin verilmedikçe, gönüllüler sınıflandırma çalışmalarına yardımcı olmak için Zooniverse dışındaki üretken yapay zeka araçlarını kullanmamalıdır.",
+        "question": "Gönüllüyüm ve bir projede sınıflandırma konusunda yardıma ihtiyacım var. ChatGPT veya Gemini gibi üretken yapay zeka araçlarını bu konuda kullanabilir miyim?"
+      },
+      "paragraph": "Sorunuzun cevabını burada bulamadınız mı? Sorularınızı <0>contact@zooniverse.org</0> adresine gönderin! Bu listeyi gerektiğinde güncelleyeceğiz.",
+      "second": {
+        "answerOne": "Öncelikle proje ana sayfasını, özellikle de Proje Açıklaması ve İş Akışı Açıklaması bölümlerini inceleyin. Hala emin değilseniz, Hakkımızda sayfasına ve proje eğitimlerine göz atın. Bundan sonra da emin değilseniz, Talk kanalında soru sorabilirsiniz, ancak bu çerçevenin amaçlarından biri de tüm projelerin bu teknolojiyi nasıl kullandıklarını (veya kullanmadıklarını) açıkça iletmelerini sağlamaktır.",
+        "answerTwo": "Bir projenin yapay zeka/makine öğrenimi kullanımını uygun şekilde açıklamadığını düşünüyorsanız, Talk platformunda araştırma ekibiyle iletişime geçmekten ve bazı değişiklikler önermekten veya şüphelerinizi dile getirmekten çekinmeyeceğinizi umuyoruz. Bunu yapmaktan çekiniyorsanız, <0>contact@zooniverse.org</0> adresine de mesaj gönderebilirsiniz ve biz de konuyu inceleyeceğiz. Bu çalışmanın bir parçası da dahili inceleme süreçlerimizi güncellemek olduğundan, geri bildirimleriniz yeni süreçlerimizin etkili olup olmadığını anlamamıza yardımcı olacaktır.",
+        "question": "Zooniverse projelerinin yapay zeka veya makine öğrenimi kullanıp kullanmadığını öğrenmek istiyorum. Bu bilgiyi nasıl bulabilirim?"
+      }
+    },
+    "fivews": {
+      "list": {
+        "first": "Veri kalitesinin ve bütünlüğünün sağlanmasından kim sorumludur? ",
+        "fourth": "Yapay zeka/makine öğrenimi neden kullanılıyor? Nelerin başarılmasına yardımcı oluyor ve kimler fayda görüyor? Yapay zeka/makine öğrenimi kullanılmasaydı araştırma nasıl olurdu?",
+        "second": "<0>Hangi</0> yapay zeka/makine öğrenimi teknikleri uygulanıyor?",
+        "third": "Veri toplama, işleme ve analiz yaşam döngüsünün <0>Ne zaman</0> ve <0>Neresinde</0> yapay zeka/makine öğrenimi kullanılıyor? Gönüllüler yaşam döngüsüne hangi noktada/noktalarda dahil oluyor? İkisi hiç etkileşime giriyor mu? Eğer giriyorsa, nasıl?"
+      },
+      "paragraph": "Yapay zeka/makine öğrenimi içeren yeni bir Zooniverse projesi geliştirirken, araştırmacıların aşağıdaki soruları düşünmeleri ve bunlara cevap vermeye hazır olmaları gerekir. İdeal olarak, bu soruların cevapları proje metninde bir yerde (örneğin Hakkımızda sayfası, SSS vb.) bulunmalıdır."
+    },
+    "heading": {
+      "eighth": "Kaynaklar",
+      "fifth": "Proje Önerileri",
+      "fifthext": "Proje Ekipleri İçin Öneriler",
+      "first": "Giriş",
+      "fourth": "İç İşlemler",
+      "fourthext": "Zooniverse Tarafından Alınan Dahili Önlemler",
+      "nineth": "SSS",
+      "ninethext": "Sıkça Sorulan Sorular",
+      "second": "İçindekiler",
+      "seventh": "Zooniverse'de Yapay Zeka/Makine Öğrenimi",
+      "seventhext": "Zooniverse'de Yapay Zeka ve Makine Öğrenimi",
+      "sixth": "5 Temel Soru",
+      "sixthext": "Yapay Zeka/Makine Öğrenimi Destekli Projelerin 5 Temel Sorusu",
+      "tenth": "Bu Çerçeve Hakkında",
+      "third": "Temel İlkeler"
+    },
+    "onZooniverse": {
+      "fifthQ": {
+        "heading": "Bir projenin yapay zeka veya makine öğrenimi kullandığını nasıl anlarım?",
+        "list": {
+          "first": "Proje ekiplerinin, projelerinin yapay zeka/makine öğrenimi kullanıp kullanmadığını ana sayfada açıkça belirtmeleri sorumluluğundadır. Ayrıca, bir projenin birden fazla iş akışı varsa, ekipler yapay zeka/makine öğrenimi içeren iş akışları ile içermeyen iş akışları arasında ayrım yapmalıdır.",
+          "fourth": "Bir projenin yapay zeka/makine öğrenimi kullanıp kullanmadığından emin değilseniz, proje tartışma panolarına yazıp araştırma ekibine doğrudan sorabilirsiniz.",
+          "second": "Ekiplerin ayrıca yapay zeka/makine öğreniminin projelerine neden ve nasıl entegre edildiğine dair ayrıntılı bilgi vermeleri gerekmektedir. Bu bilgiler projenin Hakkında sayfasında yer alacaktır.",
+          "third": "Eğer projenin amaçlarından biri yapay zeka/makine öğrenimi modeli eğitmek ise, ekiplerin bu süreçle ilgili güncellemeleri, sonuçlar sayfasında (mevcut olduğunda) paylaşmaları beklenmektedir."
+        }
+      },
+      "firstQ": {
+        "heading": "Yapay zeka nedir? Makine öğrenimi nedir?",
+        "list": {
+          "first": "Tek ve basit bir tanımı olmamakla birlikte, yapay zekâ genel olarak insan düşüncesini taklit etmek üzere tasarlanmış bilgisayar sistemlerini ifade eder. Yapay zekâ, çok çeşitli teknolojileri ve uygulamaları kapsayan geniş bir terimdir. Terimler sıklıkla birbirinin yerine kullanılır, ancak makine öğrenimi (ML), bilgisayarları sınıflandırmalar yapmak, tahminler üretmek ve büyük veri kümelerinde benzerlikleri veya eğilimleri ortaya çıkarmak için eğitmek amacıyla veri ve algoritmaları kullanan yapay zekânın bir alt kümesidir. (Tanım, Fortson vd. (2024) ve <0>https://www.nasa.gov/what-is-artificial-intelligence</0> adresinden uyarlanmıştır.)",
+          "second": "Yapay zeka/makine öğrenimi yöntemleri ve yaklaşımları, kullanılan teknolojiye ve bu teknolojinin yeteneklerine bağlı olarak çeşitli şekillerde sınıflandırılır.",
+          "third": "Teknolojinin çok hızlı ilerlemesi nedeniyle, yapay zekanın ne yaptığı konusunda kafa karışıklığı yaşamak kolaydır. Zooniverse projelerinde bu teknolojinin tam olarak neye katkıda bulunduğu ve neden katkıda bulunduğu konusunda şeffaflık, yanlış anlamaları veya kafa karışıklığını önlemeye yardımcı olurken, proje ekipleri için hesap verebilirlik önlemleri de oluşturabilir."
+        }
+      },
+      "fourthQ": {
+        "heading": "Proje ekiplerinin Zooniverse'te yapay zeka ve makine öğrenimini kullanmaya neden ihtiyacı veya isteği var?",
+        "list": {
+          "first": "Zooniverse'ün muazzam gücüne rağmen, birçok proje ekibi devasa ve karmaşık veri kümeleriyle çalışıyor. Çoğu durumda, araştırmacılar insan ve makinelerin birlikte çalışmasının, tek başlarına çalışmalarından daha yüksek kalitede veri ürettiğini görüyorlar. İnsan-makine sistemleri ayrıca proje zaman çizelgelerini hızlandırmaya ve araştırmacıların sonuçlara yalnızca insan sınıflandırmasıyla elde edebileceklerinden daha kısa sürede ulaşmalarına yardımcı olabilir.",
+          "second": "İnsan-makine sınıflandırmasının birleştirilmesindeki başarıları ayrıntılarıyla anlatan çok sayıda yayın <0>Zooniverse yayınları sayfasında</0> mevcuttur."
+        }
+      },
+      "secondQ": {
+        "heading": "Zooniverse'de yapay zeka ve makine öğrenimi nasıl kullanılıyor?",
+        "list": {
+          "fifth": "Proje ekipleri proje içeriği oluşturmak için yapay zekayı kullanmayı tercih ederlerse, yapay zeka tarafından oluşturulan içeriği içeren sayfada bu bilgiyi açıklamaları gerekmektedir. Bu, örneğin proje metni, avatarlar, medya görselleri, çeviriler ve/veya proje verilerini içerebilir.",
+          "first": "Genel olarak, yapay zeka/makine öğrenimi, belirli proje kullanımları dışında platforma entegre edilmemektedir. Zooniverse ekibi, yapay zeka/makine öğreniminin belirli projeler dışında kullanıldığı tüm durumlarda şeffaflık ve net etiketleme sağlamayı taahhüt eder.",
+          "fourth": {
+            "subFifth": "<0>Gönüllüler, makineyi şaşırtan sıra dışı veya anormal konuları inceliyor</0>.",
+            "subFirst": "<0>Yapay Zeka/Makine Öğrenimi Yok.</0> Gönüllüler denekleri sınıflandırıyor. Önceden veya sonradan planlanmış bir Yapay Zeka/Makine Öğrenimi rolü yok.",
+            "subFourth": "<0>Yapay zeka/makine öğrenimi kalite kontrolünden geçirilmektedir.</0> Gönüllüler, makine tarafından oluşturulan sınıflandırmaları gözden geçirip düzeltmeler yaparak yapay zeka/makine öğreniminin zaman içinde gelişmesine yardımcı olmaktadır.",
+            "subSecond": "<0>Yapay Zeka/Makine Öğrenimi konuları önceden sıralar.</0> Gönüllüler, makineler tarafından önceden sıralanmış veya filtrelenmiş konuları sınıflandırır. Örnekler arasında boş görsellerin (ilgili içeriği olmayan görseller) kaldırılması ve gönüllülerin çabalarını daha zorlu görevlere odaklayabilmeleri için üst düzey sınıflandırmalar yapılması yer alır.",
+            "subThird": "<0>Yapay Zeka/Makine Öğrenimi Eğitimi.</0> Gönüllüler denekleri sınıflandırır ve makineler, yapay zeka/makine öğreniminin görevleri üstlenmesi amacıyla bu kalıplardan öğrenir.",
+            "sublist": "Bazı örnekler:"
+          },
+          "second": "Yapay zekâ/makine öğreniminin kullanım alanları projelere göre değişiklik gösterecektir.",
+          "third": "Yapay zeka/makine öğrenimi, gönüllüler tarafından sağlanan araştırma desteğini tamamlamak amacıyla bazı özel Zooniverse projelerine entegre edilmiştir ve gönüllüler görevlerini tamamlamadan önce veya sonra verileri işler. Bazı projeler, gönüllü girdilerini otomatik süreçlere dahil ederek çıktıların kalitesini artıran, insan müdahalesi gerektiren yapay zeka/makine öğrenimi yöntemlerini destekleyen aktif öğrenme unsurları içerir."
+        }
+      },
+      "seventhQ": {
+        "heading": "Zooniverse dışındaki yapay zeka ve makine öğrenimi ne durumda? Benim sınıflandırmalarım Zooniverse dışındaki yapay zeka/makine öğrenimi girişimlerine de yansıyor mu?",
+        "list": {
+          "fifth": "Proje ekiplerinin, veri kullanımı ve depolama planlarını proje Hakkında sayfasında paylaşmaları beklenmektedir.",
+          "first": "Zooniverse topluluğu olarak, platformda ve projelerde yapay zeka/makine öğrenimini nasıl kullanacağımız veya kullanmayacağımız konusunda kontrolümüz var. Ancak, özellikle kamuya açıklandıktan sonra, başkalarının proje verilerini nasıl kullanabileceği konusunda çok az kontrolümüz var.",
+          "fourth": "Proje verilerinin istenmeyen kullanımını (örneğin ticari amaçlarla) azaltmak için bazı ekipler, proje verilerine veri lisanslama anlaşmaları (örneğin <0>Creative Commons</0> gibi) uygulamayı veya yalnızca talep üzerine paylaşmayı tercih ederler.",
+          "second": "Zooniverse'ün mevcut <0>Proje Oluşturucu Politikaları</0>, proje ekiplerinin \"proje başlatıldıktan sonra genellikle iki yıl süren özel bir dönemin ardından sınıflandırma verilerini açık hale getirmeleri\" gerektiğini belirtmektedir.",
+          "sixth": "Bir projenin veri paylaşımı ve/veya lisanslama planlarından emin değilseniz, proje tartışma panolarında paylaşım yapmaktan ve araştırma ekibine doğrudan sormaktan çekinmeyin.",
+          "third": "Açık veri, karşılıklılığı, anında tatmini ve karar almak veya eylemde bulunmak için verilerin hızlı kullanımını sağlar. Ayrıca, verilerin bir depoda tutulması veya başkalarının kopyalarının oluşturulması durumunda kaybolma olasılığının daha düşük olması nedeniyle veri korunmasına da yardımcı olabilir. Bununla birlikte, bu aynı zamanda diğer kişilerin, kuruluşların veya şirketlerin Zooniverse projeleri aracılığıyla üretilen verileri belirtilen araştırma amaçları dışında başka nedenlerle kullanabileceği anlamına da gelir."
+        }
+      },
+      "sixthQ": {
+        "heading": "Zooniverse bu teknolojilerin güvenli ve etik bir şekilde kullanılmasını nasıl sağlıyor?",
+        "list": {
+          "first": "Zooniverse, bunun platform için ne anlama geldiğini tanımlamak amacıyla paydaşlar ve uzmanlarla <0>18 aylık bir çalışma</0> yürüttü. Ortaya çıkan <1>Temel İlkeler</1>, <2>Zooniverse Tarafından Alınan Dahili Eylemler</2> ve <3>Proje Ekipleri İçin Öneriler</3> yaklaşımımızı temsil etmektedir.",
+          "second": "Özellikle Zooniverse'deki teknolojiler ve potansiyel kullanım alanları genişlemeye devam ettikçe, bu yapıların etkili olmasını sağlamak için sürekli değerlendirme yapmaya kararlıyız. Önerilerimiz arasında, gönüllü ve araştırmacı topluluklarımız için geçerliliğini korumasını sağlamak amacıyla kendi yapay zeka etik politikalarımızın yıllık olarak gözden geçirilmesi de yer almaktadır."
+        }
+      },
+      "thirdQ": {
+        "heading": "Zooniverse'de yapay zeka ve makine öğrenimi kullanmanın faydaları ve sakıncaları nelerdir?",
+        "list": {
+          "first": "Yapay zeka/makine öğrenimi, veri üretme, işleme ve analiz etme yeteneğimize hız ve güç katabilir. Bu sayede yeni sorular sorabilir ve daha hızlı cevaplar alabiliriz.",
+          "fourth": "Bazı yapay zeka/makine öğrenimi türlerinin geliştirilmesi ve kullanımı enerji ve kaynak açısından yoğun olabilir.",
+          "second": "Bazı görevlerin makinelere devredilmesi, insanların daha yaratıcı veya karmaşık görevlere odaklanmasını sağlayabilir. Ancak önerilerimizde, projelerin geniş kitlelere ulaşılabilir olması için giriş seviyesindeki katılımın çok önemli olduğunu ve bu nedenle proje ekiplerinin aşırı optimizasyondan kaçınmaları gerektiğini belirtiyoruz.",
+          "third": "Verilerin kalitesini değerlendirmek ve sağlamak için bir aşamada insan gözetimini dahil etmek şarttır."
+        }
+      }
+    },
+    "preamble": {
+      "list": {
+        "first": "Zooniverse platformu bu önerilerin geliştirilmesinden ve sürdürülmesinden sorumludur.",
+        "second": "Proje ekipleri, önerileri <0>yorumlamaktan</0> ve <0>uygulamaktan</0> sorumludur. ",
+        "third": "Gönüllüler, geri bildirim yoluyla veya kendi inisiyatiflerini kullanarak (örneğin bir projeye katılmamayı seçerek) uygulamayı onaylama veya sorgulama yetkisine sahiptirler."
+      },
+      "paragraphs": {
+        "first": "Bu sayfa, Zooniverse'de yapay zekâ (YZ) ve/veya makine öğrenimi (ML) ile ilgili projelerin yürütülmesine ilişkin öneriler de dahil olmak üzere Zooniverse YZ Etik Çerçevesini sunmaktadır. Bu, sürekli gelişen bir çerçevedir ve geri bildirim aldıkça ve teknolojik, sosyal ve kültürel bağlamlar evrimleşmeye devam ettikçe iyileştirmeye ve yinelemeye kararlıyız. Bu sayfa öncelikle Zooniverse gönüllülerine bilgi sağlamayı amaçlamaktadır. Proje ekipleri, <0>Zooniverse dokümanlarımızdaki özel kılavuzları</0> okuyabilirler.",
+        "second": "Zooniverse'de 'yapay zeka' teknolojisinin uygulanması geleneksel olarak belirli makine öğrenimi süreçleri (\"mevcut verilerden öğrenerek görevleri çözen algoritmik araçlar ve teknolojiler\") aracılığıyla gerçekleşmiş olsa da, 'yapay zeka' terimi bu otomasyon türünü tanımlamak için genel bir terim haline gelmiştir. Yapay zeka genel olarak \"insan düşüncesini taklit edebilen bilgisayarlar\" anlamına gelir ve makine öğrenimi bu kavramın bir alt kümesidir. Bu çerçevede, bu süreçlere atıfta bulunmak için, çeşitli yöntemleri geniş bir şekilde kapsamak ve bu iki terim arasında bir ayrım korumak amacıyla, metin boyunca 'yapay zeka/makine öğrenimi' terimlerini kullanacağız.",
+        "third": "Bu çerçeveyi oluşturmak, sürdürmek ve kullanmak, yapay zeka/makine öğreniminin katılımcı araştırmalara entegrasyonunun şeffaf, etik ve topluluk odaklı kalmasını sağlamak için Zooniverse platformu, proje ekipleri ve gönüllüler için farklı sorumluluklar gerektirir."
+      }
+    },
+    "principles": {
+      "fifth": "<0>Mevcut ilgili yapay zeka/makine öğrenimi çerçeveleme kaynaklarını</0> kullanın ve bunlarla uyum sağlayın ve yapay zeka/makine öğrenimi odaklı katılımcı araştırmalar konusunda <0>en iyi uygulamaları</0> geliştirmek ve benimsemek için daha geniş topluluklar ve paydaşlarla etkileşime devam edin.",
+      "first": "Yapay zeka/makine öğrenimi ile ilgili platform yönetimine, proje geliştirmeye ve teslimatına <0>şeffaflık</0> katın.",
+      "fourth": "Yapay zeka/makine öğrenimi hakkındaki gelişen tutum ve tartışmalara yönelik sürekli diyaloğa ve proje ve platform duyarlılığına bağlı kalın.",
+      "second": "Gönüllü deneyimine yönelik tasarım yapın ve projeleri seçme sürecinde gönüllülerin özerkliğine ve onayına öncelik verin; yapay zeka/makine öğrenimi içeren projelerde gönüllülere sağlanan faydaları ve motivasyonlarını göz önünde bulundurun.",
+      "third": "Resmi bir Zooniverse projesi başlatmanın ön koşulu olarak açık yönergelere uyulduğunu göstererek <0>hesap verebilirliği</0> kolaylaştırın."
+    },
+    "recs": {
+      "eighth": "<0>Proje sonuçlarının/verilerinin kullanım amacını açıklarken, bu kullanım amacının zaman içinde nasıl değişebileceğini göz önünde bulundurun.</0> Gönüllüler, Hakkımızda sayfasında belirtilen proje hedeflerine ve sonuçların/verilerin kullanım amaçlarına göre projenize katılmayı seçebilirler. Daha sonra, bu kullanım alanlarını genişletme olasılığınız nedir? ",
+      "fifth": "<0>Takip edin.</0> Yapay zeka/makine öğrenimi modellerinin eğitilmesinde elde edilen başarı derecesi hakkında geri bildirim sağlayın. Yöntem proje ekibi tarafından belirlenecek olup, örneğin bir Talk gönderisi, e-posta bülteni vb. içerebilir.",
+      "first": "<0>Projenizi gönüllülerin katılımını (seçimini) göz önünde bulundurarak tasarlayın.</0> Bu, gönüllülerin projenize katılıp katılmayacakları konusunda bilinçli kararlar verebilmeleri için şeffaflık ve net iletişim gerektirir. Çalışmanızın herhangi bir aşamasında (ön veya son işlem, insan müdahalesi gerektiren sınıflandırma sistemleri vb.) yapay zeka/makine öğrenimi kullanıyorsanız, bu süreçlerin nasıl çalıştığı ve neden gerekli oldukları hakkında ayrıntılı bilgi vermeniz gerekir. Örneğin, \"elde edilen verileri bir model eğitmek için kullanacağız\" demek yeterli ayrıntı sağlamaz.",
+      "fourth": "<0>Bağlamı koruyun.</0> Gönüllülerin makine tarafından üretilen çıktılarla etkileşim kurmasını veya bunları incelemesini gerektiren projeler için, bağlamın görevi nasıl etkileyebileceğini (hem verilerin kalitesi hem de gönüllü deneyiminin kalitesi dahil) göz önünde bulundurun. Örneğin, bir görev gönüllülerden makine transkripsiyonlarının kalitesini incelemelerini istiyor ancak belgenin yalnızca bir bölümünü (örneğin tek bir kelime veya ifade) içeriyorsa, tam görüntüye veya belgeye bir bağlantı eklemek, gönüllülerin isterlerse kaynak materyalle ve anlamıyla etkileşim kurmaya devam edebilmelerini sağlayacaktır. Bu bilgiler, bir katılımcının meta verilerine dahil edilebilir.",
+      "nineth": "<0>Yapay zeka/makine öğrenimi içeren bir proje yürütmenin hem fırsatlarını hem de potansiyel risklerini göz önünde bulundurun.</0> Araştırmacıları, projeleri başlatmadan önce potansiyel riskleri (fırsatların yanı sıra) anlamaya teşvik ediyoruz ve onları Ceccaroni vd. (2019) gibi, vatandaş biliminde yapay zeka kullanımına ilişkin riskler ve fırsatlar ile risk azaltma önerilerini inceleyen, onaylanmış araçlara ve yayınlanmış çalışmalara yönlendiriyoruz.",
+      "second": "<0>Gönüllülere projenizde yapay zeka/makine öğreniminin nerede/ne zaman/neden kullanıldığını gösterin.</0> Bir proje içindeki bazı iş akışları yapay zeka/makine öğrenimi içerebilir/destekleyebilir, diğerleri içermeyebilir. Bunlar, gönüllülerin buna göre seçim yapabilmeleri için (tercihleri ​​varsa) İş Akışı Adı alanında veya İş Akışı Açıklaması alanında açıkça etiketlenmelidir. Verilerinizi ön işlemek için yapay zeka/makine öğrenimi kullandıysanız, kalite kontrol ölçütlerinizin neler olduğunu açıklayın (Zooniverse'de bir doğrulama iş akışı çalıştırmanızın nedeni buysa dahil).",
+      "seventh": "<0>Veri kalitesine odaklanın.</0> Yapay zeka/makine öğrenimi kullanımının projenizdeki veri kalitesi üzerindeki olası etkilerini nasıl değerlendirdiğinizi ve ele aldığınızı açıklayın. ",
+      "sixth": "<0>Geri bildirim için yollar oluşturun.</0> Yapay zeka/makine öğrenimi bileşeni içeren her projede, gönüllülerin proje ekibi üyeleriyle geri bildirimlerini paylaşmaları için bir yol bulunmalıdır. Örneğin, ekipler yapay zeka/makine öğreniminin kullanımını açıklamak, soruları yanıtlamak ve eğitim veya çıktılar hakkında güncellemeler sağlamak için özel bir Tartışma Panosu oluşturmak isteyebilirler.",
+      "third": "<0>Optimizasyonun sonuçlarını göz önünde bulundurun.</0> Kolay görevleri yapay zekaya/makine öğrenimine 'devretmeyi' ve daha zor/karmaşık görevleri insanlara yaptırmayı düşünürken, daha gelişmiş iş akışlarının, bir başlangıç ​​aşaması olmadığı sürece, kimlerin katılabileceğini/nitelikli olduğunu daraltabileceğini unutmayın. Yapay zeka/makine öğreniminin yapamayacağı görevleri yapabilme becerisi kazanmak için eğitim görevlerine ihtiyaç duyulabilir. Zooniverse Geri Bildirim özelliğini kullanan iş akışları da dahil olmak üzere, herhangi bir başlangıç ​​süreci veya eğitim iş akışı açıkça etiketlenmelidir."
+    },
+    "resources": {
+      "first": "Yapay zeka/makine öğrenimi hakkında daha fazla bilgi edinin.",
+      "fourth": "Zooniverse projesi yapay zeka/makine öğrenimi sorumluluk beyanlarına örnekler",
+      "second": "Etik ve katılımcı bilim hakkında daha fazla bilgi edinin.",
+      "third": "Zooniverse projelerine ait, yapay zeka/makine öğrenimi kullanımına ilişkin detaylı açıklamalar içeren örnekler."
+    },
+    "sidebarLabel": "Bölüm",
+    "title": "Zooniverse Yapay Zeka Etik Çerçevesi",
+    "toc": {
+      "descriptions": {
+        "eighth": "Harici yayınlar ve politikalar da dahil olmak üzere daha fazla bilgiye bağlantılar ve Zooniverse projelerinden yapay zeka/makine öğrenimi açıklamaları ve sorumluluk bildirimleri içeren örnekler.",
+        "fifth": "Yapay zeka/makine öğrenimi içeren bir Zooniverse projesi yürüten veya yürütmek isteyen ekipler için öneri.",
+        "fourth": "Ekibimizin proje ekiplerine yönelik önerileri kolaylaştırmak için aldığı önlemler.",
+        "nineth": "Gönüllüler için.",
+        "seventh": "Zooniverse'de yapay zeka/makine öğrenimi ve bunun nasıl kullanıldığı (ve kullanıldığı) hakkında bilgiler. Proje ekiplerinin neden yapay zeka/makine öğrenimine ihtiyaç duyduğu veya istediği, bir projenin yapay zeka/makine öğrenimi kullandığını nasıl anlayacağınız ve daha fazlası hakkında açıklamalar içerir.",
+        "sixth": "Yapay zeka/makine öğrenimi odaklı Zooniverse projeleri yürüten tüm araştırmacıların cevaplamaya hazır olması gereken sorular bunlar.",
+        "tenth": "Çerçeve ve geliştirilme süreci hakkında daha fazla bilgi, oluşturulmasında kimlerin yer aldığı ve bu çalışmanın nasıl finanse edildiği hakkında bilgiler de dahil olmak üzere.",
+        "third": "Bu çerçeveyi oluşturan temel ilkelerimiz. Bunlar, topluluk üyelerimiz tarafından yapay zeka/makine öğrenimi hakkında dile getirilen riskleri ve endişeleri gidermeye yardımcı olacak genel hedefleri özetlemektedir."
+      }
+    }
+  },
   "AboutHeader": {
     "links": {
       "about": "Hakkında",
+      "aiethics": "Yapay Zeka Etiği",
       "collaborate": "İşbirliği yapın",
       "contact": "Bize Ulaşın",
       "donate": "Bağış yapmak",
@@ -216,6 +409,11 @@
       "answer": "Son sürümden bir önceki sürüme kadar olan başlıca tarayıcıları destekliyoruz.",
       "question": "Zooniverse hangi tarayıcı sürümlerini destekliyor?"
     },
+    "item11": {
+      "answer0": "Platform düzeyindeki içeriklerin (örneğin menü etiketleri, başlıklar, düğmeler vb. gibi tüm Zooniverse web sayfalarında paylaşılan metinler) bazı çevirileri gönüllü çevirmenler tarafından yapılmaktadır. Bununla birlikte, az sayıda dilde <0>yalnızca platform düzeyindeki metinler için</0> yapay zeka çevirilerini de test ettik. Yapay zeka çevirilerinin kalitesinin diller arasında farklılık gösterdiğini ve bunun da çevirilerin yanlış olma riskini beraberinde getirdiğini kabul ediyoruz. Platformumuz genelinde çeviri kalitesini artırmaya yardımcı olmak için gönüllüleri memnuniyetle karşılıyoruz.",
+      "answer1": "Lütfen proje düzeyindeki metinlerin çevirisinin araştırma ekipleri tarafından yönetildiğini ve proje özelindeki metinlerin yapay zeka tarafından yapılan çevirilerinin, <0>Yapay Zeka Etik Çerçevemiz</0> uyarınca ekip tarafından açıklanması gerektiğini unutmayın. Zooniverse çevirileri hakkında ek bilgiler <1>https://help.zooniverse.org/next-steps/translations</1> adresinde mevcuttur.",
+      "question": "Platform düzeyindeki çevirilerin hatalı olduğunu fark edersem ne yapmalıyım?"
+    },
     "item1": {
       "answer": "Zooniverse projelerinde gösterilen konuların çoğu için araştırmacılar doğru cevabı bilmiyor ve bu yüzden sizin yardımınıza ihtiyaç duyuyorlar. İnsanlar desen tanıma görevlerinde gerçekten iyidir, bu nedenle genellikle ilk tahmininiz doğru olanıdır. Ara sıra hata yapmaktan çok fazla endişelenmeyin - bir projedeki her görüntü, video veya grafik birden fazla kişi tarafından incelenecektir. Çoğu Zooniverse projesinde bir Yardım düğmesi, Sıkça Sorulan Sorular (SSS) sayfası ve sınıflandırma yaparken size rehberlik edecek daha fazla bilgi içeren bir Saha Kılavuzu bulunur.",
       "question": "Bunu doğru yapıp yapmadığımı nasıl anlarım?"
@@ -365,6 +563,38 @@
     "sidebarLabel": "Disiplin",
     "title": "Yayınlar"
   },
+  "ResetPassword": {
+    "CommitResetForm": {
+      "body": "Şifrenizi onaylamak için iki kez girin, ardından gerçek araştırmalara yardımcı olmaya geri dönebilirsiniz.",
+      "infoConfirmation": "İki alan da eşleşmelidir.",
+      "infoPassword": "En az 8 karakter",
+      "inputConfirmation": "Yeni şifreyi onaylayın",
+      "inputPassword": "Yeni Şifre",
+      "status": {
+        "errorInvalidInput": "Hata: Geçersiz giriş",
+        "errorPasswordsDoNotMatch": "Hata: Şifreler eşleşmiyor, lütfen tekrar deneyin.",
+        "success": "Parolanız değiştirildi! Birkaç saniye içinde <0>giriş sayfasına</0> yönlendirileceksiniz, lütfen yeni parolanızı kullanın."
+      },
+      "submit": "Göndermek",
+      "titleForInputPattern": "En az 8 karakter"
+    },
+    "NoAccessMessage": {
+      "body": "Şu anda oturum açmış durumdasınız. Parolanızı sıfırlamak istiyorsanız lütfen oturumu kapatın."
+    },
+    "RequestResetForm": {
+      "body": "E-posta adresinizi girin, size şifrenizi sıfırlamak için bir bağlantı göndereceğiz.",
+      "footer": "Sıfırlama e-postası gelmediyse, spam klasörünüze bakın. Orada da yoksa, Zooniverse'e katılmak için kullandığınız başka bir e-posta adresini deneyin.",
+      "inputEmail": "E-posta adresi",
+      "status": {
+        "errorTooManyRequests": "Hata: Çok fazla parola sıfırlama isteği yapıldı. Lütfen daha sonra tekrar deneyin.",
+        "success": "Şifrenizi sıfırlamak için bir bağlantı içeren bir e-posta gönderdik."
+      },
+      "submit": "Göndermek"
+    },
+    "common": {
+      "header": "Şifreyi Sıfırla"
+    }
+  },
   "Resources": {
     "brand": {
       "heading": "Marka Kaynakları",
@@ -393,8 +623,58 @@
     },
     "title": "Kaynaklar"
   },
+  "Settings": {
+    "AccountSettings": {
+      "title": "Hesap"
+    },
+    "EmailSettings": {
+      "title": "E-posta"
+    },
+    "ProfileSettings": {
+      "title": "Profil"
+    },
+    "common": {
+      "backHome": "Ana Sayfaya Dön",
+      "sidebar": "Ayarlar",
+      "title": "Kullanıcı Ayarları"
+    },
+    "forms": {
+      "fields": {
+        "credited_name": {
+          "help": "Yayınlarda, posterlerde, gönüllü sertifikalarında ve diğer materyallerde teşekkür etmek için bu ismi kullanacağız.",
+          "label": "Gerçek Adı"
+        },
+        "display_name": {
+          "help": "Platformda adınızın diğer kullanıcılara nasıl görüneceği.",
+          "label": "Ekran adı"
+        }
+      },
+      "optional": "İsteğe bağlı",
+      "save": "Değiştirmek",
+      "saveSuccess": "Değişiklikler kaydedildi.",
+      "saveUnnecessary": "Kaydedilecek değişiklik yok."
+    }
+  },
   "Sidebar": {
     "all": "Tüm"
+  },
+  "Unsubscribe": {
+    "form": {
+      "body": {
+        "p1": "Anlıyoruz, kimse istemediği e-postaları sürekli almaktan hoşlanmaz.",
+        "p2": "E-posta adresinizi buraya girmeniz yeterli, sizi tüm e-posta listelerimizden çıkaracağız."
+      },
+      "errors": {
+        "general": "Bir sorun oluştu. Lütfen e-posta adresinizi kontrol edin ve tekrar deneyin."
+      },
+      "header": "Talk dışındaki tüm Zooniverse e-postalarından aboneliğinizi iptal edin.",
+      "inputEmail": "E-posta adresi",
+      "submit": "Göndermek"
+    },
+    "processed": {
+      "body": "Fikrinizi değiştirirseniz, <0>e-posta tercihlerinizi güncellemek</0> için hesap ayarlarınıza gidin.",
+      "header": "Abonelikten çıkma işlemi başarıyla tamamlandı."
+    }
   },
   "Volunteer": {
     "beta": {
@@ -440,6 +720,14 @@
         "third": "Diğer gönüllüler ve uzmanlarla konuşun."
       }
     },
-    "title": "Gönüllü"
+    "title": "Gönüllü",
+    "translate": {
+      "heading": "Bir Projeyi Çevir",
+      "paragraphs": {
+        "first": "Gönüllü çevirmenler, araştırma ekiplerine İngilizce Zooniverse projelerini diğer dillere çevirmede yardımcı olarak küresel gönüllü topluluğumuza katkıda bulunurlar. Proje çevirmenleri, projeye Çevirmen olarak eklenmek için doğrudan proje ekipleriyle çalışırlar; bu aşamada proje düzeyindeki çeviri web sitesine erişebilir ve projenin her bölümü için çevirilerini girebilirler.",
+        "second": "Platform düzeyindeki içeriklerin (menü etiketleri, başlıklar, düğmeler vb. gibi tüm projelerde paylaşılan metinler) yapay zeka tarafından oluşturulan çevirilerini düzeltmeye yardımcı olacak gönüllüleri de memnuniyetle karşılıyoruz. Bu içerik projeye özgü değildir ve Zooniverse ekibi tarafından yönetilir ve bakımı yapılır.",
+        "third": "Proje çevirmeni olarak gönüllü olmakla veya platform düzeyindeki çevirilerin düzenlenmesine yardımcı olmakla ilgileniyorsanız, lütfen <0>bizimle iletişime geçin</0>."
+      }
+    }
   }
 }
