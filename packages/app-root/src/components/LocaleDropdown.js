@@ -2,10 +2,10 @@ import { Language } from 'grommet-icons'
 import { DropButton, Nav, Anchor } from 'grommet'
 import styled from 'styled-components'
 import { usePathname, useSearchParams } from 'next/navigation'
+import { useTranslation } from 'react-i18next'
 
 import localeMenu, { supportedLocales } from '../utils/localeMenu'
 
-/* styled components */
 const StyledDropButton = styled(DropButton)`
   &:hover {
     > svg {
@@ -19,19 +19,34 @@ const StyledUl = styled.ul`
   margin: 0;
   display: flex;
   flex-direction: column;
-  padding: 10px;
-  gap: 10px;
 `
 
 const StyledLi = styled.li`
   list-style-type: none;
+`
+
+const StyledAnchor = styled(Anchor)`
   display: flex;
-  width: 100%;
+  padding: 15px;
+  justify-content: center;
+
+  &[aria-current='page'] {
+    text-decoration: underline;
+    background-color: ${props =>
+      props.theme.global.colors
+        .brand}; // Matches hover and focus styling of our Grommet Select components
+  }
+
+  &:hover,
+  &:focus,
+  &focus-visible {
+    background-color: #dddddd66; // Matches hover and focus styling of our Grommet Select components
+  }
 `
 
 /*
-  There are specific route segments were we do NOT want to display the LocaleDropdown.
-  The following regex functions test the stripLocale(pathname) against the exclusionRoutes array
+  There are specific route segments where we do NOT want to display the LocaleDropdown.
+  The following regex tests the stripLocale(pathname) against the exclusionRoutes array
   because the content on those pages does not have translations enabled.
 */
 const exclusionRoutes = [
@@ -62,7 +77,7 @@ function stripLocale(pathname) {
   return supportedLocales.includes(first) ? `/${rest.join('/')}` : pathname
 }
 
-/** Do not include 'en' when forming a new href*/
+/** Do not include 'en' when forming a new href */
 const getHrefWithLocale = (href, locale) => {
   return locale !== 'en' ? `/${locale}${href}` : href
 }
@@ -70,6 +85,9 @@ const getHrefWithLocale = (href, locale) => {
 function LocaleDropdown() {
   const pathname = usePathname()
   const searchParams = useSearchParams().toString()
+
+  const { i18n } = useTranslation()
+  const locale = i18n.language
 
   const noLocalePathname = stripLocale(pathname)
   const excludedRoute = isExcludedRoute(noLocalePathname)
@@ -84,7 +102,8 @@ function LocaleDropdown() {
       <StyledUl as='ul' pad='0' align='center'>
         {Object.entries(localeMenu).map(([localeCode, name]) => (
           <StyledLi key={localeCode}>
-            <Anchor
+            <StyledAnchor
+              aria-current={locale === localeCode ? 'page' : undefined}
               href={`${getHrefWithLocale(noLocalePathname, localeCode)}${
                 searchParams ? `?${searchParams}` : ''
               }`}
@@ -93,7 +112,6 @@ function LocaleDropdown() {
               color='white'
               plain
               size='1rem'
-              weight='normal'
             />
           </StyledLi>
         ))}
@@ -104,7 +122,7 @@ function LocaleDropdown() {
   return (
     <StyledDropButton
       icon={<Language color='light-5' size='0.8rem' />}
-      aria-label='Change Language'
+      aria-label='Change Language' // To be translated once it's decided where to store dictionaries of text content definied directly in app-root (like metadata too)
       dropContent={dropContent}
       plain
       margin={{ right: 'small' }}
