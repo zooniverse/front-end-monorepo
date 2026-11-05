@@ -3,15 +3,15 @@ import { observer } from 'mobx-react'
 import { bool, shape, string } from 'prop-types'
 import { useState } from 'react'
 
-import { useTranslation } from '../../../../../translations/i18n'
+import { useTranslation } from '../../../translations/i18n'
 
 /*
   Tune this value to determine when a search term
   is long enough to use Panoptes full-text search.
 */
-const MIN_SEARCH_LENGTH = 3;
+const MIN_SEARCH_LENGTH = 3
 
-function SelectCollection ({
+function SelectCollection({
   collections = [],
   disabled = false,
   onSearch,
@@ -76,8 +76,6 @@ function SelectCollection ({
   const options = searchText.length > MIN_SEARCH_LENGTH
     ? collections
     : collections.filter(collectionNameFilter)
-
-
   return (
     <Grid
       as='form'

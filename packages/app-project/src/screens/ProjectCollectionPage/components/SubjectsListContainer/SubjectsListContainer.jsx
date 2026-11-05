@@ -6,6 +6,7 @@ import { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'next-i18next/pages'
 
 import { SUBJECTS_PAGE_SIZE } from '@helpers/collectionQueryParams'
+import { CollectionsModal } from '@zooniverse/react-components'
 import {
   useCollectionSubjects,
   useRemoveCollectionSubjects,
@@ -31,6 +32,7 @@ function SubjectsListContainer({
   const [page, setUrlPage] = useQueryState('page', parseAsInteger.withDefault(1))
   const searchParams = useSearchParams()
   const [isSelecting, setIsSelecting] = useState(false)
+  const [collectionsModalActive, setCollectionsModalActive] = useState(false)
   // Selected subject IDs persist across pages.
   const [selectedIds, setSelectedIds] = useState(() => new Set())
 
@@ -88,7 +90,7 @@ function SubjectsListContainer({
   }
 
   function handleAdd() {
-    window.alert('Coming soon...')
+    setCollectionsModalActive(true)
   }
 
   function handleToggleSelecting() {
@@ -177,6 +179,13 @@ function SubjectsListContainer({
 
   return (
     <>
+      <CollectionsModal
+        collectionsModalActive={collectionsModalActive}
+        projectId={projectId}
+        setCollectionsModalActive={setCollectionsModalActive}
+        subjectIds={[...selectedIds]}
+        userId={userId}
+      />
       {pagination}
       <Box gap='small'>
         <Box
