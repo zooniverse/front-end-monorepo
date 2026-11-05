@@ -1,0 +1,733 @@
+{
+  "404": {
+    "Default404": {
+      "findNewProject": "Nemo sabon aiki don bincike",
+      "heading": "Babu wani abu a nan.",
+      "message": "Shafin da kake nema ba ya nan.",
+      "returnHome": "Komawa zuwa shafin farko"
+    }
+  },
+  "AIEthics": {
+    "about": {
+      "acknowledgements": {
+        "heading": "Godiya",
+        "paragraph": "Ƙungiyar Zooniverse tana son yaba wa waɗannan mutanen saboda halartarsu a cikin bita ta yanar gizo wanda ya haifar da haɓaka waɗannan shawarwari:"
+      },
+      "advisors": {
+        "heading": "Masu Ba da Shawara kan Aiki"
+      },
+      "funding": {
+        "heading": "Tallafin Kuɗi",
+        "paragraph": "Gidauniyar Kavli ce ke tallafawa wannan aikin, lambar yabo ta SS-2025-GR-05-3064."
+      },
+      "paragraphs": {
+        "first": "A cikin shekaru 15 da suka gabata, ƙungiyoyin bincike sun haɗa ilimin injina (ML) a cikin ayyukan Zooniverse iri-iri da kuma matakai daban-daban. Kimanin kashi ɗaya bisa uku na duk ayyukan Zooniverse masu aiki yanzu sun haɗa da koyon injina ta wata hanya. Yayin da waɗannan fasahohin suka girma kuma wayar da kan jama'a game da wanzuwarsu ya ƙaru, ra'ayoyin masu sa kai na Zooniverse na baya-bayan nan sun nuna buƙatar ƙarin bayyana gaskiya game da amfani da 'AI' akan dandamalinmu. Mun yi ƙoƙarin magance waɗannan damuwar ta hanyar kafa tsari mai tsabta, wanda aka daidaita don aiwatar da AI/ML a cikin ayyukan Zooniverse, tabbatar da cewa masu bincike za su iya sadarwa yadda ya kamata ta hanyar da ta dace yayin da suke riƙe da aminci da haɗin gwiwar al'ummar masu sa kai. Tare da tallafin kuɗi daga Gidauniyar Kavli mun ƙirƙiri tsarin ɗabi'a na <0>AI/ML na farko don Zooniverse</0>, wanda muka ƙaddamar a cikin 2026. Ana gabatar da wannan tsarin a nan kuma za a sabunta shi kowace shekara, kamar yadda ake buƙata.",
+        "fourth": "Sakamakon ya haɗa da: manyan ƙa'idodi waɗanda ke aiki a matsayin tsari da kuma taƙaita manyan manufofi; shawarwari don ayyukan cikin gida da dandalin Zooniverse zai ɗauka waɗanda ke sauƙaƙa shawarwarin ƙungiyoyin ayyuka; da kuma shawarwari ga ƙungiyoyin ayyuka da za su ɗauka lokacin haɗa AI/ML cikin ayyukan Zooniverse.",
+        "second": "Domin haɓaka wannan tsarin, mun gudanar da jerin tarurrukan bita ta yanar gizo waɗanda suka haɗa da ƙwararrun masana kan batutuwa, jagorancin Zooniverse, shugabannin ayyuka, masu bincike na waje, da masu sa kai. An gudanar da tarurrukan bita a duk faɗin 2025 kuma an mayar da hankali kan manyan jigogi guda huɗu: kafa mafi kyawun hanyoyin bayyana gaskiya da sadarwa; gano hanyoyin ɗabi'a don koyon injin da ke daidaita haɗari da dama; zurfafa fahimtarmu game da waɗannan hanyoyin ɗabi'a; da kuma la'akari da ƙalubalen kariyar bayanai na ƙasa.  ",
+        "third": "Domin haɗa da fahimta daga wata ƙungiya mai faɗi fiye da yadda za ta iya shiga kai tsaye a cikin bitar, mun aika da bincike ga dukkan al'ummar Zooniverse. Sakamakon waɗannan binciken sun tsara alkiblar dabarunmu. Bayan kowace bitar, ƙaramin rukuni ya haɗu don fassara tattaunawar zuwa manyan jigogi da sakamako masu amfani. An raba sakamakon ga duk mahalarta bitar waɗanda suka sami damar bayar da ra'ayoyi, gyare-gyare, da ƙari."
+      },
+      "projectTeamList": {
+        "coord": "Mai Gudanar da Aiki",
+        "eval": "Mai Gudanarwa da Mai Kimantawa",
+        "heading": "Ƙungiyar Aiki",
+        "pi": "Babban Mai Bincike",
+        "ra": "Mataimakan Bincike"
+      }
+    },
+    "actions": {
+      "first": "<0>Ɗauki ko daidaita yanayin </0><1> na bayyana amfani da AI/ML</1> <0>(a cikin jituwa da harshen da ke akwai ko rarrabuwar da ke akwai) a cikin dandamalin Zooniverse.</0> Sauran shawarwari da aka gabatar sun dogara ne akan haɓakawa da ƙaddamar da wannan rarrabuwa, gami da hanyoyin bayyana gaskiya, wakilci, da siginar daidaito.",
+      "fourth": "<0>Bitar manufofi na shekara-shekara ta ƙungiyar shugabannin Zooniverse.</0> Kafa tsarin da za a yi amfani da shi akai-akai don tantancewa da/ko sabunta waɗannan albarkatun, misali kowace shekara. Mun yi alƙawarin yin bita na shekara-shekara kuma za mu buga rubutun blog ko wani sabuntawa na rubutu don ya dace da duk wani sabuntawa da aka yi wa wannan tsarin a matsayin wani ɓangare na wannan bita.",
+      "second": "<0>Saka shafi na gidan yanar gizon Zooniverse ga bayanai da albarkatu da suka shafi AI/ML da amfaninsa akan Zooniverse.</0> Wannan shine wannan shafin! Yana ɗauke da rarrabuwar da ke sama, shawarwarin ƙungiyar aikinmu, da kuma ƙarin bayani game da yadda ake amfani da wannan fasaha (kuma an yi amfani da ita) akan Zooniverse, menene fa'idodi da damuwa, da kuma yadda ake gane lokacin da wani aiki ke amfani da shi.",
+      "third": "<0>Haɗa jagororin cikin tsarin bitar ayyukan cikin gida na Zooniverse.</0> Tun lokacin da aka ƙaddamar da wannan shafin, an sabunta hanyoyin bitar cikin gida don nuna shawarwarin da aka jera a nan. Wannan zai tabbatar da cewa hanyoyin da aka saba amfani da su don jagorantar ayyukan sun raba bayanai game da duk wani amfani da AI/ML da alkawuran gudanar da bayanai da suka shafi aiki, don tabbatar da cewa masu sa kai za su sami damar shiga wannan bayanin."
+    },
+    "faq": {
+      "first": {
+        "answer": "A'a. Masu bincike suna zuwa Zooniverse ne saboda suna son mutane su shiga cikin aikinsu. Sai dai idan an ba su izini a sarari don yin hakan, bai kamata masu sa kai su yi amfani da kayan aikin AI na halitta a wajen Zooniverse don taimakawa a cikin ƙoƙarin rarraba su ba.",
+        "question": "Ni mai aikin sa kai ne kuma ina buƙatar taimako wajen rarrabawa a kan wani aiki. Zan iya amfani da kayan aikin AI na samar da abubuwa kamar ChatGPT ko Gemini don taimaka mini?"
+      },
+      "paragraph": "Ba ka ga amsar tambayarka a nan ba? Aiko mana da tambayoyinka a <0>contact@zooniverse.org</0>! Za mu sabunta wannan jerin kamar yadda ake buƙata.",
+      "second": {
+        "answerOne": "Fara da duba shafin farko na aikin, musamman Bayanin Aikin da duk wani Bayanin Gudanar da Aiki. Idan har yanzu ba ku da tabbas, duba shafin Game da shi, da kuma Koyarwar(koyarwar) aikin. Idan har yanzu ba ku da tabbas bayan haka, za ku iya tambaya a kan Magana, amma wani ɓangare na manufar wannan tsarin shine don taimakawa wajen tabbatar da cewa duk ayyukan suna bayyana yadda suke (ko ba sa) amfani da wannan fasaha.",
+        "answerTwo": "Idan kuna ganin wani aiki bai bayyana yadda ya kamata ba game da amfani da AI/ML, muna fatan za ku ji daɗin tuntuɓar ƙungiyar bincike a Talk kuma ku ba da shawarar wasu canje-canje ko bayyana rashin tabbas ɗinku. Idan ba ku ji daɗin yin hakan ba, za ku iya aiko mana da saƙo a <0>contact@zooniverse.org</0> kuma za mu duba shi. Wani ɓangare na wannan aikin ya haɗa da sabunta hanyoyin bita na ciki, don haka ra'ayoyinku za su taimaka mana mu san ko sabbin hanyoyinmu suna da tasiri.",
+        "question": "Ina so in gano ko wani aikin Zooniverse yana amfani da AI ko Machine Learning. Ta yaya zan sami wannan bayanin?"
+      }
+    },
+    "fivews": {
+      "list": {
+        "first": "<0>Wa</0> ke da alhakin tabbatar da ingancin bayanai da kuma sahihancinsu? ",
+        "fourth": "<0>Me yasa ake amfani da AI/ML? Menene yake taimakawa wajen cimmawa kuma wa ke amfana? Yaya binciken zai kasance idan ba a yi amfani da AI/ML ba?",
+        "second": "<0>Me</0> dabarun AI/ML ake amfani da su?",
+        "third": "<0>Yaushe</0> da <0>Ina</0> a cikin zagayowar rayuwar tattara bayanai, sarrafawa, da bincike ake amfani da AI/ML? A wane lokaci ne masu sa kai ke shiga zagayowar rayuwa? Shin su biyun sun taɓa yin mu'amala? Idan haka ne, ta yaya?"
+      },
+      "paragraph": "Lokacin ƙirƙirar sabon aikin Zooniverse wanda ya shafi AI/ML, masu bincike ya kamata su yi tunani a kai kuma su shirya don amsa tambayoyin da ke ƙasa. Mafi kyau, amsoshin waɗannan tambayoyin za su kasance a wani wuri a cikin kwafin aikin (misali shafin Game da, Tambayoyin da ake yawan yi, da sauransu)."
+    },
+    "heading": {
+      "eighth": "Albarkatu",
+      "fifth": "Shawarwarin Aiki",
+      "fifthext": "Shawarwari ga Ƙungiyoyin Ayyuka",
+      "first": "Gabatarwa",
+      "fourth": "Ayyukan Cikin Gida",
+      "fourthext": "Ayyukan Cikin Gida da Zooniverse Ya Yi",
+      "nineth": "Tambayoyin da ake yawan yi akai-akai",
+      "ninethext": "Tambayoyin da Ake Yawan Yi",
+      "second": "Teburin Abubuwan da ke Ciki",
+      "seventh": "AI/ML akan Zooniverse",
+      "seventhext": "AI da Koyon Inji akan Zooniverse",
+      "sixth": "5Ws",
+      "sixthext": "Ayyuka 5 na AI/ML da aka yi niyya",
+      "tenth": "Game da wannan Tsarin",
+      "third": "Manyan Ka'idoji"
+    },
+    "onZooniverse": {
+      "fifthQ": {
+        "heading": "Ta yaya zan san lokacin da wani aiki ke amfani da AI ko Injin Koyon Aiki?",
+        "list": {
+          "first": "Nauyin ƙungiyoyin aiki ne su nuna a sarari a wani wuri a shafin farko ko aikinsu yana amfani da AI/ML. Bugu da ƙari, idan aikin yana da ayyuka da yawa, ƙungiyoyi ya kamata su bambanta tsakanin ayyukan aiki waɗanda suka haɗa da AI/ML, da waɗanda ba sa yi.",
+          "fourth": "Idan ba ka da tabbas ko wani aiki yana amfani da AI/ML, ka iya sakawa a allon tattaunawa na aikin kuma ka tambayi ƙungiyar bincike kai tsaye.",
+          "second": "Ana kuma buƙatar ƙungiyoyi su bayar da cikakkun bayanai kan ainihin dalilin da ya sa da kuma yadda ake haɗa AI/ML cikin ayyukan su. Wannan bayanin zai bayyana a shafin Game da aikin.",
+          "third": "Idan horar da samfurin AI/ML shine burin aikin, ana sa ran ƙungiyoyi su samar da sabuntawa kan wannan tsari a matsayin wani ɓangare na shafin Sakamako, idan akwai."
+        }
+      },
+      "firstQ": {
+        "heading": "Menene AI? Menene Na'urar Koyon Na'ura?",
+        "list": {
+          "first": "Babu wata ma'ana mai sauƙi, ɗaya tilo, amma AI gabaɗaya tana nufin tsarin kwamfuta waɗanda aka tsara don kwaikwayon tunanin ɗan adam. AI kalma ce mai faɗi wacce ta ƙunshi nau'ikan fasahohi da aikace-aikace iri-iri. Sau da yawa ana amfani da kalmomin a musayar ra'ayi, amma ML wani ɓangare ne na AI wanda ke amfani da bayanai da algorithms don horar da kwamfutoci don yin rarrabuwa, samar da hasashe, da kuma gano kamanceceniya ko yanayin da ke faruwa a cikin manyan bayanai. (Ma'anar ta samo asali ne daga Fortson et al. (2024) da <0>https://www.nasa.gov/what-is-artificial-intelligence)</0>.",
+          "second": "Akwai hanyoyi da dama da ake rarraba hanyoyin AI/ML bisa ga fasahar da aka yi amfani da ita da kuma ƙarfin wannan fasahar.",
+          "third": "A wani ɓangare saboda fasahar tana ci gaba da sauri, yana da sauƙi a fahimci abin da AI ke yi. Bayyanannen ra'ayi a cikin Zooniverse yana nuna abin da wannan fasaha ke ba da gudummawa, da kuma dalilin, na iya taimakawa wajen guje wa rashin fahimta ko ruɗani, yayin da kuma ƙirƙirar matakan ɗaukar nauyi ga ƙungiyoyin ayyuka."
+        }
+      },
+      "fourthQ": {
+        "heading": "Me yasa ƙungiyoyin ayyuka ke buƙata ko son amfani da AI da Machine Learning akan Zooniverse?",
+        "list": {
+          "first": "Ko da tare da ƙarfin taron jama'ar Zooniverse, ƙungiyoyi da yawa na ayyuka suna aiki tare da manyan bayanai masu rikitarwa. A mafi yawan lokuta, masu bincike sun gano cewa mutane da injuna suna aiki tare suna samar da bayanai masu inganci fiye da ko dai su kaɗai. Tsarin injin ɗan adam kuma na iya taimakawa wajen hanzarta jadawalin aiki da kuma ba masu bincike damar cimma sakamako da wuri fiye da rarrabuwar ɗan adam kawai.",
+          "second": "Akwai wallafe-wallafe da yawa da ke bayanin nasarorin da aka samu wajen haɗa rarrabuwar ɗan adam da injin da ake samu a shafin wallafe-wallafen Zooniverse na <0>Zooniverse</0>."
+        }
+      },
+      "secondQ": {
+        "heading": "Yaya ake amfani da AI da Machine Learning akan Zooniverse?",
+        "list": {
+          "fifth": "Idan ƙungiyoyin ayyuka suka zaɓi amfani da AI don samar da abubuwan da ke cikin aikin, ana buƙatar su bayyana wannan bayanin a shafin da ke ɗauke da abubuwan da AI ta samar. Wannan na iya haɗawa da misali kwafin aikin, hotuna, hotunan kafofin watsa labarai, fassarori, da/ko bayanan aikin.",
+          "first": "Gabaɗaya, ba a haɗa AI/ML cikin dandamali ba sai dai idan an yi amfani da takamaiman ayyukan. Ƙungiyar Zooniverse ta himmatu wajen bayyana gaskiya da kuma bayyana lakabi a duk wani yanayi na gaba inda ake amfani da AI/ML a wajen takamaiman ayyuka.",
+          "fourth": {
+            "subFifth": "<0>Bita na masu sa kai</0> abubuwan da ba a saba gani ba ko marasa kyau da suka kawo cikas ga na'urar.",
+            "subFirst": "<0>Babu ​​AI/ML.</0> Masu sa kai suna rarraba batutuwa. Babu wani aiki na AI/ML da aka yi niyya ko aka yi niyya a baya.",
+            "subFourth": "<0>Ana duba ingancin AI/ML.</0> Masu sa kai suna yin bita da yin gyare-gyare ga rarrabuwar da aka samar da na'ura, wanda ke taimakawa wajen inganta AI/ML akan lokaci.",
+            "subSecond": "<0>Aikin AI/ML yana tsara batutuwa kafin lokaci.</0> Masu sa kai suna rarraba batutuwa waɗanda aka riga aka tsara ko aka tace su ta hanyar na'urori. Misalan sun haɗa da cire guraben da ba su da wani abu mai mahimmanci (hotuna marasa wani abun ciki mai mahimmanci), da kuma yin rarrabuwa mai girma don masu sa kai su mayar da hankali kan ayyuka masu ƙalubale.",
+            "subThird": "<0>Horar AI/ML.</0> Masu sa kai suna rarraba batutuwa kuma injina suna koyo daga tsare-tsare tare da burin cewa AI/ML za ta ɗauki nauyin ayyukan.",
+            "sublist": "Wasu misalai:"
+          },
+          "second": "Amfani da AI/ML zai bambanta a cikin ayyukan.",
+          "third": "An haɗa AI/ML cikin wasu takamaiman ayyukan Zooniverse don ƙara wa tallafin bincike da masu sa kai ke bayarwa, suna sarrafa bayanai kafin ko bayan masu sa kai sun kammala ayyukansu. Wasu ayyukan sun haɗa da abubuwan ilmantarwa masu aiki waɗanda ke tallafawa hanyoyin AI/ML na ɗan adam, waɗanda ke haɗa shigar da masu sa kai cikin hanyoyin sarrafa kansa don ƙara ingancin fitarwa."
+        }
+      },
+      "seventhQ": {
+        "heading": "Yaya batun AI da Injin Koyon Aiki a wajen Zooniverse? Shin rarrabuwar da na yi ta shiga cikin shirye-shiryen AI/ML da ba na Zooniverse ba?",
+        "list": {
+          "fifth": "Ana sa ran ƙungiyoyin aikin za su raba shirye-shiryensu na amfani da bayanai da adana bayanai a shafin Game da aikin.",
+          "first": "Mu, a matsayinmu na al'ummar Zooniverse, muna da iko kan yadda muke amfani da AI/ML ko ba ma amfani da shi a kan dandamali da kuma a cikin ayyuka. Duk da haka, ba mu da iko sosai kan yadda wasu za su iya amfani da bayanan aikin, musamman idan aka bayyana shi ga jama'a.",
+          "fourth": "Domin rage amfani da bayanan aiki ba tare da niyya ba (misali don dalilai na kasuwanci), wasu ƙungiyoyi sun zaɓi amfani da yarjejeniyar lasisin bayanai a cikin bayanan aikinsu (kamar misali <0>Creative Commons</0>), ko kuma raba shi ta hanyar buƙata kawai.",
+          "second": "Manufofin Gina Ayyuka na Zooniverse na yanzu <0>Dokokin Gina Ayyuka</0> sun bayyana cewa dole ne ƙungiyoyin ayyuka su \"buɗe bayanan rarrabuwarsu bayan wani lokaci na mallakar kamfani, wanda yawanci zai ɗauki shekaru biyu daga ƙaddamar da aikin.\"",
+          "sixth": "Idan ba ka da tabbas game da shirye-shiryen wani aiki na raba bayanai da/ko lasisi, ka ji daɗin yin rubutu a kan allon tattaunawa na aikin kuma ka tambayi ƙungiyar bincike kai tsaye.",
+          "third": "Buɗaɗɗen bayanai yana ba da damar yin sulhu, gamsuwa nan take, da kuma amfani da bayanan cikin sauri don yanke shawara ko ɗaukar matakai. Hakanan yana iya taimakawa wajen adana bayanai, domin bayanai ba sa rasa idan aka ajiye su a cikin ma'ajiyar bayanai ko kuma idan wasu sun yi kwafi. Duk da haka, yana nufin cewa wasu mutane, ƙungiyoyi, ko kamfanoni na iya amfani da bayanan da aka samar ta hanyar ayyukan Zooniverse saboda wasu dalilai banda manufofin bincike da aka ambata."
+        }
+      },
+      "sixthQ": {
+        "heading": "Ta yaya Zooniverse ke tabbatar da cewa an yi amfani da waɗannan fasahohin cikin aminci da ɗa'a?",
+        "list": {
+          "first": "Zooniverse ta yi wani ƙoƙari na tsawon watanni 18 tare da masu ruwa da tsaki da ƙwararru</0> don fayyace ma'anar wannan ga dandamalin. Sakamakon <1>Manyan Ka'idoji</1>, <2>Ayyukan Cikin Gida da Zooniverse ta ɗauka</2>, da <3>Shawarwari ga Ƙungiyoyin Ayyuka</3> sune hanyoyinmu.",
+          "second": "Mun kuduri aniyar ci gaba da tantance waɗannan tsare-tsare don tabbatar da cewa suna da tasiri, musamman yayin da fasahohi da kuma yiwuwar amfani da su a kan Zooniverse ke ci gaba da faɗaɗa. Shawarwarinmu sun haɗa da yin bita na shekara-shekara kan manufofin ɗabi'un AI namu don tabbatar da cewa sun kasance masu dacewa da al'ummomin masu sa kai da masu bincike."
+        }
+      },
+      "thirdQ": {
+        "heading": "Menene fa'idodin, da damuwa game da amfani da AI da Machine Learning akan Zooniverse?",
+        "list": {
+          "first": "AI/ML na iya ƙara gudu da ƙarfi ga ikonmu na samarwa, sarrafawa, da kuma nazarin bayanai. A gefe guda kuma, za mu iya yin sabbin tambayoyi da kuma samun amsoshi cikin sauri.",
+          "fourth": "Ƙirƙirar da amfani da wasu nau'ikan AI/ML na iya zama mai matuƙar amfani ga makamashi da albarkatu.",
+          "second": "Wakiltar wasu ayyuka ga na'urori na iya ba mutane damar mai da hankali kan ayyuka masu ƙirƙira ko rikitarwa. Shawarwarinmu sun lura cewa ya kamata ƙungiyoyin ayyuka su yi taka tsantsan kada su wuce gona da iri, tunda shiga matakin farko yana da mahimmanci don sanya ayyukan su zama masu sauƙin isa ga kowa.",
+          "third": "Yana da mahimmanci a haɗa da kula da ɗan adam a wani lokaci don tantancewa da tabbatar da ingancin bayanai."
+        }
+      }
+    },
+    "preamble": {
+      "list": {
+        "first": "Dandalin Zooniverse ne ke da alhakin <0>haɓakawa</0> da kuma bin waɗannan shawarwari.",
+        "second": "Ƙungiyoyin aikin suna da alhakin fassara da kuma aiwatar da shawarwarin da aka bayar. ",
+        "third": "Masu sa kai suna da ikon <0>tabbatar</0> ko <0>tambaya</0> aiwatarwa ta hanyar ra'ayoyi ko kuma yin aiki bisa doka (misali kin shiga wani aiki)."
+      },
+      "paragraphs": {
+        "first": "Wannan shafin yana gabatar da Tsarin Ɗabi'un Zooniverse AI, gami da shawarwari don gudanar da ayyuka akan Zooniverse waɗanda ke hulɗa da fasahar wucin gadi (AI) da/ko koyon injina (ML). Wannan tsarin rayuwa ne, kuma mun himmatu wajen ingantawa da maimaitawa yayin da muke karɓar ra'ayoyi da kuma yayin da yanayin fasaha, zamantakewa, da al'adu ke ci gaba da haɓaka. An yi nufin wannan shafin ne musamman don samar da bayanai ga masu sa kai na Zooniverse. Ƙungiyoyin aikin za su iya karanta <0>takamaiman jagora a cikin takardunmu na Zooniverse</0>.",
+        "second": "Duk da cewa amfani da fasahar 'AI' akan Zooniverse a al'adance ta kasance ta hanyar takamaiman hanyoyin ML (\"kayan aiki da fasahar algorithm waɗanda ke koyo daga bayanan da ke akwai don magance ayyuka\"), kalmar 'AI' ta zama abin kama-da-wane don bayyana wannan nau'in sarrafa kansa. AI gabaɗaya tana nufin \"kwamfutocin da za su iya kwaikwayon tunanin ɗan adam,\" kuma koyon injina wani ɓangare ne na wannan ra'ayi. A cikin wannan tsarin, za mu yi amfani da 'AI/ML' a ko'ina don komawa ga waɗannan hanyoyin, don ya ƙunshi hanyoyi daban-daban, da kuma riƙe ɗan bambanci tsakanin waɗannan sharuɗɗan biyu.",
+        "third": "Ƙirƙirar, kula da, da kuma amfani da wannan tsarin yana buƙatar ayyuka daban-daban—ga dandalin Zooniverse, ƙungiyoyin ayyuka, da masu sa kai, don tabbatar da cewa haɗakar AI/ML a cikin binciken haɗin gwiwa ya kasance mai gaskiya, ɗabi'a, da kuma tushen al'umma."
+      }
+    },
+    "principles": {
+      "fifth": "Yi amfani da kuma daidaita tare da <0>wadanda ke da alaƙa da tsarin AI/ML</0> kuma ci gaba da hulɗa da al'ummomi da masu ruwa da tsaki don <0>haɓaka da kuma ɗaukar mafi kyawun ayyuka</0> game da binciken haɗin gwiwa da AI/ML ke gudanarwa.",
+      "first": "Gina <0>bayyananne</0> a cikin tsarin gudanar da dandamali masu alaƙa da AI/ML, haɓaka ayyuka, da kuma isar da ayyuka.",
+      "fourth": "Ku yi alƙawarin ci gaba da tattaunawa da aiki da dandamali <0>mai da martani</0> ga sabbin halaye da tattaunawa game da AI/ML.",
+      "second": "Tsara don ƙwarewar masu aikin sa kai da kuma fifita <0>hukuma da izini</0> ga masu aikin sa kai wajen zaɓar ayyuka; la'akari da <0>fa'idodin</0> da <0>dalilan</0> na masu aikin sa kai a cikin ayyukan da suka shafi AI/ML.",
+      "third": "Sauƙaƙa <0>aiwatar da alhakin</0> ta hanyar nuna bin ƙa'idodi bayyanannu a matsayin wani abu da ake buƙata don ƙaddamar da aikin Zooniverse na hukuma."
+    },
+    "recs": {
+      "eighth": "<0>Lokacin da kake bayyana amfanin da kake son yi na sakamakon/bayanan aiki, yi la'akari da yadda amfanin da kake son yi zai iya canzawa a tsawon lokaci.</0> Masu sa kai za su iya zaɓar shiga cikin aikinka bisa ga manufofin aikin da kuma amfanin da aka yi niyyar yi na sakamako/bayanan da aka nuna a shafin Game da su. Daga baya, menene damar da za ka faɗaɗa waɗannan amfani? ",
+      "fifth": "<0>Bi diddigi.</0> Ba da ra'ayi kan matakin nasarar da aka samu yayin da ake horar da samfuran AI/ML. Ƙungiyar aikin za ta tantance hanyar, kuma tana iya haɗawa da misali saƙon tattaunawa, wasiƙar imel, da sauransu.",
+      "first": "<0>Tsara aikinka da la'akari da hukumar sa kai (zaɓi).</0> Wannan yana buƙatar bayyana gaskiya da sadarwa mai kyau ga masu sa kai don yanke shawara mai kyau game da ko suna son shiga cikin aikinka. Idan kana haɗa AI/ML a kowane mataki na aikinka (kafin ko bayan sarrafawa, tsarin rarraba ɗan adam, da sauransu), kana buƙatar samar da takamaiman bayanai game da yadda waɗannan hanyoyin ke aiki, da kuma dalilin da ya sa suke da mahimmanci. Misali, faɗin \"za mu yi amfani da bayanan da aka samo don horar da samfuri\" bai isa cikakken bayani ba.",
+      "fourth": "<0>A riƙe mahallin.</0> Ga ayyukan da ke gayyatar masu sa kai su shiga ko su sake duba sakamakon da injin ya samar, a yi la'akari da ko kuma yadda mahallin zai iya shafar aikin—gami da ingancin bayanan da kuma ingancin ƙwarewar masu sa kai. Misali, idan aiki ya nemi masu sa kai su sake duba ingancin rubutun na'ura amma ya ƙunshi wani ɓangare na takardar kawai (misali kalma ɗaya ko jimla), haɗa hanyar haɗi zuwa cikakken hoton ko takarda zai tabbatar da cewa masu sa kai za su iya ci gaba da hulɗa da kayan tushe da ma'anarsa, idan ana so. Ana iya haɗa wannan bayanin a cikin bayanan mutum.",
+      "nineth": "<0>Yi la'akari da damammaki da haɗarin da ke tattare da gudanar da aikin da aka yi da AI/ML.</0> Muna ƙarfafa masu bincike su fahimci haɗarin da ke tattare da su - tare da damammaki - kafin su ƙaddamar da ayyuka kuma mu nuna su ga kayan aikin da aka tantance da kuma guraben karatu da aka buga kamar Ceccaroni et al. (2019), waɗanda ke gabatar da bincike kan haɗari da damammaki da suka shafi amfani da AI a kimiyyar ɗan adam, da kuma shawarwari don rage haɗari.",
+      "second": "<0>Nuna wa masu sa kai inda/lokacin/me yasa aka haɗa AI/ML a cikin aikinku.</0> Wasu ayyukan aiki a cikin wani aiki na iya kasancewa AI/ML da ke da hannu/taimakawa wasu kuma ba sa. Ya kamata a sanya waɗannan a sarari a cikin filin Sunan Aikin, ko yankin Bayanin Aikin Aiki, don haka masu sa kai za su iya zaɓar daidai (idan suna da fifiko). Idan kun yi amfani da AI/ML don aiwatar da bayananku kafin aiwatarwa, bayyana menene ma'aunin kula da inganci (gami da idan wannan shine dalilinku na gudanar da aikin tabbatarwa akan Zooniverse).",
+      "seventh": "<0>Ingancin adireshi.</0> Bayyana yadda kake kimantawa da magance duk wani tasiri da ka iya yi wa ingancin bayanai a cikin aikinka saboda amfani da AI/ML. ",
+      "sixth": "<0>Ƙirƙiri hanyoyin samun ra'ayi.</0> Duk wani aiki da ke da ɓangaren AI/ML ya kamata ya sami hanya ga masu sa kai don raba ra'ayoyinsu ga membobin ƙungiyar aikin. Misali, ƙungiyoyi na iya son ƙirƙirar Allon Tattaunawa na musamman don bayyana amfani da AI/ML, amsa tambayoyi, da kuma samar da sabuntawa kan duk wani horo ko sakamako.",
+      "third": "<0>Yi la'akari da sakamakon ingantawa.</0> Lokacin da ake la'akari da 'kashe' ayyuka masu sauƙi zuwa AI/ML da kuma sa mutane su yi ayyuka masu wahala/masu rikitarwa, ku tuna cewa ayyukan aiki masu ci gaba na iya taƙaita wanda zai iya/ya cancanci shiga, sai dai idan akwai onramp. Ana iya buƙatar ayyukan horo don samun ƙwarewa don yin ayyukan da AI/ML ba za su iya yi ba. Duk wani tsari na onramp ko aikin horo ya kamata a sanya masa suna a sarari, gami da ayyukan aiki ta amfani da fasalin Zooniverse Feedback."
+    },
+    "resources": {
+      "first": "Ƙara koyo game da AI/ML",
+      "fourth": "Misalan bayanan alhakin AI/ML na aikin Zooniverse",
+      "second": "Ƙara koyo game da ɗabi'a da kimiyyar haɗin gwiwa",
+      "third": "Misalan ayyukan Zooniverse tare da cikakkun bayanai game da amfani da AI/ML"
+    },
+    "sidebarLabel": "Sashe",
+    "title": "Tsarin Ɗabi'ar AI na Zooniverse",
+    "toc": {
+      "descriptions": {
+        "eighth": "Hanyoyin haɗi zuwa ƙarin bayani, gami da wallafe-wallafe da manufofi na waje, da misalai daga ayyukan Zooniverse gami da bayanin AI/ML da bayanan alhakin.",
+        "fifth": "Shawarwari ga ƙungiyoyi waɗanda ke gudanar, ko kuma suna son gudanar da, aikin Zooniverse wanda ya shafi AI/ML.",
+        "fourth": "Matakan da ƙungiyarmu ke ɗauka waɗanda ke sauƙaƙa shawarwarin da ake bayarwa ga ƙungiyoyin ayyuka.",
+        "nineth": "Ga masu sa kai.",
+        "seventh": "Bayani game da AI/ML da kuma yadda ake amfani da shi (kuma aka yi amfani da shi) akan Zooniverse. Ya haɗa da tattaunawa kan dalilin da yasa ƙungiyoyin ayyuka ke buƙatar ko suke son amfani da AI/ML, yadda ake sanin lokacin da wani aiki ke amfani da AI/ML, da ƙari.",
+        "sixth": "Ya kamata duk masu bincike da ke gudanar da ayyukan Zooniverse da AI/ML ke jagoranta su kasance cikin shiri don amsa tambayoyin.",
+        "tenth": "Ƙarin bayani game da tsarin da kuma yadda aka tsara shi, gami da bayanai game da waɗanda suka shiga cikin ƙirƙirarsa, da kuma yadda aka sami kuɗaɗen wannan aikin.",
+        "third": "Ka'idojinmu na tsara tsarin da ke bayan wannan tsarin. Sun taƙaita manyan manufofi waɗanda za su taimaka wajen magance haɗurra da damuwar da membobin al'ummarmu suka nuna game da AI/ML."
+      }
+    }
+  },
+  "AboutHeader": {
+    "links": {
+      "about": "Game da",
+      "aiethics": "Ɗabi'ar AI",
+      "collaborate": "Yi aiki tare",
+      "contact": "Tuntube Mu",
+      "donate": "Ba da gudummawa",
+      "educate": "Ilimi",
+      "faq": "Tambayoyin da ake yawan yi akai-akai",
+      "publications": "Littattafai",
+      "resources": "Albarkatu",
+      "team": "Ƙungiyarmu",
+      "volunteer": "Mai aikin sa kai"
+    },
+    "title": {
+      "about": "Game da",
+      "getInvolved": "Shiga ciki"
+    }
+  },
+  "AboutPage": {
+    "contact": {
+      "categories": {
+        "first": "Tambayoyi na Gabaɗaya game da Zooniverse",
+        "second": "Yin aiki tare a kan wani aiki",
+        "third": "Binciken manema labarai"
+      },
+      "heading": "Tuntube Mu",
+      "paragraphs": {
+        "first": "Da fatan za a karanta shafinmu na <0>FAQ</0> da kuma shafin yanar gizo na <1>Zooniverse Solutions</1>.",
+        "second": "Shin kuna da wata matsala da ta shafi wani takamaiman aiki? Muna ba da shawarar tuntuɓar ƙungiyar bincike kai tsaye a shafin Tattaunawarsu.",
+        "third": "Ba za ku iya samun damar maɓallin Tuntuɓe Mu ba? Aika mana imel kai tsaye a <0>contact@zooniverse.org</0>."
+      },
+      "subheading": "Me za mu iya taimaka muku da shi?"
+    },
+    "highlights": {
+      "description": "Akwai don siye a <0>Blurb.com</0>",
+      "heading": "Muhimman Abubuwan da Muke So",
+      "paragraphs": {
+        "first": "Tun daga shekarar 2007, ayyukan Zooniverse sun haifar da bincike mai yawa da ba a zata ba kuma masu mahimmanci a kimiyya da kuma wallafe-wallafe da yawa da aka yi nazari a kansu. Duk wannan ba zai yiwu ba idan ba don al'ummarmu ta duniya ta masu halartar Zooniverse da ke cikin waɗannan ayyukan tare da ƙungiyoyin bincike ba.",
+        "second": "Waɗannan littattafan 'Into the Zooniverse' suna tunawa da kuma girmama ƙoƙarin duk wanda abin ya shafa, suna ba da ɗan haske kan yadda membobin al'ummar Zooniverse ke da tasiri sosai ga duniyar da ke kewaye da su. Kowane littafi yana nuna wani ɓangare na ayyukan da suka gudana a wannan shekarar."
+      },
+      "pictures": {
+        "first": "Mujallar littafin Zooniverse mai kayatarwa 2019",
+        "second": "Mujallar Littafin Bayani Game da Zooniverse 2020",
+        "third": "Mujallar Littafin Bayani Mai Muhimmanci Game da Zooniverse 2021"
+      },
+      "sidebar": "Manyan abubuwan da suka fi daukar hankali",
+      "subheading": "Ayyuka masu ban sha'awa tsawon shekaru",
+      "tip": "Ba ma samun riba ta hanyar sayar da kwafin littattafan."
+    },
+    "howItWorks": {
+      "heading": "Yadda Yake Aiki",
+      "participants": {
+        "description": "A matsayinka na ɗan takara",
+        "link": "Bincika ayyuka",
+        "steps": {
+          "first": "Nemo aikin da ke sha'awar ku",
+          "fourth": "Samar da takardar shaidar hukuma da ke tabbatar da ƙoƙarinka a kan dandamali",
+          "second": "Koyi tsarin rarraba wannan aikin",
+          "third": "Aika rarrabuwar ka kuma taimaka maka da bincike na gaske!"
+        }
+      },
+      "researchers": {
+        "description": "A matsayina na mai bincike",
+        "link": "Gina aiki",
+        "steps": {
+          "first": "Gina aikinku ta amfani da Zooniverse Project Builder",
+          "fourth": "Sauke bayananka ka buga sakamakonka!",
+          "second": "Aika aikinka don amincewa",
+          "third": "Kaddamar da aikinka kuma ka yi hulɗa da masu sa kai a Talk yayin da rarrabuwa ta shigo"
+        }
+      },
+      "subheading": "Binciken da mutane ke amfani da shi"
+    },
+    "mobile": {
+      "altAppStore": "Ku Sauƙe Daga Kan App Store",
+      "altImage": "Hoton wayar salula  ɗauke da manhajar Zooniverse.",
+      "altPlayStore": "Ku Same Shi a Kan Google Play",
+      "description": "Ku taho tare da Zooniverse. Ku sauke manhajar na'urorin iOS da Andiroyid.",
+      "heading": "Ku Duba Manhajarmu Ta Wayar Salula",
+      "sidebar": "Manhajar Wayar Salula",
+      "subheading": "Ku gano abubuwa, ku koyar sannan ku koya - a kowane wuri"
+    },
+    "ourMission": {
+      "discoveries": {
+        "first": "Galaxies na Wake Kore",
+        "fourth": "Tauraron Boyajian",
+        "second": "An Gano Sabbin Duniyar da Ba a Taɓa Ba",
+        "third": "Amfani da 'Farin Ƙarya' a Da",
+        "tip": "Danna kan duk wani bincike don ƙarin bayani"
+      },
+      "heading": "Manufarmu",
+      "paragraphs": {
+        "first": "Zooniverse ita ce babbar dandali kuma mafi shahara a duniya don bincike ta hanyar amfani da mutane. Wannan binciken ya yiwu ne ta hanyar masu sa kai—miliyoyin mutane a duk faɗin duniya waɗanda suka haɗu don taimaka wa ƙwararrun masu bincike. Manufarmu ita ce mu ba da damar yin bincike wanda ba zai yiwu ba, ko kuma mai amfani, in ba haka ba. Binciken Zooniverse yana haifar da sabbin abubuwan da aka gano, bayanai masu amfani ga al'ummar bincike mai faɗi, da kuma wallafe-wallafe da yawa <0>.",
+        "fourth": "Masu aikin sa kai da ƙwararru suna yin bincike na gaske tare. Ana gina ayyukan Zooniverse da nufin mayar da ƙoƙarin masu aikin sa kai zuwa sakamako masu ma'ana. A wasu lokuta, masu aikin sa kai na Zooniverse ma sun yi bincike mai mahimmanci wanda ba a zata ba. Ana gudanar da wannan bincike mai yawa akan Talk, allunan tattaunawa na Zooniverse, inda masu aikin sa kai ke aiki tare da membobin ƙungiyar bincike da juna. Waɗannan allunan an haɗa su a cikin kowane aiki don ba da damar komai daga saurin tagging zuwa zurfin bincike na haɗin gwiwa. Akwai kuma allunan tattaunawa na Zooniverse na tsakiya</0> don tattaunawa gabaɗaya da tattaunawa game da al'amuran dandamali. Muna ƙarfafa duk masu amfani da su shiga tattaunawar akan Talk don ƙarin shiga cikin zurfi.",
+        "second": "Ba kwa buƙatar wani ƙwarewa ta musamman don shiga cikin ayyukan Zooniverse. Muna sauƙaƙa wa kowa ya ba da gudummawa ga ainihin binciken ilimi, akan kwamfutarsa, gwargwadon iyawarsa. Za ku iya yin nazarin sahihan bayanai da masu bincike suka tattara, kamar hotunan taurari masu nisa, bayanan tarihi da littattafan tarihi, ko bidiyon dabbobi a cikin mazauninsu na halitta. Ta hanyar shiga cikin ayyuka, za ku taimaka wajen ba da gudummawa ga fahimtarmu game da duniya, sararin samaniya, da ƙari. Tare da tarin ayyukanmu masu faɗi da faɗaɗawa, waɗanda suka shafi fannoni da batutuwa da yawa a cikin kimiyya da ilimin ɗan adam, akwai wuri ga kowa da kowa don bincika, koyo, da jin daɗi a cikin Zooniverse. Don yin aikin sa kai, ziyarci shafin <0>Ayyuka</0>, zaɓi wanda kuke so, kuma ku fara.",
+        "third": "Babban ƙalubalen binciken ƙarni na 21 shine magance tarin bayanai da za mu iya tattarawa yanzu game da duniyar da ke kewaye da mu. Kwamfutoci na iya taimakawa, amma a fannoni da yawa ikon ɗan adam na gane tsari - da kuma ikonmu na yin mamaki - yana sa mu zama ƙwararru. Tare da taimakon masu sa kai na Zooniverse, masu bincike za su iya yin nazarin bayanansu cikin sauri da daidai fiye da yadda zai yiwu, suna samun sakamako mai ban sha'awa da sauri. Ƙoƙarinku yana adana lokaci da albarkatu, yana haɓaka ikon kwamfutoci don yin ayyuka iri ɗaya, kuma yana haifar da ci gaba da fahimtar duniya cikin sauri. Ayyukanmu suna haɗa gudummawa daga masu sa kai da yawa, suna dogaro da sigar 'hikimar taron jama'a'</0> don samar da sakamako masu inganci da daidaito. Samun mutane da yawa suna duba bayanan sau da yawa yana haifar da ƙiyasin yadda muke da yuwuwar yin kuskure. Samfuran ayyukan Zooniverse galibi sune ainihin abin da ake buƙata don samun ci gaba a fannoni da yawa na bincike."
+      },
+      "stats": {
+        "classifications": "Rabon da ake da su a yanzu",
+        "volunteers": "'Yan sa-kai da suka yi rajista"
+      },
+      "subheadings": {
+        "fifth": "Ayyukanmu suna haifar da manyan abubuwan da aka gano",
+        "first": "Hikimar taron jama'a",
+        "fourth": "Aikin Dabbobin",
+        "second": "Kowa zai iya zama mai bincike",
+        "third": "Muna hanzarta muhimman bincike ta hanyar yin aiki tare"
+      },
+      "video": "Gabatarwa Taƙaitaccen Bayani Game da Zooniverse"
+    },
+    "sidebarLabel": "Sashe",
+    "title": "Game da Zooniverse"
+  },
+  "Article": {
+    "url": "Kara karantawa"
+  },
+  "Collaborate": {
+    "paragraphs": {
+      "eighth": "Idan kuna da tambayoyi ko kuna buƙatar ƙarin jagora, tuntuɓi Cliff Johnson, Jagoran Kimiyyar Zooniverse da kuma Wakilin NASA: <0>cliff@zooniverse.org</0>.",
+      "fifth": "Idan kuna sha'awar yin haɗin gwiwa da mu don ƙirƙirar kayan aikin aiki na musamman ko kayayyakin more rayuwa, da fatan za a <0>tuntuɓe mu</0>.",
+      "first": "Shin bincikenku zai amfana daga shigar dubban masu sa kai? Zooniverse ita ce babbar dandamali ta yanar gizo mafi girma a duniya don binciken da aka samar ta hanyar jama'a; muna da miliyoyin masu sa kai da aka yi wa rijista waɗanda ke aiki tare da ƙwararrun masu bincike kan ayyukan bincike a fannoni daban-daban, tun daga ilmin taurari zuwa ilimin ɗan adam.",
+      "fourth": "A lokuta inda kayan aikin da ke cikin <0>Mai Gina Aikin</0> ba su dace da manufofin bincike na wata ƙungiya ba, masu bincike na iya son yin la'akari da haɗin gwiwa da Zooniverse don ƙirƙirar sabbin kayan aiki na musamman. Muna aiki tare da waɗannan ƙungiyoyi don neman kuɗi don tallafawa tsarin bincike, ƙira, da haɓakawa. Waɗanda suka taɓa neman tallafin kuɗi za su san cewa wannan tsari na iya ɗaukar lokaci mai tsawo. Da zarar mun nemi tallafin kuɗi, zai iya ɗaukar watanni 6 ko fiye don jin labarin ko ƙoƙarinmu ya yi nasara ko a'a. Ayyukan da aka ba da kuɗi yawanci suna buƙatar aƙalla watanni 6 don tsara, ginawa, da gwadawa, ya danganta da sarkakiyar fasalulluka da ake ƙirƙira. Sannan muna buƙatar ƙarin lokaci don haɗa su gaba ɗaya (kuma sau da yawa sake duba su) don haɗawa a cikin kayan aikin Mai Gina Aikin.",
+      "nineth": "Sama da ƙungiyoyi rabin dozin zuwa yanzu suna amfani da Adler Zooniverse a matsayin dama don cika nauyin da ke kansu na zamantakewa na kamfanoni. Shiga cikin wannan shirin zai iya cika buƙatun sa'o'in hidima ga ma'aikata, kammala karatunsu, guraben karo ilimi, da sauransu. Wata dama ta musamman ta masu aikin sa kai, mahalarta suna ɗaukar lokaci don yin tunani kan yadda ƙoƙarinsu (da ƙoƙarin haɗin gwiwa na al'umma) ke ba da gudummawa ga fahimtar duniyarmu da sararin samaniya. <0>Tuntuɓe mu</0> don ƙarin koyo game da wannan shirin.",
+      "second": "Ƙungiyoyin bincike za su iya gina ayyukan Zooniverse ta hanyoyi biyu.",
+      "seventh": "Ko kuna riga kuna gina hanyoyin aiki ta amfani da Project Builder ko kuma kuna fara la'akari da yadda gudummawar da aka samu daga jama'a za su iya haɓaka bincikenku, ƙungiyar Zooniverse ta himmatu wajen tallafawa ƙungiyoyi yayin haɓakawa da aiwatar da ayyukan da NASA ta mayar da hankali a kansu. Muna farin cikin tattauna da tallafawa shawarwari ga kiran tallafin kimiyya na 'yan ƙasa na NASA (gami da Shirin Tallafawa 'Yan Ƙasa na Kimiyyar 'Yan Ƙasa, Shirin Kimiyyar 'Yan Ƙasa don Tsarin Duniya, da sauran damar tallafin NASA ROSES) don ayyukan da ke sha'awar amfani da dandamalin Zooniverse.",
+      "sixth": "Shin kai mai bincike ne da ke aiki a kan wani aiki da ya dace da ɗaya daga cikin sassan Hukumar Kula da Ayyukan Kimiyya ta NASA (Astrophysics, Biosciences and Physical Sciences, Heliophysics, da Planetary Science) wanda zai amfana daga gudummawar da masu sa kai na Zooniverse suka bayar? A matsayin wani ɓangare na haɗin gwiwa da ke ci gaba da gudana da NASA, Zooniverse yana neman ginawa akan goyon bayan da yake bayarwa ga ƙungiyoyin bincike na NASA da kuma ƙarfafa haɓaka sabbin ayyuka a kan dandamalinmu.",
+      "third": "Ƙungiyoyi za su iya amfani da kayan aikinmu na kyauta na <0>Mai Gina Ayyuka</0> don ƙirƙirar nasu aikin Zooniverse. Domin a fara shi a bainar jama'a kuma a nuna shi a shafin ayyukanmu, ƙungiyoyi dole ne su bi tsarin bita don tabbatar da cewa aikin ya dace da dandamali kuma a shirye yake don ƙaddamar da shi. Wannan shine mafi sauri kuma mafi sauƙi zaɓi don ƙirƙirar aikin Zooniverse. Don ƙarin bayani game da wannan tsari, gami da jadawalin da aka kiyasta don bita, da fatan za a duba <1>Mafi Kyawun Ayyuka & Taswirar Gudummawa ta Bita ta Aikin</1>."
+    },
+    "subheadings": {
+      "fifth": "Damar da alhakin zamantakewa na kamfanoni ke bayarwa",
+      "first": "Yi aiki tare da mu",
+      "fourth": "Kira don ayyuka",
+      "second": "Magoya bayanmu",
+      "third": "Masu haɗin gwiwa da aka zaɓa",
+      "tools": "Kayan aikin da aka zaɓa"
+    },
+    "title": "Yi aiki tare"
+  },
+  "Donate": {
+    "button": "Ba da gudummawa a yau",
+    "paragraphs": {
+      "first": "Zooniverse haɗin gwiwa ne tsakanin Adler Planetarium na Chicago, Jami'ar Oxford, Jami'ar Minnesota - Twin Cities (UMN), ɗaruruwan masu bincike, da miliyoyin mahalarta daga ko'ina cikin duniya. Ƙungiyoyin Zooniverse a Adler, Oxford, da UMN sun haɗa da manyan ƙungiyar shugabanninmu, masu haɓaka yanar gizo, masu tsarawa, shugaban sadarwa, masana kimiyyar bayanai, da masu bincike. Wannan haɗin gwiwar ƙwarewa ta musamman a cikin bincike, hulɗar jama'a, da haɓaka yanar gizo na zamani yana ba mu damar tallafawa al'umma mai ban mamaki ta masu sa kai da ƙungiyoyin bincike masu himma ta amfani da dandamalin Zooniverse. Yawancin kuɗaɗen Zooniverse suna zuwa ta hanyar tallafi, da kuma tallafin cibiyoyi daga Adler, Oxford, da UMN.",
+      "second": "Idan kuna son tallafawa Zooniverse, da fatan za ku yi la'akari da bayar da gudummawar haraji ga Adler Planetarium. Kyautar da kuka bayar ga Adler ba tare da iyakancewa ba tana taimaka wa masu bincike su buɗe bayanansu ta hanyar kimiyyar ɗan ƙasa ta yanar gizo, masana ilmin taurari suna kawo na'urorin hangen nesa zuwa unguwannin Chicagoland, matasa suna ƙaddamar da gwaje-gwaje na asali zuwa sararin samaniya, kuma mutane na kowane zamani suna haɗuwa a ƙarƙashin taurari.",
+      "third": "Bi hanyar haɗin da ke ƙasa don bayar da gudummawa a gidan yanar gizon Adler Planetarium."
+    },
+    "subheading": "Taimaka wa Zooniverse",
+    "title": "Ba da gudummawa"
+  },
+  "Educate": {
+    "articles": {
+      "first": {
+        "datePublished": "28 ga Oktoba, 2022",
+        "excerpt": "Akwai matuƙar buƙatar kayan koyarwa masu aiki bisa bincike don koyarwa da koyo na STEM a cikin darussa ta yanar gizo. Kowace shekara, ɗaruruwan dubban ɗaliban da suka kammala karatun digiri na farko waɗanda ba na kimiyya ba suna shiga cikin darussa na ilmin taurari na ilimi gabaɗaya don cika buƙatun fasaha na jami'arsu. Lokacin tsara kayan koyarwa ga wannan yawan ɗalibai, babban...",
+        "title": "Sabon Tsarin Ci Gaban Manhaja don Inganta Karatun Bayanai na Ɗaliban Jami'a da Ingantaccen Amfani da Kai..."
+      },
+      "fourth": {
+        "datePublished": "Afrilu 29, 2015",
+        "excerpt": "Rubutun shafin yanar gizo na yau ya fito ne daga Fran Wilson, malamar aji biyu a Makarantar Firamare ta Madeira. Fran tana ƙoƙarin haɓaka sha'awar kimiyya a cikin azuzuwan ta da kuma taimaka wa ɗalibai su gano cewa ba duk masana kimiyya ke aiki a dakunan gwaje-gwaje suna sanye da fararen riguna na dakin gwaje-gwaje da gilashin kariya ba. Tana neman damammaki masu ma'ana ga ɗalibanta don shiga cikin aikin masana kimiyya na ƙasa don zama masu alhakin...",
+        "title": "Dazuzzukan Shawagi: Koyar da Yara Kanana Game da Kelp"
+      },
+      "heading": "Yaya Malamai Ke Amfani da Zooniverse?",
+      "second": {
+        "datePublished": "Agusta 14, 2019",
+        "excerpt": "\"Kowa yana ƙoƙarin kama taurarin ɗaya,\" wani yaro ya yi ihu yayin da yake yi wa abokan karatunsa alama. A kusa da teburin, ɗalibai shida suka fara jan hoton wani taurari daga tsakiyar babban allon taɓawa zuwa wurin aikinsu. Wataƙila waɗannan ɗaliban su ne mutanen farko da suka kalli wannan taurarin kuma suka yanke shawarar yadda za a rarraba su...",
+        "title": "Masanin Kimiyya da kuma teburin taɓawa na Galaxy Zoo a Adler Planetarium"
+      },
+      "third": {
+        "datePublished": "7 ga Fabrairu, 2018",
+        "excerpt": "A matsayina na malamin nazarin zamantakewa, ina fatan ɗalibana za su fahimci fannin tarihi da kansa. Maimakon jaddada haddace ranaku da sunaye - irin abubuwan da ke faɗuwa daga tunaninmu da zarar mun sanya su a gwaji - burina sun haɗa da fallasa ɗalibai ga sarkakiyar ayyukan ƙwararru da masana tarihi suka yi. Kwanan nan, Duniyar Tsohuwar Duniya ta aji 8...",
+        "title": "'Yan aji 8 a Missouri suna rubuta takardu game da yaƙi da bauta kuma suna koyo game da ƙungiyar masu tsattsauran ra'ayi"
+      }
+    },
+    "buttons": {
+      "first": "Albarkatun Kan layi",
+      "second": "Dabbobin daji a makarantu Shekaru 9 - 12",
+      "third": "Zooniverse ga ɗaliban digiri na farko"
+    },
+    "forEducators": {
+      "classrooms": "Bincika Azuzuwan Zooniverse",
+      "heading": "Albarkatu ga Masu Ilimi",
+      "paragraphs": {
+        "first": "Kafa matakan rarrabuwa, bi diddigin ƙoƙarin, da kuma bikin tasirin haɗin gwiwa. Karanta sanarwarmu ta <0>don ƙarin bayani.",
+        "second": "Kowace ƙungiyar aiki za ta iya raba ƙarin albarkatun malamai, gami da tsare-tsaren darasi, koyaswar bidiyo, hanyoyin bincike, da ƙari. Tabbatar duba shafin <0>Ilimi</0> na wani aiki.",
+        "third": "Tallafi ga ɗalibai masu cika sa'o'in hidimar ɗalibai don neman guraben karatu, buƙatun kammala karatu, da ƙari. Duba wannan rubutun <0>na shafin yanar gizo</0> don ƙarin bayani."
+      },
+      "subheadings": {
+        "first": "Ƙididdigar rukuni",
+        "second": "Damar ilimi ta musamman ga aiki",
+        "third": "Takardar shaidar sa kai"
+      }
+    },
+    "introduction": "Shin kai malami ne mai sha'awar amfani da Zooniverse a cikin aji? Abin mamaki! Miliyoyin mutane a duk faɗin duniya suna shiga cikin ayyuka kusan 100 masu aiki, kowannensu yana da dandalin tattaunawa mai goyan baya da maraba inda masu bincike ke hulɗa da jama'a game da bincike da manyan abubuwan da ke sha'awa. Zooniverse wuri ne mai kyau ga ɗalibai.",
+    "subheading": "Ilimi a cikin Dabbobin Dabbobi",
+    "takePart": {
+      "heading": "Shiga Cikin Tattaunawar",
+      "paragraph": "Ci gaba da bin diddigin sabbin ƙoƙarin ilimi na Zooniverse akan <0>Zooniverse Blog</0>. Hakanan zaka iya shiga tattaunawar a cikin dandalin tattaunawa na <1> game da Ilimi da Zooniverse</1>."
+    },
+    "title": "Ilimi"
+  },
+  "FAQ": {
+    "help": "Ba ka ga amsar tambayarka ba? Ziyarci shafin yanar gizo na <0>Zooniverse Solutions</0>, tambaya a <1>Zooniverse Talk</1>, ko <2>tuntuɓe mu</2>.",
+    "item0": {
+      "answer": "Mutane sun fi kwamfutoci a ayyuka da yawa. Ga yawancin ayyukan Zooniverse, kwamfutoci ba su da isassun kayan aiki da ake buƙata, ko kuma suna iya rasa fasaloli masu ban sha'awa da ɗan adam zai iya gani - wannan shine dalilin da ya sa muke buƙatar taimakonku. Wasu ayyukan Zooniverse suna amfani da rarrabuwar ɗan adam don taimakawa wajen horar da kwamfutoci don yin aiki mafi kyau a waɗannan ayyukan bincike a nan gaba. Lokacin da kuka shiga aikin Zooniverse, kuna ba da gudummawa ga bincike na gaske.",
+      "question": "Me yasa masu bincike ke buƙatar taimakonku? Me yasa kwamfutoci ba za su iya yin waɗannan ayyukan ba?"
+    },
+    "item10": {
+      "answer": "Muna tallafawa manyan masu bincike har zuwa sigar ta biyu zuwa ta ƙarshe.",
+      "question": "Wane sigar burauza ne Zooniverse ke tallafawa?"
+    },
+    "item11": {
+      "answer0": "Wasu fassarorin abubuwan da ke cikin matakin dandamali (watau rubutun da aka raba a duk shafukan yanar gizo na Zooniverse kamar lakabin menu, kanun labarai, maɓallai, da sauransu) sun fito ne daga masu fassara masu sa kai. Duk da haka, mun kuma gwada fassarorin AI akan ƙananan harsuna <0>don rubutu na matakin dandamali kawai</0>. Mun fahimci cewa ingancin fassarar AI ya bambanta a cikin harsuna, kuma wannan yana zuwa da haɗarin cewa fassarar ba daidai ba ce. Muna maraba da masu sa kai don taimakawa wajen ƙara ingancin fassarar a duk faɗin dandamalinmu.",
+      "answer1": "Lura cewa ƙungiyoyin bincike ne ke gudanar da fassarar rubutun matakin aiki, kuma ya kamata ƙungiyar ta bayyana duk wani fassarar rubutu na takamaiman aikin da AI ta samar, bisa ga Tsarin Ɗabi'ar AI ɗinmu</0>. Ƙarin bayani game da fassarar Zooniverse yana samuwa a <1>https://help.zooniverse.org/next-steps/translations</1>.",
+      "question": "Me ya kamata in yi idan na lura cewa fassarorin matakin dandamali ba daidai ba ne?"
+    },
+    "item1": {
+      "answer": "Ga yawancin darussan da aka nuna a cikin ayyukan Zooniverse, masu binciken ba su san amsar da ta dace ba, shi ya sa suke buƙatar taimakonku. Mutane suna da ƙwarewa sosai a ayyukan gane tsari, don haka gabaɗaya hasashenku na farko shine wanda ya dace. Kada ku damu da yin kuskure lokaci-lokaci - fiye da mutum ɗaya zai sake duba kowane hoto, bidiyo ko jadawali a cikin wani aiki. Yawancin ayyukan Zooniverse suna da maɓallin Taimako, shafin Tambayoyi da Ake Yawan Yi (FAQ), da Jagorar Fili tare da ƙarin bayani don shiryar da ku lokacin rarrabawa.",
+      "question": "Ta yaya zan san ko ina yin hakan daidai?"
+    },
+    "item2": {
+      "answer": "Ana adana rarrabuwar ku a cikin amintaccen rumbun adana bayanai na kan layi na Zooniverse. Ƙungiyoyin binciken ayyuka suna sauke bayanan rarrabuwar aikinsu kuma suna haɗa bayanai da yawa tare don ƙirƙirar martani na 'ƙarshe' ga kowane batu. Da zarar kun ƙaddamar da rarrabuwar ku don wani batu, ba za ku iya komawa ku gyara shi ba. Don bayani game da mallakar bayanai, da fatan za a duba shafinmu na <0>Yarjejeniyar Mai Amfani da Dokar Sirri ta Zooniverse</0>.",
+      "question": "Me ke faruwa da rarrabuwar da na yi bayan na gabatar da ita?"
+    },
+    "item3": {
+      "answer": "Eh. Je zuwa zooniverse.org, shiga, danna 'Ƙarin Ƙididdiga', sannan danna maɓallin 'Ƙirƙirar Takaddun Shaidar Masu Ba da Agaji' a ƙasan dama na jadawalin sandar ƙididdiga. Sannan adana ko buga takardar shaidarka! Kara karantawa <0>a nan</0>.",
+      "question": "Zan iya sauke takardar shaidar sa kai? Zan iya amfani da Zooniverse don cika buƙatun Koyon Sabis?"
+    },
+    "item4": {
+      "answer": "Ana adana bayanan rarrabuwa a cikin bayananmu tare da tambarin lokaci na UTC, kuma tarin ayyukan ƙididdiga yana ƙidaya zuwa cikin bokiti ta hanyar jadawalin kwanan wata na UTC. Duk ƙididdiga ana nuna su akai-akai a cikin jadawalin kwanan wata na UTC.",
+      "question": "Me yasa ake nuna ƙididdiga a yankin lokaci na UTC?"
+    },
+    "item5": {
+      "answer": "Zooniverse tana ɗaukar nauyin kare bayanan sirri na mai ba da agajinmu da kuma bayanan rarrabuwa da muhimmanci. Ana iya samun cikakkun bayanai game da waɗannan ƙoƙarin a shafin Yarjejeniyar Mai Amfani da Zooniverse da Dokar Sirri</0> da kuma shafin Tsaron Zooniverse</1>.",
+      "question": "Me Zooniverse ke yi da bayanan asusuna?"
+    },
+    "item6": {
+      "answer": "Za ku iya aika shawarwarinku don sabbin fasaloli da kuma bayar da rahoton kurakurai ta hanyar <0>Zooniverse Talk</0>, ta hanyar wata matsala akan ma'ajiyar <1>Github</1> mai dacewa, ko <2>tuntuɓe mu</2>.",
+      "question": "Ina da buƙatar fasali ko kuma na sami matsala; wa ya kamata in yi magana da shi/ta yaya zan bayar da rahotonsa?"
+    },
+    "item7": {
+      "answer": "Zooniverse haɗin gwiwa ne tsakanin cibiyoyi daga Burtaniya da Amurka; dukkan ƙungiyarmu tana aiki ne ta ɗaya daga cikin waɗannan cibiyoyin haɗin gwiwa. Duba shafin ayyukan Zooniverse na <0>Zooniverse</0> don ƙarin koyo game da damar samun aiki a cikin Zooniverse.",
+      "question": "Shin Zooniverse yana ɗaukar ma'aikata?"
+    },
+    "item8": {
+      "answer0": "Zooniverse dandamali ne na bincike da mutane ke amfani da shi, ba ƙungiya, kamfani, ko wata ƙungiya mai zaman kanta ba. Mu haɗin gwiwa ne tsakanin cibiyoyi da dama.",
+      "answer1": "Adler Planetarium da ke Chicago, ɗaya daga cikin cibiyoyin da ƙungiyar Zooniverse ke ɗaukar nauyinsu, 501(c)(3). Mutane ko ƙungiyoyi waɗanda ke buƙatar haɗi kai tsaye zuwa 501(c)(3) don aikin sa kai suna amfani da Adler Planetarium a matsayin ma'auni. An bayar da takaddun matsayin Adler Planetarium na 501(c)(3) <0>a nan</0>, kuma lambar EIN ta Adler Planetarium ita ce 36-6210902. Lokacin shigar da sunan ƙungiyar, da fatan za a yi amfani da \"Adler Planetarium - Zooniverse\" idan zai yiwu. Idan ba zai yiwu ba, da fatan za a yi amfani da \"Adler Planetarium\" (wanda ya dace da lambar EIN). A duk lokuta, za ku yi aikin sa kai ta hanyar Zooniverse.org.",
+      "answer2": "Domin samun bayanai kan yadda ake bayar da gudummawa, da fatan za a ziyarci shafin bayar da gudummawa na <0>.",
+      "question": "Shin Zooniverse ƙungiya ce mai zaman kanta?"
+    },
+    "item9": {
+      "answer": "Za ku iya samun ƙarin bayani kan yadda ake ambaton Zooniverse a cikin wallafe-wallafen bincike ta amfani da bayanai da aka samo daga amfani da Zooniverse Project Builder a shafinmu na <0>Albarkatu</0>.",
+      "question": "Ni mai aikin/mamba ne a ƙungiyar bincike, ta yaya zan amince da Zooniverse da kuma Project Builder Platform a cikin takardata, taƙaitaccen bayani, da sauransu?"
+    },
+    "title": "Tambayoyin da Ake Yawan Yi"
+  },
+  "Home": {
+    "Community": {
+      "feedOne": "Labaran Kullum na Zooniverse",
+      "feedTwo": "Kafar Intanet ta Zooniverse",
+      "heading": "Al'ummar Zooniverse",
+      "seeAll": "Duba dukkannin abubuwan da aka ɗora",
+      "subheading": "Mene ne Yake Faruwa?"
+    },
+    "DefaultHome": {
+      "FeaturedProjects": {
+        "heading": "Ayyukan Da Aka Haskaka",
+        "none": "Babu ayyukan da aka haskaka"
+      },
+      "Introduction": {
+        "description1": "Zooniverse kafa ce mafi girma a duniya da ta tattara mutane masu sha'arar nazari da bincike. Muna haɗa ƙwararrun masu bincike da dubbannin 'yan sa kai a faɗin duniya. Ana samar da sakamako na haƙiƙa daga tsauraran bincike masu kamar ba za su yiwu ba. Hakan ya kai ga an samu sababbin ilimummuka da tasiri a kan dokoki da kuma wallafe-wallafen ilimi.",
+        "description2": "'Yan sa-kai ne suke gudanar da kafarmu, kamar dai ku. Ana maraba da kowa domin shiga a dama da shi ba tare da la'akari da shekara ko tushe ba, ba dole sai da matakin karatun PhD ba — abin da ake buƙata kawai shi ne nazari da kuma danna na'ura. Da dama daga cikin muhimman sakamakon da aka samu a kan Zooniverse sun samu ne daga tattaunawar da ke gudana a tsakanin 'yan sa-kai. Ku shigo cikinmu yau domin kasancewa cikin tafiyar nazari da bincike sannan ku gano abubuwa a karan kanku!",
+        "register": "Yi rajista",
+        "signIn": "Shiga ciki",
+        "video": "Taƙaitaccen gabatarwa game da Zooniverse"
+      },
+      "Researchers": {
+        "build": "Gina aiki",
+        "description": "Daga sanya dabbobi zuwa rukuni-rukuni zuwa abin da ya shafi gano wasu duniyoyi da kuma kwafar rubuce-rubucen tarihi da sauransu, manazarta daga fannonin ilimi daban-daban sun yi amfani da Tsarin Gina Aiki (Project Builder) domin samar da ayyuka masu jan hankali da ake iya kaiwa garesu. Kowa yana iya gina aikin Zooniverse. Cikin sauƙi ku ɗora bayananku, ku zaɓi aikin da kuke so 'yan sa-kai su yi, daga nan ku shiga cikin tafiyarmu ta samar da kafa a kan intanet da take ba wa kowa damar shiga a dama da shi a fannin bincike."
+      },
+      "headings": {
+        "first": "Mene ne Zooniverse?",
+        "fourth": "Ku duba manhajarmu ta wayar salula",
+        "second": "Ayyuka Da Aka Haskaka",
+        "third": "Bincike na haƙiƙa, sakamako na haƙiƙa"
+      },
+      "heroText": "Ku shiga cikin miliyoyin mutane waɗanda suke taimakawa wajen bunƙasa bincike na haƙiƙa da fasaha da ilimi.",
+      "mainHeading": "Binciken da mutane suke tallafa wa",
+      "projects": "Duba ayyuka",
+      "subheadings": {
+        "first": "Basirar taron",
+        "fourth": "Ku gano abubuwa, ku koyar sannan ku koya - a kowane wuri",
+        "second": "Zooniverse yana aiki",
+        "third": "Ku haɗu da manazarta da suka ƙirƙiri ayyuka a kan Zooniverse"
+      }
+    }
+  },
+  "OurTeam": {
+    "description": "Mutanen da ke yin Zooniverse.",
+    "sidebarLabel": "Cibiya",
+    "title": "Ƙungiyarmu"
+  },
+  "Projects": {
+    "disciplines": {
+      "all": "Duk fannoni",
+      "arts": "Fasaha",
+      "biology": "Ilimin halittu",
+      "climate": "Yanayi",
+      "history": "Tarihi",
+      "language": "Harshe",
+      "literature": "Adabi",
+      "medicine": "Magani",
+      "nature": "Yanayi",
+      "physics": "Ilimin kimiyyar lissafi",
+      "social": "Kimiyyar Zamantakewa",
+      "space": "Sarari"
+    },
+    "languages": {
+      "label": "Tace ayyukan ta hanyar fassarorin da ake da su"
+    },
+    "organizations": {
+      "description": "Ƙungiyoyi suna haɗa ayyukan Zooniverse da yawa masu alaƙa, wanda hakan ke sauƙaƙa wa mahalarta su bincika ƙoƙarin bincike masu alaƙa.",
+      "heading": "Ƙungiyoyi",
+      "none": "Babu wata ƙungiya da aka samu."
+    },
+    "projects": {
+      "description": "<0>Barka da zuwa! Muna matukar farin ciki da ka zo nan.</0> Gungura ƙasa don bincika duk ayyukanmu masu aiki, bincika wani takamaiman aiki, ko tace ayyukan bisa ga abubuwan da kake so. Yi nishaɗi, kuma ka yi farin ciki da rarrabawa!",
+      "empty": {
+        "clear": "Sake saita Matata",
+        "status": "Wani lokaci wani aiki zai rasa bayanai na ɗan lokaci, ko kuma wataƙila ya gama! Gwada bincika <0>Kowane Matsayin Aiki</0>"
+      },
+      "error": "An sami kuskure wajen ɗaukar ayyukan.",
+      "heading": "Duk ayyukan",
+      "none": "Babu ayyukan da aka samu",
+      "showingNum": "{{jeri}} na {{jimlar}} ayyuka"
+    },
+    "search": {
+      "placeholder": "Bincika ayyukan",
+      "warning": "Rubutun bincike dole ne ya zama aƙalla haruffa 5"
+    },
+    "sortBy": {
+      "label": "Kasa",
+      "mostActive": "Mafi Aiki",
+      "mostPopular": "Mafi Shahara",
+      "nameAZ": "Suna A - Z",
+      "nameZA": "Suna Z - A",
+      "newest": "Sabon",
+      "oldest": "Mafi tsufa"
+    },
+    "status": {
+      "active": "Mai aiki",
+      "all": "Duk wani Matsayi",
+      "finished": "An gama",
+      "label": "Tace ayyukan ta hanyar matsayi",
+      "paused": "An Dakatar"
+    }
+  },
+  "Publications": {
+    "description": "Jerin wallafe-wallafen ilimi waɗanda ke amfani da bayanan da Zooniverse ya samar.",
+    "formInfo": "Muna da nufin sanya hanyoyin haɗi zuwa jaridu da aka buga waɗanda jama'a za su iya shiga. Labaran da aka karɓa don bugawa amma ba a buga su ba tukuna suna da kyau.",
+    "formInstruction": "Domin ƙaddamar da sabuwar wallafe-wallafe ko sabunta wacce take akwai, ",
+    "formLabel": "don Allah a yi amfani da wannan fom ɗin",
+    "sidebarLabel": "Horarwa",
+    "title": "Littattafai"
+  },
+  "ResetPassword": {
+    "CommitResetForm": {
+      "body": "Shigar da kalmar sirri sau biyu don tabbatar da ita, sannan za ku kasance a shirye don komawa ga taimakawa wajen bincike na gaske.",
+      "infoConfirmation": "Dole ne dukkan filayen biyu su dace",
+      "infoPassword": "Mafi ƙarancin haruffa 8",
+      "inputConfirmation": "Tabbatar da sabuwar kalmar sirri",
+      "inputPassword": "Sabuwar kalmar sirri",
+      "status": {
+        "errorInvalidInput": "Kuskure: shigarwar da ba ta dace ba",
+        "errorPasswordsDoNotMatch": "Kuskure: kalmomin shiga ba su daidaita ba, da fatan za a sake gwadawa.",
+        "success": "An canza kalmar sirrinka! Za a tura ka zuwa shafin <0>shiga</0> cikin 'yan daƙiƙa kaɗan, da fatan za a yi amfani da sabuwar kalmar sirrinka."
+      },
+      "submit": "Aika",
+      "titleForInputPattern": "Mafi ƙarancin haruffa 8"
+    },
+    "NoAccessMessage": {
+      "body": "A halin yanzu kana shiga. Da fatan za a fita idan kana son sake saita kalmar sirrinka."
+    },
+    "RequestResetForm": {
+      "body": "Shigar da adireshin imel ɗinka kuma za mu aiko maka da hanyar haɗi don sake saita kalmar sirrinka.",
+      "footer": "Idan imel ɗin da aka sake saitawa bai iso ba, duba cikin babban fayil ɗin spam ɗinku. Idan babu shi, gwada wani adireshin imel da wataƙila kun yi amfani da shi don shiga Zooniverse.",
+      "inputEmail": "Adireshin i-mel",
+      "status": {
+        "errorTooManyRequests": "Kuskure: buƙatun sake saita kalmar sirri da yawa. Da fatan za a sake gwadawa daga baya.",
+        "success": "Mun aika imel mai hanyar haɗi don sake saita kalmar sirrinku."
+      },
+      "submit": "Aika"
+    },
+    "common": {
+      "header": "Sake saita Kalmar Sirri"
+    }
+  },
+  "Resources": {
+    "brand": {
+      "heading": "Albarkatun Alamar Kasuwanci",
+      "links": {
+        "first": "Zazzage tambarin hukuma na Zooniverse",
+        "fourth": "Littafin Labarai - Abubuwan da aka yi amfani da su a shafin yanar gizon da aka yi wa lamba",
+        "second": "Sauke takardun da za a iya bugawa, samfuran gabatarwa, da hotunan aikin",
+        "third": "Tsarin Zane na Zooniverse - Salonmu, launukan alamarmu, da ƙa'idodin rubutu"
+      }
+    },
+    "cite": {
+      "heading": "Yadda ake Rubuta Zooniverse",
+      "paragraphs": {
+        "fifth": "Lokacin rubutu game da Zooniverse gabaɗaya, don Allah a haɗa hanyar haɗi ko URL zuwa shafin farko na Zooniverse a wani wuri a cikin labarinku.",
+        "first": "Dangane da Manufofin Gina Aikin Zooniverse</0>, ana buƙatar duk wallafe-wallafen bincike da ke amfani da bayanai da aka samo daga ayyukan Zooniverse su amince da dandalin Zooniverse da Project Builder ta amfani da rubutu mai zuwa:",
+        "fourth": "Lokacin da kake rubutu game da takamaiman ayyukan Zooniverse a cikin jarida, da fatan za a haɗa hanyar haɗi ko URL zuwa aikin, a cikin bugawa da kuma bugu na dijital.",
+        "second": "Muna ƙarfafa masu aikin sosai su ba mu rahoton wallafe-wallafen bincike da aka karɓa da waɗanda aka buga ta amfani da bayanan da Zooniverse ya samar ta hanyar cike wannan fom ɗin <0>. Kuna iya samun jerin wallafe-wallafen da suka fito daga ayyukan Zooniverse da bincike masu alaƙa a shafinmu na <1>Publications</1>.",
+        "sixth": "Idan kuna sha'awar yin hira da wani memba na ƙungiyar Zooniverse, da fatan za a tuntuɓe mu</0>.",
+        "third": "Idan kuna da wasu tambayoyi game da yadda ake gane Zooniverse, kamar ambaton wani takamaiman mutum ko lambar musamman, da fatan za a <0>tuntuɓe mu</0>."
+      },
+      "quote": "Wannan littafin yana amfani da bayanai da aka samar ta hanyar dandalin <0>Zooniverse.org</0>, wanda ci gabansa ke samun kuɗaɗen tallafi mai yawa, gami da Kyautar Tasirin Duniya daga Google, da kuma tallafin da Gidauniyar Alfred P. Sloan ta bayar.",
+      "subheadings": {
+        "first": "Ga Masu Bincike",
+        "second": "Don Kafafen Yaɗa Labarai"
+      }
+    },
+    "title": "Albarkatu"
+  },
+  "Settings": {
+    "AccountSettings": {
+      "title": "Asusu"
+    },
+    "EmailSettings": {
+      "title": "Imel"
+    },
+    "ProfileSettings": {
+      "title": "Bayanin martaba"
+    },
+    "common": {
+      "backHome": "Komawa Gida",
+      "sidebar": "Saituna",
+      "title": "Saitunan Mai Amfani"
+    },
+    "forms": {
+      "fields": {
+        "credited_name": {
+          "help": "Wannan shine sunan da za mu yi amfani da shi don bayar da yabo a cikin wallafe-wallafe, fosta, takaddun shaida na sa kai, da sauran kayayyaki.",
+          "label": "Suna na Ainihin"
+        },
+        "display_name": {
+          "help": "Yadda sunanka zai bayyana ga wasu a ko'ina cikin dandalin.",
+          "label": "Sunan Nuni"
+        }
+      },
+      "optional": "Zaɓi",
+      "save": "Sauyi",
+      "saveSuccess": "An adana canje-canje.",
+      "saveUnnecessary": "Babu wani canji da za a adana."
+    }
+  },
+  "Sidebar": {
+    "all": "Duk"
+  },
+  "Unsubscribe": {
+    "form": {
+      "body": {
+        "p1": "Mun fahimta - babu wanda yake son ci gaba da karɓar imel ɗin da ba ya so.",
+        "p2": "Kawai shigar da adireshin imel ɗinka a nan kuma za mu cire ka daga duk jerin imel ɗinmu."
+      },
+      "errors": {
+        "general": "Akwai matsala. Da fatan za a duba adireshin imel ɗin kuma a sake gwadawa."
+      },
+      "header": "Cire rajista daga duk imel ɗin Zooniverse, sai dai Talk.",
+      "inputEmail": "Adireshin i-mel",
+      "submit": "Aika"
+    },
+    "processed": {
+      "body": "Idan ka canza ra'ayinka, ziyarci saitunan asusunka don <0>sabunta fifikon imel ɗinka</0>.",
+      "header": "Cire rajista ya yi nasara"
+    }
+  },
+  "Volunteer": {
+    "beta": {
+      "button": "Yi rijista don Gwaji",
+      "heading": "Gwajin Beta",
+      "paragraphs": {
+        "first": "Idan kun riga kun zama mai sa kai kuma kuna son bayar da ƙarin ra'ayi, yi la'akari da zama mai gwajin beta. Masu gwajin beta masu aikin sa kai ne na Zooniverse waɗanda ke taimaka mana mu gwada ayyukan kafin su fara a bainar jama'a kuma su ba da ra'ayi ga ƙungiyoyin bincike don taimakawa wajen inganta waɗannan ayyukan. Masu gwajin beta suna gabatar da rarrabuwar gwaji kan ayyuka, kuma suna ba ƙungiyoyi ra'ayoyinsu ta hanyar ɗan gajeren tambayoyi.",
+        "second": "Wannan tsari yana taimaka mana mu gano duk wata matsala a cikin ayyuka, har ma mu tantance ko aikin ya dace da Zooniverse. Ra'ayinku yana da matuƙar muhimmanci a gare mu! Kuna iya karanta jagororinmu kan abin da ke yin aikin da ya dace a shafin <0>Manufofin Lab</0>.",
+        "third": "Yin rijista don zama mai gwajin beta abu ne mai sauƙi, kuma kowa zai iya yin hakan. Kawai ziyarci saitunan <0>ku</0> kuma ku duba akwatin da ke cewa, \"Sami sabuntawar imel na aikin beta kuma ku zama mai gwajin beta.\" Za mu aiko muku da imel lokacin da ayyukan suka shirya don a gwada su. Kuna iya canza saitunan imel ɗinku kuma ku daina biyan kuɗi daga imel na beta a duk lokacin da kuke so ta hanyar ziyartar shafin imel ɗin iri ɗaya da kuma cire alamar akwatin."
+      }
+    },
+    "classify": {
+      "heading": "Rarraba Ayyuka",
+      "paragraphs": {
+        "first": "Yin aikin sa kai a kan wani aiki shine hanya mafi sauƙi kuma mafi yawan lokuta na shiga. Kullum muna buƙatar masu sa kai don taimakawa wajen rarraba bayanan aikin. Babu buƙatar ƙaramin lokaci; za ku iya yin komai ko kaɗan kamar yadda kuke so.",
+        "second": "Don farawa, ziyarci shafin farko na <0>Zooniverse</0> kuma yi rijista don asusu."
+      }
+    },
+    "howTo": {
+      "heading": "Yadda ake yin aikin sa kai",
+      "paragraph": "Kuna son zama mai aikin sa kai? Abu ne mai sauƙi: kawai ku fara rarrabawa! Duk wanda ke ba da gudummawa ga aikin Zooniverse mai aikin sa kai ne. Muna da al'umma mai ban mamaki ta masu aikin sa kai ta duniya waɗanda ke 'ƙarfafa' bincikenmu ta hanyar mutane. Tuni ma mai aikin sa kai ne kuma kuna son yin ƙari? Yi la'akari da zama mai gwajin beta, ko taimaka wa ƙungiyoyin aiki ta hanyar zama mai kula da tattaunawa. Don ƙarin bayani game da waɗannan ayyuka, ci gaba da karantawa."
+    },
+    "moderate": {
+      "heading": "Matsakaici a Aiki",
+      "paragraphs": {
+        "first": "Masu gudanar da ayyukan sa kai suna taimaka wa ƙungiyoyin bincike da kayan aikin tattaunawa na tattaunawa na aikin. Suna taimakawa wajen daidaita tattaunawa, suna aiki a matsayin wurin tuntuɓar aikin, kuma suna da ƙarin izini akan Magana. Mai aikin ne ke zaɓar masu gudanarwa. Idan kuna sha'awar zama mai gudanarwa akan aikin da kuke shiga, je zuwa shafin Game da aikin ko allon Magana kuma ku tuntuɓi mai bincike. Don ƙarin bayani, duba takardunmu na <0>'Me Masu Gudanarwa suke yi?'</0>.",
+        "second": "Idan kuna son ƙarin bayani game da kowane ɗayan waɗannan ayyuka daban-daban, <0>tuntuɓe mu</0>."
+      }
+    },
+    "register": {
+      "button": "Yi rijista a yau",
+      "heading": "Amfanin Rijista tare da Zooniverse",
+      "paragraphs": {
+        "fifth": "Ana samun nau'ikan shafin rajista da aka fassara a cikin <0>Spanish</0> da <1>Faransanci</1>. Lura cewa ba duk abubuwan da ke cikin shafi za a iya fassara su ba.",
+        "first": "Bibiyar rarrabuwar ka, lokutan aiki, da ƙari. Gano ayyukan da ka fi so kuma ka lura da yanayin da ake ciki. Sannan, fitar da bayananka don ƙarin zaɓuɓɓuka.",
+        "fourth": "Ga waɗanda ba su kai shekara 16 ba, iyaye/masu kula da yara suna buƙatar yin rijista. <0>https://www.zooniverse.org/accounts/register</0> ita ce hanyar haɗin kai tsaye don yin rijista.",
+        "second": "Samar da takardar shaidar hukuma wadda ke tabbatar da ƙoƙarinka a dandalin Zooniverse. Kawai ka ƙayyade lokaci ko aiki.",
+        "third": "Masu amfani da aka yi wa rijista za su iya yin rubutu a kan allunan tattaunawa na musamman kan ayyuka da kuma na Zooniverse-wide, wanda zai ba ku damar yin tambayoyi ga ƙwararru na gaske."
+      },
+      "subheadings": {
+        "first": "Ƙididdigar mutum",
+        "second": "Takardar shaidar sa kai",
+        "third": "Yi magana da abokan aikin sa kai da ƙwararru"
+      }
+    },
+    "title": "Mai aikin sa kai",
+    "translate": {
+      "heading": "Fassara Aiki",
+      "paragraphs": {
+        "first": "Masu fassara masu sa kai suna taimaka wa ƙungiyoyin bincike wajen fassara ayyukan Zooniverse na harshen Turanci zuwa wasu harsuna, suna taimaka wa al'ummarmu ta masu sa kai ta duniya. Masu fassara ayyuka suna aiki kai tsaye tare da ƙungiyoyin ayyuka don a ƙara su cikin aikinsu a matsayin Mai Fassara, a lokacin ne za su iya shiga gidan yanar gizon fassara na matakin aikin da kuma shigar da fassarorin kowane sashe na aikin.",
+        "second": "Muna kuma maraba da masu sa kai don taimakawa wajen gyara fassarorin da AI ta samar na abubuwan da ke cikin dandamali, wato rubutun da aka raba a duk ayyukan kamar lakabin menu, kanun labarai, maɓallai, da sauransu. Wannan abun ciki <0>ba</0> bane ya shafi aikin, kuma ƙungiyar Zooniverse ce ke kula da shi kuma ke kula da shi.",
+        "third": "Idan kana sha'awar yin aikin sa kai a matsayin mai fassara aiki, ko kuma taimakawa wajen gyara fassarorin matakin dandamali, da fatan <0>tuntuɓe mu</0>."
+      }
+    }
+  }
+}

@@ -1,0 +1,733 @@
+{
+  "404": {
+    "Default404": {
+      "findNewProject": "Znajdź nowy projekt do odkrycia",
+      "heading": "Nic tu nie ma.",
+      "message": "Strona, której szukasz, już nie istnieje.",
+      "returnHome": "Powrót do strony głównej"
+    }
+  },
+  "AIEthics": {
+    "about": {
+      "acknowledgements": {
+        "heading": "Podziękowanie",
+        "paragraph": "Zespół Zooniverse chciałby wyrazić wdzięczność następującym osobom za udział w wirtualnych warsztatach, które doprowadziły do ​​opracowania niniejszych rekomendacji:"
+      },
+      "advisors": {
+        "heading": "Doradcy projektu"
+      },
+      "funding": {
+        "heading": "Finansowanie",
+        "paragraph": "Niniejszą pracę wspiera Fundacja Kavli, numer nagrody SS-2025-GR-05-3064."
+      },
+      "paragraphs": {
+        "first": "W ciągu ostatnich 15 lat zespoły badawcze zintegrowały uczenie maszynowe (ML) z szeroką gamą projektów Zooniverse na różnych etapach. Około jedna trzecia wszystkich aktywnych projektów Zooniverse wykorzystuje obecnie w jakiś sposób uczenie maszynowe. Wraz z rozwojem tych technologii i wzrostem świadomości społecznej na temat ich istnienia, ostatnie opinie od wolontariuszy Zooniverse uwypukliły potrzebę większej przejrzystości w zakresie wykorzystania sztucznej inteligencji (AI) na naszej platformie. Staraliśmy się rozwiązać te problemy, ustanawiając jasne, ujednolicone ramy etycznego wdrażania AI/ML w projektach Zooniverse, zapewniając badaczom możliwość skutecznego komunikowania swoich metodologii, przy jednoczesnym zachowaniu zaufania i współpracy naszej społeczności wolontariuszy. Dzięki finansowaniu Fundacji Kavli stworzyliśmy pierwsze w historii <0>ramy etyczne AI/ML dla Zooniverse</0>, które uruchomiliśmy w 2026 roku. Ramy te są przedstawione tutaj i będą corocznie aktualizowane w razie potrzeby.",
+        "fourth": "Wyniki obejmują: kluczowe zasady, które stanowią ramy i podsumowują nadrzędne cele; zalecenia dotyczące wewnętrznych działań, które platforma Zooniverse podejmie, aby ułatwić opracowywanie zaleceń dla zespołów projektowych; oraz zalecenia dla zespołów projektowych dotyczące włączania sztucznej inteligencji/uczenia maszynowego do projektów Zooniverse.",
+        "second": "Aby opracować te ramy, zorganizowaliśmy serię wirtualnych warsztatów z udziałem ekspertów merytorycznych, kierownictwa Zooniverse, kierowników projektów, zewnętrznych badaczy i wolontariuszy. Warsztaty odbywały się przez cały rok 2025 i koncentrowały się na czterech kluczowych tematach: wypracowaniu najlepszych praktyk w zakresie przejrzystości i komunikacji; identyfikacji etycznych podejść do uczenia maszynowego, które równoważą ryzyko i szanse; pogłębieniu naszego kontekstowego zrozumienia tych podejść etycznych; oraz rozważeniu wyzwań związanych z ochroną danych osobowych w dół łańcucha dostaw.  ",
+        "third": "Aby uwzględnić spostrzeżenia szerszej grupy, niż ta, która mogła bezpośrednio uczestniczyć w warsztatach, rozesłaliśmy ankiety do całej społeczności Zooniverse. Wyniki tych ankiet ukształtowały nasz kierunek strategiczny. Po każdym warsztacie zbierała się mniejsza grupa, aby przełożyć dyskusję na kluczowe tematy i praktyczne rezultaty. Wyniki zostały udostępnione wszystkim uczestnikom warsztatów, którzy mieli możliwość przekazania opinii, poprawek i uzupełnień."
+      },
+      "projectTeamList": {
+        "coord": "Koordynator projektu",
+        "eval": "Facylitator i ewaluator",
+        "heading": "Zespół projektowy",
+        "pi": "Główny badacz",
+        "ra": "Asystenci badawczy"
+      }
+    },
+    "actions": {
+      "first": "<0>Przyjąć lub dostosować </0><1>standardowy tryb opisywania wykorzystania sztucznej inteligencji i uczenia maszynowego</1> <0>(zgodnie z dominującym językiem lub istniejącą kategoryzacją) na platformie Zooniverse.</0> Wiele innych proponowanych zaleceń opiera się na opracowaniu i wdrożeniu tej kategoryzacji, w tym podejścia do przejrzystości, sprawczości i spójnego sygnalizowania.",
+      "fourth": "<0>Coroczny przegląd polityki przez zespół kierowniczy Zooniverse.</0> Ustal regularne tempo oceny i/lub aktualizacji tych zasobów, np. coroczne. Zobowiązaliśmy się do corocznego przeglądu i opublikujemy wpis na blogu lub inną pisemną aktualizację, aby zsynchronizować wszelkie aktualizacje tych ram w ramach tego przeglądu.",
+      "second": "<0>Poświęć stronę witryny Zooniverse informacjom i zasobom związanym ze sztuczną inteligencją/uczeniem maszynowym i ich wykorzystaniem w Zooniverse.</0> To jest ta strona! Znajdziesz na niej powyższą kategoryzację, rekomendacje naszego zespołu projektowego, a także więcej informacji o tym, jak ta technologia jest (i była) wykorzystywana w Zooniverse, jakie są jej korzyści i obawy oraz jak rozpoznać, że projekt z niej korzysta.",
+      "third": "<0>Wprowadź wytyczne do wewnętrznego procesu przeglądu projektu Zooniverse.</0> Od momentu uruchomienia tej strony nasze wewnętrzne procesy przeglądu zostały zaktualizowane, aby odzwierciedlały zalecenia wymienione tutaj. Zapewni to standardową praktykę dla kierowników projektów w zakresie udostępniania informacji o wszelkich zobowiązaniach dotyczących wykorzystania sztucznej inteligencji/uczenia maszynowego (AI/ML) i zarządzania danymi w ramach projektu, aby zapewnić potencjalnym wolontariuszom dostęp do tych informacji."
+    },
+    "faq": {
+      "first": {
+        "answer": "Nie. Naukowcy korzystają z Zooniverse, ponieważ chcą, aby ludzie włączyli się w ich proces. Bez wyraźnego pozwolenia, wolontariusze nie powinni korzystać z narzędzi sztucznej inteligencji generatywnej spoza Zooniverse, aby wspomagać swoje działania klasyfikacyjne.",
+        "question": "Jestem wolontariuszem i potrzebuję pomocy w klasyfikacji w projekcie. Czy mogę skorzystać z narzędzi generatywnej sztucznej inteligencji, takich jak ChatGPT lub Gemini?"
+      },
+      "paragraph": "Nie znalazłeś tu odpowiedzi na swoje pytanie? Wyślij je na adres <0>contact@zooniverse.org</0>! Będziemy aktualizować tę listę w razie potrzeby.",
+      "second": {
+        "answerOne": "Zacznij od przejrzenia strony głównej projektu, zwłaszcza opisu projektu i opisów przepływów pracy. Jeśli nadal masz wątpliwości, zajrzyj na stronę „O projekcie” oraz do samouczków projektu. Jeśli po tym nadal będziesz mieć wątpliwości, możesz zapytać na Talk, ale celem tego frameworka jest upewnienie się, że wszystkie projekty jasno komunikują, w jaki sposób korzystają (lub nie) z tej technologii.",
+        "answerTwo": "Jeśli uważasz, że projekt niewłaściwie ujawnia wykorzystanie sztucznej inteligencji/uczenia maszynowego, mamy nadzieję, że bez wahania skontaktujesz się z zespołem badawczym za pośrednictwem Talk i zasugerujesz zmiany lub wyrazisz swoje wątpliwości. Jeśli nie czujesz się na siłach, możesz również wysłać nam wiadomość na adres <0>contact@zooniverse.org</0>, a my to sprawdzimy. Częścią tych prac jest aktualizacja naszych wewnętrznych procesów weryfikacji, więc Twoja opinia pomoże nam ocenić skuteczność naszych nowych procesów.",
+        "question": "Chcę się dowiedzieć, czy projekt Zooniverse wykorzystuje sztuczną inteligencję (AI) lub uczenie maszynowe. Jak mogę znaleźć tę informację?"
+      }
+    },
+    "fivews": {
+      "list": {
+        "first": "<0>Kto</0> odpowiada za zapewnienie jakości i integralności danych? ",
+        "fourth": "<0>Dlaczego</0> stosuje się sztuczną inteligencję/uczenie maszynowe? Co pomaga osiągnąć i kto na tym korzysta? Jak wyglądałyby badania, gdyby nie wykorzystywano sztucznej inteligencji/uczenia maszynowego?",
+        "second": "<0>Jakie</0> techniki AI/ML są stosowane?",
+        "third": "<0>Kiedy</0> i <0>gdzie</0> w cyklu gromadzenia, przetwarzania i analizy danych wykorzystywana jest sztuczna inteligencja/uczenie maszynowe? W którym momencie (lub momentach) wolontariusze wkraczają w cykl? Czy te dwa systemy kiedykolwiek wchodzą ze sobą w interakcję? Jeśli tak, to w jaki sposób?"
+      },
+      "paragraph": "Opracowując nowy projekt Zooniverse, który obejmuje sztuczną inteligencję i uczenie maszynowe, badacze powinni zastanowić się nad poniższymi pytaniami i być gotowi na ich udzielenie. Najlepiej, aby odpowiedzi na te pytania były dostępne w tekście projektu (np. na stronie „O nas”, w sekcji FAQ itp.)."
+    },
+    "heading": {
+      "eighth": "Zasoby",
+      "fifth": "Zalecenia dotyczące projektu",
+      "fifthext": "Rekomendacje dla zespołów projektowych",
+      "first": "Preambuła",
+      "fourth": "Działania wewnętrzne",
+      "fourthext": "Działania wewnętrzne podjęte przez Zooniverse",
+      "nineth": "Często zadawane pytania",
+      "ninethext": "Często zadawane pytania",
+      "second": "Spis treści",
+      "seventh": "AI/ML w Zooniverse",
+      "seventhext": "Sztuczna inteligencja i uczenie maszynowe w Zooniverse",
+      "sixth": "5 pytań",
+      "sixthext": "5 pytań dotyczących projektów wykorzystujących sztuczną inteligencję i uczenie maszynowe",
+      "tenth": "O tym frameworku",
+      "third": "Kluczowe zasady"
+    },
+    "onZooniverse": {
+      "fifthQ": {
+        "heading": "Skąd mam wiedzieć, czy projekt wykorzystuje sztuczną inteligencję, czy uczenie maszynowe?",
+        "list": {
+          "first": "Zespoły projektowe są zobowiązane do wyraźnego wskazania na stronie głównej, czy ich projekt wykorzystuje AI/ML. Ponadto, jeśli projekt obejmuje wiele przepływów pracy, zespoły powinny rozróżniać przepływy pracy, które wykorzystują AI/ML, od tych, które ich nie wykorzystują.",
+          "fourth": "Jeśli masz jakiekolwiek wątpliwości, czy dany projekt wykorzystuje sztuczną inteligencję/uczenie maszynowe, możesz napisać na forach dyskusyjnych projektu i zapytać bezpośrednio zespół badawczy.",
+          "second": "Zespoły są również zobowiązane do szczegółowego wyjaśnienia, dlaczego i w jaki sposób AI/ML są integrowane z ich projektami. Informacje te pojawią się na stronie „O projekcie”.",
+          "third": "Jeśli celem projektu jest wyszkolenie modelu AI/ML, zespoły powinny udostępniać aktualizacje dotyczące tego procesu na stronie Wyniki, gdy będą dostępne."
+        }
+      },
+      "firstQ": {
+        "heading": "Czym jest sztuczna inteligencja? Czym jest uczenie maszynowe?",
+        "list": {
+          "first": "Nie ma prostej, jednolitej definicji, ale AI ogólnie odnosi się do systemów komputerowych zaprojektowanych do naśladowania ludzkiego myślenia. AI to szerokie pojęcie, obejmujące szeroki zakres technologii i zastosowań. Terminy te są często używane zamiennie, ale ML to podzbiór AI, który wykorzystuje dane i algorytmy do uczenia komputerów w zakresie klasyfikowania, generowania prognoz i odkrywania podobieństw lub trendów w dużych zbiorach danych. (Definicja zaadaptowana z Fortson i in. (2024) oraz <0>https://www.nasa.gov/what-is-artificial-intelligence</0>).",
+          "second": "Istnieje wiele sposobów kategoryzacji metod i podejść AI/ML na podstawie wykorzystywanej technologii i jej możliwości.",
+          "third": "Częściowo ze względu na tak szybki postęp technologiczny, łatwo jest mieć wątpliwości co do tego, co robi sztuczna inteligencja. Przejrzystość w projektach Zooniverse dotycząca tego, co dokładnie ta technologia wnosi i dlaczego, może pomóc uniknąć nieporozumień i niejasności, a jednocześnie stworzyć mechanizmy rozliczania dla zespołów projektowych."
+        }
+      },
+      "fourthQ": {
+        "heading": "Dlaczego zespoły projektowe muszą lub chcą korzystać ze sztucznej inteligencji i uczenia maszynowego w Zooniverse?",
+        "list": {
+          "first": "Nawet przy potędze środowiska Zooniverse, wiele zespołów projektowych pracuje z ogromnymi i złożonymi zbiorami danych. W większości przypadków badacze odkrywają, że ludzie i maszyny pracując razem, generują dane wyższej jakości niż każdy z nich osobno. Systemy człowiek-maszyna mogą również przyspieszyć realizację projektów i umożliwić badaczom szybsze osiągnięcie rezultatów niż w przypadku klasyfikacji wyłącznie przez człowieka.",
+          "second": "Na <0>stronie publikacji Zooniverse</0> można znaleźć wiele publikacji szczegółowo opisujących sukcesy w łączeniu klasyfikacji człowiek-maszyna."
+        }
+      },
+      "secondQ": {
+        "heading": "W jaki sposób sztuczna inteligencja i uczenie maszynowe są wykorzystywane w Zooniverse?",
+        "list": {
+          "fifth": "Jeśli zespoły projektowe zdecydują się na wykorzystanie sztucznej inteligencji do generowania treści projektowych, są zobowiązane do ujawnienia tych informacji na stronie zawierającej treści wygenerowane przez sztuczną inteligencję. Może to obejmować np. teksty projektów, awatary, obrazy multimedialne, tłumaczenia i/lub dane projektu.",
+          "first": "Zasadniczo, sztuczna inteligencja/uczenie maszynowe nie są włączane do platformy poza konkretnymi zastosowaniami w projektach. Zespół Zooniverse zobowiązuje się do przejrzystości i jasnego oznaczania w przypadku, gdy w przyszłości sztuczna inteligencja/uczenie maszynowe będzie wykorzystywane poza konkretnymi projektami.",
+          "fourth": {
+            "subFifth": "<0>Wolontariusze sprawdzają</0> nietypowe lub nietypowe tematy, które uniemożliwiały działanie maszyny.",
+            "subFirst": "<0>Brak AI/ML.</0> Wolontariusze klasyfikują badanych. Nie ma wcześniejszej ani planowanej roli AI/ML.",
+            "subFourth": "<0>AI/ML jest poddawane kontroli jakości.</0> Wolontariusze sprawdzają i poprawiają klasyfikacje generowane maszynowo, przyczyniając się do udoskonalania AI/ML w dłuższej perspektywie.",
+            "subSecond": "<0>AI/ML wstępnie sortuje tematy.</0> Wolontariusze klasyfikują tematy, które zostały wstępnie posortowane lub przefiltrowane przez maszyny. Przykłady obejmują usuwanie pustych miejsc (obrazów bez istotnej treści) i tworzenie klasyfikacji wysokiego poziomu, dzięki czemu wolontariusze mogą skupić swoje wysiłki na trudniejszych zadaniach.",
+            "subThird": "<0>Szkolenie AI/ML.</0> Wolontariusze klasyfikują podmioty, a maszyny uczą się wzorców, a celem jest, aby AI/ML wykonywały zadania.",
+            "sublist": "Oto kilka przykładów:"
+          },
+          "second": "Zastosowania sztucznej inteligencji/uczenia maszynowego będą się różnić w zależności od projektu.",
+          "third": "Sztuczna inteligencja/uczenie maszynowe (AI/ML) są zintegrowane z niektórymi projektami Zooniverse, uzupełniając wsparcie badawcze zapewniane przez wolontariuszy, przetwarzając dane przed lub po wykonaniu przez nich zadań. Niektóre projekty zawierają elementy aktywnego uczenia się, które wspierają metody sztucznej inteligencji/uczenia maszynowego z udziałem człowieka, włączając wkład wolontariuszy do zautomatyzowanych procesów w celu poprawy jakości wyników."
+        }
+      },
+      "seventhQ": {
+        "heading": "A co ze sztuczną inteligencją i uczeniem maszynowym poza Zooniverse? Czy moje klasyfikacje trafiają do inicjatyw AI/ML poza Zooniverse?",
+        "list": {
+          "fifth": "Oczekuje się, że zespoły projektowe udostępnią swoje plany dotyczące wykorzystania i przechowywania danych na stronie Informacje o projekcie.",
+          "first": "My, jako społeczność Zooniverse, mamy kontrolę nad tym, jak korzystamy ze sztucznej inteligencji i uczenia maszynowego na platformie i w projektach. Mamy jednak niewielką kontrolę nad tym, jak inni mogą wykorzystywać dane projektu, zwłaszcza po ich udostępnieniu publicznym.",
+          "fourth": "Aby ograniczyć niezamierzone wykorzystanie danych projektu (np. w celach komercyjnych), niektóre zespoły decydują się na stosowanie umów licencyjnych dotyczących danych projektu (np. <0>Creative Commons</0>) lub udostępniają je wyłącznie na żądanie.",
+          "second": "Obowiązujące obecnie <0>Zasady tworzenia projektów</0> Zooniverse stanowią, że zespoły projektowe muszą „udostępnić swoje dane klasyfikacyjne po upływie okresu zastrzeżonego, trwającego zazwyczaj dwa lata od uruchomienia projektu”.",
+          "sixth": "Jeśli nie masz pewności co do planów projektu dotyczących udostępniania danych i/lub licencjonowania, możesz napisać na forach dyskusyjnych projektu i zapytać bezpośrednio zespół badawczy.",
+          "third": "Otwarte dane zapewniają wzajemność, natychmiastową gratyfikację i szybkie wykorzystanie danych do podejmowania decyzji lub działań. Mogą również pomóc w ochronie danych, ponieważ dane są mniej narażone na utratę, jeśli są przechowywane w repozytorium lub jeśli inni utworzyli ich kopie. Oznacza to jednak również, że inne osoby, organizacje lub firmy mogą wykorzystywać dane wygenerowane w ramach projektów Zooniverse do celów innych niż zadeklarowane cele badawcze."
+        }
+      },
+      "sixthQ": {
+        "heading": "W jaki sposób Zooniverse dba o to, aby technologie te były wykorzystywane bezpiecznie i etycznie?",
+        "list": {
+          "first": "Zooniverse przeprowadziło <0>18-miesięczny proces z udziałem interesariuszy i ekspertów</0>, aby określić, co to oznacza dla platformy. Powstałe w jego wyniku <1>Kluczowe zasady</1>, <2>Działania wewnętrzne podejmowane przez Zooniverse</2> oraz <3>Rekomendacje dla zespołów projektowych</3> odzwierciedlają nasze podejście.",
+          "second": "Jesteśmy zobowiązani do ciągłej oceny tych struktur, aby zapewnić ich skuteczność, zwłaszcza w miarę rozwoju technologii i potencjalnych zastosowań w Zooniverse. Nasze rekomendacje obejmują coroczny przegląd naszych zasad etyki w dziedzinie sztucznej inteligencji, aby zapewnić ich adekwatność dla społeczności wolontariuszy i badaczy."
+        }
+      },
+      "thirdQ": {
+        "heading": "Jakie korzyści i obawy wiążą się z wykorzystaniem sztucznej inteligencji i uczenia maszynowego w Zooniverse?",
+        "list": {
+          "first": "Sztuczna inteligencja/uczenie maszynowe (AI/ML) może przyspieszyć i usprawnić nasze możliwości generowania, przetwarzania i analizowania danych. Dzięki temu możemy zadawać nowe pytania i szybciej uzyskiwać odpowiedzi.",
+          "fourth": "Rozwój i wykorzystanie niektórych typów sztucznej inteligencji/uczenia maszynowego może wiązać się z dużymi nakładami energii i zasobów.",
+          "second": "Delegowanie niektórych zadań maszynom może pozwolić ludziom skupić się na bardziej kreatywnych lub złożonych zadaniach. Nasze zalecenia wskazują jednak, że zespoły projektowe powinny uważać, aby nie przesadzić z optymalizacją, ponieważ zaangażowanie osób na poziomie podstawowym ma kluczowe znaczenie dla zapewnienia szerokiej dostępności projektów.",
+          "third": "Na pewnym etapie konieczne jest włączenie nadzoru ludzkiego w celu oceny i zapewnienia jakości danych."
+        }
+      }
+    },
+    "preamble": {
+      "list": {
+        "first": "Platforma Zooniverse jest odpowiedzialna za <0>opracowywanie</0> i <0>przestrzeganie</0> tych rekomendacji.",
+        "second": "Zespoły projektowe odpowiadają za <0>interpretowanie</0> i <0>wdrażanie</0> zaleceń. ",
+        "third": "Wolontariusze mają możliwość <0>potwierdzania</0> lub <0>kwestionowania</0> wdrażania poprzez informację zwrotną lub podjęcie działań (np. poprzez decyzję o nieuczestniczeniu w projekcie)."
+      },
+      "paragraphs": {
+        "first": "Ta strona przedstawia Ramy Etyki Sztucznej Inteligencji Zooniverse (AI), w tym zalecenia dotyczące prowadzenia projektów w Zooniverse, które wykorzystują sztuczną inteligencję (AI) i/lub uczenie maszynowe (ML). To żywa struktura, którą stale udoskonalamy i iterujemy w miarę otrzymywania opinii oraz rozwoju kontekstów technologicznych, społecznych i kulturowych. Niniejsza strona ma przede wszystkim na celu dostarczenie informacji wolontariuszom Zooniverse. Zespoły projektowe mogą zapoznać się ze <0>szczegółowymi wskazówkami w naszej dokumentacji Zooniverse</0>.",
+        "second": "Chociaż zastosowanie technologii „AI” w Zooniverse tradycyjnie odbywało się za pośrednictwem specyficznych procesów uczenia maszynowego („narzędzi i technologii algorytmicznych, które uczą się na podstawie istniejących danych w celu rozwiązywania zadań”), termin „AI” stał się zbiorem pojęć opisujących ten rodzaj automatyzacji. Sztuczna inteligencja (AI) w szerokim znaczeniu odnosi się do „komputerów, które potrafią naśladować ludzkie myślenie”, a uczenie maszynowe stanowi podzbiór tej koncepcji. W niniejszym opracowaniu będziemy używać terminu „AI/ML” w odniesieniu do tych procesów, aby uwzględnić szeroki zakres metod i zachować pewne rozróżnienie między tymi dwoma terminami.",
+        "third": "Tworzenie, utrzymywanie i korzystanie z tych ram wymaga odrębnych obowiązków — dla platformy Zooniverse, zespołów projektowych i wolontariuszy. Trzeba zadbać o to, aby integracja sztucznej inteligencji/uczenia maszynowego w badaniach partycypacyjnych pozostała przejrzysta, etyczna i zorientowana na społeczność."
+      }
+    },
+    "principles": {
+      "fifth": "Wykorzystuj i dostosowuj <0>istniejące zasoby dotyczące ram sztucznej inteligencji/uczenia maszynowego</0> oraz kontynuuj współpracę z szerszymi społecznościami i interesariuszami w celu <0>opracowywania i przyjmowania najlepszych praktyk</0> dotyczących badań partycypacyjnych z wykorzystaniem sztucznej inteligencji/uczenia maszynowego.",
+      "first": "Zapewnij <0>przejrzystość</0> w zarządzaniu platformą AI/ML, rozwoju projektów i ich dostarczaniu.",
+      "fourth": "Zaangażuj się w ciągły dialog oraz <0>dostosowanie</0> projektu i platformy do zmieniających się postaw i rozmów na temat sztucznej inteligencji/uczenia maszynowego.",
+      "second": "Projektuj z myślą o doświadczeniu wolontariuszy, priorytetowo traktując <0>autorstwo i zgodę</0> wolontariuszy na etapie wyboru projektów; bierz pod uwagę <0>korzyści dla</0> i <0>motywacje</0> wolontariuszy w projektach z wykorzystaniem sztucznej inteligencji i uczenia maszynowego.",
+      "third": "Ułatwiaj <0>odpowiedzialność</0>, wykazując przestrzeganie jasnych wytycznych jako warunek wstępny do uruchomienia oficjalnego projektu Zooniverse."
+    },
+    "recs": {
+      "eighth": "<0>Ujawniając planowane wykorzystanie wyników/danych projektu, należy wziąć pod uwagę, jak to wykorzystanie może się zmieniać w czasie.</0> Wolontariusze mogą zdecydować się na udział w projekcie w oparciu o cele projektu i planowane wykorzystanie wyników/danych wskazane na stronie „O projekcie”. Jakie jest prawdopodobieństwo, że w przyszłości rozszerzysz te zastosowania? ",
+      "fifth": "<0>Kontynuacja.</0> Przekaż informację zwrotną na temat stopnia sukcesu osiągniętego podczas trenowania modeli AI/ML. Metoda zostanie określona przez zespół projektowy i może obejmować np. post z dyskusją, biuletyn e-mailowy itp.",
+      "first": "<0>Projektuj swój projekt, mając na uwadze zaangażowanie (wybór) wolontariuszy.</0> Wymaga to przejrzystości i jasnej komunikacji, aby wolontariusze mogli świadomie podjąć decyzję o udziale w projekcie. Jeśli wdrażasz sztuczną inteligencję/uczenie maszynowe na jakimkolwiek etapie pracy (przed lub po przetwarzaniu, w systemach klasyfikacji z udziałem człowieka itp.), musisz podać szczegółowe informacje o tym, jak działają te procesy i dlaczego są potrzebne. Na przykład stwierdzenie „wykorzystamy uzyskane dane do wytrenowania modelu” jest niewystarczające.",
+      "fourth": "<0>Zachowaj kontekst.</0> W przypadku projektów, w których wolontariusze są zachęcani do zapoznania się z wynikami generowanymi maszynowo lub ich przeglądania, należy rozważyć, czy i w jaki sposób kontekst może wpłynąć na zadanie – w tym zarówno na jakość danych, jak i na jakość doświadczenia wolontariusza. Na przykład, jeśli zadanie wymaga od wolontariuszy sprawdzenia jakości transkrypcji maszynowych, ale obejmuje tylko fragment dokumentu (np. pojedyncze słowo lub frazę), dodanie linku do pełnego obrazu lub dokumentu zapewni, że wolontariusze będą mogli w razie potrzeby nadal korzystać z materiału źródłowego i jego znaczenia. Informacje te można uwzględnić w metadanych osoby badanej.",
+      "nineth": "<0>Należy rozważyć zarówno szanse, jak i potencjalne ryzyko związane z prowadzeniem projektu wykorzystującego sztuczną inteligencję i uczenie maszynowe.</0> Zachęcamy badaczy do zrozumienia potencjalnych ryzyk — obok szans — przed rozpoczęciem projektów i wskazywania im sprawdzonych narzędzi i opublikowanych prac naukowych, takich jak praca Ceccaroni i in. (2019), w której przedstawiono przegląd ryzyk i szans związanych z wykorzystaniem sztucznej inteligencji w nauce obywatelskiej oraz zalecenia dotyczące ograniczania ryzyka.",
+      "second": "<0>Pokaż wolontariuszom, gdzie/kiedy/dlaczego w Twoim projekcie zastosowano sztuczną inteligencję/uczenie maszynowe (AI/ML).</0> Niektóre przepływy pracy w projekcie mogą być realizowane przy użyciu sztucznej inteligencji/uczenia maszynowego (AI/ML), a inne nie. Powinny być one wyraźnie oznaczone w polu „Nazwa przepływu pracy” lub „Opis przepływu pracy”, aby wolontariusze mogli dokonać odpowiedniego wyboru (jeśli mają preferencje). Jeśli do wstępnego przetworzenia danych użyto sztucznej inteligencji/uczenia maszynowego (AI/ML), opisz swoje wskaźniki kontroli jakości (w tym, czy jest to powód uruchomienia przepływu pracy walidacyjnego w Zooniverse).",
+      "seventh": "<0>Jakość danych.</0> Opisz, w jaki sposób oceniasz i rozwiązujesz wszelkie potencjalne problemy związane z wpływem wykorzystania sztucznej inteligencji/uczenia maszynowego na jakość danych w Twoim projekcie. ",
+      "sixth": "<0>Twórz ścieżki informacji zwrotnej.</0> Każdy projekt z komponentem AI/ML powinien mieć kanał, dzięki któremu wolontariusze będą mogli dzielić się swoimi opiniami z członkami zespołu projektowego. Na przykład, zespoły mogą utworzyć specjalną tablicę dyskusyjną, aby opisywać wykorzystanie AI/ML, odpowiadać na pytania i przekazywać aktualizacje dotyczące szkoleń lub rezultatów.",
+      "third": "<0>Weź pod uwagę konsekwencje optymalizacji.</0> Rozważając „przekazanie” łatwych zadań sztucznej inteligencji/uczenia maszynowego (AI/ML) i powierzenie ludziom trudniejszych/bardziej złożonych zadań, pamiętaj, że bardziej zaawansowane przepływy pracy mogą zawęzić krąg osób zdolnych/wykwalifikowanych do udziału, chyba że istnieje „onrampa”. Zadania szkoleniowe mogą być potrzebne do zdobycia biegłości w wykonywaniu zadań, których AI/ML nie jest w stanie wykonać. Każdy proces „onrampa” lub przepływ pracy szkoleniowej powinien być wyraźnie oznaczony, w tym przepływy pracy korzystające z funkcji Zooniverse Feedback."
+    },
+    "resources": {
+      "first": "Dowiedz się więcej o sztucznej inteligencji/uczeniu maszynowym",
+      "fourth": "Przykłady oświadczeń o odpowiedzialności za sztuczną inteligencję/uczenie maszynowe w projekcie Zooniverse",
+      "second": "Dowiedz się więcej o etyce i nauce partycypacyjnej",
+      "third": "Przykłady projektów Zooniverse ze szczegółowymi wyjaśnieniami wykorzystania sztucznej inteligencji/uczenia maszynowego"
+    },
+    "sidebarLabel": "Sekcja",
+    "title": "Ramy etyczne sztucznej inteligencji Zooniverse",
+    "toc": {
+      "descriptions": {
+        "eighth": "Linki do dodatkowych informacji, w tym do publikacji zewnętrznych i polityk, a także przykładów z projektów Zooniverse, w tym wyjaśnień na temat sztucznej inteligencji/uczenia maszynowego i oświadczeń o odpowiedzialności.",
+        "fifth": "Rekomendacja dla zespołów, które prowadzą lub chcą prowadzić projekt Zooniverse obejmujący sztuczną inteligencję i uczenie maszynowe.",
+        "fourth": "Działania podejmowane przez nasz zespół mające na celu ułatwienie opracowywania rekomendacji dla zespołów projektowych.",
+        "nineth": "Dla wolontariuszy.",
+        "seventh": "Informacje o sztucznej inteligencji i uczeniu maszynowym (AI/ML) oraz o tym, jak jest (i było) wykorzystywane w Zooniverse. Zawiera omówienie, dlaczego zespoły projektowe potrzebują lub chcą korzystać z AI/ML, jak rozpoznać, że projekt korzysta z AI/ML i wiele więcej.",
+        "sixth": "Pytania, na które powinni być przygotowani wszyscy badacze prowadzący projekty Zooniverse wykorzystujące sztuczną inteligencję i uczenie maszynowe.",
+        "tenth": "Więcej informacji na temat struktury i sposobu jej opracowania, w tym informacje o osobach zaangażowanych w jej tworzenie i sposobach finansowania tych prac.",
+        "third": "Nasze zasady organizacyjne, na których opieramy te ramy. Podsumowują one nadrzędne cele, które pomogą w rozwiązaniu problemów i obaw zgłaszanych przez członków naszej społeczności w zakresie sztucznej inteligencji i uczenia maszynowego."
+      }
+    }
+  },
+  "AboutHeader": {
+    "links": {
+      "about": "O",
+      "aiethics": "Etyka sztucznej inteligencji",
+      "collaborate": "Współpracować",
+      "contact": "Skontaktuj się z nami",
+      "donate": "Podarować",
+      "educate": "Kształcić",
+      "faq": "Często zadawane pytania",
+      "publications": "Publikacje",
+      "resources": "Zasoby",
+      "team": "Nasz zespół",
+      "volunteer": "Wolontariusz"
+    },
+    "title": {
+      "about": "O",
+      "getInvolved": "Zaangażować się"
+    }
+  },
+  "AboutPage": {
+    "contact": {
+      "categories": {
+        "first": "Ogólne pytania dotyczące Zooniverse",
+        "second": "Współpraca nad projektem",
+        "third": "Zapytanie prasowe"
+      },
+      "heading": "Skontaktuj się z nami",
+      "paragraphs": {
+        "first": "Prosimy o zapoznanie się z naszą <0>stroną FAQ</0> i <1>stroną internetową Zooniverse Solutions</1>.",
+        "second": "Masz problem związany z konkretnym projektem? Zachęcamy do bezpośredniego kontaktu z zespołem badawczym na ich stronie dyskusji.",
+        "third": "Nie możesz skorzystać z przycisku „Skontaktuj się z nami”? Napisz do nas bezpośrednio na adres <0>contact@zooniverse.org</0>."
+      },
+      "subheading": "W czym możemy Ci pomóc?"
+    },
+    "highlights": {
+      "description": "Dostępne do kupienia na <0>Blurb.com</0>",
+      "heading": "Nasze najważniejsze wydarzenia",
+      "paragraphs": {
+        "first": "Od 2007 roku projekty Zooniverse doprowadziły do ​​wielu nieoczekiwanych i istotnych naukowo odkryć oraz licznych <0>recenzowanych publikacji</0>. Wszystko to nie byłoby możliwe, gdyby nie nasza globalna społeczność uczestników Zooniverse, zaangażowanych w te projekty wraz z zespołami badawczymi.",
+        "second": "Książki z cyklu „Into the Zooniverse” upamiętniają i honorują wysiłki wszystkich zaangażowanych, dając jedynie wgląd w to, jak członkowie społeczności Zooniverse mają realny wpływ na otaczający ich świat. Każda książka przedstawia podzbiór projektów, które były aktywne w danym roku."
+      },
+      "pictures": {
+        "first": "Zooniverse wyróżnia okładkę książki z 2019 roku",
+        "second": "Zooniverse wyróżnia okładkę książki z 2020 roku",
+        "third": "Zooniverse wyróżnia okładkę książki z 2021 roku"
+      },
+      "sidebar": "Przegląd najważniejszych wydarzeń",
+      "subheading": "Pamiątkowe projekty na przestrzeni lat",
+      "tip": "Nie czerpiemy żadnych zysków ze sprzedaży drukowanych egzemplarzy książek."
+    },
+    "howItWorks": {
+      "heading": "Jak to działa",
+      "participants": {
+        "description": "Jako uczestnik",
+        "link": "Przeglądaj projekty",
+        "steps": {
+          "first": "Znajdź projekt, który Cię interesuje",
+          "fourth": "Wygeneruj oficjalny certyfikat potwierdzający Twoje działania na platformie",
+          "second": "Poznaj proces klasyfikowania danego projektu",
+          "third": "Prześlij swoją klasyfikację i pomóż w prawdziwych badaniach!"
+        }
+      },
+      "researchers": {
+        "description": "Jako badacz",
+        "link": "Zbuduj projekt",
+        "steps": {
+          "first": "Zbuduj swój projekt za pomocą kreatora projektów Zooniverse",
+          "fourth": "Pobierz swoje dane i opublikuj wyniki!",
+          "second": "Prześlij swój projekt do zatwierdzenia",
+          "third": "Rozpocznij swój projekt i współpracuj z wolontariuszami na Talk, podczas gdy klasyfikacje będą napływać"
+        }
+      },
+      "subheading": "Badania oparte na sile ludzkiej"
+    },
+    "mobile": {
+      "altAppStore": "Pobierz w App Store",
+      "altImage": "Zdjęcie telefonu komórkowego z aplikacją Zooniverse",
+      "altPlayStore": "Pobierz w Google Play",
+      "description": "Zabierz ze sobą Zooniverse. Pobierz aplikację na urządzenia z systemem iOS i Android.",
+      "heading": "Wypróbuj naszą aplikację mobilną",
+      "sidebar": "Aplikacja mobilna",
+      "subheading": "Odkrywaj, nauczaj i ucz się – gdziekolwiek jesteś"
+    },
+    "ourMission": {
+      "discoveries": {
+        "first": "Galaktyki Zielonego Groszku",
+        "fourth": "Gwiazda Boyajiana",
+        "second": "Odkryto nowe egzoplanety",
+        "third": "Wcześniejsze użycie „White Lie”",
+        "tip": "Kliknij na dowolne odkrycie, aby uzyskać więcej informacji"
+      },
+      "heading": "Nasza misja",
+      "paragraphs": {
+        "first": "Zooniverse to największa i najpopularniejsza na świecie platforma badań naukowych, w których biorą udział ludzie. Badania te są możliwe dzięki wolontariuszom – milionom ludzi na całym świecie, którzy łączą siły, aby wspierać profesjonalnych badaczy. Naszym celem jest umożliwienie prowadzenia badań, które w inny sposób nie byłyby możliwe lub praktyczne. Badania Zooniverse przynoszą nowe odkrycia, zbiory danych przydatne szerszej społeczności naukowej oraz liczne <0>publikacje</0>.",
+        "fourth": "Wolontariusze i specjaliści wspólnie dokonują prawdziwych odkryć. Projekty Zooniverse są tworzone z myślą o przełożeniu wysiłków wolontariuszy na mierzalne rezultaty. W niektórych przypadkach wolontariusze Zooniverse dokonali nawet zupełnie nieoczekiwanych i znaczących odkryć. Znaczna część tych badań odbywa się na Talk, forach dyskusyjnych Zooniverse, gdzie wolontariusze współpracują z członkami zespołu badawczego i ze sobą nawzajem. Fora te są zintegrowane w ramach każdego projektu, co umożliwia zarówno szybkie hashtagowanie, jak i dogłębną, wspólną analizę. Istnieje również <0>centralne forum Zooniverse Talk</0>, przeznaczone do ogólnych rozmów i dyskusji na tematy związane z platformą. Zachęcamy wszystkich użytkowników do dołączenia do dyskusji na Talk, aby uzyskać bardziej szczegółowy udział.",
+        "second": "Nie potrzebujesz żadnego specjalistycznego wykształcenia, przeszkolenia ani wiedzy, aby uczestniczyć w projektach Zooniverse. Ułatwiamy każdemu udział w prawdziwych badaniach naukowych, na własnym komputerze, w dogodnym dla siebie czasie. Będziesz mógł studiować autentyczne dane zebrane przez badaczy, takie jak zdjęcia odległych galaktyk, zapisy historyczne i pamiętniki, a także filmy przedstawiające zwierzęta w ich naturalnym środowisku. Uczestnicząc w projektach, przyczynisz się do naszego zrozumienia świata, wszechświata i nie tylko. Dzięki naszemu szerokiemu i stale rozwijającemu się zestawowi projektów, obejmującym wiele dyscyplin i tematów z zakresu nauk ścisłych i humanistycznych, w Zooniverse każdy znajdzie miejsce dla siebie, by odkrywać, uczyć się i dobrze bawić. Aby zgłosić się jako wolontariusz, odwiedź <0>stronę Projektów</0>, wybierz projekt, który Ci się podoba i zacznij.",
+        "third": "Największym wyzwaniem badań XXI wieku jest radzenie sobie z zalewem informacji, które możemy teraz gromadzić o otaczającym nas świecie. Komputery mogą pomóc, ale w wielu dziedzinach ludzka zdolność rozpoznawania wzorców – i zdolność do bycia zaskoczonym – czyni nas lepszymi. Z pomocą wolontariuszy Zooniverse naukowcy mogą analizować swoje informacje szybciej i dokładniej niż byłoby to możliwe w innych okolicznościach, szybciej uzyskując ekscytujące wyniki. Twój wysiłek oszczędza czas i zasoby, rozwija możliwości komputerów w zakresie wykonywania tych samych zadań i prowadzi do szybszego postępu i zrozumienia świata. Nasze projekty łączą wkład wielu indywidualnych wolontariuszy, opierając się na <0>„mądrości tłumu”</0>, aby uzyskać wiarygodne i dokładne wyniki. Wiele osób analizujących dane często prowadzi do lepszych szacunków prawdopodobieństwa popełnienia błędu. Produkty projektów Zooniverse są często dokładnie tym, czego potrzeba do postępu w wielu dziedzinach badań."
+      },
+      "stats": {
+        "classifications": "Dotychczasowe klasyfikacje",
+        "volunteers": "Zarejestrowani wolontariusze"
+      },
+      "subheadings": {
+        "fifth": "Nasze projekty prowadzą do wielkich odkryć",
+        "first": "Mądrość tłumu",
+        "fourth": "Zooniverse działa",
+        "second": "Każdy może być badaczem",
+        "third": "Przyspieszamy ważne badania poprzez współpracę"
+      },
+      "video": "Krótkie wprowadzenie do Zooniverse"
+    },
+    "sidebarLabel": "Sekcja",
+    "title": "O Zooniverse"
+  },
+  "Article": {
+    "url": "Przeczytaj więcej"
+  },
+  "Collaborate": {
+    "paragraphs": {
+      "eighth": "Jeśli masz pytania lub potrzebujesz dalszych wskazówek, skontaktuj się z Cliffem Johnsonem, kierownikiem naukowym Zooniverse i łącznikiem z NASA: <0>cliff@zooniverse.org</0>.",
+      "fifth": "Jeśli są Państwo zainteresowani współpracą z nami w celu tworzenia niestandardowych narzędzi lub infrastruktury projektowej, prosimy o <0>kontakt z nami</0>.",
+      "first": "Czy Twoje badania skorzystałyby na zaangażowaniu tysięcy wolontariuszy? Zooniverse to największa i najskuteczniejsza na świecie platforma internetowa do badań crowdsourcingowych; mamy miliony zarejestrowanych wolontariuszy, którzy współpracują z profesjonalnymi badaczami nad projektami badawczymi z różnych dziedzin, od astronomii po nauki humanistyczne.",
+      "fourth": "W przypadkach, gdy narzędzia dostępne w <0>Kreatorze Projektów</0> nie do końca odpowiadają celom badawczym danego zespołu, badacze mogą rozważyć współpracę z Zooniverse w celu stworzenia nowych, niestandardowych narzędzi. Współpracujemy z tymi zespołami w zakresie ubiegania się o finansowanie wspierające proces badań, projektowania i rozwoju. Osoby, które wcześniej ubiegały się o dofinansowanie, wiedzą, że proces ten może być długotrwały. Po złożeniu wniosku o grant, uzyskanie informacji o powodzeniu lub niepowodzeniu naszych działań może zająć 6 miesięcy lub dłużej. Projekty finansowane zazwyczaj wymagają co najmniej 6 miesięcy na zaprojektowanie, zbudowanie i przetestowanie, w zależności od złożoności tworzonych funkcji. Następnie potrzebujemy dodatkowego czasu na ich uogólnienie (i często modyfikację) w celu uwzględnienia w zestawie narzędzi Kreatora Projektów.",
+      "nineth": "Ponad pół tuzina organizacji wykorzystało dotychczas inicjatywę Adler Zooniverse jako okazję do realizacji założeń społecznej odpowiedzialności biznesu. Udział w inicjatywie może spełnić wymagania dotyczące liczby godzin pracy dla pracowników, ukończenia studiów, uzyskania stypendiów itp. To wyjątkowa okazja dla wolontariuszy, którzy poświęcają czas na refleksję nad tym, jak ich wysiłki (oraz zbiorowe wysiłki społeczności) przyczyniają się do naszego zrozumienia świata i szerszego wszechświata. <0>Skontaktuj się z nami</0>, aby dowiedzieć się więcej o tej inicjatywie.",
+      "second": "Zespoły badawcze mogą tworzyć projekty Zooniverse na dwa sposoby.",
+      "seventh": "Niezależnie od tego, czy tworzysz już przepływy pracy za pomocą Kreatora Projektów, czy dopiero zastanawiasz się, jak crowdsourcing może pomóc w rozwoju Twoich badań, zespół Zooniverse dokłada wszelkich starań, aby wspierać zespoły podczas opracowywania i wdrażania projektów NASA. Z przyjemnością omówimy i wesprzemy wnioski w konkursach NASA na finansowanie obywatelskiej nauki (w tym w ramach programu Citizen Science Seed Funding Program, programu Citizen Science for Earth Systems Program i innych programów finansowania NASA ROSES) dla projektów zainteresowanych wykorzystaniem platformy Zooniverse.",
+      "sixth": "Czy jesteś badaczem pracującym nad projektem związanym z jednym z działów Dyrekcji Misji Naukowych NASA (astrofizyka, nauki biologiczne i fizyczne, heliofizyka i planetologia) i czy mógłbyś skorzystać z pomocy wolontariuszy Zooniverse? W ramach trwającej współpracy z NASA, Zooniverse dąży do kontynuacji dotychczasowego wsparcia dla zespołów badawczych NASA i wspierania rozwoju nowych projektów na naszej platformie.",
+      "third": "Zespoły mogą skorzystać z naszego darmowego narzędzia <0>Project Builder</0>, aby stworzyć własny projekt Zooniverse. Aby projekt mógł zostać publicznie uruchomiony i zaprezentowany na naszej stronie projektów, zespoły muszą przejść proces weryfikacji, aby upewnić się, że jest odpowiedni dla danej platformy i gotowy do uruchomienia. To najszybsza i najprostsza opcja tworzenia projektu Zooniverse. Więcej informacji na temat tego procesu, w tym szacowany harmonogram weryfikacji, można znaleźć w naszym <1>Najlepszych praktykach i schemacie blokowym przeglądu projektów</1>."
+    },
+    "subheadings": {
+      "fifth": "Możliwości społecznej odpowiedzialności biznesu",
+      "first": "Współpracuj z nami",
+      "fourth": "Zaproszenie do składania projektów",
+      "second": "Nasi zwolennicy",
+      "third": "Wybrani współpracownicy",
+      "tools": "Wybrane narzędzia"
+    },
+    "title": "Współpracować"
+  },
+  "Donate": {
+    "button": "Przekaż darowiznę już dziś",
+    "paragraphs": {
+      "first": "Zooniverse to projekt realizowany we współpracy między Planetarium Adler w Chicago, Uniwersytetem Oksfordzkim, Uniwersytetem Minnesoty – Twin Cities (UMN), setkami badaczy i milionami uczestników z całego świata. Zespoły Zooniverse w Adler, Oksfordzie i UMN obejmują kadrę kierowniczą, programistów stron internetowych, projektantów, kierownika ds. komunikacji, analityków danych i badaczy. To wyjątkowe połączenie wiedzy specjalistycznej w zakresie badań, zaangażowania społecznego i nowoczesnego tworzenia stron internetowych pozwala nam wspierać wspaniałą społeczność wolontariuszy i zaangażowanych zespołów badawczych korzystających z platformy Zooniverse. Znaczna część finansowania Zooniverse pochodzi z grantów, a także ze wsparcia instytucjonalnego ze strony Adler, Oksfordu i UMN.",
+      "second": "Jeśli chcesz wesprzeć Zooniverse, rozważ darowiznę na rzecz Planetarium Adlera, którą można odliczyć od podatku. Twój nieograniczony dar dla Planetarium Adlera pomoże naukowcom w dostępie do danych poprzez internetową naukę obywatelską, astronomom wprowadzi teleskopy do dzielnic w całym Chicago i okolicach, nastolatkom w przeprowadzeniu oryginalnych eksperymentów w kosmosie, a ludziom w każdym wieku umożliwi nawiązanie kontaktu pod gwiazdami.",
+      "third": "Aby przekazać darowiznę na stronie internetowej Adler Planetarium, kliknij poniższy link."
+    },
+    "subheading": "Wesprzyj Zooniverse",
+    "title": "Podarować"
+  },
+  "Educate": {
+    "articles": {
+      "first": {
+        "datePublished": "28 października 2022 r.",
+        "excerpt": "Istnieje pilna potrzeba opracowania materiałów dydaktycznych opartych na badaniach, umożliwiających aktywne uczenie się przedmiotów ścisłych (STEM) w ramach kursów online. Każdego roku setki tysięcy studentów kierunków nieścisłych zapisuje się na ogólnokształcące kursy astronomii, aby spełnić wymagania swoich uczelni w zakresie nauk humanistycznych. Projektując materiały dydaktyczne dla tej grupy uczniów, centralną kwestią jest...",
+        "title": "Nowy model opracowywania programów nauczania mający na celu poprawę umiejętności posługiwania się danymi i poczucia własnej skuteczności wśród studentów studiów licencjackich..."
+      },
+      "fourth": {
+        "datePublished": "29 kwietnia 2015",
+        "excerpt": "Dzisiejszy wpis na blogu pochodzi od Fran Wilson, nauczycielki drugiej klasy w szkole podstawowej Madeira. Fran stara się rozbudzać w swojej klasie zainteresowanie nauką i uświadamiać uczniom, że nie wszyscy naukowcy pracują w laboratoriach w białych fartuchach i okularach ochronnych. Fran dba o to, aby jej uczniowie mogli angażować się w pracę naukowców-obywateli, aby byli odpowiedzialni...",
+        "title": "Pływające lasy: nauka małych dzieci o wodorostach"
+      },
+      "heading": "W jaki sposób edukatorzy korzystają z Zooniverse?",
+      "second": {
+        "datePublished": "14 sierpnia 2019",
+        "excerpt": "„Wszyscy spróbujcie złapać tę samą galaktykę” – wykrzyknął chłopiec, wskazując na swoich kolegów z klasy. Sześcioro uczniów siedzących wokół stołu zaczęło przeciągać obraz galaktyki z centrum dużego ekranu dotykowego na swoje stanowiska pracy. Jest bardzo prawdopodobne, że ci uczniowie są pierwszymi osobami, które zobaczą tę galaktykę i zdecydują, jak ją sklasyfikować…",
+        "title": "Stół dotykowy U!Scientist i Galaxy Zoo w Adler Planetarium"
+      },
+      "third": {
+        "datePublished": "7 lutego 2018 r.",
+        "excerpt": "Jako nauczycielka przedmiotów społecznych, mam nadzieję, że moi uczniowie rozwiną w sobie docenianie samej dyscypliny historii. Zamiast kłaść nacisk na zapamiętywanie dat i nazwisk – rzeczy, które wypadają nam z pamięci, gdy tylko zapiszemy je na teście – moim celem jest zapoznanie uczniów z zawiłościami pracy zawodowej historyków. Ostatnio, w ósmej klasie, moja książka o starożytnym świecie...",
+        "title": "Uczniowie ósmej klasy w Missouri przepisują dokumenty dotyczące zniesienia niewolnictwa i poznają ruch abolicjonistyczny"
+      }
+    },
+    "buttons": {
+      "first": "Zasoby online",
+      "second": "Zooniverse w szkołach Dla dzieci w wieku 9-12 lat",
+      "third": "Zooniverse dla studentów"
+    },
+    "forEducators": {
+      "classrooms": "Poznaj klasy Zooniverse",
+      "heading": "Zasoby dla nauczycieli",
+      "paragraphs": {
+        "first": "Wyznaczaj kamienie milowe klasyfikacji, śledź wysiłki i świętuj zbiorowy wpływ. Przeczytaj nasze <0>ogłoszenie</0>, aby uzyskać więcej szczegółów.",
+        "second": "Każdy zespół projektowy może udostępniać dodatkowe zasoby edukacyjne, takie jak plany lekcji, samouczki wideo, linki do badań i inne. Koniecznie sprawdź zakładkę <0>Edukacja</0> w projekcie.",
+        "third": "Wsparcie dla studentów wypełniających godziny służby studenckiej w celu uzyskania stypendiów, spełnienia wymagań dotyczących ukończenia studiów i innych. Szczegóły znajdziesz w tym <0>wpisie na blogu</0>."
+      },
+      "subheadings": {
+        "first": "Statystyki grupy",
+        "second": "Możliwości edukacyjne specyficzne dla projektu",
+        "third": "Certyfikat wolontariusza"
+      }
+    },
+    "introduction": "Jesteś nauczycielem zainteresowanym wykorzystaniem Zooniverse w klasie? Świetnie! Miliony ludzi na całym świecie uczestniczą w około 100 aktywnych projektach, z których każdy oferuje wspierające i otwarte forum dyskusyjne, na którym naukowcy rozmawiają z publicznością na temat swoich badań i szerszych zainteresowań. Zooniverse to wspaniałe miejsce dla studentów.",
+    "subheading": "Edukacja w Zooniverse",
+    "takePart": {
+      "heading": "Weź udział w rozmowie",
+      "paragraph": "Bądź na bieżąco z najnowszymi działaniami edukacyjnymi Zooniverse na <0>blogu Zooniverse</0>. Możesz również dołączyć do dyskusji na naszym <1>forum dyskusyjnym poświęconym edukacji i Zooniverse</1>."
+    },
+    "title": "Kształcić"
+  },
+  "FAQ": {
+    "help": "Nie widzisz odpowiedzi na swoje pytanie? Odwiedź <0>stronę internetową Zooniverse Solutions</0>, zapytaj na <1>Zooniverse Talk</1> lub <2>skontaktuj się z nami</2>.",
+    "item0": {
+      "answer": "Ludzie są lepsi od komputerów w wielu zadaniach. W większości projektów Zooniverse komputery po prostu nie są wystarczająco dobre, aby wykonać wymagane zadanie lub mogą nie dostrzegać interesujących funkcji, które człowiek by dostrzegł – dlatego potrzebujemy Twojej pomocy. Niektóre projekty Zooniverse wykorzystują również klasyfikacje ludzkie, aby pomóc komputerom lepiej radzić sobie z tymi zadaniami badawczymi w przyszłości. Uczestnicząc w projekcie Zooniverse, przyczyniasz się do rzeczywistych badań.",
+      "question": "Dlaczego naukowcy potrzebują Twojej pomocy? Dlaczego komputery nie potrafią wykonać tych zadań?"
+    },
+    "item10": {
+      "answer": "Obsługujemy wszystkie najważniejsze przeglądarki, aż do przedostatniej wersji.",
+      "question": "Jaką wersję przeglądarki obsługuje Zooniverse?"
+    },
+    "item11": {
+      "answer0": "Niektóre tłumaczenia treści na poziomie platformy (tj. tekstu współdzielonego na wszystkich stronach Zooniverse, takiego jak etykiety menu, nagłówki, przyciski itp.) pochodzą od tłumaczy-wolontariuszy. Przetestowaliśmy jednak również tłumaczenia AI w niewielkiej liczbie języków <0>tylko dla tekstu na poziomie platformy</0>. Zdajemy sobie sprawę, że jakość tłumaczeń AI różni się w zależności od języka, co wiąże się z ryzykiem błędów w tłumaczeniach. Zachęcamy wolontariuszy do pomocy w podnoszeniu jakości tłumaczeń na naszej platformie.",
+      "answer1": "Należy pamiętać, że tłumaczeniem tekstów na poziomie projektu zajmują się zespoły badawcze, a każde tłumaczenie tekstów projektowych wygenerowane przez sztuczną inteligencję powinno zostać ujawnione przez zespół, zgodnie z naszymi <0>Ramami Etyki Sztucznej Inteligencji</0>. Dodatkowe informacje na temat tłumaczeń w Zooniverse można znaleźć na stronie <1>https://help.zooniverse.org/next-steps/translations</1>.",
+      "question": "Co powinienem zrobić, jeśli zauważę, że tłumaczenia na poziomie platformy są nieprawidłowe?"
+    },
+    "item1": {
+      "answer": "W przypadku większości tematów prezentowanych w projektach Zooniverse badacze nie znają prawidłowej odpowiedzi i dlatego potrzebują Twojej pomocy. Ludzie są naprawdę dobrzy w rozpoznawaniu wzorców, więc zazwyczaj Twoja pierwsza odpowiedź jest prawdopodobnie prawidłowa. Nie martw się zbytnio o popełnienie błędu – każdy obraz, film lub wykres w projekcie będzie sprawdzany przez więcej niż jedną osobę. Większość projektów Zooniverse posiada przycisk Pomoc, stronę z często zadawanymi pytaniami (FAQ) oraz przewodnik terenowy z dodatkowymi informacjami, które pomogą Ci w klasyfikacji.",
+      "question": "Jak mogę sprawdzić, czy robię to dobrze?"
+    },
+    "item2": {
+      "answer": "Twoje klasyfikacje są przechowywane w bezpiecznej internetowej bazie danych Zooniverse. Zespoły badawcze projektu pobierają dane klasyfikacyjne swojego projektu i łączą liczne zgłoszenia, aby utworzyć „ostateczną” odpowiedź dla każdego tematu. Po przesłaniu klasyfikacji dla danego tematu nie można jej edytować. Informacje na temat własności danych można znaleźć na stronie <0>Umowa użytkownika i Polityka prywatności Zooniverse</0>.",
+      "question": "Co stanie się z moją klasyfikacją po jej przesłaniu?"
+    },
+    "item3": {
+      "answer": "Tak. Wejdź na zooniverse.org, zaloguj się, kliknij „Więcej statystyk”, a następnie kliknij przycisk „Wygeneruj certyfikat wolontariusza” w prawym dolnym rogu wykresu słupkowego statystyk. Następnie zapisz lub wydrukuj swój certyfikat! Dowiedz się więcej <0>tutaj</0>.",
+      "question": "Czy mogę pobrać certyfikat wolontariatu? Czy mogę użyć Zooniverse do spełnienia wymagań programu Service Learning?"
+    },
+    "item4": {
+      "answer": "Metadane klasyfikacji są przechowywane w naszej bazie danych ze znacznikami czasu UTC, a usługa statystyczna agreguje dane klasyfikacji w kategorie według zakresów dat UTC. Wszystkie statystyki są wyświetlane spójnie w zakresach dat UTC.",
+      "question": "Dlaczego statystyki są wyświetlane w strefie czasowej UTC?"
+    },
+    "item5": {
+      "answer": "Zooniverse bardzo poważnie traktuje ochronę danych osobowych i danych klasyfikacyjnych naszych wolontariuszy. Szczegółowe informacje na temat tych działań można znaleźć na stronie <0>Umowa użytkownika i polityka prywatności Zooniverse</0> oraz na stronie <1>Bezpieczeństwo Zooniverse</1>.",
+      "question": "Co Zooniverse robi z informacjami z mojego konta?"
+    },
+    "item6": {
+      "answer": "Możesz publikować swoje sugestie dotyczące nowych funkcji i zgłaszać błędy na forum <0>Zooniverse Talk</0>, zgłaszając problem w odpowiednim <1>repozytorium Github</1> lub <2>skontaktuj się z nami</2>.",
+      "question": "Mam prośbę o dodanie funkcji lub znalazłem błąd. Z kim mam się skontaktować i jak mogę to zgłosić?"
+    },
+    "item7": {
+      "answer": "Zooniverse to współpraca między instytucjami z Wielkiej Brytanii i Stanów Zjednoczonych; cały nasz zespół jest zatrudniony w jednej z tych instytucji partnerskich. Odwiedź <0>stronę z ofertami pracy w Zooniverse</0>, aby dowiedzieć się więcej o możliwościach zatrudnienia w Zooniverse.",
+      "question": "Czy Zooniverse rekrutuje?"
+    },
+    "item8": {
+      "answer0": "Zooniverse to platforma badań opartych na pracy ludzi, a nie podmiot, firma ani organizacja non-profit. Jesteśmy współpracą wielu instytucji.",
+      "answer1": "Planetarium Adler w Chicago, jedna z instytucji goszczących zespół Zooniverse, jest organizacją typu 501(c)(3). Osoby lub organizacje, które muszą wyraźnie podać link do organizacji typu 501(c)(3) w ramach swoich działań wolontariackich, korzystają z Planetarium Adler jako źródła informacji. Dokumentacja statusu 501(c)(3) Planetarium Adler znajduje się <0>tutaj</0>, a numer EIN Planetarium Adler to 36-6210902. Wpisując nazwę organizacji, prosimy o użycie, jeśli to możliwe, nazwy „Adler Planetarium - Zooniverse”. Jeśli to niemożliwe, prosimy o użycie nazwy „Adler Planetarium” (która odpowiada numerowi EIN). W każdym przypadku wolontariat będzie realizowany za pośrednictwem witryny Zooniverse.org.",
+      "answer2": "Aby uzyskać informacje na temat przekazywania darowizn, odwiedź naszą <0>stronę poświęconą darowiznom.</0>",
+      "question": "Czy Zooniverse jest organizacją non-profit?"
+    },
+    "item9": {
+      "answer": "Więcej szczegółów na temat cytowania Zooniverse w publikacjach naukowych z wykorzystaniem danych uzyskanych dzięki narzędziu Zooniverse Project Builder znajdziesz na naszej <0>stronie Zasoby</0>.",
+      "question": "Jestem właścicielem projektu/członkiem zespołu badawczego. W jaki sposób mogę wspomnieć o Zooniverse i platformie Project Builder w swoim artykule, streszczeniu wystąpienia itp.?"
+    },
+    "title": "Często zadawane pytania"
+  },
+  "Home": {
+    "Community": {
+      "feedOne": "Codzienny Zooniverse",
+      "feedTwo": "Blog Zooniverse",
+      "heading": "Społeczność Zooniverse",
+      "seeAll": "Zobacz wszystkie posty",
+      "subheading": "Co się dzieje?"
+    },
+    "DefaultHome": {
+      "FeaturedProjects": {
+        "heading": "Wyróżnione projekty",
+        "none": "Brak wyróżnionych projektów"
+      },
+      "Introduction": {
+        "description1": "Zooniverse to największa na świecie platforma do badań prowadzonych przez ludzi. Łączymy profesjonalnych badaczy z milionami wolontariuszy z całego świata. Ułatwia uzyskanie wiarygodnych wyników, gdy samodzielne przeprowadzenie badań jest niemożliwe. Jak dotąd pozwoliła na wiele nowych odkryć, na stworzenie różnych przepisów i publikacji naukowych.",
+        "description2": "Naszą platformą kierują wolontariusze, tacy jak Ty. Zapraszamy osoby w każdym wieku i o różnym pochodzeniu, nie jest wymagany doktorat — wystarczy odrobina zachwytu i kilka kliknięć. Wiele z najciekawszych odkryć z projektów Zooniverse powstało dzięki dyskusji wolontariuszy z badaczami. Dołącz do nas już dziś, aby wziąć udział w nowatorskich badaniach i dokonać własnych odkryć!",
+        "register": "Zarejestruj się",
+        "signIn": "Zaloguj się",
+        "video": "Krótkie wprowadzenie do Zooniverse"
+      },
+      "Researchers": {
+        "build": "Tworzenie projektu",
+        "description": "Od klasyfikowania zwierząt, poprzez odkrywanie egzoplanet, aż po przepisywanie dokumentów historycznych i wiele więcej. Badacze z różnych dyscyplin korzystali z Project Builder w celu stworzenia angażujących, przystępnych projektów. Każdy może utworzyć projekt w Zooniverse. Po prostu prześlij swoje dane, wybierz zadania, które chcesz, aby wykonali wolontariusze, i dołącz do naszej inkluzywnej i gościnnej społeczności online, zaangażowanej w prawdziwe badania."
+      },
+      "headings": {
+        "first": "Czym jest Zooniverse?",
+        "fourth": "Sprawdź naszą aplikację mobilną",
+        "second": "Wyróżnione projekty",
+        "third": "Prawdziwi badacze, prawdziwe wyniki"
+      },
+      "heroText": "Dołącz do milionów ludzi, którzy pomagają prowadzić badania, rozwijać naukę i poszerzać wiedzę.",
+      "mainHeading": "Badania prowadzone przez ludzi",
+      "projects": "Przeglądaj projekty",
+      "subheadings": {
+        "first": "Mądrość tłumu",
+        "fourth": "Odkrywaj, nauczaj i ucz się – gdziekolwiek jesteś",
+        "second": "Zooniverse działa",
+        "third": "Poznaj badaczy, którzy stworzyli projekty w Zooniverse"
+      }
+    }
+  },
+  "OurTeam": {
+    "description": "Ludzie tworzący Zooniverse.",
+    "sidebarLabel": "Instytucja",
+    "title": "Nasz zespół"
+  },
+  "Projects": {
+    "disciplines": {
+      "all": "Wszystkie dyscypliny",
+      "arts": "Sztuka",
+      "biology": "Biologia",
+      "climate": "Klimat",
+      "history": "Historia",
+      "language": "Język",
+      "literature": "Literatura",
+      "medicine": "Medycyna",
+      "nature": "Natura",
+      "physics": "Fizyka",
+      "social": "Nauki społeczne",
+      "space": "Przestrzeń"
+    },
+    "languages": {
+      "label": "Filtruj projekty według dostępnych tłumaczeń"
+    },
+    "organizations": {
+      "description": "Organizacje łączą wiele powiązanych ze sobą projektów Zooniverse, ułatwiając uczestnikom zapoznawanie się z powiązanymi ze sobą działaniami badawczymi.",
+      "heading": "Organizacje",
+      "none": "Nie znaleziono organizacji."
+    },
+    "projects": {
+      "description": "<0>Witamy! Cieszymy się, że tu jesteś.</0> Przewiń w dół, aby przejrzeć wszystkie nasze aktywne projekty, wyszukać konkretny projekt lub filtrować projekty według swoich zainteresowań. Baw się dobrze i udanego klasyfikowania!",
+      "empty": {
+        "clear": "Zresetuj filtry",
+        "status": "Czasami projekt może tymczasowo nie mieć danych lub może zostać ukończony! Spróbuj wyszukać <0>Dowolny status projektu</0>"
+      },
+      "error": "Wystąpił błąd podczas pobierania projektów.",
+      "heading": "Wszystkie projekty",
+      "none": "Nie znaleziono projektów",
+      "showingNum": "{{zakres}} z {{całkowitej liczby}} projektów"
+    },
+    "search": {
+      "placeholder": "Wyszukaj projekty",
+      "warning": "Tekst wyszukiwania musi mieć co najmniej 5 liter"
+    },
+    "sortBy": {
+      "label": "Sortuj według",
+      "mostActive": "Najbardziej aktywny",
+      "mostPopular": "Najpopularniejsze",
+      "nameAZ": "Nazwa A - Z",
+      "nameZA": "Imię Z - A",
+      "newest": "Najnowsze",
+      "oldest": "Najstarszy"
+    },
+    "status": {
+      "active": "Aktywny",
+      "all": "Dowolny status",
+      "finished": "Gotowy",
+      "label": "Filtruj projekty według statusu",
+      "paused": "Wstrzymano"
+    }
+  },
+  "Publications": {
+    "description": "Lista publikacji naukowych wykorzystujących dane wygenerowane przez Zooniverse.",
+    "formInfo": "Staramy się publikować linki do opublikowanych artykułów, do których dostęp ma opinia publiczna. Artykuły zaakceptowane do publikacji, ale jeszcze nieopublikowane, również są dozwolone.",
+    "formInstruction": "Aby przesłać nową publikację lub zaktualizować istniejącą, ",
+    "formLabel": "proszę użyć tego formularza",
+    "sidebarLabel": "Dyscyplina",
+    "title": "Publikacje"
+  },
+  "ResetPassword": {
+    "CommitResetForm": {
+      "body": "Wpisz hasło dwukrotnie, aby je potwierdzić, a następnie będziesz mógł wrócić do pomagania w prawdziwych badaniach.",
+      "infoConfirmation": "Oba pola muszą być zgodne",
+      "infoPassword": "Minimum 8 znaków",
+      "inputConfirmation": "Potwierdź nowe hasło",
+      "inputPassword": "Nowe hasło",
+      "status": {
+        "errorInvalidInput": "Błąd: nieprawidłowe dane wejściowe",
+        "errorPasswordsDoNotMatch": "Błąd: hasła nie są takie same, spróbuj ponownie.",
+        "success": "Twoje hasło zostało zmienione! Za kilka sekund zostaniesz przekierowany na <0>stronę logowania</0>. Użyj nowego hasła."
+      },
+      "submit": "Składać",
+      "titleForInputPattern": "Minimum 8 znaków"
+    },
+    "NoAccessMessage": {
+      "body": "Jesteś obecnie zalogowany. Wyloguj się, jeśli chcesz zresetować hasło."
+    },
+    "RequestResetForm": {
+      "body": "Podaj swój adres e-mail, a my wyślemy Ci link umożliwiający zresetowanie hasła.",
+      "footer": "Jeśli e-mail z resetem nie dotarł, sprawdź folder ze spamem. Jeśli go tam nie ma, spróbuj innego adresu e-mail, którego mogłeś użyć do dołączenia do Zooniverse.",
+      "inputEmail": "Adres e-mail",
+      "status": {
+        "errorTooManyRequests": "Błąd: zbyt wiele próśb o zresetowanie hasła. Spróbuj ponownie później.",
+        "success": "Właśnie wysłaliśmy wiadomość e-mail z linkiem umożliwiającym zresetowanie hasła."
+      },
+      "submit": "Wysłać"
+    },
+    "common": {
+      "header": "Zresetuj hasło"
+    }
+  },
+  "Resources": {
+    "brand": {
+      "heading": "Zasoby marki",
+      "links": {
+        "first": "Pobierz oficjalne loga Zooniverse",
+        "fourth": "Storybook – nasze zakodowane komponenty używane na stronie",
+        "second": "Pobierz materiały do ​​druku, szablony prezentacji i obrazy projektów",
+        "third": "Zooniverse Design System – nasze style, kolory marki i zasady typografii"
+      }
+    },
+    "cite": {
+      "heading": "Jak cytować Zooniverse",
+      "paragraphs": {
+        "fifth": "Pisząc o Zooniverse ogólnie, prosimy o umieszczenie w tekście artykułu odnośnika lub adresu URL do strony głównej Zooniverse.",
+        "first": "Zgodnie z <0>Zasadami Zooniverse Project Builder</0>, wszystkie publikacje badawcze wykorzystujące dane pochodzące z projektów Zooniverse powinny zawierać informację o Zooniverse i platformie Project Builder, a należy to zrobić za pomocą następującego tekstu:",
+        "fourth": "Pisząc w prasie o konkretnych projektach Zooniverse, prosimy o podanie odnośnika lub adresu URL do projektu, zarówno w wydaniu drukowanym, jak i cyfrowym.",
+        "second": "Zdecydowanie zachęcamy właścicieli projektów do zgłaszania zaakceptowanych i opublikowanych publikacji badawczych wykorzystujących dane wygenerowane przez Zooniverse, wypełniając <0>ten formularz</0>. Aktualną listę publikacji będących rezultatem projektów Zooniverse i powiązanych badań można znaleźć na naszej <1>stronie Publikacje</1>.",
+        "sixth": "Jeśli jesteś zainteresowany przeprowadzeniem wywiadu z członkiem zespołu Zooniverse, prosimy o <0>kontakt z nami</0>.",
+        "third": "Jeśli masz pytania dotyczące sposobu potwierdzania obecności w Zooniverse, na przykład dotyczące odniesienia się do konkretnej osoby lub kodu niestandardowego, <0>skontaktuj się z nami</0>."
+      },
+      "quote": "W niniejszej publikacji wykorzystano dane wygenerowane za pośrednictwem platformy <0>Zooniverse.org</0>, której rozwój jest finansowany dzięki hojnemu wsparciu, w tym nagrodzie Global Impact Award od Google i grantowi od Fundacji Alfreda P. Sloana.",
+      "subheadings": {
+        "first": "Dla badaczy",
+        "second": "Dla mediów"
+      }
+    },
+    "title": "Zasoby"
+  },
+  "Settings": {
+    "AccountSettings": {
+      "title": "Konto"
+    },
+    "EmailSettings": {
+      "title": "E-mail"
+    },
+    "ProfileSettings": {
+      "title": "Profil"
+    },
+    "common": {
+      "backHome": "Powrót do domu",
+      "sidebar": "Ustawienia",
+      "title": "Ustawienia użytkownika"
+    },
+    "forms": {
+      "fields": {
+        "credited_name": {
+          "help": "Tę nazwę będziemy stosować w celu uwzględnienia podziękowań w publikacjach, na plakatach, w certyfikatach wolontariatu i innych materiałach.",
+          "label": "Prawdziwe imię"
+        },
+        "display_name": {
+          "help": "Jak Twoje imię i nazwisko będzie widoczne dla innych na platformie.",
+          "label": "Nazwa wyświetlana"
+        }
+      },
+      "optional": "Fakultatywny",
+      "save": "Zmiana",
+      "saveSuccess": "Zmiany zapisane.",
+      "saveUnnecessary": "Brak zmian do zapisania."
+    }
+  },
+  "Sidebar": {
+    "all": "Wszystko"
+  },
+  "Unsubscribe": {
+    "form": {
+      "body": {
+        "p1": "Rozumiemy to — nikt nie lubi otrzymywać niechcianych wiadomości e-mail.",
+        "p2": "Wystarczy, że wpiszesz tutaj swój adres e-mail, a wypiszemy Cię ze wszystkich naszych list e-mailowych."
+      },
+      "errors": {
+        "general": "Coś poszło nie tak. Sprawdź adres e-mail i spróbuj ponownie."
+      },
+      "header": "Zrezygnuj z subskrypcji wszystkich wiadomości e-mail od Zooniverse, z wyjątkiem Talk.",
+      "inputEmail": "Adres e-mail",
+      "submit": "Składać"
+    },
+    "processed": {
+      "body": "Jeśli zmienisz zdanie, przejdź do ustawień konta, aby <0>zaktualizować preferencje e-mailowe</0>.",
+      "header": "Anulowanie subskrypcji powiodło się"
+    }
+  },
+  "Volunteer": {
+    "beta": {
+      "button": "Zarejestruj się na testowanie",
+      "heading": "Testowanie beta",
+      "paragraphs": {
+        "first": "Jeśli jesteś już wolontariuszem i chcesz przekazać nam dodatkowe informacje zwrotne, rozważ zostanie beta testerem. Beta testerzy to wolontariusze Zooniverse, którzy pomagają nam testować projekty przed ich publicznym uruchomieniem i przekazują informacje zwrotne zespołom badawczym, pomagając nam w ich ulepszaniu. Beta testerzy zgłaszają klasyfikacje testów w projektach i przekazują zespołom swoje opinie za pośrednictwem krótkiej ankiety.",
+        "second": "Ten proces pomaga nam identyfikować wszelkie problemy w projektach, a nawet oceniać, czy dany projekt jest odpowiedni dla Zooniverse. Twoja opinia jest dla nas niezwykle ważna! Nasze wytyczne dotyczące tego, co czyni projekt odpowiednim, znajdziesz na stronie <0>Zasady laboratorium</0>.",
+        "third": "Rejestracja jako tester wersji beta jest prosta i każdy może to zrobić. Wystarczy przejść do <0>ustawień</0> i zaznaczyć pole „Otrzymuj aktualizacje e-mailowe dotyczące projektów beta i zostań testerem wersji beta”. Będziemy wysyłać Ci e-maile, gdy projekty będą gotowe do testowania. Możesz zmienić ustawienia e-mail i zrezygnować z subskrypcji e-maili dotyczących wersji beta w dowolnym momencie, odwiedzając tę ​​samą stronę e-mail i odznaczając pole."
+      }
+    },
+    "classify": {
+      "heading": "Klasyfikuj projekty",
+      "paragraphs": {
+        "first": "Wolontariat w projekcie to najłatwiejszy i najpopularniejszy sposób uczestnictwa. Zawsze potrzebujemy wolontariuszy do pomocy w klasyfikacji danych projektu. Nie ma minimalnego limitu czasowego; możesz poświęcić tyle czasu, ile chcesz.",
+        "second": "Aby zacząć, wejdź na stronę główną <0>Zooniverse</0> i załóż konto."
+      }
+    },
+    "howTo": {
+      "heading": "Jak zostać wolontariuszem",
+      "paragraph": "Chcesz zostać wolontariuszem? To proste: wystarczy zacząć klasyfikować! Każdy, kto angażuje się w projekt Zooniverse, jest wolontariuszem. Mamy wspaniałą, globalną społeczność wolontariuszy, którzy „napędzają” nasze badania oparte na pracy ludzi. Jesteś już wolontariuszem i chcesz zrobić więcej? Rozważ zostanie beta testerem lub pomóż zespołom projektowym, zostając moderatorem dyskusji. Aby dowiedzieć się więcej o tych rolach, czytaj dalej."
+    },
+    "moderate": {
+      "heading": "Moderuj projekt",
+      "paragraphs": {
+        "first": "Wolontariusze-moderatorzy pomagają zespołom badawczym w korzystaniu z narzędzia dyskusyjnego Talk w projekcie. Pomagają moderować dyskusje, pełnią funkcję punktu kontaktowego dla projektu i posiadają dodatkowe uprawnienia w Talk. Moderatorzy są wybierani przez właściciela projektu. Jeśli chcesz zostać moderatorem w projekcie, w którym bierzesz udział, przejdź na stronę „O projekcie” lub tablicę Talk i skontaktuj się z badaczem. Więcej informacji znajdziesz w dokumentacji <0>„Do czego służą moderatorzy?”</0>.",
+        "second": "Jeśli chcesz uzyskać więcej informacji na temat którejkolwiek z tych ról, <0>skontaktuj się z nami</0>."
+      }
+    },
+    "register": {
+      "button": "Zarejestruj się już dziś",
+      "heading": "Korzyści z rejestracji w Zooniverse",
+      "paragraphs": {
+        "fifth": "Przetłumaczone wersje strony rejestracyjnej są dostępne w języku <0>hiszpańskim</0> i <1>francuskim</1>. Należy pamiętać, że nie wszystkie elementy na stronie mogą być tłumaczone.",
+        "first": "Śledź swoje klasyfikacje, godziny i inne dane. Odkryj swoje ulubione projekty i obserwuj trendy. Następnie wyeksportuj dane, aby uzyskać jeszcze więcej możliwości.",
+        "fourth": "W przypadku osób poniżej 16. roku życia rejestrację musi potwierdzić rodzic/opiekun. Bezpośredni link do rejestracji znajduje się pod adresem <0>https://www.zooniverse.org/accounts/register</0>.",
+        "second": "Wygeneruj oficjalny certyfikat potwierdzający Twoje działania na platformie Zooniverse. Wystarczy podać okres lub projekt.",
+        "third": "Zarejestrowani użytkownicy mogą zamieszczać wpisy na forach dyskusyjnych dotyczących konkretnych projektów i całego Zooniverse, co daje możliwość zadawania pytań prawdziwym ekspertom."
+      },
+      "subheadings": {
+        "first": "Statystyki osobiste",
+        "second": "Certyfikat wolontariusza",
+        "third": "Porozmawiaj z innymi wolontariuszami i ekspertami"
+      }
+    },
+    "title": "Wolontariusz",
+    "translate": {
+      "heading": "Przetłumacz projekt",
+      "paragraphs": {
+        "first": "Wolontariusze-tłumacze pomagają zespołom badawczym w tłumaczeniu projektów Zooniverse z języka angielskiego na inne języki, wspierając naszą globalną społeczność wolontariuszy. Tłumacze projektów współpracują bezpośrednio z zespołami projektowymi, aby zostać dodanymi do ich projektu jako tłumacze. Po uzyskaniu dostępu do strony internetowej z tłumaczeniami na poziomie projektu mogą wprowadzać tłumaczenia dla każdej jego sekcji.",
+        "second": "Zapraszamy również wolontariuszy do pomocy w poprawianiu generowanych przez sztuczną inteligencję tłumaczeń treści na poziomie platformy, czyli tekstów współdzielonych we wszystkich projektach, takich jak etykiety menu, nagłówki, przyciski itd. Treści te <0>nie</0> są specyficzne dla danego projektu i są zarządzane i utrzymywane przez zespół Zooniverse.",
+        "third": "Jeśli jesteś zainteresowany wolontariatem w charakterze tłumacza projektu lub pomocą w edycji tłumaczeń na poziomie platformy, <0>skontaktuj się z nami</0>."
+      }
+    }
+  }
+}

@@ -7,6 +7,7 @@ import fetchProjectPageTitles from '@helpers/fetchProjectPageTitles'
 import fetchTranslations from '@helpers/fetchTranslations'
 import fetchWorkflowStatsHelper from './fetchWorkflowStatsHelper'
 import initStore from '@stores'
+import organizationsToMap from '@stores/organizationsToMap'
 
 const environment = process.env.APP_ENV
 
@@ -94,7 +95,7 @@ export default async function getProjectStatsPageProps({ locale, params }) {
     language,
     env
   )
-  applySnapshot(store.organizations, linkedOrganizations)
+  applySnapshot(store.organizations, organizationsToMap(linkedOrganizations))
 
   /*
     Snapshot for store hydration in the browser via _app.jsx

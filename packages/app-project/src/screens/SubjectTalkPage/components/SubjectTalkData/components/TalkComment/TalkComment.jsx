@@ -5,7 +5,7 @@ import { useTranslation } from 'next-i18next/pages'
 import styled from 'styled-components'
 
 import addQueryParams from '@helpers/addQueryParams'
-import Avatar from './components/Avatar'
+import Avatar from '@shared/components/Avatar'
 import Role from './components/Role'
 
 const markdownComponents = {

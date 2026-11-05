@@ -1,0 +1,733 @@
+{
+  "404": {
+    "Default404": {
+      "findNewProject": "Tìm một dự án mới để khám phá",
+      "heading": "Không có gì ở đây cả.",
+      "message": "Trang bạn đang tìm kiếm không còn tồn tại nữa.",
+      "returnHome": "Trở lại trang chủ"
+    }
+  },
+  "AIEthics": {
+    "about": {
+      "acknowledgements": {
+        "heading": "Lời cảm ơn",
+        "paragraph": "Nhóm Zooniverse xin được ghi nhận sự tham gia của những người sau đây vào các buổi hội thảo trực tuyến, góp phần dẫn đến việc xây dựng các khuyến nghị này:"
+      },
+      "advisors": {
+        "heading": "Cố vấn dự án"
+      },
+      "funding": {
+        "heading": "Tài trợ",
+        "paragraph": "Công trình này được hỗ trợ bởi Quỹ Kavli, mã số tài trợ SS-2025-GR-05-3064."
+      },
+      "paragraphs": {
+        "first": "Trong 15 năm qua, các nhóm nghiên cứu đã tích hợp học máy (ML) vào nhiều dự án Zooniverse ở các giai đoạn khác nhau. Hiện nay, khoảng một phần ba số dự án Zooniverse đang hoạt động đều tích hợp học máy theo một cách nào đó. Khi các công nghệ này trưởng thành và nhận thức của công chúng về sự tồn tại của chúng ngày càng tăng, phản hồi gần đây từ các tình nguyện viên Zooniverse đã nêu bật nhu cầu về sự minh bạch hơn liên quan đến việc sử dụng 'AI' trên nền tảng của chúng tôi. Chúng tôi đã tìm cách giải quyết những lo ngại này bằng cách thiết lập một khuôn khổ rõ ràng, tiêu chuẩn hóa cho việc triển khai AI/ML một cách có đạo đức trong các dự án Zooniverse, đảm bảo rằng các nhà nghiên cứu có thể truyền đạt hiệu quả phương pháp luận của họ trong khi vẫn duy trì được sự tin tưởng và hợp tác của cộng đồng tình nguyện viên. Với nguồn tài trợ từ Quỹ Kavli, chúng tôi đã tạo ra khuôn khổ đạo đức AI/ML đầu tiên dành cho Zooniverse, được ra mắt vào năm 2026. Khuôn khổ đó được trình bày ở đây và sẽ được cập nhật hàng năm khi cần thiết.",
+        "fourth": "Kết quả bao gồm: các nguyên tắc chính đóng vai trò là khuôn khổ và tóm tắt các mục tiêu tổng thể; các khuyến nghị về các hành động nội bộ mà nền tảng Zooniverse sẽ thực hiện để hỗ trợ các khuyến nghị dành cho các nhóm dự án; và các khuyến nghị dành cho các nhóm dự án khi tích hợp AI/ML vào các dự án Zooniverse.",
+        "second": "Để phát triển khuôn khổ này, chúng tôi đã tổ chức một loạt các hội thảo trực tuyến với sự tham gia của các chuyên gia về lĩnh vực này, ban lãnh đạo Zooniverse, các trưởng dự án, các nhà nghiên cứu bên ngoài và các tình nguyện viên. Các hội thảo được tổ chức xuyên suốt năm 2025 và tập trung vào bốn chủ đề chính: thiết lập các thực tiễn tốt nhất về tính minh bạch và truyền thông; xác định các phương pháp tiếp cận đạo đức đối với học máy nhằm cân bằng rủi ro và cơ hội; làm sâu sắc thêm sự hiểu biết theo ngữ cảnh của chúng ta về các phương pháp tiếp cận đạo đức này; và xem xét các thách thức của việc bảo vệ dữ liệu ở khâu tiếp theo.  ",
+        "third": "Để thu thập ý kiến ​​từ nhiều người hơn ngoài những người có thể trực tiếp tham gia các buổi hội thảo, chúng tôi đã gửi khảo sát đến toàn bộ cộng đồng Zooniverse. Kết quả từ các khảo sát đó đã định hình hướng chiến lược của chúng tôi. Sau mỗi buổi hội thảo, một nhóm nhỏ hơn đã họp lại để chuyển tải các cuộc thảo luận thành các chủ đề chính và kết quả có thể hành động được. Kết quả được chia sẻ với tất cả những người tham gia hội thảo, những người có cơ hội đưa ra phản hồi, chỉnh sửa và bổ sung."
+      },
+      "projectTeamList": {
+        "coord": "Điều phối viên dự án",
+        "eval": "Người điều phối và người đánh giá",
+        "heading": "Nhóm dự án",
+        "pi": "Trưởng nhóm nghiên cứu",
+        "ra": "Trợ lý nghiên cứu"
+      }
+    },
+    "actions": {
+      "first": "<0>Áp dụng hoặc điều chỉnh</0><1>phương thức tiêu chuẩn để mô tả việc sử dụng AI/ML</1> <0>(phù hợp với ngôn ngữ hiện hành hoặc phân loại hiện có) trong nền tảng Zooniverse.</0> Nhiều khuyến nghị khác được đề xuất phụ thuộc vào việc phát triển và triển khai phân loại này, bao gồm các phương pháp về tính minh bạch, quyền tự chủ và tín hiệu nhất quán.",
+      "fourth": "<0>Đánh giá chính sách hàng năm bởi đội ngũ lãnh đạo Zooniverse.</0> Thiết lập một tần suất thường xuyên để đánh giá và/hoặc cập nhật các nguồn lực này, ví dụ như hàng năm. Chúng tôi cam kết thực hiện đánh giá hàng năm và sẽ đăng bài viết trên blog hoặc bản cập nhật bằng văn bản khác trùng với bất kỳ cập nhật nào được thực hiện đối với khuôn khổ này như một phần của quá trình đánh giá.",
+      "second": "<0>Hãy dành một trang trên trang web Zooniverse cho thông tin và tài nguyên liên quan đến AI/ML và việc sử dụng chúng trên Zooniverse.</0> Đây chính là trang đó! Trang này chứa đựng phần phân loại ở trên, các khuyến nghị của nhóm dự án, cũng như thêm thông tin về cách công nghệ này được (và đã được) sử dụng trên Zooniverse, những lợi ích và mối lo ngại, và cách nhận biết khi một dự án đang sử dụng nó.",
+      "third": "<0>Tích hợp các hướng dẫn vào quy trình đánh giá dự án nội bộ của Zooniverse.</0> Kể từ khi trang này được ra mắt, quy trình đánh giá nội bộ của chúng tôi đã được cập nhật để phản ánh các khuyến nghị được liệt kê ở đây. Điều này sẽ đảm bảo thực tiễn tiêu chuẩn cho các trưởng dự án chia sẻ thông tin về bất kỳ cam kết nào liên quan đến việc sử dụng AI/ML và quản trị dữ liệu trong dự án, để đảm bảo các tình nguyện viên tiềm năng có quyền truy cập vào thông tin này."
+    },
+    "faq": {
+      "first": {
+        "answer": "Không. Các nhà nghiên cứu đến với Zooniverse vì họ muốn có sự tham gia của con người vào quy trình của mình. Trừ khi được cho phép rõ ràng, các tình nguyện viên không nên sử dụng các công cụ AI tạo sinh bên ngoài Zooniverse để hỗ trợ nỗ lực phân loại của họ.",
+        "question": "Tôi là tình nguyện viên và cần trợ giúp phân loại trong một dự án. Tôi có thể sử dụng các công cụ AI tạo sinh như ChatGPT hoặc Gemini để hỗ trợ không?"
+      },
+      "paragraph": "Không thấy câu hỏi của bạn được trả lời ở đây? Hãy gửi câu hỏi của bạn cho chúng tôi tại <0>contact@zooniverse.org</0>! Chúng tôi sẽ cập nhật danh sách này khi cần thiết.",
+      "second": {
+        "answerOne": "Hãy bắt đầu bằng cách xem lướt qua trang chủ dự án, đặc biệt là phần Mô tả Dự án và bất kỳ Mô tả Quy trình làm việc nào. Nếu bạn vẫn chưa chắc chắn, hãy xem trang Giới thiệu, cũng như các Hướng dẫn của dự án. Nếu sau đó bạn vẫn chưa chắc chắn, bạn có thể hỏi trên Talk, nhưng một phần mục đích của khung này là giúp đảm bảo tất cả các dự án đều truyền đạt rõ ràng cách họ đang (hoặc không) sử dụng công nghệ này.",
+        "answerTwo": "Nếu bạn cho rằng một dự án không công khai việc sử dụng AI/ML một cách phù hợp, chúng tôi hy vọng bạn sẽ cảm thấy thoải mái khi liên hệ với nhóm nghiên cứu trên Talk và đề xuất một số thay đổi hoặc bày tỏ sự không chắc chắn của mình. Nếu bạn không cảm thấy thoải mái khi làm như vậy, bạn cũng có thể gửi tin nhắn cho chúng tôi tại <0>contact@zooniverse.org</0> và chúng tôi sẽ xem xét vấn đề đó. Một phần công việc này bao gồm cập nhật các quy trình đánh giá nội bộ của chúng tôi, vì vậy phản hồi của bạn sẽ giúp chúng tôi biết liệu các quy trình mới của chúng tôi có hiệu quả hay không.",
+        "question": "Tôi muốn tìm hiểu xem một dự án trên Zooniverse có sử dụng Trí tuệ nhân tạo (AI) hay Máy học (Machine Learning) hay không. Tôi có thể tìm thông tin đó ở đâu?"
+      }
+    },
+    "fivews": {
+      "list": {
+        "first": "Ai chịu trách nhiệm đảm bảo chất lượng và tính toàn vẹn của dữ liệu? ",
+        "fourth": "Tại sao trí tuệ nhân tạo/học máy lại được sử dụng? Nó giúp đạt được điều gì và ai được hưởng lợi? Nghiên cứu sẽ như thế nào nếu không sử dụng trí tuệ nhân tạo/học máy?",
+        "second": "Những kỹ thuật AI/ML nào đang được áp dụng?",
+        "third": "<0>Khi nào</0> và <0>Ở đâu</0> trong vòng đời thu thập, xử lý và phân tích dữ liệu thì AI/ML được sử dụng? Tình nguyện viên tham gia vào vòng đời này ở điểm nào? Hai bên có tương tác với nhau không? Nếu có, thì tương tác như thế nào?"
+      },
+      "paragraph": "Khi phát triển một dự án Zooniverse mới liên quan đến AI/ML, các nhà nghiên cứu nên suy ngẫm và chuẩn bị sẵn sàng trả lời các câu hỏi sau. Lý tưởng nhất là câu trả lời cho những câu hỏi này sẽ có sẵn ở đâu đó trong tài liệu dự án (ví dụ: trang Giới thiệu, Câu hỏi thường gặp, v.v.)."
+    },
+    "heading": {
+      "eighth": "Tài nguyên",
+      "fifth": "Đề xuất dự án",
+      "fifthext": "Các khuyến nghị dành cho các nhóm dự án",
+      "first": "Lời mở đầu",
+      "fourth": "Hành động nội bộ",
+      "fourthext": "Các biện pháp nội bộ được Zooniverse thực hiện",
+      "nineth": "Câu hỏi thường gặp",
+      "ninethext": "Câu hỏi thường gặp",
+      "second": "Mục lục",
+      "seventh": "AI/ML trên Zooniverse",
+      "seventhext": "Trí tuệ nhân tạo và Học máy trên Zooniverse",
+      "sixth": "5 Ws",
+      "sixthext": "5 yếu tố quan trọng (5 W) trong các dự án ứng dụng AI/ML",
+      "tenth": "Giới thiệu về Khung này",
+      "third": "Nguyên tắc chính"
+    },
+    "onZooniverse": {
+      "fifthQ": {
+        "heading": "Làm sao để biết một dự án đang sử dụng Trí tuệ nhân tạo (AI) hay Máy học (Machine Learning)?",
+        "list": {
+          "first": "Các nhóm dự án có trách nhiệm phải nêu rõ trên trang chủ liệu dự án của họ có sử dụng AI/ML hay không. Ngoài ra, nếu một dự án có nhiều quy trình làm việc, các nhóm nên phân biệt giữa các quy trình làm việc tích hợp AI/ML và những quy trình không tích hợp AI/ML.",
+          "fourth": "Nếu bạn không chắc chắn liệu một dự án có sử dụng AI/ML hay không, hãy thoải mái đăng bài trên diễn đàn thảo luận của dự án và hỏi trực tiếp nhóm nghiên cứu.",
+          "second": "Các nhóm cũng được yêu cầu cung cấp thông tin chi tiết về lý do và cách thức tích hợp AI/ML vào dự án của họ. Thông tin này sẽ xuất hiện trên trang Giới thiệu dự án.",
+          "third": "Nếu việc huấn luyện mô hình AI/ML là mục tiêu của dự án, các nhóm dự án được yêu cầu cung cấp thông tin cập nhật về quá trình này trên trang Kết quả, khi có sẵn."
+        }
+      },
+      "firstQ": {
+        "heading": "Trí tuệ nhân tạo (AI) là gì? Máy học (Machine Learning) là gì?",
+        "list": {
+          "first": "Không có định nghĩa đơn giản, duy nhất, nhưng nhìn chung, Trí tuệ nhân tạo (AI) đề cập đến các hệ thống máy tính được thiết kế để mô phỏng tư duy của con người. AI là một thuật ngữ rộng bao gồm nhiều công nghệ và ứng dụng khác nhau. Các thuật ngữ này thường được sử dụng thay thế cho nhau, nhưng Học máy (ML) là một tập hợp con của AI sử dụng dữ liệu và thuật toán để huấn luyện máy tính thực hiện phân loại, tạo ra dự đoán và phát hiện những điểm tương đồng hoặc xu hướng trên các tập dữ liệu lớn. (Định nghĩa được điều chỉnh từ Fortson et al. (2024) và <0>https://www.nasa.gov/what-is-artificial-intelligence)</0>.",
+          "second": "Có nhiều cách phân loại các phương pháp và cách tiếp cận AI/ML dựa trên công nghệ được sử dụng và khả năng của công nghệ đó.",
+          "third": "Một phần do công nghệ phát triển quá nhanh, nên rất dễ gây hiểu nhầm về những gì trí tuệ nhân tạo (AI) đang làm. Sự minh bạch trong các dự án của Zooniverse về những đóng góp cụ thể của công nghệ này và lý do tại sao có thể giúp tránh hiểu lầm hoặc nhầm lẫn, đồng thời tạo ra các biện pháp trách nhiệm giải trình cho các nhóm dự án."
+        }
+      },
+      "fourthQ": {
+        "heading": "Tại sao các nhóm dự án cần hoặc muốn sử dụng Trí tuệ nhân tạo (AI) và Học máy (Machine Learning) trên Zooniverse?",
+        "list": {
+          "first": "Ngay cả với sức mạnh của cộng đồng Zooniverse, nhiều nhóm dự án vẫn đang làm việc với các tập dữ liệu khổng lồ và phức tạp. Trong hầu hết các trường hợp, các nhà nghiên cứu nhận thấy rằng sự hợp tác giữa con người và máy móc tạo ra dữ liệu chất lượng cao hơn so với việc chỉ sử dụng một trong hai phương pháp. Hệ thống kết hợp con người và máy móc cũng có thể giúp đẩy nhanh tiến độ dự án và cho phép các nhà nghiên cứu đạt được kết quả sớm hơn so với việc chỉ dựa vào phân loại thủ công.",
+          "second": "Có nhiều ấn phẩm trình bày chi tiết những thành công trong việc kết hợp phân loại bằng con người và máy móc, có sẵn trên trang <0>ấn phẩm của Zooniverse</0>."
+        }
+      },
+      "secondQ": {
+        "heading": "Trí tuệ nhân tạo (AI) và máy học (Machine Learning) được sử dụng như thế nào trên Zooniverse?",
+        "list": {
+          "fifth": "Nếu các nhóm dự án chọn sử dụng trí tuệ nhân tạo (AI) để tạo nội dung dự án, họ bắt buộc phải công khai thông tin này trên trang chứa nội dung do AI tạo ra. Thông tin này có thể bao gồm, ví dụ, mô tả dự án, hình ảnh đại diện, hình ảnh đa phương tiện, bản dịch và/hoặc dữ liệu dự án.",
+          "first": "Nhìn chung, AI/ML không được tích hợp vào nền tảng ngoài các trường hợp sử dụng cụ thể trong dự án. Nhóm Zooniverse cam kết minh bạch và ghi nhãn rõ ràng trong bất kỳ trường hợp nào trong tương lai khi AI/ML được sử dụng ngoài các dự án cụ thể.",
+          "fourth": {
+            "subFifth": "<0>Các tình nguyện viên xem xét</0> các đối tượng bất thường hoặc dị thường mà máy móc không thể giải quyết được.",
+            "subFirst": "<0>Không có AI/ML.</0> Tình nguyện viên phân loại đối tượng. Không có vai trò AI/ML nào được thiết kế trước hoặc dự định.",
+            "subFourth": "<0>AI/ML được kiểm tra chất lượng.</0> Các tình nguyện viên xem xét và sửa lỗi trong các phân loại do máy tạo ra, giúp cải thiện AI/ML theo thời gian.",
+            "subSecond": "<0>AI/ML sắp xếp trước các đối tượng.</0> Tình nguyện viên phân loại các đối tượng đã được máy móc sắp xếp hoặc lọc trước. Ví dụ bao gồm loại bỏ các hình ảnh trống (hình ảnh không có nội dung liên quan) và thực hiện phân loại cấp cao để tình nguyện viên có thể tập trung nỗ lực vào các nhiệm vụ khó khăn hơn.",
+            "subThird": "<0>Huấn luyện AI/ML.</0> Các tình nguyện viên phân loại đối tượng và máy móc học hỏi từ các mẫu với mục tiêu là AI/ML sẽ đảm nhận các nhiệm vụ.",
+            "sublist": "Một vài ví dụ:"
+          },
+          "second": "Việc ứng dụng AI/ML sẽ khác nhau tùy thuộc vào từng dự án.",
+          "third": "Trí tuệ nhân tạo/học máy được tích hợp vào một số dự án cụ thể của Zooniverse để bổ sung cho sự hỗ trợ nghiên cứu do các tình nguyện viên cung cấp, xử lý dữ liệu trước hoặc sau khi các tình nguyện viên hoàn thành nhiệm vụ của họ. Một số dự án bao gồm các yếu tố học tập chủ động hỗ trợ các phương pháp AI/ML có sự tham gia của con người, kết hợp ý kiến ​​đóng góp của tình nguyện viên vào các quy trình tự động để nâng cao chất lượng đầu ra."
+        }
+      },
+      "seventhQ": {
+        "heading": "Còn về Trí tuệ nhân tạo và Học máy bên ngoài Zooniverse thì sao? Liệu các phân loại của tôi có được ứng dụng vào các sáng kiến ​​AI/ML ngoài Zooniverse không?",
+        "list": {
+          "fifth": "Các nhóm dự án được yêu cầu chia sẻ kế hoạch sử dụng và lưu trữ dữ liệu của họ trên trang Giới thiệu dự án.",
+          "first": "Chúng ta, với tư cách là cộng đồng Zooniverse, có quyền kiểm soát việc sử dụng AI/ML trên nền tảng và trong các dự án như thế nào. Tuy nhiên, chúng ta lại có rất ít quyền kiểm soát việc người khác sử dụng dữ liệu dự án ra sao, đặc biệt là sau khi dữ liệu đó được công khai.",
+          "fourth": "Để giảm thiểu việc sử dụng dữ liệu dự án ngoài mục đích (ví dụ: cho mục đích thương mại), một số nhóm chọn áp dụng các thỏa thuận cấp phép dữ liệu cho dữ liệu dự án của họ (chẳng hạn như <0>Creative Commons</0>), hoặc chỉ chia sẻ dữ liệu theo yêu cầu.",
+          "second": "Chính sách hiện tại của <0>Project Builder Policies</0> của Zooniverse quy định rằng các nhóm dự án phải “công khai dữ liệu phân loại của họ sau một khoảng thời gian độc quyền, thường kéo dài hai năm kể từ khi dự án khởi chạy.”",
+          "sixth": "Nếu bạn không chắc chắn về kế hoạch chia sẻ dữ liệu và/hoặc cấp phép của dự án, hãy thoải mái đăng bài trên diễn đàn Thảo luận của dự án và hỏi trực tiếp nhóm nghiên cứu.",
+          "third": "Dữ liệu mở cho phép trao đổi thông tin, đáp ứng nhu cầu tức thì và sử dụng dữ liệu nhanh chóng để đưa ra quyết định hoặc hành động. Nó cũng có thể giúp bảo tồn dữ liệu, vì dữ liệu ít có khả năng bị mất nếu được lưu trữ trong kho lưu trữ hoặc nếu người khác đã sao chép. Tuy nhiên, điều đó cũng có nghĩa là những người, tổ chức hoặc công ty khác có thể sử dụng dữ liệu được tạo ra thông qua các dự án Zooniverse vì những lý do khác ngoài mục tiêu nghiên cứu đã nêu."
+        }
+      },
+      "sixthQ": {
+        "heading": "Zooniverse đảm bảo các công nghệ này được sử dụng một cách an toàn và có đạo đức như thế nào?",
+        "list": {
+          "first": "Zooniverse đã thực hiện một nỗ lực kéo dài <0>18 tháng với các bên liên quan và chuyên gia</0> để xác định ý nghĩa của điều này đối với nền tảng. Kết quả là <1>Nguyên tắc chính</1>, <2>Các hành động nội bộ mà Zooniverse đã thực hiện</2> và <3>Khuyến nghị dành cho các nhóm dự án</3> thể hiện cách tiếp cận của chúng tôi.",
+          "second": "Chúng tôi cam kết đánh giá liên tục các cấu trúc này để đảm bảo chúng hoạt động hiệu quả, đặc biệt khi công nghệ và các trường hợp sử dụng tiềm năng trên Zooniverse tiếp tục mở rộng. Các khuyến nghị của chúng tôi bao gồm việc xem xét hàng năm các chính sách đạo đức AI của chính mình để đảm bảo chúng vẫn phù hợp với cộng đồng tình nguyện viên và nhà nghiên cứu của chúng tôi."
+        }
+      },
+      "thirdQ": {
+        "heading": "Việc sử dụng Trí tuệ nhân tạo (AI) và Học máy (Machine Learning) trên Zooniverse mang lại những lợi ích và mối lo ngại nào?",
+        "list": {
+          "first": "Trí tuệ nhân tạo/học máy có thể tăng tốc độ và sức mạnh cho khả năng tạo ra, xử lý và phân tích dữ liệu của chúng ta. Nhờ đó, chúng ta có thể đặt ra những câu hỏi mới và nhận được câu trả lời nhanh hơn.",
+          "fourth": "Việc phát triển và sử dụng một số loại trí tuệ nhân tạo/học máy có thể tiêu tốn nhiều năng lượng và tài nguyên.",
+          "second": "Việc giao phó một số nhiệm vụ cho máy móc có thể cho phép con người tập trung vào các nhiệm vụ sáng tạo hoặc phức tạp hơn. Tuy nhiên, chúng tôi lưu ý rằng các nhóm dự án nên cẩn thận không nên tối ưu hóa quá mức, vì sự tham gia của người mới bắt đầu là rất quan trọng để giúp các dự án trở nên dễ tiếp cận hơn với nhiều người.",
+          "third": "Việc đưa sự giám sát của con người vào một giai đoạn nào đó để đánh giá và đảm bảo chất lượng dữ liệu là điều thiết yếu."
+        }
+      }
+    },
+    "preamble": {
+      "list": {
+        "first": "Nền tảng Zooniverse chịu trách nhiệm <0>phát triển</0> và <0>duy trì</0> các khuyến nghị này.",
+        "second": "Các nhóm dự án chịu trách nhiệm <0>giải thích</0> và <0>thực hiện</0> các khuyến nghị. ",
+        "third": "Tình nguyện viên được trao quyền xác nhận hoặc đặt câu hỏi về việc thực hiện thông qua phản hồi hoặc thực hiện quyền tự quyết (ví dụ: lựa chọn không tham gia vào một dự án)."
+      },
+      "paragraphs": {
+        "first": "Trang này trình bày Khung Đạo đức Trí tuệ Nhân tạo của Zooniverse, bao gồm các khuyến nghị để thực hiện các dự án trên Zooniverse liên quan đến trí tuệ nhân tạo (AI) và/hoặc máy học (ML). Đây là một khung đạo đức đang được phát triển, và chúng tôi cam kết cải tiến và điều chỉnh khi nhận được phản hồi và khi bối cảnh công nghệ, xã hội và văn hóa tiếp tục phát triển. Trang này chủ yếu nhằm cung cấp thông tin cho các tình nguyện viên của Zooniverse. Các nhóm dự án có thể đọc hướng dẫn cụ thể trong tài liệu Zooniverse của chúng tôi.",
+        "second": "Mặc dù việc ứng dụng công nghệ 'AI' trên Zooniverse theo truyền thống được thực hiện thông qua các quy trình ML cụ thể (\"các công cụ và công nghệ thuật toán học hỏi từ dữ liệu hiện có để giải quyết các nhiệm vụ\"), thuật ngữ 'AI' đã trở thành một từ bao quát để mô tả loại tự động hóa này. AI nói rộng ra đề cập đến \"máy tính có thể mô phỏng tư duy của con người\", và học máy là một tập hợp con của khái niệm này. Trong khuôn khổ này, chúng ta sẽ sử dụng 'AI/ML' xuyên suốt để chỉ các quy trình này, nhằm bao quát một loạt các phương pháp, cũng như để duy trì sự khác biệt giữa hai thuật ngữ này.",
+        "third": "Việc tạo lập, duy trì và sử dụng khuôn khổ này đòi hỏi những trách nhiệm riêng biệt—đối với nền tảng Zooniverse, các nhóm dự án và các tình nguyện viên, để đảm bảo rằng việc tích hợp AI/ML vào nghiên cứu có sự tham gia của cộng đồng vẫn minh bạch, có đạo đức và hướng đến cộng đồng."
+      }
+    },
+    "principles": {
+      "fifth": "Sử dụng và điều chỉnh phù hợp với <0>các nguồn tài liệu khung AI/ML hiện có</0> và tiếp tục tương tác với cộng đồng và các bên liên quan rộng lớn hơn để <0>phát triển và áp dụng các thực tiễn tốt nhất</0> xung quanh nghiên cứu tham gia có sự tham gia của AI/ML.",
+      "first": "Xây dựng tính minh bạch trong quản trị nền tảng, phát triển dự án và triển khai liên quan đến AI/ML.",
+      "fourth": "Cam kết duy trì đối thoại và đảm bảo tính đáp ứng của dự án và nền tảng đối với những thái độ và cuộc thảo luận đang thay đổi về AI/ML.",
+      "second": "Thiết kế trải nghiệm tình nguyện và ưu tiên quyền tự quyết và sự đồng thuận của tình nguyện viên trong quá trình lựa chọn dự án; xem xét lợi ích và động lực của tình nguyện viên trong các dự án liên quan đến AI/ML.",
+      "third": "Tạo điều kiện thuận lợi cho <0>trách nhiệm giải trình</0> bằng cách chứng minh việc tuân thủ các hướng dẫn rõ ràng như một điều kiện tiên quyết để khởi động một dự án Zooniverse chính thức."
+    },
+    "recs": {
+      "eighth": "<0>Khi công bố mục đích sử dụng kết quả/dữ liệu dự án, hãy cân nhắc xem mục đích sử dụng đó có thể thay đổi như thế nào theo thời gian.</0> Tình nguyện viên có thể lựa chọn tham gia dự án của bạn dựa trên mục tiêu dự án và mục đích sử dụng kết quả/dữ liệu được nêu trong trang Giới thiệu. Sau này, khả năng bạn mở rộng những mục đích sử dụng đó là bao nhiêu?</0> ",
+      "fifth": "<0>Theo dõi.</0> Cung cấp phản hồi về mức độ thành công đạt được khi các mô hình AI/ML được huấn luyện. Phương pháp sẽ do nhóm dự án quyết định và có thể bao gồm ví dụ như bài đăng trên Talk, bản tin email, v.v.",
+      "first": "<0>Hãy thiết kế dự án của bạn với sự lựa chọn của các tổ chức tình nguyện.</0> Điều này đòi hỏi sự minh bạch và giao tiếp rõ ràng để các tình nguyện viên có thể đưa ra quyết định sáng suốt về việc họ có muốn tham gia dự án của bạn hay không. Nếu bạn tích hợp AI/ML ở bất kỳ giai đoạn nào trong công việc của mình (tiền xử lý hoặc hậu xử lý, hệ thống phân loại có sự tham gia của con người, v.v.), bạn cần cung cấp thông tin chi tiết cụ thể về cách thức hoạt động của các quy trình này và lý do tại sao chúng lại cần thiết. Ví dụ, chỉ nói “chúng tôi sẽ sử dụng dữ liệu thu được để huấn luyện một mô hình” là không đủ chi tiết.",
+      "fourth": "<0>Giữ nguyên ngữ cảnh.</0> Đối với các dự án mời tình nguyện viên tham gia hoặc xem xét kết quả do máy tạo ra, hãy cân nhắc xem ngữ cảnh có thể ảnh hưởng đến nhiệm vụ như thế nào — bao gồm cả chất lượng dữ liệu và chất lượng trải nghiệm của tình nguyện viên. Ví dụ, nếu một nhiệm vụ yêu cầu tình nguyện viên xem xét chất lượng bản ghi chép do máy tạo ra nhưng chỉ bao gồm một phần của tài liệu (ví dụ: một từ hoặc cụm từ), việc bao gồm một liên kết đến hình ảnh hoặc tài liệu đầy đủ sẽ đảm bảo rằng tình nguyện viên có thể tiếp tục tương tác với tài liệu gốc và ý nghĩa của nó, nếu muốn. Thông tin này có thể được bao gồm trong siêu dữ liệu của đối tượng.",
+      "nineth": "<0>Hãy cân nhắc cả cơ hội và rủi ro tiềm tàng khi thực hiện một dự án có sử dụng AI/ML.</0> Chúng tôi khuyến khích các nhà nghiên cứu hiểu rõ các rủi ro tiềm tàng—cùng với các cơ hội—trước khi khởi động dự án và hướng dẫn họ sử dụng các công cụ đã được kiểm chứng và các công trình nghiên cứu đã được công bố, chẳng hạn như Ceccaroni et al. (2019), bài báo trình bày khảo sát về các rủi ro và cơ hội liên quan đến việc sử dụng AI trong khoa học công dân, và các khuyến nghị để giảm thiểu rủi ro.",
+      "second": "<0>Hãy cho tình nguyện viên biết AI/ML được tích hợp ở đâu/khi nào/vì sao trong dự án của bạn.</0> Một số quy trình làm việc trong dự án có thể liên quan/được hỗ trợ bởi AI/ML, một số khác thì không. Điều này cần được ghi rõ trong trường Tên quy trình làm việc hoặc khu vực Mô tả quy trình làm việc để tình nguyện viên có thể lựa chọn phù hợp (nếu họ có sở thích). Nếu bạn đã sử dụng AI/ML để xử lý trước dữ liệu, hãy mô tả các chỉ số kiểm soát chất lượng của bạn (bao gồm cả lý do bạn chạy quy trình xác thực trên Zooniverse).",
+      "seventh": "<0>Giải quyết vấn đề chất lượng.</0> Mô tả cách bạn đánh giá và giải quyết bất kỳ tác động tiềm tàng nào đến chất lượng dữ liệu trong dự án của bạn do việc sử dụng AI/ML gây ra. ",
+      "sixth": "<0>Tạo các kênh phản hồi.</0> Bất kỳ dự án nào có thành phần AI/ML đều cần có kênh để các tình nguyện viên chia sẻ phản hồi của họ với các thành viên nhóm dự án. Ví dụ, các nhóm có thể muốn tạo một diễn đàn thảo luận chuyên dụng để mô tả việc sử dụng AI/ML, trả lời các câu hỏi và cung cấp thông tin cập nhật về bất kỳ quá trình đào tạo hoặc kết quả nào.",
+      "third": "<0>Hãy cân nhắc hậu quả của việc tối ưu hóa.</0> Khi xem xét việc 'chuyển giao' các nhiệm vụ dễ dàng cho AI/ML và để con người thực hiện các nhiệm vụ khó hơn/phức tạp hơn, hãy lưu ý rằng các quy trình làm việc nâng cao hơn có thể thu hẹp đối tượng đủ điều kiện tham gia, trừ khi có một lộ trình tiếp cận. Các nhiệm vụ đào tạo có thể cần thiết để đạt được trình độ thực hiện các nhiệm vụ mà AI/ML không thể làm được. Bất kỳ quy trình tiếp cận hoặc quy trình đào tạo nào cũng cần được ghi nhãn rõ ràng, bao gồm cả các quy trình sử dụng tính năng Phản hồi của Zooniverse."
+    },
+    "resources": {
+      "first": "Tìm hiểu thêm về AI/ML",
+      "fourth": "Ví dụ về các tuyên bố trách nhiệm của dự án AI/ML thuộc Zooniverse.",
+      "second": "Tìm hiểu thêm về đạo đức và khoa học tham gia",
+      "third": "Ví dụ về các dự án Zooniverse kèm theo giải thích chi tiết về việc sử dụng AI/ML."
+    },
+    "sidebarLabel": "Phần",
+    "title": "Khung đạo đức AI của Zooniverse",
+    "toc": {
+      "descriptions": {
+        "eighth": "Các liên kết dẫn đến thông tin chi tiết hơn, bao gồm các ấn phẩm và chính sách bên ngoài, cũng như các ví dụ từ các dự án của Zooniverse, trong đó có giải thích về AI/ML và các tuyên bố về trách nhiệm.",
+        "fifth": "Khuyến nghị dành cho các nhóm đang thực hiện hoặc muốn thực hiện dự án Zooniverse liên quan đến Trí tuệ nhân tạo/Học máy.",
+        "fourth": "Các hành động mà nhóm chúng tôi đang thực hiện nhằm hỗ trợ việc đưa ra các khuyến nghị cho các nhóm dự án.",
+        "nineth": "Dành cho tình nguyện viên.",
+        "seventh": "Thông tin về Trí tuệ nhân tạo/Học máy và cách thức (và đã) sử dụng chúng trên Zooniverse. Bao gồm thảo luận về lý do tại sao các nhóm dự án cần hoặc muốn sử dụng AI/ML, cách nhận biết khi nào một dự án đang sử dụng AI/ML, và nhiều hơn nữa.",
+        "sixth": "Đây là những câu hỏi mà tất cả các nhà nghiên cứu thực hiện các dự án Zooniverse liên quan đến AI/ML cần phải chuẩn bị để trả lời.",
+        "tenth": "Thông tin chi tiết hơn về khuôn khổ này và cách thức xây dựng nó, bao gồm thông tin về những người tham gia tạo ra nó và nguồn tài trợ cho công việc này.",
+        "third": "Các nguyên tắc tổ chức đằng sau khuôn khổ này. Chúng tóm tắt các mục tiêu tổng thể sẽ giúp giải quyết các rủi ro và mối lo ngại mà các thành viên cộng đồng của chúng ta nêu ra về AI/ML."
+      }
+    }
+  },
+  "AboutHeader": {
+    "links": {
+      "about": "Về",
+      "aiethics": "Đạo đức trí tuệ nhân tạo",
+      "collaborate": "Hợp tác",
+      "contact": "Liên hệ với chúng tôi",
+      "donate": "Quyên tặng",
+      "educate": "Giáo dục",
+      "faq": "Câu hỏi thường gặp",
+      "publications": "Ấn phẩm",
+      "resources": "Tài nguyên",
+      "team": "Đội ngũ của chúng tôi",
+      "volunteer": "Tình nguyện viên"
+    },
+    "title": {
+      "about": "Về",
+      "getInvolved": "Hãy tham gia!"
+    }
+  },
+  "AboutPage": {
+    "contact": {
+      "categories": {
+        "first": "Câu hỏi chung về Zooniverse",
+        "second": "Hợp tác trong một dự án",
+        "third": "Yêu cầu báo chí"
+      },
+      "heading": "Liên hệ với chúng tôi",
+      "paragraphs": {
+        "first": "Vui lòng đọc trang <0>Câu hỏi thường gặp</0> và trang <1>Giải pháp Zooniverse</1> của chúng tôi.",
+        "second": "Bạn có vấn đề liên quan đến một dự án cụ thể nào không? Chúng tôi khuyên bạn nên liên hệ trực tiếp với nhóm nghiên cứu trên trang Thảo luận của họ.",
+        "third": "Không truy cập được nút Liên hệ với chúng tôi? Vui lòng gửi email trực tiếp cho chúng tôi theo địa chỉ <0>contact@zooniverse.org</0>."
+      },
+      "subheading": "Chúng tôi có thể giúp gì cho bạn?"
+    },
+    "highlights": {
+      "description": "Có thể mua sản phẩm tại <0>Blurb.com</0>",
+      "heading": "Những điểm nổi bật của chúng tôi",
+      "paragraphs": {
+        "first": "Từ năm 2007, các dự án Zooniverse đã dẫn đến nhiều khám phá bất ngờ và có ý nghĩa khoa học, cũng như nhiều bài báo được bình duyệt. Tất cả những điều này sẽ không thể thực hiện được nếu không có cộng đồng toàn cầu những người tham gia Zooniverse cùng tham gia vào các dự án này bên cạnh các nhóm nghiên cứu.",
+        "second": "Những cuốn sách \"Into the Zooniverse\" này kỷ niệm và tôn vinh những nỗ lực của tất cả những người tham gia, mang đến cái nhìn thoáng qua về cách các thành viên cộng đồng Zooniverse thực sự tác động đến thế giới xung quanh họ. Mỗi cuốn sách nêu bật một nhóm nhỏ các dự án đang hoạt động trong năm đó."
+      },
+      "pictures": {
+        "first": "Zooniverse giới thiệu bìa sách nổi bật năm 2019.",
+        "second": "Zooniverse giới thiệu bìa sách nổi bật năm 2020",
+        "third": "Zooniverse giới thiệu bìa sách nổi bật năm 2021"
+      },
+      "sidebar": "Điểm nổi bật",
+      "subheading": "Những dự án đáng nhớ trong những năm qua",
+      "tip": "Chúng tôi không thu lợi nhuận từ việc bán sách bản cứng."
+    },
+    "howItWorks": {
+      "heading": "Cách thức hoạt động",
+      "participants": {
+        "description": "Với tư cách là người tham gia",
+        "link": "Khám phá các dự án",
+        "steps": {
+          "first": "Hãy tìm một dự án mà bạn quan tâm.",
+          "fourth": "Tạo chứng chỉ chính thức xác minh những nỗ lực của bạn trên nền tảng.",
+          "second": "Tìm hiểu quy trình phân loại dự án đó.",
+          "third": "Hãy gửi kết quả phân loại của bạn và góp phần vào công tác nghiên cứu thực tế!"
+        }
+      },
+      "researchers": {
+        "description": "Với tư cách là một nhà nghiên cứu",
+        "link": "Xây dựng một dự án",
+        "steps": {
+          "first": "Xây dựng dự án của bạn bằng Trình tạo dự án Zooniverse",
+          "fourth": "Tải xuống dữ liệu của bạn và công bố kết quả!",
+          "second": "Hãy gửi dự án của bạn để được phê duyệt.",
+          "third": "Khởi động dự án của bạn và tương tác với các tình nguyện viên trên Talk trong khi chờ đợi kết quả phân loại."
+        }
+      },
+      "subheading": "Nghiên cứu do người dân thực hiện"
+    },
+    "mobile": {
+      "altAppStore": "Tải ứng dụng từ App Store",
+      "altImage": "Ảnh điện thoại di động có ứng dụng Zooniverse",
+      "altPlayStore": "Tải ứng dụng từ Google Play",
+      "description": "Luôn mang theo Zooniverse bên mình. Tải xuống ứng dụng cho các thiết bị iOS và Android.",
+      "heading": "Khám phá Ứng dụng Di động của chúng tôi",
+      "sidebar": "Ứng dụng di động",
+      "subheading": "Khám phá, dạy và học - mọi lúc, mọi nơi"
+    },
+    "ourMission": {
+      "discoveries": {
+        "first": "Thiên hà đậu xanh",
+        "fourth": "Ngôi sao của Boyajian",
+        "second": "Phát hiện các hành tinh ngoài hệ mặt trời mới",
+        "third": "Một cách sử dụng trước đó của cụm từ 'lời nói dối vô hại'",
+        "tip": "Nhấp vào bất kỳ khám phá nào để biết thêm thông tin."
+      },
+      "heading": "Sứ mệnh của chúng tôi",
+      "paragraphs": {
+        "first": "Zooniverse là nền tảng lớn nhất và phổ biến nhất thế giới dành cho nghiên cứu do cộng đồng thực hiện. Nghiên cứu này được thực hiện nhờ các tình nguyện viên—hàng triệu người trên khắp thế giới cùng nhau hỗ trợ các nhà nghiên cứu chuyên nghiệp. Mục tiêu của chúng tôi là tạo điều kiện cho những nghiên cứu mà nếu không có sự hỗ trợ của họ thì sẽ không thể thực hiện được hoặc không khả thi. Kết quả nghiên cứu của Zooniverse dẫn đến những khám phá mới, các bộ dữ liệu hữu ích cho cộng đồng nghiên cứu rộng lớn hơn và nhiều <0>ấn phẩm</0>.",
+        "fourth": "Tình nguyện viên và các chuyên gia cùng nhau tạo nên những khám phá thực sự. Các dự án của Zooniverse được xây dựng với mục đích chuyển đổi nỗ lực của tình nguyện viên thành kết quả có thể đo lường được. Trong một số trường hợp, các tình nguyện viên của Zooniverse thậm chí còn có những khám phá hoàn toàn bất ngờ và quan trọng. Một lượng lớn nghiên cứu này diễn ra trên Talk, diễn đàn thảo luận của Zooniverse, nơi các tình nguyện viên làm việc cùng với các thành viên nhóm nghiên cứu và với nhau. Các diễn đàn này được tích hợp trong mỗi dự án để cho phép mọi thứ từ việc gắn thẻ nhanh chóng đến phân tích cộng tác chuyên sâu. Ngoài ra còn có một diễn đàn Talk trung tâm của Zooniverse để trò chuyện và thảo luận chung về các vấn đề trên toàn nền tảng. Chúng tôi khuyến khích tất cả người dùng tham gia cuộc trò chuyện trên Talk để tham gia sâu hơn.",
+        "second": "Bạn không cần bất kỳ kiến ​​thức chuyên môn, đào tạo hay kinh nghiệm nào để tham gia vào các dự án của Zooniverse. Chúng tôi tạo điều kiện dễ dàng cho bất kỳ ai đóng góp vào nghiên cứu học thuật thực tế, trên máy tính cá nhân của họ, vào thời gian thuận tiện nhất. Bạn sẽ có thể nghiên cứu dữ liệu xác thực được thu thập bởi các nhà nghiên cứu, chẳng hạn như hình ảnh các thiên hà xa xôi, hồ sơ và nhật ký lịch sử, hoặc video về động vật trong môi trường sống tự nhiên của chúng. Bằng cách tham gia vào các dự án, bạn sẽ giúp đóng góp vào sự hiểu biết của chúng ta về thế giới, vũ trụ và hơn thế nữa. Với bộ dự án đa dạng và không ngừng mở rộng của chúng tôi, bao gồm nhiều lĩnh vực và chủ đề trong khoa học và nhân văn, luôn có chỗ cho mọi người khám phá, học hỏi và vui chơi trong Zooniverse. Để tình nguyện, hãy truy cập trang <0>Dự án</0>, chọn một dự án bạn thích và bắt đầu.",
+        "third": "Thách thức lớn nhất của nghiên cứu thế kỷ 21 là xử lý lượng thông tin khổng lồ mà chúng ta có thể thu thập về thế giới xung quanh. Máy tính có thể hỗ trợ, nhưng trong nhiều lĩnh vực, khả năng nhận diện mẫu hình của con người – và khả năng đón nhận những điều bất ngờ – khiến chúng ta vượt trội hơn. Với sự giúp đỡ của các tình nguyện viên Zooniverse, các nhà nghiên cứu có thể phân tích thông tin của họ nhanh chóng và chính xác hơn so với bình thường, từ đó đạt được những kết quả thú vị nhanh hơn. Nỗ lực của bạn giúp tiết kiệm thời gian và nguồn lực, nâng cao khả năng của máy tính trong việc thực hiện các nhiệm vụ tương tự, và dẫn đến sự tiến bộ nhanh hơn cũng như hiểu biết sâu sắc hơn về thế giới. Các dự án của chúng tôi kết hợp đóng góp từ nhiều tình nguyện viên cá nhân, dựa trên một phiên bản của \"trí tuệ tập thể\" để tạo ra kết quả đáng tin cậy và chính xác. Việc nhiều người cùng xem xét dữ liệu thường dẫn đến ước tính tốt hơn về khả năng xảy ra lỗi. Sản phẩm của các dự án Zooniverse thường chính xác là những gì cần thiết để đạt được tiến bộ trong nhiều lĩnh vực nghiên cứu."
+      },
+      "stats": {
+        "classifications": "Bản phân loại đến thời điểm hiện tại",
+        "volunteers": "Tình nguyện viên đã đăng ký tham gia"
+      },
+      "subheadings": {
+        "fifth": "Các dự án của chúng tôi dẫn đến những khám phá vĩ đại.",
+        "first": "Trí tuệ tập thể",
+        "fourth": "Công ty Zooniverse Works",
+        "second": "Bất cứ ai cũng có thể trở thành nhà nghiên cứu.",
+        "third": "Chúng ta thúc đẩy các nghiên cứu quan trọng bằng cách hợp tác cùng nhau."
+      },
+      "video": "Giới thiệu ngắn gọn về Zooniverse"
+    },
+    "sidebarLabel": "Phần",
+    "title": "Giới thiệu về Zooniverse"
+  },
+  "Article": {
+    "url": "Đọc thêm"
+  },
+  "Collaborate": {
+    "paragraphs": {
+      "eighth": "Nếu bạn có thắc mắc hoặc cần thêm hướng dẫn, vui lòng liên hệ với Cliff Johnson, Trưởng nhóm Khoa học Zooniverse và Người liên lạc với NASA: <0>cliff@zooniverse.org</0>.",
+      "fifth": "Nếu bạn quan tâm đến việc hợp tác với chúng tôi để tạo ra các công cụ hoặc cơ sở hạ tầng dự án tùy chỉnh, vui lòng <0>liên hệ với chúng tôi</0>.",
+      "first": "Liệu nghiên cứu của bạn có được lợi ích từ sự tham gia của hàng ngàn tình nguyện viên? Zooniverse là nền tảng trực tuyến lớn nhất và thành công nhất thế giới về nghiên cứu cộng đồng; chúng tôi có hàng triệu tình nguyện viên đăng ký đang hợp tác với các nhà nghiên cứu chuyên nghiệp trong các dự án nghiên cứu thuộc nhiều lĩnh vực, từ thiên văn học đến nhân văn.",
+      "fourth": "Trong trường hợp các công cụ có sẵn trong <0>Project Builder</0> không hoàn toàn phù hợp với mục tiêu nghiên cứu của một nhóm cụ thể, các nhà nghiên cứu có thể cân nhắc hợp tác với Zooniverse để tạo ra các công cụ tùy chỉnh mới. Chúng tôi làm việc với các nhóm này để xin tài trợ nhằm hỗ trợ quá trình nghiên cứu, thiết kế và phát triển. Những người đã từng xin tài trợ trước đây sẽ biết rằng quá trình này có thể mất rất nhiều thời gian. Sau khi chúng tôi nộp đơn xin tài trợ, có thể mất 6 tháng hoặc hơn để nhận được phản hồi về việc nỗ lực của chúng tôi có thành công hay không. Các dự án được tài trợ thường yêu cầu ít nhất 6 tháng để thiết kế, xây dựng và thử nghiệm, tùy thuộc vào độ phức tạp của các tính năng được tạo ra. Sau đó, chúng tôi cần thêm thời gian để khái quát hóa (và thường là sửa đổi) chúng để đưa vào bộ công cụ Project Builder.",
+      "nineth": "Đến nay, hơn nửa tá tổ chức đã tận dụng Adler Zooniverse như một cơ hội để thực hiện trách nhiệm xã hội doanh nghiệp của mình. Việc tham gia có thể đáp ứng yêu cầu về giờ phục vụ cộng đồng cho nhân viên, tốt nghiệp, học bổng, v.v. Đây là một cơ hội tình nguyện độc đáo, người tham gia dành thời gian để suy ngẫm về cách những nỗ lực của họ (và những nỗ lực chung của cộng đồng) đang đóng góp vào sự hiểu biết của chúng ta về thế giới và vũ trụ rộng lớn hơn. <0>Liên hệ với chúng tôi</0> để tìm hiểu thêm về sáng kiến ​​này.",
+      "second": "Các nhóm nghiên cứu có thể xây dựng dự án Zooniverse theo hai cách.",
+      "seventh": "Cho dù bạn đã xây dựng quy trình làm việc bằng Project Builder hay mới bắt đầu xem xét cách thức đóng góp từ cộng đồng có thể thúc đẩy nghiên cứu của mình, nhóm Zooniverse luôn nỗ lực hỗ trợ các nhóm trong quá trình phát triển và triển khai các dự án tập trung vào NASA. Chúng tôi rất vui được thảo luận và hỗ trợ các đề xuất tham gia các chương trình tài trợ khoa học công dân của NASA (bao gồm Chương trình Tài trợ Khởi nghiệp Khoa học Công dân, Chương trình Khoa học Công dân cho Hệ thống Trái đất và các cơ hội tài trợ ROSES khác của NASA) cho các dự án quan tâm đến việc sử dụng nền tảng Zooniverse.",
+      "sixth": "Bạn có phải là nhà nghiên cứu đang thực hiện một dự án liên quan đến một trong các bộ phận thuộc Ban Giám đốc Nhiệm vụ Khoa học của NASA (Vật lý thiên văn, Khoa học sinh học và vật lý, Vật lý mặt trời và Khoa học hành tinh) và dự án đó sẽ được hưởng lợi từ sự đóng góp của các tình nguyện viên Zooniverse? Là một phần của mối quan hệ hợp tác lâu dài với NASA, Zooniverse mong muốn xây dựng dựa trên sự hỗ trợ hiện tại dành cho các nhóm nghiên cứu của NASA và khuyến khích phát triển các dự án mới trên nền tảng của chúng tôi.",
+      "third": "Các nhóm có thể sử dụng công cụ <0>Project Builder</0> miễn phí của chúng tôi để tạo dự án Zooniverse của riêng mình. Để được công khai và hiển thị trên trang dự án của chúng tôi, các nhóm phải trải qua quy trình xem xét để đảm bảo dự án phù hợp với nền tảng và sẵn sàng ra mắt. Đây là lựa chọn nhanh nhất và đơn giản nhất để tạo dự án Zooniverse. Để biết thêm thông tin về quy trình này, bao gồm cả thời gian ước tính để xem xét, vui lòng xem <1>Project Review Best Practices & Flowchart</1>."
+    },
+    "subheadings": {
+      "fifth": "Cơ hội trách nhiệm xã hội doanh nghiệp",
+      "first": "Hãy hợp tác với chúng tôi",
+      "fourth": "Kêu gọi các dự án",
+      "second": "Những người ủng hộ chúng tôi",
+      "third": "Các cộng tác viên được lựa chọn",
+      "tools": "Các công cụ được chọn"
+    },
+    "title": "Hợp tác"
+  },
+  "Donate": {
+    "button": "Hãy quyên góp ngay hôm nay!",
+    "paragraphs": {
+      "first": "Zooniverse là sự hợp tác giữa Đài thiên văn Adler ở Chicago, Đại học Oxford, Đại học Minnesota - Twin Cities (UMN), hàng trăm nhà nghiên cứu và hàng triệu người tham gia từ khắp nơi trên thế giới. Các nhóm Zooniverse tại Adler, Oxford và UMN bao gồm đội ngũ lãnh đạo cấp cao, các nhà phát triển web, nhà thiết kế, trưởng bộ phận truyền thông, các nhà khoa học dữ liệu và các nhà nghiên cứu. Sự kết hợp độc đáo giữa chuyên môn trong nghiên cứu, tương tác cộng đồng và phát triển web hiện đại cho phép chúng tôi hỗ trợ cộng đồng tình nguyện viên tuyệt vời và các nhóm nghiên cứu tận tâm sử dụng nền tảng Zooniverse. Phần lớn nguồn tài trợ của Zooniverse đến từ các khoản tài trợ, cũng như sự hỗ trợ từ các tổ chức Adler, Oxford và UMN.",
+      "second": "Nếu bạn muốn ủng hộ Zooniverse, vui lòng xem xét quyên góp từ thiện được khấu trừ thuế cho Đài thiên văn Adler. Món quà không giới hạn của bạn dành cho Adler giúp các nhà nghiên cứu khai thác dữ liệu của họ thông qua khoa học công dân trực tuyến, các nhà thiên văn học mang kính viễn vọng đến các khu dân cư trên khắp vùng Chicago, thanh thiếu niên phóng các thí nghiệm độc đáo vào không gian và mọi người ở mọi lứa tuổi kết nối với nhau dưới bầu trời sao.",
+      "third": "Hãy nhấp vào liên kết bên dưới để quyên góp trên trang web của Đài thiên văn Adler."
+    },
+    "subheading": "Hãy ủng hộ Zooniverse",
+    "title": "Quyên tặng"
+  },
+  "Educate": {
+    "articles": {
+      "first": {
+        "datePublished": "Ngày 28 tháng 10 năm 2022",
+        "excerpt": "Hiện nay, nhu cầu về tài liệu giảng dạy dựa trên nghiên cứu và phương pháp học tập chủ động rất cấp thiết cho việc dạy và học các môn STEM trong các khóa học trực tuyến. Hàng năm, hàng trăm nghìn sinh viên đại học không chuyên ngành khoa học đăng ký các khóa học thiên văn học thuộc chương trình giáo dục đại cương để đáp ứng yêu cầu về giáo dục khai phóng của trường. Khi thiết kế tài liệu giảng dạy cho nhóm đối tượng người học này, một yếu tố cốt lõi cần xem xét là...",
+        "title": "Một mô hình phát triển chương trình giảng dạy mới nhằm nâng cao khả năng sử dụng dữ liệu và sự tự tin của sinh viên đại học..."
+      },
+      "fourth": {
+        "datePublished": "Ngày 29 tháng 4 năm 2015",
+        "excerpt": "Bài đăng trên blog hôm nay đến từ Fran Wilson, một giáo viên lớp hai tại trường tiểu học Madeira. Fran luôn nỗ lực khơi dậy niềm yêu thích khoa học trong lớp học của mình và giúp học sinh khám phá ra rằng không phải tất cả các nhà khoa học đều làm việc trong phòng thí nghiệm, mặc áo khoác trắng và đeo kính bảo hộ. Cô ấy tìm kiếm những cơ hội ý nghĩa để học sinh tham gia vào công việc khoa học công dân, trở nên có trách nhiệm...",
+        "title": "Rừng nổi: Dạy trẻ nhỏ về tảo bẹ"
+      },
+      "heading": "Các nhà giáo dục đang sử dụng Zooniverse như thế nào?",
+      "second": {
+        "datePublished": "Ngày 14 tháng 8 năm 2019",
+        "excerpt": "“Mọi người cùng cố gắng kéo cùng một thiên hà nhé!” một cậu bé reo lên, vừa nói vừa chỉ tay về phía các bạn cùng lớp. Xung quanh bàn, sáu học sinh bắt đầu kéo hình ảnh một thiên hà từ trung tâm màn hình cảm ứng lớn sang máy tính của mình. Rất có thể những học sinh này là những người đầu tiên nhìn thấy thiên hà này và quyết định cách phân loại nó…",
+        "title": "U!Scientist và bàn tương tác Galaxy Zoo tại Cung thiên văn Adler."
+      },
+      "third": {
+        "datePublished": "Ngày 7 tháng 2 năm 2018",
+        "excerpt": "Với tư cách là một giáo viên môn xã hội học, tôi mong muốn học sinh của mình phát triển được sự trân trọng đối với chính bộ môn lịch sử. Thay vì chỉ nhấn mạnh vào việc ghi nhớ ngày tháng và tên tuổi – những thứ mà chúng ta sẽ quên ngay khi làm bài kiểm tra – mục tiêu của tôi là giúp học sinh hiểu được sự phức tạp trong công việc chuyên môn của các nhà sử học. Gần đây, lớp 8 môn Thế giới cổ đại của tôi…",
+        "title": "Học sinh lớp 8 ở Missouri sao chép các tài liệu chống chế độ nô lệ và tìm hiểu về phong trào bãi bỏ chế độ nô lệ."
+      }
+    },
+    "buttons": {
+      "first": "Tài nguyên trực tuyến",
+      "second": "Zooniverse trong trường học dành cho học sinh từ 9 đến 12 tuổi.",
+      "third": "Zooniverse dành cho sinh viên đại học"
+    },
+    "forEducators": {
+      "classrooms": "Khám phá các lớp học Zooniverse",
+      "heading": "Tài liệu dành cho nhà giáo dục",
+      "paragraphs": {
+        "first": "Đặt ra các mốc phân loại, theo dõi nỗ lực và tôn vinh tác động tập thể. Đọc <0>thông báo</0> của chúng tôi để biết thêm chi tiết.",
+        "second": "Mỗi nhóm dự án có thể chia sẻ thêm các tài nguyên dành cho nhà giáo dục, bao gồm giáo án, video hướng dẫn, liên kết nghiên cứu, v.v. Hãy nhớ kiểm tra tab <0>Giáo dục</0> của dự án.",
+        "third": "Hỗ trợ sinh viên hoàn thành giờ phục vụ cộng đồng để nhận học bổng, đáp ứng yêu cầu tốt nghiệp và hơn thế nữa. Xem bài đăng trên blog này để biết thêm chi tiết."
+      },
+      "subheadings": {
+        "first": "Thống kê nhóm",
+        "second": "Cơ hội giáo dục dành riêng cho dự án",
+        "third": "Giấy chứng nhận tình nguyện viên"
+      }
+    },
+    "introduction": "Bạn là một nhà giáo dục quan tâm đến việc sử dụng Zooniverse trong lớp học? Tuyệt vời! Hàng triệu người trên khắp thế giới tham gia vào khoảng 100 dự án đang hoạt động, mỗi dự án đều có một diễn đàn thảo luận hỗ trợ và thân thiện, nơi các nhà nghiên cứu tương tác với công chúng về nghiên cứu và các mối quan tâm rộng hơn. Zooniverse là một nơi tuyệt vời dành cho học sinh.",
+    "subheading": "Giáo dục trong thế giới động vật",
+    "takePart": {
+      "heading": "Hãy tham gia vào cuộc trò chuyện",
+      "paragraph": "Hãy theo dõi những nỗ lực giáo dục mới nhất của Zooniverse trên <0>Blog Zooniverse</0>. Bạn cũng có thể tham gia thảo luận trong <1>diễn đàn thảo luận về Giáo dục và Zooniverse</1> của chúng tôi."
+    },
+    "title": "Giáo dục"
+  },
+  "FAQ": {
+    "help": "Không tìm thấy câu trả lời cho câu hỏi của bạn? Hãy truy cập trang <0>Giải pháp Zooniverse</0>, đặt câu hỏi trên <1>Zooniverse Talk</1> hoặc <2>liên hệ với chúng tôi</2>.",
+    "item0": {
+      "answer": "Con người giỏi hơn máy tính ở nhiều nhiệm vụ. Đối với hầu hết các dự án của Zooniverse, máy tính đơn giản là không đủ tốt để thực hiện nhiệm vụ được yêu cầu, hoặc chúng có thể bỏ sót những đặc điểm thú vị mà con người sẽ phát hiện ra - đó là lý do tại sao chúng tôi cần sự giúp đỡ của bạn. Một số dự án của Zooniverse cũng đang sử dụng phân loại của con người để giúp huấn luyện máy tính thực hiện tốt hơn các nhiệm vụ nghiên cứu này trong tương lai. Khi bạn tham gia vào một dự án của Zooniverse, bạn đang đóng góp vào nghiên cứu thực sự.",
+      "question": "Tại sao các nhà nghiên cứu cần sự giúp đỡ của bạn? Tại sao máy tính không thể thực hiện những nhiệm vụ này?"
+    },
+    "item10": {
+      "answer": "Chúng tôi hỗ trợ hầu hết các trình duyệt cho đến phiên bản áp chót.",
+      "question": "Zooniverse hỗ trợ phiên bản trình duyệt nào?"
+    },
+    "item11": {
+      "answer0": "Một số bản dịch nội dung cấp nền tảng (tức là văn bản được chia sẻ trên tất cả các trang web của Zooniverse như nhãn menu, tiêu đề, nút, v.v.) đến từ các dịch giả tình nguyện. Tuy nhiên, chúng tôi cũng đã thử nghiệm bản dịch AI trên một số ít ngôn ngữ <0>chỉ dành cho văn bản cấp nền tảng</0>. Chúng tôi nhận thấy rằng chất lượng bản dịch AI khác nhau giữa các ngôn ngữ và điều này đi kèm với rủi ro bản dịch không chính xác. Chúng tôi hoan nghênh các tình nguyện viên giúp nâng cao chất lượng dịch thuật trên toàn nền tảng của chúng tôi.",
+      "answer1": "Vui lòng lưu ý rằng việc dịch văn bản cấp dự án được quản lý bởi các nhóm nghiên cứu, và bất kỳ bản dịch nào do AI tạo ra đối với văn bản cụ thể của dự án đều phải được nhóm đó công khai, theo <0>Khung đạo đức AI</0> của chúng tôi. Thông tin bổ sung về bản dịch Zooniverse có sẵn tại <1>https://help.zooniverse.org/next-steps/translations</1>.",
+      "question": "Tôi nên làm gì nếu phát hiện bản dịch ở cấp độ nền tảng không chính xác?"
+    },
+    "item1": {
+      "answer": "Đối với hầu hết các chủ đề được trình bày trong các dự án Zooniverse, các nhà nghiên cứu không biết câu trả lời chính xác và đó là lý do tại sao họ cần sự giúp đỡ của bạn. Con người rất giỏi trong việc nhận dạng mẫu, vì vậy nhìn chung, phỏng đoán đầu tiên của bạn rất có thể là đúng. Đừng quá lo lắng về việc mắc lỗi đôi khi - nhiều hơn một người sẽ xem xét từng hình ảnh, video hoặc biểu đồ trong một dự án. Hầu hết các dự án Zooniverse đều có nút Trợ giúp, trang Câu hỏi thường gặp (FAQ) và Hướng dẫn thực địa với nhiều thông tin hơn để hướng dẫn bạn khi phân loại.",
+      "question": "Làm sao để biết tôi đang làm đúng hay sai?"
+    },
+    "item2": {
+      "answer": "Các phân loại của bạn được lưu trữ trong cơ sở dữ liệu trực tuyến an toàn của Zooniverse. Các nhóm nghiên cứu dự án tải xuống dữ liệu phân loại dự án của họ và kết hợp nhiều bài nộp lại với nhau để tạo ra câu trả lời 'cuối cùng' cho mỗi đối tượng. Sau khi bạn đã gửi phân loại của mình cho một đối tượng nhất định, bạn không thể quay lại và chỉnh sửa nó. Để biết thông tin về quyền sở hữu dữ liệu, vui lòng xem trang <0>Thỏa thuận người dùng và Chính sách bảo mật của Zooniverse</0> của chúng tôi.",
+      "question": "Sau khi nộp bài, kết quả phân loại của tôi sẽ như thế nào?"
+    },
+    "item3": {
+      "answer": "Vâng. Hãy truy cập zooniverse.org, đăng nhập, nhấp vào 'Xem thêm số liệu thống kê', sau đó nhấp vào nút 'Tạo chứng nhận tình nguyện viên' ở góc dưới bên phải của biểu đồ thống kê. Sau đó lưu hoặc in chứng nhận của bạn! Đọc thêm <0>tại đây</0>.",
+      "question": "Tôi có thể tải xuống Giấy chứng nhận tình nguyện viên không? Tôi có thể sử dụng Zooniverse để đáp ứng các yêu cầu về Học tập phục vụ cộng đồng không?"
+    },
+    "item4": {
+      "answer": "Siêu dữ liệu phân loại được lưu trữ trong cơ sở dữ liệu của chúng tôi với dấu thời gian UTC, và dịch vụ thống kê tổng hợp số liệu phân loại thành các nhóm theo phạm vi ngày UTC. Tất cả số liệu thống kê đều được hiển thị nhất quán theo phạm vi ngày UTC.",
+      "question": "Tại sao số liệu thống kê lại được hiển thị theo múi giờ UTC?"
+    },
+    "item5": {
+      "answer": "Zooniverse rất coi trọng việc bảo vệ thông tin cá nhân và dữ liệu phân loại của các tình nguyện viên. Thông tin chi tiết về những nỗ lực này có thể được tìm thấy trên trang <0>Thỏa thuận người dùng và Chính sách bảo mật của Zooniverse</0> và trang <1>Bảo mật của Zooniverse</1>.",
+      "question": "Zooniverse sử dụng thông tin tài khoản của tôi như thế nào?"
+    },
+    "item6": {
+      "answer": "Bạn có thể đăng tải các đề xuất về tính năng mới và báo cáo lỗi thông qua <0>Zooniverse Talk</0>, thông qua một Vấn đề trên <1>kho lưu trữ Github</1> có liên quan hoặc <2>liên hệ với chúng tôi</2>.",
+      "question": "Tôi có yêu cầu về tính năng hoặc phát hiện lỗi; tôi nên liên hệ với ai/làm thế nào để báo cáo?"
+    },
+    "item7": {
+      "answer": "Zooniverse là sự hợp tác giữa các tổ chức từ Vương quốc Anh và Hoa Kỳ; tất cả các thành viên trong nhóm của chúng tôi đều là nhân viên của một trong hai tổ chức đối tác này. Hãy xem trang <0>việc làm của Zooniverse</0> để tìm hiểu thêm về các cơ hội việc làm trong Zooniverse.",
+      "question": "Zooniverse có đang tuyển dụng không?"
+    },
+    "item8": {
+      "answer0": "Zooniverse là một nền tảng nghiên cứu do cộng đồng đóng góp, không phải là một tổ chức, công ty hay phi lợi nhuận. Chúng tôi là sự hợp tác đa tổ chức.",
+      "answer1": "Đài thiên văn Adler ở Chicago, một trong những tổ chức chủ nhà của nhóm Zooniverse, là một tổ chức phi lợi nhuận 501(c)(3). Các cá nhân hoặc tổ chức cần liên kết rõ ràng với một tổ chức 501(c)(3) cho các hoạt động tình nguyện của mình, hãy sử dụng Đài thiên văn Adler làm nguồn tham chiếu. Tài liệu chứng minh tình trạng 501(c)(3) của Đài thiên văn Adler được cung cấp <0>tại đây</0>, và mã số thuế EIN của Đài thiên văn Adler là 36-6210902. Khi nhập tên tổ chức, vui lòng sử dụng “Adler Planetarium - Zooniverse” nếu có thể. Nếu không thể, vui lòng sử dụng “Adler Planetarium” (trùng khớp với mã số thuế EIN). Trong mọi trường hợp, bạn sẽ tham gia tình nguyện thông qua Zooniverse.org.",
+      "answer2": "Để biết thêm thông tin về cách quyên góp, vui lòng truy cập trang <0>quyên góp</0> của chúng tôi.",
+      "question": "Zooniverse có phải là một tổ chức phi lợi nhuận không?"
+    },
+    "item9": {
+      "answer": "Bạn có thể tìm thêm chi tiết về cách trích dẫn Zooniverse trong các ấn phẩm nghiên cứu sử dụng dữ liệu thu được từ việc sử dụng Zooniverse Project Builder trên trang <0>Tài nguyên</0> của chúng tôi.",
+      "question": "Tôi là chủ dự án/thành viên nhóm nghiên cứu, vậy tôi cần làm gì để ghi nhận Zooniverse và Nền tảng Project Builder trong bài báo, tóm tắt bài thuyết trình, v.v.?"
+    },
+    "title": "Câu hỏi thường gặp"
+  },
+  "Home": {
+    "Community": {
+      "feedOne": "Tin tức Zooniverse hàng ngày",
+      "feedTwo": "Blog của Zooniverse",
+      "heading": "Cộng đồng Zooniverse",
+      "seeAll": "Xem tất cả các bài đăng",
+      "subheading": "Điều gì đang diễn ra?"
+    },
+    "DefaultHome": {
+      "FeaturedProjects": {
+        "heading": "Dự án nổi bật",
+        "none": "Không có dự án nổi bật nào"
+      },
+      "Introduction": {
+        "description1": "Zooniverse là nền tảng lớn nhất thế giới về nghiên cứu do con người thực hiện. Chúng tôi kết nối các nhà nghiên cứu chuyên nghiệp với hàng triệu tình nguyện viên trên toàn thế giới. Chúng tôi tạo điều kiện giúp đem lại kết quả thực từ hoạt động nghiên cứu tưởng tượng hoặc bất khả thi. Nhờ vậy đã dẫn đến những khám phá mới, tạo nên những tác động chính sách mới cũng như các ấn phẩm nghiên cứu mới.",
+        "description2": "Nền tảng của chúng tôi vận hành nhờ những người tình nguyện như bạn. Chúng tôi hoan nghênh sự tham gia của các tình nguyện viên thuộc mọi độ tuổi và nền tảng học vấn, không đòi hỏi phải có bằng tiến sĩ — chỉ cần tinh thần ham hiểu biết và một vài cú nhấp chuột. Đã có nhiều phát hiện thú vị nhất từ các dự án Zooniverse nảy sinh trong quá trình thảo luận giữa tình nguyện và nhà nghiên cứu. Hãy cùng chúng tôi tham gia ngay hôm nay vào hoạt động nghiên cứu tân tiến và tự tạo ra các khám phá của riêng bạn!",
+        "register": "Đăng ký",
+        "signIn": "Đăng nhập",
+        "video": "Giới thiệu ngắn gọn về Zooniverse"
+      },
+      "Researchers": {
+        "build": "Tạo dựng dự án",
+        "description": "Từ việc phân loại động vật, khám phá các hành tinh ngoài Hệ Mặt Trời cho đến việc chép âm các tài liệu lịch sử, v.v., các nhà nghiên cứu trên khắp các lĩnh vực đã sử dụng Trình tạo dựng Dự án để tạo ra các dự án hấp dẫn và dễ tiếp cận. Ai cũng có thể tạo dựng một dự án Zooniverse. Chỉ cần tải dữ liệu của bạn lên, chọn các nhiệm vụ mà bạn muốn các tình nguyện viên thực hiện, rồi cùng chúng tôi hình thành nên một cộng đồng trực tuyến mang tính hòa nhập và thú vị tham gia vào hoạt động nghiên cứu thực thụ."
+      },
+      "headings": {
+        "first": "Zooniverse là gì?",
+        "fourth": "Khám phá ứng dụng di động của chúng tôi",
+        "second": "Dự án nổi bật",
+        "third": "Nhà nghiên cứu thực, kết quả thực"
+      },
+      "heroText": "Tham gia cùng hàng triệu người đang giúp thúc đẩy hoạt động nghiên cứu, khoa học và kiến thức thực sự.",
+      "mainHeading": "Nghiên cứu do con người thực hiện",
+      "projects": "Khám phá các dự án",
+      "subheadings": {
+        "first": "Trí tuệ của cộng đồng",
+        "fourth": "Khám phá, dạy và học - mọi lúc, mọi nơi",
+        "second": "Hoạt động của Zooniverse",
+        "third": "Gặp gỡ các nhà nghiên cứu đã tạo ra dự án trên Zooniverse"
+      }
+    }
+  },
+  "OurTeam": {
+    "description": "Những người tạo nên Zooniverse.",
+    "sidebarLabel": "Tổ chức",
+    "title": "Đội ngũ của chúng tôi"
+  },
+  "Projects": {
+    "disciplines": {
+      "all": "Tất cả các ngành",
+      "arts": "Nghệ thuật",
+      "biology": "Sinh vật học",
+      "climate": "Khí hậu",
+      "history": "Lịch sử",
+      "language": "Ngôn ngữ",
+      "literature": "Văn học",
+      "medicine": "Thuốc",
+      "nature": "Thiên nhiên",
+      "physics": "Vật lý",
+      "social": "Khoa học xã hội",
+      "space": "Không gian"
+    },
+    "languages": {
+      "label": "Lọc dự án theo các bản dịch có sẵn"
+    },
+    "organizations": {
+      "description": "Các tổ chức tập hợp nhiều dự án Zooniverse có liên quan, giúp người tham gia dễ dàng khám phá các nỗ lực nghiên cứu kết nối.",
+      "heading": "Các tổ chức",
+      "none": "Không tìm thấy tổ chức nào."
+    },
+    "projects": {
+      "description": "Chào mừng! Chúng tôi rất vui vì bạn đã đến đây.</0> Hãy cuộn xuống để xem tất cả các dự án đang hoạt động của chúng tôi, tìm kiếm một dự án cụ thể hoặc lọc các dự án dựa trên sở thích của bạn. Chúc bạn vui vẻ và chúc bạn phân loại thành công!",
+      "empty": {
+        "clear": "Đặt lại bộ lọc",
+        "status": "Đôi khi một dự án có thể tạm thời hết dữ liệu hoặc đã hoàn thành! Hãy thử tìm kiếm <0>Trạng thái bất kỳ dự án nào</0>"
+      },
+      "error": "Đã xảy ra lỗi khi tải dự án.",
+      "heading": "Tất cả các dự án",
+      "none": "Không tìm thấy dự án nào.",
+      "showingNum": "{{range}} trong số {{total}} dự án"
+    },
+    "search": {
+      "placeholder": "Tìm kiếm dự án",
+      "warning": "Từ khóa tìm kiếm phải có ít nhất 5 chữ cái."
+    },
+    "sortBy": {
+      "label": "Sắp xếp theo",
+      "mostActive": "Hoạt động tích cực nhất",
+      "mostPopular": "Phổ biến nhất",
+      "nameAZ": "Đặt tên từ A đến Z",
+      "nameZA": "Tên Z - A",
+      "newest": "Mới nhất",
+      "oldest": "Cũ nhất"
+    },
+    "status": {
+      "active": "Tích cực",
+      "all": "Bất kỳ trạng thái nào",
+      "finished": "Hoàn thành",
+      "label": "Lọc dự án theo trạng thái",
+      "paused": "Tạm dừng"
+    }
+  },
+  "Publications": {
+    "description": "Danh sách các ấn phẩm học thuật sử dụng dữ liệu do Zooniverse tạo ra.",
+    "formInfo": "Mục tiêu của chúng tôi là đăng tải các liên kết đến các bài báo đã được xuất bản mà công chúng có thể truy cập. Các bài báo đã được chấp nhận đăng nhưng chưa được xuất bản cũng được chấp nhận.",
+    "formInstruction": "Để gửi bài viết mới hoặc cập nhật bài viết hiện có, ",
+    "formLabel": "Vui lòng sử dụng mẫu đơn này.",
+    "sidebarLabel": "Kỷ luật",
+    "title": "Ấn phẩm"
+  },
+  "ResetPassword": {
+    "CommitResetForm": {
+      "body": "Nhập mật khẩu hai lần để xác nhận, sau đó bạn đã sẵn sàng quay lại hỗ trợ công việc nghiên cứu thực sự.",
+      "infoConfirmation": "Cả hai trường phải khớp nhau",
+      "infoPassword": "Tối thiểu 8 ký tự",
+      "inputConfirmation": "Xác nhận mật khẩu mới",
+      "inputPassword": "Mật khẩu mới",
+      "status": {
+        "errorInvalidInput": "Lỗi: đầu vào không hợp lệ",
+        "errorPasswordsDoNotMatch": "Lỗi: Mật khẩu không khớp, vui lòng thử lại.",
+        "success": "Mật khẩu của bạn đã được thay đổi! Bạn sẽ được chuyển hướng đến trang đăng nhập trong vài giây nữa, vui lòng sử dụng mật khẩu mới."
+      },
+      "submit": "Nộp",
+      "titleForInputPattern": "Tối thiểu 8 ký tự"
+    },
+    "NoAccessMessage": {
+      "body": "Bạn hiện đang đăng nhập. Vui lòng đăng xuất nếu bạn muốn đặt lại mật khẩu."
+    },
+    "RequestResetForm": {
+      "body": "Nhập địa chỉ email của bạn và chúng tôi sẽ gửi cho bạn một đường dẫn để đặt lại mật khẩu.",
+      "footer": "Nếu bạn chưa nhận được email đặt lại mật khẩu, hãy kiểm tra thư mục thư rác. Nếu vẫn không có, hãy thử một địa chỉ email khác mà bạn có thể đã sử dụng để tham gia Zooniverse.",
+      "inputEmail": "Địa chỉ email",
+      "status": {
+        "errorTooManyRequests": "Lỗi: Có quá nhiều yêu cầu đặt lại mật khẩu. Vui lòng thử lại sau.",
+        "success": "Chúng tôi vừa gửi một email có chứa đường dẫn để bạn đặt lại mật khẩu."
+      },
+      "submit": "Gửi"
+    },
+    "common": {
+      "header": "Đặt lại mật khẩu"
+    }
+  },
+  "Resources": {
+    "brand": {
+      "heading": "Tài nguyên thương hiệu",
+      "links": {
+        "first": "Tải xuống logo chính thức của Zooniverse",
+        "fourth": "Storybook - Các thành phần mã hóa mà chúng tôi sử dụng trên trang web.",
+        "second": "Tải xuống tài liệu in, mẫu thuyết trình và hình ảnh dự án.",
+        "third": "Hệ thống thiết kế Zooniverse - Phong cách, màu sắc thương hiệu và quy tắc về kiểu chữ của chúng tôi"
+      }
+    },
+    "cite": {
+      "heading": "Cách trích dẫn Zooniverse",
+      "paragraphs": {
+        "fifth": "Khi viết về Zooniverse nói chung, vui lòng bao gồm một liên kết hoặc URL đến trang chủ Zooniverse ở đâu đó trong bài viết của bạn.",
+        "first": "Theo <0>Chính sách Xây dựng Dự án Zooniverse</0>, tất cả các ấn phẩm nghiên cứu sử dụng dữ liệu có nguồn gốc từ các dự án Zooniverse đều phải ghi nhận Zooniverse và nền tảng Xây dựng Dự án bằng văn bản sau:",
+        "fourth": "Khi viết bài về các dự án cụ thể của Zooniverse trên báo chí, vui lòng bao gồm liên kết hoặc URL đến dự án đó, cả trên ấn bản in và ấn bản điện tử.",
+        "second": "Chúng tôi đặc biệt khuyến khích các chủ dự án báo cáo cho chúng tôi các ấn phẩm nghiên cứu đã được chấp nhận và công bố sử dụng dữ liệu do Zooniverse tạo ra bằng cách điền vào <0>mẫu này</0>. Bạn có thể tìm thấy danh sách các ấn phẩm hiện tại từ các dự án Zooniverse và các nghiên cứu liên quan trên <1>trang Ấn phẩm</1> của chúng tôi.",
+        "sixth": "Nếu bạn muốn phỏng vấn một thành viên của nhóm Zooniverse, vui lòng <0>liên hệ với chúng tôi</0>.",
+        "third": "Nếu bạn có bất kỳ câu hỏi nào về cách ghi nhận Zooniverse, chẳng hạn như đề cập đến một cá nhân cụ thể hoặc mã tùy chỉnh, vui lòng <0>liên hệ với chúng tôi</0>."
+      },
+      "quote": "Ấn phẩm này sử dụng dữ liệu được tạo ra thông qua nền tảng <0>Zooniverse.org</0>, việc phát triển nền tảng này được tài trợ bởi sự hỗ trợ hào phóng, bao gồm Giải thưởng Tác động Toàn cầu từ Google và một khoản tài trợ từ Quỹ Alfred P. Sloan.",
+      "subheadings": {
+        "first": "Dành cho các nhà nghiên cứu",
+        "second": "Dành cho giới truyền thông"
+      }
+    },
+    "title": "Tài nguyên"
+  },
+  "Settings": {
+    "AccountSettings": {
+      "title": "Tài khoản"
+    },
+    "EmailSettings": {
+      "title": "E-mail"
+    },
+    "ProfileSettings": {
+      "title": "Hồ sơ"
+    },
+    "common": {
+      "backHome": "Trở về trang chủ",
+      "sidebar": "Cài đặt",
+      "title": "Cài đặt người dùng"
+    },
+    "forms": {
+      "fields": {
+        "credited_name": {
+          "help": "Đây là tên chúng tôi sẽ sử dụng để ghi nhận trong các ấn phẩm, áp phích, chứng nhận tình nguyện viên và các tài liệu khác.",
+          "label": "Tên thật"
+        },
+        "display_name": {
+          "help": "Tên của bạn sẽ hiển thị như thế nào với những người khác trên toàn bộ nền tảng.",
+          "label": "Tên hiển thị"
+        }
+      },
+      "optional": "Không bắt buộc",
+      "save": "Thay đổi",
+      "saveSuccess": "Các thay đổi đã được lưu.",
+      "saveUnnecessary": "Không có thay đổi nào được lưu."
+    }
+  },
+  "Sidebar": {
+    "all": "Tất cả"
+  },
+  "Unsubscribe": {
+    "form": {
+      "body": {
+        "p1": "Chúng tôi hiểu - không ai thích liên tục nhận những email mà họ không muốn.",
+        "p2": "Chỉ cần nhập địa chỉ email của bạn vào đây và chúng tôi sẽ hủy đăng ký bạn khỏi tất cả các danh sách email của chúng tôi."
+      },
+      "errors": {
+        "general": "Đã xảy ra lỗi. Vui lòng kiểm tra lại địa chỉ email và thử lại."
+      },
+      "header": "Hủy đăng ký nhận tất cả email từ Zooniverse, ngoại trừ Talk.",
+      "inputEmail": "Địa chỉ email",
+      "submit": "Nộp"
+    },
+    "processed": {
+      "body": "Nếu bạn đổi ý, hãy truy cập vào cài đặt tài khoản của mình để <0>cập nhật tùy chọn email</0>.",
+      "header": "Hủy đăng ký thành công"
+    }
+  },
+  "Volunteer": {
+    "beta": {
+      "button": "Đăng ký xét nghiệm",
+      "heading": "Thử nghiệm Beta",
+      "paragraphs": {
+        "first": "Nếu bạn đã là tình nguyện viên và muốn cung cấp thêm phản hồi, hãy cân nhắc trở thành người thử nghiệm beta. Người thử nghiệm beta là những tình nguyện viên của Zooniverse giúp chúng tôi thử nghiệm các dự án trước khi chúng được phát hành rộng rãi và cung cấp phản hồi cho các nhóm nghiên cứu để giúp cải thiện các dự án đó. Người thử nghiệm beta sẽ gửi phân loại thử nghiệm về các dự án và cung cấp phản hồi cho các nhóm thông qua một bảng câu hỏi ngắn.",
+        "second": "Quá trình này giúp chúng tôi xác định bất kỳ vấn đề nào trong dự án, và thậm chí đánh giá xem dự án có phù hợp với Zooniverse hay không. Ý kiến ​​của bạn vô cùng quan trọng đối với chúng tôi! Bạn có thể đọc hướng dẫn của chúng tôi về những yếu tố tạo nên một dự án phù hợp trên trang <0>Chính sách Phòng thí nghiệm</0>.",
+        "third": "Đăng ký làm người thử nghiệm beta rất dễ dàng và ai cũng có thể làm được. Chỉ cần vào phần <0>cài đặt</0> và chọn ô có nội dung “Nhận thông báo qua email về dự án beta và trở thành người thử nghiệm beta”. Chúng tôi sẽ gửi email cho bạn khi các dự án sẵn sàng để thử nghiệm. Bạn có thể thay đổi cài đặt email và hủy đăng ký nhận email beta bất cứ lúc nào bằng cách truy cập lại trang email đó và bỏ chọn ô."
+      }
+    },
+    "classify": {
+      "heading": "Phân loại dự án",
+      "paragraphs": {
+        "first": "Tham gia tình nguyện vào một dự án là cách dễ nhất và phổ biến nhất để đóng góp. Chúng tôi luôn cần tình nguyện viên giúp phân loại dữ liệu dự án. Không có yêu cầu về thời gian tối thiểu; bạn có thể làm nhiều hoặc ít tùy thích.",
+        "second": "Để bắt đầu, hãy truy cập trang chủ <0>Zooniverse</0> và đăng ký tài khoản."
+      }
+    },
+    "howTo": {
+      "heading": "Cách thức tình nguyện",
+      "paragraph": "Bạn muốn trở thành tình nguyện viên? Rất dễ dàng: chỉ cần bắt đầu phân loại! Tất cả những người đóng góp cho dự án Zooniverse đều là tình nguyện viên. Chúng tôi có một cộng đồng tình nguyện viên tuyệt vời trên toàn cầu, những người \"thúc đẩy\" hoạt động nghiên cứu dựa trên cộng đồng của chúng tôi. Bạn đã là tình nguyện viên và muốn làm nhiều hơn nữa? Hãy cân nhắc trở thành người thử nghiệm phiên bản beta, hoặc hỗ trợ các nhóm dự án bằng cách trở thành người điều hành thảo luận. Để biết thêm thông tin về các vai trò này, hãy đọc tiếp."
+    },
+    "moderate": {
+      "heading": "Điều phối một dự án",
+      "paragraphs": {
+        "first": "Các điều phối viên tình nguyện hỗ trợ các nhóm nghiên cứu sử dụng công cụ thảo luận Talk của dự án. Họ giúp điều phối các cuộc thảo luận, đóng vai trò là đầu mối liên lạc cho dự án và có thêm quyền hạn trên Talk. Điều phối viên được lựa chọn bởi chủ sở hữu dự án. Nếu bạn quan tâm đến việc trở thành điều phối viên cho một dự án mà bạn đang tham gia, hãy truy cập trang Giới thiệu hoặc diễn đàn Talk của dự án và liên hệ với nhà nghiên cứu. Để biết thêm thông tin, hãy xem tài liệu <0>'Điều phối viên có vai trò gì?'</0> của chúng tôi.",
+        "second": "Nếu bạn muốn biết thêm thông tin về bất kỳ vai trò nào trong số này, <0>hãy liên hệ với chúng tôi</0>."
+      }
+    },
+    "register": {
+      "button": "Đăng ký ngay hôm nay",
+      "heading": "Những lợi ích khi đăng ký với Zooniverse",
+      "paragraphs": {
+        "fifth": "Các phiên bản dịch của trang đăng ký có sẵn bằng tiếng Tây Ban Nha và tiếng Pháp. Xin lưu ý rằng không phải tất cả các yếu tố trên trang đều có thể được dịch.",
+        "first": "Theo dõi phân loại công việc, số giờ làm việc và nhiều hơn nữa. Khám phá các dự án yêu thích của bạn và quan sát xu hướng. Sau đó, xuất dữ liệu để có thêm nhiều tùy chọn hơn nữa.",
+        "fourth": "Đối với những người dưới 16 tuổi, cha mẹ/người giám hộ cần ký xác nhận đăng ký. <0>https://www.zooniverse.org/accounts/register</0> là liên kết trực tiếp để đăng ký.",
+        "second": "Tạo chứng chỉ chính thức xác nhận những nỗ lực của bạn trên nền tảng Zooniverse. Chỉ cần chỉ định khoảng thời gian hoặc dự án.",
+        "third": "Người dùng đã đăng ký có thể đăng bài trên các diễn đàn Thảo luận dành riêng cho dự án và trên toàn hệ thống Zooniverse, cho phép bạn đặt câu hỏi cho các chuyên gia thực thụ."
+      },
+      "subheadings": {
+        "first": "Thông tin cá nhân",
+        "second": "Giấy chứng nhận tình nguyện viên",
+        "third": "Trao đổi với các tình nguyện viên và chuyên gia khác."
+      }
+    },
+    "title": "Tình nguyện viên",
+    "translate": {
+      "heading": "Dịch một dự án",
+      "paragraphs": {
+        "first": "Các dịch giả tình nguyện hỗ trợ các nhóm nghiên cứu dịch các dự án Zooniverse bằng tiếng Anh sang các ngôn ngữ khác, góp phần vào cộng đồng tình nguyện viên toàn cầu của chúng tôi. Các dịch giả dự án làm việc trực tiếp với các nhóm dự án để được thêm vào dự án với tư cách là Dịch giả, sau đó họ có thể truy cập trang web dịch thuật cấp dự án và nhập bản dịch cho từng phần của dự án.",
+        "second": "Chúng tôi cũng hoan nghênh các tình nguyện viên giúp hiệu chỉnh các bản dịch do AI tạo ra đối với nội dung cấp nền tảng, tức là văn bản được chia sẻ trên tất cả các dự án như nhãn menu, tiêu đề, nút, v.v. Nội dung này <0>không</0> dành riêng cho dự án nào và được quản lý và bảo trì bởi nhóm Zooniverse.",
+        "third": "Nếu bạn quan tâm đến việc tình nguyện làm người dịch dự án, hoặc hỗ trợ chỉnh sửa bản dịch cấp nền tảng, vui lòng <0>liên hệ với chúng tôi</0>."
+      }
+    }
+  }
+}

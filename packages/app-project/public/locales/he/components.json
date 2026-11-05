@@ -76,15 +76,22 @@
     "classify": "קיטלוג",
     "collect": "אוספים",
     "exploreProject": "גלו פרויקט",
+    "lab": "מַעבָּדָה",
     "organization": "מהארגון:",
     "recents": "לאחרונה",
     "talk": "שיחה"
   },
   "ProjectStatistics": {
+    "active": "סטטיסטיקות פעילות",
+    "allTime": "סטטיסטיקות כל הזמנים",
+    "byTheNumbers": "לפי המספרים",
     "classifications": "סיווגים",
     "completedSubjects": "נושאים שהושלמו",
+    "launched": "הפרויקט הושק בתאריך {{date}}",
+    "notLaunched": "הפרויקט לא הושק",
     "percentComplete": "אחוזים שהושלמו",
     "subjects": "פריטים",
+    "subtitle": "עקבו אחר ההתקדמות שלכם ושל שאר המתנדבים בפרויקט.",
     "text": "כל לחיצה עוזרת! הצטרפו לקהילת {{projectName}} כדי לקדם אותו ולסייע לחוקרים להגיע לתובנות חשובות. לחצו על \"הצגת נתונים נוספים\" כדי לראות פרטים נוספים.",
     "title": "סטטיסטיקת {{projectName}}",
     "viewMoreStats": "הצגת נתונים סטטיסטיים נוספים",
@@ -100,6 +107,7 @@
     "alreadySeen": "כבר נראה",
     "back": "בחרו ערכת נושא אחרת",
     "byline": "מינו את הרשימה על ידי לחיצה על שמות העמודות. הנושאים יופיעו בסדר רציף החל מהנושא שתבחרו.",
+    "error": "מצטערים, לא הצלחנו לטעון את הנושאים בקבוצת נושאים זו. אנא נסה שוב מאוחר יותר, או הודע לצוות הפרויקט ב-Talk.",
     "fetching": "אנא המתן...",
     "heading": "בחרו נושא כדי להתחיל",
     "retired": "פנסיונר",
@@ -124,6 +132,7 @@
   "WorkflowSelector": {
     "WorkflowSelectButton": {
       "complete": "{{completeness}}% הושלם",
+      "externalWorkflow": "זרימת עבודה חיצונית",
       "setSelection": "הגדרת בחירה",
       "subjectSelection": "בחירת נושא"
     },

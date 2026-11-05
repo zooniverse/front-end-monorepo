@@ -17,7 +17,7 @@ describe('Component > SubjectTalkPage', function () {
   }
 
   const mockStore = {
-    organizations: [],
+    organizations: new Map(),
     project: {
       about_pages: [],
       avatar: {

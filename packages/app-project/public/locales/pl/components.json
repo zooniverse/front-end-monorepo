@@ -76,15 +76,22 @@
     "classify": "Klasyfikowanie",
     "collect": "Kolekcjonowanie",
     "exploreProject": "Przeglądaj projekt",
+    "lab": "Laboratorium",
     "organization": "Od organizacji:",
     "recents": "Najnowsze",
     "talk": "Dyskutowanie"
   },
   "ProjectStatistics": {
+    "active": "Aktywne statystyki",
+    "allTime": "Statystyki wszech czasów",
+    "byTheNumbers": "Wg danych liczbowych",
     "classifications": "Klasyfikacje",
     "completedSubjects": "Ukończone materiały",
+    "launched": "Projekt uruchomiony {{date}}",
+    "notLaunched": "Projekt nie został uruchomiony",
     "percentComplete": "Percent Kompletność",
     "subjects": "Materiały",
+    "subtitle": "Monitoruj postępy swoje oraz innych wolontariuszy, jakie poczynicie w tym projekcie.",
     "text": "Liczy się każde kliknięcie! Dołącz do społeczności projektu {{projectName}}, aby uczestniczyć w jego realizacji i pomóc badaczom w uzyskaniu ważnych wyników. Kliknij przycisk „Pokaż więcej statystyk”, aby poznać jeszcze więcej danych statystycznych.",
     "title": "{{projectName}} statystyka",
     "viewMoreStats": "Pokaż więcej statystyk",
@@ -100,6 +107,7 @@
     "alreadySeen": "Już przeglądany",
     "back": "Wybierz inny zestaw materiałów",
     "byline": "Posortuj listę, klikając nazwy kolumn. Materiały będą wyświetlane kolejno, począwszy od wybranego.",
+    "error": "Przepraszamy, nie udało nam się załadować tematów z tego zestawu. Spróbuj ponownie później lub poinformuj o tym zespół projektu w Talk.",
     "fetching": "Czekaj...",
     "heading": "Wybierz materiał, aby rozpocząć",
     "retired": "Archiwalny",
@@ -124,6 +132,7 @@
   "WorkflowSelector": {
     "WorkflowSelectButton": {
       "complete": "Ukończono {{completeness}}%",
+      "externalWorkflow": "zewnętrzny przepływ pracy",
       "setSelection": "wybór zestawu",
       "subjectSelection": "wybór materiału"
     },

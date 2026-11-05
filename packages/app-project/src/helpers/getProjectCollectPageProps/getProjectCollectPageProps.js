@@ -5,6 +5,7 @@ import fetchProjectData from '@helpers/fetchProjectData'
 import fetchProjectPageTitles from '@helpers/fetchProjectPageTitles'
 import fetchTranslations from '@helpers/fetchTranslations'
 import initStore from '@stores'
+import organizationsToMap from '@stores/organizationsToMap'
 
 const environment = process.env.APP_ENV
 
@@ -36,7 +37,6 @@ export default async function getProjectCollectPageProps({ locale, params }) {
   }
 
   const { project: projectData } = getSnapshot(store)
-  const projectSlug = projectData.slug
   const language = locale || projectData.primary_language
   const translations = await fetchTranslations({
     translated_id: projectData.id,
@@ -47,7 +47,7 @@ export default async function getProjectCollectPageProps({ locale, params }) {
   })
   const strings = translations?.strings ?? projectData.strings
   const linkedOrganizations = await fetchLinkedOrganizations(projectData, language, env)
-  applySnapshot(store.organizations, linkedOrganizations)
+  applySnapshot(store.organizations, organizationsToMap(linkedOrganizations))
 
   const initialState = {
     project: {
@@ -58,6 +58,7 @@ export default async function getProjectCollectPageProps({ locale, params }) {
   }
 
   const loginParam = params?.login ?? null
+  const collectionNameParam = params?.collectionName ?? null
 
   return {
     notFound: false,
@@ -65,8 +66,8 @@ export default async function getProjectCollectPageProps({ locale, params }) {
       host,
       initialState,
       projectDisplayName: strings.display_name,
-      projectSlug,
-      loginParam
+      loginParam,
+      collectionNameParam
     }
   }
 }

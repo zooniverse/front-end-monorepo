@@ -4,17 +4,23 @@ import { autorun } from 'mobx'
 import logToSentry from '../src/helpers/logger/logToSentry.js'
 
 import Organization from './Organization'
+import organizationsToMap from './organizationsToMap'
 import Project from './Project'
 import UI from './UI'
 import User from './User'
 
 const Store = types
   .model('Store', {
-    organizations: types.array(Organization),
+    organizations: types.map(Organization),
     project: types.optional(Project, {}),
     ui: types.optional(UI, {}),
     user: types.optional(User, {})
   })
+
+  .preProcessSnapshot(snapshot => ({
+    ...snapshot,
+    organizations: organizationsToMap(snapshot.organizations)
+  }))
 
   .views(self => ({
     get client () {

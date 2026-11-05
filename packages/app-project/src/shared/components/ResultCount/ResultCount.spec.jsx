@@ -1,12 +1,12 @@
 import { composeStory } from '@storybook/react'
 import { render, screen } from '@testing-library/react'
 
-import Meta, { Default, Loading } from './CollectionsResultCount.stories'
+import Meta, { Default, Loading } from './ResultCount.stories'
 
 const DefaultStory = composeStory(Default, Meta)
 const LoadingStory = composeStory(Loading, Meta)
 
-describe('Component > CollectionsResultCount', function () {
+describe('Component > ResultCount', function () {
   it('should show the result count text', function () {
     render(<DefaultStory />)
 
