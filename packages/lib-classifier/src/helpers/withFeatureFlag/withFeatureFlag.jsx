@@ -1,6 +1,6 @@
 import { forwardRef } from 'react'
 import { observer } from 'mobx-react'
-import { useStores } from '@hooks'
+import useStores from '@hooks/useStores'
 
 function storeMapper(classifierStore) {
   const project = classifierStore?.projects.active
