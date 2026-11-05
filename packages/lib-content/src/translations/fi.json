@@ -1,0 +1,733 @@
+{
+  "404": {
+    "Default404": {
+      "findNewProject": "Löydä uusi projekti tutkittavaksi",
+      "heading": "Ei mitään täällä.",
+      "message": "Etsimääsi sivua ei enää ole olemassa.",
+      "returnHome": "Palaa kotisivulle"
+    }
+  },
+  "AIEthics": {
+    "about": {
+      "acknowledgements": {
+        "heading": "Kiitokset",
+        "paragraph": "Zooniverse-tiimi haluaa tunnustaa seuraavat henkilöt heidän osallistumisestaan ​​virtuaalityöpajoihin, jotka johtivat näiden suositusten kehittämiseen:"
+      },
+      "advisors": {
+        "heading": "Projektin neuvonantajat"
+      },
+      "funding": {
+        "heading": "Rahoitus",
+        "paragraph": "Tätä työtä tukee Kavli-säätiö, apurahanumero SS-2025-GR-05-3064."
+      },
+      "paragraphs": {
+        "first": "Viimeisten 15 vuoden aikana tutkimusryhmät ovat integroineet koneoppimista (ML) laajaan valikoimaan Zooniverse-projekteja ja eri vaiheissa. Noin kolmannes kaikista aktiivisista Zooniverse-projekteista sisältää nyt koneoppimista jollain tavalla. Näiden teknologioiden kypsyessä ja yleisen tietoisuuden niiden olemassaolosta kasvaessa Zooniverse-vapaaehtoisten viimeaikainen palaute korosti tarvetta suurempaan läpinäkyvyyteen tekoälyn käytön suhteen alustallamme. Pyrimme vastaamaan näihin huolenaiheisiin luomalla selkeän ja standardoidun kehyksen tekoälyn/koneoppimisen eettiselle toteuttamiselle Zooniverse-projekteissa varmistaen, että tutkijat voivat tehokkaasti viestiä menetelmistään säilyttäen samalla vapaaehtoisyhteisömme luottamuksen ja yhteistyön. Kavli-säätiön rahoituksella loimme kaikkien aikojen ensimmäisen <0>tekoäly/koneoppimisen eettisen kehyksen Zooniverselle</0>, jonka lanseerasimme vuonna 2026. Tämä kehys esitetään täällä ja sitä päivitetään vuosittain tarpeen mukaan.",
+        "fourth": "Tuloksiin kuuluvat: keskeiset periaatteet, jotka toimivat viitekehyksenä ja tiivistävät yleistavoitteet; suositukset Zooniverse-alustan sisäisiksi toimiksi, jotka helpottavat projektitiimeille annettujen suositusten antamista; ja suositukset projektitiimeille tekoälyn ja koneoppimisen sisällyttämiseksi Zooniverse-projekteihin.",
+        "second": "Tämän viitekehyksen kehittämiseksi järjestimme sarjan virtuaalisia työpajoja, joihin osallistui aiheen asiantuntijoita, Zooniversen johtoa, projektien vetäjiä, ulkopuolisia tutkijoita ja vapaaehtoisia. Työpajoja järjestettiin vuoden 2025 aikana, ja niissä keskityttiin neljään keskeiseen teemaan: parhaiden käytäntöjen luominen läpinäkyvyydelle ja viestinnälle; koneoppimisen eettisten lähestymistapojen tunnistaminen riskien ja mahdollisuuksien tasapainottamiseksi; näiden eettisten lähestymistapojen kontekstuaalisen ymmärryksen syventäminen; ja loppupään tietosuojan haasteiden pohtiminen.  ",
+        "third": "Jotta työpajoihin osallistuisi enemmän ihmisiä kuin suoraan niihin pystyi osallistumaan, lähetimme kyselyitä koko Zooniverse-yhteisölle. Kyselyiden tulokset muovasivat strategista suuntaamme. Kunkin työpajan jälkeen pienempi ryhmä kokoontui muuttamaan keskustelua keskeisiksi teemoiksi ja toimintakehotuksiksi. Tuotokset jaettiin kaikkien työpajan osallistujien kanssa, joilla oli mahdollisuus antaa palautetta, korjauksia ja lisäyksiä."
+      },
+      "projectTeamList": {
+        "coord": "Projektikoordinaattori",
+        "eval": "Ohjaaja ja arvioija",
+        "heading": "Projektitiimi",
+        "pi": "Päätutkija",
+        "ra": "Tutkimusavustajat"
+      }
+    },
+    "actions": {
+      "first": "<0>Ota käyttöön tai mukauta </0><1>tekoälyn/koneoppimisen käytön kuvailuun vakiomuotoinen tapa</1> <0>(vallitsevan kielen tai olemassa olevan luokittelun mukaisesti) Zooniverse-alustalla.</0> Monet muut ehdotetut suositukset riippuvat tämän luokittelun kehittämisestä ja käyttöönotosta, mukaan lukien läpinäkyvyyttä, toimijuutta ja johdonmukaista signalointia koskevat lähestymistavat.",
+      "fourth": "<0>Zooniversen johtotiimin vuosittainen käytäntötarkistus.</0> Määritä säännöllinen aikataulu, jolla näitä resursseja arvioidaan ja/tai päivitetään, esimerkiksi vuosittain. Olemme sitoutuneet vuosittaiseen tarkastukseen ja julkaisemme blogikirjoituksen tai muun kirjallisen päivityksen samaan aikaan tämän kehyksen päivitysten kanssa osana tätä tarkistusta.",
+      "second": "<0>Omista Zooniversen verkkosivustolle sivu, joka sisältää tekoälyyn/koneoppimiseen ja sen käyttöön Zooniversessa liittyviä tietoja ja resursseja.</0> Tämä on se sivu! Se sisältää yllä olevan luokittelun, projektitiimimme suositukset sekä lisätietoja siitä, miten tätä teknologiaa käytetään (ja on käytetty) Zooniversessa, mitkä ovat sen hyödyt ja huolenaiheet ja miten tunnistaa, milloin projekti käyttää sitä.",
+      "third": "<0>Sisällytä ohjeet Zooniversen sisäiseen projektien arviointiprosessiin.</0> Tämän sivun julkaisun jälkeen sisäisiä arviointiprosessejamme on päivitetty vastaamaan tässä lueteltuja suosituksia. Tämä varmistaa, että projektien vetäjät jakavat tietoja projektiin liittyvästä tekoälyn/koneoppimisen käytöstä ja tiedonhallintasitoumuksista vakiokäytännön mukaisesti, jotta potentiaalisilla vapaaehtoisilla on pääsy näihin tietoihin."
+    },
+    "faq": {
+      "first": {
+        "answer": "Ei. Tutkijat tulevat Zooniverseen, koska he haluavat ihmisen panosta prosessiinsa. Ellei heille ole nimenomaisesti annettu lupaa tehdä niin, vapaaehtoisten ei tule käyttää Zooniversen ulkopuolisia generatiivisia tekoälytyökaluja luokittelutyönsä apuna.",
+        "question": "Olen vapaaehtoinen ja tarvitsen apua luokittelussa projektissa. Voinko käyttää apunani generatiivisia tekoälytyökaluja, kuten ChatGPT:tä tai Geminiä?"
+      },
+      "paragraph": "Eikö kysymykseesi löydy vastausta täältä? Lähetä kysymyksesi meille osoitteeseen <0>contact@zooniverse.org</0>! Päivitämme tätä listaa tarvittaessa.",
+      "second": {
+        "answerOne": "Aloita selaamalla projektin kotisivua, erityisesti projektin kuvausta ja mahdollista työnkulun kuvausta. Jos et vieläkään ole varma, katso Tietoja-sivua sekä projektin tutoriaalia/tutoriaaleja. Jos et vieläkään ole varma, voit kysyä Keskustelussa, mutta tämän viitekehyksen yksi tarkoitus on varmistaa, että kaikki projektit viestivät selkeästi, miten ne käyttävät (tai eivät käytä) tätä teknologiaa.",
+        "answerTwo": "Jos mielestäsi projekti ei ilmoita tekoälyn/koneoppimisen käytöstä asianmukaisesti, toivomme, että voit ottaa yhteyttä tutkimustiimiin Talkissa ja ehdottaa muutoksia tai ilmaista epävarmuutesi. Jos et halua tehdä niin, voit myös lähettää meille viestin osoitteeseen <0>contact@zooniverse.org</0>, niin tutkimme asian. Osa tätä työtä sisältää sisäisten arviointiprosessiemme päivittämisen, joten palautteesi auttaa meitä selvittämään, ovatko uudet prosessimme tehokkaita.",
+        "question": "Haluan selvittää, käyttääkö Zooniverse-projekti tekoälyä vai koneoppimista. Mistä löydän tiedon?"
+      }
+    },
+    "fivews": {
+      "list": {
+        "first": "<0>Kuka</0> on vastuussa tietojen laadun ja eheyden varmistamisesta? ",
+        "fourth": "<0>Miksi</0> tekoälyä ja koneoppimista käytetään? Mitä ne auttavat saavuttamaan ja kuka hyötyy? Miltä tutkimus näyttäisi, jos tekoälyä ja koneoppimista ei käytettäisi?",
+        "second": "<0>Mitä</0> tekoäly-/koneoppimistekniikoita sovelletaan?",
+        "third": "<0>Milloin</0> ja <0>Missä</0> tekoälyä/koneoppimista käytetään tiedonkeruun, -käsittelyn ja -analyysin elinkaaren vaiheessa? Missä vaiheessa vapaaehtoiset aloittavat elinkaaren? Onko näiden kahden välillä koskaan vuorovaikutusta? Jos on, niin miten?"
+      },
+      "paragraph": "Kehitettäessä uutta tekoälyä/koneoppimista sisältävää Zooniverse-projektia tutkijoiden tulisi pohtia seuraavia kysymyksiä ja olla valmiita vastaamaan niihin. Ihannetapauksessa vastaukset näihin kysymyksiin löytyvät jostain projektin tekstistä (esim. Tietoja-sivulta, Usein kysytyt kysymykset jne.)."
+    },
+    "heading": {
+      "eighth": "Resurssit",
+      "fifth": "Projektisuositukset",
+      "fifthext": "Suositukset projektitiimeille",
+      "first": "Johdanto",
+      "fourth": "Sisäiset toiminnot",
+      "fourthext": "Zooniversen sisäiset toimet",
+      "nineth": "Usein kysytyt kysymykset",
+      "ninethext": "Usein kysytyt kysymykset",
+      "second": "Sisällysluettelo",
+      "seventh": "Tekoäly/konepelaaminen Zooniversessa",
+      "seventhext": "Tekoäly ja koneoppiminen Zooniversessa",
+      "sixth": "5 kysymyksen",
+      "sixthext": "Tekoälyyn ja koneoppimiseen perustuvien projektien 5 WS:tä",
+      "tenth": "Tietoja tästä viitekehyksestä",
+      "third": "Keskeiset periaatteet"
+    },
+    "onZooniverse": {
+      "fifthQ": {
+        "heading": "Mistä tiedän, milloin projektissa käytetään tekoälyä tai koneoppimista?",
+        "list": {
+          "first": "Projektitiimien vastuulla on ilmoittaa selkeästi etusivulla, hyödyntääkö heidän projektinsa tekoälyä/koneoppimista. Lisäksi, jos projektissa on useita työnkulkuja, tiimien tulisi erottaa toisistaan ​​tekoälyä/koneoppimista sisältävät työnkulut ja ne, jotka eivät sitä käytä.",
+          "fourth": "Jos olet joskus epävarma siitä, käyttääkö jokin projekti tekoälyä/koneoppimista, voit vapaasti lähettää kysymyksen projektin keskustelupalstoille ja kysyä suoraan tutkimustiimiltä.",
+          "second": "Tiimien on myös annettava yksityiskohtaiset tiedot siitä, miksi ja miten tekoäly/koneoppiminen integroidaan heidän projekteihinsa. Nämä tiedot näkyvät projektin Tietoja-sivulla.",
+          "third": "Jos tekoäly-/koneoppimismallin kouluttaminen on projektin tavoitteena, tiimien odotetaan antavan päivityksiä tästä prosessista osana tulossivua, kun ne ovat saatavilla."
+        }
+      },
+      "firstQ": {
+        "heading": "Mitä on tekoäly? Mitä on koneoppiminen?",
+        "list": {
+          "first": "Yksinkertaista ja yhtä ainoaa määritelmää ei ole, mutta tekoälyllä tarkoitetaan laajasti tietokonejärjestelmiä, jotka on suunniteltu jäljittelemään ihmisen ajattelua. Tekoäly on laaja termi, joka kattaa laajan kirjon teknologioita ja sovelluksia. Termejä käytetään usein synonyymeinä, mutta koneoppiminen on tekoälyn osajoukko, joka käyttää dataa ja algoritmeja kouluttaakseen tietokoneita luokittelemaan, tuottamaan ennusteita ja paljastamaan yhtäläisyyksiä tai trendejä suurissa tietojoukoissa. (Määritelmä on mukautettu Fortson et al. (2024) ja <0>https://www.nasa.gov/what-is-artificial-intelligence)</0> -lähteistä.",
+          "second": "Tekoäly- ja koneoppimismenetelmiä ja -lähestymistapoja voidaan luokitella useilla eri tavoilla käytetyn teknologian ja sen ominaisuuksien perusteella.",
+          "third": "Osittain siksi, että teknologia kehittyy niin nopeasti, on helppo olla epäselvä siitä, mitä tekoäly tekee. Läpinäkyvyys Zooniverse-projekteissa sen suhteen, mitä tämä teknologia tarkalleen ottaen antaa ja miksi, voi auttaa välttämään väärinkäsityksiä tai hämmennystä ja samalla luoda vastuuvelvollisuustoimenpiteitä projektitiimeille."
+        }
+      },
+      "fourthQ": {
+        "heading": "Miksi projektitiimit tarvitsevat tai haluavat käyttää tekoälyä ja koneoppimista Zooniversessa?",
+        "list": {
+          "first": "Zooniversen voimasta huolimatta monet projektitiimit työskentelevät valtavien ja monimutkaisten tietojoukkojen kanssa. Useimmissa tapauksissa tutkijat huomaavat, että ihmisten ja koneiden yhteistyö tuottaa laadukkaampaa dataa kuin kumpikaan yksinään. Ihmis-kone-järjestelmät voivat myös auttaa nopeuttamaan projektien aikatauluja ja mahdollistamaan tutkijoiden tulosten saavuttamisen nopeammin kuin pelkän ihmisen tekemän luokittelun avulla.",
+          "second": "<0>Zooniversen julkaisusivulla</0> on useita julkaisuja, joissa kerrotaan ihmisen ja koneen luokittelun yhdistämisen onnistumisista."
+        }
+      },
+      "secondQ": {
+        "heading": "Miten tekoälyä ja koneoppimista hyödynnetään Zooniversessa?",
+        "list": {
+          "fifth": "Jos projektitiimit päättävät käyttää tekoälyä projektisisällön luomiseen, heidän on ilmoitettava nämä tiedot sivulla, joka sisältää tekoälyn luoman sisällön. Näitä voivat olla esimerkiksi projektiteksti, avatarit, mediakuvat, käännökset ja/tai projektitiedot.",
+          "first": "Yleisesti ottaen tekoälyä ja koneoppimista ei sisällytetä alustaan ​​tiettyjen projektien ulkopuolella. Zooniverse-tiimi sitoutuu läpinäkyvyyteen ja selkeään merkitsemiseen kaikissa tulevissa tapauksissa, joissa tekoälyä ja koneoppimista käytetään tiettyjen projektien ulkopuolella.",
+          "fourth": {
+            "subFifth": "<0>Vapaaehtoiset tarkastelevat</0> epätavallisia tai poikkeavia aiheita, jotka jumittivat koneen.",
+            "subFirst": "<0>Ei tekoälyä/koneopetusta.</0> Vapaaehtoiset luokittelevat koehenkilöitä. Aiempaa tai suunniteltua tekoäly-/koneopetusroolia ei ole.",
+            "subFourth": "<0>Tekoälyn ja koneoppimisen laatu tarkastetaan.</0> Vapaaehtoiset tarkistavat ja korjaavat koneellisesti luotuja luokituksia, mikä auttaa parantamaan tekoälyä ja koneoppimista ajan myötä.",
+            "subSecond": "<0>Tekoäly/koneoppiminen esilajittelee aiheet.</0> Vapaaehtoiset luokittelevat koneiden esilajittelemat tai suodattamat aiheet. Esimerkkejä luokituksista ovat tyhjien kohtien (kuvat, joilla ei ole olennaista sisältöä) poistaminen ja korkean tason luokittelujen tekeminen, jotta vapaaehtoiset voivat keskittyä haastavampiin tehtäviin.",
+            "subThird": "<0>Tekoäly-/koneoppimiskoulutus.</0> Vapaaehtoiset luokittelevat koehenkilöitä ja koneet oppivat malleista tavoitteena, että tekoäly/koneoppiminen hoitaa tehtävät.",
+            "sublist": "Joitakin esimerkkejä:"
+          },
+          "second": "Tekoälyn ja koneoppimisen käyttötavat vaihtelevat projektien välillä.",
+          "third": "Tekoäly/koneoppiminen on integroitu joihinkin Zooniverse-projekteihin täydentämään vapaaehtoisten tarjoamaa tutkimustukea ja käsittelemään dataa ennen tai jälkeen vapaaehtoisten tehtävien suorittamisen. Joissakin projekteissa on aktiivisen oppimisen elementtejä, jotka tukevat ihmisen mukana toimivia tekoäly-/koneoppimismenetelmiä, jotka sisällyttävät vapaaehtoisten panoksen automatisoituihin prosesseihin tulosten laadun parantamiseksi."
+        }
+      },
+      "seventhQ": {
+        "heading": "Entä tekoäly ja koneoppiminen Zooniversen ulkopuolella? Päätyvätkö luokitukseni Zooniversen ulkopuolisiin tekoäly-/koneoppimishankkeisiin?",
+        "list": {
+          "fifth": "Projektitiimien odotetaan jakavan datan käyttöä ja tallennusta koskevat suunnitelmansa projektin Tietoja-sivulla.",
+          "first": "Meillä Zooniverse-yhteisönä on määräysvalta siihen, miten käytämme tekoälyä/koneoppimista alustalla ja projekteissa. Meillä on kuitenkin vain vähän määräysvaltaa siihen, miten muut saattavat käyttää projektidataa, varsinkaan sen jälkeen, kun se on julkaistu julkisesti.",
+          "fourth": "Vähentääkseen projektidatan tahatonta käyttöä (esim. kaupallisiin tarkoituksiin) jotkut tiimit päättävät soveltaa projektidataan datalisenssisopimuksia (kuten esim. <0>Creative Commons</0>) tai jakaa dataa vain pyynnöstä.",
+          "second": "Zooniversen nykyiset <0>Project Builder -käytännöt</0> määräävät, että projektitiimien on \"avattava luokittelutietonsa tietyn suojausjakson jälkeen, joka yleensä kestää kaksi vuotta projektin käynnistämisestä\".",
+          "sixth": "Jos olet epävarma projektin suunnitelmista datan jakamisen ja/tai lisensoinnin suhteen, voit vapaasti lähettää kysymyksesi projektin keskustelupalstoille ja kysyä suoraan tutkimustiimiltä.",
+          "third": "Avoin data mahdollistaa vastavuoroisuuden, välittömän tyydytyksen ja datan nopean käytön päätöksenteossa tai toimien toteuttamisessa. Se voi myös auttaa datan säilyttämisessä, koska datan katoamisen todennäköisyys on pienempi, jos sitä säilytetään arkistossa tai jos muut ovat tehneet siitä kopioita. Se tarkoittaa kuitenkin myös sitä, että muut ihmiset, organisaatiot tai yritykset voivat käyttää Zooniverse-projektien tuottamaa dataa muihin kuin ilmoitettuihin tutkimustavoitteisiin."
+        }
+      },
+      "sixthQ": {
+        "heading": "Miten Zooniverse varmistaa, että näitä teknologioita käytetään turvallisesti ja eettisesti?",
+        "list": {
+          "first": "Zooniverse toteutti <0>18 kuukautta kestäneen yhteistyön sidosryhmien ja asiantuntijoiden kanssa</0> määritelläkseen, mitä tämä tarkoittaa alustalle. Tuloksena syntyneet <1>keskeiset periaatteet</1>, <2>Zooniversen sisäiset toimenpiteet</2> ja <3>suositukset projektitiimeille</3> edustavat lähestymistapaamme.",
+          "second": "Olemme sitoutuneet näiden rakenteiden jatkuvaan arviointiin varmistaaksemme niiden tehokkuuden, erityisesti Zooniversen teknologioiden ja potentiaalisten käyttötapausten laajentuessa jatkuvasti. Suosituksiimme kuuluu tekoälyeettisten käytäntöjemme vuosittainen tarkastelu sen varmistamiseksi, että ne ovat edelleen relevantteja vapaaehtois- ja tutkijayhteisöillemme."
+        }
+      },
+      "thirdQ": {
+        "heading": "Mitä hyötyä ja huolenaiheita tekoälyn ja koneoppimisen käytöstä Zooniversessa on?",
+        "list": {
+          "first": "Tekoäly/koneoppiminen voivat lisätä nopeutta ja tehoa kykyymme tuottaa, käsitellä ja analysoida dataa. Vastavuoroisesti voimme esittää uusia kysymyksiä ja saada vastauksia nopeammin.",
+          "fourth": "Joidenkin tekoälyn/koneoppimisen tyyppien kehittäminen ja käyttö voi olla energia- ja resurssiintensiivistä.",
+          "second": "Tiettyjen tehtävien delegointi koneille voi antaa ihmisille mahdollisuuden keskittyä luovempiin tai monimutkaisempiin tehtäviin. Suosituksissamme todetaan, että projektitiimien tulisi kuitenkin olla varovaisia ​​​​optimoimatta liikaa, koska aloitustason osallistuminen on ratkaisevan tärkeää projektien laajan saavutettavuuden varmistamiseksi.",
+          "third": "On tärkeää sisällyttää ihmisen valvontaa jossain vaiheessa tiedon arvioimiseksi ja laadun varmistamiseksi."
+        }
+      }
+    },
+    "preamble": {
+      "list": {
+        "first": "Zooniverse-alusta vastaa näiden suositusten <0>kehittämisestä</0> ja <0>ylläpitämisestä</0>.",
+        "second": "Projektitiimit ovat vastuussa suositusten <0>tulkinnasta</0> ja <0>toteuttamisesta</0>. ",
+        "third": "Vapaaehtoisilla on mahdollisuus <0>vahvistaa</0> tai <0>kyseenalaistaa</0> toteutusta palautteen avulla tai käyttämällä toimijuuttaan (esim. päättämällä olla osallistumatta projektiin)."
+      },
+      "paragraphs": {
+        "first": "Tällä sivulla esitellään Zooniversen tekoälyn eettinen viitekehys, joka sisältää suosituksia tekoälyä (AI) ja/tai koneoppimista (ML) hyödyntävien projektien toteuttamiseen Zooniversessa. Tämä on elävä viitekehys, ja olemme sitoutuneet parantamaan ja iteroimaan sitä saamamme palautteen ja teknologisten, sosiaalisten ja kulttuuristen kontekstien kehittyessä. Tämä sivu on ensisijaisesti tarkoitettu antamaan tietoa Zooniversen vapaaehtoisille. Projektitiimit voivat lukea <0>tarkempia ohjeita Zooniversen dokumentaatiosta</0>.",
+        "second": "Vaikka tekoälyteknologian soveltaminen Zooniversessa on perinteisesti tapahtunut tiettyjen koneoppimisprosessien (\"algoritmiset työkalut ja teknologiat, jotka oppivat olemassa olevasta datasta tehtävien ratkaisemiseksi\") kautta, termistä \"tekoäly\" on tullut yleisnimitys kuvaamaan tällaista automaatiota. Tekoäly viittaa laajasti \"tietokoneisiin, jotka voivat jäljitellä ihmisen ajattelua\", ja koneoppiminen on osa tätä käsitettä. Tässä viitekehyksessä käytämme termiä \"tekoäly/koneoppiminen\" kaikkialla viittaamaan näihin prosesseihin, jotta voimme kattaa laajan kirjon menetelmiä ja säilyttää jonkinlaisen eron näiden kahden termin välillä.",
+        "third": "Tämän viitekehyksen luominen, ylläpitäminen ja käyttö vaatii erillisiä vastuita – Zooniverse-alustalta, projektitiimeiltä ja vapaaehtoisilta sen varmistamiseksi, että tekoälyn ja koneoppimisen integrointi osallistavaan tutkimukseen pysyy läpinäkyvänä, eettisenä ja yhteisölähtöisenä."
+      }
+    },
+    "principles": {
+      "fifth": "Hyödynnä ja yhdenmukaista toimintatapasi <0>olemassa olevien tekoälyyn/koneoppimiseen liittyvien kehystysresurssien</0> kanssa ja jatka vuorovaikutusta laajempien yhteisöjen ja sidosryhmien kanssa <0>kehittääksesi ja ottaaksesi käyttöön parhaita käytäntöjä</0> tekoälyyn/koneoppimiseen perustuvassa osallistavassa tutkimuksessa.",
+      "first": "Rakenna <0>läpinäkyvyyttä</0> tekoälyyn/koneoppimiseen liittyvän alustan hallintaan, projektien kehittämiseen ja toteutukseen.",
+      "fourth": "Sitoudu jatkuvaan vuoropuheluun ja projektin sekä alustan <0>reagointikykyyn</0> tekoälyä ja koneoppimista koskeviin muuttuviin asenteisiin ja keskusteluihin.",
+      "second": "Suunnittele vapaaehtoistyökokemusta silmällä pitäen ja priorisoi vapaaehtoisten <0>toimijuutta ja suostumusta</0> projektien valinnassa; ota huomioon tekoälyyn ja koneoppimiseen liittyvissä projekteissa vapaaehtoisten <0>hyödyt</0> ja <0>motivaatiot</0>.",
+      "third": "Helpota <0>vastuullisuutta</0> osoittamalla selkeiden ohjeiden noudattaminen virallisen Zooniverse-projektin käynnistämisen edellytyksenä."
+    },
+    "recs": {
+      "eighth": "<0>Kun paljastat projektin tulosten/datan aiottua käyttöä, ota huomioon, miten käyttötarkoitus voi muuttua ajan myötä.</0> Vapaaehtoiset voivat päättää osallistua projektiisi Tietoja-sivulla ilmoitettujen projektin tavoitteiden ja tulosten/datan aiottujen käyttötarkoitusten perusteella. Millä todennäköisyydellä laajennat näitä käyttötarkoituksia myöhemmin? ",
+      "fifth": "<0>Seuranta.</0> Anna palautetta tekoäly-/koneoppimismallien kouluttamisen onnistumisasteesta. Projektitiimi päättää menetelmän, ja se voi sisältää esimerkiksi Talk-postauksen, sähköpostiuutiskirjeen jne.",
+      "first": "<0>Suunnittele projektisi vapaaehtoisten toimijuus (valinta) mielessä.</0> Tämä edellyttää läpinäkyvyyttä ja selkeää viestintää, jotta vapaaehtoiset voivat tehdä tietoon perustuvia päätöksiä siitä, haluavatko he osallistua projektiisi. Jos sisällytät tekoälyä/koneoppimista työsi missä tahansa vaiheessa (esi- tai jälkikäsittely, ihminen mukana -luokittelujärjestelmät jne.), sinun on annettava tarkat tiedot siitä, miten nämä prosessit toimivat ja miksi ne ovat välttämättömiä. Esimerkiksi sanonta \"käytämme tuloksena olevaa dataa mallin kouluttamiseen\" ei riitä yksityiskohtiin.",
+      "fourth": "<0>Säilytä konteksti.</0> Projekteissa, joissa vapaaehtoisia kutsutaan työskentelemään koneella luodun tuotoksen parissa tai tarkastelemaan sitä, on pohdittava, voiko konteksti vaikuttaa tehtävään ja miten – mukaan lukien sekä datan laatu että vapaaehtoistyökokemuksen laatu. Jos esimerkiksi tehtävässä pyydetään vapaaehtoisia tarkistamaan koneellisten litterointien laatu, mutta tehtävä sisältää vain osan asiakirjasta (esim. yhden sanan tai lauseen), linkin lisääminen koko kuvaan tai asiakirjaan varmistaa, että vapaaehtoiset voivat halutessaan jatkaa vuorovaikutusta lähdemateriaalin ja sen merkityksen kanssa. Nämä tiedot voidaan sisällyttää osallistujan metatietoihin.",
+      "nineth": "<0>Harkitse sekä tekoälyyn/koneoppimiseen perustuvan projektin toteuttamisen mahdollisuuksia että mahdollisia riskejä.</0> Kannustamme tutkijoita ymmärtämään mahdolliset riskit – mahdollisuuksien ohella – ennen projektien käynnistämistä ja ohjaamaan heidät tarkistettuihin työkaluihin ja julkaistuihin tutkimuksiin, kuten Ceccaroni ym. (2019), joka esittelee katsauksen tekoälyn käyttöön kansalaistieteessä liittyvistä riskeistä ja mahdollisuuksista sekä suosituksia riskien lieventämiseksi.",
+      "second": "<0>Näytä vapaaehtoisille, missä/milloin/miksi tekoäly/koneoppiminen on sisällytetty projektiisi.</0> Joissakin projektin työnkuluissa tekoäly/koneoppiminen voi olla mukana/avustettuna ja toisissa ei. Nämä tulee merkitä selkeästi Työnkulun nimi -kentässä tai Työnkulun kuvaus -alueella, jotta vapaaehtoiset voivat valita vastaavasti (jos heillä on mieltymyksensä). Jos käytit tekoälyä/koneoppimista datasi esikäsittelyyn, kuvaile laadunvalvontamittarisi (mukaan lukien se, onko tämä syysi validointityönkulun suorittamiseen Zooniversessa).",
+      "seventh": "<0>Laadun käsittely.</0> Kuvaile, miten arvioit ja käsittelet tekoälyn/koneoppimisen käytön mahdollisia vaikutuksia projektisi datan laatuun. ",
+      "sixth": "<0>Luo palautteenantoväyliä.</0> Kaikissa tekoäly-/koneoppimiskomponenttia sisältävissä projekteissa tulisi olla reitti, jonka kautta vapaaehtoiset voivat jakaa palautettaan projektitiimin jäsenten kanssa. Tiimit voivat esimerkiksi haluta luoda oman keskustelufoorumin, jossa kuvataan tekoälyn/koneoppimisen käyttöä, vastataan kysymyksiin ja annetaan päivityksiä koulutuksesta tai tuotoksista.",
+      "third": "<0>Harkitse optimoinnin seurauksia.</0> Kun harkitset helppojen tehtävien siirtämistä tekoälyn/koneoppimisen hoidettavaksi ja vaikeampien/monimutkaisempien tehtävien antamista ihmisille, muista, että edistyneemmät työnkulut voivat kaventaa osallistujamäärää, ellei ole olemassa sisäänpääsyä. Koulutustehtäviä saatetaan tarvita sellaisten tehtävien suorittamiseksi, joita tekoäly/koneoppiminen ei pysty suorittamaan. Kaikki sisäänpääsyprosessit tai koulutustyönkulut tulee merkitä selkeästi, mukaan lukien Zooniverse Feedback -ominaisuutta käyttävät työnkulut."
+    },
+    "resources": {
+      "first": "Lue lisää tekoälystä/koneopinnoista",
+      "fourth": "Esimerkkejä Zooniverse-projektin tekoälyn/koneoptimoinnin vastuullisuuslausunnoista",
+      "second": "Lue lisää etiikasta ja osallistavasta tieteestä",
+      "third": "Esimerkkejä Zooniverse-projekteista, joissa on yksityiskohtaiset selitykset tekoälyn ja koneoppimisen käytöstä"
+    },
+    "sidebarLabel": "Osa",
+    "title": "Zooniversen tekoälyn eettinen viitekehys",
+    "toc": {
+      "descriptions": {
+        "eighth": "Linkkejä lisätietoihin, mukaan lukien ulkoiset julkaisut ja käytännöt, sekä esimerkkejä Zooniverse-projekteista, mukaan lukien tekoälyn/koneoppimisen selitykset ja vastuullisuuslausunnot.",
+        "fifth": "Suositus tiimeille, jotka pyörittävät tai haluavat pyörittää tekoälyä/koneoppimista sisältävää Zooniverse-projektia.",
+        "fourth": "Tiimimme toimet, jotka helpottavat projektitiimeille annettujen suositusten antamista.",
+        "nineth": "Vapaaehtoisille.",
+        "seventh": "Tietoa tekoälystä/koneoppimisesta ja siitä, miten sitä käytetään (ja on käytetty) Zooniversessa. Sisältää keskustelua siitä, miksi projektitiimit tarvitsevat tai haluavat käyttää tekoälyä/koneoppimista, miten tietää, milloin projekti käyttää tekoälyä/koneoppimista, ja paljon muuta.",
+        "sixth": "Kysymykset, joihin kaikkien tekoälyyn ja koneoppimiseen perustuvia Zooniverse-projekteja toteuttavien tutkijoiden tulisi olla valmiita vastaamaan.",
+        "tenth": "Lisätietoja viitekehyksestä ja sen kehittämisestä, mukaan lukien tiedot siitä, ketkä olivat mukana sen luomisessa ja miten tämä työ rahoitettiin.",
+        "third": "Tämän viitekehyksen taustalla olevat organisointiperiaatteemme. Ne tiivistävät yleistavoitteet, jotka auttavat vastaamaan yhteisömme jäsenten tekoälyyn ja koneoppimiseen liittyviin riskeihin ja huolenaiheisiin."
+      }
+    }
+  },
+  "AboutHeader": {
+    "links": {
+      "about": "Noin",
+      "aiethics": "Tekoälyn etiikka",
+      "collaborate": "Tee yhteistyötä",
+      "contact": "Ota yhteyttä",
+      "donate": "Lahjoittaa",
+      "educate": "Kouluttaa",
+      "faq": "Usein kysytyt kysymykset",
+      "publications": "Julkaisut",
+      "resources": "Resurssit",
+      "team": "Tiimimme",
+      "volunteer": "Vapaaehtoistyö"
+    },
+    "title": {
+      "about": "Noin",
+      "getInvolved": "Osallistu"
+    }
+  },
+  "AboutPage": {
+    "contact": {
+      "categories": {
+        "first": "Yleisiä Zooniverse-kysymyksiä",
+        "second": "Yhteistyö projektissa",
+        "third": "Lehdistötiedustelu"
+      },
+      "heading": "Ota yhteyttä",
+      "paragraphs": {
+        "first": "Luethan <0>UKK-sivumme</0> ja <1>Zooniverse Solutions -verkkosivun</1>.",
+        "second": "Onko sinulla tiettyyn projektiin liittyvä ongelma? Suosittelemme ottamaan yhteyttä suoraan tutkimustiimiin heidän keskustelusivunsa kautta.",
+        "third": "Etkö pääse Ota yhteyttä -painikkeeseen? Lähetä meille sähköpostia osoitteeseen <0>contact@zooniverse.org</0>."
+      },
+      "subheading": "Missä asioissa voimme auttaa sinua?"
+    },
+    "highlights": {
+      "description": "Saatavilla osoitteesta <0>Blurb.com</0>",
+      "heading": "Kohokohdat",
+      "paragraphs": {
+        "first": "Vuodesta 2007 lähtien Zooniverse-projektit ovat johtaneet moniin odottamattomiin ja tieteellisesti merkittäviin löytöihin ja moniin <0>vertaisarvioituihin julkaisuihin</0>. Kaikki tämä olisi ollut mahdotonta ilman Zooniverse-osallistujien maailmanlaajuista yhteisöämme, joka on osallistunut näihin projekteihin tutkimusryhmien rinnalla.",
+        "second": "Nämä \"Into the Zooniverse\" -kirjat kunnioittavat kaikkien mukana olleiden ponnisteluja ja antavat vilauksen siitä, miten Zooniversen yhteisön jäsenillä on todellinen vaikutus ympäröivään maailmaan. Jokainen kirja nostaa esiin osan kyseisenä vuonna aktiivisina olleista projekteista."
+      },
+      "pictures": {
+        "first": "Zooniversen kirjan kansikuva vuodelta 2019",
+        "second": "Zooniversen kirjan kansikuva vuodelta 2020",
+        "third": "Zooniversen kirjan kansikuva vuodelta 2021"
+      },
+      "sidebar": "Kohokohdat",
+      "subheading": "Mieleenpainuvia projekteja vuosien varrelta",
+      "tip": "Emme saa voittoa kirjojen painettujen kopioiden myynnistä."
+    },
+    "howItWorks": {
+      "heading": "Miten se toimii",
+      "participants": {
+        "description": "Osallistujana",
+        "link": "Tutustu projekteihin",
+        "steps": {
+          "first": "Etsi projekti, joka kiinnostaa sinua",
+          "fourth": "Luo virallinen todistus, joka vahvistaa alustalla tekemäsi työt",
+          "second": "Opi kyseisen projektin luokitteluprosessi",
+          "third": "Lähetä luokittelusi ja auta oikeassa tutkimuksessa!"
+        }
+      },
+      "researchers": {
+        "description": "Tutkijana",
+        "link": "Rakenna projekti",
+        "steps": {
+          "first": "Rakenna projektisi Zooniverse Project Builderilla",
+          "fourth": "Lataa datasi ja julkaise tuloksesi!",
+          "second": "Lähetä projektisi hyväksyttäväksi",
+          "third": "Käynnistä projektisi ja ole yhteydessä vapaaehtoisiin Talkissa, kunhan luokitukset tulevat."
+        }
+      },
+      "subheading": "Ihmislähtöinen tutkimus"
+    },
+    "mobile": {
+      "altAppStore": "Lataa App Storesta",
+      "altImage": "Kuva matkapuhelimesta, jossa on Zooniverse-sovellus",
+      "altPlayStore": "Hanki Google Play -kaupasta",
+      "description": "Tuo Zooniverse mukaasi. Lataa sovellus iOS- ja Android-laitteille.",
+      "heading": "Tutustu mobiilisovellukseemme",
+      "sidebar": "Mobiilisovellus",
+      "subheading": "Tutustu, opeta ja opi - missä tahansa"
+    },
+    "ourMission": {
+      "discoveries": {
+        "first": "Vihreiden herneiden galaksit",
+        "fourth": "Boyajianin tähti",
+        "second": "Uusia eksoplaneettoja löydetty",
+        "third": "Aiempi käyttö sanalla \"valkoinen valhe\"",
+        "tip": "Napsauta mitä tahansa löytöä saadaksesi lisätietoja"
+      },
+      "heading": "Missiomme",
+      "paragraphs": {
+        "first": "Zooniverse on maailman suurin ja suosituin ihmislähtöisen tutkimuksen alusta. Tämän tutkimuksen mahdollistavat vapaaehtoiset – miljoonat ihmiset ympäri maailmaa, jotka kokoontuvat auttamaan ammattitutkijoita. Tavoitteenamme on mahdollistaa tutkimus, joka ei muuten olisi mahdollista tai käytännöllistä. Zooniversen tutkimus johtaa uusiin löytöihin, laajemmalle tutkimusyhteisölle hyödyllisiin tietojoukkoihin ja moniin <0>julkaisuihin</0>.",
+        "fourth": "Vapaaehtoiset ja ammattilaiset tekevät yhdessä todellisia löytöjä. Zooniversen projektit rakennetaan tavoitteena muuntaa vapaaehtoisten ponnistelut mitattavissa oleviksi tuloksiksi. Joissakin tapauksissa Zooniversen vapaaehtoiset ovat jopa tehneet täysin odottamattomia ja merkittäviä löytöjä. Merkittävä osa tästä tutkimuksesta tapahtuu Talkissa, Zooniversen keskustelupalstoilla, joissa vapaaehtoiset työskentelevät yhdessä tutkimusryhmän jäsenten ja toistensa kanssa. Nämä keskustelupalstat on integroitu jokaiseen projektiin, jotta mahdollistat kaiken nopeasta hashtagista syvälliseen yhteistyöanalyysiin. Käytettävissä on myös <0>keskeinen Zooniversen keskustelupalsta</0> yleistä keskustelua ja keskustelua koko alustaa koskevista asioista varten. Kannustamme kaikkia käyttäjiä liittymään keskusteluun Talkissa voidakseen osallistua syvällisemmin.",
+        "second": "Et tarvitse erikoistunutta taustaa, koulutusta tai asiantuntemusta osallistuaksesi Zooniversen projekteihin. Teemme akateemiseen tutkimukseen osallistumisen helpoksi kenelle tahansa omalla tietokoneellaan, silloin kun heille sopii. Voit tutkia tutkijoiden keräämää aitoa dataa, kuten kuvia kaukaisista galakseista, historiallisia tietoja ja päiväkirjoja tai videoita eläimistä niiden luonnollisessa elinympäristössä. Osallistumalla projekteihin autat lisäämään ymmärrystämme maailmasta, maailmankaikkeudesta ja muusta. Laajan ja jatkuvasti laajenevan projektivalikoimamme ansiosta, joka kattaa monia tieteenaloja ja aiheita eri puolilla luonnontieteitä ja humanistisia tieteitä, kenelle tahansa on paikka tutkia, oppia ja pitää hauskaa Zooniversessa. Jos haluat tehdä vapaaehtoistyötä, käy <0>Projektisivulla</0>, valitse mieleisesi projekti ja aloita.",
+        "third": "2000-luvun tutkimuksen suurin haaste on käsitellä sitä tietotulvaa, jota voimme nyt kerätä ympäröivästä maailmasta. Tietokoneet voivat auttaa, mutta monilla aloilla ihmisen kyky tunnistaa hahmoja – ja kykymme yllättyä – tekee meistä parempia. Zooniversen vapaaehtoisten avulla tutkijat voivat analysoida tietojaan nopeammin ja tarkemmin kuin muuten olisi mahdollista, ja päästä mielenkiintoisiin tuloksiin nopeammin. Vaivannäkösi säästää aikaa ja resursseja, parantaa tietokoneiden kykyä suorittaa samoja tehtäviä ja johtaa nopeampaan edistymiseen ja maailman ymmärtämiseen. Projektimme yhdistävät useiden yksittäisten vapaaehtoisten panoksia ja luottavat <0>\"väkijoukon viisauteen\"</0> tuottaakseen luotettavia ja tarkkoja tuloksia. Useiden ihmisten tarkastelu johtaa usein parempiin arvioihin siitä, kuinka todennäköisesti teemme virheitä. Zooniversen projektien tuotteet ovat usein juuri sitä, mitä tarvitaan edistymisen saavuttamiseksi monilla tutkimusaloilla."
+      },
+      "stats": {
+        "classifications": "Luokittelut tähän mennessä",
+        "volunteers": "Rekisteröidyt vapaaehtoiset"
+      },
+      "subheadings": {
+        "fifth": "Projektimme johtavat suuriin löytöihin",
+        "first": "Väkijoukon viisaus",
+        "fourth": "Zooniverse toimii",
+        "second": "Kuka tahansa voi olla tutkija",
+        "third": "Nopeutamme tärkeää tutkimusta työskentelemällä yhdessä"
+      },
+      "video": "Lyhyt johdanto Zooniverseen"
+    },
+    "sidebarLabel": "Osa",
+    "title": "Tietoja Zooniversesta"
+  },
+  "Article": {
+    "url": "Lue lisää"
+  },
+  "Collaborate": {
+    "paragraphs": {
+      "eighth": "Jos sinulla on kysyttävää tai tarvitset lisäohjeita, ota yhteyttä Cliff Johnsoniin, Zooniversen tiedejohtajaan ja NASA:n yhteyshenkilöön: <0>cliff@zooniverse.org</0>.",
+      "fifth": "Jos olet kiinnostunut yhteistyöstä kanssamme räätälöityjen projektityökalujen tai infrastruktuurin luomiseksi, <0>ota meihin yhteyttä</0>.",
+      "first": "Hyötyisikö tutkimuksesi tuhansien vapaaehtoisten osallistumisesta? Zooniverse on maailman suurin ja menestynein joukkoistetun tutkimuksen verkkoalusta; meillä on miljoonia rekisteröityneitä vapaaehtoisia, jotka työskentelevät yhteistyössä ammattitutkijoiden kanssa tutkimusprojekteissa useilla eri aloilla tähtitieteestä humanistisiin tieteisiin.",
+      "fourth": "Tapauksissa, joissa <0>Project Builderissa</0> käytettävissä olevat työkalut eivät aivan sovi tietyn tiimin tutkimustavoitteisiin, tutkijat voivat harkita yhteistyötä Zooniversen kanssa uusien, räätälöityjen työkalujen luomiseksi. Teemme yhteistyötä näiden tiimien kanssa hakeaksemme rahoitusta tutkimus-, suunnittelu- ja kehitysprosessin tukemiseksi. Ne, jotka ovat aiemmin hakeneet apurahaa, tietävät, että tämä prosessi voi kestää kauan. Kun olemme hakeneet apurahaa, voi kestää kuusi kuukautta tai enemmän, ennen kuin kuulemme vastauksen siitä, ovatko ponnistelumme onnistuneet vai eivät. Rahoitettujen projektien suunnittelu, rakentaminen ja testaus vie yleensä vähintään kuusi kuukautta luotavien ominaisuuksien monimutkaisuudesta riippuen. Sitten tarvitsemme lisäaikaa niiden yleistämiseen (ja usein tarkistamiseen) Project Builder -työkalupakkiin sisällytettäväksi.",
+      "nineth": "Yli puoli tusinaa organisaatiota on tähän mennessä hyödyntänyt Adler Zooniversea tilaisuutena täyttää yrityksen yhteiskuntavastuunsa. Osallistumalla voi täyttää työntekijöiden, valmistumisen, stipendien jne. palvelustuntivaatimukset. Ainutlaatuinen vapaaehtoistyömahdollisuus tarjoaa osallistujille aikaa pohtia, miten heidän ponnistelunsa (ja yhteisön yhteiset ponnistelut) edistävät ymmärrystämme maailmasta ja laajemmasta maailmankaikkeudesta. <0>Ota yhteyttä</0> saadaksesi lisätietoja tästä aloitteesta.",
+      "second": "Tutkimusryhmät voivat rakentaa Zooniverse-projekteja kahdella tavalla.",
+      "seventh": "Olitpa sitten jo rakentamassa työnkulkuja Project Builderilla tai vasta pohtimassa, miten joukkoistetut osallistumiset voisivat edistää tutkimustasi, Zooniverse-tiimi on omistautunut tukemaan tiimejä NASA-keskeisten projektien kehittämisen ja toteutuksen aikana. Keskustelemme ja tuemme mielellämme ehdotuksia NASA:n kansalaistiedehakuihin (mukaan lukien Citizen Science Seed Funding Program, Citizen Science for Earth Systems Program ja muut NASA ROSES -rahoitusmahdollisuudet) projekteille, jotka ovat kiinnostuneita käyttämään Zooniverse-alustaa.",
+      "sixth": "Oletko tutkija, joka työskentelee NASAn tiedemissiojohtajan osastojen (astrofysiikka, biologiset ja fysikaaliset tieteet, aurinkofysiikka ja planeettatiede) kannalta merkityksellisessä projektissa ja joka hyötyisi Zooniversen vapaaehtoisten panoksesta? Osana jatkuvaa kumppanuutta NASAn kanssa Zooniverse pyrkii hyödyntämään nykyistä tukeaan NASAn tutkimusryhmille ja kannustamaan uusien projektien kehittämistä alustallamme.",
+      "third": "Tiimit voivat käyttää ilmaista <0>Project Builder</0>-työkaluamme luodakseen oman Zooniverse-projektinsa. Jotta projekti voidaan julkaista julkisesti ja se näkyy projektisivullamme, tiimien on käytävä läpi tarkistusprosessimme varmistaakseen, että se sopii alustalle ja on valmis julkaistavaksi. Tämä on nopein ja suoraviivaisin vaihtoehto Zooniverse-projektin luomiseen. Lisätietoja tästä prosessista, mukaan lukien arvioidut tarkistusajat, on <1>Projektitarkastelun parhaissa käytännöissä ja vuokaaviossa</1>."
+    },
+    "subheadings": {
+      "fifth": "Yritysten yhteiskuntavastuun mahdollisuudet",
+      "first": "Tee yhteistyötä kanssamme",
+      "fourth": "Hankekutsu",
+      "second": "Kannattajamme",
+      "third": "Valitut yhteistyökumppanit",
+      "tools": "Valitut työkalut"
+    },
+    "title": "Tee yhteistyötä"
+  },
+  "Donate": {
+    "button": "Lahjoita tänään",
+    "paragraphs": {
+      "first": "Zooniverse on yhteistyöhanke, jonka ovat tehneet Chicagon Adler-planetaario, Oxfordin yliopisto, Minnesotan kaksoiskaupunkien yliopisto (UMN), satoja tutkijoita ja miljoonia osallistujia ympäri maailmaa. Zooniverse-tiimeihin Adlerissa, Oxfordissa ja UMN:ssä kuuluvat johtoryhmämme, web-kehittäjiä, suunnittelija, viestintäjohtaja, datatieteilijöitä ja tutkijoita. Tämä ainutlaatuinen yhdistelmä asiantuntemusta tutkimuksessa, yhteiskunnallisessa vaikuttamisessa ja modernissa web-kehityksessä antaa meille mahdollisuuden tukea upeaa vapaaehtoisten ja omistautuneiden tutkimusryhmien yhteisöä Zooniverse-alustan avulla. Suuri osa Zooniversen rahoituksesta tulee avustuksista sekä Adlerin, Oxfordin ja UMN:n institutionaalisesta tuesta.",
+      "second": "Jos haluat tukea Zooniversea, harkitse verovähennyskelpoisen lahjoituksen tekemistä Adler-planetaariolle. Rajoittamaton lahjoituksesi Adlerille auttaa tutkijoita avaamaan dataansa verkossa tapahtuvan kansalaistieteen kautta, tähtitieteilijöitä tuomaan kaukoputkia kaupunginosiin ympäri Chicagoa, teini-ikäisiä tekemään alkuperäisiä kokeita avaruuteen ja kaikenikäisiä ihmisiä olemaan yhteydessä tähtien alla.",
+      "third": "Lahjoita Adler Planetariumin verkkosivuilla alla olevan linkin kautta."
+    },
+    "subheading": "Tue Zooniversea",
+    "title": "Lahjoittaa"
+  },
+  "Educate": {
+    "articles": {
+      "first": {
+        "datePublished": "28. lokakuuta 2022",
+        "excerpt": "Tutkimuspohjaisille aktiivisen oppimisen opetusmateriaaleille on kipeä tarve STEM-aineiden verkko-opetukseen ja -oppimiseen. Joka vuosi sadattuhannet ei-tieteelliset perustutkinto-opiskelijat ilmoittautuvat yleissivistäville tähtitieteen kursseille täyttääkseen oppilaitoksensa humanistiset vaatimukset. Suunniteltaessa opetusmateriaaleja tälle oppijaryhmälle, keskeinen...",
+        "title": "Uusi opetussuunnitelman kehittämismalli perustutkinto-opiskelijoiden datalukutaidon ja itseluottamuksen parantamiseksi..."
+      },
+      "fourth": {
+        "datePublished": "29. huhtikuuta 2015",
+        "excerpt": "Tämän päivän blogikirjoitus on Fran Wilsonilta, toisen luokan opettajalta Madeiran alakoulussa. Fran pyrkii edistämään kiinnostusta luonnontieteisiin luokkahuoneessaan ja auttamaan oppilaita huomaamaan, etteivät kaikki tiedemiehet työskentele laboratorioissa valkoisissa laboratoriotakeissa ja suojalaseissa. Hän etsii oppilailleen merkityksellisiä mahdollisuuksia osallistua kansalaistieteilijätyöhön ja olla vastuullisia...",
+        "title": "Kelluvat metsät: Opetetaanko pienille lapsille merilevästä?"
+      },
+      "heading": "Miten opettajat käyttävät Zooniversea?",
+      "second": {
+        "datePublished": "14. elokuuta 2019",
+        "excerpt": "”Yrittäkää kaikki napata sama galaksi”, poika huudahti viitaten luokkatovereilleen. Pöydän ympärillä kuusi oppilasta alkoi vetää galaksin kuvaa suuren kosketusnäytön keskeltä omalle työasemalleen. On hyvin todennäköistä, että nämä oppilaat ovat ensimmäiset, jotka näkevät tämän galaksin ja päättävät, miten se luokitellaan...",
+        "title": "U!Scientist ja Galaxy Zoo -kosketuspöytä Adler Planetariumissa"
+      },
+      "third": {
+        "datePublished": "7. helmikuuta 2018",
+        "excerpt": "Yhteiskuntaopin opettajana toivon, että oppilaani kehittävät arvostusta itse historian tieteenalaa kohtaan. Sen sijaan, että korostaisin päivämäärien ja nimien ulkoa opettelua – sellaisia ​​asioita, jotka unohtuvat heti kokeen jälkeen – tavoitteisiini kuuluu tutustuttaa oppilaat historioitsijoiden ammatillisen työn monimutkaisuuksiin. Äskettäin kahdeksannella luokalla käymäni antiikin maailman...",
+        "title": "Missourin kahdeksasluokkalaiset litteroivat orjuuden vastaisia ​​asiakirjoja ja oppivat orjuuden vastaisesta liikkeestä"
+      }
+    },
+    "buttons": {
+      "first": "Verkkoresurssit",
+      "second": "Zooniverse kouluissa 9–12-vuotiaille",
+      "third": "Zooniverse opiskelijoille"
+    },
+    "forEducators": {
+      "classrooms": "Tutustu Zooniverse-luokkahuoneisiin",
+      "heading": "Resursseja opettajille",
+      "paragraphs": {
+        "first": "Aseta luokittelun virstanpylväitä, seuraa työtä ja juhli yhteistä vaikutusta. Lue lisätietoja <0>ilmoituksestamme</0>.",
+        "second": "Jokainen projektitiimi voi jakaa lisää kouluttajaresursseja, kuten oppituntien suunnitelmia, video-opastusvideoita, tutkimuslinkkejä ja paljon muuta. Muista tarkistaa projektin <0>Koulutus</0>-välilehti.",
+        "third": "Tukea opiskelijoille, jotka suorittavat opiskelijapalvelutunteja stipendejä, valmistumisvaatimuksia ja muita vaatimuksia varten. Katso lisätietoja tästä <0>blogikirjoituksesta</0>."
+      },
+      "subheadings": {
+        "first": "Ryhmän tilastot",
+        "second": "Projektikohtaiset koulutusmahdollisuudet",
+        "third": "Vapaaehtoistyön todistus"
+      }
+    },
+    "introduction": "Oletko opettaja, joka on kiinnostunut käyttämään Zooniversea luokkahuoneessa? Hienoa! Miljoonat ihmiset ympäri maailmaa osallistuvat noin 100 aktiiviseen projektiin, joista jokaisella on tukeva ja vieraanvarainen keskustelufoorumi, jossa tutkijat keskustelevat suuren yleisön kanssa tutkimuksen ja laajempien kiinnostuksen kohteiden parissa. Zooniverse on loistava paikka opiskelijoille.",
+    "subheading": "Koulutus Zooniversessa",
+    "takePart": {
+      "heading": "Osallistu keskusteluun",
+      "paragraph": "Pysy ajan tasalla Zooniversen uusimmista koulutushankkeista <0>Zooniversen blogissa</0>. Voit myös liittyä keskusteluun <1>koulutusta ja Zooniversea käsittelevällä keskustelufoorumillamme</1>."
+    },
+    "title": "Kouluttaa"
+  },
+  "FAQ": {
+    "help": "Eikö kysymykseesi löydy vastausta? Käy <0>Zooniverse Solutions -verkkosivulla</0>, kysy <1>Zooniverse Talkissa</1> tai <2>ota meihin yhteyttä</2>.",
+    "item0": {
+      "answer": "Ihmiset ovat monissa tehtävissä parempia kuin tietokoneet. Useimmissa Zooniverse-projekteissa tietokoneet eivät yksinkertaisesti ole tarpeeksi hyviä suorittamaan vaadittua tehtävää, tai ne saattavat jättää huomaamatta mielenkiintoisia ominaisuuksia, jotka ihminen huomaisi – siksi tarvitsemme apuasi. Jotkut Zooniverse-projektit käyttävät myös ihmisten tekemiä luokituksia kouluttaakseen tietokoneita suoriutumaan paremmin näistä tutkimustehtävistä tulevaisuudessa. Kun osallistut Zooniverse-projektiin, osallistut todelliseen tutkimukseen.",
+      "question": "Miksi tutkijat tarvitsevat apuasi? Miksi tietokoneet eivät pysty suorittamaan näitä tehtäviä?"
+    },
+    "item10": {
+      "answer": "Tuemme yleisimpiä selaimia toiseksi viimeiseen versioon asti.",
+      "question": "Mitä selainversiota Zooniverse tukee?"
+    },
+    "item11": {
+      "answer0": "Jotkin alustatason sisällön käännökset (eli kaikilla Zooniverse-verkkosivuilla jaettu teksti, kuten valikoiden otsikot, otsikot, painikkeet jne.) ovat vapaaehtoisten kääntäjien tekemiä. Olemme kuitenkin testanneet tekoälykäännöksiä myös pienellä määrällä kieliä <0>vain alustatason tekstin osalta</0>. Ymmärrämme, että tekoälykäännösten laatu vaihtelee kielittäin ja että tähän liittyy riski, että käännökset ovat virheellisiä. Toivotamme vapaaehtoiset tervetulleiksi auttamaan käännösten laadun parantamisessa koko alustallamme.",
+      "answer1": "Huomaa, että projektitason tekstien käännöksiä hallinnoivat tutkimusryhmät, ja tiimin tulee julkistaa kaikki tekoälyn tuottamat projektikohtaisten tekstien käännökset <0>tekoälyn eettisen viitekehyksemme</0> mukaisesti. Lisätietoja Zooniversen käännöksistä on saatavilla osoitteessa <1>https://help.zooniverse.org/next-steps/translations</1>.",
+      "question": "Mitä minun pitäisi tehdä, jos huomaan, että alustatason käännökset ovat virheellisiä?"
+    },
+    "item1": {
+      "answer": "Useimpiin Zooniverse-projekteissa esiteltyihin aiheisiin tutkijat eivät tiedä oikeaa vastausta, ja siksi he tarvitsevat apuasi. Ihmiset ovat todella hyviä hahmontunnistustehtävissä, joten yleensä ensimmäinen arvauksesi on todennäköisesti oikea. Älä huoli liikaa satunnaisista virheistä – useampi kuin yksi henkilö tarkastelee jokaista kuvaa, videota tai kaaviota projektissa. Useimmissa Zooniverse-projekteissa on Ohje-painike, Usein kysytyt kysymykset (UKK) -sivu ja Kenttäopas, jossa on lisätietoja luokittelun tueksi.",
+      "question": "Mistä tiedän, teenkö tämän oikein?"
+    },
+    "item2": {
+      "answer": "Luokituksesi tallennetaan Zooniversen suojattuun verkkotietokantaan. Projektin tutkimusryhmät lataavat projektinsa luokitustiedot ja yhdistävät useat lähetykset luodakseen lopullisen vastauksen kullekin aiheelle. Kun olet lähettänyt luokituksesi tietylle aiheelle, et voi palata muokkaamaan sitä. Lisätietoja tietojen omistajuudesta on <0>Zooniversen käyttäjäsopimus ja tietosuojakäytäntö</0>-sivulla.",
+      "question": "Mitä luokitukselleni tapahtuu sen lähettämisen jälkeen?"
+    },
+    "item3": {
+      "answer": "Kyllä. Siirry osoitteeseen zooniverse.org, kirjaudu sisään, napsauta 'Lisää tilastoja' ja napsauta sitten 'Luo vapaaehtoisen todistus' -painiketta tilastopylväskaavion oikeassa alakulmassa. Tallenna tai tulosta sitten todistuksesi! Lue lisää <0>täältä</0>.",
+      "question": "Voinko ladata vapaaehtoisen todistuksen? Voinko käyttää Zooniversea palveluoppimisen vaatimusten täyttämiseen?"
+    },
+    "item4": {
+      "answer": "Luokittelun metatiedot tallennetaan tietokantaamme UTC-aikaleimojen kanssa, ja tilastopalvelu kokoaa luokitteluluvut kategorioihin UTC-aikavälien mukaan. Kaikki tilastot näytetään johdonmukaisesti UTC-aikavälein.",
+      "question": "Miksi tilastot näytetään UTC-aikavyöhykkeellä?"
+    },
+    "item5": {
+      "answer": "Zooniverse suhtautuu erittäin vakavasti vapaaehtoistemme henkilötietojen ja luokitustietojen suojaamiseen. Lisätietoja näistä toimista löytyy <0>Zooniversen käyttäjäsopimus- ja tietosuojakäytäntösivulta</0> sekä <1>Zooniversen turvallisuussivulta</1>.",
+      "question": "Mitä Zooniverse tekee tilitiedoillani?"
+    },
+    "item6": {
+      "answer": "Voit lähettää ehdotuksia uusista ominaisuuksista ja ilmoittaa virheistä <0>Zooniverse Talkin</0> kautta, ongelman kautta asiaankuuluvassa <1>Github-arkistossa</1> tai <2>ottaa meihin yhteyttä</2>.",
+      "question": "Minulla on ominaisuuspyyntö tai löysin virheen; kenelle minun pitäisi ottaa yhteyttä / miten ilmoitan siitä?"
+    },
+    "item7": {
+      "answer": "Zooniverse on Yhdistyneen kuningaskunnan ja Yhdysvaltojen instituutioiden yhteistyöhanke; kaikki tiimimme jäsenet ovat jommankumman näistä yhteistyöinstituutioista työntekijöitä. Katso <0>Zooniversen työpaikkasivulta</0> lisätietoja Zooniversen tarjoamista työmahdollisuuksista.",
+      "question": "Työllistääkö Zooniverse ihmisiä?"
+    },
+    "item8": {
+      "answer0": "Zooniverse on ihmislähtöisen tutkimuksen alusta, ei mikään yhteisö, yritys tai voittoa tavoittelematon järjestö. Olemme usean laitoksen yhteistyö.",
+      "answer1": "Chicagossa sijaitseva Adler Planetarium, yksi Zooniverse-tiimin isäntälaitoksista, on 501(c)(3)-organisaatio. Yksityishenkilöt tai organisaatiot, joiden on linkitettävä vapaaehtoistyötään varten nimenomaisesti 501(c)(3)-organisaatioon, käyttävät Adler Planetariumia viitteenä. Adler Planetariumin 501(c)(3)-statuksen dokumentaatio on <0>tässä</0>, ja Adler Planetariumin EIN-numero on 36-6210902. Käytä organisaation nimeä syöttäessäsi mahdollisuuksien mukaan muotoa ”Adler Planetarium - Zooniverse”. Jos se ei ole mahdollista, käytä muotoa ”Adler Planetarium” (joka vastaa EIN-numeroa). Kaikissa tapauksissa teet vapaaehtoistyötä Zooniverse.org-sivuston kautta.",
+      "answer2": "Lisätietoja lahjoittamisesta on <0>lahjoitussivullamme</0>.",
+      "question": "Onko Zooniverse voittoa tavoittelematon järjestö?"
+    },
+    "item9": {
+      "answer": "Lisätietoja Zooniverseen viittaamisesta tutkimusjulkaisuissa, joissa käytetään Zooniverse Project Builderilla saatuja tietoja, on <0>Resurssit-sivullamme</0>.",
+      "question": "Olen projektin omistaja/tutkimusryhmän jäsen. Miten voin mainita Zooniversen ja Project Builder Platformin artikkelissani, abstraktissani jne.?"
+    },
+    "title": "Usein kysytyt kysymykset"
+  },
+  "Home": {
+    "Community": {
+      "feedOne": "Päivittäinen Zooniverse",
+      "feedTwo": "Zooniverse-blogi",
+      "heading": "Zooniverse-yhteisö",
+      "seeAll": "Näytä kaikki julkaisut",
+      "subheading": "Mitä tapahtuu?"
+    },
+    "DefaultHome": {
+      "FeaturedProjects": {
+        "heading": "Esitellyt projektit",
+        "none": "Ei esiteltyjä projekteja"
+      },
+      "Introduction": {
+        "description1": "Zooniverse on maailman suurin alusta ihmisvoimaisella tutkimuksella. Yhdistämme ammattitutkijoita miljooniin vapaaehtoisiin maailmanlaajuisesti, mikä helpottaa saamaan todellisia tuloksia epäkäytännöllisistä tai muutoin järjettömistä tutkimuksista. Tämä on johtanut uusiin löydöksiin, politiikkavaikutuksiin ja tutkimusjulkaisuihin.",
+        "description2": "Alustamme voimana toimivat sinun kaltaisesi vapaaehtoiset. Kaikenikäiset ja -taustaiset ovat tervetulleita osallistumiseen ilman tohtorintutkintoa — tarvitset vain uteliaisuutta ja muutaman napsautuksen. Useat Zooniverse-projektien mielenkiintoisimmista löydöksistä ovat syntyneet vapaaehtoisten ja tutkijoiden välisistä käydyistä keskusteluista. Liity joukkoomme jo tänään ja osallistu huippututkimukseen ja tee omia löytöjäsi!",
+        "register": "Rekisteröidy",
+        "signIn": "Kirjaudu sisään",
+        "video": "Lyhyt johdanto Zooniverseen"
+      },
+      "Researchers": {
+        "build": "Luo projekti",
+        "description": "Eri tieteenalojen tutkijat ovat käyttäneet Project Builderia luodakseen kiinnostavia ja helposti lähestyttäviä projekteja eläinten luokittelusta eksoplaneettojen tutkimiseen ja historiallisten asiakirjojen transkriboimiseen ja muuhun. Kuka tahansa voi luoda Zooniverse-projektin. Lataa vain tiedot palvelimelle, valitse tehtävät, jotka haluat vapaaehtoisten tekevän, ja liity joukkoomme vaalimaan osallistavaa ja vieraanvaraista verkkoyhteisöä, joka on sitoutunut todelliseen tutkimukseen."
+      },
+      "headings": {
+        "first": "Mikä Zooniverse on?",
+        "fourth": "Tutustu mobiilisovellukseemme",
+        "second": "Esitellyt projektit",
+        "third": "Todellisia tutkijoita, todellisia tuloksia"
+      },
+      "heroText": "Liity miljoonien ihmisten joukkoon, jotka auttavat edistämään todellista tutkimusta, tiedettä ja tietämystä.",
+      "mainHeading": "Ihmisvoimainen tutkimus",
+      "projects": "Tutki projekteja",
+      "subheadings": {
+        "first": "Joukkoäly",
+        "fourth": "Tutustu, opeta ja opi - missä tahansa",
+        "second": "Zooniverse-projektit",
+        "third": "Tapaa Zooniversessä projekteja luoneet tutkijat"
+      }
+    }
+  },
+  "OurTeam": {
+    "description": "Ihmiset, jotka tekevät Zooniversen.",
+    "sidebarLabel": "Laitos",
+    "title": "Tiimimme"
+  },
+  "Projects": {
+    "disciplines": {
+      "all": "Kaikki tieteenalat",
+      "arts": "Taiteet",
+      "biology": "Biologia",
+      "climate": "Ilmasto",
+      "history": "Historia",
+      "language": "Kieli",
+      "literature": "Kirjallisuus",
+      "medicine": "Lääke",
+      "nature": "Luonto",
+      "physics": "Fysiikka",
+      "social": "Yhteiskuntatieteet",
+      "space": "Avaruus"
+    },
+    "languages": {
+      "label": "Suodata projekteja saatavilla olevien käännösten mukaan"
+    },
+    "organizations": {
+      "description": "Organisaatiot kokoavat yhteen useita toisiinsa liittyviä Zooniverse-projekteja, mikä helpottaa osallistujien tutkimustyötä toisiinsa liittyvissä asioissa.",
+      "heading": "Organisaatiot",
+      "none": "Ei löytynyt organisaatioita."
+    },
+    "projects": {
+      "description": "<0>Tervetuloa! Hienoa, että olet täällä.</0> Vieritä alas selataksesi kaikkia aktiivisia projektejamme, hakeaksesi tiettyä projektia tai suodattaaksesi projekteja kiinnostuksen kohteidesi perusteella. Pidä hauskaa ja onnea luokitteluun!",
+      "empty": {
+        "clear": "Palauta suodattimet",
+        "status": "Joskus projektista puuttuu dataa tilapäisesti tai se on ehkä päättynyt! Kokeile hakea <0>Mikä tahansa projektin tila</0>"
+      },
+      "error": "Projektien noutamisessa tapahtui virhe.",
+      "heading": "Kaikki projektit",
+      "none": "Ei projekteja löytynyt",
+      "showingNum": "{{range}} / {{total}} projektia"
+    },
+    "search": {
+      "placeholder": "Hae projekteja",
+      "warning": "Hakutekstin on oltava vähintään viisi kirjainta pitkä"
+    },
+    "sortBy": {
+      "label": "Lajittele",
+      "mostActive": "Aktiivisimmat",
+      "mostPopular": "Suosituimmat",
+      "nameAZ": "Nimi A-Ö",
+      "nameZA": "Nimi Z - A",
+      "newest": "Uusin",
+      "oldest": "Vanhin"
+    },
+    "status": {
+      "active": "Aktiivinen",
+      "all": "Mikä tahansa tila",
+      "finished": "Valmis",
+      "label": "Suodata projekteja tilan mukaan",
+      "paused": "Keskeytetty"
+    }
+  },
+  "Publications": {
+    "description": "Luettelo akateemisista julkaisuista, jotka käyttävät Zooniversen tuottamaa dataa.",
+    "formInfo": "Pyrimme julkaisemaan linkkejä julkaistuihin artikkeleihin, jotka ovat yleisön saatavilla. Myös julkaistavaksi hyväksytyt, mutta vielä julkaisemattomat artikkelit käyvät.",
+    "formInstruction": "Uuden julkaisun lähettämiseksi tai olemassa olevan päivittämiseksi, ",
+    "formLabel": "käytä tätä lomaketta",
+    "sidebarLabel": "Kurinalaisuus",
+    "title": "Julkaisut"
+  },
+  "ResetPassword": {
+    "CommitResetForm": {
+      "body": "Vahvista salasanasi syöttämällä se kahdesti, minkä jälkeen olet valmis palaamaan varsinaiseen tutkimukseen.",
+      "infoConfirmation": "Molempien kenttien on oltava samat",
+      "infoPassword": "Vähintään 8 merkkiä",
+      "inputConfirmation": "Vahvista uusi salasana",
+      "inputPassword": "Uusi salasana",
+      "status": {
+        "errorInvalidInput": "Virhe: virheellinen syöte",
+        "errorPasswordsDoNotMatch": "Virhe: salasanat eivät täsmää, yritä uudelleen.",
+        "success": "Salasanasi on vaihdettu! Sinut ohjataan <0>kirjautumissivulle</0> muutaman sekunnin kuluttua. Käytä uutta salasanaasi."
+      },
+      "submit": "Lähetä",
+      "titleForInputPattern": "Vähintään 8 merkkiä"
+    },
+    "NoAccessMessage": {
+      "body": "Olet kirjautuneena sisään. Kirjaudu ulos, jos haluat nollata salasanasi."
+    },
+    "RequestResetForm": {
+      "body": "Anna sähköpostiosoitteesi, niin lähetämme sinulle linkin salasanasi palauttamiseksi.",
+      "footer": "Jos palautusviesti ei ole saapunut, tarkista roskapostikansiosi. Jos sitä ei löydy sieltä, kokeile toista sähköpostiosoitetta, jota olet saattanut käyttää Zooniverseen liittymiseen.",
+      "inputEmail": "Sähköpostiosoite",
+      "status": {
+        "errorTooManyRequests": "Virhe: liian monta salasanan palautuspyyntöä. Yritä myöhemmin uudelleen.",
+        "success": "Lähetimme juuri sähköpostin, jossa on linkki salasanasi vaihtamiseen."
+      },
+      "submit": "Lähetä"
+    },
+    "common": {
+      "header": "Palauta salasana"
+    }
+  },
+  "Resources": {
+    "brand": {
+      "heading": "Brändiresurssit",
+      "links": {
+        "first": "Lataa viralliset Zooniversen logot",
+        "fourth": "Storybook - Sivustolla käytetyt koodatut komponentit",
+        "second": "Lataa tulostettavia monisteita, esitysmalleja ja projektikuvia",
+        "third": "Zooniverse Design System - Tyylimme, brändivärimme ja typografiasäännöt"
+      }
+    },
+    "cite": {
+      "heading": "Kuinka viitata Zooniverseen",
+      "paragraphs": {
+        "fifth": "Kun kirjoitat Zooniversesta yleisesti, lisää artikkeliisi linkki tai URL-osoite Zooniversen kotisivulle.",
+        "first": "<0>Zooniverse Project Builder -käytäntöjen</0> mukaisesti kaikkia Zooniverse-projekteista saatua dataa käyttäviä tutkimusjulkaisuja pyydetään mainitsemaan Zooniverse ja Project Builder -alusta seuraavalla tekstillä:",
+        "fourth": "Kun kirjoitat lehdistössä tietyistä Zooniverse-projekteista, sisällytä linkki tai URL-osoite projektille sekä painetussa että digitaalisessa versiossa.",
+        "second": "Kannustamme vahvasti projektien omistajia ilmoittamaan meille Zooniversen tuottamaa dataa käyttävät hyväksytyt ja julkaistut tutkimusjulkaisut täyttämällä <0>tämä lomake</0>. Löydät ajantasaisen luettelon Zooniversen projektien ja niihin liittyvän tutkimuksen tuloksena syntyneistä julkaisuista <1>Julkaisut-sivultamme</1>.",
+        "sixth": "Jos olet kiinnostunut haastattelemaan Zooniverse-tiimin jäsentä, <0>ota meihin yhteyttä</0>.",
+        "third": "Jos sinulla on kysyttävää Zooniversen vahvistamisesta, kuten tietyn henkilön tai mukautetun koodin viittaamisesta, <0>ota meihin yhteyttä</0>."
+      },
+      "quote": "Tässä julkaisussa käytetään <0>Zooniverse.org</0>-alustan kautta tuotettua dataa. Alustan kehittämistä on rahoitettu avokätisellä tuella, mukaan lukien Googlen Global Impact Award, ja Alfred P. Sloan -säätiön apurahalla.",
+      "subheadings": {
+        "first": "Tutkijoille",
+        "second": "Medialle"
+      }
+    },
+    "title": "Resurssit"
+  },
+  "Settings": {
+    "AccountSettings": {
+      "title": "Tili"
+    },
+    "EmailSettings": {
+      "title": "Sähköposti"
+    },
+    "ProfileSettings": {
+      "title": "Profiili"
+    },
+    "common": {
+      "backHome": "Takaisin kotiin",
+      "sidebar": "Asetukset",
+      "title": "Käyttäjäasetukset"
+    },
+    "forms": {
+      "fields": {
+        "credited_name": {
+          "help": "Tätä nimeä käytämme tunnustuksena julkaisuissa, julisteissa, vapaaehtoistodistuksissa ja muissa materiaaleissa.",
+          "label": "Oikea nimi"
+        },
+        "display_name": {
+          "help": "Näin nimesi näkyy muille alustalla.",
+          "label": "Näyttönimi"
+        }
+      },
+      "optional": "Valinnainen",
+      "save": "Muuttaa",
+      "saveSuccess": "Muutokset tallennettu.",
+      "saveUnnecessary": "Ei tallennettavia muutoksia."
+    }
+  },
+  "Sidebar": {
+    "all": "Kaikki"
+  },
+  "Unsubscribe": {
+    "form": {
+      "body": {
+        "p1": "Ymmärrämme sen – kukaan ei halua vastaanottaa jatkuvasti sähköpostia, jota ei halua.",
+        "p2": "Syötä vain sähköpostiosoitteesi tähän, niin poistamme sinut kaikilta sähköpostilistoiltamme."
+      },
+      "errors": {
+        "general": "Jotain meni pieleen. Tarkista sähköpostiosoite ja yritä uudelleen."
+      },
+      "header": "Peruuta kaikkien Zooniversen sähköpostien tilaus paitsi Keskustelu.",
+      "inputEmail": "Sähköpostiosoite",
+      "submit": "Lähetä"
+    },
+    "processed": {
+      "body": "Jos muutat mielesi, käy tilisi asetuksissa <0>päivittääksesi sähköpostiasetuksesi</0>.",
+      "header": "Tilauksen peruutus onnistui"
+    }
+  },
+  "Volunteer": {
+    "beta": {
+      "button": "Ilmoittaudu testaukseen",
+      "heading": "Beetatestaus",
+      "paragraphs": {
+        "first": "Jos olet jo vapaaehtoinen ja haluat antaa lisäpalautetta, harkitse betatestaajaksi ryhtymistä. Betatestaajat ovat Zooniversen vapaaehtoisia, jotka auttavat meitä testaamaan projekteja ennen niiden julkista julkaisua ja antavat palautetta tutkimusryhmille, jotta projekteista tehtäisiin parempia. Betatestaajat lähettävät testiluokituksia projekteista ja antavat tiimeille palautetta lyhyen kyselylomakkeen avulla.",
+        "second": "Tämä prosessi auttaa meitä tunnistamaan projekteissa mahdollisesti esiintyvät ongelmat ja jopa arvioimaan, sopiiko projekti Zooniverseen. Mielipiteesi on meille erittäin tärkeä! Voit lukea sopivan projektin ohjeitamme <0>Laboratorion käytännöt -sivulta</0>.",
+        "third": "Betatestaajaksi rekisteröityminen on helppoa, ja kuka tahansa voi tehdä sen. Siirry vain <0>asetuksiin</0> ja valitse ruutu, jossa lukee ”Tilaa beta-projektien sähköposti-päivitykset ja ryhdy betatestaajaksi”. Lähetämme sinulle sähköpostia, kun projektit ovat valmiita testattavaksi. Voit muuttaa sähköpostiasetuksiasi ja peruuttaa beta-sähköpostien tilauksen milloin tahansa käymällä samalla sähköpostisivulla ja poistamalla valinnan ruudusta."
+      }
+    },
+    "classify": {
+      "heading": "Luokittele projektit",
+      "paragraphs": {
+        "first": "Vapaaehtoistyö projektissa on helpoin ja yleisin tapa osallistua. Tarvitsemme aina vapaaehtoisia auttamaan projektitietojen luokittelussa. Ei ole vähimmäisaikavaatimusta; voit tehdä niin paljon tai vähän kuin haluat.",
+        "second": "Aloita käymällä <0>Zooniversen</0> kotisivulla ja rekisteröimällä tili."
+      }
+    },
+    "howTo": {
+      "heading": "Miten tehdä vapaaehtoistyötä",
+      "paragraph": "Kiinnostaako vapaaehtoistyö? Se on helppoa: aloita vain luokitteleminen! Jokainen Zooniverse-projektiin osallistuva on vapaaehtoistyöntekijä. Meillä on upea, maailmanlaajuinen vapaaehtoisten yhteisö, joka \"voimanlähteenä\" ihmislähtöistä tutkimustamme. Oletko jo vapaaehtoinen ja haluat tehdä enemmän? Harkitse beta-testaajaksi ryhtymistä tai projektitiimien auttamista Talk-moderaattorina. Lisätietoja näistä rooleista saat lukemalla eteenpäin."
+    },
+    "moderate": {
+      "heading": "Projektin moderointi",
+      "paragraphs": {
+        "first": "Vapaaehtoiset moderaattorit auttavat tutkimusryhmiä projektin Talk-keskustelutyökalun käytössä. He auttavat keskustelujen moderoinnissa, toimivat projektin yhteyshenkilöinä ja heillä on lisäkäyttöoikeuksia Talkiin. Projektin omistaja valitsee moderaattorit. Jos olet kiinnostunut toimimaan moderaattorina projektissa, johon osallistut, siirry projektin Tietoja-sivulle tai Talk-foorumille ja ota yhteyttä tutkijaan. Lisätietoja on <0>'Mitä varten moderaattoreita on?'</0> -dokumentaatiossamme.",
+        "second": "Jos haluat lisätietoja näistä eri rooleista, <0>ota meihin yhteyttä</0>."
+      }
+    },
+    "register": {
+      "button": "Rekisteröidy tänään",
+      "heading": "Zooniverseen rekisteröitymisen edut",
+      "paragraphs": {
+        "fifth": "Rekisteröintisivun käännetyt versiot ovat saatavilla <0>espanjaksi</0> ja <1>ranskaksi</1>. Huomaa, että kaikkia sivun elementtejä ei välttämättä käännetä.",
+        "first": "Seuraa luokittelujasi, tuntejasi ja paljon muuta. Löydä suosikkiprojektisi ja tarkkaile trendejä. Vie sitten tietosi saadaksesi lisää vaihtoehtoja.",
+        "fourth": "Alle 16-vuotiaiden rekisteröityminen edellyttää vanhemman/huoltajan hyväksymistä. Rekisteröitymiseen pääsee suoraan osoitteesta <0>https://www.zooniverse.org/accounts/register</0>.",
+        "second": "Luo virallinen todistus, joka vahvistaa työsi Zooniverse-alustalla. Määritä vain ajanjakso tai projekti.",
+        "third": "Rekisteröityneet käyttäjät voivat julkaista projektikohtaisia ​​ja Zooniversen laajuisia keskustelufoorumeita, jolloin voit esittää kysymyksiä oikeille asiantuntijoille."
+      },
+      "subheadings": {
+        "first": "Henkilökohtaiset tilastot",
+        "second": "Vapaaehtoistyön todistus",
+        "third": "Keskustele muiden vapaaehtoisten ja asiantuntijoiden kanssa"
+      }
+    },
+    "title": "Vapaaehtoistyö",
+    "translate": {
+      "heading": "Käännä projekti",
+      "paragraphs": {
+        "first": "Vapaaehtoiskääntäjät auttavat tutkimusryhmiä kääntämään englanninkielisiä Zooniverse-projekteja muille kielille ja auttavat siten maailmanlaajuista vapaaehtoisyhteisöämme. Projektikääntäjät työskentelevät suoraan projektiryhmien kanssa, jotta heidät voidaan lisätä projektiinsa kääntäjinä. Tämän jälkeen he voivat käyttää projektitason käännösten verkkosivustoa ja syöttää käännöksiä projektin jokaiseen osioon.",
+        "second": "Toivotamme myös tervetulleiksi vapaaehtoisia auttamaan tekoälyn luomien alustatason sisällön käännösten korjaamisessa. Tämä sisältö <0>ei</0> ole projektikohtaista, ja sitä hallinnoi ja ylläpitää Zooniverse-tiimi.",
+        "third": "Jos olet kiinnostunut toimimaan vapaaehtoisena projektikääntäjänä tai auttamaan alustatason käännösten editoinnissa, <0>ota meihin yhteyttä</0>."
+      }
+    }
+  }
+}

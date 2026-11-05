@@ -12,14 +12,14 @@ import {
   DEFAULT_COLLECTION_SORT
 } from '@helpers/collectionQueryParams'
 import { useProjectCollections } from '@hooks'
-import RequireUser from '@shared/components/RequireUser/RequireUser'
+import Pagination from '@shared/components/Pagination'
 import PanoptesAuthContext from '@shared/contexts/PanoptesAuthContext.js'
+import RequireUser from '@shared/components/RequireUser/RequireUser'
 
 import CollectionsList from '../CollectionsList'
 import CollectionsToolbar from '../CollectionsToolbar'
 import EmptyPlaceholder from '../Placeholders/EmptyPlaceholder'
 import ErrorPlaceholder from '../Placeholders/ErrorPlaceholder'
-import Pagination from '../Pagination'
 
 const SORT_VALUES = COLLECTION_SORT_OPTIONS.map(option => option.value)
 
@@ -29,7 +29,7 @@ function CollectionsListContainer({ loginParam }) {
   const { isLoading: isUserLoading, user } = useContext(PanoptesAuthContext)
   
   const favorite = pathname?.split('/').includes('favorites') ?? false
-  const projectId = store?.project?.id
+  const { id: projectId, slug: projectSlug } = store?.project || {}
   const isUserScoped = !!loginParam
 
   const [page, setUrlPage] = useQueryState('page', parseAsInteger.withDefault(1))
@@ -99,24 +99,11 @@ function CollectionsListContainer({ loginParam }) {
   if (isUserScoped && !isUserLoading && !user?.id) placeholder = <RequireUser />
   else if (error) placeholder = <ErrorPlaceholder />
   else if (!data) placeholder = <Loader />
-  else if (!data.collections.length && !loadingOrValidating) placeholder = <EmptyPlaceholder />
+  else if (!data?.collections?.length && !loadingOrValidating) placeholder = <EmptyPlaceholder />
 
-  if (placeholder) {
-    return (
-      <Box
-        align='center' 
-        justify='center' 
-        height={{ min: '50vh' }} 
-        pad='large'
-      >
-        {placeholder}
-      </Box>
-    )
-  }
-
-  const pagination = data.pageCount > 1 && (
+  const pagination = (
     <Pagination
-      pageCount={data.pageCount}
+      pageCount={data?.pageCount || 1}
       page={page}
       setPage={handlePageChange}
     />
@@ -124,7 +111,7 @@ function CollectionsListContainer({ loginParam }) {
       
   const toolbar = (
     <CollectionsToolbar
-      count={data.count}
+      count={data?.count}
       isLoading={loadingOrValidating}
       minSubjects={minSubjects}
       onMinSubjectsChange={handleMinSubjectsChange}
@@ -138,11 +125,18 @@ function CollectionsListContainer({ loginParam }) {
     <>
       {pagination}
       {toolbar}
-      <Box height={{ min: '180px' }}>
-        <CollectionsList
-          collections={data.collections}
-          isLoading={loadingOrValidating}
-        />
+      <Box
+        align='center'
+        height={{ min: '180px' }}
+        justify='center'
+      >
+        {placeholder || (
+          <CollectionsList
+            collections={data.collections}
+            isLoading={loadingOrValidating}
+            projectSlug={projectSlug}
+          />
+        )}
       </Box>
       {pagination}
     </>

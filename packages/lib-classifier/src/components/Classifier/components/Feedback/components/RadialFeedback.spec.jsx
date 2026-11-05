@@ -33,7 +33,11 @@ describe('Component > RadialFeedback', function () {
       { id: 'mark-2', frame: 1, x: 120, y: 151, tool: { size: 'large' }, toolType: 'point', toolComponent: Point },
       { id: 'mark-3', frame: 0, x: 999, y: 999, tool: { size: 'large' }, toolType: 'point', toolComponent: Point },
       { id: 'mark-4', frame: 1, width: 20, x: 50, y: 50, tool: { size: 'large' }, toolType: 'point', toolComponent: Point }
-    ]
+    ].map(mark => {
+      mark.coords = { x: mark.x, y: mark.y }
+      return mark
+    })
+
     const classifierStore = {
       classifications: {
         currentAnnotations: [
@@ -83,7 +87,7 @@ describe('Component > RadialFeedback', function () {
     expect(document.querySelector('[transform="translate(999, 999)"]')).to.not.equal(null)
   })
 
-  describe('with marks that draw in subject coordinates', function () {
+  describe('drawing marks', function() {
     function drawingStore(mark) {
       return {
         classifications: { currentAnnotations: [{ taskType: 'drawing', value: [mark] }] },
@@ -92,26 +96,28 @@ describe('Component > RadialFeedback', function () {
       }
     }
 
-    it('should render a rectangle without translating it', function () {
+    it('should should draw marks in local coordinates relative to coords', function () {
       const mark = RectangleTool.create({ type: 'rectangle' }).createMark({ id: 'rectangle1' })
       mark.setCoordinates({ x_left: 85, x_right: 115, y_top: 180, y_bottom: 220 })
 
       renderComponent(drawingStore(mark))
 
       const rect = document.querySelector('[data-testid="rectangle-element"]')
-      expect(rect.getAttribute('x')).to.equal('85')
-      expect(rect.closest('g[stroke]').getAttribute('transform')).to.equal(null)
+      expect(rect.getAttribute('x')).to.equal('-15')
+      expect(rect.getAttribute('y')).to.equal('-20')
+      expect(rect.closest('g[stroke]').getAttribute('transform')).to.equal('translate(100, 200)')
     })
 
-    it('should render a rotateRectangle without translating it', function () {
+    it('should should draw marks in local coordinates relative to coords and angle', function () {
       const mark = RotateRectangleTool.create({ type: 'rotateRectangle' }).createMark({ id: 'rotateRectangle1' })
-      mark.setCoordinates({ x_left: 85, x_right: 115, y_top: 180, y_bottom: 220, angle: 0 })
+      mark.setCoordinates({ x_left: 85, x_right: 115, y_top: 180, y_bottom: 220, angle: 30 })
 
       renderComponent(drawingStore(mark))
-
+      
       const rect = document.querySelector('[data-testid="radial-feedback-viewer"] rect')
-      expect(rect.getAttribute('x')).to.equal('85')
-      expect(rect.closest('g[stroke]').getAttribute('transform')).to.equal(null)
+      expect(rect.getAttribute('x')).to.equal('-15')
+      expect(rect.getAttribute('y')).to.equal('-20')
+      expect(rect.closest('g[stroke]').getAttribute('transform')).to.equal('translate(100, 200) rotate(30)')
     })
   })
 })

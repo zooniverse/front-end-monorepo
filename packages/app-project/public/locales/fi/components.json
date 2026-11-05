@@ -76,15 +76,22 @@
     "classify": "Luokittele",
     "collect": "Kerää",
     "exploreProject": "Tutustu projektiin",
+    "lab": "Laboratorio",
     "organization": "Organisaatiolta:",
     "recents": "Viimeaikaiset",
     "talk": "Puhu"
   },
   "ProjectStatistics": {
+    "active": "Aktiiviset tilastot",
+    "allTime": "Kaikkien aikojen tilastot",
+    "byTheNumbers": "Numeroiden mukaan",
     "classifications": "Luokittelut",
     "completedSubjects": "Suoritetut aiheet",
+    "launched": "Projekti käynnistettiin {{date}}",
+    "notLaunched": "Projektia ei ole käynnistetty",
     "percentComplete": "Prosenttia valmiina",
     "subjects": "Aiheet",
+    "subtitle": "Seuraa edistymistä, jota sinä ja muut vapaaehtoiset ovat tehneet tässä projektissa.",
     "text": "Jokaisella napsautuksella on väliä! Liity projektin {{projectName}} yhteisöön toteuttaaksesi projektin ja auttaaksesi tutkijoita tuottamaan tärkeitä tuloksia. Napsauta \"Näytä enemmän tilastoja\" nähdäksesi lisää.",
     "title": "Kohteen {{projectName}} tilastot",
     "viewMoreStats": "Näytä enemmän tilastoja",
@@ -100,6 +107,7 @@
     "alreadySeen": "Jo nähty",
     "back": "Valitse eri aihesetti",
     "byline": "Lajittele luettelo napsauttamalla sarakkeen nimiä. Näet aiheita peräkkäin alkaen valitsemastasi.",
+    "error": "Valitettavasti emme voineet ladata aiheita tässä aihejoukossa. Yritä myöhemmin uudelleen tai ilmoita projektitiimille Talkissa.",
     "fetching": "Odotathan...",
     "heading": "Valitse aihe aloittaaksesi",
     "retired": "Vanhentunut",
@@ -124,6 +132,7 @@
   "WorkflowSelector": {
     "WorkflowSelectButton": {
       "complete": "{{completeness}} % valmis",
+      "externalWorkflow": "ulkoinen työnkulku",
       "setSelection": "sarjan valinta",
       "subjectSelection": "aiheen valinta"
     },

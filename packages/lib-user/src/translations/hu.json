@@ -1,0 +1,192 @@
+{
+  "AllProjects": {
+    "error": "Hiba történt",
+    "noProjects": "Nem található projekt",
+    "recent": "friss",
+    "sortBy": "rendezés szerint",
+    "title": "{{displayName}} projektje",
+    "top": "Legfontosabb projektek"
+  },
+  "BarChart": {
+    "a11y": "{{typeLabel}} sávdiagramja {{countLabel}} által {{startDate}} – {{endDate}}",
+    "day": "Nap",
+    "hourAbbrev": "óra",
+    "minAbbrev": "perc",
+    "monthOf": "Hónap:",
+    "time": "Idő",
+    "weekOf": "Hét:",
+    "year": "Év"
+  },
+  "Contributors": {
+    "ContributorsList": {
+      "a11y": "{{name}} tagstatisztikája",
+      "privateProject": "Privát projekt {{index}}",
+      "projectStats": "{{name}} projekt kezdete"
+    },
+    "ExportStats": {
+      "cancel": "Mégse",
+      "close": "Bezárás",
+      "complete": "Az exportálás befejeződött",
+      "confirm": "Megerősítés",
+      "confirmMessage": "Létrehozod {{memberCount}} tag csoportstatisztikáját CSV-fájlban?",
+      "download": "Kattints a hivatkozásra a CSV letöltéséhez:",
+      "downloading": "Adatok letöltése...",
+      "error": "Exportálási hiba",
+      "errorMessage": "Az export létrehozása nem sikerült.",
+      "fileSize": "Körülbelül {{fileSize}}.",
+      "generating": "Statisztikai exportfájl létrehozása. Ne zárd be ezt a böngészőlapot.",
+      "progress": "Előrehaladás {{progress}}%",
+      "retry": "Újra"
+    },
+    "ProjectStats": {
+      "a11y": "{{project}} tagstatisztikája"
+    },
+    "error": "Hiba történt",
+    "exportLink": "Összes statisztika exportálása",
+    "generating": "Statisztika exportjának létrehozása...",
+    "noPermission": "Nincs jogosultságod a csoport hozzájárulóinak megtekintéséhez.",
+    "none": "Ennek a csoportnak nincsenek hozzájárulói.",
+    "title": "Teljes csoportstatisztika"
+  },
+  "GroupContainer": {
+    "deactivated": "Ez egy inaktivált csoport. Kérjük, hagyd el a csoportot, vagy fordulj az adminisztrátorhoz, ha úgy gondolod, hogy hiba történt.",
+    "joinFail": "A csatlakozás nem sikerült...",
+    "joined": "Csatlakozva az új csoporthoz!",
+    "joining": "Csatlakozás csoporthoz...",
+    "leaveGroup": "Csoport elhagyása",
+    "loginToJoin": "Jelentkezz be a csoporthoz való csatlakozáshoz.",
+    "noAuth": "Privát csoport eléréséhez be kell jelentkezned.",
+    "notFound": "A csoport nem található"
+  },
+  "GroupForm": {
+    "anyone": "ezt a csoportot bárkivel megoszthatod",
+    "createNew": "Új csoport létrehozása",
+    "deactivate": "Csoport inaktiválása",
+    "deactivateHelp": "Biztosan törlöd ezt a csoportot?",
+    "greaterThanChar": "> 3 karakter hosszú lehet",
+    "lessThanChar": "< 60 karakter hosszú lehet",
+    "name": "Csoport neve",
+    "nameHelp": "Új csoport létrehozásával te leszel az admin.",
+    "onlyMembers": "ezt a csoportot csak tagok tekinthetik meg",
+    "private": "Privát",
+    "privateAggOnly": "Nem, ne jelenjen meg egyéni statisztika a tagoknak",
+    "privateShowAggAndInd": "Igen, egyéni statisztika megjelenítése a tagoknak",
+    "pubVis": "Nyilvános láthatóság",
+    "public": "Nyilvános",
+    "publicAggOnly": "Nem, soha ne jelenjen meg egyéni statisztika",
+    "publicAggShowInd": "Igen, egyéni statisztika megjelenítése, ha tag",
+    "publicShowAll": "Igen, mindig jelenjen meg az egyéni statisztika",
+    "saveChanges": "Módosítások mentése",
+    "showInd": "Egyéni statisztika megjelenítése",
+    "showIndHelp": "Az admin mindig láthatja az egyéni statisztikát.",
+    "showIndInfo": "Minden más tagot hozzáadhatsz egy csatlakozási hivatkozással, miután az alábbiakban létrehoztad az új csoportot.",
+    "visibility": "Statisztika láthatósága"
+  },
+  "GroupStats": {
+    "GroupUpdateFormContainer": {
+      "error": "Valami hiba történt. Kérjük, próbáld meg újra."
+    },
+    "MemberListItem": {
+      "a11y": "Menü {{name}} csoporttagságának frissítéséhez vagy eltávolításához",
+      "giveAdmin": "Admin-hozzáférés megadása",
+      "remove": "Tag eltávolítása",
+      "removeAdmin": "Admin-hozzáférés eltávolítása"
+    },
+    "MembersList": {
+      "title": "Csoporttagok",
+      "warning": "Tag eltávolításával inaktiválod a tagságát a csoportban. Többé már nem fogja elérni a csoportot, de hozzájárulhat, amíg szeretne."
+    },
+    "TopContributors": {
+      "error": "Hiba történt a legfontosabb hozzájárulók lekérésekor.",
+      "linkLabel": "Összes hozzájáruló és részletes statisztikák megjelenítése",
+      "tip": "Tartalmaz aktív és inaktív tagokat.",
+      "title": "Legfontosabb hozzájárulók"
+    },
+    "headerItems": {
+      "all": "Összes saját csoport",
+      "copied": "Csoporthivatkozás lemásolva!",
+      "copy": "Csatlakozási hivatkozás másolása",
+      "leave": "Csoport elhagyása",
+      "share": "Csoport megosztása"
+    },
+    "leaveQuestion": "Biztosan el szeretnéd hagyni ezt a csoportot?",
+    "manage": "Csoport kezelése"
+  },
+  "HeaderDropdown": {
+    "label": "Csoportlehetőségek"
+  },
+  "MainContent": {
+    "allProjects": "Összes projekt",
+    "calendarBtn": "Kész",
+    "calendarTitle": "Egyéni dátumtartomány",
+    "certificate": "Önkéntes tanúsítvány létrehozása",
+    "dateRange": {
+      "allTime": "Mindenkori",
+      "custom": "Egyéni",
+      "lastSevenDays": "Utolsó 7 napban",
+      "lastThirtyDays": "Utolsó 30 napban",
+      "lastThreeMonths": "Utolsó 3 hónapban",
+      "lastTwelveMonths": "Utolsó 12 hónapban",
+      "thisMonth": "Ebben a hónapban",
+      "thisYear": "Ebben az évben"
+    },
+    "error": "Hiba történt.",
+    "hoursTip": "Az óraszámot az osztályozási erőfeszítéseid kezdési és befejezési időpontjától számítjuk. Az óraszámban nincs benne a Talkon töltött időd.",
+    "noData": "Nem találhatók adatok.",
+    "selectDateRange": "Dátumtartomány kiválasztása",
+    "selectProject": "Projekt kiválasztása",
+    "start": "<0>Projekt osztyályozása</0> most, vagy a dátumtartomány módosítása.",
+    "tabContents": "Lap tartalma"
+  },
+  "MyGroups": {
+    "GroupCard": {
+      "admin": "Admin",
+      "member": "Tag"
+    },
+    "PreviewLayout": {
+      "seeAll": "Összes megjelenítése"
+    },
+    "createNew": "Új csoport létrehozása",
+    "error": "Hiba történt a csoportjaid lekérésekor",
+    "learnMore": "Tudnivalók a csoportokról",
+    "noGroups": "Egyik csoportnak sem vagy a tagja.<0/>Hozz létre egyet alább",
+    "title": "Saját csoportok"
+  },
+  "TopProjects": {
+    "title": "Legfontosabb projektek"
+  },
+  "UserHome": {
+    "Dashboard": {
+      "allTime": "Mindenkori",
+      "collections": "Gyűjtemények",
+      "comments": "Megjegyzések",
+      "favorites": "Kedvencek",
+      "messages": "Üzenetek",
+      "moreStats": "További statisztika",
+      "thisWeek": "Ezen a héten"
+    },
+    "RecentProjects": {
+      "error": "Hiba történt az újabb projektek lekérésekor",
+      "noProjects": "Nem található újabb projekt",
+      "start": "Kezdd <0>valamelyik projekt osztályozásával</0>.",
+      "title": "Osztályozás folytatása"
+    },
+    "RecentSubjects": {
+      "error": "Hiba történt az újabb osztályozások letöltésekor",
+      "noSubjects": "Nem található újabb osztályozás",
+      "title": "A legutóbbi osztályozásai"
+    },
+    "SubjectCard": {
+      "subject": "Tárgy"
+    }
+  },
+  "common": {
+    "avatarAlt": "{{login}} avatár",
+    "back": "Vissza",
+    "classifications": "Osztályozások",
+    "contributors": "Hozzájárulók",
+    "hours": "Órák",
+    "projects": "Projektek",
+    "seeAll": "Összes megjelenítése"
+  }
+}

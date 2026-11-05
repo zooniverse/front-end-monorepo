@@ -1,0 +1,192 @@
+{
+  "AllProjects": {
+    "error": "Es ist ein Fehler aufgetreten",
+    "noProjects": "Keine Projekte gefunden",
+    "recent": "jüngste",
+    "sortBy": "Sortieren nach",
+    "title": "Projekte von {{displayName}}",
+    "top": "Top-Projekte"
+  },
+  "BarChart": {
+    "a11y": "Balkendiagramm von {{typeLabel}} nach {{countLabel}} von {{startDate}} bis {{endDate}}",
+    "day": "Tag",
+    "hourAbbrev": "Std.",
+    "minAbbrev": "Min.",
+    "monthOf": "Monat vom",
+    "time": "Uhrzeit",
+    "weekOf": "Woche vom",
+    "year": "Jahr"
+  },
+  "Contributors": {
+    "ContributorsList": {
+      "a11y": "Mitgliederstatistiken für {{name}}",
+      "privateProject": "Privates Projekt {{index}}",
+      "projectStats": "Projektstatistiken für {{name}}"
+    },
+    "ExportStats": {
+      "cancel": "Abbrechen",
+      "close": "Schließen",
+      "complete": "Export abgeschlossen",
+      "confirm": "Bestätigen",
+      "confirmMessage": "CSV von Gruppenstatistiken für {{memberCount}} Mitglieder generieren?",
+      "download": "Auf den Link klicken, um CSV herunterzuladen:",
+      "downloading": "Daten werden heruntergeladen …",
+      "error": "Exportfehler",
+      "errorMessage": "Der Export konnte nicht generiert werden.",
+      "fileSize": "Ungefähr {{fileSize}}.",
+      "generating": "Statistik-Exportdatei wird generiert. Schließen Sie diese Browser-Registerkarte nicht.",
+      "progress": "Fortschritt: {{progress}} %",
+      "retry": "Erneut versuchen"
+    },
+    "ProjectStats": {
+      "a11y": "Mitgliederstatistiken für {{project}}"
+    },
+    "error": "Es ist ein Fehler aufgetreten",
+    "exportLink": "Alle Statistiken exportieren",
+    "generating": "Statistik-Export wird generiert ...",
+    "noPermission": "Sie haben nicht die Erlaubnis, die Beiträge dieser Gruppe zu sehen.",
+    "none": "Es gibt keine Beitragenden in dieser Gruppe.",
+    "title": "Vollständige Gruppenstatistiken"
+  },
+  "GroupContainer": {
+    "deactivated": "Dies ist eine deaktivierte Gruppe. Bitte verlassen Sie die Gruppe oder kontaktieren Sie den Gruppenadmin, wenn Sie glauben, dass ein Fehler vorliegt.",
+    "joinFail": "Beitritt fehlgeschlagen",
+    "joined": "Neue Gruppe beigetreten!",
+    "joining": "Der Gruppe beitreten ...",
+    "leaveGroup": "Gruppe verlassen",
+    "loginToJoin": "Melden Sie sich an, um der Gruppe beizutreten.",
+    "noAuth": "Sie müssen angemeldet sein, um auf eine private Gruppe zugreifen zu können.",
+    "notFound": "Gruppe nicht gefunden"
+  },
+  "GroupForm": {
+    "anyone": "Sie können diese Gruppe mit jedem teilen",
+    "createNew": "Neue Gruppe erstellen",
+    "deactivate": "Gruppe deaktivieren",
+    "deactivateHelp": "Sind Sie sicher, dass Sie diese Gruppe löschen wollen?",
+    "greaterThanChar": "muss > 3 Zeichen sein",
+    "lessThanChar": "muss < 60 Zeichen sein",
+    "name": "Gruppenname",
+    "nameHelp": "Wenn Sie eine neue Gruppe erstellen, werden Sie zum Admin.",
+    "onlyMembers": "nur Mitglieder können diese Gruppe sehen",
+    "private": "Privat",
+    "privateAggOnly": "Nein, keine individuellen Statistiken für Mitglieder anzeigen",
+    "privateShowAggAndInd": "Ja, individuelle Statistiken für Mitglieder anzeigen",
+    "pubVis": "Öffentliche Sichtbarkeit",
+    "public": "Öffentlich",
+    "publicAggOnly": "Nein, nie individuelle Statistiken anzeigen",
+    "publicAggShowInd": "Ja, individuelle Statistiken für Mitglieder anzeigen",
+    "publicShowAll": "Ja, individuelle Statistiken immer anzeigen",
+    "saveChanges": "Änderungen speichern",
+    "showInd": "Individuelle Statistiken anzeigen",
+    "showIndHelp": "Der Admin kann jederzeit einzelne Statistiken einsehen.",
+    "showIndInfo": "Sie können alle anderen Mitglieder über einen Beitrittslink hinzufügen, nachdem Sie die neue Gruppe unten erstellt haben.",
+    "visibility": "Statistik-Sichtbarkeit"
+  },
+  "GroupStats": {
+    "GroupUpdateFormContainer": {
+      "error": "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut."
+    },
+    "MemberListItem": {
+      "a11y": "Menü zum Aktualisieren oder Entfernen der Gruppenmitgliedschaft von {{name}}",
+      "giveAdmin": "Admin-Zugang gewähren",
+      "remove": "Mitglied entfernen",
+      "removeAdmin": "Admin-Zugang entfernen"
+    },
+    "MembersList": {
+      "title": "Gruppenmitglieder",
+      "warning": "Wenn Sie ein Mitglied entfernen, wird dessen Mitgliedschaft in der Gruppe deaktiviert. Das betreffende Mitglied hat keinen Zugriff mehr auf die Gruppe, geleistete Beiträge bleiben jedoch erhalten."
+    },
+    "TopContributors": {
+      "error": "Es gab einen Fehler beim Abrufen der Top-Beitragenden.",
+      "linkLabel": "Alle Beitragenden und detaillierte Statistiken anzeigen",
+      "tip": "Einschließlich aktiver und inaktiver Mitglieder.",
+      "title": "Top-Beitragende"
+    },
+    "headerItems": {
+      "all": "Alle meine Gruppen",
+      "copied": "Gruppenlink kopiert!",
+      "copy": "Beitrittslink kopieren",
+      "leave": "Gruppe verlassen",
+      "share": "Gruppe teilen"
+    },
+    "leaveQuestion": "Sind Sie sicher, dass Sie diese Gruppe verlassen wollen?",
+    "manage": "Gruppe verwalten"
+  },
+  "HeaderDropdown": {
+    "label": "Gruppenoptionen"
+  },
+  "MainContent": {
+    "allProjects": "Alle Projekte",
+    "calendarBtn": "Fertig",
+    "calendarTitle": "Benutzerdefinierter Datumsbereich",
+    "certificate": "Ehrenamtsbescheinigung generieren",
+    "dateRange": {
+      "allTime": "Seit Beginn",
+      "custom": "Benutzerdefiniert",
+      "lastSevenDays": "Letzte 7 Tage",
+      "lastThirtyDays": "Letzte 30 Tage",
+      "lastThreeMonths": "Letzte 3 Monate",
+      "lastTwelveMonths": "Letzte 12 Monate",
+      "thisMonth": "Dieser Monat",
+      "thisYear": "Dieses Jahr"
+    },
+    "error": "Es ist ein Fehler aufgetreten.",
+    "hoursTip": "Die Stunden werden auf der Grundlage der Anfangs- und Endzeiten Ihrer Klassifizierungen berechnet. Die Stunden spiegeln nicht die Zeit wider, die Sie für Diskutieren aufwenden.",
+    "noData": "Keine Daten gefunden.",
+    "selectDateRange": "Datumsbereich auswählen",
+    "selectProject": "Projekt auswählen",
+    "start": "<0>Jetzt innerhalb eines Projekts klassifizieren</0> oder den Datumsbereich ändern.",
+    "tabContents": "Registerkarten-Inhalt"
+  },
+  "MyGroups": {
+    "GroupCard": {
+      "admin": "Admin",
+      "member": "Mitglied"
+    },
+    "PreviewLayout": {
+      "seeAll": "Alle anzeigen"
+    },
+    "createNew": "Neue Gruppe erstellen",
+    "error": "Beim Abrufen Ihrer Gruppen ist ein Fehler aufgetreten",
+    "learnMore": "Mehr über Gruppen erfahren",
+    "noGroups": "Sie sind kein Mitglied einer Gruppe.<0/>Erstellen Sie unten eine",
+    "title": "Meine Gruppen"
+  },
+  "TopProjects": {
+    "title": "Top-Projekte"
+  },
+  "UserHome": {
+    "Dashboard": {
+      "allTime": "Seit Beginn",
+      "collections": "Sammlungen",
+      "comments": "Kommentare",
+      "favorites": "Favoriten",
+      "messages": "Nachrichten",
+      "moreStats": "Mehr Statistiken",
+      "thisWeek": "Diese Woche"
+    },
+    "RecentProjects": {
+      "error": "Beim Abrufen Ihrer rezenten Projekte ist ein Fehler aufgetreten",
+      "noProjects": "Keine rezenten Projekte gefunden",
+      "start": "Beginnen Sie mit der <0>Klassifizierung innerhalb eines beliebigen Projekt</0>.",
+      "title": "Klassifizierung fortsetzen"
+    },
+    "RecentSubjects": {
+      "error": "Es gab einen Fehler beim Abrufen der rezenten Klassifizierungen",
+      "noSubjects": "Keine rezenten Klassifizierungen gefunden",
+      "title": "Deine kürzlichen Klassifikationen"
+    },
+    "SubjectCard": {
+      "subject": "Betreff"
+    }
+  },
+  "common": {
+    "avatarAlt": "{{login}}-Avatar",
+    "back": "Zurück",
+    "classifications": "Klassifizierungen",
+    "contributors": "Beitragende",
+    "hours": "Stunden",
+    "projects": "Projekte",
+    "seeAll": "Alle anzeigen"
+  }
+}

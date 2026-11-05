@@ -43,8 +43,17 @@ function Polygon({
   const fill = finished ? 'transparent' : 'none'
   const strokeDasharray = finished ? undefined : '2 2'
 
+  // undo transform in Mark to draw polygon in global coordinates
+  const coords = mark.coords
+  let transform = ''
+
+  if (coords) {
+    const { x, y } = coords
+    transform = `translate(${-x}, ${-y})`
+  }
+
   return (
-    <g>
+    <g transform={transform}>
       {active && !finished && points.length > 1 && (
         <UndoButton
           x={initialPoint.x}

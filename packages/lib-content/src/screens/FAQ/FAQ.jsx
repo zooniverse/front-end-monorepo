@@ -185,7 +185,7 @@ function FAQPage() {
                   {t('FAQ.item10.answer')}
                 </Paragraph>
               </Box>
-              <Box as='li'>
+              <Box as='li' id='about-platform-level-translations'>
                 <Question>{t('FAQ.item11.question')}</Question>
               </Box>
               <Answer>

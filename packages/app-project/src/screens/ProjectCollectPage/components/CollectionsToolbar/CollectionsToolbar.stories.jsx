@@ -5,15 +5,13 @@ export default {
   component: CollectionsToolbar
 }
 
-export function Default(args) {
-  return <CollectionsToolbar {...args} />
-}
-
-Default.args = {
-  count: 123,
-  minSubjects: 2,
-  onMinSubjectsChange: () => {},
-  onSortChange: () => {},
-  page: 1,
-  sort: 'display_name'
+export const Default = {
+  args: {
+    count: 123,
+    minSubjects: 2,
+    onMinSubjectsChange: () => {},
+    onSortChange: () => {},
+    page: 1,
+    sort: 'display_name'
+  }
 }
