@@ -47,6 +47,10 @@
       },
       "paragraph": "Don’t see your question answered here? Send us your questions at <0>contact@zooniverse.org</0>! We will update this list as needed.",
       "second": {
+        "question": "I’m experimenting with using and interacting with AI agents. Can I use these agents in conjunction with a Zooniverse account, e.g., to classify on Zooniverse projects, or post on Zooniverse Talk boards?",
+        "answer": "No. AI agents should not be granted access to Zooniverse accounts. Unless explicitly granted permission to do so, AI agents should not aid in classification efforts or engage on Talk boards."
+      },
+      "third": {
         "answerOne": "Start by scanning the project home page, especially the Project Description and any Workflow Description. If you’re still not sure, look at the About page, as well as the project Tutorial(s). If you’re still not sure after that, you can ask on Talk, but part of the purpose for this framework is to help make sure all projects are clearly communicating how they are (or aren’t) using this technology.",
         "answerTwo": "If you think a project is not appropriately disclosing AI/ML use, we hope you’ll feel comfortable approaching the research team on Talk and suggesting some changes or expressing your uncertainty. If you don’t feel comfortable doing so, you can also send us a message at <0>contact@zooniverse.org</0> and we will look into it. Part of this work includes updating our internal review processes, so your feedback will help us know whether our new processes are effective.",
         "question": "I want to find out if a Zooniverse project is using AI or Machine Learning. How do I find that information?"
