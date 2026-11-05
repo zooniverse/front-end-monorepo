@@ -1,9 +1,9 @@
 import { bool, func } from 'prop-types'
-import Modal from '../../../Modal'
+import Modal from '../Modal'
 
-import { useTranslation } from '../../../translations/i18n'
+import { useTranslation } from '../translations/i18n'
 
-function CollectionsModal ({
+function CollectionsModal({
   active = false,
   children,
   closeFn
