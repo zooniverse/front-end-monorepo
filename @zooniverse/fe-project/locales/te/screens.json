@@ -1,0 +1,221 @@
+{
+  "About": {
+    "PageHeading": {
+      "title": {
+        "education": "విద్య",
+        "faq": "తరచుగా అడిగే ప్రశ్నలు",
+        "research": "పరిశోధన",
+        "results": "ఫలితాలు",
+        "team": "బృందం"
+      }
+    },
+    "PageNav": {
+      "title": "ప్రాజెక్టు గురించి"
+    },
+    "SidebarHeading": "గురించి",
+    "TeamMember": {
+      "admin": "జూనివర్స్ బృందం",
+      "collaborator": "సహకారి",
+      "expert": "నిపుణుడు",
+      "moderator": "మోడరేటర్",
+      "museum": "మ్యూజియం",
+      "owner": "యజమాని",
+      "researcher": "పరిశోధకుడు",
+      "tester": "టెస్టర్",
+      "translator": "అనువాదకుడు"
+    }
+  },
+  "Classify": {
+    "ClassifierWrapper": {
+      "ErrorMessage": {
+        "title": "క్లాసిఫైయర్‌లో ఒక లోపం ఏర్పడింది :("
+      }
+    },
+    "ExternalWorkflow": {
+      "button": "బాహ్య వర్క్‌ఫ్లోకు కొనసాగండి",
+      "fallback": "ఈ వర్క్‌ఫ్లో ఒక బాహ్య సైట్‌లో హోస్ట్ చేయబడింది. అక్కడ కొనసాగించడానికి క్రింది బటన్‌ను ఎంచుకోండి."
+    },
+    "RecentSubjects": {
+      "noSubjects": "మీరు ఇటీవల వర్గీకరించిన అంశాలు ఇక్కడ చూపబడతాయి.",
+      "text": "టాక్‌లో ఒక విషయం గురించి చర్చించండి లేదా దానిని మీకు ఇష్టమైన వాటికి లేదా కలెక్షన్ కు జోడించండి.",
+      "title": "మీ తాజా వర్గీకరణలు"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "వద్దు, ధన్యవాదాలు",
+      "confirm": "నన్ను తదుపరి వర్క్‌ఫ్లోకి తీసుకెళ్లండి!",
+      "content": "అభినందనలు! మీరు చాలా బాగా చేస్తున్నారు కాబట్టి, ఇప్పుడు మీరు మరొక వర్క్‌ఫ్లోను యాక్సెస్ చేయవచ్చు. మీరు ప్రస్తుత వర్క్‌ఫ్లోతో ఉండాలనుకుంటే, మీరు ఉండడాన్ని ఎంచుకోవచ్చు.",
+      "dismiss": "ఈ సెషన్‌లో మళ్లీ దీనిని చూపించవద్దు",
+      "title": "కొత్త వర్డ్ ఫ్లో అందుబాటులో ఉంది"
+    },
+    "YourStats": {
+      "allTime": "అన్ని సమయాలలో",
+      "lastSeven": "గత 7 రోజులు",
+      "link": "మరిన్ని చూడండి",
+      "title": "మీ గణాంకాలు"
+    }
+  },
+  "Collect": {
+    "exploreLink": "అన్ని జూనివర్స్ సేకరణలను అన్వేషించండి",
+    "hideSingleSubject": "ఒకే అంశం ఉన్న సేకరణలను దాచండి",
+    "placeholders": {
+      "empty": "సేకరణలు ఏవీ కనుగొనబడలేదు.",
+      "error": "కలెక్షన్‌లను లోడ్ చేయడంలో లోపం జరిగింది."
+    },
+    "resultsCount": "{{total}} సేకరణలలో {{range}} చూపిస్తోంది",
+    "sortBy": "దీని ప్రకారం క్రమబద్ధీకరించండి:",
+    "sortOptions": {
+      "alphabeticalAscending": "అక్షర క్రమంలో AZ",
+      "alphabeticalDescending": "అక్షర క్రమంలో ZA",
+      "recentlyCreated": "ఇటీవల సృష్టించబడింది",
+      "recentlyUpdated": "ఇటీవల నవీకరించబడింది"
+    },
+    "tabs": {
+      "collections": "సేకరణలు",
+      "favorites": "ఇష్టమైనవి",
+      "myCollections": "నా {{projectName}} కలెక్షన్‌లు",
+      "myFavorites": "నా {{projectName}} ఇష్టమైనవి",
+      "title": "సేకరణ పేజీలు"
+    },
+    "title": "సేకరించండి"
+  },
+  "Collection": {
+    "CollectionOptions": {
+      "copied": "URL క్లిప్‌బోర్డ్‌కు కాపీ చేయబడింది",
+      "settings": "సెట్టింగ్‌లు",
+      "share": "పంచుకోండి"
+    },
+    "emptySubjects": "ఈ సేకరణలో అంశాలు లేవు.",
+    "linkedToProjectCollections": "<projectLink>{{projectName}}<\/projectLink> సేకరణలకు లింక్ చేయబడింది",
+    "notFound": "ఈ సేకరణను తిరిగి పొందడంలో లోపం జరిగింది.",
+    "ownerLoadError": "సేకరణ యజమాని వివరాలను లోడ్ చేయలేకపోయారు.",
+    "resultsCount": "{{total}} సబ్జెక్టులలో {{range}} చూపిస్తోంది",
+    "roles": {
+      "collaborator": "సహకారి",
+      "contributor": "సహకారి",
+      "owner": "యజమాని",
+      "viewer": "వీక్షకుడు"
+    },
+    "seeAllOwnerCollections": "<collectionsLink>అన్ని {{displayName}} సేకరణలను చూడండి<\/collectionsLink>",
+    "selectSubjects": "సబ్జెక్టులను ఎంచుకోండి",
+    "subjectsLoadError": "ఈ కలెక్షన్ యొక్క సబ్జెక్టులను లోడ్ చేయడంలో లోపం జరిగింది."
+  },
+  "Home": {
+    "AboutProject": {
+      "title": "{{projectName}} గురించి"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "మరింత తెలుసుకోండి"
+      },
+      "NotApproved": {
+        "paragraph": "ఈ ప్రాజెక్ట్ జూనివర్స్ ప్రాజెక్ట్ బిల్డర్‌ను ఉపయోగించి నిర్మించబడింది కానీ ఇది ఇంకా అధికారిక జూనివర్స్ ప్రాజెక్ట్ కాదు. జూనివర్స్ బృందానికి దర్శకత్వం వహించిన ఈ ప్రాజెక్ట్‌కు సంబంధించిన ప్రశ్నలు మరియు సమస్యలకు ఎటువంటి ప్రతిస్పందన రాకపోవచ్చు."
+      }
+    },
+    "MessageFromResearcher": {
+      "noMessage": "ఈ ప్రాజెక్ట్ గురించి మరింత తెలుసుకోవడానికి టాక్‌లో పరిశోధన బృందంతో కనెక్ట్ అవ్వండి!",
+      "noMessageButton": "టాక్ కి వెళ్ళండి",
+      "title": "పరిశోధకుని నుండి సందేశం"
+    },
+    "ZooniverseTalk": {
+      "RecentSubjects": {
+        "error": "సబ్జెక్ట్‌ని లోడ్ చేయడంలో లోపం ఏర్పడింది :(",
+        "noSubjects": "ఇప్పటివరకు ఈ విషయంపై ఎవరూ వ్యాఖ్యానించలేదు. Talkకి వెళ్లి మీరు మొదటిగా వ్యాఖ్యానించండి!",
+        "subjectLabel": "సబ్జెక్ట్ {{id}}"
+      },
+      "button": "చేరండి",
+      "message": "పరిశోధనా బృందం మరియు ఇతర వాలంటీర్లతో చాట్ చేయండి!",
+      "title": "Zooniverse టాక్"
+    }
+  },
+  "ProjectRecents": {
+    "empty": "గత 90 రోజులలో మీరు వర్గీకరించిన అత్యంత ఇటీవలి 20 అంశాలు ఇక్కడ చూపబడ్డాయి.",
+    "emptyTitle": "ఇటీవలి వర్గీకరణలు ఏవీ కనుగొనబడలేదు",
+    "error": "మీ ఇటీవలి వాటిని లోడ్ చేయడంలో లోపం జరిగింది.",
+    "signedOut": "మీరు ఇటీవల వర్గీకరించిన అంశాలను చూడటానికి సైన్ ఇన్ చేయండి.",
+    "title": "ఇటీవలి వర్గీకరణలు"
+  },
+  "ProjectStats": {
+    "BarChart": {
+      "a11y": "{{startDate}} నుండి {{endDate}} వరకు {{countLabel}} వారీగా {{typeLabel}} యొక్క బార్ చార్ట్",
+      "allWorkflows": "అన్ని వర్క్‌ఫ్లోలు",
+      "dateRange": {
+        "allTime": "అన్ని కాలాలలో",
+        "custom": "కస్టమ్",
+        "lastSevenDays": "గత 7 రోజులు",
+        "lastThirtyDays": "గత 30 రోజులు",
+        "lastThreeMonths": "గత 3 నెలలు",
+        "lastTwelveMonths": "గత 12 నెలలు",
+        "thisMonth": "ఈ నెల",
+        "thisYear": "ఈ సంవత్సరం"
+      },
+      "empty": "డేటా లేదు. వర్క్‌ఫ్లో లేదా తేదీ పరిధిని మార్చండి.",
+      "selectDateRange": "తేదీ పరిధిని ఎంచుకోండి",
+      "selectWorkflow": "వర్క్‌ఫ్లోను ఎంచుకోండి"
+    },
+    "calendarBtn": "పూర్తయింది",
+    "calendarTitle": "అనుకూల తేదీ పరిధి",
+    "comments": "వ్యాఖ్యలు",
+    "count": "వర్గీకరణలు",
+    "endDate": "ముగింపు తేదీ",
+    "heading": "{{projectName}} గణాంకాలు",
+    "startDate": "ప్రారంభ తేదీ",
+    "workflows": {
+      "empty": "అనుబంధ వర్క్‌ఫ్లోలు లేవు",
+      "percentComplete": "{{శాతం}}% పూర్తయింది",
+      "retireLimit": "పదవీ విరమణ పరిమితి: {{number}}",
+      "subjectsRetired": "పదవీ విరమణ చేసిన వారు: {{retired}}\/{{total}}",
+      "tip": "పూర్తి చేయడానికి పట్టే అంచనా సమయం గత 14 రోజుల వర్గీకరణ రేటుపై ఆధారపడి ఉంటుంది మరియు కొన్ని వర్క్‌ఫ్లోలకు ఇది తప్పుగా ఉండవచ్చు లేదా అందుబాటులో ఉండకపోవచ్చు.",
+      "title": "వర్క్‌ఫ్లోలు"
+    }
+  },
+  "Talk": {
+    "Comment": {
+      "avatarAlt": "{{login}} అవతార్",
+      "comment": "వ్యాఖ్య",
+      "goToComment": "వ్యాఖ్యకు వెళ్లండి",
+      "reply": "ప్రత్యుత్తరంగా",
+      "userDisplayNamePossessive": "{{userDisplayName}} యొక్క"
+    },
+    "Discussions": {
+      "addComment": "మీ వ్యాఖ్యను జోడించండి",
+      "commentMessage": "ఒక నిర్దిష్ట వ్యాఖ్యకు స్పందించడానికి, చర్చకు వెళ్లడానికి ఆ వ్యాఖ్యపై క్లిక్ చేయండి.",
+      "comments": "వ్యాఖ్యలు",
+      "commentsViewing": "{{total}} వ్యాఖ్యలలో {{count}} చూస్తున్నారు",
+      "discussionBoard": "చర్చా వేదిక",
+      "discussionTitle": "చర్చ శీర్షిక",
+      "discussions": "{{count}} చర్చలు",
+      "initialComment": "ప్రారంభ వ్యాఖ్య",
+      "newComment": "కొత్త వ్యాఖ్య",
+      "noDiscussions": "చర్చలు లేవు",
+      "oneDiscussion": "1 చర్చ",
+      "participants": "పాల్గొనేవారు",
+      "sortBy": "క్రమబద్ధీకరించు",
+      "sortedNewestFirst": "కొత్తవి మొదట",
+      "sortedOldestFirst": "పెద్దవారి నుండి మొదలు",
+      "startDiscussion": "కొత్త చర్చను ప్రారంభించండి"
+    },
+    "Metadata": {
+      "collapse": "కుప్పకూలండి",
+      "expand": "విస్తరించండి",
+      "noMetadata": "మెటాడేటా అందుబాటులో లేదు",
+      "subjectMetadata": "విషయం మెటాడేటా"
+    },
+    "Tags": {
+      "add": "జోడించండి",
+      "addATag": "ట్యాగ్‌ను జోడించండి",
+      "addVote": "మీ ఓటును జోడించండి",
+      "createTag": "ట్యాగ్‌ను సృష్టించండి",
+      "noTags": "ట్యాగ్‌లు లేవు",
+      "popularTagsFrom": "{{projectDisplayName}} నుండి జనాదరణ పొందిన ట్యాగ్‌లు",
+      "removeVote": "మీ ఓటును తొలగించండి",
+      "signInToTag": "ట్యాగ్‌ను జోడించడానికి సైన్ ఇన్ చేయండి",
+      "tagValidationMessage": "3-40 అక్షరాలు, అంకెలు, హైఫన్‌లు మరియు అండర్‌స్కోర్‌లను ఉపయోగించండి. ఖాళీలు లేదా ఇతర అక్షరాలు ఉండకూడదు.",
+      "tags": "ట్యాగ్‌లు"
+    },
+    "ancillaryData": "అనుబంధ డేటా",
+    "ancillaryDataTip": "ఇది మీరు చూస్తున్న అంశానికి సంబంధించిన అనుబంధ సమాచారం. దీని గురించి మరింత సమాచారం కోసం, దయచేసి 'గురించి' పేజీని చూడండి.",
+    "mentions": "ప్రస్తావనలు",
+    "searchPlaceholder": "ఈ ప్రాజెక్ట్‌లో ట్యాగ్‌లు, సబ్జెక్ట్‌లు లేదా @యూజర్‌ల కోసం వెతకండి",
+    "somethingWentWrong": "ఏదో తప్పు జరిగింది."
+  }
+}

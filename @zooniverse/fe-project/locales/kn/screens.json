@@ -1,0 +1,221 @@
+{
+  "About": {
+    "PageHeading": {
+      "title": {
+        "education": "ಶಿಕ್ಷಣ",
+        "faq": "ಪದೇ ಪದೇ ಕೇಳಲಾಗುವ ಪ್ರಶ್ನೆಗಳು",
+        "research": "ಸಂಶೋಧನೆ",
+        "results": "ಫಲಿತಾಂಶಗಳು",
+        "team": "ಟೀಮ್‌ (ತಂಡ)"
+      }
+    },
+    "PageNav": {
+      "title": "ಪ್ರಾಜೆಕ್ಟ್‌ನ ಬಗ್ಗೆ"
+    },
+    "SidebarHeading": "ಬಗ್ಗೆ",
+    "TeamMember": {
+      "admin": "ಝೂನಿವರ್ಸ್ ತಂಡ",
+      "collaborator": "ಸಹಯೋಗಿ",
+      "expert": "ತಜ್ಞರು",
+      "moderator": "ಮಾಡರೇಟರ್",
+      "museum": "ವಸ್ತು ಸಂಗ್ರಹಾಲಯ",
+      "owner": "ಮಾಲೀಕ",
+      "researcher": "ಸಂಶೋಧಕ",
+      "tester": "ಪರೀಕ್ಷಕ",
+      "translator": "ಅನುವಾದಕ"
+    }
+  },
+  "Classify": {
+    "ClassifierWrapper": {
+      "ErrorMessage": {
+        "title": "ವರ್ಗೀಕರಣದಲ್ಲಿ ದೋಷ ಉಂಟಾಗಿತ್ತು :("
+      }
+    },
+    "ExternalWorkflow": {
+      "button": "ಬಾಹ್ಯ ಕೆಲಸದ ಹರಿವಿಗೆ ಮುಂದುವರಿಯಿರಿ",
+      "fallback": "ಈ ಕೆಲಸದ ಹರಿವನ್ನು ಬಾಹ್ಯ ಸೈಟ್‌ನಲ್ಲಿ ಹೋಸ್ಟ್ ಮಾಡಲಾಗಿದೆ. ಅಲ್ಲಿ ಮುಂದುವರಿಯಲು ಕೆಳಗಿನ ಬಟನ್ ಆಯ್ಕೆಮಾಡಿ."
+    },
+    "RecentSubjects": {
+      "noSubjects": "ನೀವು ವರ್ಗೀಕರಿಸಿದ ಇತ್ತೀಚಿನ ವಿಷಯಗಳನ್ನು ಇಲ್ಲಿ ತೋರಿಸಲಾಗಿದೆ.",
+      "text": "Talk ನಲ್ಲಿ ಒಂದು ವಿಷಯವನ್ನು ಚರ್ಚಿಸಿ, ಅಥವಾ ಅದನ್ನು ನಿಮ್ಮ ಅಚ್ಚುಮೆಚ್ಚಿನವುಗಳಿಗೆ ಅಥವಾ ಕಲೆಕ್ಷನ್‌ಗೆ ಸೇರಿಸಿ.",
+      "title": "ನಿಮ್ಮ ಇತ್ತೀಚಿನ ವರ್ಗೀಕರಣಗಳು"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "ಬೇಡ, ಧನ್ಯವಾದಗಳು",
+      "confirm": "ನನ್ನನ್ನು ಮುಂದಿನ ಕೆಲಸದ ಹರಿವಿಗೆ ಕರೆದೊಯ್ಯಿರಿ!",
+      "content": "ಅಭಿನಂದನೆಗಳು! ನೀವು ತುಂಬಾ ಚೆನ್ನಾಗಿ ಕೆಲಸ ಮಾಡುತ್ತಿರುವುದರಿಂದ, ನೀವು ಈಗ ಇನ್ನೊಂದು ಕೆಲಸದ ಹರಿವನ್ನು ಆಕ್ಸೆಸ್‌ ಮಾಡಬಹುದು. ನೀವು ಪ್ರಸ್ತುತ ಕೆಲಸದ ಹರಿವಿನೊಂದಿಗೆ ಉಳಿಯಲು ಬಯಸಿದರೆ, ನೀವು ಉಳಿಯಲು ಆಯ್ಕೆ ಮಾಡಬಹುದು.",
+      "dismiss": "ಈ ಸೆಶನ್ ಅನ್ನು ಮತ್ತೆ ತೋರಿಸಬೇಡಿ",
+      "title": "ಹೊಸ ಕೆಲಸದ ಹರಿವು ಲಭ್ಯವಿದೆ"
+    },
+    "YourStats": {
+      "allTime": "ಸಾರ್ವಕಾಲಿಕ",
+      "lastSeven": "ಕಳೆದ 7 ದಿನಗಳು",
+      "link": "ಇನ್ನಷ್ಟು ನೋಡಿ",
+      "title": "ನಿಮ್ಮ ಅಂಕಿಅಂಶಗಳು"
+    }
+  },
+  "Collect": {
+    "exploreLink": "ಎಲ್ಲಾ ಝೂನಿವರ್ಸ್ ಸಂಗ್ರಹಗಳನ್ನು ಅನ್ವೇಷಿಸಿ",
+    "hideSingleSubject": "ಕೇವಲ 1 ವಿಷಯವಿರುವ ಸಂಗ್ರಹಗಳನ್ನು ಮರೆಮಾಡಿ",
+    "placeholders": {
+      "empty": "ಯಾವುದೇ ಸಂಗ್ರಹಣೆಗಳು ಕಂಡುಬಂದಿಲ್ಲ.",
+      "error": "ಸಂಗ್ರಹಣೆಗಳನ್ನು ಲೋಡ್ ಮಾಡುವಲ್ಲಿ ದೋಷ ಕಂಡುಬಂದಿದೆ."
+    },
+    "resultsCount": "{{total}} ಸಂಗ್ರಹಗಳಲ್ಲಿ {{range}} ತೋರಿಸಲಾಗುತ್ತಿದೆ",
+    "sortBy": "ವಿಂಗಡಿಸಿ:",
+    "sortOptions": {
+      "alphabeticalAscending": "ವರ್ಣಮಾಲೆಯ AZ",
+      "alphabeticalDescending": "ವರ್ಣಮಾಲೆಯ ZA",
+      "recentlyCreated": "ಇತ್ತೀಚೆಗೆ ರಚಿಸಲಾಗಿದೆ",
+      "recentlyUpdated": "ಇತ್ತೀಚೆಗೆ ನವೀಕರಿಸಲಾಗಿದೆ"
+    },
+    "tabs": {
+      "collections": "ಸಂಗ್ರಹಣೆಗಳು",
+      "favorites": "ಮೆಚ್ಚಿನವುಗಳು",
+      "myCollections": "ನನ್ನ {{projectName}} ಸಂಗ್ರಹಗಳು",
+      "myFavorites": "ನನ್ನ {{projectName}} ಮೆಚ್ಚಿನವುಗಳು",
+      "title": "ಸಂಗ್ರಹ ಪುಟಗಳು"
+    },
+    "title": "ಸಂಗ್ರಹಿಸಿ"
+  },
+  "Collection": {
+    "CollectionOptions": {
+      "copied": "URL ಅನ್ನು ಕ್ಲಿಪ್‌ಬೋರ್ಡ್‌ಗೆ ನಕಲಿಸಲಾಗಿದೆ",
+      "settings": "ಸೆಟ್ಟಿಂಗ್‌ಗಳು",
+      "share": "ಹಂಚಿ"
+    },
+    "emptySubjects": "ಈ ಸಂಗ್ರಹದಲ್ಲಿ ಯಾವುದೇ ವಿಷಯಗಳಿಲ್ಲ.",
+    "linkedToProjectCollections": "<projectLink>{{projectName}}<\/projectLink> ಸಂಗ್ರಹಗಳಿಗೆ ಲಿಂಕ್ ಮಾಡಲಾಗಿದೆ",
+    "notFound": "ಈ ಸಂಗ್ರಹವನ್ನು ಹಿಂಪಡೆಯುವಾಗ ದೋಷ ಕಂಡುಬಂದಿದೆ.",
+    "ownerLoadError": "ಸಂಗ್ರಹ ಮಾಲೀಕರ ವಿವರಗಳನ್ನು ಲೋಡ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.",
+    "resultsCount": "{{total}} ವಿಷಯಗಳಲ್ಲಿ {{range}} ತೋರಿಸಲಾಗುತ್ತಿದೆ",
+    "roles": {
+      "collaborator": "ಸಹಯೋಗಿ",
+      "contributor": "ಕೊಡುಗೆದಾರರು",
+      "owner": "ಮಾಲೀಕ",
+      "viewer": "ವೀಕ್ಷಕ"
+    },
+    "seeAllOwnerCollections": "<collectionsLink>ಎಲ್ಲಾ {{displayName}} ಸಂಗ್ರಹಣೆಗಳನ್ನು ನೋಡಿ<\/collectionsLink>",
+    "selectSubjects": "ವಿಷಯಗಳನ್ನು ಆಯ್ಕೆಮಾಡಿ",
+    "subjectsLoadError": "ಈ ಸಂಗ್ರಹದ ವಿಷಯಗಳನ್ನು ಲೋಡ್ ಮಾಡುವಾಗ ದೋಷ ಕಂಡುಬಂದಿದೆ."
+  },
+  "Home": {
+    "AboutProject": {
+      "title": "{{projectName}} ಬಗ್ಗೆ"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "ಇನ್ನಷ್ಟು ತಿಳಿಯಿರಿ"
+      },
+      "NotApproved": {
+        "paragraph": "ಈ ಯೋಜನೆಯನ್ನು Zooniverse ಪ್ರಾಜೆಕ್ಟ್ ಬಿಲ್ಡರ್ ಬಳಸಿ ನಿರ್ಮಿಸಲಾಗಿದೆ, ಆದರೆ ಇದು ಇನ್ನೂ ಅಧಿಕೃತ Zooniverse ಪ್ರಾಜೆಕ್ಟ್‌ ಅಲ್ಲ. Zooniverse ತಂಡವನ್ನು ನಿರ್ದೇಶಿಸಿದ ಈ ಪ್ರಾಜೆಕ್ಟ್‌ಗೆ ಸಂಬಂಧಿಸಿದ ಪ್ರಶ್ನೆಗಳು ಮತ್ತು ಸಮಸ್ಯೆಗಳಿಗೆ ಯಾವುದೇ ಪ್ರತಿಕ್ರಿಯೆ ಸಿಗದಿರಬಹುದು."
+      }
+    },
+    "MessageFromResearcher": {
+      "noMessage": "ಈ ಪ್ರಾಜೆಕ್ಟ್‌ ಬಗ್ಗೆ ಇನ್ನಷ್ಟು ತಿಳಿದುಕೊಳ್ಳಲು, Talk ನಲ್ಲಿ ಸಂಶೋಧನಾ ತಂಡವನ್ನು ಸಂಪರ್ಕಿಸಿ!",
+      "noMessageButton": "Talk ಗೆ ಹೋಗಿ",
+      "title": "ಸಂಶೋಧಕರಿಂದ ಮೆಸೇಜ್‌"
+    },
+    "ZooniverseTalk": {
+      "RecentSubjects": {
+        "error": "ವಿಷಯಗಳನ್ನು ಲೋಡ್ ಮಾಡುವಾಗ ದೋಷ ಉಂಟಾಗಿತ್ತು :(",
+        "noSubjects": "ಇನ್ನೂ ಸಹ ಯಾರೂ ವಿಷಯದ ಬಗ್ಗೆ ಕಾಮೆಂಟ್ ಮಾಡಿಲ್ಲ ಎಂದು ತೋರುತ್ತಿದೆ. Talk ಗೆ ಹೋಗಿ ಮತ್ತು ಮೊದಲಿಗರಾಗಿ!",
+        "subjectLabel": "{{id}} ವಿಷಯ"
+      },
+      "button": "ಸೇರಿಕೊಳ್ಳಿ (ಜಾಯಿನ್‌ ಆಗಿ)",
+      "message": "ಸಂಶೋಧನಾ ತಂಡ ಮತ್ತು ಬೇರೆಯ ವಾಲೆಂಟಿಯರ್‌ಗಳೊಂದಿಗೆ ಚಾಟ್ ಮಾಡಿ!",
+      "title": "Zooniverse Talk"
+    }
+  },
+  "ProjectRecents": {
+    "empty": "ಕಳೆದ 90 ದಿನಗಳಿಂದ ನೀವು ವರ್ಗೀಕರಿಸಿದ 20 ಇತ್ತೀಚಿನ ವಿಷಯಗಳನ್ನು ಇಲ್ಲಿ ತೋರಿಸಲಾಗಿದೆ.",
+    "emptyTitle": "ಇತ್ತೀಚಿನ ವರ್ಗೀಕರಣಗಳು ಕಂಡುಬಂದಿಲ್ಲ.",
+    "error": "ನಿಮ್ಮ ಇತ್ತೀಚಿನವುಗಳನ್ನು ಲೋಡ್ ಮಾಡುವಾಗ ದೋಷ ಉಂಟಾಗಿದೆ.",
+    "signedOut": "ನೀವು ಇತ್ತೀಚೆಗೆ ವರ್ಗೀಕರಿಸಿದ ವಿಷಯಗಳನ್ನು ನೋಡಲು ಸೈನ್ ಇನ್ ಮಾಡಿ.",
+    "title": "ಇತ್ತೀಚಿನ ವರ್ಗೀಕರಣಗಳು"
+  },
+  "ProjectStats": {
+    "BarChart": {
+      "a11y": "{{countLabel}} ನಿಂದ {{startDate}} ರಿಂದ {{endDate}} ವರೆಗಿನ {{typeLabel}} ನ ಬಾರ್ ಚಾರ್ಟ್",
+      "allWorkflows": "ಎಲ್ಲಾ ಕೆಲಸದ ಹರಿವುಗಳು",
+      "dateRange": {
+        "allTime": "ಸಾರ್ವಕಾಲಿಕ",
+        "custom": "ಕಸ್ಟಮ್",
+        "lastSevenDays": "ಕಳೆದ 7 ದಿನಗಳು",
+        "lastThirtyDays": "ಕಳೆದ 30 ದಿನಗಳು",
+        "lastThreeMonths": "ಕಳೆದ 3 ತಿಂಗಳುಗಳು",
+        "lastTwelveMonths": "ಕಳೆದ 12 ತಿಂಗಳುಗಳು",
+        "thisMonth": "ಈ ತಿಂಗಳು",
+        "thisYear": "ಈ ವರ್ಷ"
+      },
+      "empty": "ಯಾವುದೇ ಡೇಟಾ ಇಲ್ಲ. ಕೆಲಸದ ಹರಿವು ಅಥವಾ ದಿನಾಂಕ ಶ್ರೇಣಿಯನ್ನು ಬದಲಾಯಿಸಿ.",
+      "selectDateRange": "ದಿನಾಂಕ ಶ್ರೇಣಿಯನ್ನು ಆಯ್ಕೆಮಾಡಿ",
+      "selectWorkflow": "ಕೆಲಸದ ಹರಿವನ್ನು ಆಯ್ಕೆಮಾಡಿ"
+    },
+    "calendarBtn": "ಮುಗಿದಿದೆ",
+    "calendarTitle": "ಕಸ್ಟಮ್ ದಿನಾಂಕ ಶ್ರೇಣಿ",
+    "comments": "ಕಾಮೆಂಟ್‌ಗಳು",
+    "count": "ವರ್ಗೀಕರಣಗಳು",
+    "endDate": "ಅಂತಿಮ ದಿನಾಂಕ",
+    "heading": "{{ಯೋಜನೆಯ ಹೆಸರು}} ಅಂಕಿಅಂಶಗಳು",
+    "startDate": "ಪ್ರಾರಂಭ ದಿನಾಂಕ",
+    "workflows": {
+      "empty": "ಯಾವುದೇ ಸಂಬಂಧಿತ ಕಾರ್ಯಪ್ರವಾಹಗಳಿಲ್ಲ",
+      "percentComplete": "{{ಶೇಕಡಾ}}% ಪೂರ್ಣಗೊಂಡಿದೆ",
+      "retireLimit": "ನಿವೃತ್ತಿ ಮಿತಿ: {{ಸಂಖ್ಯೆ}}",
+      "subjectsRetired": "ನಿವೃತ್ತರಾದವರು: {{ನಿವೃತ್ತ}}\/{{total}}",
+      "tip": "ಪೂರ್ಣಗೊಳ್ಳಲು ಅಂದಾಜು ಸಮಯವು ಕಳೆದ 14 ದಿನಗಳ ವರ್ಗೀಕರಣ ದರವನ್ನು ಆಧರಿಸಿದೆ ಮತ್ತು ಕೆಲವು ಕೆಲಸದ ಹರಿವುಗಳಿಗೆ ತಪ್ಪಾಗಿರಬಹುದು ಅಥವಾ ಲಭ್ಯವಿಲ್ಲದಿರಬಹುದು.",
+      "title": "ಕೆಲಸದ ಹರಿವುಗಳು"
+    }
+  },
+  "Talk": {
+    "Comment": {
+      "avatarAlt": "{{ಲಾಗಿನ್}} ಅವತಾರ್",
+      "comment": "ಕಾಮೆಂಟ್",
+      "goToComment": "ಕಾಮೆಂಟ್‌ಗೆ ಹೋಗಿ",
+      "reply": "ಇದಕ್ಕೆ ಪ್ರತ್ಯುತ್ತರವಾಗಿ",
+      "userDisplayNamePossessive": "{{userDisplayName}} ರವರ"
+    },
+    "Discussions": {
+      "addComment": "ನಿಮ್ಮ ಕಾಮೆಂಟ್ ಸೇರಿಸಿ",
+      "commentMessage": "ನಿರ್ದಿಷ್ಟ ಕಾಮೆಂಟ್‌ಗೆ ಪ್ರತಿಕ್ರಿಯಿಸಲು, ಚರ್ಚೆಗೆ ಹೋಗಲು ಆ ಕಾಮೆಂಟ್ ಮೇಲೆ ಕ್ಲಿಕ್ ಮಾಡಿ.",
+      "comments": "ಕಾಮೆಂಟ್‌ಗಳು",
+      "commentsViewing": "{{total}} ಕಾಮೆಂಟ್‌ಗಳಲ್ಲಿ {{count}} ಕಾಮೆಂಟ್‌ಗಳನ್ನು ವೀಕ್ಷಿಸಲಾಗುತ್ತಿದೆ",
+      "discussionBoard": "ಚರ್ಚಾ ಮಂಡಳಿ",
+      "discussionTitle": "ಚರ್ಚೆಯ ಶೀರ್ಷಿಕೆ",
+      "discussions": "{{count}} ಚರ್ಚೆಗಳು",
+      "initialComment": "ಆರಂಭಿಕ ಕಾಮೆಂಟ್",
+      "newComment": "ಹೊಸ ಕಾಮೆಂಟ್",
+      "noDiscussions": "ಚರ್ಚೆಗಳಿಲ್ಲ",
+      "oneDiscussion": "1 ಚರ್ಚೆ",
+      "participants": "ಭಾಗವಹಿಸುವವರು",
+      "sortBy": "ವಿಂಗಡಿಸಿ",
+      "sortedNewestFirst": "ಹೊಸತು ಮೊದಲು",
+      "sortedOldestFirst": "ಹಳೆಯದು ಮೊದಲು",
+      "startDiscussion": "ಹೊಸ ಚರ್ಚೆಯನ್ನು ಪ್ರಾರಂಭಿಸಿ"
+    },
+    "Metadata": {
+      "collapse": "ಕುಗ್ಗಿಸು",
+      "expand": "ವಿಸ್ತರಿಸಿ",
+      "noMetadata": "ಯಾವುದೇ ಮೆಟಾಡೇಟಾ ಲಭ್ಯವಿಲ್ಲ.",
+      "subjectMetadata": "ವಿಷಯ ಮೆಟಾಡೇಟಾ"
+    },
+    "Tags": {
+      "add": "ಸೇರಿಸಿ",
+      "addATag": "ಟ್ಯಾಗ್ ಸೇರಿಸಿ",
+      "addVote": "ನಿಮ್ಮ ಮತವನ್ನು ಸೇರಿಸಿ",
+      "createTag": "ಟ್ಯಾಗ್ ರಚಿಸಿ",
+      "noTags": "ಟ್ಯಾಗ್‌ಗಳಿಲ್ಲ",
+      "popularTagsFrom": "{{projectDisplayName}} ನಿಂದ ಜನಪ್ರಿಯ ಟ್ಯಾಗ್‌ಗಳು",
+      "removeVote": "ನಿಮ್ಮ ಮತವನ್ನು ತೆಗೆದುಹಾಕಿ",
+      "signInToTag": "ಟ್ಯಾಗ್ ಸೇರಿಸಲು ಸೈನ್ ಇನ್ ಮಾಡಿ",
+      "tagValidationMessage": "3-40 ಅಕ್ಷರಗಳು, ಅಕ್ಷರಗಳು, ಸಂಖ್ಯೆಗಳು, ಹೈಫನ್‌ಗಳು ಮತ್ತು ಅಂಡರ್‌ಸ್ಕೋರ್‌ಗಳನ್ನು ಬಳಸಿ. ಯಾವುದೇ ಸ್ಥಳಗಳು ಅಥವಾ ಇತರ ಅಕ್ಷರಗಳಿಲ್ಲ.",
+      "tags": "ಟ್ಯಾಗ್‌ಗಳು"
+    },
+    "ancillaryData": "ಪೂರಕ ದತ್ತಾಂಶ",
+    "ancillaryDataTip": "ನೀವು ವೀಕ್ಷಿಸುತ್ತಿರುವ ವಿಷಯದ ಕುರಿತು ಇದು ಪೂರಕ ದತ್ತಾಂಶವಾಗಿದೆ. ಇದರ ಕುರಿತು ಹೆಚ್ಚಿನ ಮಾಹಿತಿಗಾಗಿ, ದಯವಿಟ್ಟು ಕುರಿತು ಪುಟವನ್ನು ನೋಡಿ.",
+    "mentions": "ಉಲ್ಲೇಖಗಳು",
+    "searchPlaceholder": "ಈ ಪ್ರಾಜೆಕ್ಟ್‌ನಲ್ಲಿ ಟ್ಯಾಗ್‌ಗಳು, ವಿಷಯಗಳು ಅಥವಾ @users ಗಳನ್ನು ಹುಡುಕಿ.",
+    "somethingWentWrong": "ಏನೋ ತಪ್ಪಾಗಿದೆ."
+  }
+}

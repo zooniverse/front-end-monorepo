@@ -1,0 +1,221 @@
+{
+  "About": {
+    "PageHeading": {
+      "title": {
+        "education": "Bakgrund",
+        "faq": "Vanliga frågor",
+        "research": "Forskning",
+        "results": "Resultat",
+        "team": "Teamet"
+      }
+    },
+    "PageNav": {
+      "title": "Om projektet"
+    },
+    "SidebarHeading": "Om",
+    "TeamMember": {
+      "admin": "Zooniverse-teamet",
+      "collaborator": "Samarbetspartner",
+      "expert": "Expert",
+      "moderator": "Moderator",
+      "museum": "Museum",
+      "owner": "Ägare",
+      "researcher": "Forskare",
+      "tester": "Testare",
+      "translator": "Översättare"
+    }
+  },
+  "Classify": {
+    "ClassifierWrapper": {
+      "ErrorMessage": {
+        "title": "Det uppstod ett fel i klassificeraren :("
+      }
+    },
+    "ExternalWorkflow": {
+      "button": "Fortsätt till externt arbetsflöde",
+      "fallback": "Det här arbetsflödet finns på en extern webbplats. Klicka på knappen nedan för att fortsätta där."
+    },
+    "RecentSubjects": {
+      "noSubjects": "De senaste ämnena du har klassificerat visas här.",
+      "text": "Diskutera ett motiv på Talk, eller lägg till det i dina favoriter eller en samling.",
+      "title": "Dina senaste klassificeringar"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "Nej tack",
+      "confirm": "Ta mig till nästa nivå!",
+      "content": "Grattis! Du har låst upp nästa arbetsflöde. Om du hellre vill fortsätta med detta arbetsflöde kan du välja att stanna kvar.",
+      "dismiss": "Visa inte fler meddelanden.",
+      "title": "Nytt arbetsflöde tillgängligt"
+    },
+    "YourStats": {
+      "allTime": "Hela tiden",
+      "lastSeven": "Senaste 7 dagarna",
+      "link": "Se mer",
+      "title": "statistik"
+    }
+  },
+  "Collect": {
+    "exploreLink": "Utforska alla Zooniverse-kollektioner",
+    "hideSingleSubject": "Dölj samlingar med endast ett ämne",
+    "placeholders": {
+      "empty": "Inga samlingar hittades.",
+      "error": "Det uppstod ett fel vid laddning av samlingar."
+    },
+    "resultsCount": "Visar {{range}} av {{total}} samlingar",
+    "sortBy": "Sortera efter:",
+    "sortOptions": {
+      "alphabeticalAscending": "Alfabetisk AZ",
+      "alphabeticalDescending": "Alfabetisk ZA",
+      "recentlyCreated": "Nyligen skapad",
+      "recentlyUpdated": "Nyligen uppdaterad"
+    },
+    "tabs": {
+      "collections": "Samlingar",
+      "favorites": "Favoriter",
+      "myCollections": "Mina {{projectName}}-samlingar",
+      "myFavorites": "Mina {{projectName}}-favoriter",
+      "title": "Samlingssidor"
+    },
+    "title": "Samla"
+  },
+  "Collection": {
+    "CollectionOptions": {
+      "copied": "URL kopierad till urklipp",
+      "settings": "Inställningar",
+      "share": "Dela"
+    },
+    "emptySubjects": "Inga ämnen i den här samlingen.",
+    "linkedToProjectCollections": "Länkad till <projectLink>{{projectName}}<\/projectLink> samlingar",
+    "notFound": "Det uppstod ett fel när samlingen hämtades.",
+    "ownerLoadError": "Det gick inte att läsa in information om samlingsägaren.",
+    "resultsCount": "Visar {{range}} av {{total}} ämnen",
+    "roles": {
+      "collaborator": "Medarbetare",
+      "contributor": "Bidragsgivare",
+      "owner": "Ägare",
+      "viewer": "Visare"
+    },
+    "seeAllOwnerCollections": "<collectionsLink>Se alla {{displayName}}s samlingar<\/collectionsLink>",
+    "selectSubjects": "Välj ämnen",
+    "subjectsLoadError": "Det uppstod ett fel när samlingens ämnen skulle laddas."
+  },
+  "Home": {
+    "AboutProject": {
+      "title": "Om {{projectName}}"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "Lär dig mer"
+      },
+      "NotApproved": {
+        "paragraph": "Detta projekt har byggs med hjälp av Zooniverse Project Buildermen är ännu något officiellt Zooniverse-project. Frågor och problem som rapporteras till Zooniverse-teamet kanske inte får svar."
+      }
+    },
+    "MessageFromResearcher": {
+      "noMessage": "Kontakta forskargruppen på Talk för att lära dig mer om det här projektet!",
+      "noMessageButton": "Gå till Talk",
+      "title": "Meddelande från forskaren"
+    },
+    "ZooniverseTalk": {
+      "RecentSubjects": {
+        "error": "Det uppstod ett fel vid inläsning av motiven :(",
+        "noSubjects": "Det ser ut som att ingen har kommenterat ett motiv ännu. Gå till Talk och bli den första!",
+        "subjectLabel": "Motiv {{id}}"
+      },
+      "button": "Gå med",
+      "message": "Se till att kolla in [Prata](\/talk) där du kan chatta med andra likasinnade frivilliga.",
+      "title": "Prata"
+    }
+  },
+  "ProjectRecents": {
+    "empty": "De 20 senaste ämnena du har klassificerat från de senaste 90 dagarna visas här.",
+    "emptyTitle": "Inga nya klassificeringar hittades",
+    "error": "Det uppstod ett fel när dina senaste inlägg laddades.",
+    "signedOut": "Logga in för att se de ämnen du nyligen har klassificerat.",
+    "title": "Nyligen publicerade klassificeringar"
+  },
+  "ProjectStats": {
+    "BarChart": {
+      "a11y": "Stapeldiagram för {{typeLabel}} med {{countLabel}} från {{startDate}} till {{endDate}}",
+      "allWorkflows": "Alla arbetsflöden",
+      "dateRange": {
+        "allTime": "Alla tider",
+        "custom": "Beställnings",
+        "lastSevenDays": "Senaste 7 dagarna",
+        "lastThirtyDays": "Senaste 30 dagarna",
+        "lastThreeMonths": "Senaste 3 månaderna",
+        "lastTwelveMonths": "Senaste 12 månaderna",
+        "thisMonth": "Denna månad",
+        "thisYear": "I år"
+      },
+      "empty": "Ingen data. Ändra arbetsflödet eller datumintervallet.",
+      "selectDateRange": "Välj datumintervall",
+      "selectWorkflow": "Välj arbetsflöde"
+    },
+    "calendarBtn": "Gjort",
+    "calendarTitle": "Anpassat datumintervall",
+    "comments": "Kommentarer",
+    "count": "Klassificeringar",
+    "endDate": "Slutdatum",
+    "heading": "Statistik för {{projectName}}",
+    "startDate": "Startdatum",
+    "workflows": {
+      "empty": "Inga associerade arbetsflöden",
+      "percentComplete": "{{percent}}% klart",
+      "retireLimit": "Pensionsgräns: {{number}}",
+      "subjectsRetired": "Antal personer som gått i pension: {{pensionerad}}\/{{total}}",
+      "tip": "Beräknad tid till slutförande baseras på klassificeringsgraden under de senaste 14 dagarna och kan vara felaktig eller otillgänglig för vissa arbetsflöden.",
+      "title": "Arbetsflöden"
+    }
+  },
+  "Talk": {
+    "Comment": {
+      "avatarAlt": "{{login}}-avatar",
+      "comment": "kommentar",
+      "goToComment": "Gå till kommentaren",
+      "reply": "Som svar på",
+      "userDisplayNamePossessive": "{{userDisplayName}}:s"
+    },
+    "Discussions": {
+      "addComment": "Lägg till din kommentar",
+      "commentMessage": "För att svara på en specifik kommentar, klicka på kommentaren för att gå till diskussionen.",
+      "comments": "Kommentarer",
+      "commentsViewing": "Visar {{count}} av {{total}} kommentarer",
+      "discussionBoard": "Diskussionsforum",
+      "discussionTitle": "Diskussionstitel",
+      "discussions": "{{count}} Diskussioner",
+      "initialComment": "Inledande kommentar",
+      "newComment": "Ny kommentar",
+      "noDiscussions": "Inga diskussioner",
+      "oneDiscussion": "1 Diskussion",
+      "participants": "Deltagare",
+      "sortBy": "Sortera efter",
+      "sortedNewestFirst": "Nyaste först",
+      "sortedOldestFirst": "Äldst först",
+      "startDiscussion": "Starta en ny diskussion"
+    },
+    "Metadata": {
+      "collapse": "Kollapsa",
+      "expand": "Expandera",
+      "noMetadata": "Inga metadata tillgängliga",
+      "subjectMetadata": "Ämnesmetadata"
+    },
+    "Tags": {
+      "add": "Tillägga",
+      "addATag": "Lägg till en tagg",
+      "addVote": "Lägg din röst",
+      "createTag": "Skapa en tagg",
+      "noTags": "Inga taggar",
+      "popularTagsFrom": "Populära taggar från {{projectDisplayName}}",
+      "removeVote": "Ta bort din röst",
+      "signInToTag": "Logga in för att lägga till en tagg",
+      "tagValidationMessage": "Använd 3–40 tecken, bokstäver, siffror, bindestreck och understreck. Inga mellanslag eller andra tecken.",
+      "tags": "Taggar"
+    },
+    "ancillaryData": "Tilläggsdata",
+    "ancillaryDataTip": "Detta är kompletterande data om ämnet du tittar på. För mer information om detta, se sidan Om.",
+    "mentions": "Omnämnanden",
+    "searchPlaceholder": "Sök i det här projektet efter taggar, ämnen eller @användare",
+    "somethingWentWrong": "Något gick fel."
+  }
+}

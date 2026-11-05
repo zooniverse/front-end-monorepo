@@ -1,0 +1,221 @@
+{
+  "About": {
+    "PageHeading": {
+      "title": {
+        "education": "Edukacija",
+        "faq": "Česta pitanja",
+        "research": "Istraživanje",
+        "results": "Rezultati",
+        "team": "Tim"
+      }
+    },
+    "PageNav": {
+      "title": "O projektu"
+    },
+    "SidebarHeading": "O projektu",
+    "TeamMember": {
+      "admin": "Tim Zooniversea",
+      "collaborator": "Suradnik",
+      "expert": "Stručnjak",
+      "moderator": "Moderator",
+      "museum": "Muzej",
+      "owner": "Vlasnik",
+      "researcher": "Istraživač",
+      "tester": "Tester",
+      "translator": "Prevoditelj"
+    }
+  },
+  "Classify": {
+    "ClassifierWrapper": {
+      "ErrorMessage": {
+        "title": "Došlo je do greške u klasifikatoru :("
+      }
+    },
+    "ExternalWorkflow": {
+      "button": "Nastavi na vanjski tijek rada",
+      "fallback": "Ovaj tijek rada nalazi se na vanjskoj web-lokaciji. Odaberite donji gumb za nastavak tamo."
+    },
+    "RecentSubjects": {
+      "noSubjects": "Ovdje su prikazani najnoviji predmeti koje ste klasificirali.",
+      "text": "Raspravljajte o predmetnom elementu na Talku ili ga dodajte u omiljene stavke ili zbirku.",
+      "title": "Vaše nedavne klasifikacije"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "Ne, hvala",
+      "confirm": "Odvedi me u sljedeći tijek rada!",
+      "content": "Čestitamo! Dobro napredujete i stoga sada možete pristupiti drugom tijeku rada. Ako želite ostati u trenutnom tijeku rada, možete odabrati ostanak u njemu.",
+      "dismiss": "Ne prikazuj ovo više u ovoj sesiji",
+      "title": "Dostupan je novi tijek rada"
+    },
+    "YourStats": {
+      "allTime": "Sve vrijeme",
+      "lastSeven": "Posljednjih 7 dana",
+      "link": "Prikaži više",
+      "title": "Vaši statistički podaci"
+    }
+  },
+  "Collect": {
+    "exploreLink": "Istražite sve Zooniverse kolekcije",
+    "hideSingleSubject": "Sakrij zbirke s samo 1 temom",
+    "placeholders": {
+      "empty": "Nisu pronađene zbirke.",
+      "error": "Došlo je do pogreške prilikom učitavanja zbirki."
+    },
+    "resultsCount": "Prikazuje se {{range}} od {{total}} kolekcija",
+    "sortBy": "Poredaj po:",
+    "sortOptions": {
+      "alphabeticalAscending": "Abecedno AZ",
+      "alphabeticalDescending": "Abecedno ZA",
+      "recentlyCreated": "Nedavno stvoreno",
+      "recentlyUpdated": "Nedavno ažurirano"
+    },
+    "tabs": {
+      "collections": "Zbirke",
+      "favorites": "Favoriti",
+      "myCollections": "Moje {{projectName}} kolekcije",
+      "myFavorites": "Moji favoriti ({{projectName}})",
+      "title": "Stranice kolekcije"
+    },
+    "title": "Prikupiti"
+  },
+  "Collection": {
+    "CollectionOptions": {
+      "copied": "URL kopiran u međuspremnik",
+      "settings": "Postavke",
+      "share": "Udio"
+    },
+    "emptySubjects": "Nema tema u ovoj zbirci.",
+    "linkedToProjectCollections": "Povezano s kolekcijama <projectLink>{{projectName}}<projectLink>",
+    "notFound": "Došlo je do pogreške prilikom preuzimanja ove kolekcije.",
+    "ownerLoadError": "Podaci o vlasniku zbirke nisu mogli biti učitani.",
+    "resultsCount": "Prikazuje se {{range}} od {{total}} ispitanika",
+    "roles": {
+      "collaborator": "Suradnik",
+      "contributor": "Suradnik",
+      "owner": "Vlasnik",
+      "viewer": "Gledatelj"
+    },
+    "seeAllOwnerCollections": "<collectionsLink>Pogledajte sve kolekcije {{displayName}}<\/collectionsLink>",
+    "selectSubjects": "Odaberite predmete",
+    "subjectsLoadError": "Došlo je do pogreške prilikom učitavanja tema ove zbirke."
+  },
+  "Home": {
+    "AboutProject": {
+      "title": "O projektu {{projectName}}"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "Saznaj više"
+      },
+      "NotApproved": {
+        "paragraph": "Ovaj je projekt napravljen koristeći Zooniverse Projekt Builder, no još nije službeni Zooniversov projekt. Pitanja vezana uz ovaj projekt, a koji su usmjerena Zooniverse timu možda neće biti odgovorena."
+      }
+    },
+    "MessageFromResearcher": {
+      "noMessage": "Povežite se s istraživačkim timom na Talku kako biste saznali više o ovom projektu!",
+      "noMessageButton": "Idi na Talk",
+      "title": "Poruka istraživača"
+    },
+    "ZooniverseTalk": {
+      "RecentSubjects": {
+        "error": "Došlo je do greške prilikom učitavanja predmetnih elemenata :(",
+        "noSubjects": "Čini se da još nitko nije komentirao predmetni element. Idite na Talk i budite prvi!",
+        "subjectLabel": "Predmetni element {{id}}"
+      },
+      "button": "Priduži se",
+      "message": "Chatajte s istraživačkim timom i drugim volonterima!",
+      "title": "Zooniverse Talk"
+    }
+  },
+  "ProjectRecents": {
+    "empty": "Ovdje je prikazano 20 najnovijih tema koje ste klasificirali u posljednjih 90 dana.",
+    "emptyTitle": "Nisu pronađene nedavne klasifikacije",
+    "error": "Došlo je do pogreške prilikom učitavanja vaših nedavnih unosa.",
+    "signedOut": "Prijavite se kako biste vidjeli teme koje ste nedavno klasificirali.",
+    "title": "Nedavne klasifikacije"
+  },
+  "ProjectStats": {
+    "BarChart": {
+      "a11y": "Trakasti grafikon od {{typeLabel}} po {{countLabel}} od {{startDate}} do {{endDate}}",
+      "allWorkflows": "Svi tijekovi rada",
+      "dateRange": {
+        "allTime": "Sva vremena",
+        "custom": "Običaj",
+        "lastSevenDays": "Posljednjih 7 dana",
+        "lastThirtyDays": "Posljednjih 30 dana",
+        "lastThreeMonths": "Posljednja 3 mjeseca",
+        "lastTwelveMonths": "Posljednjih 12 mjeseci",
+        "thisMonth": "Ovaj mjesec",
+        "thisYear": "Ove godine"
+      },
+      "empty": "Nema podataka. Promijenite tijek rada ili raspon datuma.",
+      "selectDateRange": "Odaberite raspon datuma",
+      "selectWorkflow": "Odaberite tijek rada"
+    },
+    "calendarBtn": "Gotovo",
+    "calendarTitle": "Prilagođeni raspon datuma",
+    "comments": "Komentari",
+    "count": "Klasifikacije",
+    "endDate": "Datum završetka",
+    "heading": "Statistika {{projectName}}",
+    "startDate": "Datum početka",
+    "workflows": {
+      "empty": "Nema povezanih tijekova rada",
+      "percentComplete": "{{percent}}% dovršeno",
+      "retireLimit": "Granica za umirovljenje: {{number}}",
+      "subjectsRetired": "Umirovljeni ispitanici: {{umirovljeni}}\/{{total}}",
+      "tip": "Procijenjeno vrijeme dovršetka temelji se na stopi klasifikacije za proteklih 14 dana i može biti netočno ili nedostupno za neke tijekove rada.",
+      "title": "Tijekovi rada"
+    }
+  },
+  "Talk": {
+    "Comment": {
+      "avatarAlt": "{{login}} avatar",
+      "comment": "komentar",
+      "goToComment": "Idi na komentar",
+      "reply": "Kao odgovor na",
+      "userDisplayNamePossessive": "{{userDisplayName}}"
+    },
+    "Discussions": {
+      "addComment": "Dodajte svoj komentar",
+      "commentMessage": "Da biste odgovorili na određeni komentar, kliknite na taj komentar kako biste prešli na raspravu.",
+      "comments": "Komentari",
+      "commentsViewing": "Pregledavam {{count}} od {{total}} komentara",
+      "discussionBoard": "Forum",
+      "discussionTitle": "Naslov rasprave",
+      "discussions": "{{count}} Rasprave",
+      "initialComment": "Početni komentar",
+      "newComment": "Novi komentar",
+      "noDiscussions": "Nema rasprava",
+      "oneDiscussion": "1 Rasprava",
+      "participants": "Sudionici",
+      "sortBy": "Poredaj po",
+      "sortedNewestFirst": "Najnovije prvo",
+      "sortedOldestFirst": "Od najstarijih prvo",
+      "startDiscussion": "Započni novu raspravu"
+    },
+    "Metadata": {
+      "collapse": "Kolaps",
+      "expand": "Proširiti",
+      "noMetadata": "Nema dostupnih metapodataka",
+      "subjectMetadata": "Metapodaci subjekta"
+    },
+    "Tags": {
+      "add": "Dodati",
+      "addATag": "Dodaj oznaku",
+      "addVote": "Dodajte svoj glas",
+      "createTag": "Izradi oznaku",
+      "noTags": "Nema oznaka",
+      "popularTagsFrom": "Popularne oznake iz {{projectDisplayName}}",
+      "removeVote": "Uklonite svoj glas",
+      "signInToTag": "Prijavite se da biste dodali oznaku",
+      "tagValidationMessage": "Koristite 3-40 znakova, slova, brojeve, crtice i podcrte. Bez razmaka ili drugih znakova.",
+      "tags": "Oznake"
+    },
+    "ancillaryData": "Pomoćni podaci",
+    "ancillaryDataTip": "Ovo su pomoćni podaci o temi koju gledate. Za više informacija o tome pogledajte stranicu O nama.",
+    "mentions": "Spominjanja",
+    "searchPlaceholder": "Pretraži ovaj projekt za oznake, predmete ili @korisnike",
+    "somethingWentWrong": "Nešto je pošlo po zlu."
+  }
+}
