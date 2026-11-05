@@ -45,12 +45,7 @@
         "answer": "Nein. Forscher nutzen Zooniverse, weil sie menschliche Expertise in ihren Prozess einbringen möchten. Sofern ihnen nicht ausdrücklich die Erlaubnis dazu erteilt wurde, sollten Freiwillige keine generativen KI-Tools außerhalb von Zooniverse zur Unterstützung ihrer Klassifizierungsbemühungen verwenden.",
         "question": "Ich bin Freiwilliger und benötige Hilfe bei der Klassifizierung in einem Projekt. Kann ich generative KI-Tools wie ChatGPT oder Gemini dafür verwenden?"
       },
-      "paragraph": "Ihre Frage wird hier nicht beantwortet? Senden Sie uns Ihre Fragen an <0>contact@zooniverse.org</0>! Wir aktualisieren diese Liste bei Bedarf.",
-      "second": {
-        "answerOne": "Beginnen Sie mit einem Blick auf die Projekt-Homepage, insbesondere auf die Projektbeschreibung und die Workflow-Beschreibung. Falls Sie sich weiterhin unsicher sind, sehen Sie sich die Seite „Über uns“ sowie die Projekt-Tutorials an. Sollten Sie danach immer noch Fragen haben, können Sie im Forum nachfragen. Ziel dieses Frameworks ist es jedoch unter anderem sicherzustellen, dass alle Projekte klar kommunizieren, wie sie diese Technologie nutzen (oder eben nicht).",
-        "answerTwo": "Wenn Sie der Meinung sind, dass ein Projekt den Einsatz von KI/ML nicht angemessen offenlegt, würden wir uns freuen, wenn Sie sich über Talk an das Forschungsteam wenden und Änderungsvorschläge machen oder Ihre Bedenken äußern. Sollten Sie sich dabei nicht wohlfühlen, können Sie uns auch eine Nachricht an <0>contact@zooniverse.org</0> senden. Wir werden uns dann darum kümmern. Zu dieser Arbeit gehört auch die Aktualisierung unserer internen Prüfprozesse. Ihr Feedback hilft uns daher dabei, die Wirksamkeit unserer neuen Prozesse zu überprüfen.",
-        "question": "Ich möchte herausfinden, ob ein Zooniverse-Projekt KI oder maschinelles Lernen einsetzt. Wie finde ich diese Information?"
-      }
+      "paragraph": "Ihre Frage wird hier nicht beantwortet? Senden Sie uns Ihre Fragen an <0>contact@zooniverse.org</0>! Wir aktualisieren diese Liste bei Bedarf."
     },
     "fivews": {
       "list": {

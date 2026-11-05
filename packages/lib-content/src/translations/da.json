@@ -45,12 +45,7 @@
         "answer": "Nej. Forskere kommer til Zooniverse, fordi de ønsker menneskelig input i deres proces. Medmindre de udtrykkeligt har fået tilladelse til det, bør frivillige ikke bruge generative AI-værktøjer uden for Zooniverse til at hjælpe med deres klassificeringsarbejde.",
         "question": "Jeg er frivillig og har brug for hjælp til at klassificere på et projekt. Kan jeg bruge generative AI-værktøjer som ChatGPT eller Gemini til at hjælpe mig?"
       },
-      "paragraph": "Kan du ikke finde svar på dit spørgsmål her? Send os dine spørgsmål på <0>contact@zooniverse.org</0>! Vi opdaterer denne liste efter behov.",
-      "second": {
-        "answerOne": "Start med at scanne projektets hjemmeside, især projektbeskrivelsen og enhver beskrivelse af arbejdsgangen. Hvis du stadig er usikker, kan du se på Om-siden samt projektets vejledning(er). Hvis du stadig er usikker efter det, kan du spørge på Talk, men en del af formålet med dette framework er at hjælpe med at sikre, at alle projekter tydeligt kommunikerer, hvordan de bruger (eller ikke bruger) denne teknologi.",
-        "answerTwo": "Hvis du mener, at et projekt ikke på passende vis oplyser om brugen af ​​AI/ML, håber vi, at du har det godt med at henvende dig til forskerteamet på Talk og foreslå ændringer eller udtrykke din usikkerhed. Hvis du ikke har det godt med at gøre det, kan du også sende os en besked på <0>contact@zooniverse.org</0>, så vil vi undersøge det. En del af dette arbejde omfatter opdatering af vores interne evalueringsprocesser, så din feedback vil hjælpe os med at vide, om vores nye processer er effektive.",
-        "question": "Jeg vil gerne finde ud af, om et Zooniverse-projekt bruger AI eller maskinlæring. Hvordan finder jeg disse oplysninger?"
-      }
+      "paragraph": "Kan du ikke finde svar på dit spørgsmål her? Send os dine spørgsmål på <0>contact@zooniverse.org</0>! Vi opdaterer denne liste efter behov."
     },
     "fivews": {
       "list": {

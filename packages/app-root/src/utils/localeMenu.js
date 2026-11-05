@@ -36,7 +36,7 @@ const localeMenu = {
   tr: 'Türkçe', // Turkish
   uk: 'українська мова', // Ukrainian
   ur: 'اُردُو', // Urdu
-  ve: 'Tshivenḓa', // Venda
+  // ve: 'Tshivenḓa', // AI-generated translations are not available in Lokalise, so remove from the supported languages for now.
   vi: 'Tiếng Việt', // Vietnamese
   'zh-CN': '简体中文', // Chinese Simplified
   'zh-TW': '繁體中文' // Chinese Traditional

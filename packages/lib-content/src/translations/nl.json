@@ -45,12 +45,7 @@
         "answer": "Nee. Onderzoekers komen naar Zooniverse omdat ze menselijke input in hun proces willen. Tenzij expliciet toestemming is verleend, mogen vrijwilligers geen generatieve AI-tools van buiten Zooniverse gebruiken ter ondersteuning van hun classificatie-inspanningen.",
         "question": "Ik ben vrijwilliger en heb hulp nodig bij het classificeren van een project. Kan ik hiervoor generatieve AI-tools zoals ChatGPT of Gemini gebruiken?"
       },
-      "paragraph": "Staat uw vraag hier niet beantwoord? Stuur uw vragen naar <0>contact@zooniverse.org</0>! We zullen deze lijst indien nodig bijwerken.",
-      "second": {
-        "answerOne": "Begin met het bekijken van de projectpagina, met name de projectbeschrijving en eventuele workflowbeschrijvingen. Als je het nog steeds niet zeker weet, bekijk dan de 'Over'-pagina en de projecthandleiding(en). Als je het daarna nog steeds niet zeker weet, kun je het op Talk vragen. Een van de doelen van dit raamwerk is ervoor te zorgen dat alle projecten duidelijk communiceren hoe ze deze technologie wel (of niet) gebruiken.",
-        "answerTwo": "Als u denkt dat een project het gebruik van AI/ML niet op de juiste manier openbaar maakt, hopen we dat u zich vrij voelt om contact op te nemen met het onderzoeksteam via Talk en suggesties voor wijzigingen te doen of uw twijfels te uiten. Als u zich daar niet prettig bij voelt, kunt u ons ook een bericht sturen naar <0>contact@zooniverse.org</0> en dan zullen we het onderzoeken. Een onderdeel van dit werk is het bijwerken van onze interne beoordelingsprocessen, dus uw feedback zal ons helpen te bepalen of onze nieuwe processen effectief zijn.",
-        "question": "Ik wil graag weten of een Zooniverse-project gebruikmaakt van AI of machine learning. Hoe vind ik die informatie?"
-      }
+      "paragraph": "Staat uw vraag hier niet beantwoord? Stuur uw vragen naar <0>contact@zooniverse.org</0>! We zullen deze lijst indien nodig bijwerken."
     },
     "fivews": {
       "list": {

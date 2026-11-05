@@ -45,12 +45,7 @@
         "answer": "Nie. Naukowcy korzystają z Zooniverse, ponieważ chcą, aby ludzie włączyli się w ich proces. Bez wyraźnego pozwolenia, wolontariusze nie powinni korzystać z narzędzi sztucznej inteligencji generatywnej spoza Zooniverse, aby wspomagać swoje działania klasyfikacyjne.",
         "question": "Jestem wolontariuszem i potrzebuję pomocy w klasyfikacji w projekcie. Czy mogę skorzystać z narzędzi generatywnej sztucznej inteligencji, takich jak ChatGPT lub Gemini?"
       },
-      "paragraph": "Nie znalazłeś tu odpowiedzi na swoje pytanie? Wyślij je na adres <0>contact@zooniverse.org</0>! Będziemy aktualizować tę listę w razie potrzeby.",
-      "second": {
-        "answerOne": "Zacznij od przejrzenia strony głównej projektu, zwłaszcza opisu projektu i opisów przepływów pracy. Jeśli nadal masz wątpliwości, zajrzyj na stronę „O projekcie” oraz do samouczków projektu. Jeśli po tym nadal będziesz mieć wątpliwości, możesz zapytać na Talk, ale celem tego frameworka jest upewnienie się, że wszystkie projekty jasno komunikują, w jaki sposób korzystają (lub nie) z tej technologii.",
-        "answerTwo": "Jeśli uważasz, że projekt niewłaściwie ujawnia wykorzystanie sztucznej inteligencji/uczenia maszynowego, mamy nadzieję, że bez wahania skontaktujesz się z zespołem badawczym za pośrednictwem Talk i zasugerujesz zmiany lub wyrazisz swoje wątpliwości. Jeśli nie czujesz się na siłach, możesz również wysłać nam wiadomość na adres <0>contact@zooniverse.org</0>, a my to sprawdzimy. Częścią tych prac jest aktualizacja naszych wewnętrznych procesów weryfikacji, więc Twoja opinia pomoże nam ocenić skuteczność naszych nowych procesów.",
-        "question": "Chcę się dowiedzieć, czy projekt Zooniverse wykorzystuje sztuczną inteligencję (AI) lub uczenie maszynowe. Jak mogę znaleźć tę informację?"
-      }
+      "paragraph": "Nie znalazłeś tu odpowiedzi na swoje pytanie? Wyślij je na adres <0>contact@zooniverse.org</0>! Będziemy aktualizować tę listę w razie potrzeby."
     },
     "fivews": {
       "list": {

@@ -45,12 +45,7 @@
         "answer": "Hapana. Watafiti huja Zooniverse kwa sababu wanataka mchango wa kibinadamu katika mchakato wao. Isipokuwa ruhusa ya wazi ya kufanya hivyo, watu wa kujitolea hawapaswi kutumia zana za kuzalisha AI nje ya Zooniverse ili kusaidia katika juhudi zao za uainishaji.",
         "question": "Mimi ni mtu wa kujitolea na ninahitaji msaada wa kuainisha mradi. Je, ninaweza kutumia zana za AI za kuzalisha kama vile ChatGPT au Gemini kunisaidia?"
       },
-      "paragraph": "Huoni swali lako likijibiwa hapa? Tutumie maswali yako kwa <0>contact@zooniverse.org</0>! Tutasasisha orodha hii inapohitajika.",
-      "second": {
-        "answerOne": "Anza kwa kuchanganua ukurasa wa nyumbani wa mradi, hasa Maelezo ya Mradi na Maelezo yoyote ya Mtiririko wa Kazi. Ikiwa bado huna uhakika, angalia ukurasa wa Kuhusu, pamoja na Mafunzo ya mradi. Ikiwa bado huna uhakika baada ya hapo, unaweza kuuliza kwenye Majadiliano, lakini sehemu ya madhumuni ya mfumo huu ni kusaidia kuhakikisha miradi yote inawasilisha wazi jinsi inavyotumia (au kutotumia) teknolojia hii.",
-        "answerTwo": "Ikiwa unafikiri mradi haufichui ipasavyo matumizi ya AI/ML, tunatumai utajisikia vizuri kuwasiliana na timu ya utafiti kwenye Talk na kupendekeza mabadiliko fulani au kuelezea kutokuwa na uhakika kwako. Ikiwa hujisikii vizuri kufanya hivyo, unaweza pia kututumia ujumbe kwa <0>contact@zooniverse.org</0> nasi tutauchunguza. Sehemu ya kazi hii ni pamoja na kusasisha michakato yetu ya ukaguzi wa ndani, kwa hivyo maoni yako yatatusaidia kujua kama michakato yetu mipya inafaa.",
-        "question": "Nataka kujua kama mradi wa Zooniverse unatumia akili bandia au mashine ya kujifunza. Ninawezaje kupata taarifa hiyo?"
-      }
+      "paragraph": "Huoni swali lako likijibiwa hapa? Tutumie maswali yako kwa <0>contact@zooniverse.org</0>! Tutasasisha orodha hii inapohitajika."
     },
     "fivews": {
       "list": {
