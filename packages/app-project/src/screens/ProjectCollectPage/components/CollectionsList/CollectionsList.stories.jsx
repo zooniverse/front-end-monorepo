@@ -151,3 +151,10 @@ export const OtherMedia = {
     collections: collectionsWithOtherMedia
   }
 }
+
+export const Loading = {
+  args: {
+    collections: collectionsWithImages,
+    isLoading: true
+  }
+}

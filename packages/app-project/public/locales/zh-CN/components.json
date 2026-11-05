@@ -76,15 +76,22 @@
     "classify": "分类",
     "collect": "收藏",
     "exploreProject": "探索项目",
+    "lab": "实验室",
     "organization": "来自该组织：",
     "recents": "最近",
     "talk": "讨论"
   },
   "ProjectStatistics": {
+    "active": "活跃统计数据",
+    "allTime": "历史统计数据",
+    "byTheNumbers": "按数字",
     "classifications": "分类",
     "completedSubjects": "已完成主体",
+    "launched": "项目启动日期：{{date}}",
+    "notLaunched": "项目尚未启动",
     "percentComplete": "完成百分比",
     "subjects": "主体",
+    "subtitle": "跟踪您和其他志愿者在这个项目上所取得的进展。",
     "text": "每一次点击都很重要！加入 {{projectName}} 的社区来完成此项目，并帮助研究人员得出重要结果。点击“查看更多统计数据”以了解更多统计信息。",
     "title": "{{projectName}} 统计数据",
     "viewMoreStats": "查看更多统计数据",
@@ -100,6 +107,7 @@
     "alreadySeen": "已查看",
     "back": "选择不同的主体集",
     "byline": "通过点击列名称对列表进行排序。您将按顺序查看各个主体，从您所选择的那个开始。",
+    "error": "抱歉，我们无法加载此主题集中的主题。请稍后再试，或在 Talk 上告知项目团队。",
     "fetching": "请等待...",
     "heading": "选择一个主体以开始",
     "retired": "已停用",
@@ -124,6 +132,7 @@
   "WorkflowSelector": {
     "WorkflowSelectButton": {
       "complete": "已完成 {{completeness}}%",
+      "externalWorkflow": "外部工作流程",
       "setSelection": "集选择",
       "subjectSelection": "主体选择"
     },

@@ -1,10 +1,11 @@
 import zooTheme from '@zooniverse/grommet-theme'
 import { Anchor, Box } from 'grommet'
-import { bool, func, number, shape, string } from 'prop-types'
+import { bool, func, node, number, shape, string } from 'prop-types'
 import { useResizeDetector } from 'react-resize-detector'
 import styled from 'styled-components'
 
-import { getHost } from './helpers'
+import getHost from '../helpers/getHost'
+import getHrefWithLocale from '../helpers/getHrefWithLocale'
 import { useTranslation } from '../translations/i18n'
 import { useHasMounted } from '../hooks'
 
@@ -80,6 +81,7 @@ export const StyledLogoAnchor = styled(Anchor)`
 
 export default function ZooHeader({
   adminMode = false,
+  localeDropdown,
   onThemeChange = defaultHandler,
   register = defaultHandler,
   showThemeToggle = false,
@@ -91,7 +93,8 @@ export default function ZooHeader({
   user = {},
   ...props
 }) {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+  const locale = i18n.language ?? 'en'
 
   // Hide the user nav menus until component is mounted and can detect a signed-in user
   const hasMounted = useHasMounted()
@@ -110,12 +113,14 @@ export default function ZooHeader({
   const adminNavLinkURL = `${host}/admin`
 
   const mainHeaderNavListURLs = [
-    `${host}/projects`,
-    `${host}/about`,
-    `${host}/get-involved`,
+    `${host}${getHrefWithLocale(`/projects`, locale)}`,
+    `${host}${getHrefWithLocale(`/about`, locale)}`,
+    `${host}${getHrefWithLocale(`/get-involved`, locale)}`,
     `${host}/talk`,
     `${host}/lab`
   ]
+
+  const homeURL = `${host}${getHrefWithLocale(`/`, locale)}`
 
   const mainHeaderNavListLabels = [
     t('ZooHeader.mainHeaderNavListLabels.projects'),
@@ -147,7 +152,7 @@ export default function ZooHeader({
           direction='row'
           style={{ zIndex: 1 }}
         >
-          <StyledLogoAnchor href='http://www.zooniverse.org'>
+          <StyledLogoAnchor href={homeURL}>
             <ZooniverseLogo size='1.25em' id='HeaderZooniverseLogo' />
           </StyledLogoAnchor>
           <MainNavList
@@ -169,6 +174,7 @@ export default function ZooHeader({
           {hasMounted && (
             <UserNavigation
               isNarrow={isNarrow}
+              localeDropdown={localeDropdown}
               onThemeChange={onThemeChange}
               register={register}
               showThemeToggle={showThemeToggle}
@@ -197,6 +203,7 @@ export default function ZooHeader({
 
 ZooHeader.propTypes = {
   adminMode: bool,
+  localeDropdown: node,
   onThemeChange: func,
   register: func,
   showThemeToggle: bool,

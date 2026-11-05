@@ -76,14 +76,19 @@
     "classify": "Classificar",
     "collect": "Recull",
     "exploreProject": "Explora el projecte",
+    "lab": "Laboratori",
     "organization": "Des de l'organització:",
     "recents": "Recents",
     "talk": "Parla"
   },
   "ProjectStatistics": {
+    "active": "Estadístiques actives",
+    "allTime": "Estadístiques de tots els temps",
     "byTheNumbers": "Per xifres",
     "classifications": "Classificacions",
     "completedSubjects": "Objectes completats",
+    "launched": "Projecte llançat {{date}}",
+    "notLaunched": "Projecte no llançat",
     "percentComplete": "Percentatge complet",
     "subjects": "Objectes",
     "subtitle": "Fes un seguiment del progrés que tu i la resta de voluntaris heu fet en aquest projecte.",
@@ -102,6 +107,7 @@
     "alreadySeen": "Ja vist",
     "back": "Tria un conjunt d’objectes diferent",
     "byline": "Ordena la llista fent clic als noms de les columnes. Veuràs els objectes seqüencialment, començant pel que triïs.",
+    "error": "Ho sentim, no hem pogut carregar els temes d'aquest conjunt de temes. Torna-ho a provar més tard o fes-ho saber a l'equip del projecte a Talk.",
     "fetching": "Si us plau, espera...",
     "heading": "Tria un objecte per començar",
     "retired": "Retirat",
@@ -126,6 +132,7 @@
   "WorkflowSelector": {
     "WorkflowSelectButton": {
       "complete": "{{completeness}}% completat",
+      "externalWorkflow": "flux de treball extern",
       "setSelection": "Trieu selecció",
       "subjectSelection": "selecció d'objectes"
     },

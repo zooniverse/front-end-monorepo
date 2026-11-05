@@ -1,0 +1,192 @@
+{
+  "AllProjects": {
+    "error": "Une erreur s’est produite",
+    "noProjects": "Aucun projet trouvé",
+    "recent": "récente",
+    "sortBy": "Trier par",
+    "title": "Projets de {{displayName}}",
+    "top": "Meilleurs projets"
+  },
+  "BarChart": {
+    "a11y": "Diagramme à barres des {{typeLabel}} par {{countLabel}} du {{startDate}} au {{endDate}}",
+    "day": "Jour",
+    "hourAbbrev": "h",
+    "minAbbrev": "min",
+    "monthOf": "Le mois de/d’",
+    "time": "Heure",
+    "weekOf": "La semaine du",
+    "year": "Année"
+  },
+  "Contributors": {
+    "ContributorsList": {
+      "a11y": "Statistiques des membres de {{name}}",
+      "privateProject": "Projet privé {{index}}",
+      "projectStats": "Statistiques du projet {{name}}"
+    },
+    "ExportStats": {
+      "cancel": "Annuler",
+      "close": "Fermer",
+      "complete": "Export terminé",
+      "confirm": "Confirmer",
+      "confirmMessage": "Générer un fichier des statistiques du groupe au format .CSV pour {{memberCount}} membre(s) ?",
+      "download": "Cliquez sur le lien pour télécharger le fichier au format .CSV :",
+      "downloading": "Téléchargement des données en cours...",
+      "error": "Erreur avec l’export",
+      "errorMessage": "Échec de génération de l’export.",
+      "fileSize": "Environ {{fileSize}}.",
+      "generating": "Génération du fichier d’export des statistiques en cours. Veuillez ne pas fermer cet onglet du navigateur.",
+      "progress": "Progression : {{progress}} %",
+      "retry": "Réessayer"
+    },
+    "ProjectStats": {
+      "a11y": "Statistiques des membres de {{project}}"
+    },
+    "error": "Une erreur s’est produite",
+    "exportLink": "Exporter toutes les statistiques",
+    "generating": "Génération de l’export des statistiques...",
+    "noPermission": "Vous n’êtes pas autorisé(e) à voir les contributeurs de ce groupe.",
+    "none": "Aucun contributeur ne participe à ce groupe.",
+    "title": "Statistiques globales du groupe"
+  },
+  "GroupContainer": {
+    "deactivated": "Il s’agit d’un groupe désactivé. Veuillez le quitter ou contacter l’administrateur du groupe si vous pensez que c’est une erreur.",
+    "joinFail": "Échec de l’ajout.",
+    "joined": "Vous avez bien été ajouté(e) au groupe !",
+    "joining": "Ajout au groupe...",
+    "leaveGroup": "Quitter le groupe",
+    "loginToJoin": "Connectez-vous afin de pouvoir rejoindre le groupe.",
+    "noAuth": "Vous devez être connecté(e) pour pouvoir accéder à un groupe privé.",
+    "notFound": "Groupe non trouvé"
+  },
+  "GroupForm": {
+    "anyone": "vous pouvez partager ce groupe avec toutes les personnes que vous souhaitez",
+    "createNew": "Créer un nouveau groupe",
+    "deactivate": "Désactiver le groupe",
+    "deactivateHelp": "Souhaitez-vous vraiment supprimer ce groupe ?",
+    "greaterThanChar": "doit comporter > 3 caractères",
+    "lessThanChar": "doit comporter < 60 caractères",
+    "name": "Nom du groupe",
+    "nameHelp": "En créant un nouveau groupe vous en deviendrez automatiquement l’admin.",
+    "onlyMembers": "seuls les membres peuvent voir ce groupe",
+    "private": "Privé",
+    "privateAggOnly": "Non, ne pas afficher les statistiques individuelles pour les membres",
+    "privateShowAggAndInd": "Oui, afficher les statistiques individuelles pour les membres",
+    "pubVis": "Visibilité publique",
+    "public": "Public",
+    "publicAggOnly": "Non, ne jamais afficher les statistiques individuelles",
+    "publicAggShowInd": "Oui, afficher les statistiques individuelles pour les membres seulement",
+    "publicShowAll": "Oui, toujours afficher les statistiques individuelles",
+    "saveChanges": "Enregistrer les changements",
+    "showInd": "Afficher les statistiques individuelles",
+    "showIndHelp": "L’admin peut toujours voir les statistiques individuelles.",
+    "showIndInfo": "Vous pouvez ajouter d’autres membres à l’aide d’un lien Rejoindre après avoir créé le nouveau groupe ci-dessous.",
+    "visibility": "Visibilité des statistiques"
+  },
+  "GroupStats": {
+    "GroupUpdateFormContainer": {
+      "error": "Une erreur s’est produite. Veuillez réessayer."
+    },
+    "MemberListItem": {
+      "a11y": "Menu permettant de mettre à jour ou de supprimer la participation au groupe {{name}}",
+      "giveAdmin": "Accorder l’accès admin",
+      "remove": "Supprimer le membre",
+      "removeAdmin": "Supprimer l’accès admin"
+    },
+    "MembersList": {
+      "title": "Membres du groupe",
+      "warning": "Supprimer un membre l’empêche de participer au groupe. Il n’aura plus accès au groupe, mais ses contributions resteront actives."
+    },
+    "TopContributors": {
+      "error": "Une erreur s’est produite lors de la récupération des meilleurs contributeurs.",
+      "linkLabel": "Voir tous les contributeurs ainsi que les statistiques détaillées",
+      "tip": "Inclut les membres actifs ainsi que les membres inactifs.",
+      "title": "Meilleurs contributeurs"
+    },
+    "headerItems": {
+      "all": "Tous mes groupes",
+      "copied": "Lien du groupe copié !",
+      "copy": "Copier le lien Rejoindre",
+      "leave": "Quitter le groupe",
+      "share": "Partager le groupe"
+    },
+    "leaveQuestion": "Souhaitez-vous vraiment quitter ce groupe ?",
+    "manage": "Gérer le groupe"
+  },
+  "HeaderDropdown": {
+    "label": "Options du groupe"
+  },
+  "MainContent": {
+    "allProjects": "Tous les projets",
+    "calendarBtn": "Terminé",
+    "calendarTitle": "Plage de date personnalisée",
+    "certificate": "Générer un certificat de bénévolat",
+    "dateRange": {
+      "allTime": "Tous les horaires",
+      "custom": "Personnalisée",
+      "lastSevenDays": "7 derniers jours",
+      "lastThirtyDays": "30 derniers jours",
+      "lastThreeMonths": "3 derniers mois",
+      "lastTwelveMonths": "12 derniers mois",
+      "thisMonth": "Ce mois",
+      "thisYear": "Cette année"
+    },
+    "error": "Une erreur s’est produite.",
+    "hoursTip": "Les heures sont calculées en fonction des heures de début et de fin de votre activité de classification. Celles-ci ne reflètent pas le temps que vous avez passé sur Talk.",
+    "noData": "Aucune donnée trouvée",
+    "selectDateRange": "Sélectionner une plage de date",
+    "selectProject": "Sélectionner un projet",
+    "start": "<0>Effectuez la classification d’un projet</0> maintenant, ou modifiez la plage de dates.",
+    "tabContents": "Contenus des onglets"
+  },
+  "MyGroups": {
+    "GroupCard": {
+      "admin": "Admin",
+      "member": "Membre"
+    },
+    "PreviewLayout": {
+      "seeAll": "Tout voir"
+    },
+    "createNew": "Créer un nouveau groupe",
+    "error": "Une erreur s’est produite lors de la récupération de vos groupes",
+    "learnMore": "En savoir plus sur les groupes",
+    "noGroups": "Vous n’êtes membre d’aucun groupe.<0/>Créez un groupe ci-dessous",
+    "title": "Mes groupes"
+  },
+  "TopProjects": {
+    "title": "Meilleurs projets"
+  },
+  "UserHome": {
+    "Dashboard": {
+      "allTime": "Tous les horaires",
+      "collections": "Collections",
+      "comments": "Commentaires",
+      "favorites": "Favoris",
+      "messages": "Messages",
+      "moreStats": "Plus de statistiques",
+      "thisWeek": "Cette semaine"
+    },
+    "RecentProjects": {
+      "error": "Une erreur s’est produite lors de la récupération de vos projets récents",
+      "noProjects": "Aucun projet récent trouvé",
+      "start": "Commencez par <0>effectuer la classification de n’importe quel projet</0>.",
+      "title": "Continuer la classification"
+    },
+    "RecentSubjects": {
+      "error": "Une erreur s’est produite lors de la récupération des classifications",
+      "noSubjects": "Aucune classification récente trouvée",
+      "title": "Vos classifications récentes"
+    },
+    "SubjectCard": {
+      "subject": "Sujet"
+    }
+  },
+  "common": {
+    "avatarAlt": "Avatar de {{login}}",
+    "back": "Retour",
+    "classifications": "Classifications",
+    "contributors": "Contributeurs",
+    "hours": "Heures",
+    "projects": "Projets",
+    "seeAll": "Tout voir"
+  }
+}

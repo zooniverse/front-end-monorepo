@@ -53,6 +53,7 @@ function isSuccessfulMark(marking, applicableRules = []) {
  * @typedef {Object} Marking - An individual mark made by the user, which may have different properties depending on the tool used.
  * @property {string} id - Unique identifier for the mark.
  * @property {string} toolType - The type of drawing tool used to make the mark, e.g. 'point', 'ellipse', 'circle'.
+ * @property {number} angle - The rotation angle of the mark.
  * @property {number} x - The x-coordinate of the mark (for point tools).
  * @property {number} y - The y-coordinate of the mark (for point tools).
  * @property {number} x_center - The x-coordinate of the center of the mark (for shape tools like circle and ellipse).
@@ -60,7 +61,12 @@ function isSuccessfulMark(marking, applicableRules = []) {
  * @property {number} r - The radius of the mark (for circle tools).
  * @property {number} rx - The x-radius of the mark (for ellipse tools).
  * @property {number} ry - The y-radius of the mark (for ellipse tools).
+ * @property {Point} coords - The coordinates of the mark.
  * @property {React.Component} toolComponent - The React component used to render this mark.
+ * 
+ * @typedef {Object} Point - A point.
+ * @property {number} x - The x-coordinate of the point.
+ * @property {number} y - The y-coordinate of the point.
  * 
  * @typedef {Object} AnnotatedMark - An individual mark with feedback colour and tool component for rendering.
  * @property {string} id - Unique identifier for the mark.
@@ -135,12 +141,24 @@ function AnnotationFeedback({ marking }) {
     return null;
   }
 
+  const { coords, angle } = mark
+  let transform = ''
+
+  if (coords) {
+    const { x, y } = coords
+    transform = `translate(${x}, ${y})`
+
+    if (angle) {
+      transform = `${transform} rotate(${angle})`
+    }
+  }
+
   return (
     <g
       fill="rgba(0, 0, 0, 0.5)"
       pointerEvents="none"
       stroke={color}
-      transform={mark.x !== undefined ? `translate(${mark.x}, ${mark.y})` : undefined}
+      transform={transform}
     >
       <MarkComponent mark={mark} />
     </g>
@@ -151,8 +169,11 @@ AnnotationFeedback.propTypes = {
   marking: shape({
     color: string.isRequired,
     mark: shape({
-      x: number,
-      y: number,
+      angle: number,
+      coords: shape({
+        x: number.isRequired,
+        y: number.isRequired
+      }),
       toolComponent: node.isRequired,
       toolType: string.isRequired,
     }).isRequired,

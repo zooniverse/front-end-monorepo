@@ -46,15 +46,15 @@ const StyledNav = styled(Nav)`
 function useStores() {
   const { store } = useContext(MobXProviderContext)
   const { isLoggedIn, login } = store.user
-  return { isLoggedIn, login }
+  const { slug: projectSlug } = store.project
+  return { isLoggedIn, login, projectSlug }
 }
 
 function CollectTabs({
-  projectDisplayName,
-  projectSlug
+  projectDisplayName
 }) {
   const { t } = useTranslation('screens')
-  const { isLoggedIn, login } = useStores()
+  const { isLoggedIn, login, projectSlug } = useStores()
 
   return (
     <StyledNav
@@ -93,8 +93,7 @@ function CollectTabs({
 }
 
 CollectTabs.propTypes = {
-  projectDisplayName: string.isRequired,
-  projectSlug: string.isRequired
+  projectDisplayName: string.isRequired
 }
 
 export default observer(CollectTabs)

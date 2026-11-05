@@ -12,13 +12,20 @@ function Rectangle({
   const { x_center, y_center, width, height } = mark
 
   function onHandleDrag(coords) {
-    mark.setCoordinates(coords)
+    // transform coords back into global coordinates
+    mark.setCoordinates({
+      x_left: x_center + coords.x_left,
+      x_right: x_center + coords.x_right,
+      y_top: y_center + coords.y_top,
+      y_bottom: y_center + coords.y_bottom
+    })
   }
 
-  const x_left = x_center - width / 2
-  const x_right = x_center + width / 2
-  const y_top = y_center - height / 2
-  const y_bottom = y_center + height / 2
+  // draw in local coordinates
+  const x_left = -width / 2
+  const x_right = width / 2
+  const y_top = -height / 2
+  const y_bottom = height / 2
 
   const _onFinish =
     onFinish ||

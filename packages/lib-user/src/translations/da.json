@@ -1,0 +1,192 @@
+{
+  "AllProjects": {
+    "error": "Der opstod en fejl",
+    "noProjects": "Ingen projekter fundet",
+    "recent": "nylig",
+    "sortBy": "sorter efter",
+    "title": "{{displayName}}s projekter",
+    "top": "Største projekter"
+  },
+  "BarChart": {
+    "a11y": "Søjlediagram over {{typeLabel}} efter {{countLabel}} fra {{startDate}} til {{endDate}}",
+    "day": "Dag",
+    "hourAbbrev": "timer",
+    "minAbbrev": "min.",
+    "monthOf": "Måneden med",
+    "time": "Tid",
+    "weekOf": "Ugen med",
+    "year": "År"
+  },
+  "Contributors": {
+    "ContributorsList": {
+      "a11y": "{{name}} – medlemsstatistik",
+      "privateProject": "Privat projekt {{index}}",
+      "projectStats": "{{name}} – projektstatistik"
+    },
+    "ExportStats": {
+      "cancel": "Annuller",
+      "close": "Luk",
+      "complete": "Eksporten er gennemført",
+      "confirm": "Bekræft",
+      "confirmMessage": "Generer CSV med gruppestatistik for {{memberCount}} medlemmer?",
+      "download": "Klik på linket for at downloade CSV:",
+      "downloading": "Downloader data ...",
+      "error": "Eksportfejl",
+      "errorMessage": "Det lykkedes ikke at generere eksporten.",
+      "fileSize": "Ca. {{fileSize}}.",
+      "generating": "Genererer statistik-eksportfil. Luk ikke denne browserfane.",
+      "progress": "Status: {{progress}} %",
+      "retry": "Prøv igen"
+    },
+    "ProjectStats": {
+      "a11y": "{{project}} – medlemsstatistik"
+    },
+    "error": "Der opstod en fejl",
+    "exportLink": "Eksportér al statistik",
+    "generating": "Genererer statistikeksport ...",
+    "noPermission": "Du har ikke tilladelse til at se denne gruppes bidragydere.",
+    "none": "Der er ingen bidragydere til denne gruppe.",
+    "title": "Komplet gruppestatistik"
+  },
+  "GroupContainer": {
+    "deactivated": "Dette er en deaktiveret gruppe. Forlad gruppen eller kontakt gruppeadministratoren, hvis du mener, det er en fejl.",
+    "joinFail": "Medlemskab mislykkedes.",
+    "joined": "Er medlem af den nye gruppe!",
+    "joining": "Er ved at blive medlem af gruppe ...",
+    "leaveGroup": "Forlad gruppen",
+    "loginToJoin": "Log ind for at blive medlem af gruppen.",
+    "noAuth": "Du skal være logget ind for at få adgang til en privat gruppe.",
+    "notFound": "Gruppen blev ikke fundet"
+  },
+  "GroupForm": {
+    "anyone": "du kan dele denne gruppe med alle og enhver",
+    "createNew": "Opret ny gruppe",
+    "deactivate": "Deaktiver gruppe",
+    "deactivateHelp": "Er du sikker på, at du vil slette denne gruppe?",
+    "greaterThanChar": "skal være > 3 tegn",
+    "lessThanChar": "skal være < 60 tegn",
+    "name": "Gruppenavn",
+    "nameHelp": "Hvis du opretter en ny gruppe, bliver du administrator.",
+    "onlyMembers": "kun medlemmer kan se denne gruppe",
+    "private": "Privat",
+    "privateAggOnly": "Nej, vis ikke individuel statistik til medlemmer",
+    "privateShowAggAndInd": "Ja, vis individuel statistik til medlemmer",
+    "pubVis": "Offentlig synlighed",
+    "public": "Offentlig",
+    "publicAggOnly": "Nej, vis aldrig individuel statistik",
+    "publicAggShowInd": "Ja, vis individuel statistik hvis medlem",
+    "publicShowAll": "Ja, vis altid individuel statistik",
+    "saveChanges": "Gem ændringer",
+    "showInd": "Vis individuel statistik",
+    "showIndHelp": "Administratoren kan altid se individuel statistik.",
+    "showIndInfo": "Du kan tilføje alle andre medlemmer via et Bliv medlem-link, når du har oprettet den nye gruppe herunder.",
+    "visibility": "Statistik – synlighed"
+  },
+  "GroupStats": {
+    "GroupUpdateFormContainer": {
+      "error": "Noget gik galt. Prøv igen."
+    },
+    "MemberListItem": {
+      "a11y": "Menu til opdatering eller fjernelse af {{name}}s gruppemedlemskab",
+      "giveAdmin": "Giv administratoradgang",
+      "remove": "Fjern medlem",
+      "removeAdmin": "Fjern administratoradgang"
+    },
+    "MembersList": {
+      "title": "Gruppemedlemmer",
+      "warning": "Hvis du fjerner et medlem, bliver medlemskabet inaktivt i gruppen. Medlemmet har ikke længere adgang til gruppen, men alle bidrag under medlemskabet bevares."
+    },
+    "TopContributors": {
+      "error": "Der opstod en fejl under hentningen af de største bidragydere.",
+      "linkLabel": "Se alle bidragydere og detaljeret statistik",
+      "tip": "Omfatter aktive og inaktive medlemmer.",
+      "title": "Største bidragydere"
+    },
+    "headerItems": {
+      "all": "Alle mine grupper",
+      "copied": "Gruppelinket er kopieret!",
+      "copy": "Kopiér Bliv medlem-linket",
+      "leave": "Forlad gruppe",
+      "share": "Del gruppe"
+    },
+    "leaveQuestion": "Er du sikker på, at du vil forlade denne gruppe?",
+    "manage": "Administrer gruppe"
+  },
+  "HeaderDropdown": {
+    "label": "Gruppeindstillinger"
+  },
+  "MainContent": {
+    "allProjects": "Alle projekter",
+    "calendarBtn": "Færdig",
+    "calendarTitle": "Brugerdefineret datointerval",
+    "certificate": "Generer frivilligbevis",
+    "dateRange": {
+      "allTime": "Hele tiden",
+      "custom": "Brugerdefineret",
+      "lastSevenDays": "Sidste 7 dage",
+      "lastThirtyDays": "Sidste 30 dage",
+      "lastThreeMonths": "Sidste 3 måneder",
+      "lastTwelveMonths": "Sidste 12 måneder",
+      "thisMonth": "Denne måned",
+      "thisYear": "I år"
+    },
+    "error": "Der opstod en fejl.",
+    "hoursTip": "Timer beregnes ud fra start- og sluttidspunktet for dine bidrag. Timer afspejler ikke den tid, du bruger på samtaler.",
+    "noData": "Der blev ikke fundet nogen data.",
+    "selectDateRange": "Vælg datointerval",
+    "selectProject": "Vælg projekt",
+    "start": "<0>Bidrag til et projekt</0> nu, eller skift datointerval.",
+    "tabContents": "Faneindhold"
+  },
+  "MyGroups": {
+    "GroupCard": {
+      "admin": "Administrator",
+      "member": "Medlem"
+    },
+    "PreviewLayout": {
+      "seeAll": "Se alle"
+    },
+    "createNew": "Opret ny gruppe",
+    "error": "Der opstod en fejl under hentningen af dine grupper",
+    "learnMore": "Lær mere om grupper",
+    "noGroups": "Du er ikke medlem af en gruppe.<0/>Opret en herunder",
+    "title": "Mine grupper"
+  },
+  "TopProjects": {
+    "title": "Største projekter"
+  },
+  "UserHome": {
+    "Dashboard": {
+      "allTime": "Hele tiden",
+      "collections": "Samlinger",
+      "comments": "Kommentarer",
+      "favorites": "Favoritter",
+      "messages": "Meddelelser",
+      "moreStats": "Mere statistik",
+      "thisWeek": "Denne uge"
+    },
+    "RecentProjects": {
+      "error": "Der opstod en fejl under hentningen af dine nye projekter",
+      "noProjects": "Der blev ikke fundet nogen nye projekter",
+      "start": "Begynd med at <0>bidrage til et projekt</0>.",
+      "title": "Fortsæt med at bidrage"
+    },
+    "RecentSubjects": {
+      "error": "Der opstod en fejl under hentningen af nye bidrag",
+      "noSubjects": "Der blev ikke fundet nogen nye bidrag",
+      "title": "Dine seneste klassifikationer"
+    },
+    "SubjectCard": {
+      "subject": "Emne"
+    }
+  },
+  "common": {
+    "avatarAlt": "{{login}} avatar",
+    "back": "Tilbage",
+    "classifications": "Bidrag",
+    "contributors": "Bidragydere",
+    "hours": "Timer",
+    "projects": "Projekter",
+    "seeAll": "Se alle"
+  }
+}

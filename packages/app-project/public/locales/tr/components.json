@@ -76,15 +76,22 @@
     "classify": "Sınıflandırma",
     "collect": "Koleksiyon",
     "exploreProject": "Projeyi Keşfet",
+    "lab": "Laboratuvar",
     "organization": "Şu kuruluştan:",
     "recents": "Son bilgiler",
     "talk": "Sohbet"
   },
   "ProjectStatistics": {
+    "active": "Aktif İstatistikler",
+    "allTime": "Tüm Zamanların İstatistikleri",
+    "byTheNumbers": "Sayılara göre",
     "classifications": "Sınıflandırmalar",
     "completedSubjects": "Tamamlanan Konular",
+    "launched": "Proje {{date}} tarihinde başlatıldı.",
+    "notLaunched": "Proje başlatılmadı.",
     "percentComplete": "Tamamlanan yüzde",
     "subjects": "Konular",
+    "subtitle": "Sizin ve gönüllü arkadaşlarınızın bu projede kaydettiği ilerlemeyi takip edin.",
     "text": "Her tıklama önemlidir! Bu projeyi tamamlamak ve araştırmacıların önemli sonuçlar üretmesine yardımcı olmak için {{projectName}} topluluğuna katılın.",
     "title": "{{projectName}} İstatistikleri",
     "viewMoreStats": "Daha fazla istatistik görüntüleyin",
@@ -100,6 +107,7 @@
     "alreadySeen": "Daha önce görüldü",
     "back": "Farklı bir görüntü  seti seçin",
     "byline": "Sütun adlarını tıklayarak listeyi sıralayın. Seçtiğiniz  başlayarak, görüntüleri sırayla göreceksiniz.",
+    "error": "Üzgünüz, bu konu setindeki konuları yükleyemedik. Lütfen daha sonra tekrar deneyin veya proje ekibine Talk üzerinden bildirin.",
     "fetching": "Lütfen bekleyin...",
     "heading": "Başlamak için bir görüntü  seçin",
     "retired": "Sistemden kaldırıldı",
@@ -124,6 +132,7 @@
   "WorkflowSelector": {
     "WorkflowSelectButton": {
       "complete": "{{completeness}} % tamamlandı",
+      "externalWorkflow": "harici iş akışı",
       "setSelection": "Görüntü  seti seçimi",
       "subjectSelection": "Görüntü seçimi"
     },

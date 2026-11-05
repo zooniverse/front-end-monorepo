@@ -1,11 +1,11 @@
 {
-  "common": {
-    "avatarAlt": "{{login}} Translated",
-    "back": "Translated",
-    "classifications": "Translated",
-    "contributors": "Translated",
-    "hours": "Translated",
-    "projects": "Translated"
+  "AllProjects": {
+    "error": "Translated",
+    "noProjects": "Translated",
+    "recent": "Translated",
+    "sortBy": "Translated",
+    "title": "{{displayName}} Translated",
+    "top": "Translated"
   },
   "BarChart": {
     "a11y": "Translated {{typeLabel}} Translated {{countLabel}} Translated {{startDate}} Translated {{endDate}}",
@@ -20,7 +20,23 @@
   "Contributors": {
     "ContributorsList": {
       "a11y": "{{name}} Translated",
-      "privateProject": "Translated {{index}}"
+      "privateProject": "Translated {{index}}",
+      "projectStats": "{{name}} Translated"
+    },
+    "ExportStats": {
+      "cancel": "Translated",
+      "close": "Translated",
+      "complete": "Translated",
+      "confirm": "Translated",
+      "confirmMessage": "Translated {{memberCount}}",
+      "download": "Translated",
+      "downloading": "Translated",
+      "error": "Translated",
+      "errorMessage": "Translated",
+      "fileSize": "Translated {{fileSize}}",
+      "generating": "Translated",
+      "progress": "Translated {{progress}}",
+      "retry": "Translated"
     },
     "ProjectStats": {
       "a11y": "{{project}} Translated"
@@ -159,6 +175,18 @@
       "error": "Translated",
       "noSubjects": "Translated",
       "title": "Translated"
+    },
+    "SubjectCard": {
+      "subject": "Translated"
     }
+  },
+  "common": {
+    "avatarAlt": "{{login}} Translated",
+    "back": "Translated",
+    "classifications": "Translated",
+    "contributors": "Translated",
+    "hours": "Translated",
+    "projects": "Translated",
+    "seeAll": "Translated"
   }
 }

@@ -5,6 +5,7 @@ import auth from 'panoptes-client/lib/auth'
 import { useContext, useState } from 'react'
 
 import { PanoptesAuthContext, ThemeModeContext } from '@/contexts'
+import LocaleDropdown from './LocaleDropdown'
 
 export default function PageHeader() {
   const { adminMode, user } = useContext(PanoptesAuthContext)
@@ -39,6 +40,7 @@ export default function PageHeader() {
       />
       <ZooHeader
         adminMode={adminMode}
+        localeDropdown={<LocaleDropdown />}
         onThemeChange={toggleTheme}
         register={openRegisterModal}
         showThemeToggle
