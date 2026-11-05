@@ -42,6 +42,14 @@
       "noMessageButton": "Go to Talk",
       "title": "Message from the researcher"
     },
+    "TranslationsModal": {
+      "buttons": {
+        "switchToEn": "View project in English"
+      },
+      "cta": "If you are interested in helping us translate this page, please <0>contact us</0>.",
+      "paragraph": "This project has not been translated into your selected language.",
+      "title": "{{languageName}} Translations Unavailable"
+    },
     "ZooniverseTalk": {
       "button": "Join in",
       "message": "Chat with the research team and other volunteers!",
@@ -70,7 +78,7 @@
     "WorkflowAssignmentModal": {
       "cancel": "No, thanks",
       "confirm": "Take me to the next workflow!",
-      "content":  "Congratulations! Because you're doing so well, you can now access another workflow. If you prefer to stay with the current workflow, you can choose to stay.",
+      "content": "Congratulations! Because you're doing so well, you can now access another workflow. If you prefer to stay with the current workflow, you can choose to stay.",
       "dismiss": "Don't show this again this session",
       "title": "New Workflow Available"
     },
