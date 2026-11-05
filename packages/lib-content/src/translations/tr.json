@@ -47,9 +47,7 @@
       },
       "paragraph": "Sorunuzun cevabını burada bulamadınız mı? Sorularınızı <0>contact@zooniverse.org</0> adresine gönderin! Bu listeyi gerektiğinde güncelleyeceğiz.",
       "second": {
-        "answerOne": "Öncelikle proje ana sayfasını, özellikle de Proje Açıklaması ve İş Akışı Açıklaması bölümlerini inceleyin. Hala emin değilseniz, Hakkımızda sayfasına ve proje eğitimlerine göz atın. Bundan sonra da emin değilseniz, Talk kanalında soru sorabilirsiniz, ancak bu çerçevenin amaçlarından biri de tüm projelerin bu teknolojiyi nasıl kullandıklarını (veya kullanmadıklarını) açıkça iletmelerini sağlamaktır.",
-        "answerTwo": "Bir projenin yapay zeka/makine öğrenimi kullanımını uygun şekilde açıklamadığını düşünüyorsanız, Talk platformunda araştırma ekibiyle iletişime geçmekten ve bazı değişiklikler önermekten veya şüphelerinizi dile getirmekten çekinmeyeceğinizi umuyoruz. Bunu yapmaktan çekiniyorsanız, <0>contact@zooniverse.org</0> adresine de mesaj gönderebilirsiniz ve biz de konuyu inceleyeceğiz. Bu çalışmanın bir parçası da dahili inceleme süreçlerimizi güncellemek olduğundan, geri bildirimleriniz yeni süreçlerimizin etkili olup olmadığını anlamamıza yardımcı olacaktır.",
-        "question": "Zooniverse projelerinin yapay zeka veya makine öğrenimi kullanıp kullanmadığını öğrenmek istiyorum. Bu bilgiyi nasıl bulabilirim?"
+        "answerOne": "Öncelikle proje ana sayfasını, özellikle de Proje Açıklaması ve İş Akışı Açıklaması bölümlerini inceleyin. Hala emin değilseniz, Hakkımızda sayfasına ve proje eğitimlerine göz atın. Bundan sonra da emin değilseniz, Talk kanalında soru sorabilirsiniz, ancak bu çerçevenin amaçlarından biri de tüm projelerin bu teknolojiyi nasıl kullandıklarını (veya kullanmadıklarını) açıkça iletmelerini sağlamaktır."
       }
     },
     "fivews": {

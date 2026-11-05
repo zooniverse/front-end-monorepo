@@ -47,6 +47,11 @@
       },
       "paragraph": "Translated <0>Translated</0>",
       "second": {
+        "answer": "Translated",
+        "answerOne": "Translated",
+        "question": "Translated"
+      },
+      "third": {
         "answerOne": "Translated",
         "answerTwo": "Translated",
         "question": "Translated"

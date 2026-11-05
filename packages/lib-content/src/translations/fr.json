@@ -47,9 +47,7 @@
       },
       "paragraph": "Vous ne trouvez pas la réponse à votre question ici ? Envoyez-nous vos questions à <0>contact@zooniverse.org</0> ! Nous mettrons cette liste à jour au besoin.",
       "second": {
-        "answerOne": "Commencez par parcourir la page d'accueil du projet, en particulier la description du projet et la description du flux de travail. Si vous avez encore des doutes, consultez la page « À propos » ainsi que les tutoriels du projet. Si vous avez toujours des questions, vous pouvez les poser sur Talk. L'un des objectifs de ce cadre est de garantir que tous les projets communiquent clairement sur la manière dont ils utilisent (ou n'utilisent pas) cette technologie.",
-        "answerTwo": "Si vous pensez qu'un projet ne divulgue pas correctement son utilisation de l'IA/ML, nous vous invitons à contacter l'équipe de recherche sur Talk pour suggérer des modifications ou nous faire part de vos doutes. Si vous préférez, vous pouvez également nous envoyer un message à <0>contact@zooniverse.org</0> et nous examinerons la question. Ce travail inclut la mise à jour de nos procédures d'évaluation internes ; vos commentaires nous aideront donc à évaluer l'efficacité de ces nouvelles procédures.",
-        "question": "Je souhaite savoir si un projet Zooniverse utilise l'IA ou l'apprentissage automatique. Comment puis-je trouver cette information ?"
+        "answerOne": "Commencez par parcourir la page d'accueil du projet, en particulier la description du projet et la description du flux de travail. Si vous avez encore des doutes, consultez la page « À propos » ainsi que les tutoriels du projet. Si vous avez toujours des questions, vous pouvez les poser sur Talk. L'un des objectifs de ce cadre est de garantir que tous les projets communiquent clairement sur la manière dont ils utilisent (ou n'utilisent pas) cette technologie."
       }
     },
     "fivews": {

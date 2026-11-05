@@ -47,9 +47,7 @@
       },
       "paragraph": "Hittar du inte svaret på din fråga här? Skicka dina frågor till oss på <0>contact@zooniverse.org</0>! Vi uppdaterar listan vid behov.",
       "second": {
-        "answerOne": "Börja med att granska projektets hemsida, särskilt projektbeskrivningen och eventuella arbetsflödesbeskrivningar. Om du fortfarande är osäker kan du titta på Om-sidan samt projektets handledning(ar). Om du fortfarande är osäker efter det kan du fråga på Diskussionsforum, men en del av syftet med detta ramverk är att se till att alla projekt tydligt kommunicerar hur de använder (eller inte använder) den här tekniken.",
-        "answerTwo": "Om du anser att ett projekt inte på lämpligt sätt redovisar användningen av AI/ML hoppas vi att du känner dig bekväm med att kontakta forskarteamet på Talk och föreslå ändringar eller uttrycka din osäkerhet. Om du inte känner dig bekväm med att göra det kan du också skicka ett meddelande till oss på <0>contact@zooniverse.org</0> så kommer vi att undersöka det. En del av detta arbete inkluderar att uppdatera våra interna granskningsprocesser, så din feedback hjälper oss att veta om våra nya processer är effektiva.",
-        "question": "Jag vill ta reda på om ett Zooniverse-projekt använder AI eller maskininlärning. Hur hittar jag den informationen?"
+        "answerOne": "Börja med att granska projektets hemsida, särskilt projektbeskrivningen och eventuella arbetsflödesbeskrivningar. Om du fortfarande är osäker kan du titta på Om-sidan samt projektets handledning(ar). Om du fortfarande är osäker efter det kan du fråga på Diskussionsforum, men en del av syftet med detta ramverk är att se till att alla projekt tydligt kommunicerar hur de använder (eller inte använder) den här tekniken."
       }
     },
     "fivews": {

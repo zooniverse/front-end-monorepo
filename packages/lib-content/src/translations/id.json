@@ -47,9 +47,7 @@
       },
       "paragraph": "Pertanyaan Anda belum terjawab di sini? Kirimkan pertanyaan Anda ke <0>contact@zooniverse.org</0>! Kami akan memperbarui daftar ini sesuai kebutuhan.",
       "second": {
-        "answerOne": "Mulailah dengan memindai halaman beranda proyek, terutama Deskripsi Proyek dan Deskripsi Alur Kerja. Jika Anda masih ragu, lihat halaman Tentang, serta Tutorial proyek. Jika Anda masih ragu setelah itu, Anda dapat bertanya di Talk, tetapi sebagian tujuan dari kerangka kerja ini adalah untuk membantu memastikan semua proyek mengomunikasikan dengan jelas bagaimana mereka menggunakan (atau tidak menggunakan) teknologi ini.",
-        "answerTwo": "Jika Anda merasa suatu proyek tidak mengungkapkan penggunaan AI/ML dengan tepat, kami harap Anda merasa nyaman menghubungi tim peneliti di Talk dan menyarankan beberapa perubahan atau menyampaikan ketidakpastian Anda. Jika Anda merasa tidak nyaman melakukannya, Anda juga dapat mengirimkan pesan kepada kami di <0>contact@zooniverse.org</0> dan kami akan menindaklanjutinya. Bagian dari pekerjaan ini termasuk memperbarui proses peninjauan internal kami, jadi umpan balik Anda akan membantu kami mengetahui apakah proses baru kami efektif.",
-        "question": "Saya ingin mengetahui apakah sebuah proyek Zooniverse menggunakan AI atau Machine Learning. Bagaimana cara saya menemukan informasi tersebut?"
+        "answerOne": "Mulailah dengan memindai halaman beranda proyek, terutama Deskripsi Proyek dan Deskripsi Alur Kerja. Jika Anda masih ragu, lihat halaman Tentang, serta Tutorial proyek. Jika Anda masih ragu setelah itu, Anda dapat bertanya di Talk, tetapi sebagian tujuan dari kerangka kerja ini adalah untuk membantu memastikan semua proyek mengomunikasikan dengan jelas bagaimana mereka menggunakan (atau tidak menggunakan) teknologi ini."
       }
     },
     "fivews": {

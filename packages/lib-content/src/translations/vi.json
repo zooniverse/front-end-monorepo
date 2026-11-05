@@ -47,9 +47,7 @@
       },
       "paragraph": "Không thấy câu hỏi của bạn được trả lời ở đây? Hãy gửi câu hỏi của bạn cho chúng tôi tại <0>contact@zooniverse.org</0>! Chúng tôi sẽ cập nhật danh sách này khi cần thiết.",
       "second": {
-        "answerOne": "Hãy bắt đầu bằng cách xem lướt qua trang chủ dự án, đặc biệt là phần Mô tả Dự án và bất kỳ Mô tả Quy trình làm việc nào. Nếu bạn vẫn chưa chắc chắn, hãy xem trang Giới thiệu, cũng như các Hướng dẫn của dự án. Nếu sau đó bạn vẫn chưa chắc chắn, bạn có thể hỏi trên Talk, nhưng một phần mục đích của khung này là giúp đảm bảo tất cả các dự án đều truyền đạt rõ ràng cách họ đang (hoặc không) sử dụng công nghệ này.",
-        "answerTwo": "Nếu bạn cho rằng một dự án không công khai việc sử dụng AI/ML một cách phù hợp, chúng tôi hy vọng bạn sẽ cảm thấy thoải mái khi liên hệ với nhóm nghiên cứu trên Talk và đề xuất một số thay đổi hoặc bày tỏ sự không chắc chắn của mình. Nếu bạn không cảm thấy thoải mái khi làm như vậy, bạn cũng có thể gửi tin nhắn cho chúng tôi tại <0>contact@zooniverse.org</0> và chúng tôi sẽ xem xét vấn đề đó. Một phần công việc này bao gồm cập nhật các quy trình đánh giá nội bộ của chúng tôi, vì vậy phản hồi của bạn sẽ giúp chúng tôi biết liệu các quy trình mới của chúng tôi có hiệu quả hay không.",
-        "question": "Tôi muốn tìm hiểu xem một dự án trên Zooniverse có sử dụng Trí tuệ nhân tạo (AI) hay Máy học (Machine Learning) hay không. Tôi có thể tìm thông tin đó ở đâu?"
+        "answerOne": "Hãy bắt đầu bằng cách xem lướt qua trang chủ dự án, đặc biệt là phần Mô tả Dự án và bất kỳ Mô tả Quy trình làm việc nào. Nếu bạn vẫn chưa chắc chắn, hãy xem trang Giới thiệu, cũng như các Hướng dẫn của dự án. Nếu sau đó bạn vẫn chưa chắc chắn, bạn có thể hỏi trên Talk, nhưng một phần mục đích của khung này là giúp đảm bảo tất cả các dự án đều truyền đạt rõ ràng cách họ đang (hoặc không) sử dụng công nghệ này."
       }
     },
     "fivews": {

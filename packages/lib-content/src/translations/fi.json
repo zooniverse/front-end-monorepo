@@ -47,9 +47,7 @@
       },
       "paragraph": "Eikö kysymykseesi löydy vastausta täältä? Lähetä kysymyksesi meille osoitteeseen <0>contact@zooniverse.org</0>! Päivitämme tätä listaa tarvittaessa.",
       "second": {
-        "answerOne": "Aloita selaamalla projektin kotisivua, erityisesti projektin kuvausta ja mahdollista työnkulun kuvausta. Jos et vieläkään ole varma, katso Tietoja-sivua sekä projektin tutoriaalia/tutoriaaleja. Jos et vieläkään ole varma, voit kysyä Keskustelussa, mutta tämän viitekehyksen yksi tarkoitus on varmistaa, että kaikki projektit viestivät selkeästi, miten ne käyttävät (tai eivät käytä) tätä teknologiaa.",
-        "answerTwo": "Jos mielestäsi projekti ei ilmoita tekoälyn/koneoppimisen käytöstä asianmukaisesti, toivomme, että voit ottaa yhteyttä tutkimustiimiin Talkissa ja ehdottaa muutoksia tai ilmaista epävarmuutesi. Jos et halua tehdä niin, voit myös lähettää meille viestin osoitteeseen <0>contact@zooniverse.org</0>, niin tutkimme asian. Osa tätä työtä sisältää sisäisten arviointiprosessiemme päivittämisen, joten palautteesi auttaa meitä selvittämään, ovatko uudet prosessimme tehokkaita.",
-        "question": "Haluan selvittää, käyttääkö Zooniverse-projekti tekoälyä vai koneoppimista. Mistä löydän tiedon?"
+        "answerOne": "Aloita selaamalla projektin kotisivua, erityisesti projektin kuvausta ja mahdollista työnkulun kuvausta. Jos et vieläkään ole varma, katso Tietoja-sivua sekä projektin tutoriaalia/tutoriaaleja. Jos et vieläkään ole varma, voit kysyä Keskustelussa, mutta tämän viitekehyksen yksi tarkoitus on varmistaa, että kaikki projektit viestivät selkeästi, miten ne käyttävät (tai eivät käytä) tätä teknologiaa."
       }
     },
     "fivews": {
