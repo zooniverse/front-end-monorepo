@@ -69,7 +69,7 @@ export default function TranslationsModal({ locale }) {
         <Trans
           i18nKey={t('Home.TranslationsModal.cta')}
           t={t}
-          components={[<Anchor key='contact-us-about-translations' href='about#contact' />]}
+          components={[<Anchor key='contact-us-about-translations' href='/about#contact' />]}
         />
       </Paragraph>
       <Button
