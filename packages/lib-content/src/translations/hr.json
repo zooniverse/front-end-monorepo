@@ -45,12 +45,7 @@
         "answer": "Ne. Istraživači dolaze u Zooniverse jer žele ljudski doprinos svom procesu. Osim ako im nije izričito dano dopuštenje za to, volonteri ne bi smjeli koristiti generativne alate umjetne inteligencije izvan Zooniversea kako bi im pomogli u klasifikacijskim naporima.",
         "question": "Volonter sam i trebam pomoć s klasifikacijom na projektu. Mogu li koristiti generativne alate umjetne inteligencije poput ChatGPT-a ili Geminija?"
       },
-      "paragraph": "Ne vidite odgovor na svoje pitanje ovdje? Pošaljite nam svoja pitanja na <0>contact@zooniverse.org</0>! Ažurirat ćemo ovaj popis prema potrebi.",
-      "second": {
-        "answerOne": "Započnite skeniranjem početne stranice projekta, posebno Opisa projekta i Opisa tijeka rada. Ako i dalje niste sigurni, pogledajte stranicu O nama, kao i Vodič(e) projekta. Ako nakon toga i dalje niste sigurni, možete pitati na Talku, ali dio svrhe ovog okvira je osigurati da svi projekti jasno komuniciraju kako koriste (ili ne koriste) ovu tehnologiju.",
-        "answerTwo": "Ako smatrate da neki projekt ne otkriva na odgovarajući način korištenje umjetne inteligencije/strojnog učenja, nadamo se da ćete se osjećati ugodno obratiti istraživačkom timu na Talku i predložiti neke promjene ili izraziti svoju nedoumicu. Ako se ne osjećate ugodno, možete nam poslati i poruku na <0>contact@zooniverse.org</0> i mi ćemo to istražiti. Dio ovog rada uključuje ažuriranje naših internih procesa pregleda, tako da će nam vaše povratne informacije pomoći da znamo jesu li naši novi procesi učinkoviti.",
-        "question": "Želim saznati koristi li Zooniverse projekt umjetnu inteligenciju ili strojno učenje. Kako mogu pronaći te informacije?"
-      }
+      "paragraph": "Ne vidite odgovor na svoje pitanje ovdje? Pošaljite nam svoja pitanja na <0>contact@zooniverse.org</0>! Ažurirat ćemo ovaj popis prema potrebi."
     },
     "fivews": {
       "list": {

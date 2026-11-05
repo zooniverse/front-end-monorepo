@@ -45,12 +45,7 @@
         "answer": "Não. Os pesquisadores vêm ao Zooniverse porque desejam contribuições humanas em seus processos. A menos que recebam permissão explícita para tal, os voluntários não devem usar ferramentas de IA generativa externas ao Zooniverse para auxiliar em seus esforços de classificação.",
         "question": "Sou voluntário e preciso de ajuda para classificar dados em um projeto. Posso usar ferramentas de IA generativa como ChatGPT ou Gemini para me auxiliar?"
       },
-      "paragraph": "Não encontrou a resposta para sua pergunta aqui? Envie suas perguntas para <0>contact@zooniverse.org</0>! Atualizaremos esta lista conforme necessário.",
-      "second": {
-        "answerOne": "Comece examinando a página inicial do projeto, especialmente a Descrição do Projeto e qualquer Descrição do Fluxo de Trabalho. Se ainda tiver dúvidas, consulte a página Sobre, bem como os Tutoriais do projeto. Se ainda assim não tiver certeza, você pode perguntar no fórum de discussão, mas parte do objetivo desta estrutura é garantir que todos os projetos comuniquem claramente como estão (ou não estão) usando esta tecnologia.",
-        "answerTwo": "Se você acha que um projeto não está divulgando adequadamente o uso de IA/ML, esperamos que se sinta à vontade para entrar em contato com a equipe de pesquisa no Talk e sugerir algumas mudanças ou expressar suas dúvidas. Caso não se sinta confortável para fazer isso, você também pode nos enviar uma mensagem para <0>contact@zooniverse.org</0> e analisaremos a situação. Parte desse trabalho inclui a atualização de nossos processos internos de revisão, portanto, seu feedback nos ajudará a saber se nossos novos processos são eficazes.",
-        "question": "Quero descobrir se um projeto do Zooniverse está usando IA ou aprendizado de máquina. Como posso encontrar essa informação?"
-      }
+      "paragraph": "Não encontrou a resposta para sua pergunta aqui? Envie suas perguntas para <0>contact@zooniverse.org</0>! Atualizaremos esta lista conforme necessário."
     },
     "fivews": {
       "list": {

@@ -45,12 +45,7 @@
         "answer": "No. I ricercatori si rivolgono a Zooniverse perché desiderano un contributo umano nel loro processo. A meno che non abbiano ricevuto un'autorizzazione esplicita, i volontari non devono utilizzare strumenti di intelligenza artificiale generativa esterni a Zooniverse per agevolare le loro attività di classificazione.",
         "question": "Sono un volontario e ho bisogno di aiuto per la classificazione in un progetto. Posso utilizzare strumenti di intelligenza artificiale generativa come ChatGPT o Gemini?"
       },
-      "paragraph": "Non trovi la risposta alla tua domanda qui? Inviaci le tue domande a <0>contact@zooniverse.org</0>! Aggiorneremo questo elenco secondo necessità.",
-      "second": {
-        "answerOne": "Iniziate esaminando la pagina iniziale del progetto, in particolare la Descrizione del progetto e l'eventuale Descrizione del flusso di lavoro. Se avete ancora dubbi, consultate la pagina Informazioni e i tutorial del progetto. Se, anche dopo aver fatto ciò, non siete ancora sicuri, potete chiedere nella sezione Discussioni, ma uno degli scopi di questo framework è proprio quello di garantire che tutti i progetti comunichino chiaramente come utilizzano (o non utilizzano) questa tecnologia.",
-        "answerTwo": "Se ritieni che un progetto non stia divulgando in modo appropriato l'uso di IA/ML, speriamo che ti senta a tuo agio nel contattare il team di ricerca su Talk e suggerire alcune modifiche o esprimere i tuoi dubbi. Se non ti senti a tuo agio a farlo, puoi anche inviarci un messaggio a <0>contact@zooniverse.org</0> e lo esamineremo. Parte di questo lavoro include l'aggiornamento dei nostri processi di revisione interni, quindi il tuo feedback ci aiuterà a capire se i nostri nuovi processi sono efficaci.",
-        "question": "Vorrei scoprire se un progetto Zooniverse utilizza l'intelligenza artificiale o l'apprendimento automatico. Come posso trovare questa informazione?"
-      }
+      "paragraph": "Non trovi la risposta alla tua domanda qui? Inviaci le tue domande a <0>contact@zooniverse.org</0>! Aggiorneremo questo elenco secondo necessità."
     },
     "fivews": {
       "list": {

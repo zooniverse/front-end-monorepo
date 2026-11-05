@@ -45,12 +45,7 @@
         "answer": "No. Los investigadores acuden a Zooniverse porque desean la participación humana en su proceso. A menos que se les otorgue permiso explícito para hacerlo, los voluntarios no deben utilizar herramientas de IA generativa externas a Zooniverse para ayudar en sus esfuerzos de clasificación.",
         "question": "Soy voluntario y necesito ayuda para clasificar datos en un proyecto. ¿Puedo usar herramientas de IA generativa como ChatGPT o Gemini para que me ayuden?"
       },
-      "paragraph": "¿No encuentras la respuesta a tu pregunta aquí? Envíanosla a <0>contact@zooniverse.org</0>. Actualizaremos esta lista según sea necesario.",
-      "second": {
-        "answerOne": "Empieza por revisar la página principal del proyecto, especialmente la descripción y cualquier descripción del flujo de trabajo. Si aún tienes dudas, consulta la página \"Acerca de\" y los tutoriales del proyecto. Si después de eso sigues sin entenderlo, puedes preguntar en Talk, pero parte del propósito de este marco es asegurar que todos los proyectos comuniquen claramente cómo utilizan (o no) esta tecnología.",
-        "answerTwo": "Si crees que un proyecto no divulga adecuadamente el uso de IA/ML, esperamos que te sientas cómodo contactando al equipo de investigación en Talk y sugiriendo cambios o expresando tus dudas. Si no te sientes cómodo haciéndolo, también puedes enviarnos un mensaje a <0>contact@zooniverse.org</0> y lo analizaremos. Parte de este trabajo incluye la actualización de nuestros procesos de revisión internos, por lo que tus comentarios nos ayudarán a saber si nuestros nuevos procesos son efectivos.",
-        "question": "Quiero saber si un proyecto de Zooniverse utiliza inteligencia artificial o aprendizaje automático. ¿Cómo puedo encontrar esa información?"
-      }
+      "paragraph": "¿No encuentras la respuesta a tu pregunta aquí? Envíanosla a <0>contact@zooniverse.org</0>. Actualizaremos esta lista según sea necesario."
     },
     "fivews": {
       "list": {
