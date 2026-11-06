@@ -1,4 +1,4 @@
-import { Box, Button, Paragraph, ResponsiveContext } from 'grommet'
+import { Box, Paragraph, ResponsiveContext } from 'grommet'
 import { useSearchParams } from 'next/navigation'
 import { parseAsInteger, useQueryState } from 'nuqs'
 import { bool, shape, string } from 'prop-types'

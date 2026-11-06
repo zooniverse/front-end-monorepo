@@ -12,7 +12,7 @@ function ToolLabel({ children, icon, pressed = false }) {
       align='center'
       background={pressed ? 'neutral-1' : 'white'}
       direction='row'
-      elevation={pressed ? 'xsmall' : 'none'}
+      elevation='xsmall'
       gap='10px'
       justify='center'
       pad={{ horizontal: '20px', vertical: '12px' }}
@@ -85,7 +85,7 @@ function SelectionToolbar({
         <ToolLabel
           icon={isSelecting
             ? <CheckboxSelected aria-hidden='true' color='white' size='16px' />
-            : <Checkbox aria-hidden='true' size='16px' />}
+            : <CheckboxSelected aria-hidden='true' size='16px' />}
           pressed={isSelecting}
         >
           {t('Collection.selectSubjects')}
