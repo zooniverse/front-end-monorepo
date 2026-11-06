@@ -1,11 +1,11 @@
-import { bool, func, string } from 'prop-types'
+import { arrayOf, bool, func, string } from 'prop-types'
 import { useState } from 'react'
 
-import { useUserCollections } from '../../../hooks'
+import { useUserCollections } from '../hooks'
 import {
   addSubjectsToCollection,
   createCollection
-} from '../../../helpers/collections'
+} from '../helpers/collections'
 
 import CollectionsModal from './CollectionsModal'
 import SelectCollection from './components/SelectCollection'
@@ -27,53 +27,50 @@ const CollectionsModalContainer = ({
   projectId = '',
   setCollectionsModalActive = DEFAULT_HANDLER,
   subjectId = '',
+  subjectIds = subjectId ? [subjectId] : [],
   userId = ''
 }) => {
   const [collectionsQuery, setCollectionsQuery] = useState(DEFAULT_COLLECTION_QUERY)
   const [newCollection, setNewCollection] = useState(defaultNewCollection)
   const [selectedCollection, setSelectedCollection] = useState(undefined)
 
-  const {
-    data: collections,
-    error,
-    isLoading
-  } = useUserCollections({
+  const { data: collections } = useUserCollections({
     query: collectionsModalActive && collectionsQuery
   })
 
-  function searchCollections (query) {
+  function searchCollections(query) {
     setCollectionsQuery(query)
   }
 
-  function addToCollection (event) {
+  function addToCollection(event) {
     event.preventDefault()
     addSubjectsToCollection({
       collectionId: selectedCollection.id,
-      subjectIds: [subjectId]
+      subjectIds
     })
     close()
   }
 
-  function createNewCollection (event) {
+  function createNewCollection(event) {
     event.preventDefault()
     createCollection({
       options: newCollection,
       projectId,
-      subjectIds: [subjectId]
+      subjectIds
     })
     close()
   }
 
-  function onSelect (event) {
+  function onSelect(event) {
     const collection = event.value
     setSelectedCollection(collection)
   }
 
-  function close () {
+  function close() {
     setCollectionsModalActive(false)
   }
 
-  function updateCollection (collectionDetails) {
+  function updateCollection(collectionDetails) {
     const prevNewCollectionDetails = newCollection
     const updatedCollection = {
       ...prevNewCollectionDetails,
@@ -114,5 +111,6 @@ CollectionsModalContainer.propTypes = {
   projectId: string,
   setCollectionsModalActive: func,
   subjectId: string,
+  subjectIds: arrayOf(string),
   userId: string
 }
