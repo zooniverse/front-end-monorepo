@@ -1,7 +1,9 @@
 import { SubjectCard } from '@zooniverse/react-components'
 import { Box } from 'grommet'
-import { arrayOf, bool, object, string } from 'prop-types'
+import { arrayOf, bool, func, object, string } from 'prop-types'
 import styled from 'styled-components'
+
+import getCoverSubjectId from '../../helpers/getCoverSubjectId'
 
 const StyledSubjectList = styled.ul`
   position: relative;
@@ -36,21 +38,30 @@ function LoadingOverlay() {
 }
 
 function SubjectsList({
+  defaultSubjectSrc,
   isLoading = false,
+  isSettingCover = false,
   login,
+  onSetCover = null,
   projectId,
   projectSlug,
   subjects = [],
   userId
 }) {
+  const coverSubjectId = getCoverSubjectId(subjects, defaultSubjectSrc)
+
+  const showOverlay = isLoading || isSettingCover
+
   return (
-    <StyledSubjectList aria-busy={isLoading}>
-      {isLoading ? <LoadingOverlay /> : null}
+    <StyledSubjectList aria-busy={showOverlay}>
+      {showOverlay ? <LoadingOverlay /> : null}
       {subjects.map(subject => (
         <li key={subject.id}>
           <SubjectCard
             interactive={true}
+            isCover={subject.id === coverSubjectId}
             login={login}
+            onSetCover={onSetCover}
             projectId={projectId}
             projectSlug={projectSlug}
             subject={subject}
@@ -63,8 +74,11 @@ function SubjectsList({
 }
 
 SubjectsList.propTypes = {
+  defaultSubjectSrc: string,
   isLoading: bool,
+  isSettingCover: bool,
   login: string,
+  onSetCover: func,
   projectId: string,
   projectSlug: string,
   subjects: arrayOf(object),
