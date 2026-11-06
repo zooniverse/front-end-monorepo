@@ -6,7 +6,7 @@ import mockStore from '@test/mockStore'
 import { SubjectFactory, WorkflowFactory } from '@test/factories'
 import readme from './README.md'
 import { reducedASMSubject } from '@store/subjects/Subject/TranscriptionReductions/mocks'
-import MultiFrameViewer from '@viewers/components/MultiFrameViewer'
+import SubjectViewer from '@viewers'
 import TooltipIcon from './components/TooltipIcon'
 
 import TranscribedLines from '.'
@@ -80,7 +80,7 @@ function TranscribedLinesStory({ loadingState, stores, subject }) {
   return (
     <Provider classifierStore={stores}>
       <Box width='1000px'>
-        <MultiFrameViewer enableInteractionLayer loadingState={loadingState} subject={subject} />
+        <SubjectViewer enableInteractionLayer loadingState={loadingState} subject={subject} />
       </Box>
     </Provider>
   )

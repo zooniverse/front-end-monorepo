@@ -28,13 +28,11 @@ describe('Drawing tools > Mark', function () {
   })
   let point
   const onDelete = sinon.stub()
-  const onFinish = sinon.stub()
   const onSelect = sinon.stub()
   let svgPoint
 
   describe('default behaviour', function () {
     before(function () {
-      sinon.stub(window, 'scrollTo')
       point = pointTool.createMark({
         id: 'point1',
         x: 10,
@@ -47,7 +45,6 @@ describe('Drawing tools > Mark', function () {
             label='Point 1'
             mark={point}
             onDelete={onDelete}
-            onFinish={onFinish}
             onSelect={onSelect}
           >
             <Point mark={point} />
@@ -59,13 +56,15 @@ describe('Drawing tools > Mark', function () {
     })
 
     after(function () {
-      onFinish.resetHistory()
       onSelect.resetHistory()
-      window.scrollTo.restore()
     })
 
     it('should render a child drawing tool', function () {
       expect(svgPoint).to.exist
+    })
+
+    it('should render a child with an id including the frame', function () {
+      expect(svgPoint.id).to.equal('mark-point1-0')
     })
 
     it('should render child with a translate transform', function () {
@@ -86,7 +85,6 @@ describe('Drawing tools > Mark', function () {
             label='Point 1'
             mark={point}
             onDelete={onDelete}
-            onFinish={onFinish}
             onSelect={onSelect}
           >
             <Point mark={point} />
@@ -98,6 +96,58 @@ describe('Drawing tools > Mark', function () {
 
     it('should be selected', function () {
       expect(onSelect).to.have.been.calledOnce
+    })
+
+    it('should not open subtask popup', function () {
+      expect(onSelect).to.have.been.calledOnce
+    })
+
+    it('should not open subtask popup', function () {
+      expect(point.subTaskVisibility).to.equal(false)
+    })
+  })
+
+  describe('on deselect', function () {
+    it('should blur the mark', async function() {
+      const user = userEvent.setup({ delay: 'none' })
+      point = pointTool.createMark({
+        id: 'point1'
+      })
+      point.finish()
+      const { rerender } = render(
+        <svg>
+          <Mark
+            isActive={true}
+            label='Point 1'
+            mark={point}
+            onDelete={onDelete}
+            onSelect={onSelect}
+          >
+            <Point mark={point} />
+          </Mark>
+        </svg>, { wrapper: withGrommetWrapper() }
+      )
+      
+      await user.tab() // set focus on mark
+      svgPoint = document.querySelector('g.drawingMark')
+      expect(document.activeElement).to.equal(svgPoint)
+
+      // rerender with isActive = false to trigger onDeselectMark effect
+      rerender(
+        <svg>
+          <Mark
+            isActive={false}
+            label='Point 1'
+            mark={point}
+            onDelete={onDelete}
+            onSelect={onSelect}
+          >
+            <Point mark={point} />
+          </Mark>
+        </svg>, { wrapper: withGrommetWrapper() }
+      )
+      
+      expect(document.activeElement).not.to.equal(svgPoint)
     })
   })
 
@@ -113,10 +163,10 @@ describe('Drawing tools > Mark', function () {
         render(
           <svg>
             <Mark
+              isActive={true} // key events only handled when active
               label='Point 1'
               mark={point}
               onDelete={onDelete}
-              onFinish={onFinish}
               onSelect={onSelect}
             >
               <Point mark={point} />
@@ -147,10 +197,10 @@ describe('Drawing tools > Mark', function () {
         render(
           <svg>
             <Mark
+              isActive={true} // key events only handled when active
               label='Point 1'
               mark={point}
               onDelete={onDelete}
-              onFinish={onFinish}
               onSelect={onSelect}
             >
               <Point mark={point} />
@@ -163,16 +213,8 @@ describe('Drawing tools > Mark', function () {
         await when(() => point.subTaskVisibility)
       })
 
-      after(function () {
-        onFinish.resetHistory()
-      })
-
       it('should open the subtasks popup', async function () {
         expect(point.subTaskVisibility).to.equal(true)
-      })
-
-      it('should call onFinish', async function () {
-        expect(onFinish).to.have.been.calledOnce
       })
     })
 
@@ -187,10 +229,10 @@ describe('Drawing tools > Mark', function () {
         render(
           <svg>
             <Mark
+              isActive={true} // key events only handled when active
               label='Point 1'
               mark={point}
               onDelete={onDelete}
-              onFinish={onFinish}
               onSelect={onSelect}
             >
               <Point mark={point} />
@@ -203,16 +245,8 @@ describe('Drawing tools > Mark', function () {
         await when(() => point.subTaskVisibility)
       })
 
-      after(function () {
-        onFinish.resetHistory()
-      })
-
       it('should open the subtasks popup', async function () {
         expect(point.subTaskVisibility).to.equal(true)
-      })
-
-      it('should call onFinish', async function () {
-        expect(onFinish).to.have.been.calledOnce
       })
     })
 
@@ -227,10 +261,10 @@ describe('Drawing tools > Mark', function () {
         render(
           <svg>
             <Mark
+              isActive={true} // key events only handled when active
               label='Point 1'
               mark={point}
               onDelete={onDelete}
-              onFinish={onFinish}
               onSelect={onSelect}
             >
               <Point mark={point} />
@@ -244,10 +278,6 @@ describe('Drawing tools > Mark', function () {
 
       it('should not be deleted', function () {
         expect(onDelete).to.not.have.been.called
-      })
-
-      it('should not call onFinish', function () {
-        expect(onFinish).to.not.have.been.called
       })
     })
   })
@@ -266,7 +296,6 @@ describe('Drawing tools > Mark', function () {
             label='Point 1'
             mark={point}
             onDelete={onDelete}
-            onFinish={onFinish}
             onSelect={onSelect}
           >
             <Point mark={point} />
@@ -304,7 +333,6 @@ describe('Drawing tools > Mark', function () {
             label='Ellipse 1'
             mark={ellipse}
             onDelete={onDelete}
-            onFinish={onFinish}
             onSelect={onSelect}
           >
             <Ellipse mark={ellipse} />
@@ -317,92 +345,6 @@ describe('Drawing tools > Mark', function () {
     it('should be rotated by mark.angle', function () {
       const transform = svgEllipse.getAttribute('transform')
       expect(transform).to.have.string('rotate(-45)')
-    })
-  })
-
-  describe('when the active mark is finished', function () {
-    function markWrapper(mark) {
-      return (
-        <Grommet theme={zooTheme}>
-          <svg>
-            <Mark
-              isActive
-              label='Point 1'
-              mark={mark}
-              onDelete={onDelete}
-              onFinish={onFinish}
-              onSelect={onSelect}
-            >
-              <Point mark={mark} />
-            </Mark>
-          </svg>
-        </Grommet>
-      )
-    }
-
-    describe('when subtasks are closed', function () {
-      let newMark
-
-      before(function () {
-        newMark = pointTool.createMark()
-        newMark.setSubTaskVisibility(false)
-        newMark.finish()
-        render(markWrapper(newMark))
-      })
-
-      after(function () {
-        onFinish.resetHistory()
-      })
-
-      it('should open the subtask popup', async function () {
-        expect(newMark.subTaskVisibility).to.equal(true)
-      })
-    })
-  })
-
-  describe('when subtasks are closed', function () {
-    function markWrapper(mark) {
-      return (
-        <Grommet theme={zooTheme}>
-          <svg>
-            <Mark
-              isActive
-              label='Point 1'
-              mark={mark}
-              onDelete={onDelete}
-              onFinish={onFinish}
-              onSelect={onSelect}
-            >
-              <Point mark={mark} />
-            </Mark>
-          </svg>
-        </Grommet>
-      )
-    }
-
-    let newMark, svgPoint
-
-    before(function () {
-      sinon.stub(window, 'scrollTo')
-      newMark = pointTool.createMark()
-      newMark.setSubTaskVisibility(true)
-      newMark.finish()
-      render(markWrapper(newMark))
-      newMark.setSubTaskVisibility(false)
-      svgPoint = screen.getByLabelText('Point 1')
-    })
-
-    after(function () {
-      onFinish.resetHistory()
-      window.scrollTo.resetHistory()
-    })
-
-    it('should focus the active mark', function () {
-      expect(document.activeElement).to.equal(svgPoint)
-    })
-
-    it('should preserve the window scroll position', function () {
-      expect(window.scrollTo).to.have.been.calledOnce
     })
   })
 
@@ -419,7 +361,6 @@ describe('Drawing tools > Mark', function () {
             label='Point 1'
             mark={point}
             onDelete={onDelete}
-            onFinish={onFinish}
             onSelect={onSelect}
           >
             <Point mark={point} />

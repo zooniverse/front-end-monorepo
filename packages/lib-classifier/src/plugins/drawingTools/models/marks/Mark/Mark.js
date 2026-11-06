@@ -67,8 +67,9 @@ const BaseMark = types
       return Math.sqrt(aSquared + bSquared)
     },
 
-    get element() {
-      return document.getElementById(`mark-${self.id}`)
+    getElement(frame) {
+      // return the element associated with this mark in the given frame
+      return document.getElementById(`mark-${self.id}-${frame}`)
     },
 
     get isComplete() {
