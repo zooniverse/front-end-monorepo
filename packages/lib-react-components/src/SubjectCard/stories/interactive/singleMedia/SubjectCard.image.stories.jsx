@@ -59,35 +59,3 @@ export const External = {
 export const ExternalFailed = {
   render: () => <InteractiveStory login={'TestUser'} subject={SQUIRREL_MAPPER_FAILED_SUBJECT} />
 }
-
-export const LandscapeWithCover = {
-  render: () => <InteractiveStory isCover={true} onSetCover={() => true} login={'TestUser'} subject={RADIO_METEOR_ZOO_SUBJECT} />
-}
-
-export const PortraitWithCover = {
-  render: () => <InteractiveStory isCover={true} onSetCover={() => true} login={'TestUser'} subject={PRINT_SUBJECT} />
-}
-
-export const LandscapeWithOnSetCover = {
-  render: ({ onSetCover = () => true } = {}) => <InteractiveStory onSetCover={onSetCover} login={'TestUser'} subject={RADIO_METEOR_ZOO_SUBJECT} />
-}
-
-export const PortraitWithOnSetCover = {
-  render: () => <InteractiveStory onSetCover={() => true} login={'TestUser'} subject={PRINT_SUBJECT} />
-}
-
-export const SelectMode = {
-  render: ({ onSelect = () => true } = {}) => <InteractiveStory onSelect={onSelect} selectable={true} login={'TestUser'} subject={RADIO_METEOR_ZOO_SUBJECT} />
-}
-
-export const SelectModeSelected = {
-  render: ({ onSelect = () => true } = {}) => <InteractiveStory onSelect={onSelect} selectable={true} selected={true} login={'TestUser'} subject={RADIO_METEOR_ZOO_SUBJECT} />
-}
-
-export const SelectModeWithCover = {
-  render: ({ onSelect = () => true } = {}) => <InteractiveStory isCover={true} onSelect={onSelect} selectable={true} login={'TestUser'} subject={RADIO_METEOR_ZOO_SUBJECT} />
-}
-
-export const SelectModeWithOnSetCover = {
-  render: ({ onSelect = () => true, onSetCover = () => true } = {}) => <InteractiveStory onSelect={onSelect} onSetCover={onSetCover} selectable={true} login={'TestUser'} subject={RADIO_METEOR_ZOO_SUBJECT} />
-}
