@@ -44,6 +44,10 @@ export default function useUserMedia({ userId, mediaType }) {
     throw new Error(`Invalid mediaType: ${mediaType}. Must be one of: ${VALID_MEDIA_TYPES.join(', ')}`)
   }
 
-  const key = { userId, mediaType }
+  const key = {
+    userId,
+    mediaType,
+    resource: `/users`
+  }
   return useSWR(key, fetchUserMedia)
 }
