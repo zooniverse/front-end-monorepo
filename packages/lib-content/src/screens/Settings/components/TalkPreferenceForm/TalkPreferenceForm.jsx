@@ -1,4 +1,4 @@
-import { useId, useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 import { Box, Form, Text } from 'grommet'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
@@ -7,6 +7,8 @@ import { Loader, StatusMessage } from '@zooniverse/react-components'
 
 import useTalkPreferences from '../../helpers/useTalkPreferences'
 import updateTalkPreference from '../../helpers/updateTalkPreference'
+
+const DEBOUNCE = 500
 
 const BigLabel = styled(Text)`
   font-weight: 700;
@@ -74,77 +76,58 @@ function TalkPreferenceForm ({
   // ⚠️ Note that saveError is NEVER cleared, because multiple save operations
   // can occur at the same time and we don't know which will finish first.
 
-  async function onPreferenceChange (e) {
+  // Use one timer per preference ID, so that changing different rows doesn't cancel the other rows' saves.
+  const timers = useRef({})
+
+  // Flush on unmount so a pending change isn't lost.
+  useEffect(() => {
+    const pending = timers.current
+    return () => {
+      Object.values(pending).forEach(clearTimeout)
+    }
+  }, [])
+
+  // Do the async update to panoptes.
+  // updateTalkPreference runs once, 500ms after the last input change, with the final value.
+  function debouncedSave (preferenceId, value) {
+    clearTimeout(timers.current[preferenceId])
+    timers.current[preferenceId] = setTimeout(async () => {
+      delete timers.current[preferenceId]
+      try {
+        await updateTalkPreference({ email_digest: value }, preferenceId)
+      } catch (err) {
+        console.error(err)
+        setSaveError(err)
+        // If there's an error, DO revalidate here so the UI matches what Panoptes actually has.
+        mutate()
+      }
+    }, DEBOUNCE)
+  }
+
+  function onPreferenceChange (e) {
     const preferenceId = e.target.dataset.talkPreferenceId
     const newPreferenceValue = e.target.value
 
-    // This function updates the old data (an array of Talk Preferences) by
-    // changing the values of a single Talk Preference. It returns a new copy
-    // of the array.
-    function updateData (prevData) {
-      const newData = prevData
-        ? JSON.parse(JSON.stringify(prevData))
-        : []
-        
-      const updatedItem = newData.find(pref => pref.id === preferenceId)
-      if (updatedItem) {
-        updatedItem.email_digest = newPreferenceValue
-      }
-      return newData
-    }
-    
-    // Now let's update the data optimistically!
-    // i.e. we'll quietly change the local data and update Panoptes, and we'll
-    // only alert the user of the operations if something goes wrong.
-    try {
-      await mutate(
+    // Optimistic local update only. No network call, no revalidation.
+    // This mutate() updates `data` returned from useTalkPreferences.
+      mutate(
+        (prevData) => {
+        const newData = prevData ? JSON.parse(JSON.stringify(prevData)) : []
+        const item = newData.find(pref => pref.id === preferenceId)
 
-        // Step 1a: update Panoptes.
-        // If this succeeds, the changes are "confirmed" into the local data.
-        // If this fails, rollbackOnError() will catch the thrown exception and
-        // roll back to a previous value.
-        async (prevData) => {
-          const newData = updateData(prevData)
-
-          // ❗️ WARNING: if multiple operations are performing at the same time
-          // over a slow network, this can lead to race conditions.
-          // ‼️ QUESTION: should this have await, or not?
-          // The problem occurs if we have multiple operations (e.g. changing 6
-          // radio buttons at a time, OR using keyboard nav to quickly switch
-          // between radio buttons) on a **slow network.** 
-          // - If have `await`, multiple ops on a slow network causes the UI to
-          //   flip between old & new states.
-          // - If we don't have a `await`, then (maybe???) there's no guarantee
-          //   the UI matches the data saved in Panoptes?
-          await updateTalkPreference(
-            { email_digest: newPreferenceValue },
-            preferenceId
-          )
-
-          return newData
+        if (item) item.email_digest = newPreferenceValue
+        return newData
         },
         {
-          // Step 1b: at the same time, don't wait for Panoptes update to
-          // confirm success. Update the local cache data optimistically.
-          // Roll back if something goes wrong.
-          optimisticData: updateData,
-
-          // Step 2: don't revalidate.
-          revalidate: false,
-
-          // Step 3: if something goes wrong, roll back to a previous state and
-          // alert the user. The alert doesn't go away, btw.
-          rollbackOnError(err) {
-            console.error(err)
-            setSaveError(err)
-            return true
-          }
+          // Don't revalidate, we've optimistically updated the UI and don't need it.
+          revalidate: false
+          // rollbackOnError does not apply, because the mutation isn't tied to the network request in debouncedSave.
+          // On failure in debouncedSave(), mutate() with no arguments revalidates and restores the UI to match the server state.
         }
       )
-    } catch (err) {
-      console.error(err)
-      setSaveError(err)
-    }
+
+      // Now update panoptes. This does not need to be awaited in in PreferenceChange().
+      debouncedSave(preferenceId, newPreferenceValue)
   }
 
   // "Is ready" means we have sufficient data to show the form input. We don't

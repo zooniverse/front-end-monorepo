@@ -11,7 +11,7 @@ Output:
   - The array will be a SUBSET of all available preferences, in this specific
     order of categories:  participating_discussions, mentions, messages,
     followed_discussions, group_mentions, started_discussions
-  - Hidden categories include: system, 
+  - Hidden categories include: system,
 
 Dev Notes:
 - Weirdly, this function doesn't _actually_ need to ask for the user login other
@@ -45,7 +45,7 @@ const ALLOWED_CATEGORIES = [
 const SWROptions = {
    // Don't revalidate when window (re-)gains focus, because it will reset any
    // unsaved changes whenever the user checks a different tab/window.
-  revalidateOnFocus: false,
+  // revalidateOnFocus: false,
 }
 
 async function fetchTalkSubscriptionPreferences({ token }) {
@@ -71,6 +71,6 @@ export default function useTalkPreferences({ login }) {
   const key = (token && login)
     ? { login, token, resource: '/talk/subscription_preferences' }
     : null
-  
+
   return useSWR(key, fetchTalkSubscriptionPreferences, SWROptions)
 }
