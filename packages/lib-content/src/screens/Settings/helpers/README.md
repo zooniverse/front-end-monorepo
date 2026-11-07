@@ -206,7 +206,7 @@ Input:
 
 Output:
 - Standard useSWR() output.
-- `swrOutput.data` will either be a Panoptes User resource.
+- `swrOutput.data` will be a Panoptes User resource.
 
 ### Examples
 
@@ -239,6 +239,22 @@ Regarding SWR:
     it will reset any local changes/changes not saved to Panoptes caused by
     mutate(). And boy, this is a very annoying experience if you're, say,
     tabbing into another window to check some details.
+
+## useTalkPreferences()
+
+useTalkPreferences() is a hook for _fetching_ a user's Talk Preferences.
+
+Input:
+- An Object containing:
+  - `login` (string): user's login (username).
+
+Output:
+- Standard useSWR() output. See example in README.
+- `swrOutput.data` will be an array of Talk Subscription Preference resources.
+  - The array will be a SUBSET of all available preferences, in this specific
+    order of categories: participating_discussions, mentions, messages,
+    followed_discussions, group_mentions, started_discussions
+  - Hidden categories include: system, moderation_reports
 
 ## useUserMedia()
 
