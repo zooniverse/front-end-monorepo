@@ -76,23 +76,35 @@ function TalkPreferenceForm ({
   // ⚠️ Note that saveError is NEVER cleared, because multiple save operations
   // can occur at the same time and we don't know which will finish first.
 
-  // Use one timer per preference ID, so that changing different rows doesn't cancel the other rows' saves.
-  const timers = useRef({})
+  // When the user clicks on the UI to change a Talk Preference, the UI + local
+  // data cache is updated immediately, but the "Save to Panoptes" action is set
+  // on a delayed timer.
+  // - In terms of UI/accessibility, the debounce means using a keyboard to
+  //   change the value of a radio input group won't cause multiple unnecessary
+  //   updates.
+  // - In terms of data management, the saveTimers + moving the "Save to
+  //   Panoptes" action _outside_ the mutate() call prevents a race condition
+  //   we were previously experiencing when using mutate() +
+  //   options.optimisticData + options.rollbackOnError.
+  // - We use one timer per preference ID, so that changing different rows
+  //   doesn't cancel the other rows' saves.
+  const saveTimers = useRef({})
 
   // Flush on unmount so a pending change isn't lost.
   useEffect(() => {
-    const pending = timers.current
+    const pending = saveTimers.current
     return () => {
       Object.values(pending).forEach(clearTimeout)
     }
   }, [])
 
-  // Do the async update to panoptes.
-  // updateTalkPreference runs once, 500ms after the last input change, with the final value.
-  function debouncedSave (preferenceId, value) {
-    clearTimeout(timers.current[preferenceId])
-    timers.current[preferenceId] = setTimeout(async () => {
-      delete timers.current[preferenceId]
+  // Do the async update to Panoptes.
+  // updateTalkPreference runs once, 500ms after the last input change, with the
+  // final value.
+  function doDebouncedSave (preferenceId, value) {
+    clearTimeout(saveTimers.current[preferenceId])
+    saveTimers.current[preferenceId] = setTimeout(async () => {
+      delete saveTimers.current[preferenceId]
       try {
         await updateTalkPreference({ email_digest: value }, preferenceId)
       } catch (err) {
@@ -110,24 +122,24 @@ function TalkPreferenceForm ({
 
     // Optimistic local update only. No network call, no revalidation.
     // This mutate() updates `data` returned from useTalkPreferences.
-      mutate(
-        (prevData) => {
+    mutate(
+      (prevData) => {
         const newData = prevData ? JSON.parse(JSON.stringify(prevData)) : []
         const item = newData.find(pref => pref.id === preferenceId)
 
         if (item) item.email_digest = newPreferenceValue
         return newData
-        },
-        {
-          // Don't revalidate, we've optimistically updated the UI and don't need it.
-          revalidate: false
-          // rollbackOnError does not apply, because the mutation isn't tied to the network request in debouncedSave.
-          // On failure in debouncedSave(), mutate() with no arguments revalidates and restores the UI to match the server state.
-        }
-      )
 
-      // Now update panoptes. This does not need to be awaited in in PreferenceChange().
-      debouncedSave(preferenceId, newPreferenceValue)
+      }, {
+        // Don't revalidate, we've optimistically updated the UI and don't need it.
+        revalidate: false
+        // rollbackOnError does not apply, because the mutation isn't tied to the network request in doDebouncedSave.
+        // On failure in doDebouncedSave(), mutate() with no arguments revalidates and restores the UI to match the server state.
+      }
+    )
+
+    // Now update panoptes. This does not need to be awaited in in PreferenceChange().
+    doDebouncedSave(preferenceId, newPreferenceValue)
   }
 
   // "Is ready" means we have sufficient data to show the form input. We don't
