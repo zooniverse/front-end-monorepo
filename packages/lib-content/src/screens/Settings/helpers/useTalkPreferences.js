@@ -56,6 +56,13 @@ async function fetchTalkSubscriptionPreferences({ token }) {
     const { body } = await talkAPI.get('/subscription_preferences', query, { authorization })
     const preferences = body.subscription_preferences
     const filteredPreferences = preferences.filter?.(pref => ALLOWED_CATEGORIES.includes(pref.category)) || []
+
+    filteredPreferences.sort((a, b) => {
+      const aIndex = ALLOWED_CATEGORIES.indexOf(a.category)
+      const bIndex = ALLOWED_CATEGORIES.indexOf(b.category)
+      return aIndex - bIndex
+    })
+    
     return filteredPreferences
   } catch (error) {
     console.error(error)
