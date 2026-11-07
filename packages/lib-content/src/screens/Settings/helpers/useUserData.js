@@ -7,7 +7,7 @@ Input:
 
 Output:
 - Standard useSWR() output. See example in README.
-- `swrOutput.data` will either be a Panoptes User resource.
+- `swrOutput.data` will be a Panoptes User resource.
 
 Regarding SWR:
 

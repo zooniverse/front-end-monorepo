@@ -9,9 +9,9 @@ Output:
 - Standard useSWR() output. See example in README.
 - `swrOutput.data` will be an array of Talk Subscription Preference resources.
   - The array will be a SUBSET of all available preferences, in this specific
-    order of categories:  participating_discussions, mentions, messages,
+    order of categories: participating_discussions, mentions, messages,
     followed_discussions, group_mentions, started_discussions
-  - Hidden categories include: system,
+  - Hidden categories include: system, moderation_reports
 
 Dev Notes:
 - Weirdly, this function doesn't _actually_ need to ask for the user login other
@@ -43,9 +43,9 @@ const ALLOWED_CATEGORIES = [
 
 // Use default SWR settings, except for...
 const SWROptions = {
-   // Don't revalidate when window (re-)gains focus, because it will reset any
-   // unsaved changes whenever the user checks a different tab/window.
-  // revalidateOnFocus: false,
+  // Don't revalidate when window (re-)gains focus, because it will reset any
+  // unsaved changes whenever the user checks a different tab/window.
+  revalidateOnFocus: false,
 }
 
 async function fetchTalkSubscriptionPreferences({ token }) {
