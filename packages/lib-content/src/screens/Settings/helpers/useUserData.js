@@ -55,7 +55,11 @@ export default function useUserData({ login }) {
   // enough to trigger an automatic refresh. This MAY lead to shenanigans.
   const token = usePanoptesAuthToken()
   const key = (token && login)
-    ? { login, token, resource: '/users' }
+    ? {
+      login,
+      token,
+      resource: '/users'
+    }
     : null
 
   return useSWR(key, fetchUserData, SWROptions)

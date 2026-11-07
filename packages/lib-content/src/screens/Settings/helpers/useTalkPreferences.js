@@ -76,7 +76,11 @@ export default function useTalkPreferences({ login }) {
   // enough to trigger an automatic refresh. This MAY lead to shenanigans.
   const token = usePanoptesAuthToken()
   const key = (token && login)
-    ? { login, token, resource: '/talk/subscription_preferences' }
+    ? {
+      login,
+      token,
+      resource: '/talk/subscription_preferences' 
+    }
     : null
 
   return useSWR(key, fetchTalkSubscriptionPreferences, SWROptions)
