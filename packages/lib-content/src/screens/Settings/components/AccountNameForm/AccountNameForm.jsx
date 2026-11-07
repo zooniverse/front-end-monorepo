@@ -1,11 +1,12 @@
 import { useState } from 'react'
-import { Box, Button, Form } from 'grommet'
+import { Box, Form } from 'grommet'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import { shape, string } from 'prop-types'
 
 import { Loader, StatusMessage } from '@zooniverse/react-components'
 
+import Button from '../Button/Button'
 import FormInputField from '../FormInputField/FormInputField'
 import useUserData from '../../helpers/useUserData'
 import updateUserData from '../../helpers/updateUserData'
@@ -28,8 +29,6 @@ function AccountNameForm ({
   const [ saveMessage, setSaveMessage ] = useState('')  // Additional (non-error) information message on the save process.
   const [ saveError, setSaveError ] = useState(null)  // If the save failed, this is the error object/
   const [ hasUnsavedChanges, setHasUnsavedChanges ] = useState(false)
-
-  if (!user) return null
 
   // On input change, update the LOCAL data copy.
   // Changes aren't saved to Panoptes until updateUserData() is triggered.
@@ -54,7 +53,7 @@ function AccountNameForm ({
   async function onSubmit () {
 
     // Sanity check
-    if (isSaving) { return }
+    if (isBusy) { return }
     if (!hasUnsavedChanges) {
       setSaveSuccess(false)
       setSaveMessage(t('Settings.forms.saveUnnecessary'))
@@ -111,16 +110,25 @@ function AccountNameForm ({
     }
   }
 
-  const disableInput = isLoading || isValidating || isSaving
-  const errorMessage = saveError?.errors?.[0]?.message || saveError?.toString() || (saveError && 'Unknown error')  // We don't worry about loading errors.
+  // If a FETCH or SAVE operation is ongoing, don't let
+  // other operations trigger.
+  const isBusy = isLoading || isSaving
+  const disableInput = isBusy || !user
+  // ⚠️ Note: isBusy does NOT check for isValidating. isValidating can trigger
+  // in a semi-unpredictable manner, so if we factored that in, users could
+  // see the UI "stop working" randomly.
+
+  const loadErrorMessage = loadError?.toString() || (loadError && 'Unknown error')
+  const saveErrorMessage = saveError?.errors?.[0]?.message || saveError?.toString() || (saveError && 'Unknown error')
   const statusType =
     saveSuccess ? 'success'
-    : saveError ? 'error'
+    : (loadError || saveError) ? 'error'
     : saveMessage ? 'warning'  // TODO: this would preferably just be an 'info' type.
     : ''
   const statusMessage =
-    saveSuccess ? t('Settings.forms.saveSuccess')
-    : saveError ? errorMessage
+    loadError ? loadErrorMessage
+    : saveSuccess ? t('Settings.forms.saveSuccess')
+    : saveError ? saveErrorMessage
     : saveMessage ? saveMessage
     : ''
   
@@ -150,10 +158,11 @@ function AccountNameForm ({
           align='center'
           justify='between'
           gap='1em'
+          wrap={true}
         >
           <Button
             disabled={disableInput}
-            label={t('Settings.forms.save')}
+            label={t('Settings.forms.change')}
             type='submit'
           />
 
@@ -168,7 +177,7 @@ function AccountNameForm ({
             />
           </Box>
 
-          {(isLoading || isValidating || isSaving) && <Loader />}
+          {(isBusy || isValidating) && <Loader />}
         </Box>
       </FormFieldsContainer>
     </Form>
