@@ -32,7 +32,7 @@ const localeMenu = {
   sw: 'Kiswahili', // Swahili
   sv: 'Svenska', // Swedish
   te: 'తెలుగు', // Telugu
-  test: 'Test Language',
+  // test: 'Test Language', // Can be used to visually test which text on a page is supposed to be translated.
   tr: 'Türkçe', // Turkish
   uk: 'українська мова', // Ukrainian
   ur: 'اُردُو', // Urdu
