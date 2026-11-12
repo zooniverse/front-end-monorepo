@@ -5,7 +5,6 @@ import {
   projects as projectsClient
 } from '@zooniverse/panoptes-js'
 import Store from './Store'
-import organizationsToMap from './organizationsToMap'
 
 let store = null
 
@@ -33,6 +32,7 @@ function loadSnapshot(storageKey, storage) {
   } catch (error) {
     console.info(`Unable to load ${storageKey}`)
     console.error(error)
+    return {}
   }
 }
 
@@ -66,9 +66,9 @@ function initStore (isServer, snapshot = null, client = defaultClient) {
       Only apply store state that was generated on the server.
       TODO: won't this overwrite local changes to the UI store?
     */
-    const { organizations, project } = snapshot
+    const { organizations = {}, project } = snapshot
     applySnapshot(store.project, project)
-    applySnapshot(store.organizations, organizationsToMap(organizations))
+    store.setOrganizations(organizations)
   }
 
   return store
