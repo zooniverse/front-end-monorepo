@@ -1,9 +1,9 @@
 import { Box, Video as GrommetVideo } from 'grommet'
-import { number, string } from 'prop-types'
+import { bool, func, number, shape, string } from 'prop-types'
 import styled from 'styled-components'
 import { useState } from 'react'
 
-import MediaLink from '../../../MediaLink'
+import MediaContainer from '../../../MediaContainer'
 import getSubjectThumbnailSrc from '../../../../helpers/getSubjectThumbnailSrc'
 
 const CONTROLS_HEIGHT = '64px'
@@ -28,7 +28,15 @@ const LinkBox = styled(Box)`
   z-index: 10;
 `
 
-function Video({ linkTitle, mediaSrc, previewHeight, subjectIdTitle, width, url }) {
+function Video({
+  linkTitle,
+  mediaSrc,
+  previewHeight,
+  selectProps,
+  subjectIdTitle,
+  width,
+  url
+}) {
   const thumbnailSrc = getSubjectThumbnailSrc({
     height: previewHeight,
     src: mediaSrc,
@@ -57,7 +65,11 @@ function Video({ linkTitle, mediaSrc, previewHeight, subjectIdTitle, width, url 
       $metadataLoaded={metadataLoaded}
     >
       <LinkBox direction='row'>
-        <MediaLink href={url} title={linkTitle} />
+        <MediaContainer
+          href={url}
+          selectProps={selectProps}
+          title={linkTitle}
+        />
       </LinkBox>
       <GrommetVideo
         a11yTitle={subjectIdTitle}
@@ -76,6 +88,12 @@ Video.propTypes = {
   linkTitle: string.isRequired,
   mediaSrc: string.isRequired,
   previewHeight: number.isRequired,
+  selectProps: shape({
+    onSelect: func,
+    selectable: bool,
+    selected: bool,
+    selectLabel: string
+  }),
   subjectIdTitle: string.isRequired,
   width: number.isRequired,
   url: string.isRequired
