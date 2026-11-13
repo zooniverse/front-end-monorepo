@@ -77,6 +77,7 @@ function ProjectCollectionPage({
                 </Paragraph>
               )}
               <SubjectsListContainer
+                canDelete={canEdit}
                 collection={collection}
                 isOwner={collectionRole === 'owner'}
                 login={login}

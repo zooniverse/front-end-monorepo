@@ -1,4 +1,4 @@
-import { Anchor, Box } from 'grommet'
+import { Anchor } from 'grommet'
 import { node, string } from 'prop-types'
 import styled from 'styled-components'
 

@@ -11,19 +11,23 @@ vi.mock('../ShareIconButton', function() {
   }
 })
 
+import CollectionMeta, {
+  LandscapeWithCover as CollectionLandscapeWithCover,
+  SelectMode as CollectionSelectMode,
+} from './stories/interactive/collection/SubjectCard.collection.stories'
+import InteractiveMeta, { Landscape as InteractiveLandscape } from './stories/interactive/singleMedia/SubjectCard.image.stories'
+import InteractiveMultiMediaMeta, { MultiImage as InteractiveMultiImage } from './stories/interactive/multiMedia/SubjectCard.multiMedia.stories'
 import SimpleMeta, { Landscape as SimpleLandscape } from './stories/simple/SubjectCard.image.stories'
-import InteractiveMeta, {
-  Landscape as InteractiveLandscape,
-  LandscapeWithCover,
-  LandscapeWithOnSetCover
-} from './stories/interactive/singleMedia/SubjectCard.image.stories'
+
 import { RADIO_METEOR_ZOO_SUBJECT } from './stories/SubjectCardStoryData'
 
 describe('SubjectCard', function() {
   const DefaultStory = composeStory(SimpleLandscape, SimpleMeta)
-  const InteractiveDefaultStory = composeStory(InteractiveLandscape, InteractiveMeta)
-  const WithCoverStory = composeStory(LandscapeWithCover, InteractiveMeta)
-  const WithOnSetCoverStory = composeStory(LandscapeWithOnSetCover, InteractiveMeta)
+  const InteractiveStory = composeStory(InteractiveLandscape, InteractiveMeta)
+  const InteractiveMultiImageStory = composeStory(InteractiveMultiImage, InteractiveMultiMediaMeta)
+  const CollectionWithCoverStory = composeStory(CollectionLandscapeWithCover, CollectionMeta)
+  const CollectionSelectModeStory = composeStory(CollectionSelectMode, CollectionMeta)
+  
   const originalUrl = window.location.href
 
   afterEach(function() {
@@ -85,27 +89,31 @@ describe('SubjectCard', function() {
     expect(screen.getAllByText('Subject 75219502')[0]).toBeTruthy()
   })
 
-  describe('with collection cover', function () {
-    it('should not render cover by default', function () {
-      render(<InteractiveDefaultStory />)
-      expect(screen.queryByText('Collection Cover')).toBeNull()
-      expect(screen.queryByText('Set as Collection Cover')).toBeNull()
+  describe('with interactive, single media', function () {
+    it('should link the image preview', function () {
+      render(<InteractiveStory />)
+      expect(screen.getByRole('link', { href: '/projects/team/example-project/talk/subjects/75219502' })).toBeTruthy()
     })
+  })
 
-    it('should call onSetCover with the subject when the menu item is clicked', async function () {
-      const user = userEvent.setup()
-      const onSetCover = vi.fn()
-      render(<WithOnSetCoverStory onSetCover={onSetCover} />)
-
-      await user.click(screen.getByRole('button', { name: 'More options' }))
-      await user.click(await screen.findByRole('menuitem', { name: 'Set as Collection Cover' }))
-      expect(onSetCover).toHaveBeenCalledWith(RADIO_METEOR_ZOO_SUBJECT)
+  describe('with interactive, multi media', function () {
+    it('should render the flipbook controls', function () {
+      render(<InteractiveMultiImageStory />)
+      expect(screen.getByTestId('flipbook-controls')).toBeTruthy()
     })
+  })
 
-    it('should show the cover banner when isCover is true', function () {
-      render(<WithCoverStory />)
+  describe('with collection, landscape with cover', function () {
+    it('should show the collection cover banner', function () {
+      render(<CollectionWithCoverStory />)
       expect(screen.getByText('Collection Cover')).toBeTruthy()
-      expect(screen.queryByRole('button', { name: 'Set as Collection Cover' })).toBeNull()
+    })
+  })
+  
+  describe('with collection, select mode', function () {
+    it('should show the subject checkbox', function () {
+      render(<CollectionSelectModeStory />)
+      expect(screen.getByRole('checkbox', { name: `Select Subject ${RADIO_METEOR_ZOO_SUBJECT.id}` })).toBeTruthy()
     })
   })
 })

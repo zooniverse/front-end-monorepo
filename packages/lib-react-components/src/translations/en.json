@@ -115,6 +115,7 @@
     "collectionCover": "Collection Cover",
     "linkTitle": "{{subjectId}} Talk page",
     "moreOptions": "More options",
+    "selectSubject": "Select {{subjectId}}",
     "setAsCollectionCover": "Set as Collection Cover",
     "subjectId": "Subject {{id}}",
     "FlipbookControls": {
