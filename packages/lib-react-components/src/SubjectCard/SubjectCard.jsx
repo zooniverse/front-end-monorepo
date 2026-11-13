@@ -93,6 +93,27 @@ function SubjectCard({
   const origin = typeof window !== 'undefined' ? window.location.origin : ''
   const subjectTalkUrl = `${origin}${subjectTalkHref}`
 
+  // subject select properties
+  const selectLabel = t('SubjectCard.selectSubject', { subjectId: subjectIdTitle })
+  function handleSelect(checked) {
+    onSelect?.(subject, checked)
+  }
+
+  function handleCheckboxChange(event) {
+    handleSelect(event.target.checked)
+  }
+
+  function handleMediaSelect() {
+    handleSelect(!selected)
+  }
+
+  const selectProps = {
+    onSelect: handleMediaSelect,
+    selectable,
+    selected,
+    selectLabel
+  }
+
   return (
     <StyledSubjectCard
       elevation='small'
@@ -106,6 +127,7 @@ function SubjectCard({
           linkTitle={linkTitle}
           placeholder={placeholder}
           previewHeight={previewHeight}
+          selectProps={selectProps}
           subject={subject}
           subjectIdTitle={subjectIdTitle}
           width={width}
@@ -116,6 +138,7 @@ function SubjectCard({
           linkTitle={linkTitle}
           placeholder={placeholder}
           previewHeight={previewHeight}
+          selectProps={selectProps}
           subject={subject}
           subjectIdTitle={subjectIdTitle}
           width={width}
@@ -126,9 +149,9 @@ function SubjectCard({
       {selectable ? (
         <StyledSelectCheckbox>
           <SubjectCheckbox
-            a11yTitle={t('SubjectCard.selectSubject', { subjectId: subjectIdTitle })}
+            a11yTitle={selectLabel}
             checked={selected}
-            onChange={event => onSelect?.(subject, event.target.checked)}
+            onChange={handleCheckboxChange}
           />
         </StyledSelectCheckbox>
       ) : onSetCover ? (

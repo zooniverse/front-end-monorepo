@@ -1,6 +1,6 @@
-import { arrayOf, bool, node, number, objectOf, shape, string } from 'prop-types'
+import { arrayOf, bool, func, node, number, objectOf, shape, string } from 'prop-types'
 
-import MediaLink from '../MediaLink'
+import MediaContainer from '../MediaContainer'
 import SimpleMedia from '../SimpleMedia'
 import MediaFallback from '../MediaFallback'
 import Audio from './components/Audio'
@@ -29,6 +29,7 @@ function InteractiveMedia({
   linkTitle,
   placeholder,
   previewHeight,
+  selectProps,
   subject,
   subjectIdTitle,
   width,
@@ -50,8 +51,9 @@ function InteractiveMedia({
       <MultiMedia
         linkTitle={linkTitle}
         placeholder={placeholder}
-        sources={sources}
         previewHeight={resolvedPreviewHeight}
+        selectProps={selectProps}
+        sources={sources}
         subjectIdTitle={subjectIdTitle}
         width={width}
         url={url}
@@ -65,6 +67,7 @@ function InteractiveMedia({
         linkTitle={linkTitle}
         placeholder={placeholder}
         previewHeight={resolvedPreviewHeight}
+        selectProps={selectProps}
         showAxes={true}
         showLegend={true}
         showTitle={false}
@@ -83,6 +86,7 @@ function InteractiveMedia({
         mediaSrc={singleSource.url}
         placeholder={placeholder}
         previewHeight={resolvedPreviewHeight}
+        selectProps={selectProps}
         subjectIdTitle={subjectIdTitle}
         width={width}
         url={url}
@@ -97,6 +101,7 @@ function InteractiveMedia({
         mediaSrc={singleSource.url}
         placeholder={placeholder}
         previewHeight={resolvedPreviewHeight}
+        selectProps={selectProps}
         subjectIdTitle={subjectIdTitle}
         width={width}
         url={url}
@@ -106,14 +111,18 @@ function InteractiveMedia({
 
   if (singleSource) {
     return (
-      <MediaLink href={url} title={linkTitle}>
+      <MediaContainer
+        href={url}
+        selectProps={selectProps}
+        title={linkTitle}
+      >
         <MediaFallback
           alt={subjectIdTitle}
           placeholder={placeholder}
           previewHeight={resolvedPreviewHeight}
           width={width}
         />
-      </MediaLink>
+      </MediaContainer>
     )
   }
 
@@ -124,6 +133,12 @@ InteractiveMedia.propTypes = {
   linkTitle: string.isRequired,
   placeholder: node,
   previewHeight: number.isRequired,
+  selectProps: shape({
+    onSelect: func,
+    selectable: bool,
+    selected: bool,
+    selectLabel: string
+  }),
   subject: shape({
     locations: arrayOf(objectOf(string))
   }),

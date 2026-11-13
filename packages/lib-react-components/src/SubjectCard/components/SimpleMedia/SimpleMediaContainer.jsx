@@ -1,6 +1,6 @@
-import { bool, node, number, shape, string, arrayOf, objectOf } from 'prop-types'
+import { arrayOf, bool, func, node, number, objectOf, shape, string } from 'prop-types'
 
-import MediaLink from '../MediaLink'
+import MediaContainer from '../MediaContainer'
 import SimpleMedia from './SimpleMedia'
 
 function getMediaType(mimeType) {
@@ -11,6 +11,7 @@ function SimpleMediaContainer({
 	linkTitle,
 	placeholder,
 	previewHeight,
+	selectProps,
 	showAxes = false,
 	showLegend = false,
 	showTitle = true,
@@ -27,8 +28,9 @@ function SimpleMediaContainer({
 	const showBackground = mediaType === 'image' || mediaType === 'video'
 
 	return (
-		<MediaLink
+		<MediaContainer
 			href={url}
+			selectProps={selectProps}
 			title={linkTitle}
 		>
 			<SimpleMedia
@@ -43,7 +45,7 @@ function SimpleMediaContainer({
 				subjectIdTitle={subjectIdTitle}
 				width={width}
 			/>
-		</MediaLink>
+		</MediaContainer>
 	)
 }
 
