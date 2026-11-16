@@ -6,7 +6,7 @@ Input:
 2. (string): Talk Preference resource's ID.
 
 Output:
-- TODO ???
+- Updated Talk Preference resource, on success.
 
 Potentially throws:
 - API errors from Talk API.
@@ -22,8 +22,6 @@ import { talkAPI } from '@zooniverse/panoptes-js'
 import auth from 'panoptes-client/lib/auth'
 
 async function updateTalkPreference (newData = {}, talkPreferenceId) {
-  console.log('+++ TEST', newData, talkPreferenceId)
-
   const token = await auth.checkBearerToken()
   if (!token) return null
 

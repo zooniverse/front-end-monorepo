@@ -159,6 +159,26 @@ For future work, consider using [`useSWRMutation()`](https://swr.vercel.app/docs
 if we really, really want to sync our local data to whatever Panoptes responds
 with.
 
+## updateTalkPreference()
+
+updateTalkPreference() is a function for _saving_ changes to the Talk API.
+
+Input:
+1. (object): an object with key-value pairs that we want to change.
+2. (string): Talk Preference resource's ID.
+
+Output:
+- Updated Talk Preference resource, on success.
+
+Potentially throws:
+- API errors from Talk API.
+
+Notes:
+- Performs a GET to Talk API (to get some validation data for the header),
+  then a PUT with the new data.
+- Protip: this should be used with an optimistic UI pattern, since we're
+  changing only one variable at a time via checkboxes or radio buttons.
+
 ## uploadUserMedia()
 
 Function for _uploading_ (or replacing) Panoptes user data related to _media files._
