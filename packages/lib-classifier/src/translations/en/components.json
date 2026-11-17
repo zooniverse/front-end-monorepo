@@ -60,7 +60,8 @@
   },
   "FeedbackModal": {
     "keepClassifying": "Keep Classifying",
-    "label": "Feedback"
+    "label": "Feedback",
+    "matches": "({{count}} matches)"
   },
   "FieldGuide": {
     "FieldGuideButton": {
