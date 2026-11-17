@@ -28,6 +28,7 @@ import useMapInteractions from './hooks/useMapInteractions'
 import useMapSelection from './hooks/useMapSelection'
 import useOLMap, { isUsableOverlayDescriptor } from './hooks/useOLMap'
 import useSelectionLayer from './hooks/useSelectionLayer'
+import useZoomLimits from './hooks/useZoomLimits'
 
 const StyledBox = styled(Box)`
   position: relative;
@@ -113,6 +114,7 @@ function GeoMapViewer({
   const [overlayVisibility, setOverlayVisibility] = useState([])
 
   const { map, source, layer, scaleLine, baseLayers, overlays } = useOLMap(containerRef, tileLayers, overlayLayers)
+  const { atMaxZoom, atMinZoom } = useZoomLimits(map)
 
   const { select, translate } = useMapSelection({
     map,
@@ -293,8 +295,8 @@ function GeoMapViewer({
   return (
     <StyledBox forwardedAs='section' fill>
       <ControlsBox align='end'>
-        <ZoomInButton onClick={() => handleZoom(1)} />
-        <ZoomOutButton onClick={() => handleZoom(-1)} />
+        <ZoomInButton disabled={atMaxZoom} onClick={() => handleZoom(1)} />
+        <ZoomOutButton disabled={atMinZoom} onClick={() => handleZoom(-1)} />
         <MeasureButton active={isMeasureModeActive} onClick={handleToggleMeasureMode} />
         <LayerControl
           layers={tileLayers}
