@@ -15,6 +15,7 @@ A preview card for subjects.
 - `interactive` (boolean): Whether the card has interactive media or not.
 - `isCover` (boolean): Whether the subject is set as the collection cover.
 - `login` (string): The login of the current user for enabling favorite action.
+- `onRemoveFromCollection` (function): Callback function for removing the subject from its collection.
 - `onSelect` (function): Called with `(subject, checked)` when the select checkbox changes.
 - `onSetCover` (function): Callback function for setting the subject as the collection cover.
 - `placeholder` (node): Placeholder passed to `Media`.

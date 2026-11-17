@@ -458,6 +458,7 @@ export function StoryRow({
 export function InteractiveStory({
   isCover = false,
   login,
+  onRemoveFromCollection = null,
   onSelect = null,
   onSetCover = null,
   selectable = false,
@@ -473,6 +474,7 @@ export function InteractiveStory({
         interactive={true}
         isCover={isCover}
         login={login}
+        onRemoveFromCollection={onRemoveFromCollection}
         onSelect={onSelect}
         onSetCover={onSetCover}
         projectId={subject.links.project}

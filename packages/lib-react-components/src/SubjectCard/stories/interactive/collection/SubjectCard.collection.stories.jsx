@@ -13,19 +13,31 @@ const meta = {
 export default meta
 
 export const LandscapeWithCover = {
-  render: () => <InteractiveStory isCover={true} onSetCover={() => true} login={'TestUser'} subject={RADIO_METEOR_ZOO_SUBJECT} />
+  render: ({
+    onRemoveFromCollection = () => true,
+    onSetCover = () => true
+  } = {}) => <InteractiveStory onRemoveFromCollection={onRemoveFromCollection} onSetCover={onSetCover} login={'TestUser'} isCover={true} subject={RADIO_METEOR_ZOO_SUBJECT} />
 }
 
 export const PortraitWithCover = {
-  render: () => <InteractiveStory isCover={true} onSetCover={() => true} login={'TestUser'} subject={PRINT_SUBJECT} />
+  render: ({
+    onRemoveFromCollection = () => true,
+    onSetCover = () => true
+  } = {}) => <InteractiveStory onRemoveFromCollection={onRemoveFromCollection} onSetCover={onSetCover} login={'TestUser'} isCover={true} subject={PRINT_SUBJECT} />
 }
 
-export const LandscapeWithOnSetCover = {
-  render: ({ onSetCover = () => true } = {}) => <InteractiveStory onSetCover={onSetCover} login={'TestUser'} subject={RADIO_METEOR_ZOO_SUBJECT} />
+export const Landscape = {
+  render: ({
+    onRemoveFromCollection = () => true,
+    onSetCover = () => true
+  } = {}) => <InteractiveStory onRemoveFromCollection={onRemoveFromCollection} onSetCover={onSetCover} login={'TestUser'} subject={RADIO_METEOR_ZOO_SUBJECT} />
 }
 
-export const PortraitWithOnSetCover = {
-  render: () => <InteractiveStory onSetCover={() => true} login={'TestUser'} subject={PRINT_SUBJECT} />
+export const Portrait = {
+  render: ({
+    onRemoveFromCollection = () => true,
+    onSetCover = () => true
+  } = {}) => <InteractiveStory onRemoveFromCollection={onRemoveFromCollection} onSetCover={onSetCover} login={'TestUser'} subject={PRINT_SUBJECT} />
 }
 
 export const SelectMode = {

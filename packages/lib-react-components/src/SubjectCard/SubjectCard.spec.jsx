@@ -13,6 +13,7 @@ vi.mock('../ShareIconButton', function() {
 
 import CollectionMeta, {
   LandscapeWithCover as CollectionLandscapeWithCover,
+  Landscape as CollectionLandscape,
   SelectMode as CollectionSelectMode,
 } from './stories/interactive/collection/SubjectCard.collection.stories'
 import InteractiveMeta, { Landscape as InteractiveLandscape } from './stories/interactive/singleMedia/SubjectCard.image.stories'
@@ -26,6 +27,7 @@ describe('SubjectCard', function() {
   const InteractiveStory = composeStory(InteractiveLandscape, InteractiveMeta)
   const InteractiveMultiImageStory = composeStory(InteractiveMultiImage, InteractiveMultiMediaMeta)
   const CollectionWithCoverStory = composeStory(CollectionLandscapeWithCover, CollectionMeta)
+  const CollectionRemoveStory = composeStory(CollectionLandscape, CollectionMeta)
   const CollectionSelectModeStory = composeStory(CollectionSelectMode, CollectionMeta)
   
   const originalUrl = window.location.href
@@ -114,6 +116,20 @@ describe('SubjectCard', function() {
     it('should show the subject checkbox', function () {
       render(<CollectionSelectModeStory />)
       expect(screen.getByRole('checkbox', { name: `Select Subject ${RADIO_METEOR_ZOO_SUBJECT.id}` })).toBeTruthy()
+    })
+  })
+
+  describe('with collection, remove action', function() {
+    it('should call the remove handler', async function() {
+      const onRemoveFromCollection = vi.fn()
+      const user = userEvent.setup()
+
+      render(<CollectionRemoveStory onRemoveFromCollection={onRemoveFromCollection} />)
+
+      await user.click(screen.getByRole('button', { name: 'More options' }))
+      await user.click(screen.getByText('Delete from collection'))
+
+      expect(onRemoveFromCollection).toHaveBeenCalledWith(RADIO_METEOR_ZOO_SUBJECT)
     })
   })
 })

@@ -66,6 +66,7 @@ function SubjectCard({
   interactive = false,
   isCover = false,
   login,
+  onRemoveFromCollection = null,
   onSelect = null,
   onSetCover = null,
   placeholder,
@@ -154,12 +155,16 @@ function SubjectCard({
             onChange={handleCheckboxChange}
           />
         </StyledSelectCheckbox>
-      ) : onSetCover ? (
+      ) : null}
+      {!selectable && (onSetCover || onRemoveFromCollection) && (
         <SubjectCardMenu
           isCover={isCover}
-          onSetCover={() => onSetCover(subject)}
+          onRemoveFromCollection={onRemoveFromCollection
+            ? () => onRemoveFromCollection(subject)
+            : null}
+          onSetCover={onSetCover ? () => onSetCover(subject) : null}
         />
-      ) : null}
+      )}
       <Box
         align='center'
         background={{ dark: 'dark-3', light: 'white' }}
@@ -193,6 +198,7 @@ SubjectCard.propTypes = {
   interactive: bool,
   isCover: bool,
   login: string,
+  onRemoveFromCollection: func,
   onSelect: func,
   onSetCover: func,
   placeholder: node,
