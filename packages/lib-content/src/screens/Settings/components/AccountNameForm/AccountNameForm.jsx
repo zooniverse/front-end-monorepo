@@ -27,7 +27,7 @@ function AccountNameForm ({
   const [ isSaving, setIsSaving ] = useState(false)  // Are we in the process of saving?
   const [ saveSuccess, setSaveSuccess ] = useState(false)  // Was the save successful?
   const [ saveMessage, setSaveMessage ] = useState('')  // Additional (non-error) information message on the save process.
-  const [ saveError, setSaveError ] = useState(null)  // If the save failed, this is the error object/
+  const [ saveError, setSaveError ] = useState(null)  // If the save failed, this is the error object.
   const [ hasUnsavedChanges, setHasUnsavedChanges ] = useState(false)
 
   // On input change, update the LOCAL data copy.

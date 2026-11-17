@@ -4,10 +4,10 @@ useUserData() is a hook for _fetching_ Panoptes user data.
 Input:
 - An Object containing:
   - `login` (string): user's login (username).
-  - `token` (string): user's Panoptes authentication token.
 
 Output:
-- Standard useSWR() output. See example.
+- Standard useSWR() output. See example in README.
+- `swrOutput.data` will be a Panoptes User resource.
 
 Regarding SWR:
 
@@ -55,7 +55,11 @@ export default function useUserData({ login }) {
   // enough to trigger an automatic refresh. This MAY lead to shenanigans.
   const token = usePanoptesAuthToken()
   const key = (token && login)
-    ? { login, token }
+    ? {
+      login,
+      token,
+      resource: '/users'
+    }
     : null
 
   return useSWR(key, fetchUserData, SWROptions)

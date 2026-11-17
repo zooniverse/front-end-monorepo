@@ -159,6 +159,26 @@ For future work, consider using [`useSWRMutation()`](https://swr.vercel.app/docs
 if we really, really want to sync our local data to whatever Panoptes responds
 with.
 
+## updateTalkPreference()
+
+updateTalkPreference() is a function for _saving_ changes to the Talk API.
+
+Input:
+1. (object): an object with key-value pairs that we want to change.
+2. (string): Talk Preference resource's ID.
+
+Output:
+- Updated Talk Preference resource, on success.
+
+Potentially throws:
+- API errors from Talk API.
+
+Notes:
+- Performs a GET to Talk API (to get some validation data for the header),
+  then a PUT with the new data.
+- Protip: this should be used with an optimistic UI pattern, since we're
+  changing only one variable at a time via checkboxes or radio buttons.
+
 ## uploadUserMedia()
 
 Function for _uploading_ (or replacing) Panoptes user data related to _media files._
@@ -203,10 +223,10 @@ useUserData() is a hook for _fetching_ Panoptes user data.
 Input:
 - An Object containing:
   - `login` (string): user's login (username).
-  - `token` (string): user's Panoptes authentication token.
 
 Output:
-- Standard useSWR() output. See example.
+- Standard useSWR() output.
+- `swrOutput.data` will be a Panoptes User resource.
 
 ### Examples
 
@@ -240,6 +260,22 @@ Regarding SWR:
     mutate(). And boy, this is a very annoying experience if you're, say,
     tabbing into another window to check some details.
 
+## useTalkPreferences()
+
+useTalkPreferences() is a hook for _fetching_ a user's Talk Preferences.
+
+Input:
+- An Object containing:
+  - `login` (string): user's login (username).
+
+Output:
+- Standard useSWR() output. See example in README.
+- `swrOutput.data` will be an array of Talk Subscription Preference resources.
+  - The array will be a SUBSET of all available preferences, in this specific
+    order of categories: participating_discussions, mentions, messages,
+    followed_discussions, group_mentions, started_discussions
+  - Hidden categories include: system, moderation_reports
+
 ## useUserMedia()
 
 useUserMedia() is a hook for fetching Panoptes user data related to
@@ -253,7 +289,7 @@ Input:
     or `"profile_header"`
 
 Output:
-- Standard useSWR() output. See example in README.
+- Standard useSWR() output.
 - `swrOutput.data` will either be...
   - a Panoptes Media resource, OR
   - `null`, if user media resource doesn't exist.
