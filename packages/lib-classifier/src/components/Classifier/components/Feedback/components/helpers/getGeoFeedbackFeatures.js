@@ -10,12 +10,13 @@ import strategies from '@store/feedback/strategies'
 import { FEEDBACK_COLORS } from '../RadialFeedback'
 
 const FILL_ALPHA = '33'
+const RULE_LINE_DASH = [8, 6]
 const format = new GeoJSON()
 const READ_OPTIONS = { dataProjection: 'EPSG:4326', featureProjection: 'EPSG:3857' }
 
 function ruleStyle (color) {
   return new Style({
-    stroke: new Stroke({ color, width: 3 }),
+    stroke: new Stroke({ color, width: 3, lineDash: RULE_LINE_DASH }),
     fill: new Fill({ color: `${color}${FILL_ALPHA}` })
   })
 }

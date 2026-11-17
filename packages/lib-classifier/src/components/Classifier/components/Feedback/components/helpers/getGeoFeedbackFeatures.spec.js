@@ -88,6 +88,20 @@ describe('feedback getGeoFeedbackFeatures', function () {
     expect(miss.getStyle().getStroke().getColor()).to.equal(FEEDBACK_COLORS.failure)
   })
 
+  it('should outline rule regions with a dashed line so they read apart from volunteer marks', function () {
+    const trace = [[-91.0, 48.0], [-90.99, 48.0]]
+    const annotation = {
+      taskType: 'geoDrawing',
+      value: {
+        type: 'FeatureCollection',
+        features: [{ type: 'Feature', geometry: { type: 'LineString', coordinates: trace }, properties: {} }]
+      }
+    }
+    const [rule, mark] = getGeoFeedbackFeatures([annotation], [radialRule])
+    expect(rule.getStyle().getStroke().getLineDash()).to.have.length.above(0)
+    expect(mark.getStyle().getStroke().getLineDash() ?? []).to.have.lengthOf(0)
+  })
+
   it('should ignore annotations from other task types', function () {
     const drawingAnnotation = { taskType: 'drawing', value: [{ x: 1, y: 2 }] }
     expect(getGeoFeedbackFeatures([drawingAnnotation], [])).to.deep.equal([])
