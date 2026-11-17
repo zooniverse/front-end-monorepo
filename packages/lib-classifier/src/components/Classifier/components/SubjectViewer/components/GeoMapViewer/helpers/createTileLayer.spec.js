@@ -5,6 +5,7 @@ import GeoTIFF from 'ol/source/GeoTIFF'
 import TileWMS from 'ol/source/TileWMS'
 import XYZ from 'ol/source/XYZ'
 import createTileLayer from './createTileLayer'
+import loadTileWithTimeout from './loadTileWithTimeout'
 
 describe('helpers > createTileLayer', function () {
   it('builds an OSM tile layer for type osm', function () {
@@ -149,6 +150,16 @@ describe('helpers > createTileLayer', function () {
 
   it('throws when xyz descriptor omits url', function () {
     expect(() => createTileLayer({ type: 'xyz' })).to.throw(/url/i)
+  })
+
+  it('times out slow wms tiles', function () {
+    const layer = createTileLayer({ type: 'wms', url: 'https://example.org/wms', params: { LAYERS: 'foo' } })
+    expect(layer.getSource().getTileLoadFunction()).to.equal(loadTileWithTimeout)
+  })
+
+  it('times out slow xyz tiles', function () {
+    const layer = createTileLayer({ type: 'xyz', url: 'https://tiles.example.com/{z}/{x}/{y}.png' })
+    expect(layer.getSource().getTileLoadFunction()).to.equal(loadTileWithTimeout)
   })
 
   it('throws on an unknown descriptor type', function () {
