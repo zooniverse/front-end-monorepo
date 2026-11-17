@@ -108,4 +108,23 @@ describe('helpers > loadGeoJSON', function () {
     expect(map.get('subjectExtent')).to.deep.equal(expected)
     expect(map.getLayers().getArray().some(layer => layer.get('extentMask'))).to.equal(true)
   })
+
+  it('returns the subject bbox extent the view is constrained to', function () {
+    const bbox = [-91.05, 47.96, -90.97, 48.01]
+    const data = {
+      type: 'FeatureCollection',
+      bbox,
+      features: [{ type: 'Feature', geometry: { type: 'Point', coordinates: [-91.0, 47.98] }, properties: {} }]
+    }
+    const expected = transformExtent(bbox, GEOJSON_READ_OPTIONS.dataProjection, GEOJSON_READ_OPTIONS.featureProjection)
+    expect(loadGeoJSON({ map, source, select, data })).to.deep.equal(expected)
+  })
+
+  it('returns null when the subject has no bbox', function () {
+    expect(loadGeoJSON({ map, source, select, data: pointCollection })).to.equal(null)
+  })
+
+  it('returns null when there is no data', function () {
+    expect(loadGeoJSON({ map, source, select, data: null })).to.equal(null)
+  })
 })
