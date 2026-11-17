@@ -153,12 +153,16 @@ export default function useMapInteractions({
     geoDrawingTask?.setUnit?.(selectedUnit)
   }, [scaleLine, selectedUnit, geoDrawingTask, measure])
 
+  // Picking a drawing tool ends measuring; measuring itself must not end on a line workflow.
+  const previousToolIndexRef = useRef(activeToolIndex)
   useEffect(() => {
-    if (activeToolType === 'SegmentedLine' && isMeasureModeActive) {
+    if (previousToolIndexRef.current === activeToolIndex) return
+    previousToolIndexRef.current = activeToolIndex
+    if (isMeasureModeActive) {
       measure?.clear()
       setIsMeasureModeActive(false)
     }
-  }, [activeToolType, isMeasureModeActive, measure, setIsMeasureModeActive])
+  }, [activeToolIndex, isMeasureModeActive, measure, setIsMeasureModeActive])
 
   useEffect(() => {
     const container = containerRef?.current
