@@ -112,7 +112,7 @@ function GeoMapViewer({
   // Sparse boolean[] keyed by overlay index; undefined means visible.
   const [overlayVisibility, setOverlayVisibility] = useState([])
 
-  const { map, source, layer, scaleLine, baseLayers, overlays } = useOLMap(containerRef, tileLayers, overlayLayers)
+  const { map, source, layer, scaleLine, overlays } = useOLMap(containerRef, tileLayers, overlayLayers, currentLayerIndex)
 
   const { select, translate } = useMapSelection({
     map,
@@ -167,11 +167,6 @@ function GeoMapViewer({
   useEffect(() => {
     if (map && onMapReady) onMapReady(map)
   }, [map, onMapReady])
-
-  useEffect(() => {
-    if (!baseLayers.length) return
-    baseLayers.forEach((tileLayer, index) => tileLayer.setVisible(index === currentLayerIndex))
-  }, [baseLayers, currentLayerIndex])
 
   useEffect(() => {
     overlays.forEach((overlayLayer, index) => overlayLayer.setVisible(overlayVisibility[index] !== false))
