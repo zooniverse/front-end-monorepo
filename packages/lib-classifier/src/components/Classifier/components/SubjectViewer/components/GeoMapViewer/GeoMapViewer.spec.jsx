@@ -3,6 +3,7 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import TileLayer from 'ol/layer/Tile'
 import VectorLayer from 'ol/layer/Vector'
+import { transformExtent } from 'ol/proj'
 import Meta, { Default, WithGeoDrawingTask, WithGeoDrawingPointCreationTask, WithoutGeoDrawingTask } from './GeoMapViewer.stories'
 import GeoMapViewer from './GeoMapViewer'
 
@@ -242,6 +243,23 @@ describe('Component > GeoMapViewer', function () {
         expect(vectorSources.some((layerSource) => layerSource.getFeatures().length > 0)).to.equal(true)
       })
       expect(activeDraws()).to.have.lengthOf(0)
+    })
+  })
+
+  describe('subject extent for feedback', function () {
+    it('reports the subject box the map first fits to, so feedback can open the same way', async function () {
+      const bbox = [-91.05, 47.96, -90.97, 48.01]
+      const updates = []
+      const geoDrawingTask = { type: 'geoDrawing', tools: [], updateMapContext: (context) => updates.push(context) }
+      render(
+        <GeoMapViewer
+          geoDrawingTask={geoDrawingTask}
+          geoJSON={{ type: 'FeatureCollection', bbox, features: [] }}
+        />
+      )
+      const expected = transformExtent(bbox, 'EPSG:4326', 'EPSG:3857')
+      await waitFor(() => expect(updates.some(context => context.subjectExtent)).to.equal(true))
+      expect(updates.find(context => context.subjectExtent).subjectExtent).to.deep.equal(expected)
     })
   })
 
