@@ -139,6 +139,18 @@ function SubjectsListContainer({
     }
   }
 
+  async function handleRemoveFromCollection(subject) {
+    if (isRemoving) return
+
+    const success = await removeSubjects([subject.id])
+    if (success) {
+      const remainingPageCount = Math.max(1, Math.ceil((count - 1) / SUBJECTS_PAGE_SIZE))
+      if (page > remainingPageCount) {
+        setUrlPage(remainingPageCount)
+      }
+    }
+  }
+
   if (error) {
     return (
       <Box
@@ -225,9 +237,10 @@ function SubjectsListContainer({
         ) : null}
         <SubjectsList
           defaultSubjectSrc={isOwner ? defaultSubjectSrc : undefined}
-          isLoading={isLoading || isValidating}
+          isLoading={isLoading || isValidating || isRemoving}
           isSettingCover={isSettingCover}
           login={login}
+          onRemoveFromCollection={canDelete && !isSelecting ? handleRemoveFromCollection : null}
           onSelect={handleSelect}
           onSetCover={isOwner && !isSelecting ? handleSetCover : null}
           projectId={projectId}

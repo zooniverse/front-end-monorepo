@@ -44,6 +44,7 @@ function SubjectsList({
   isLoading = false,
   isSettingCover = false,
   login,
+  onRemoveFromCollection = null,
   onSelect = null,
   onSetCover = null,
   projectId,
@@ -66,6 +67,7 @@ function SubjectsList({
             interactive={true}
             isCover={subject.id === coverSubjectId}
             login={login}
+            onRemoveFromCollection={onRemoveFromCollection}
             onSelect={onSelect}
             onSetCover={onSetCover}
             projectId={projectId}
@@ -86,6 +88,7 @@ SubjectsList.propTypes = {
   isLoading: bool,
   isSettingCover: bool,
   login: string,
+  onRemoveFromCollection: func,
   onSelect: func,
   onSetCover: func,
   projectId: string,
