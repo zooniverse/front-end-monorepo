@@ -50,24 +50,24 @@ describe('Component > GeoDrawingTask', function () {
       expect(screen.getByText('0 drawn')).to.exist
     })
 
-    it('max only → "0 of N maximum drawn"', function () {
+    it('max only → "0 drawn (limit N)"', function () {
       renderTask(buildLineStringTask({ max: 4 }))
-      expect(screen.getByText('0 of 4 maximum drawn')).to.exist
+      expect(screen.getByText('0 drawn (limit 4)')).to.exist
     })
 
-    it('min only → "0 of N required drawn"', function () {
+    it('min only → "0 drawn (at least N)"', function () {
       renderTask(buildLineStringTask({ min: 2 }))
-      expect(screen.getByText('0 of 2 required drawn')).to.exist
+      expect(screen.getByText('0 drawn (at least 2)')).to.exist
     })
 
-    it('min + max → "0 of N required, M maximum drawn"', function () {
+    it('min + max → "0 drawn (at least N, limit M)"', function () {
       renderTask(buildLineStringTask({ min: 1, max: 3 }))
-      expect(screen.getByText('0 of 1 required, 3 maximum drawn')).to.exist
+      expect(screen.getByText('0 drawn (at least 1, limit 3)')).to.exist
     })
 
     it('coerces Panoptes string snapshots (min/max) through MST', function () {
       renderTask(buildLineStringTask({ min: '1', max: '3' }))
-      expect(screen.getByText('0 of 1 required, 3 maximum drawn')).to.exist
+      expect(screen.getByText('0 drawn (at least 1, limit 3)')).to.exist
     })
 
     it('renders one status per tool (multi-tool: Tool 0 bounded, Tool 1 unbounded)', function () {
@@ -85,7 +85,7 @@ describe('Component > GeoDrawingTask', function () {
         type: 'geoDrawing'
       })
       renderTask(task)
-      expect(screen.getByText('0 of 1 required, 3 maximum drawn')).to.exist
+      expect(screen.getByText('0 drawn (at least 1, limit 3)')).to.exist
       expect(screen.getByText('0 drawn')).to.exist
       expect(screen.getByText('Segmented Line 2')).to.exist
     })
