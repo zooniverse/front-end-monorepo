@@ -122,6 +122,12 @@ describe('helpers > extentConstraint', function () {
       const outerWidth = Math.max(...outerXs) - Math.min(...outerXs)
       expect(outerWidth).to.be.at.least((EXTENT[2] - EXTENT[0]) * MASK_COVERAGE_FACTOR)
     })
+
+    it('keeps dimming newly revealed map while the volunteer is still dragging', function () {
+      const layer = createExtentMaskLayer(EXTENT)
+      expect(layer.getUpdateWhileInteracting()).to.equal(true)
+      expect(layer.getUpdateWhileAnimating()).to.equal(true)
+    })
   })
 
   describe('subject extent gating', function () {
