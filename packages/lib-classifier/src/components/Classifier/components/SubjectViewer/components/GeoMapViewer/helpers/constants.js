@@ -6,6 +6,8 @@ export const SUBJECT_OUTLINE_COLOR = 'rgba(255, 255, 255, 0.9)'
 export const SUBJECT_OUTLINE_WIDTH = 2
 export const POINTER_MOVE_HIT_CHECK_INTERVAL_MS = 80
 export const POINTER_MOVE_HIT_CHECK_MIN_DELTA_PIXELS = 4
+// Uncached WMS tiles can take many seconds; past this a hung request only blocks the tile queue.
+export const TILE_LOAD_TIMEOUT_MS = 60000
 
 export const GEOJSON_READ_OPTIONS = {
   dataProjection: 'EPSG:4326',
