@@ -15,6 +15,7 @@ import MeasureButton from './components/MeasureButton'
 import OverlayLayerControl from './components/OverlayLayerControl'
 import RecenterButton from './components/RecenterButton'
 import ResetButton from './components/ResetButton'
+import TileLoadStatus from './components/TileLoadStatus'
 import UnitSelect from './components/UnitSelect'
 import ZoomInButton from './components/ZoomInButton'
 import ZoomOutButton from './components/ZoomOutButton'
@@ -28,6 +29,7 @@ import useMapInteractions from './hooks/useMapInteractions'
 import useMapSelection from './hooks/useMapSelection'
 import useOLMap, { isUsableOverlayDescriptor } from './hooks/useOLMap'
 import useSelectionLayer from './hooks/useSelectionLayer'
+import useTileLoadStatus from './hooks/useTileLoadStatus'
 
 const StyledBox = styled(Box)`
   position: relative;
@@ -112,7 +114,8 @@ function GeoMapViewer({
   // Sparse boolean[] keyed by overlay index; undefined means visible.
   const [overlayVisibility, setOverlayVisibility] = useState([])
 
-  const { map, source, layer, scaleLine, overlays } = useOLMap(containerRef, tileLayers, overlayLayers, currentLayerIndex)
+  const { map, source, layer, scaleLine, overlays, baseLayer } = useOLMap(containerRef, tileLayers, overlayLayers, currentLayerIndex)
+  const tileLoadStatus = useTileLoadStatus(baseLayer)
 
   const { select, translate } = useMapSelection({
     map,
@@ -310,6 +313,11 @@ function GeoMapViewer({
         role='region'
         className='map-container'
         tabIndex={0}
+      />
+      <TileLoadStatus
+        failed={tileLoadStatus.failed}
+        loading={tileLoadStatus.loading}
+        onRetry={tileLoadStatus.retry}
       />
       <Box direction='row' align='center' gap='small' margin={{ top: 'xsmall' }}>
         <UnitSelect value={selectedUnit} onChange={setSelectedUnit} />

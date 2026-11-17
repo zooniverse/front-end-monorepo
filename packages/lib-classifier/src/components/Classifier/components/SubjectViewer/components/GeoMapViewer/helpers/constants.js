@@ -6,6 +6,7 @@ export const SUBJECT_OUTLINE_COLOR = 'rgba(255, 255, 255, 0.9)'
 export const SUBJECT_OUTLINE_WIDTH = 2
 export const POINTER_MOVE_HIT_CHECK_INTERVAL_MS = 80
 export const POINTER_MOVE_HIT_CHECK_MIN_DELTA_PIXELS = 4
+export const TILE_STATUS_DELAY_MS = 750
 
 export const GEOJSON_READ_OPTIONS = {
   dataProjection: 'EPSG:4326',
