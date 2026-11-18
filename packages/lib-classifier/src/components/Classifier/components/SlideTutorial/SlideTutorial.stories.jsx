@@ -14,13 +14,12 @@ const media = [
 
 const steps = [
   {
-    content:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+    content: `**How it works**\n\n*First*, record how many squirrels you see in the image. Images sometimes have no visible squirrels, and these are often photos of squirrel "sign", like tracks in the snow. If you do see one or more squirrel, simplify decide between one squirrel or two or more squirrels.`,
     medium: media[0].id
   },
   {
-    content:
-      'Phasellus augue diam, dignissim sit amet nulla id, congue elementum sapien. Quisque consectetur mi sed ex euismod, in rutrum eros tincidunt. Proin at massa erat. Fusce bibendum, mauris sed lacinia cursus, turpis risus dapibus eros, eu pharetra mauris turpis ut sem. Curabitur hendrerit quam id odio eleifend maximus. Morbi imperdiet fringilla nibh nec ullamcorper. Mauris consequat arcu vitae tristique venenatis. Donec purus nulla, aliquet non commodo vestibulum, fermentum non quam. Aliquam tristique nibh orci, id sagittis odio feugiat eget. ',
+    content: `*Next*, select the dominant coat color of the squirrel. If there is a single squirrel, you can only select one color. If there is more than one squirrel, you will select all the color morphs you see in the image.
+    \n\nThe options for color morphs are "black", "white", "other", and "uncertain". Let's take a look at each of those morphs.`,
     medium: media[1].id
   }
 ]
@@ -40,34 +39,17 @@ function stepWithMedium(index) {
 export default {
   title: 'Other / SlideTutorial',
   component: SlideTutorial,
-  argTypes: {
-    onClick: {
-      action: 'clicked'
-    }
-  },
   args: {
     height: '100%',
-    projectDisplayName: 'Snapshot Guinea Pig',
-    steps,
-    stepWithMedium,
-    width: '40vw'
+    width: '400px'
   }
 }
 
-export function Default({
-  height,
-  onClick,
-  projectDisplayName,
-  steps,
-  stepWithMedium,
-  width
-}) {
+export function Default({ height, width }) {
   return (
     <Box height='medium' width={width}>
       <SlideTutorial
         height={height}
-        onClick={onClick}
-        projectDisplayName={projectDisplayName}
         steps={steps}
         stepWithMedium={stepWithMedium}
         strings={strings}
@@ -77,22 +59,42 @@ export function Default({
   )
 }
 
-export function Tablet({ onClick, projectDisplayName, steps, stepWithMedium }) {
+const manySteps = Array(7).fill(steps).flat()
+
+const manyStepsStrings = {
+  display_name: 'A slide tutorial',
+  'steps.0.content': steps[0].content,
+  'steps.1.content': steps[1].content,
+  'steps.2.content': steps[0].content,
+  'steps.3.content': steps[1].content,
+  'steps.4.content': steps[0].content,
+  'steps.5.content': steps[1].content,
+  'steps.6.content': steps[0].content,
+  'steps.7.content': steps[1].content,
+  'steps.8.content': steps[0].content,
+  'steps.9.content': steps[1].content,
+  'steps.10.content': steps[0].content,
+  'steps.11.content': steps[1].content,
+  'steps.12.content': steps[1].content,
+  'steps.13.content': steps[1].content
+}
+
+function stepWithManyMedium(index) {
+  const medium = media[index]
+  const step = manySteps[index]
+  return { medium, step }
+}
+
+export function LotsOfSteps({ height, width }) {
   return (
-    <Box height='medium' width='large'>
+    <Box height='medium' width={width}>
       <SlideTutorial
-        height='100%'
-        onClick={onClick}
-        projectDisplayName={projectDisplayName}
-        steps={steps}
-        stepWithMedium={stepWithMedium}
-        width='100%'
+        height={height}
+        steps={manySteps}
+        stepWithMedium={stepWithManyMedium}
+        strings={manyStepsStrings}
+        width={width}
       />
     </Box>
   )
-}
-Tablet.parameters = {
-  viewport: {
-    defaultViewport: 'ipad'
-  }
 }

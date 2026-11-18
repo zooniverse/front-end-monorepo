@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types'
+import { array, func, number, string } from 'prop-types'
 import { Button, Box, RadioButtonGroup } from 'grommet'
 import styled from 'styled-components'
 import { FormNext, FormPrevious } from 'grommet-icons'
@@ -16,22 +16,20 @@ const StyledButton = styled(Button)`
   }
 `
 
-// flex-wrap + gap are used to ensure if the Tutorial has too many steps, the 
 const StyledRadioButtonGroup = styled(RadioButtonGroup)`
-  position: relative;
+  display: flex;
   flex-wrap: wrap;
-  gap: 20px 0;
+  gap: 15px 0; // between rows if flex-wrapped
 
   > label {
     > span {
-        height: 0;
-        overflow: hidden;
-        position: absolute;
-        width: 0;
-      }
+      height: 0;
+      overflow: hidden;
+      width: 0;
+    }
 
     > div {
-      margin-right: 15px;
+      margin-right: 0;
     }
   }
 `
@@ -66,7 +64,13 @@ function StepNavigation({
       }
     })
     return (
-      <Box align='center' className={className} direction='row' justify='center' margin={{ top: 'medium' }}>
+      <Box
+        align='center'
+        className={className}
+        direction='row'
+        justify='center'
+        margin={{ vertical: 'medium' }}
+      >
         <StyledButton
           a11yTitle={t('StepNavigation.previous')}
           data-index={prevStep}
@@ -77,7 +81,7 @@ function StepNavigation({
         />
         <StyledRadioButtonGroup
           direction='row'
-          gap='none'
+          gap='15px'
           name={name}
           onChange={onRadioChange}
           options={options}
@@ -99,11 +103,11 @@ function StepNavigation({
 }
 
 StepNavigation.propTypes = {
-  className: PropTypes.string,
-  name: PropTypes.string,
-  onChange: PropTypes.func,
-  stepIndex: PropTypes.number,
-  steps: PropTypes.array
+  className: string,
+  name: string,
+  onChange: func,
+  stepIndex: number,
+  steps: array
 }
 
 export default StepNavigation

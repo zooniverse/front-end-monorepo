@@ -1,14 +1,15 @@
-import { useState } from 'react'
-import PropTypes from 'prop-types'
+import { useContext, useState } from 'react'
 import styled from 'styled-components'
-import { Box, Button, Paragraph } from 'grommet'
+import { arrayOf, func, number, object, shape, string } from 'prop-types'
+import { Box, Button, Paragraph, ResponsiveContext } from 'grommet'
 import { Markdownz, Media } from '@zooniverse/react-components'
 import { useTranslation } from '@translations/i18n'
 
 import StepNavigation from '@shared/StepNavigation'
 
 const StyledMarkdownWrapper = styled(Box)`
-  > h1, h2 {
+  > h1,
+  h2 {
     font-size: 26px;
     line-height: 31px;
   }
@@ -32,13 +33,13 @@ A workflow slide tutorial which can be embedded directly into the classifier or 
 />
 ```
 */
+
+const DEFAULT_HANDLER = () => true
+
 function SlideTutorial({
   activeStep = 0,
   className = '',
-  projectDisplayName = '',
-  onClick = () => true,
-  height,
-  pad = 'medium',
+  onComplete = DEFAULT_HANDLER,
   steps = [],
   stepWithMedium,
   strings = {},
@@ -50,81 +51,75 @@ function SlideTutorial({
   const isThereMedia = medium?.src
   const isLastStep = stepIndex === steps.length - 1
 
+  const size = useContext(ResponsiveContext)
+  const height = size === 'small' ? '100%' : '73vh'
+
   if (!step) {
     return (
-      <Box height='100%' justify='between' pad={pad}>
+      <Box height='100%' width='100%' justify='center' align='center'>
         <Paragraph>{t('SlideTutorial.error')}</Paragraph>
       </Box>
     )
   }
 
   return (
-    <Box
-      className={className}
-      height={height}
-      justify='between'
-      pad={pad}
-      width={width}
-    >
-      <StyledMarkdownWrapper
-        aria-live='polite'
-        autoFocus
-        height='100%'
-        overflow={{ horizontal: 'hidden', vertical: 'auto' }}
-      >
-        {isThereMedia &&
+    <Box className={className} width={width} style={{ border: 'solid red 1px' }}>
+      <Box aria-live='polite' overflow={{ horizontal: 'hidden', vertical: 'auto' }}>
+        {isThereMedia && (
           <Media
             alt={t('SlideTutorial.alt', { activeStep: stepIndex })}
+            alignSelf='center'
             fit='contain'
-            height={200}
+            width={400}
             src={medium.src}
-          />}
-        <Markdownz>{strings[`steps.${stepIndex}.content`]}</Markdownz>
-      </StyledMarkdownWrapper>
-      <StepNavigation
-        name='TutorialStepNavigation'
-        onChange={setStepIndex}
-        stepIndex={stepIndex}
-        steps={steps}
-      />
-      {isLastStep &&
-        <Button
-          label={t('SlideTutorial.getStarted')}
-          onClick={onClick}
-          margin={{ top: 'medium' }}
-          primary
-        />}
+          />
+        )}
+        <StyledMarkdownWrapper pad={{ horizontal: 'medium' }}>
+          <Markdownz>{strings[`steps.${stepIndex}.content`]}</Markdownz>
+        </StyledMarkdownWrapper>
+      </Box>
+      <Box
+        gap='medium'
+        height={{ min: 'auto' }} // prevent StepNavigation from expanding beyond this container when it flex-wraps many radio buttons
+        width='100%'
+      >
+        <StepNavigation
+          name='TutorialStepNavigation'
+          onChange={setStepIndex}
+          stepIndex={stepIndex}
+          steps={steps}
+        />
+        {isLastStep && (
+          <Button label={t('SlideTutorial.getStarted')} onClick={onComplete} primary />
+        )}
+      </Box>
     </Box>
   )
 }
 
-const tutorialStep = PropTypes.shape({
-  content: PropTypes.string,
-  medium: PropTypes.string
+const tutorialStep = shape({
+  content: string,
+  medium: string
 })
 
 SlideTutorial.propTypes = {
   /** Array index of the current tutorial step. */
-  activeStep: PropTypes.number,
+  activeStep: number,
   /** Optional CSS classes */
-  className: PropTypes.string,
-  /** Tutorial height (CSS units). */
-  height: PropTypes.string,
-  /** The project name */
-  projectDisplayName: PropTypes.string,
+  className: string,
   /** Callback for the Get Started button. */
-  onClick: PropTypes.func,
+  onComplete: func,
   /**
     Array of tutorial steps.
     A step is a string of markdown content and an optional reference to a media file (image/audio/video.)
   */
-  steps: PropTypes.arrayOf(tutorialStep),
+  steps: arrayOf(tutorialStep),
   /** A function which should return the step and media file for a given step index. */
-  stepWithMedium: PropTypes.func.isRequired,
+  stepWithMedium: func.isRequired,
   /** Translated strings for the tutorial content */
-  strings: PropTypes.object,
+  strings: object,
   /** Tutorial width (CSS units). */
-  width: PropTypes.string,
+  width: string
 }
 
 export default SlideTutorial

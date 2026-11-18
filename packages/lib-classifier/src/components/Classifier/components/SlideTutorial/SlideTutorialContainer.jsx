@@ -1,6 +1,4 @@
-import PropTypes from 'prop-types'
-import { ResponsiveContext } from 'grommet'
-import { useContext } from 'react'
+import { array, func, number, shape, string} from 'prop-types'
 
 import { withStores } from '@helpers'
 import { usePanoptesTranslations } from '@hooks'
@@ -48,14 +46,11 @@ function SlideTutorialContainer({
     translated_id: tutorial?.id,
     language: locale
   })
-  const size = useContext(ResponsiveContext)
   const strings = tutorialTranslation?.strings
   const { activeStep, steps, stepWithMedium } = tutorial
-  const height = (size === 'small') ? '100%' : '73vh'
   return (
     <SlideTutorial
       activeStep={activeStep}
-      height={height}
       pad={pad}
       projectDisplayName={projectDisplayName}
       steps={steps}
@@ -67,12 +62,12 @@ function SlideTutorialContainer({
 }
 
 SlideTutorialContainer.propTypes = {
-  locale: PropTypes.string,
-  projectDisplayName: PropTypes.string,
-  tutorial: PropTypes.shape({
-    activeStep: PropTypes.number,
-    steps: PropTypes.array,
-    stepWithMedium: PropTypes.func.isRequired
+  locale: string,
+  projectDisplayName: string,
+  tutorial: shape({
+    activeStep: number,
+    steps: array,
+    stepWithMedium: func.isRequired
   })
 }
 

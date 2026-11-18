@@ -99,7 +99,7 @@ export default function TaskArea({
             title={t('TaskArea.tutorial')}
           >
             <Box>
-              <SlideTutorial onClick={onClose} pad='none' />
+              <SlideTutorial onComplete={onClose} />
             </Box>
           </Tab>
         </Tabs>

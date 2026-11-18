@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import { bool, object } from 'prop-types'
 
 import { ResponsiveContext } from 'grommet'
 import { Modal } from '@zooniverse/react-components'
@@ -50,11 +49,11 @@ function ModalTutorial ({
         active={active}
         closeFn={onClose}
         height={{ max: '90%' }} // To account for Safari mobile browser. Don't use vh units.
+        pad='none'
         title={t('ModalTutorial.title')}
       >
         <SlideTutorial
-          onClick={onClose}
-          pad='none'
+          onComplete={onClose}
           width={width}
         />
       </Modal>
@@ -65,8 +64,8 @@ function ModalTutorial ({
 }
 
 ModalTutorial.propTypes = {
-  hasNotSeenTutorialBefore: PropTypes.bool,
-  tutorial: PropTypes.object
+  hasNotSeenTutorialBefore: bool,
+  tutorial: object
 }
 
 export default withStores(ModalTutorial, storeMapper)
