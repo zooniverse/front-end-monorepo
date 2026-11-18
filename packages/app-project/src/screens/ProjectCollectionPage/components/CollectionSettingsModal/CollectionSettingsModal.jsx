@@ -16,7 +16,7 @@ function CollectionSettingsModal({
   onSubmit
 }) {
   const { t } = useTranslation('screens')
-  const title = 'Collection Settings'
+  const title = t('Collection.CollectionSettingsModal.title')
 
   return (
     <Modal
@@ -29,7 +29,16 @@ function CollectionSettingsModal({
       width={{ width: '100%', max: '640px' }}
     >
       {active && (
-        <div>Collection settings go here.</div>
+        <CollectionSettingsForm
+          collection={collection}
+          collectionUrl={collectionUrl}
+          collaborators={collaborators}
+          onClose={onClose}
+          onDelete={onDelete}
+          onRemoveCollaborator={onRemoveCollaborator}
+          onRoleChange={onRoleChange}
+          onSubmit={onSubmit}
+        />
       )}
     </Modal>
   )
