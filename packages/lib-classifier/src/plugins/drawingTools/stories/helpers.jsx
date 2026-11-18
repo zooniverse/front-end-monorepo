@@ -1,7 +1,7 @@
 import { Box } from 'grommet'
 import { Provider } from 'mobx-react'
 
-import SingleImageViewer from '@viewers/components/SingleImageViewer'
+import SubjectViewer from '@viewers'
 import { SubjectFactory } from '@test/factories'
 
 export const subject = SubjectFactory.build({
@@ -108,7 +108,7 @@ export function DrawingStory({ stores }) {
   return (
     <Provider classifierStore={stores}>
       <Box height='medium' width='large'>
-        <SingleImageViewer
+        <SubjectViewer
           loadingState={stores.subjects.loadingState}
           subject={stores.subjects.active}
         />
