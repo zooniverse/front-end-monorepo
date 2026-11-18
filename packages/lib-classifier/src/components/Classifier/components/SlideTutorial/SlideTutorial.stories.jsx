@@ -98,3 +98,18 @@ export function LotsOfSteps({ height, width }) {
     </Box>
   )
 }
+
+// Steps after #2 do not load
+export function MissingSteps({ height, width }) {
+    return (
+    <Box height='medium' width={width}>
+      <SlideTutorial
+        height={height}
+        steps={manySteps}
+        stepWithMedium={stepWithMedium}
+        strings={manyStepsStrings}
+        width={width}
+      />
+    </Box>
+  )
+}

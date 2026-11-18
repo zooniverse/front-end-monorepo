@@ -7,9 +7,6 @@ import SlideTutorial from './SlideTutorial'
 function storeMapper(classifierStore) {
   const {
     locale,
-    projects: {
-      active: project
-    },
     tutorials: {
       active: tutorial,
       activeStep,
@@ -22,7 +19,6 @@ function storeMapper(classifierStore) {
   return {
     activeStep,
     locale,
-    projectDisplayName: project.display_name,
     steps,
     stepWithMedium,
     tutorial
@@ -36,8 +32,6 @@ const defaultTutorial = {
 
 function SlideTutorialContainer({
   locale,
-  pad = 'medium',
-  projectDisplayName = '',
   tutorial = defaultTutorial,
   ...props
 }) {
@@ -52,7 +46,6 @@ function SlideTutorialContainer({
     <SlideTutorial
       activeStep={activeStep}
       pad={pad}
-      projectDisplayName={projectDisplayName}
       steps={steps}
       stepWithMedium={stepWithMedium}
       strings={strings}
@@ -63,7 +56,6 @@ function SlideTutorialContainer({
 
 SlideTutorialContainer.propTypes = {
   locale: string,
-  projectDisplayName: string,
   tutorial: shape({
     activeStep: number,
     steps: array,

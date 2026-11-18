@@ -54,13 +54,11 @@ function SlideTutorial({
   const size = useContext(ResponsiveContext)
   const height = size === 'small' ? '100%' : '73vh'
 
-  if (!step) {
-    return (
+  const emptyState = (
       <Box height='100%' width='100%' justify='center' align='center'>
         <Paragraph>{t('SlideTutorial.error')}</Paragraph>
       </Box>
     )
-  }
 
   return (
     <Box className={className} width={width} style={{ border: 'solid red 1px' }}>
@@ -75,7 +73,7 @@ function SlideTutorial({
           />
         )}
         <StyledMarkdownWrapper pad={{ horizontal: 'medium' }}>
-          <Markdownz>{strings[`steps.${stepIndex}.content`]}</Markdownz>
+          {!step ? emptyState : <Markdownz>{strings[`steps.${stepIndex}.content`]}</Markdownz>}
         </StyledMarkdownWrapper>
       </Box>
       <Box
