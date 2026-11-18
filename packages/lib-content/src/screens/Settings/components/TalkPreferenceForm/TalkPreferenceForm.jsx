@@ -3,8 +3,7 @@ import { Box, Form, Text } from 'grommet'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { Loader, StatusMessage } from '@zooniverse/react-components'
-
+import FormStatusAndSubmitField from '../FormStatusAndSubmitField/FormStatusAndSubmitField'
 import useTalkPreferences from '../../helpers/useTalkPreferences'
 import updateTalkPreference from '../../helpers/updateTalkPreference'
 
@@ -195,27 +194,12 @@ function TalkPreferenceForm ({
         ))}
       </PseudoTable>
 
-      <Box
-        direction='row'
-        align='center'
-        justify='between'
-        gap='1em'
-        wrap={true}
-      >
-        <Box
-          flex='grow'
-          direction='row'
-          align='center'
-        >
-          <StatusMessage
-            text={statusMessage}
-            type={statusType}
-          />
-        </Box>
-
-        {(isBusy) && <Loader />}
-      </Box>
-
+      <FormStatusAndSubmitField
+        showLoader={isBusy}
+        showSubmit={false}
+        statusMessage={statusMessage}
+        statusType={statusType}
+      />
     </Form>
   )
 }
