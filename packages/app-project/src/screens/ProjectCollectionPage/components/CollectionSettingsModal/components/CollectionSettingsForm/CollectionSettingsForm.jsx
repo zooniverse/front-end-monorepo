@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { useTranslation } from 'next-i18next/pages'
 import styled from 'styled-components'
 
+import CollaboratorsSection from '../CollaboratorsSection'
 import SectionLabel from '../SectionLabel'
 
 const DESCRIPTION_LIMIT = 300
@@ -172,6 +173,12 @@ function CollectionSettingsForm({
             value={isPrivate ? 'private' : 'public'}
           />
         </Box>
+
+        <CollaboratorsSection
+          collaborators={collaborators}
+          onRemoveCollaborator={onRemoveCollaborator}
+          onRoleChange={onRoleChange}
+        />
 
         <DeleteButton
           alignSelf='start'
