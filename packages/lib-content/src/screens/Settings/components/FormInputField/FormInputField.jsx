@@ -2,7 +2,7 @@ import { useId, useRef } from 'react'
 import { Box, Text, TextInput } from 'grommet'
 import { CircleInformation } from 'grommet-icons'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { bool, func, shape, string } from 'prop-types'
 
 import BigLabel from '../BigLabel/BigLabel'
@@ -18,6 +18,13 @@ const InputFieldContainer = styled(Box)`
 const StyledHelpIcon = styled(CircleInformation)`
   margin-top: 4px;
   margin-right: 0.5em;
+`
+
+const StyledTextInput = styled(TextInput)`
+  ${props => props.theme.dark
+    ? css`color: ${props.theme.global.colors['neutral-6']};`
+    : css`color: ${props.theme.global.colors['neutral-7']};`
+  }
 `
 
 async function DEFAULT_FUNCTION () {}
@@ -43,21 +50,19 @@ function FormInputField ({
       <Box direction='row' gap='1em' align='center'>
         <BigLabel
           as='label'
-          color={{ light: 'neutral-4', dark: 'neutral-4' }}
           htmlFor={inputId}
         >
           {labelText}
         </BigLabel>
         {optional &&
           <Text
-            color={{ light: 'neutral-4', dark: 'neutral-4' }}
+            color={{ light: 'dark-5', dark: 'light-5' }}
           >
             {t('Settings.forms.optional')}
           </Text>
         }
       </Box>
-      <TextInput
-        color={{ light: 'neutral-4', dark: 'neutral-4' }}
+      <StyledTextInput
         data-field={fieldName}
         disabled={disabled}
         id={inputId}
