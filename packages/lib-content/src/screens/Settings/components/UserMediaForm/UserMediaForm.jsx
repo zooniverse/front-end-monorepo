@@ -7,8 +7,9 @@ import { shape, string } from 'prop-types'
 
 import { Loader, StatusMessage } from '@zooniverse/react-components'
 import { IconActionButton } from '@zooniverse/react-components'
-
 import FormSubmitButton from '../FormSubmitButton/FormSubmitButton'
+import FormStatusAndSubmitField from '../FormStatusAndSubmitField/FormStatusAndSubmitField'
+
 import useUserMedia from '../../helpers/useUserMedia'
 import uploadUserMedia from '../../helpers/uploadUserMedia'
 import deleteUserMedia from '../../helpers/deleteUserMedia'
@@ -355,8 +356,8 @@ function UserMediaForm ({
   const saveErrorMessage = saveError?.errors?.[0]?.message || saveError?.toString() || (saveError && 'Unknown error')
   const deleteErrorMessage = deleteError?.errors?.[0]?.message || deleteError?.toString() || (deleteError && 'Unknown error')
 
-  // The <StatusMessage> component is used to provide feedback on all stages of
-  // a Save/Delete/Selecting operation.
+  // The <StatusMessage> component (in FormStatusAndSubmitField) is used to
+  // provide feedback on all stages of a Save/Delete/Selecting operation.
   const statusType =
     (saveSuccess || deleteSuccess) ? 'success'
     : (loadError || saveError || deleteError) ? 'error'
@@ -453,33 +454,15 @@ function UserMediaForm ({
           )}
         </FileInputContainer>
 
-        <Box
-          direction='row'
-          align='center'
-          justify='between'
-          gap='1em'
+        <FormStatusAndSubmitField
+          showLoader={isBusy || isValidating}
+          showSubmit={true}
+          submitDisabled={disableInput}
+          submitLabel={t('Settings.forms.save')}
+          statusMessage={statusMessage}
+          statusType={statusType}
           margin={{ vertical: 'small' }}
-          wrap={true}
-        >
-          <FormSubmitButton
-            disabled={disableInput}
-            label={t('Settings.forms.save')}
-            type='submit'
-          />
-
-          <Box
-            flex='grow'
-            direction='row'
-            align='center'
-          >
-            <StatusMessage
-              text={statusMessage}
-              type={statusType}
-            />
-          </Box>
-
-          {(isBusy || isValidating) && <Loader />}
-        </Box>
+        />
       </FormFieldsContainer>
     </Form>
   )

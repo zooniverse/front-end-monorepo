@@ -8,6 +8,7 @@ import { Loader, StatusMessage } from '@zooniverse/react-components'
 
 import FormSubmitButton from '../FormSubmitButton/FormSubmitButton'
 import FormInputField from '../FormInputField/FormInputField'
+import FormStatusAndSubmitField from '../FormStatusAndSubmitField/FormStatusAndSubmitField'
 import useUserData from '../../helpers/useUserData'
 import updateUserData from '../../helpers/updateUserData'
 
@@ -146,6 +147,7 @@ function AccountNameForm ({
           required
           user={user}
         />
+
         <FormInputField
           disabled={disableInput}
           fieldName='credited_name'
@@ -153,32 +155,16 @@ function AccountNameForm ({
           optional
           user={user}
         />
-        <Box
-          direction='row'
-          align='center'
-          justify='between'
-          gap='1em'
-          wrap={true}
-        >
-          <FormSubmitButton
-            disabled={disableInput}
-            label={t('Settings.forms.change')}
-            type='submit'
-          />
 
-          <Box
-            flex='grow'
-            direction='row'
-            align='center'
-          >
-            <StatusMessage
-              text={statusMessage}
-              type={statusType}
-            />
-          </Box>
-
-          {(isBusy || isValidating) && <Loader />}
-        </Box>
+        <FormStatusAndSubmitField
+          showLoader={isBusy || isValidating}
+          showSubmit={true}
+          submitDisabled={disableInput}
+          submitLabel={t('Settings.forms.change')}
+          statusMessage={statusMessage}
+          statusType={statusType}
+          margin={{ vertical: 'small' }}
+        />
       </FormFieldsContainer>
     </Form>
   )
