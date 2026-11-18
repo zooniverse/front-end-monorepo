@@ -1,0 +1,192 @@
+{
+  "AllProjects": {
+    "error": "Bir hata oluştu",
+    "noProjects": "Proje bulunamadı",
+    "recent": "son",
+    "sortBy": "göre sırala",
+    "title": "{{displayName}} Projeleri",
+    "top": "Öne Çıkan Projeler"
+  },
+  "BarChart": {
+    "a11y": "{{startDate}} ile {{endDate}} tarihleri arasında {{countLabel}} ölçütüyle {{typeLabel}} çubuk grafiği",
+    "day": "Gün",
+    "hourAbbrev": "saat",
+    "minAbbrev": "dk",
+    "monthOf": "Ay",
+    "time": "Zaman",
+    "weekOf": "Haftası",
+    "year": "Yıl"
+  },
+  "Contributors": {
+    "ContributorsList": {
+      "a11y": "{{name}} üye istatistikleri",
+      "privateProject": "Özel Proje {{index}}",
+      "projectStats": "{{name}} proje istatistikleri"
+    },
+    "ExportStats": {
+      "cancel": "İptal et",
+      "close": "Kapat",
+      "complete": "Dışa Aktarma Tamamlandı",
+      "confirm": "Onayla",
+      "confirmMessage": "{{memberCount}} üye için grup istatistiklerinin CSV'sini oluşturun?",
+      "download": "CSV'yi indirmek için bağlantıya tıklayın:",
+      "downloading": "Veri indiriliyor...",
+      "error": "Dışa Aktarma Hatası",
+      "errorMessage": "Dışa aktarma oluşturulamadı.",
+      "fileSize": "Yaklaşık {{fileSize}}.",
+      "generating": "İstatistik dışa aktarma dosyası oluşturuluyor. Bu tarayıcı sekmesini kapatmayın.",
+      "progress": "İlerleme: %{{progress}}",
+      "retry": "Tekrar dene"
+    },
+    "ProjectStats": {
+      "a11y": "{{project}} üye i̇stati̇sti̇kleri̇"
+    },
+    "error": "Bir hata oluştu",
+    "exportLink": "Tüm istatistikleri dışa aktar",
+    "generating": "İstatistik dışa aktarımı oluşturuluyor...",
+    "noPermission": "Bu gruba katkıda bulunanları görüntüleme izniniz yok.",
+    "none": "Bu gruba katkıda bulunan kimse yok.",
+    "title": "Tüm Grup İstatistikleri"
+  },
+  "GroupContainer": {
+    "deactivated": "Bu, devre dışı bırakılmış bir gruptur. Bunun bir hata olduğunu düşünüyorsanız lütfen gruptan ayrılın veya grup yöneticisiyle iletişime geçin.",
+    "joinFail": "Katılma başarısız oldu.",
+    "joined": "Yeni Gruba Katılındı!",
+    "joining": "Gruba katılınıyor...",
+    "leaveGroup": "Gruptan Ayrıl",
+    "loginToJoin": "Gruba katılmak için oturum açın.",
+    "noAuth": "Özel bir gruba erişmek için oturum açmış olmanız gerekir.",
+    "notFound": "Grup bulunamadı"
+  },
+  "GroupForm": {
+    "anyone": "bu grubu herkesle paylaşabilirsiniz",
+    "createNew": "Yeni grup oluştur",
+    "deactivate": "Grubu Devre Dışı Bırak",
+    "deactivateHelp": "Bu grubu silmek istediğinizden emin misiniz?",
+    "greaterThanChar": "3 karakterden fazla olmalıdır",
+    "lessThanChar": "60 karakterden az olmalıdır",
+    "name": "Grup Adı",
+    "nameHelp": "Yeni bir Grup oluşturduğunuzda yönetici olacaksınız.",
+    "onlyMembers": "bu grubu sadece üyeler görüntüleyebilir",
+    "private": "Özel",
+    "privateAggOnly": "Hayır, üyelere bireysel istatistikleri gösterme",
+    "privateShowAggAndInd": "Evet, üyelere bireysel istatistikleri göster",
+    "pubVis": "Herkese Açık Görünürlük",
+    "public": "Herkese Açık",
+    "publicAggOnly": "Hayır, bireysel istatistikleri asla gösterme",
+    "publicAggShowInd": "Evet, üyeyse bireysel istatistikleri göster",
+    "publicShowAll": "Evet, her zaman bireysel istatistikleri göster",
+    "saveChanges": "Değişiklikleri kaydet",
+    "showInd": "Bireysel İstatistikleri Göster",
+    "showIndHelp": "Yönetici her zaman bireysel istatistikleri görebilir.",
+    "showIndInfo": "Aşağıdaki yeni grubu oluşturduktan sonra diğer tüm üyeleri bir Katılma Bağlantısı aracılığıyla ekleyebilirsiniz.",
+    "visibility": "İstatistik Görünürlüğü"
+  },
+  "GroupStats": {
+    "GroupUpdateFormContainer": {
+      "error": "Bir şeyler ters gitti. Lütfen tekrar deneyin."
+    },
+    "MemberListItem": {
+      "a11y": "{{name}} kişisinin grup üyeliğini güncelleme veya kaldırma menüsü",
+      "giveAdmin": "Yönetici erişimi sağlayın",
+      "remove": "Üyeyi kaldır",
+      "removeAdmin": "Yönetici erişimini kaldır"
+    },
+    "MembersList": {
+      "title": "Grup Üyeleri",
+      "warning": "Bir üyeyi kaldırmak, gruptaki üyeliğini devre dışı bırakır. Artık gruba erişimleri olmayacak, ancak bir üyeyken yaptığı katkılar devam edecektir."
+    },
+    "TopContributors": {
+      "error": "En çok katkıda bulunanlar getirilirken bir hata oluştu.",
+      "linkLabel": "Tüm katkıda bulunanları ve ayrıntılı istatistikleri görün",
+      "tip": "Aktif ve aktif olmayan üyeleri içerir.",
+      "title": "En Çok Katkıda Bulunanlar"
+    },
+    "headerItems": {
+      "all": "Tüm Gruplarım",
+      "copied": "Grup Bağlantısı Kopyalandı!",
+      "copy": "Katılma Bağlantısını Kopyala",
+      "leave": "Gruptan Ayrıl",
+      "share": "Grubu Paylaş"
+    },
+    "leaveQuestion": "Bu gruptan ayrılmak istediğinizden emin misiniz?",
+    "manage": "Grubu Yönet"
+  },
+  "HeaderDropdown": {
+    "label": "Grup Seçenekleri"
+  },
+  "MainContent": {
+    "allProjects": "Tüm Projeler",
+    "calendarBtn": "Tamamlandı",
+    "calendarTitle": "Özel Tarih Aralığı",
+    "certificate": "Gönüllülük Sertifikası Oluştur",
+    "dateRange": {
+      "allTime": "Tüm Zamanlar",
+      "custom": "Özel",
+      "lastSevenDays": "Son 7 Gün",
+      "lastThirtyDays": "Son 30 Gün",
+      "lastThreeMonths": "Son 3 Ay",
+      "lastTwelveMonths": "Son 12 Ay",
+      "thisMonth": "Bu Ay",
+      "thisYear": "Bu Yıl"
+    },
+    "error": "Bir hata oluştu.",
+    "hoursTip": "Saatler, sınıflandırma çalışmalarınızın başlangıç ve bitiş zamanlarına göre hesaplanır. Saatler, Talk'ta geçirdiğiniz zamanı yansıtmaz.",
+    "noData": "Veri bulunamadı.",
+    "selectDateRange": "Tarih aralığı seçin",
+    "selectProject": "Proje seçin",
+    "start": "Şimdi <0>bir proje üzerinde sınıflandırma yapın</0> veya tarih aralığını değiştirin.",
+    "tabContents": "Sekme İçeriği"
+  },
+  "MyGroups": {
+    "GroupCard": {
+      "admin": "Yönetici",
+      "member": "Üye"
+    },
+    "PreviewLayout": {
+      "seeAll": "Tümünü gör"
+    },
+    "createNew": "Yeni grup oluşturun",
+    "error": "Gruplarınız getirilirken bir hata oluştu",
+    "learnMore": "Gruplar hakkında daha fazla bilgi edinin",
+    "noGroups": "Herhangi bir Grubun üyesi değilsiniz.<0/>Aşağıda bir tane oluşturun",
+    "title": "Gruplarım"
+  },
+  "TopProjects": {
+    "title": "Öne Çıkan Projeler"
+  },
+  "UserHome": {
+    "Dashboard": {
+      "allTime": "Tüm Zamanlar",
+      "collections": "Koleksiyonlar",
+      "comments": "Yorumlar",
+      "favorites": "Favoriler",
+      "messages": "Mesajlar",
+      "moreStats": "Daha Fazla İstatistik",
+      "thisWeek": "Bu Hafta"
+    },
+    "RecentProjects": {
+      "error": "Son projeleriniz getirilirken bir hata oluştu",
+      "noProjects": "Yeni Proje Bulunamadı",
+      "start": "<0>Herhangi bir projede sınıflandırma yapmaya</0> başlayın.",
+      "title": "Sınıflandırmaya Devam Et"
+    },
+    "RecentSubjects": {
+      "error": "Son sınıflandırmalar getirilirken bir hata oluştu",
+      "noSubjects": "Yeni bir sınıflandırma bulunamadı",
+      "title": "En son sınıflandırmalarınız"
+    },
+    "SubjectCard": {
+      "subject": "Görüntü"
+    }
+  },
+  "common": {
+    "avatarAlt": "{{login}} avatarı",
+    "back": "Geri",
+    "classifications": "Sınıflandırmalar",
+    "contributors": "Katkıda Bulunanlar",
+    "hours": "Saat",
+    "projects": "Projeler",
+    "seeAll": "Tümünü gör"
+  }
+}

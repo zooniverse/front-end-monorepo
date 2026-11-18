@@ -1,0 +1,192 @@
+{
+  "AllProjects": {
+    "error": "Đã xảy ra lỗi",
+    "noProjects": "“Không tìm thấy dự án nào",
+    "recent": "gần đây",
+    "sortBy": "sắp xếp theo",
+    "title": "Các dự án của {{displayName}}",
+    "top": "Dự án hàng đầu"
+  },
+  "BarChart": {
+    "a11y": "Biểu đồ cột {{typeLabel}} theo {{countLabel}} từ {{startDate}} đến {{endDate}}",
+    "day": "Ngày",
+    "hourAbbrev": "giờ",
+    "minAbbrev": "phút",
+    "monthOf": "Tháng ",
+    "time": "Thời gian",
+    "weekOf": "Tuần ",
+    "year": "Năm"
+  },
+  "Contributors": {
+    "ContributorsList": {
+      "a11y": "Thống kê thành viên {{name}}",
+      "privateProject": "Dự án riêng tư {{index}}",
+      "projectStats": "Thống kê dự án {{name}}"
+    },
+    "ExportStats": {
+      "cancel": "Hủy",
+      "close": "Đóng",
+      "complete": "Xuất dữ liệu hoàn tất",
+      "confirm": "Xác nhận",
+      "confirmMessage": "Tạo tệp CSV thống kê nhóm cho {{memberCount}} thành viên?",
+      "download": "Nhấp vào đường link để tải tệp CSV:",
+      "downloading": "Đang tải dữ liệu...",
+      "error": "Lỗi xuất dữ liệu",
+      "errorMessage": "Không thể tạo tệp xuất.",
+      "fileSize": "Khoảng {{fileSize}}.",
+      "generating": "Đang tạo tệp xuất thống kê. Vui lòng không đóng tab trình duyệt này.",
+      "progress": "Tiến độ: {{progress}}%",
+      "retry": "Thử lại"
+    },
+    "ProjectStats": {
+      "a11y": "Thống kê thành viên {{project}}"
+    },
+    "error": "Đã xảy ra lỗi",
+    "exportLink": "Xuất tất cả thống kê",
+    "generating": "Đang tạo tệp xuất thống kê...",
+    "noPermission": "Bạn không có quyền xem người đóng góp của nhóm này.",
+    "none": "Không có người đóng góp nào cho nhóm này.",
+    "title": "Thống kê đầy đủ của nhóm"
+  },
+  "GroupContainer": {
+    "deactivated": "Đây là một nhóm đã bị hủy kích hoạt. Vui lòng rời nhóm hoặc liên hệ với quản trị viên nhóm nếu bạn cho rằng đây là một sự nhầm lẫn.",
+    "joinFail": "Tham gia không thành công.",
+    "joined": "Đã tham gia nhóm mới!",
+    "joining": "Đang tham gia nhóm...",
+    "leaveGroup": "Rời nhóm",
+    "loginToJoin": "Đăng nhập để tham gia nhóm.",
+    "noAuth": "Bạn phải đăng nhập để truy cập nhóm riêng tư.",
+    "notFound": "Không tìm thấy nhóm"
+  },
+  "GroupForm": {
+    "anyone": "Bạn có thể chia sẻ nhóm này với bất kỳ ai",
+    "createNew": "Tạo nhóm mới",
+    "deactivate": "Hủy kích hoạt nhóm",
+    "deactivateHelp": "Bạn có chắc chắn muốn xóa nhóm này không?",
+    "greaterThanChar": "phải nhiều hơn 3 ký tự",
+    "lessThanChar": "phải ít hơn 60 ký tự",
+    "name": "Tên nhóm",
+    "nameHelp": "Bằng cách tạo Nhóm mới, bạn sẽ trở thành quản trị viên.",
+    "onlyMembers": "chỉ các thành viên mới có thể xem nhóm này",
+    "private": "Riêng tư",
+    "privateAggOnly": "Không, không hiển thị thống kê cá nhân cho các thành viên",
+    "privateShowAggAndInd": "Có, hiển thị thống kê cá nhân cho các thành viên",
+    "pubVis": "Chế độ hiển thị công khai",
+    "public": "Công khai",
+    "publicAggOnly": "Không, không bao giờ hiển thị thống kê cá nhân",
+    "publicAggShowInd": "Có, hiển thị thống kê cá nhân nếu là thành viên",
+    "publicShowAll": "Có, luôn hiển thị thống kê cá nhân",
+    "saveChanges": "Lưu thay đổi",
+    "showInd": "Hiển thị thống kê cá nhân",
+    "showIndHelp": "Quản trị viên luôn có thể xem thống kê cá nhân.",
+    "showIndInfo": "Bạn có thể thêm tất cả thành viên khác thông qua Đường link tham gia sau khi tạo nhóm mới dưới đây.",
+    "visibility": "Hiển thị thống kê"
+  },
+  "GroupStats": {
+    "GroupUpdateFormContainer": {
+      "error": "Đã xảy ra sự cố. Vui lòng thử lại."
+    },
+    "MemberListItem": {
+      "a11y": "Menu để cập nhật hoặc xóa tư cách thành viên nhóm của {{name}}",
+      "giveAdmin": "Cấp quyền quản trị viên",
+      "remove": "Xóa thành viên",
+      "removeAdmin": "Gỡ quyền quản trị viên"
+    },
+    "MembersList": {
+      "title": "Thành viên nhóm",
+      "warning": "Việc xóa một thành viên sẽ hủy kích hoạt tư cách thành viên của họ trong nhóm. Họ sẽ không còn quyền truy cập vào nhóm, nhưng các đóng góp khi còn là thành viên vẫn sẽ được giữ lại."
+    },
+    "TopContributors": {
+      "error": "Đã xảy ra lỗi khi tìm nạp danh sách người đóng góp hàng đầu.",
+      "linkLabel": "Xem tất cả người đóng góp và thống kê chi tiết",
+      "tip": "Bao gồm cả thành viên đang hoạt động và không hoạt động.",
+      "title": "Người đóng góp hàng đầu"
+    },
+    "headerItems": {
+      "all": "Tất cả các nhóm của tôi",
+      "copied": "Đã sao chép đường link nhóm!",
+      "copy": "Sao chép đường link tham gia",
+      "leave": "Rời nhóm",
+      "share": "Chia sẻ nhóm"
+    },
+    "leaveQuestion": "Bạn có chắc chắn muốn rời nhóm này không?",
+    "manage": "Quản lý nhóm"
+  },
+  "HeaderDropdown": {
+    "label": "Tùy chọn nhóm"
+  },
+  "MainContent": {
+    "allProjects": "Tất cả các dự án",
+    "calendarBtn": "Hoàn tất",
+    "calendarTitle": "Phạm vi ngày tùy chỉnh",
+    "certificate": "Tạo giấy chứng nhận tình nguyện viên",
+    "dateRange": {
+      "allTime": "Mọi lúc",
+      "custom": "Tùy chỉnh",
+      "lastSevenDays": "7 ngày qua",
+      "lastThirtyDays": "30 ngày qua",
+      "lastThreeMonths": "3 tháng qua",
+      "lastTwelveMonths": "12 tháng qua",
+      "thisMonth": "Tháng này",
+      "thisYear": "Năm nay"
+    },
+    "error": "Đã xảy ra lỗi.",
+    "hoursTip": "Số giờ được tính dựa trên thời gian bắt đầu và kết thúc của quá trình phân loại. Số giờ này không bao gồm thời gian bạn sử dụng trên Talk.",
+    "noData": "Không tìm thấy dữ liệu.",
+    "selectDateRange": "Chọn phạm vi ngày",
+    "selectProject": "Chọn dự án",
+    "start": "<0>Phân loại trong một dự án</0> ngay bây giờ hoặc thay đổi phạm vi ngày.",
+    "tabContents": "Nội dung tab"
+  },
+  "MyGroups": {
+    "GroupCard": {
+      "admin": "Quản trị viên",
+      "member": "Thành viên"
+    },
+    "PreviewLayout": {
+      "seeAll": "Xem tất cả"
+    },
+    "createNew": "Tạo nhóm mới",
+    "error": "Đã xảy ra lỗi khi tìm nạp các nhóm của bạn",
+    "learnMore": "Tìm hiểu thêm về các nhóm",
+    "noGroups": "Bạn chưa phải là thành viên của bất kỳ nhóm nào.<0/>Tạo một nhóm dưới đây",
+    "title": "Nhóm của tôi"
+  },
+  "TopProjects": {
+    "title": "Dự án hàng đầu"
+  },
+  "UserHome": {
+    "Dashboard": {
+      "allTime": "Mọi lúc",
+      "collections": "Bộ sưu tập",
+      "comments": "Bình luận",
+      "favorites": "Mục ưa thích",
+      "messages": "Tin nhắn",
+      "moreStats": "Xem thêm Thống kê",
+      "thisWeek": "Tuần này"
+    },
+    "RecentProjects": {
+      "error": "Đã xảy ra lỗi khi tìm nạp các dự án gần đây của bạn",
+      "noProjects": "Không tìm thấy dự án gần đây",
+      "start": "Bắt đầu bằng cách <0>phân loại trong bất kỳ dự án nào</0>.",
+      "title": "Tiếp tục phân loại"
+    },
+    "RecentSubjects": {
+      "error": "Đã xảy ra lỗi khi tìm nạp các phân loại gần đây",
+      "noSubjects": "Không tìm thấy phân loại gần đây",
+      "title": "Các phân loại gần đây của bạn"
+    },
+    "SubjectCard": {
+      "subject": "Chủ đề"
+    }
+  },
+  "common": {
+    "avatarAlt": "Avatar {{login}}",
+    "back": "Quay lại",
+    "classifications": "Phân loại",
+    "contributors": "Người đóng góp",
+    "hours": "Giờ",
+    "projects": "Dự án",
+    "seeAll": "Xem tất cả"
+  }
+}

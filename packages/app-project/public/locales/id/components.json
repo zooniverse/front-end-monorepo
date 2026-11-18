@@ -76,15 +76,22 @@
     "classify": "Klasifikasikan",
     "collect": "Kumpulkan",
     "exploreProject": "Telusuri Proyek",
+    "lab": "Laboratorium",
     "organization": "Dari organisasi:",
     "recents": "Baru-baru Ini",
     "talk": "Bicarakan"
   },
   "ProjectStatistics": {
+    "active": "Statistik Aktif",
+    "allTime": "Statistik Sepanjang Masa",
+    "byTheNumbers": "Menurut angka",
     "classifications": "Klasifikasi",
     "completedSubjects": "Subjek yang sudah selesai",
+    "launched": "Proyek diluncurkan {{date}}",
+    "notLaunched": "Proyek tidak diluncurkan",
     "percentComplete": "Persen selesai",
     "subjects": "Subjek",
+    "subtitle": "Terus pantau kemajuan Anda dan para sukarelawan lain di proyek ini.",
     "text": "Setiap klik berarti! Bergabung di komunitas {{projectName}} untuk menyelesaikan proyek ini dan membantu peneliti mendapatkan hasil yang penting. Klik \"Lihat lebih banyak status\" untuk melihat lebih banyak status.",
     "title": "Statistik {{projectName}}",
     "viewMoreStats": "Lihat lebih banyak status",
@@ -100,6 +107,7 @@
     "alreadySeen": "Sudah dilihat",
     "back": "Pilih set subjek lain",
     "byline": "Sortir daftar dengan mengklik nama kolom. Anda akan melihat beberapa subjek secara berurutan, dimulai dari yang Anda pilih.",
+    "error": "Maaf, kami tidak dapat memuat mata kuliah dalam kumpulan mata kuliah ini. Silakan coba lagi nanti, atau beri tahu tim proyek di Talk.",
     "fetching": "Silakan tunggu...",
     "heading": "Pilih subjek untuk memulai",
     "retired": "Tidak Digunakan Lagi",
@@ -124,6 +132,7 @@
   "WorkflowSelector": {
     "WorkflowSelectButton": {
       "complete": "{{completeness}}% selesai",
+      "externalWorkflow": "alur kerja eksternal",
       "setSelection": "atur pilihan",
       "subjectSelection": "pilihan subjek"
     },

@@ -1,0 +1,192 @@
+{
+  "AllProjects": {
+    "error": "Det uppstod ett fel",
+    "noProjects": "Inga projekt hittades",
+    "recent": "ny",
+    "sortBy": "sortera efter",
+    "title": "{{displayName}}s projekt",
+    "top": "Toppprojekt"
+  },
+  "BarChart": {
+    "a11y": "Stapeldiagram över {{typeLabel}} av {{countLabel}} från {{startDate}} till {{endDate}}",
+    "day": "Dag",
+    "hourAbbrev": "timmar",
+    "minAbbrev": "min",
+    "monthOf": "Månad för",
+    "time": "Tid",
+    "weekOf": "Vecka för",
+    "year": "År"
+  },
+  "Contributors": {
+    "ContributorsList": {
+      "a11y": "{{name}}s medlemsstatistik",
+      "privateProject": "Privat projekt {{index}}",
+      "projectStats": "{{name}}s projektstatistik"
+    },
+    "ExportStats": {
+      "cancel": "Avbryt",
+      "close": "Stäng",
+      "complete": "Export slutförd",
+      "confirm": "Bekräfta",
+      "confirmMessage": "Generera CSV av gruppstatistik för {{memberCount}} medlemmar?",
+      "download": "Klicka på länken för att ladda ner CSV:",
+      "downloading": "Laddar ner data ...",
+      "error": "Fel vid export",
+      "errorMessage": "Det gick inte att generera exporten.",
+      "fileSize": "Ungefär {{fileSize}}.",
+      "generating": "Generera exportfil för statistik. Stäng inte den här webbläsarfliken.",
+      "progress": "Progress: {{progress}}%",
+      "retry": "Försök igen"
+    },
+    "ProjectStats": {
+      "a11y": "{{project}}s medlemsstatistik"
+    },
+    "error": "Det uppstod ett fel",
+    "exportLink": "Exportera all statistik",
+    "generating": "Genererar export av statistik ...",
+    "noPermission": "Du har inte behörighet att se den här gruppens bidragsgivare.",
+    "none": "Det finns inga bidragsgivare till den här gruppen.",
+    "title": "Statistik för hela gruppen"
+  },
+  "GroupContainer": {
+    "deactivated": "Det här är en inaktiverad grupp. Lämna gruppen eller kontakta gruppadmin om du tror att detta är ett fel.",
+    "joinFail": "Det gick inte att gå med.",
+    "joined": "Ny grupp har gått med!",
+    "joining": "Går med i grupp ...",
+    "leaveGroup": "Lämna grupp",
+    "loginToJoin": "Logga in för att gå med i gruppen.",
+    "noAuth": "Du måste vara inloggad för att få tillgång till en privat grupp.",
+    "notFound": "Gruppen hittades inte"
+  },
+  "GroupForm": {
+    "anyone": "du kan dela den här gruppen med vem som helst",
+    "createNew": "Skapa en ny grupp",
+    "deactivate": "Inaktivera grupp",
+    "deactivateHelp": "Är du säker på att du vill radera den här gruppen?",
+    "greaterThanChar": "måste vara > 3 tecken",
+    "lessThanChar": "måste vara < 60 tecken",
+    "name": "Gruppnamn",
+    "nameHelp": "Genom att skapa en ny grupp så blir du admin.",
+    "onlyMembers": "endast medlemmar kan se den här gruppen",
+    "private": "Privat",
+    "privateAggOnly": "Nej, visa inte individuell statistik för medlemmar",
+    "privateShowAggAndInd": "Ja, visa individuell statistik för medlemmar",
+    "pubVis": "Offentlig synlighet",
+    "public": "Offentlig",
+    "publicAggOnly": "Nej, visa aldrig individuell statistik",
+    "publicAggShowInd": "Ja, visa individuell statistik om du är medlem",
+    "publicShowAll": "Ja, visa alltid individuell statistik",
+    "saveChanges": "Spara ändringar",
+    "showInd": "Visa individuell statistik",
+    "showIndHelp": "Admin kan alltid se individuell statistik.",
+    "showIndInfo": "Du kan lägga till alla andra medlemmar via en anslutningslänk efter att du har skapat den nya gruppen nedan.",
+    "visibility": "Statistikens synlighet"
+  },
+  "GroupStats": {
+    "GroupUpdateFormContainer": {
+      "error": "Något gick fel. Försök igen."
+    },
+    "MemberListItem": {
+      "a11y": "Meny för att uppdatera eller ta bort {{name}}s gruppmedlemskap",
+      "giveAdmin": "Ge adminåtkomst",
+      "remove": "Ta bort medlem",
+      "removeAdmin": "Ta bort adminåtkomst"
+    },
+    "MembersList": {
+      "title": "Gruppmedlemmar",
+      "warning": "Om du tar bort en medlem inaktiveras medlemmens medlemskap i gruppen. Hen har då inte längre tillgång till gruppen, men bidrag under tiden som medlem kvarstår."
+    },
+    "TopContributors": {
+      "error": "Det uppstod ett fel när de främsta bidragsgivarna hämtades.",
+      "linkLabel": "Se alla bidragsgivare och detaljerad statistik",
+      "tip": "Inkluderar aktiva och inaktiva medlemmar.",
+      "title": "Främsta bidragsgivare"
+    },
+    "headerItems": {
+      "all": "Alla mina grupper",
+      "copied": "Grupplänk kopierad!",
+      "copy": "Kopiera anslutningslänk",
+      "leave": "Lämna grupp",
+      "share": "Dela grupp"
+    },
+    "leaveQuestion": "Är du säker på att du vill lämna den här gruppen?",
+    "manage": "Hantera grupp"
+  },
+  "HeaderDropdown": {
+    "label": "Gruppalternativ"
+  },
+  "MainContent": {
+    "allProjects": "Alla projekt",
+    "calendarBtn": "Klart",
+    "calendarTitle": "Anpassat datumintervall",
+    "certificate": "Generera volontärcertifikat",
+    "dateRange": {
+      "allTime": "Hela tiden",
+      "custom": "Anpassa",
+      "lastSevenDays": "Senaste 7 dagarna",
+      "lastThirtyDays": "Senaste 30 dagarna",
+      "lastThreeMonths": "Senaste 3 månaderna",
+      "lastTwelveMonths": "Senaste 12 månaderna",
+      "thisMonth": "Denna månad",
+      "thisYear": "Detta året"
+    },
+    "error": "Det uppstod ett fel.",
+    "hoursTip": "Timmar beräknas baserat på start- och sluttiderna för dina klassificeringsinsatser. Timmarna återspeglar inte den tid du tillbringar på Talk.",
+    "noData": "Inga uppgifter hittades.",
+    "selectDateRange": "Välj datumintervall",
+    "selectProject": "Välj projekt",
+    "start": "<0>Klassificera på ett projekt</0> nu, eller ändra datumintervallet.",
+    "tabContents": "Flikens innehåll"
+  },
+  "MyGroups": {
+    "GroupCard": {
+      "admin": "Admin",
+      "member": "Medlem"
+    },
+    "PreviewLayout": {
+      "seeAll": "Se alla"
+    },
+    "createNew": "Skapa en ny grupp",
+    "error": "Det uppstod ett fel när dina grupper hämtades",
+    "learnMore": "Läs mer om grupper",
+    "noGroups": "Du är inte medlem i någon grupp.<0/>Skapa en nedan",
+    "title": "Mina grupper"
+  },
+  "TopProjects": {
+    "title": "Toppprojekt"
+  },
+  "UserHome": {
+    "Dashboard": {
+      "allTime": "Hela tiden",
+      "collections": "Samlingar",
+      "comments": "Kommentarer",
+      "favorites": "Favoriter",
+      "messages": "Meddelanden",
+      "moreStats": "Mer statistik",
+      "thisWeek": "Denna vecka"
+    },
+    "RecentProjects": {
+      "error": "Det uppstod ett fel när dina senaste projekt hämtades",
+      "noProjects": "Inga nya projekt hittades",
+      "start": "Börja med att <0>klassificera på valfritt projekt</0>.",
+      "title": "Fortsätt klassificera"
+    },
+    "RecentSubjects": {
+      "error": "Det uppstod ett fel när de senaste klassificeringarna hämtades",
+      "noSubjects": "Inga nya klassificeringar hittades",
+      "title": "Dina senaste klassificeringar"
+    },
+    "SubjectCard": {
+      "subject": "Ämne"
+    }
+  },
+  "common": {
+    "avatarAlt": "{{login}} avatar",
+    "back": "Tillbaka",
+    "classifications": "Klassificeringar",
+    "contributors": "Bidragsgivare",
+    "hours": "Timmar",
+    "projects": "Projekt",
+    "seeAll": "Se alla"
+  }
+}

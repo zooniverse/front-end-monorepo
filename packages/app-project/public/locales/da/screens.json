@@ -14,6 +14,7 @@
     },
     "SidebarHeading": "Om",
     "TeamMember": {
+      "admin": "Zooniverse-holdet",
       "collaborator": "Samarbejdspartner",
       "expert": "Ekspert",
       "moderator": "Moderator",
@@ -30,7 +31,12 @@
         "title": "Der opstod en fejl i klassificeringen :("
       }
     },
+    "ExternalWorkflow": {
+      "button": "Fortsæt til ekstern arbejdsgang",
+      "fallback": "Denne arbejdsgang hostes på et eksternt websted. Vælg knappen nedenfor for at fortsætte der."
+    },
     "RecentSubjects": {
+      "noSubjects": "De seneste emner, du har klassificeret, vises her.",
       "text": "Debattér et emne under Snak, eller føj det til dine favoritter eller en samling.",
       "title": "Dine seneste klassifikationer"
     },
@@ -47,6 +53,51 @@
       "link": "Se flere",
       "title": "Dine statistikker"
     }
+  },
+  "Collect": {
+    "exploreLink": "Udforsk alle Zooniverse-kollektioner",
+    "hideSingleSubject": "Skjul samlinger med kun 1 emne",
+    "placeholders": {
+      "empty": "Ingen samlinger fundet.",
+      "error": "Der opstod en fejl under indlæsning af samlinger."
+    },
+    "resultsCount": "Viser {{range}} af {{total}} samlinger",
+    "sortBy": "Sortér efter:",
+    "sortOptions": {
+      "alphabeticalAscending": "Alfabetisk AZ",
+      "alphabeticalDescending": "Alfabetisk ZA",
+      "recentlyCreated": "Nyligt oprettet",
+      "recentlyUpdated": "Nyligt opdateret"
+    },
+    "tabs": {
+      "collections": "Samlinger",
+      "favorites": "Favoritter",
+      "myCollections": "Mine {{projectName}}-samlinger",
+      "myFavorites": "Mine {{projectName}} favoritter",
+      "title": "Samlingssider"
+    },
+    "title": "Samle"
+  },
+  "Collection": {
+    "CollectionOptions": {
+      "copied": "URL kopieret til udklipsholder",
+      "settings": "Indstillinger",
+      "share": "Dele"
+    },
+    "emptySubjects": "Ingen emner i denne samling.",
+    "linkedToProjectCollections": "Linket til <projectLink>{{projectName}}<\/projectLink> samlinger",
+    "notFound": "Der opstod en fejl under hentning af denne samling.",
+    "ownerLoadError": "Oplysningerne om samlingsejeren kunne ikke indlæses.",
+    "resultsCount": "Viser {{range}} af {{total}} emner",
+    "roles": {
+      "collaborator": "Samarbejdspartner",
+      "contributor": "Bidragyder",
+      "owner": "Ejer",
+      "viewer": "Seer"
+    },
+    "seeAllOwnerCollections": "<collectionsLink>Se alle {{displayName}}s samlinger<\/collectionsLink>",
+    "selectSubjects": "Vælg emner",
+    "subjectsLoadError": "Der opstod en fejl under indlæsning af emnerne i denne samling."
   },
   "Home": {
     "AboutProject": {
@@ -75,5 +126,96 @@
       "message": "Chat med forskerholdet og andre frivillige!",
       "title": "Zooniverse-snak"
     }
+  },
+  "ProjectRecents": {
+    "empty": "De 20 seneste emner, du har klassificeret fra de sidste 90 dage, vises her.",
+    "emptyTitle": "Ingen nylige klassifikationer fundet",
+    "error": "Der opstod en fejl under indlæsning af dine seneste.",
+    "signedOut": "Log ind for at se de emner, du for nylig har klassificeret.",
+    "title": "Nylige klassifikationer"
+  },
+  "ProjectStats": {
+    "BarChart": {
+      "a11y": "Søjlediagram for {{typeLabel}} efter {{countLabel}} fra {{startDate}} til {{endDate}}",
+      "allWorkflows": "Alle arbejdsgange",
+      "dateRange": {
+        "allTime": "Alle tider",
+        "custom": "Skik",
+        "lastSevenDays": "Sidste 7 dage",
+        "lastThirtyDays": "Sidste 30 dage",
+        "lastThreeMonths": "Sidste 3 måneder",
+        "lastTwelveMonths": "Sidste 12 måneder",
+        "thisMonth": "Denne måned",
+        "thisYear": "I år"
+      },
+      "empty": "Ingen data. Skift arbejdsgangen eller datointervallet.",
+      "selectDateRange": "Vælg datointerval",
+      "selectWorkflow": "Vælg arbejdsgang"
+    },
+    "calendarBtn": "Færdig",
+    "calendarTitle": "Tilpasset datointerval",
+    "comments": "Kommentarer",
+    "count": "Klassifikationer",
+    "endDate": "Slutdato",
+    "heading": "Statistik for {{projectName}}",
+    "startDate": "Startdato",
+    "workflows": {
+      "empty": "Ingen tilknyttede arbejdsgange",
+      "percentComplete": "{{percent}}% færdiggjort",
+      "retireLimit": "Pensionsgrænse: {{number}}",
+      "subjectsRetired": "Pensionerede personer: {{pensioneret}}\/{{total}}",
+      "tip": "Den anslåede tid til færdiggørelse er baseret på klassificeringsraten for de seneste 14 dage og kan være forkert eller utilgængelig for visse arbejdsgange.",
+      "title": "Arbejdsgange"
+    }
+  },
+  "Talk": {
+    "Comment": {
+      "avatarAlt": "{{login}} avatar",
+      "comment": "kommentar",
+      "goToComment": "Gå til kommentar",
+      "reply": "Som svar til",
+      "userDisplayNamePossessive": "{{userDisplayName}}'s"
+    },
+    "Discussions": {
+      "addComment": "Tilføj din kommentar",
+      "commentMessage": "For at svare på en specifik kommentar skal du klikke på den pågældende kommentar for at gå til diskussionen.",
+      "comments": "Kommentarer",
+      "commentsViewing": "Viser {{count}} af {{total}} kommentarer",
+      "discussionBoard": "Diskussionsforum",
+      "discussionTitle": "Diskussionstitel",
+      "discussions": "{{count}} Diskussioner",
+      "initialComment": "Indledende kommentar",
+      "newComment": "Ny kommentar",
+      "noDiscussions": "Ingen diskussioner",
+      "oneDiscussion": "1 Diskussion",
+      "participants": "Deltagere",
+      "sortBy": "Sortér efter",
+      "sortedNewestFirst": "Nyeste først",
+      "sortedOldestFirst": "Ældste først",
+      "startDiscussion": "Start en ny diskussion"
+    },
+    "Metadata": {
+      "collapse": "Bryde sammen",
+      "expand": "Udvide",
+      "noMetadata": "Ingen metadata tilgængelige",
+      "subjectMetadata": "Emnemetadata"
+    },
+    "Tags": {
+      "add": "Tilføje",
+      "addATag": "Tilføj et tag",
+      "addVote": "Tilføj din stemme",
+      "createTag": "Opret et tag",
+      "noTags": "Ingen tags",
+      "popularTagsFrom": "Populære tags fra {{projectDisplayName}}",
+      "removeVote": "Fjern din stemme",
+      "signInToTag": "Log ind for at tilføje et tag",
+      "tagValidationMessage": "Brug 3-40 tegn, bogstaver, tal, bindestreger og understregninger. Ingen mellemrum eller andre tegn.",
+      "tags": "Tags"
+    },
+    "ancillaryData": "Supplerende data",
+    "ancillaryDataTip": "Dette er supplerende data om det emne, du ser. For mere information om dette, se venligst siden Om.",
+    "mentions": "Omtaler",
+    "searchPlaceholder": "Søg i dette projekt efter tags, emner eller @brugere",
+    "somethingWentWrong": "Noget gik galt."
   }
 }

@@ -14,6 +14,7 @@
     },
     "SidebarHeading": "Über",
     "TeamMember": {
+      "admin": "Zooniverse-Team",
       "collaborator": "Mitarbeiter",
       "expert": "Experte",
       "moderator": "Moderator",
@@ -30,7 +31,12 @@
         "title": "Es gab einen Fehler im Klassifizierer :("
       }
     },
+    "ExternalWorkflow": {
+      "button": "Weiter zum externen Workflow",
+      "fallback": "Dieser Workflow wird auf einer externen Website gehostet. Wählen Sie die Schaltfläche unten, um dort fortzufahren."
+    },
     "RecentSubjects": {
+      "noSubjects": "Die zuletzt von Ihnen klassifizierten Themen werden hier angezeigt.",
       "text": "Diskutieren Sie ein Thema auf Talk, oder fügen Sie es zu Ihren Favoriten oder einer Sammlung hinzu.",
       "title": "Deine kürzlichen Klassifikationen"
     },
@@ -47,6 +53,51 @@
       "link": "Mehr anzeigen",
       "title": "Statistik"
     }
+  },
+  "Collect": {
+    "exploreLink": "Entdecke alle Zooniverse-Kollektionen",
+    "hideSingleSubject": "Sammlungen mit nur einem Thema ausblenden",
+    "placeholders": {
+      "empty": "Keine Sammlungen gefunden.",
+      "error": "Beim Laden der Sammlungen ist ein Fehler aufgetreten."
+    },
+    "resultsCount": "Zeigt {{range}} von {{total}} Sammlungen an",
+    "sortBy": "Sortieren nach:",
+    "sortOptions": {
+      "alphabeticalAscending": "Alphabetisches AZ",
+      "alphabeticalDescending": "Alphabetisch ZA",
+      "recentlyCreated": "Kürzlich erstellt",
+      "recentlyUpdated": "Kürzlich aktualisiert"
+    },
+    "tabs": {
+      "collections": "Sammlungen",
+      "favorites": "Favoriten",
+      "myCollections": "Meine {{projectName}}-Sammlungen",
+      "myFavorites": "Meine {{projectName}} Favoriten",
+      "title": "Sammlungsseiten"
+    },
+    "title": "Sammeln"
+  },
+  "Collection": {
+    "CollectionOptions": {
+      "copied": "URL in die Zwischenablage kopiert",
+      "settings": "Einstellungen",
+      "share": "Aktie"
+    },
+    "emptySubjects": "Diese Sammlung enthält keine Themen.",
+    "linkedToProjectCollections": "Verknüpft mit den Sammlungen <projectLink>{{projectName}}<\/projectLink>",
+    "notFound": "Beim Abrufen dieser Sammlung ist ein Fehler aufgetreten.",
+    "ownerLoadError": "Die Details des Sammlungsinhabers konnten nicht geladen werden.",
+    "resultsCount": "Anzeige von {{range}} von {{total}} Probanden",
+    "roles": {
+      "collaborator": "Mitarbeiter",
+      "contributor": "Mitwirkender",
+      "owner": "Eigentümer",
+      "viewer": "Zuschauer"
+    },
+    "seeAllOwnerCollections": "<collectionsLink>Alle Sammlungen von {{displayName}} anzeigen<\/collectionsLink>",
+    "selectSubjects": "Fächer auswählen",
+    "subjectsLoadError": "Beim Laden der Themen dieser Sammlung ist ein Fehler aufgetreten."
   },
   "Home": {
     "AboutProject": {
@@ -75,5 +126,96 @@
       "message": "Chatten Sie mit dem Forschungsteam und anderen Freiwilligen!",
       "title": "Diskutieren"
     }
+  },
+  "ProjectRecents": {
+    "empty": "Hier werden die 20 zuletzt von Ihnen in den letzten 90 Tagen klassifizierten Themen angezeigt.",
+    "emptyTitle": "Keine aktuellen Klassifizierungen gefunden",
+    "error": "Beim Laden Ihrer zuletzt verwendeten Inhalte ist ein Fehler aufgetreten.",
+    "signedOut": "Melden Sie sich an, um die Themen zu sehen, die Sie kürzlich klassifiziert haben.",
+    "title": "Aktuelle Klassifizierungen"
+  },
+  "ProjectStats": {
+    "BarChart": {
+      "a11y": "Balkendiagramm von {{typeLabel}} nach {{countLabel}} von {{startDate}} bis {{endDate}}",
+      "allWorkflows": "Alle Arbeitsabläufe",
+      "dateRange": {
+        "allTime": "Alle Zeiten",
+        "custom": "Brauch",
+        "lastSevenDays": "Letzte 7 Tage",
+        "lastThirtyDays": "Letzte 30 Tage",
+        "lastThreeMonths": "Letzte 3 Monate",
+        "lastTwelveMonths": "Letzte 12 Monate",
+        "thisMonth": "Diesen Monat",
+        "thisYear": "Dieses Jahr"
+      },
+      "empty": "Keine Daten. Ändern Sie den Workflow oder den Datumsbereich.",
+      "selectDateRange": "Datumsbereich auswählen",
+      "selectWorkflow": "Workflow auswählen"
+    },
+    "calendarBtn": "Erledigt",
+    "calendarTitle": "Benutzerdefinierter Datumsbereich",
+    "comments": "Kommentare",
+    "count": "Klassifizierungen",
+    "endDate": "Enddatum",
+    "heading": "{{projectName}} Statistiken",
+    "startDate": "Startdatum",
+    "workflows": {
+      "empty": "Keine zugehörigen Workflows",
+      "percentComplete": "{{percent}}% abgeschlossen",
+      "retireLimit": "Altersgrenze: {{number}}",
+      "subjectsRetired": "Ausgeschiedene Personen: {{ausgeschieden}}\/{{gesamt}}",
+      "tip": "Die geschätzte Bearbeitungszeit basiert auf der Klassifizierungsrate der letzten 14 Tage und ist möglicherweise für einige Arbeitsabläufe ungenau oder nicht verfügbar.",
+      "title": "Arbeitsabläufe"
+    }
+  },
+  "Talk": {
+    "Comment": {
+      "avatarAlt": "{{login}} Avatar",
+      "comment": "Kommentar",
+      "goToComment": "Zum Kommentar gehen",
+      "reply": "Als Antwort auf",
+      "userDisplayNamePossessive": "{{userDisplayName}}'s"
+    },
+    "Discussions": {
+      "addComment": "Fügen Sie Ihren Kommentar hinzu",
+      "commentMessage": "Um auf einen bestimmten Kommentar zu antworten, klicken Sie auf diesen Kommentar, um zur Diskussion zu gelangen.",
+      "comments": "Kommentare",
+      "commentsViewing": "{{count}} von {{total}} Kommentaren werden angezeigt",
+      "discussionBoard": "Diskussionsforum",
+      "discussionTitle": "Diskussionstitel",
+      "discussions": "{{count}} Diskussionen",
+      "initialComment": "Erster Kommentar",
+      "newComment": "Neuer Kommentar",
+      "noDiscussions": "Keine Diskussionen",
+      "oneDiscussion": "1 Diskussion",
+      "participants": "Teilnehmer",
+      "sortBy": "Sortieren nach",
+      "sortedNewestFirst": "Neueste zuerst",
+      "sortedOldestFirst": "Älteste zuerst",
+      "startDiscussion": "Neue Diskussion starten"
+    },
+    "Metadata": {
+      "collapse": "Zusammenbruch",
+      "expand": "Expandieren",
+      "noMetadata": "Keine Metadaten verfügbar",
+      "subjectMetadata": "Themenmetadaten"
+    },
+    "Tags": {
+      "add": "Hinzufügen",
+      "addATag": "Füge ein Tag hinzu",
+      "addVote": "Gib deine Stimme ab",
+      "createTag": "Erstelle ein Tag",
+      "noTags": "Keine Tags",
+      "popularTagsFrom": "Beliebte Tags von {{projectDisplayName}}",
+      "removeVote": "Entfernen Sie Ihre Stimme",
+      "signInToTag": "Melden Sie sich an, um ein Schlagwort hinzuzufügen.",
+      "tagValidationMessage": "Verwenden Sie 3-40 Zeichen, Buchstaben, Zahlen, Bindestriche und Unterstriche. Keine Leerzeichen oder andere Zeichen.",
+      "tags": "Tags"
+    },
+    "ancillaryData": "Zusatzdaten",
+    "ancillaryDataTip": "Dies sind Zusatzdaten zum Thema, das Sie gerade ansehen. Weitere Informationen dazu finden Sie auf der Seite „Über uns“.",
+    "mentions": "Erwähnungen",
+    "searchPlaceholder": "Durchsuchen Sie dieses Projekt nach Schlagwörtern, Themen oder @Benutzern.",
+    "somethingWentWrong": "Etwas ist schiefgelaufen."
   }
 }

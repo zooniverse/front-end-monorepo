@@ -1,0 +1,192 @@
+{
+  "AllProjects": {
+    "error": "An samu matsala",
+    "noProjects": "Ba a samu wani aiki ba",
+    "recent": "kwanan nan",
+    "sortBy": "kasa",
+    "title": "Ayyukan {{displayName}}",
+    "top": "Manyan Ayyuka"
+  },
+  "BarChart": {
+    "a11y": "Jadawalin bacat na {{typeLabel}} na {{countLabel}} daga {{startDate}} zuwa {{endDate}}",
+    "day": "Rana",
+    "hourAbbrev": "awanni",
+    "minAbbrev": "minti",
+    "monthOf": "Watan",
+    "time": "Lokaci",
+    "weekOf": "Makon",
+    "year": "Shekara"
+  },
+  "Contributors": {
+    "ContributorsList": {
+      "a11y": "Bayanan {{name}} a matsayin mamaba",
+      "privateProject": "Keɓantaccen Aiki {{index}}",
+      "projectStats": "Bayanan aikin {{name}}"
+    },
+    "ExportStats": {
+      "cancel": "Soke",
+      "close": "Rufe",
+      "complete": "An Kammala Sauƙewa",
+      "confirm": "Tabbatar",
+      "confirmMessage": "A sauƙe CVS na jimilla bayanai na mambobin {{memberCount}}?",
+      "download": "A latsa luƙau domin sauƙe CSV:",
+      "downloading": "Sauƙe bayanai...",
+      "error": "An Samu Matsala Yayin Sauƙewa",
+      "errorMessage": "An kasa sauƙe da takarda.",
+      "fileSize": "{{fileSize}} a bisa ƙiyasi.",
+      "generating": "Ana ƙoƙarin samar da takardar bayanan aiki. Kada a rufe wannan shafin burawuza.",
+      "progress": "Cigaba: {{progress}}%",
+      "retry": "Sake gwadawa"
+    },
+    "ProjectStats": {
+      "a11y": "Bayanan {{project}} a matsayin mamaba"
+    },
+    "error": "An samu matsala",
+    "exportLink": "Sauƙe dukkannin bayanai",
+    "generating": "Ana samar da bayanan da za a sauƙe...",
+    "noPermission": "Ba ku da damar duba masu bayar da gudummawar da suke cikin wannan zauren.",
+    "none": "Babu masu bayar da gudummawa a wannan zauren.",
+    "title": "Cikakkun Bayanan Zaure"
+  },
+  "GroupContainer": {
+    "deactivated": "Wannan zaure ne da aka rufe. Ku fita daga cikin zauren ko kuma ku tuntuɓi mai gudanar da shi idan kuna tunanin kuskure ne.",
+    "joinFail": "An kasa shiga.",
+    "joined": "An Shiga Sabon Zaure!",
+    "joining": "Ana shiga cikin zaure...",
+    "leaveGroup": "Fita Daga Zaure",
+    "loginToJoin": "A shiga akawun domin shiga cikin zauren.",
+    "noAuth": "Dole ne ku shiga ciki kafin samun damar hulɗa da keɓantaccen zaure.",
+    "notFound": "Ba a samu zaure ba"
+  },
+  "GroupForm": {
+    "anyone": "za ku iya tura wannan zauren zuwa ga duk wanda kuka ga dama",
+    "createNew": "Buɗe sabon zaure",
+    "deactivate": "A Dakatar da Aikin Zaure",
+    "deactivateHelp": "Shin kun tabbatar da cewa kuna son share wannan zauren?",
+    "greaterThanChar": "dole ne ya kasance > da haruffa 3",
+    "lessThanChar": "dole ne ya kasance < da haruffa 60",
+    "name": "Sunan Zaure",
+    "nameHelp": "Yayin da kuka buɗe sabon Zaure, to za ku kasance masu gudanarwa a cikinsa.",
+    "onlyMembers": "mambobi ne kawai za su iya ganin wannan zauren",
+    "private": "Keɓantacce",
+    "privateAggOnly": "A'a, kada a nuna bayanan ɗaiɗaikun mutane ga mambobi",
+    "privateShowAggAndInd": "E, a nuna bayanan ɗaiɗaikun mutane ga mambobi",
+    "pubVis": "Tsarin Bayyana Ga Kowa",
+    "public": "Na kowa",
+    "publicAggOnly": "A'a, kada a nuna bayanan ɗaiɗaikun mutane",
+    "publicAggShowInd": "E, a nuna bayanan mutum idan ya kasance mamba",
+    "publicShowAll": "E, a riƙa nuna bayanan ɗaiɗaikun mutane a koyaushe",
+    "saveChanges": "Adana sauye-sauye",
+    "showInd": "Nuna Bayanan Ɗaiɗaikun Mutane",
+    "showIndHelp": "A koyaushe masu gudanarwa suna iya ganin bayanan ɗaiɗaikun mutane.",
+    "showIndInfo": "Za ku iya sanya dukkannin sauran mambobin ta amfani da Liƙau na Shiga bayan kun buɗe sabon zaure a ƙasa.",
+    "visibility": "Damar Ganin Bayanai"
+  },
+  "GroupStats": {
+    "GroupUpdateFormContainer": {
+      "error": "Wata matsala ta auku. A daure a sake gwadawa."
+    },
+    "MemberListItem": {
+      "a11y": "Menu na sabuntawa ko cire {{name}} a matsayin mamba na zaure",
+      "giveAdmin": "Bayar da damar mai gudanarwa",
+      "remove": "Cire mamba",
+      "removeAdmin": "Cire damar mai gudanarwa"
+    },
+    "MembersList": {
+      "title": "Mamban Zaure",
+      "warning": "Yayin da aka cire mamba, to hakan zai sa ya kasance ba mamba ba a cikin zauren. Daga nan ba zai iya hulɗa da zauren ba, amma abin da ya tura a lokacin da yake mamba zai ci gaba da zama a cikin zauren."
+    },
+    "TopContributors": {
+      "error": "An samu matsala yayin ɗauko bayanan manyan masu bayar da gudummawa.",
+      "linkLabel": "A duba dukkannin masu bayar da gudummawa da cikakken bayani",
+      "tip": "A haɗa har da mambobin da suke magana da waɗanda ba sa yi.",
+      "title": "Manyan Masu Bayar Da Gudummawa"
+    },
+    "headerItems": {
+      "all": "Dukkannin Zaurukana",
+      "copied": "An Kwafi Liƙau Ɗin Zaure!",
+      "copy": "Kwafi Haɗaɗɗen Liƙau",
+      "leave": "A Fita Daga Cikin Zaure",
+      "share": "A Tura Zaure"
+    },
+    "leaveQuestion": "Shin kun tabbatar da kuna son fita daga cikin wannan zauren?",
+    "manage": "Sarrafa Zauruka"
+  },
+  "HeaderDropdown": {
+    "label": "Zaɓukan Rukuni"
+  },
+  "MainContent": {
+    "allProjects": "Dukkannin Ayyuka",
+    "calendarBtn": "An Kammala",
+    "calendarTitle": "Gyararren Tsarin Kwanan Wata",
+    "certificate": "Sauke Katin Shaidar Mai Aikin Sa-Kai",
+    "dateRange": {
+      "allTime": "Kowane Lokaci",
+      "custom": "Gyararre",
+      "lastSevenDays": "Kwanaki 7 Da Suka Gabata",
+      "lastThirtyDays": "Kwanaki 30 Da Suka Gabata",
+      "lastThreeMonths": "Watanni 3 Da Suka Gabata",
+      "lastTwelveMonths": "Watanni 12 Da Suka Gabata",
+      "thisMonth": "Wannan Watan",
+      "thisYear": "Wannan Shekarar"
+    },
+    "error": "An samu matsala.",
+    "hoursTip": "Ana yin lissafin awanni ne ta la'akari da lokacin da aka fara da lokacin da kuka kammala aikinku na sanyawa a rukuni. Awannin ba su shafi lokacin da kuka ɓata a wurin Magana ba.",
+    "noData": "Ba a samu wani kwanan wata ba.",
+    "selectDateRange": "Zaɓi jerin kwanan wata",
+    "selectProject": "Zaɓi aiki",
+    "start": "<0>Samar da rukunin aiki</0> yanzu, ko a sauya jerin kwanan watan.",
+    "tabContents": "Ɓangaren Ƙunshiya"
+  },
+  "MyGroups": {
+    "GroupCard": {
+      "admin": "Mai Gudanarwa",
+      "member": "Mamba"
+    },
+    "PreviewLayout": {
+      "seeAll": "Duba duka"
+    },
+    "createNew": "Buɗe sabon zaure",
+    "error": "An samu matsala yayin bayyana zaurukanku",
+    "learnMore": "Ku samu ƙarin bayani game da zauruka",
+    "noGroups": "Ba ku kasance mamba na kowane Zaure ba.<0/>Ku ƙirƙiri wani a ƙasa",
+    "title": "Zaurukana"
+  },
+  "TopProjects": {
+    "title": "Manyan Ayyuka"
+  },
+  "UserHome": {
+    "Dashboard": {
+      "allTime": "Kowane Lokaci",
+      "collections": "Rukuni",
+      "comments": "Tsokaci",
+      "favorites": "Waɗada aka fi so",
+      "messages": "Saƙonni",
+      "moreStats": "Ƙarin Bayanai",
+      "thisWeek": "Wannan Makon"
+    },
+    "RecentProjects": {
+      "error": "An samu matsala yayin ɗauko bayanan ayyukanku da suka gabata",
+      "noProjects": "Ba a samu wasu Ayyuka da suka Gabata ba",
+      "start": "A fara ta hanyar <0>raba wani aiki</0>.",
+      "title": "A Ci Gaba Da Rabawa"
+    },
+    "RecentSubjects": {
+      "error": "An samu matsala yayin ɗauko bayanan rabo da suka gabata",
+      "noSubjects": "Babu wani rabo da ya gabata",
+      "title": "Rabonku da ya gabata"
+    },
+    "SubjectCard": {
+      "subject": "Darasi"
+    }
+  },
+  "common": {
+    "avatarAlt": "Ƙirƙirarren hoto na {{login}}",
+    "back": "Baya",
+    "classifications": "Rabo",
+    "contributors": "Masu bayar da gudummawa",
+    "hours": "Awanni",
+    "projects": "Ayyuka",
+    "seeAll": "Duba duka"
+  }
+}

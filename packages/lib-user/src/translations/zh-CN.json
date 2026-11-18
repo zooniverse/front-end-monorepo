@@ -1,0 +1,192 @@
+{
+  "AllProjects": {
+    "error": "此处有一个错误",
+    "noProjects": "没有找到项目",
+    "recent": "最近的",
+    "sortBy": "排序方式",
+    "title": "{{displayName}} 的项目",
+    "top": "所有时间"
+  },
+  "BarChart": {
+    "a11y": "{{startDate}} 至 {{endDate}} 按 {{countLabel}} 的 {{typeLabel}} 条形图",
+    "day": "天",
+    "hourAbbrev": "小时",
+    "minAbbrev": "分",
+    "monthOf": "下列日期所在月",
+    "time": "时间",
+    "weekOf": "下列日期所在周",
+    "year": "年"
+  },
+  "Contributors": {
+    "ContributorsList": {
+      "a11y": "{{name}} 成员统计数据",
+      "privateProject": "私人项目 {{index}}",
+      "projectStats": "{{name}} 项目统计数据"
+    },
+    "ExportStats": {
+      "cancel": "取消",
+      "close": "关闭",
+      "complete": "导出完成",
+      "confirm": "确认",
+      "confirmMessage": "要为 {{memberCount}} 位成员生成小组统计数据的 CSV 文件吗？",
+      "download": "点击链接下载 CSV：",
+      "downloading": "数据下载中...",
+      "error": "导出失败",
+      "errorMessage": "生成导出失败。",
+      "fileSize": "大约 {{fileSize}}。",
+      "generating": "正在生成统计导出文件，请不要关闭此浏览器标签页。",
+      "progress": "进度：{{progress}} %",
+      "retry": "重试"
+    },
+    "ProjectStats": {
+      "a11y": "{{project}} 成员统计数据"
+    },
+    "error": "此处有一个错误",
+    "exportLink": "导出所有统计数据",
+    "generating": "生成统计数据导出文件中...",
+    "noPermission": "您没有查看该组贡献者的权限。",
+    "none": "该群组没有贡献者",
+    "title": "整组统计数据"
+  },
+  "GroupContainer": {
+    "deactivated": "这是一个已停用的群组。如您认为此为误报，请离开该群组或联系群组管理员。",
+    "joinFail": "加入失败",
+    "joined": "已加入新群组！",
+    "joining": "加入群组中...",
+    "leaveGroup": "离开群组",
+    "loginToJoin": "登录以加入群组",
+    "noAuth": "您必须登录才能访问私密群组。",
+    "notFound": "未找到群组"
+  },
+  "GroupForm": {
+    "anyone": "您可以与任何人共享该群组",
+    "createNew": "创建新群",
+    "deactivate": "停用群组",
+    "deactivateHelp": "您确定要删除该群组吗？",
+    "greaterThanChar": "必须大于 3 个字符",
+    "lessThanChar": "必须小于 60 个字符",
+    "name": "群组名称",
+    "nameHelp": "创建新群组后，您将成为管理员。",
+    "onlyMembers": "仅成员可浏览本群组",
+    "private": "私人的",
+    "privateAggOnly": "不，不向成员展示个人统计数据",
+    "privateShowAggAndInd": "是的，向成员展示个人统计数据",
+    "pubVis": "对公众可见度",
+    "public": "对公众",
+    "publicAggOnly": "不，从不展示个人统计数据",
+    "publicAggShowInd": "是的，若对方是成员，则向其展示个人统计数据",
+    "publicShowAll": "是的，总是展示个人统计数据",
+    "saveChanges": "保存更改",
+    "showInd": "显示个人统计数据",
+    "showIndHelp": "管理员可随时查看个人统计数据",
+    "showIndInfo": "创建以下新群后，您可以通过邀请链接添加所有其他成员。",
+    "visibility": "统计数据可见性"
+  },
+  "GroupStats": {
+    "GroupUpdateFormContainer": {
+      "error": "出错了。请重试。"
+    },
+    "MemberListItem": {
+      "a11y": "用于更新或移除 {{name}} 群组成员资格的菜单。",
+      "giveAdmin": "给予管理员权限",
+      "remove": "移除成员",
+      "removeAdmin": "移除管理员权限"
+    },
+    "MembersList": {
+      "title": "群组成员",
+      "warning": "移除成员会使其在群组中的成员资格失效。他们将无法再访问群组，但其作为成员时的贡献将继续存在。"
+    },
+    "TopContributors": {
+      "error": "获取头部贡献者时出错",
+      "linkLabel": "查看所有贡献者及详细统计数据",
+      "tip": "包括活跃和非活跃成员。",
+      "title": "头部贡献者"
+    },
+    "headerItems": {
+      "all": "我的所有群组",
+      "copied": "群组链接已复制！",
+      "copy": "复制邀请链接",
+      "leave": "离开群组",
+      "share": "分享群组"
+    },
+    "leaveQuestion": "您确定要离开该群组吗？",
+    "manage": "管理群组"
+  },
+  "HeaderDropdown": {
+    "label": "群组选项"
+  },
+  "MainContent": {
+    "allProjects": "所有项目",
+    "calendarBtn": "完成",
+    "calendarTitle": "自定义日期范围",
+    "certificate": "生成志愿者证书",
+    "dateRange": {
+      "allTime": "所有时间",
+      "custom": "自定义",
+      "lastSevenDays": "过去 7 天",
+      "lastThirtyDays": "过去 30 天",
+      "lastThreeMonths": "过去 3 个月",
+      "lastTwelveMonths": "过去 12 个月",
+      "thisMonth": "本月",
+      "thisYear": "本年"
+    },
+    "error": "此处有一个错误。",
+    "hoursTip": "小时数是根据您进行分类工作的开始和结束时间计算的，不包括您在 Talk 上的使用时间。",
+    "noData": "没有找到数据",
+    "selectDateRange": "选择日期范围",
+    "selectProject": "选择项目",
+    "start": "现在<0>在项目中进行分类</0>，或更改日期范围。",
+    "tabContents": "标签内容"
+  },
+  "MyGroups": {
+    "GroupCard": {
+      "admin": "管理员",
+      "member": "成员"
+    },
+    "PreviewLayout": {
+      "seeAll": "查看全部"
+    },
+    "createNew": "创建新群",
+    "error": "获取最近项目群组时出错",
+    "learnMore": "了解群组相关信息",
+    "noGroups": "你尚未加入任何群组。<0/>在下方创建一个",
+    "title": "我的群组"
+  },
+  "TopProjects": {
+    "title": "所有时间"
+  },
+  "UserHome": {
+    "Dashboard": {
+      "allTime": "所有时间",
+      "collections": "合集",
+      "comments": "评论",
+      "favorites": "收藏夹",
+      "messages": "消息",
+      "moreStats": "更多统计数据",
+      "thisWeek": "本周"
+    },
+    "RecentProjects": {
+      "error": "获取最近项目数据时出错",
+      "noProjects": "没有找到近期项目",
+      "start": "从<0>任意项目分类</0>开始。",
+      "title": "继续分类"
+    },
+    "RecentSubjects": {
+      "error": "获取最近分类数据时出错",
+      "noSubjects": "没有找到近期分类",
+      "title": "您近期的分类"
+    },
+    "SubjectCard": {
+      "subject": "主题"
+    }
+  },
+  "common": {
+    "avatarAlt": "{{login}} 头像",
+    "back": "返回",
+    "classifications": "分类",
+    "contributors": "贡献者",
+    "hours": "小时",
+    "projects": "项目",
+    "seeAll": "查看全部"
+  }
+}

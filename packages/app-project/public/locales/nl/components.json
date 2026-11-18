@@ -76,15 +76,22 @@
     "classify": "Classificeren",
     "collect": "Verzamelingen",
     "exploreProject": "Project ontdekken",
+    "lab": "Laboratorium",
     "organization": "Van de organisatie:",
     "recents": "Mijn waarnemingen",
     "talk": "Forum"
   },
   "ProjectStatistics": {
+    "active": "Actieve statistieken",
+    "allTime": "Statistieken aller tijden",
+    "byTheNumbers": "In cijfers",
     "classifications": "Classificaties",
     "completedSubjects": "Voltooide onderwerpen",
+    "launched": "Project gelanceerd op {{date}}",
+    "notLaunched": "Project nog niet gelanceerd",
     "percentComplete": "Percentage voltooid",
     "subjects": "Taken",
+    "subtitle": "Houd de voortgang die u en uw medevrijwilligers hebben geboekt met dit project bij.",
     "text": "Elke klik telt. Word lid van de community van {{projectName}} om dit project te voltooien en onderzoekers te helpen bij het behalen van belangrijke resultaten. Klik op 'Meer statistieken bekijken' voor nog meer statistieken.",
     "title": "{{projectName}} statistieken",
     "viewMoreStats": "Bekijk meer statistieken",
@@ -100,6 +107,7 @@
     "alreadySeen": "Al gezien",
     "back": "Kies een andere set onderwerpen",
     "byline": "U kunt de lijst sorteren door op de kolomnamen te klikken. De onderwerpen verschijnen dan in volgorde, beginnend met het onderwerp dat u hebt geselecteerd.",
+    "error": "Sorry, het is ons niet gelukt om de onderwerpen in deze onderwerpenset te laden. Probeer het later opnieuw of laat het projectteam het weten via Talk.",
     "fetching": "Even geduld...",
     "heading": "Kies een onderwerp om te beginnen",
     "retired": "Uit dienst",
@@ -124,6 +132,7 @@
   "WorkflowSelector": {
     "WorkflowSelectButton": {
       "complete": "{{completeness}}% voltooid",
+      "externalWorkflow": "externe workflow",
       "setSelection": "selectie instellen",
       "subjectSelection": "selectie onderwerp"
     },

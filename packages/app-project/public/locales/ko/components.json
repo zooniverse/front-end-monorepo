@@ -76,15 +76,22 @@
     "classify": "기여하기",
     "collect": "수집",
     "exploreProject": "프로젝트 탐색",
+    "lab": "랩",
     "organization": "조직:",
     "recents": "최근",
     "talk": "토크"
   },
   "ProjectStatistics": {
+    "active": "활성 통계",
+    "allTime": "역대 통계",
+    "byTheNumbers": "숫자별",
     "classifications": "기여",
     "completedSubjects": "완료된 대상",
+    "launched": "프로젝트가 {{date}}에 시작되었습니다.",
+    "notLaunched": "프로젝트가 시작되지 않았습니다",
     "percentComplete": "완료 비율",
     "subjects": "대상",
+    "subtitle": "자신과 동료 참여자들이 이 프로젝트에 기여한 진행 상황을 계속 추적하세요.",
     "text": "모든 클릭은 의미가 있습니다! {{projectName}}의 커뮤니티에 참가하여 이 프로젝트를 완료하고 연구자들이 중요한 결과를 낼 수 있게 도와주세요. '더 많은 통계 보기'를 클릭하면 더 많은 통계치를 볼 수 있습니다.",
     "title": "{{projectName}} 통계",
     "viewMoreStats": "더 많은 통계 보기",
@@ -100,6 +107,7 @@
     "alreadySeen": "이미 확인함",
     "back": "다른 대상 세트를 선택하세요",
     "byline": "열 이름을 클릭하여 목록을 정렬합니다. 선택한 대상을 시작으로, 대상을 순차적으로 확인할 수 있습니다.",
+    "error": "죄송합니다. 해당 주제 세트를 불러올 수 없습니다. 나중에 다시 시도하거나 Talk에서 프로젝트 팀에 알려주세요.",
     "fetching": "기다려 주세요...",
     "heading": "대상을 선택하여 시작하세요",
     "retired": "완료됨",
@@ -124,6 +132,7 @@
   "WorkflowSelector": {
     "WorkflowSelectButton": {
       "complete": "{{completeness}}% 완료",
+      "externalWorkflow": "외부 워크플로",
       "setSelection": "세트 선택",
       "subjectSelection": "대상 선택"
     },

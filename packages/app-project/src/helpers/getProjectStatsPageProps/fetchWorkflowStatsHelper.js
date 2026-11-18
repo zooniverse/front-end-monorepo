@@ -1,6 +1,6 @@
 import { panoptes } from '@zooniverse/panoptes-js'
 
-import getServerSideAPIHost from '@helpers/getServerSideAPIHost'
+import getServerSideAPIHost, { getServerSideERASHost } from '@helpers/getServerSideAPIHost'
 import logToSentry from '@helpers/logger/logToSentry.js'
 import { fetchDisplayNames } from '../fetchWorkflowsHelper/fetchWorkflowsHelper'
 
@@ -46,6 +46,9 @@ async function fetchWorkflowData(workflowIDs, env) {
 }
 
 function statsHost(env) {
+  const { host } = getServerSideERASHost(env)
+  if (host) return host
+
   switch (env) {
     case 'production':
       return 'https://eras.zooniverse.org'
@@ -83,8 +86,10 @@ async function fetchWorkflowClassificationStats(workflowID, env) {
   const startDate = twoWeeksAgoUTC.toISOString().substring(0, 10)
 
   try {
+    const { headers } = getServerSideERASHost(env)
     const statsResponse = await fetch(
-      `${host}/classifications?period=day&workflow_id=${workflowID}&start_date=${startDate}&end_date=${endDate}`
+      `${host}/classifications?period=day&workflow_id=${workflowID}&start_date=${startDate}&end_date=${endDate}`,
+      { headers }
     )
     const data = await statsResponse.json()
     return data

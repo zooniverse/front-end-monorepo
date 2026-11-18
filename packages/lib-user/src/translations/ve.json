@@ -1,0 +1,192 @@
+{
+  "AllProjects": {
+    "error": "Ho vha na vhukhakhi",
+    "noProjects": "A hu na phurojeke dzo wanalaho",
+    "recent": "zwino zwino",
+    "sortBy": "khethekanya nga",
+    "title": "{{displayName}}Phurojeke",
+    "top": "Phurojeke khulwane"
+  },
+  "BarChart": {
+    "a11y": "Tshati ya bara  {{typeLabel}}ya  {{countLabel}}u bva{{startDate}} u swika kha{{endDate}}",
+    "day": "Ḓuvha",
+    "hourAbbrev": "hrs",
+    "minAbbrev": "mun",
+    "monthOf": "Ṅwedzi wa",
+    "time": "Tshifhinga",
+    "weekOf": "Vhege ya",
+    "year": "Ṅwaha"
+  },
+  "Contributors": {
+    "ContributorsList": {
+      "a11y": "{{name}} mbalombalo dza murado",
+      "privateProject": "Phurojeke ya phuraivethe {{index}}",
+      "projectStats": "{{name}} mbalombalo dza phurojeke"
+    },
+    "ExportStats": {
+      "cancel": "Thutha",
+      "close": "Vala",
+      "complete": "U rumela nnḓa zwo fhela",
+      "confirm": "Khwaṱhisedza",
+      "confirmMessage": "Kha vha ite CSV ya mbalombalo  {{memberCount}} ya group ya miraḓo",
+      "download": "Kha vha puṱedze vhuṱumani u itela u dawuniḽouda CSV:",
+      "downloading": "U dawuniḽouda datha...",
+      "error": "Vhukhakhi ha u rumela nnḓa",
+      "errorMessage": "Zwo kundelwa u bveledza zwivhambadzelwa nnḓa.",
+      "fileSize": "Gaganya {{fileSize}}.",
+      "generating": "U bveledza faela ya u rumela nnḓa ya zwidodombedzwa. Ni songo vala thebu iyi ya burauza.",
+      "progress": "Mvelaphanḓa{{progress}}",
+      "retry": "Lingedzani hafhu"
+    },
+    "ProjectStats": {
+      "a11y": "{{project}} mbalombalo dza mirado"
+    },
+    "error": "Ho vha na vhukhakhi",
+    "exportLink": "U rumela nnḓa zwidodombedzwa zwoṱhe",
+    "generating": "U bveledza mbalombalo dza u rumela nnḓa...",
+    "noPermission": "A vha na thendelo ya u vhona vhane vha shela mulenzhe kha tshigwada itshi.",
+    "none": "A hu na vhane vha shela mulenzhe kha heyi group.",
+    "title": "Mbalombalo yo Fhelelaho ya Group"
+  },
+  "GroupContainer": {
+    "deactivated": "Heyi ndi tshigwada tsho dzimiwaho. Kha vha bve kha tshigwada kana vha kwame mulanguli wa tshigwada arali vha tshi tenda uri hoyu ndi vhukhakhi.",
+    "joinFail": "A no kundelwa u dzhoina.",
+    "joined": "Group ntswa yo dzhoina!",
+    "joining": "U dzhoina group",
+    "leaveGroup": "Ibvani kha group",
+    "loginToJoin": "Logani u  itela u dzhoina group.",
+    "noAuth": "Ni fanela u vha no dzhena kha group ya phuraivethe..",
+    "notFound": "U fanela u dzhena kha group ya phuraivethe."
+  },
+  "GroupForm": {
+    "anyone": "ni nga shera heyi group na muthu muṅnwe na muṅwe.",
+    "createNew": "Kha vha sike group ntswa",
+    "deactivate": "Kha vha dzime group",
+    "deactivateHelp": "Ni na vhutanzi uri ni khou ṱoḓa u delete group iyi?",
+    "greaterThanChar": "i fanela u vha > 3 ya maḽeḓere",
+    "lessThanChar": "i fanela u vha < 60 ya maḽeḓere",
+    "name": "Dzina ḽa Tshigwada",
+    "nameHelp": "Nga u ita tshigwada tshiswa u do vha admini.",
+    "onlyMembers": "ndi miraḓo fhedzi ine ya nga vhona hetshi tshigwada",
+    "private": "Phuraivethe",
+    "privateAggOnly": "Hai, vha songo sumbedza mbalombalo nga muthihi nga muthihi kha mirado",
+    "privateShowAggAndInd": "Ee, sumbedzani mbalombalo dza muthu nga eṱhe",
+    "pubVis": "U vhonala kha tshitshavha",
+    "public": "Khagala",
+    "publicAggOnly": "Hai, ni songo vhuya na sumbedza mbalombalo dza muthu nga eṱhe",
+    "publicAggShowInd": "Ee, sumbedzani mbalombalo dza muthu nga eṱhe arali e muraḓo",
+    "publicShowAll": "Ee, dzulani ni tshi sumbedza mbalombalo dza muthu nga eṱhe",
+    "saveChanges": "Vhulunga tshanduko",
+    "showInd": "Sumbedzani mbalombalo dza muthu nga eṱhe",
+    "showIndHelp": "Admini a nga dzulela u vhona dzi mbalombalo nga muthihi nga muthihi.",
+    "showIndInfo": "Ni nga engedza miṅwe miraḓo yoṱhe nga kha Join Link nga murahu ha musi no sika tshigwada tshiswa tshi re afho fhasi.",
+    "visibility": "U vhonala ha mbalombalo"
+  },
+  "GroupStats": {
+    "GroupUpdateFormContainer": {
+      "error": "Ho vha na zwo khakheaho. Ndi khou humbela uri ni lingedze hafhu."
+    },
+    "MemberListItem": {
+      "a11y": "Menu wa u khwinisa kana u bvisa {{name}} dzina ḽa group ya tshigwada",
+      "giveAdmin": "Kha vha ṋee admini tswikelelo",
+      "remove": "U bvisa muraḓo",
+      "removeAdmin": "Bvisani tswikelelo ya admini"
+    },
+    "MembersList": {
+      "title": "Miraḓo ya Group",
+      "warning": "U bvisa muraḓo zwi ita uri muraḓo wavho kha tshigwada u sa shume. A vha tsha ḓo vha na tswikelelo kha tshigwada, fhedzi miṋeelo ngeno muraḓo u tshi ḓo bvela phanḓa."
+    },
+    "TopContributors": {
+      "error": "Ho vha na vhukhakhi ha u dzhia vhaṋetshedzi vha nṱha.",
+      "linkLabel": "Vhonani vha shelaho mulenzhe vhoṱhe na zwidodombedzwa zwo fhelelaho",
+      "tip": "I katela miraḓo i shumaho na i sa shumiho.",
+      "title": "Vha shelaho mulenzhe vha Nṱha"
+    },
+    "headerItems": {
+      "all": "Zwigwada  zwanga zwoṱhe",
+      "copied": "Link ya Tshigwada yo Kopiwa!",
+      "copy": "Kopani Link ya u Dzhena",
+      "leave": "Ibvani kha tshigwada",
+      "share": "Tshigwada tsha u kovhekana"
+    },
+    "leaveQuestion": "Ni na vhutanzi uri ni khou toda u bva kha hetshi tshigwada?",
+    "manage": "Langulani Tshigwada"
+  },
+  "HeaderDropdown": {
+    "label": "Khetho dza Tshigwada"
+  },
+  "MainContent": {
+    "allProjects": "Phurojeke dzoṱhe",
+    "calendarBtn": "Fhedza",
+    "calendarTitle": "Muelo wa Ḓuvha ḽo Ḓiimiselaho",
+    "certificate": "U bveledza Ṱhanziela ya Vhuḓiṋekedzi",
+    "dateRange": {
+      "allTime": "Tshifhinga tshoṱhe",
+      "custom": "Maitele",
+      "lastSevenDays": "Maḓuvha a 7 o fhiraho",
+      "lastThirtyDays": "Maḓuvha a 30 o fhiraho",
+      "lastThreeMonths": "Miṅwedzi ya 3 yo fhelaho",
+      "lastTwelveMonths": "Miṅwedzi ya 12 yo fhelaho",
+      "thisMonth": "Uno ṅwedzi",
+      "thisYear": "Uno ṅwaha"
+    },
+    "error": "Ho vha na vhukhakhi.",
+    "hoursTip": "Awara dzi vhalelwa ho sedzwa tshifhinga tsha u thoma na tsha u fhedza tsha vhuḓidini haṋu ha u khethekanya. Awara a dzi sumbedzi tshifhinga tshe na tshi fhedza kha Nyambo.",
+    "noData": "A hu na datha yo wanalaho.",
+    "selectDateRange": "Khethani ḓuvha",
+    "selectProject": "Khethani phurojeke",
+    "start": "<0>Khethekanyo kha phurojeke</0> zwino, kana ni shandukise tshifhinga tsha ḓuvha.",
+    "tabContents": "Zwi re ngomu ha Thebu"
+  },
+  "MyGroups": {
+    "GroupCard": {
+      "admin": "Admini",
+      "member": "Muraḓo"
+    },
+    "PreviewLayout": {
+      "seeAll": "Vhonani zwoṱhe"
+    },
+    "createNew": "Sikani group ntswa",
+    "error": "Ho vha na vhukhakhi ha u dzhia group dzaṋu",
+    "learnMore": "Gudani zwinzhi nga ha groups",
+    "noGroups": "A ni muraḓo wa zwigwada.<0/>Sikani tshiṅwe afho fhasi",
+    "title": "Zwigwada zwanga"
+  },
+  "TopProjects": {
+    "title": "Phurojeke khulwane"
+  },
+  "UserHome": {
+    "Dashboard": {
+      "allTime": "Tshifhinga tshoṱhe",
+      "collections": "U kuvhanganya",
+      "comments": "Vhupfiwa",
+      "favorites": "Zwine nda zwi funesa",
+      "messages": "Milaedza",
+      "moreStats": "Dziṅwe mbalombalo",
+      "thisWeek": "Ino Vhege"
+    },
+    "RecentProjects": {
+      "error": "Ho vha na vhukhakhi ha u dzhia phurojeke dzaṋu dza zwenezwino",
+      "noProjects": "A hu na Projeke dza zwenezwino dzo wanalaho",
+      "start": "Thomani nga <0>u khethekanya kha phurojeke iṅwe na iṅwe</0>.",
+      "title": "Bvelani phanḓa na u khethekanya"
+    },
+    "RecentSubjects": {
+      "error": "Ho vha na vhukhakhi ha u dzhia khethekanyo dza zwenezwino",
+      "noSubjects": "A hu na khethekanyo dza zwenezwino dzo wanalaho",
+      "title": "U khethekanywa haṋu ha zwenezwino"
+    },
+    "SubjectCard": {
+      "subject": "Thero"
+    }
+  },
+  "common": {
+    "avatarAlt": "{{login}} tshifanyiso",
+    "back": "Murahu",
+    "classifications": "Khethekanyo",
+    "contributors": "Vha shelaho mulenzhe",
+    "hours": "Awara",
+    "projects": "Phurojeke",
+    "seeAll": "Vhonani zwoṱhe"
+  }
+}

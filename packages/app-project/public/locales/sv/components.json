@@ -76,15 +76,22 @@
     "classify": "Klassificera",
     "collect": "Samla",
     "exploreProject": "Utforska projektet",
+    "lab": "Labb",
     "organization": "Från organisationen:",
     "recents": "Senaste",
     "talk": "Prata"
   },
   "ProjectStatistics": {
+    "active": "Aktiv statistik",
+    "allTime": "Statistik genom tiderna",
+    "byTheNumbers": "I siffror",
     "classifications": "Klassificeringar",
     "completedSubjects": "Avslutade ämnen",
+    "launched": "Projekt lanserat {{date}}",
+    "notLaunched": "Projektet har inte lanserats",
     "percentComplete": "Andel klart (procent)",
     "subjects": "Ämnen",
+    "subtitle": "Håll koll på hur långt du och andra frivilliga har kommit med projektet.",
     "text": "Varje klick räknas! Gå med i {{projectName}}-communityt för att göra klart projektet och hjälpa forskarna att få fram viktiga resultat.",
     "title": "{{projectName}} statistik",
     "viewMoreStats": "Visa fler statistikuppgifter",
@@ -100,6 +107,7 @@
     "alreadySeen": "Redan sett",
     "back": "Välj en annan motivuppsättning",
     "byline": "Sortera listan genom att klicka på kolumnnamnen. Du kommer att se motiven i ordningsföljd, med början från det du valt.",
+    "error": "Tyvärr kunde vi inte ladda ämnena i den här ämnesgruppen. Försök igen senare eller meddela projektgruppen på Diskussionsforum.",
     "fetching": "Vänta...",
     "heading": "Välj ett motiv för att komma igång",
     "retired": "Avslutad",
@@ -124,6 +132,7 @@
   "WorkflowSelector": {
     "WorkflowSelectButton": {
       "complete": "{{completeness}}% färdigt",
+      "externalWorkflow": "externt arbetsflöde",
       "setSelection": "ställa in val",
       "subjectSelection": "motivval"
     },

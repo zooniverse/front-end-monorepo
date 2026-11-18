@@ -1,0 +1,192 @@
+{
+  "AllProjects": {
+    "error": "Došlo je do greške",
+    "noProjects": "Nije pronađen nijedan projekt",
+    "recent": "nedavno",
+    "sortBy": "sortiraj po",
+    "title": "Projekti od {{displayName}}",
+    "top": "Glavni projekti"
+  },
+  "BarChart": {
+    "a11y": "Trakasti grafikon od {{typeLabel}} po {{countLabel}} od {{startDate}} do {{endDate}}",
+    "day": "Dan",
+    "hourAbbrev": "sati",
+    "minAbbrev": "min",
+    "monthOf": "Mjesec",
+    "time": "Vrijeme",
+    "weekOf": "Tjedan od",
+    "year": "Godina"
+  },
+  "Contributors": {
+    "ContributorsList": {
+      "a11y": "Statistički podaci člana {{name}}",
+      "privateProject": "Privatni projekt {{index}}",
+      "projectStats": "Statistički podaci za projekt {{name}}"
+    },
+    "ExportStats": {
+      "cancel": "Otkaži",
+      "close": "Zatvori",
+      "complete": "Izvoz je dovršen",
+      "confirm": "Potvrdi",
+      "confirmMessage": "Generirati CSV statističkih podataka grupe za {{memberCount}} članova?",
+      "download": "Kliknite na poveznicu za preuzimanje CSV-a:",
+      "downloading": "Preuzimanje podataka...",
+      "error": "Greška pri izvozu",
+      "errorMessage": "Generiranje izvoza nije uspjelo.",
+      "fileSize": "Otprilike {{fileSize}}.",
+      "generating": "Generiranje datoteke za izvoz statističkih podataka. Ne zatvarajte ovu karticu preglednika.",
+      "progress": "Napredak: {{progress}} %",
+      "retry": "Pokušaj ponovno"
+    },
+    "ProjectStats": {
+      "a11y": "Statistički podaci članova projekta {{project}}"
+    },
+    "error": "Došlo je do greške",
+    "exportLink": "Izvezi sve statističke podatke",
+    "generating": "Generiranje izvoza statističkih podataka...",
+    "noPermission": "Nemate dopuštenje za pregled doprinositelja ove grupe.",
+    "none": "Nema doprinositelja za ovu grupu.",
+    "title": "Potpuni statistički podaci grupe"
+  },
+  "GroupContainer": {
+    "deactivated": "Ova je grupa deaktivirana. Napustite grupu ili se obratite administratoru grupe ako smatrate da je ovo greška.",
+    "joinFail": "Pridruživanje nije uspjelo.",
+    "joined": "Pridružili ste se novoj grupi!",
+    "joining": "Pridruživanje grupi...",
+    "leaveGroup": "Napusti grupu",
+    "loginToJoin": "Prijavite se da biste se pridružili grupi.",
+    "noAuth": "Morate biti prijavljeni da biste pristupili privatnoj grupi.",
+    "notFound": "Grupa nije pronađena"
+  },
+  "GroupForm": {
+    "anyone": "Ovu grupu možete podijeliti sa svima",
+    "createNew": "Izradi novu grupu",
+    "deactivate": "Deaktiviraj grupu",
+    "deactivateHelp": "Zaista želite izbrisati ovu grupu?",
+    "greaterThanChar": "mora biti > 3 znaka",
+    "lessThanChar": "mora biti < 60 znakova",
+    "name": "Naziv grupe",
+    "nameHelp": "Izradom nove grupe postajete administrator.",
+    "onlyMembers": "samo članovi mogu vidjeti ovu grupu",
+    "private": "Privatno",
+    "privateAggOnly": "Ne, nemoj prikazivati pojedinačne statističke podatke članovima",
+    "privateShowAggAndInd": "Da, prikaži pojedinačne statističke podatke članovima",
+    "pubVis": "Javna vidljivost",
+    "public": "Javno",
+    "publicAggOnly": "Ne, nikad ne prikazuj pojedinačne statističke podatke",
+    "publicAggShowInd": "Da, prikaži pojedinačne statističke podatke za člana",
+    "publicShowAll": "Da, uvijek prikaži pojedinačne statističke podatke",
+    "saveChanges": "Spremi promjene",
+    "showInd": "Prikaži pojedinačne statističke podatke",
+    "showIndHelp": "Administrator uvijek može vidjeti pojedinačne statističke podatke.",
+    "showIndInfo": "Sve ostale članove možete dodati putem poveznice za pridruživanje nakon što izradite novu grupu u nastavku.",
+    "visibility": "Vidljivost statističkih podataka"
+  },
+  "GroupStats": {
+    "GroupUpdateFormContainer": {
+      "error": "Nešto nije bilo u redu. Pokušajte ponovno."
+    },
+    "MemberListItem": {
+      "a11y": "Izbornik za ažuriranje ili uklanjanje članstva u grupi korisnika {{name}}",
+      "giveAdmin": "Omogući administratorski pristup",
+      "remove": "Ukloni člana",
+      "removeAdmin": "Ukloni administratorski pristup"
+    },
+    "MembersList": {
+      "title": "Članovi grupe",
+      "warning": "Uklanjanjem člana deaktivira se njegovo članstvo u grupi. Više neće imati pristup grupi, ali će njegovi doprinosi dok je bio član ostati aktivni."
+    },
+    "TopContributors": {
+      "error": "Došlo je do greške prilikom dohvaćanja najvećih doprinositelja.",
+      "linkLabel": "Prikaži sve doprinositelje i detaljne statističke podatke",
+      "tip": "Uključuje aktivne i neaktivne članove.",
+      "title": "Najveći doprinositelji"
+    },
+    "headerItems": {
+      "all": "Sve moje grupe",
+      "copied": "Poveznica grupe je kopirana!",
+      "copy": "Kopiraj poveznicu za pridruživanje",
+      "leave": "Napusti grupu",
+      "share": "Dijeli grupu"
+    },
+    "leaveQuestion": "Zaista želite napustiti ovu grupu?",
+    "manage": "Upravljaj grupom"
+  },
+  "HeaderDropdown": {
+    "label": "Grupne opcije"
+  },
+  "MainContent": {
+    "allProjects": "Svi projekti",
+    "calendarBtn": "Gotovo",
+    "calendarTitle": "Prilagođeni raspon datuma",
+    "certificate": "Generiraj volonterski certifikat",
+    "dateRange": {
+      "allTime": "Sve vrijeme",
+      "custom": "Prilagođeno",
+      "lastSevenDays": "Posljednjih 7 dana",
+      "lastThirtyDays": "Posljednjih 30 dana",
+      "lastThreeMonths": "Posljednja 3 mjeseca",
+      "lastTwelveMonths": "Posljednjih 12 mjeseci",
+      "thisMonth": "Ovog mjeseca",
+      "thisYear": "Ove godine"
+    },
+    "error": "Došlo je do greške.",
+    "hoursTip": "Sati se izračunavaju na temelju vremena početka i završetka vaših klasifikacijskih zadataka. Sati ne odražavaju vrijeme provedeno na Talku.",
+    "noData": "Nije pronađen nijedan podatak.",
+    "selectDateRange": "Odaberi raspon datuma",
+    "selectProject": "Odaberi projekt",
+    "start": "<0>Klasificirajte na projektu</0> sada ili promijenite raspon datuma.",
+    "tabContents": "Sadržaj kartice"
+  },
+  "MyGroups": {
+    "GroupCard": {
+      "admin": "Administrator",
+      "member": "Član"
+    },
+    "PreviewLayout": {
+      "seeAll": "Prikaži sve"
+    },
+    "createNew": "Izradi novu grupu",
+    "error": "Došlo je do greške prilikom dohvaćanja vaših grupa",
+    "learnMore": "Saznajte više o grupama",
+    "noGroups": "Niste član nijedne grupe.<0/>Izradite jednu u nastavku",
+    "title": "Moje grupe"
+  },
+  "TopProjects": {
+    "title": "Glavni projekti"
+  },
+  "UserHome": {
+    "Dashboard": {
+      "allTime": "Sve vrijeme",
+      "collections": "Zbirke",
+      "comments": "Komentari",
+      "favorites": "Omiljeno",
+      "messages": "Poruke",
+      "moreStats": "Više statističkih podataka",
+      "thisWeek": "Ovog tjedna"
+    },
+    "RecentProjects": {
+      "error": "Došlo je do greške prilikom dohvaćanja vaših nedavnih projekata",
+      "noProjects": "Nije pronađen nijedan nedavni projekt",
+      "start": "Započnite s <0>klasifikacijom na bilo kojem projektu</0>.",
+      "title": "Nastavi s klasifikacijom"
+    },
+    "RecentSubjects": {
+      "error": "Došlo je do greške prilikom dohvaćanja nedavnih klasifikacija",
+      "noSubjects": "Nije pronađena nijedna nedavna klasifikacija",
+      "title": "Vaše nedavne klasifikacije"
+    },
+    "SubjectCard": {
+      "subject": "Predmet"
+    }
+  },
+  "common": {
+    "avatarAlt": "Avatar za {{login}}",
+    "back": "Natrag",
+    "classifications": "Klasifikacije",
+    "contributors": "Doprinositelji",
+    "hours": "Sati",
+    "projects": "Projekti",
+    "seeAll": "Prikaži sve"
+  }
+}

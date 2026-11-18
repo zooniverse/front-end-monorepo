@@ -76,15 +76,22 @@
     "classify": "Klassifizieren",
     "collect": "Sammeln",
     "exploreProject": "Erkunde das Projekt",
+    "lab": "Labor",
     "organization": "Von der Organsiation",
     "recents": "Neueste",
     "talk": "Diskutieren"
   },
   "ProjectStatistics": {
+    "active": "Aktive Statistiken",
+    "allTime": "Gesamtstatistik",
+    "byTheNumbers": "Nach Zahlen",
     "classifications": "Klassifizierungen",
     "completedSubjects": "Abgeschlossene Objekte",
+    "launched": "Projektstart {{date}}",
+    "notLaunched": "Projekt nicht gestartet",
     "percentComplete": "Prozentsatz abgeschlossen",
     "subjects": "Objekte",
+    "subtitle": "Verfolgen Sie die Fortschritte, die Sie und Ihre freiwilligen Mitstreiter bei diesem Projekt gemacht haben.",
     "text": "Jeder Klick zählt! Werden Sie Teil der {{projectName}}-Community, damit dieses Projekt abgeschlossen werden kann und die Forscher wichtige Ergebnisse erzielen können. Klicken Sie auf „Weitere Statistiken anzeigen“, um weitere Statistiken zu sehen.",
     "title": "{{projectName}}-Statistiken",
     "viewMoreStats": "Weitere Statistiken anzeigen",
@@ -100,6 +107,7 @@
     "alreadySeen": "Bereits gesehen",
     "back": "Ein anderes Objekt-Set auswählen",
     "byline": "Sortieren Sie die Liste, indem Sie auf die Spaltennamen klicken. Die Themen werden der Reihe nach angezeigt, beginnend mit Ihrem gewählten Thema.",
+    "error": "Leider konnten die Themen dieses Themenbereichs nicht geladen werden. Bitte versuchen Sie es später erneut oder informieren Sie das Projektteam über Talk.",
     "fetching": "Bitte warten …",
     "heading": "Wählen Sie ein Objekt, um loszulegen",
     "retired": "Zurückgezogen",
@@ -124,6 +132,7 @@
   "WorkflowSelector": {
     "WorkflowSelectButton": {
       "complete": "{{completeness}} % abgeschlossen",
+      "externalWorkflow": "externer Workflow",
       "setSelection": "Set-Auswahl",
       "subjectSelection": "Objektauswahl"
     },

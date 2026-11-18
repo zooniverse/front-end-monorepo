@@ -10,14 +10,16 @@ import ConnectWithProject from '@shared/components/ConnectWithProject'
 import ProjectStatistics from '@shared/components/ProjectStatistics'
 import StandardLayout, { HeaderComponents } from '@shared/components/StandardLayout/StandardLayout'
 import ZooniverseTalk from './components/ZooniverseTalk'
+import TranslationsModal from './components/TranslationsModal/TranslationsModal'
 
-function ProjectHomePage({ workflows = [] }) {
+function ProjectHomePage({ locale, workflows = [] }) {
   const { adminMode } = useContext(PanoptesAuthContext)
   const size = useContext(ResponsiveContext)
   const mobileLayout = size === 'small'
 
   return (
     <StandardLayout page='home'>
+      <TranslationsModal locale={locale} />
       <Box height={mobileLayout ? { min: '0' } : { min: '90vh' }}>
         <HeaderComponents adminMode={adminMode} />
         <Hero workflows={workflows} />

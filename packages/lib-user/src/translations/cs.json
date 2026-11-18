@@ -1,0 +1,192 @@
+{
+  "AllProjects": {
+    "error": "Došlo k chybě",
+    "noProjects": "Nenalezeny žádné projekty",
+    "recent": "nedávný",
+    "sortBy": "seřadit podle",
+    "title": "Projekty {{displayName}}",
+    "top": "Nejlepší projekty"
+  },
+  "BarChart": {
+    "a11y": "Sloupcový graf {{typeLabel}} podle {{countLabel}} od {{startDate}} do {{endDate}}",
+    "day": "Den",
+    "hourAbbrev": "hod",
+    "minAbbrev": "min",
+    "monthOf": "Měsíc",
+    "time": "Čas",
+    "weekOf": "Týden",
+    "year": "Rok"
+  },
+  "Contributors": {
+    "ContributorsList": {
+      "a11y": "{{name}} statistiky členů",
+      "privateProject": "Soukromý projekt {{index}}",
+      "projectStats": "{{name}} statistiky projektu"
+    },
+    "ExportStats": {
+      "cancel": "Zrušit",
+      "close": "Zavřít",
+      "complete": "Export dokončen",
+      "confirm": "Potvrdit",
+      "confirmMessage": "Chcete vygenerovat CSV soubor se statistikami skupiny pro {{memberCount}} členů?",
+      "download": "Stáhněte si CSV kliknutím na odkaz:",
+      "downloading": "Stahování dat...",
+      "error": "Chyba při exportu",
+      "errorMessage": "Export se nepodařilo vytvořit.",
+      "fileSize": "Přibližně {{fileSize}}.",
+      "generating": "Probíhá generování exportního souboru se statistikami. Nezavírejte tuto záložku v prohlížeči.",
+      "progress": "Průběh: {{progress}}%",
+      "retry": "Zkusit znovu"
+    },
+    "ProjectStats": {
+      "a11y": "{{project}} statistiky členů"
+    },
+    "error": "Došlo k chybě",
+    "exportLink": "Exportovat všechny statistiky",
+    "generating": "Generování exportu statistik...",
+    "noPermission": "Nemáte povolení zobrazovat přispěvatele této skupiny.",
+    "none": "Tato skupina nemá žádné přispěvatele.",
+    "title": "Kompletní statistiky skupiny"
+  },
+  "GroupContainer": {
+    "deactivated": "Tato skupina byla deaktivována. Opusťte ji, nebo v případě omylu kontaktujte správce skupiny.",
+    "joinFail": "Nepodařilo se připojit.",
+    "joined": "Připojili jste se k nové skupině!",
+    "joining": "Připojování ke skupině...",
+    "leaveGroup": "Opustit skupinu",
+    "loginToJoin": "Přihlaste se pro vstup do skupiny.",
+    "noAuth": "Přístup do soukromé skupiny je možný pouze po přihlášení.",
+    "notFound": "Skupinu se nepodařilo najít"
+  },
+  "GroupForm": {
+    "anyone": "tuto skupinu lze sdílet s kýmkoli",
+    "createNew": "Vytvořit novou skupinu",
+    "deactivate": "Deaktivovat skupinu",
+    "deactivateHelp": "Opravdu chcete tuto skupinu smazat?",
+    "greaterThanChar": "musí mít více než 3 znaky",
+    "lessThanChar": "musí mít méně než 60 znaků",
+    "name": "Název skupiny",
+    "nameHelp": "Pokud vytvoříte novou skupinu, stanete se jejím správcem.",
+    "onlyMembers": "Tuto skupinu mohou zobrazit pouze členové",
+    "private": "Soukromé",
+    "privateAggOnly": "Ne, nezobrazovat členům individuální statistiky",
+    "privateShowAggAndInd": "Ano, zobrazit členům individuální statistiky",
+    "pubVis": "Veřejná viditelnost",
+    "public": "Veřejné",
+    "publicAggOnly": "Ne, nikdy nezobrazovat individuální statistiky",
+    "publicAggShowInd": "Ano, zobrazit individuální statistiky, pokud je uživatel členem",
+    "publicShowAll": "Ano, vždy zobrazit individuální statistiky",
+    "saveChanges": "Uložit změny",
+    "showInd": "Zobrazit individuální statistiky",
+    "showIndHelp": "Správce má vždy přístup k individuálním statistikám.",
+    "showIndInfo": "Po vytvoření nové skupiny můžete všechny ostatní členy přidat prostřednictvím odkazu pro připojení.",
+    "visibility": "Viditelnost statistik"
+  },
+  "GroupStats": {
+    "GroupUpdateFormContainer": {
+      "error": "Došlo k chybě. Zkuste to znovu."
+    },
+    "MemberListItem": {
+      "a11y": "Nabídka pro úpravu nebo odstranění členství ve skupině pro {{name}}",
+      "giveAdmin": "Udělit přístup správce",
+      "remove": "Odebrat člena",
+      "removeAdmin": "Odebrat přístup správce"
+    },
+    "MembersList": {
+      "title": "Členové skupiny",
+      "warning": "Odebráním člena se jeho členství ve skupině stane neaktivním. Skupina pro něj již nebude přístupná, ale jeho příspěvky z doby členství zůstanou zachovány."
+    },
+    "TopContributors": {
+      "error": "Nepodařilo se načíst hlavní přispěvatele.",
+      "linkLabel": "Zobrazit seznam všech přispěvatelů a detailní statistiky",
+      "tip": "Zahrnuje aktivní i neaktivní členy.",
+      "title": "Nejlepší přispěvatelé"
+    },
+    "headerItems": {
+      "all": "Všechny mé skupiny",
+      "copied": "Odkaz na skupinu byl zkopírován!",
+      "copy": "Zkopírovat odkaz pro připojení",
+      "leave": "Opustit skupinu",
+      "share": "Sdílení skupiny"
+    },
+    "leaveQuestion": "Opravdu chcete tuto skupinu opustit?",
+    "manage": "Správa skupiny"
+  },
+  "HeaderDropdown": {
+    "label": "Možnosti skupiny"
+  },
+  "MainContent": {
+    "allProjects": "Všechny projekty",
+    "calendarBtn": "Hotovo",
+    "calendarTitle": "Vlastní časové období",
+    "certificate": "Vystavit osvědčení o dobrovolnictví",
+    "dateRange": {
+      "allTime": "Po celou dobu",
+      "custom": "Vlastní",
+      "lastSevenDays": "Posledních 7 dní",
+      "lastThirtyDays": "Posledních 30 dní",
+      "lastThreeMonths": "Poslední 3 měsíce",
+      "lastTwelveMonths": "Posledních 12 měsíců",
+      "thisMonth": "Tento měsíc",
+      "thisYear": "Tento rok"
+    },
+    "error": "Došlo k chybě.",
+    "hoursTip": "Počet hodin je vypočítán podle času zahájení a ukončení vaší klasifikace. Hodiny nezahrnují čas, který jste strávili na Talk.",
+    "noData": "Nebyly nalezeny žádné údaje.",
+    "selectDateRange": "Zvolte časové období",
+    "selectProject": "Vyberte projekt",
+    "start": "<0>Klasifikujte se v projektu</0> teď, nebo změňte časový interval.",
+    "tabContents": "Obsah karty"
+  },
+  "MyGroups": {
+    "GroupCard": {
+      "admin": "Správce",
+      "member": "Člen"
+    },
+    "PreviewLayout": {
+      "seeAll": "Zobrazit vše"
+    },
+    "createNew": "Vytvořit novou skupinu",
+    "error": "Při načítání vašich skupin došlo k chybě",
+    "learnMore": "Další informace o skupinách",
+    "noGroups": "Nejste členem žádné skupiny.<0/>Založte si ji zde níže",
+    "title": "Moje skupiny"
+  },
+  "TopProjects": {
+    "title": "Nejlepší projekty"
+  },
+  "UserHome": {
+    "Dashboard": {
+      "allTime": "Po celou dobu",
+      "collections": "Alba",
+      "comments": "Komentáře",
+      "favorites": "Oblíbené položky",
+      "messages": "Zprávy",
+      "moreStats": "Další statistiky",
+      "thisWeek": "Tento týden"
+    },
+    "RecentProjects": {
+      "error": "Nepodařilo se načíst vaše nedávné projekty",
+      "noProjects": "Nebyly nalezeny žádné nedávné projekty",
+      "start": "Začněte <0>klasifikací na libovolném projektu</0>.",
+      "title": "Pokračovat v klasifikaci"
+    },
+    "RecentSubjects": {
+      "error": "Při načítání nedávných klasifikací došlo k chybě",
+      "noSubjects": "Žádné nedávné klasifikace nebyly nalezeny",
+      "title": "Tvé nedávné klasifikace"
+    },
+    "SubjectCard": {
+      "subject": "Předmět"
+    }
+  },
+  "common": {
+    "avatarAlt": "{{login}} avatar",
+    "back": "Zpět",
+    "classifications": "Klasifikace",
+    "contributors": "Přispěvatelé",
+    "hours": "Hodiny",
+    "projects": "Projekty",
+    "seeAll": "Zobrazit vše"
+  }
+}

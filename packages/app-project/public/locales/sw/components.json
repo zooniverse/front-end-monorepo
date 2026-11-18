@@ -76,15 +76,22 @@
     "classify": "Ainisha",
     "collect": "Kusanya",
     "exploreProject": "Gundua Mradi",
+    "lab": "Maabara",
     "organization": "Kutoka kwa shirika:",
     "recents": "Za hivi majuzi",
     "talk": "Talk"
   },
   "ProjectStatistics": {
+    "active": "Takwimu Zinazotumika",
+    "allTime": "Takwimu za Wakati Wote",
+    "byTheNumbers": "Kulingana na namba",
     "classifications": "Uainishaji",
     "completedSubjects": "Picha zilizokamilika",
+    "launched": "Mradi ulizinduliwa {{date}}",
+    "notLaunched": "Mradi haujazinduliwa",
     "percentComplete": "Imefika asilimia",
     "subjects": "Picha",
+    "subtitle": "Fuatilia maendeleo ambayo wewe na wenzako wa kujitolea mmefanya kwenye mradi huu.",
     "text": "Kila mbofyo unachangia! Jiunge na Jumuiya ya {{projectName}} ili ukamilishe mradi huu na usaidie watafiti watoa matokeo muhimu. Bofya \"Angalia takwimu zaidi\" ili uone takwimu hata zaidi.",
     "title": "Takwimu za {{projectName}}",
     "viewMoreStats": "Angalia takwimu zaidi",
@@ -100,6 +107,7 @@
     "alreadySeen": "Tayari umeona",
     "back": "Chagua seti tofauti ya picha",
     "byline": "Panga orodha kwa kubofya majina ya safuwima. Utaona picha kwa mfuatano, anza na unayopenda.",
+    "error": "Samahani, hatukuweza kupakia mada katika seti hii ya mada. Tafadhali jaribu tena baadaye, au wajulishe timu ya mradi kwenye Talk.",
     "fetching": "Tafadhali subiri...",
     "heading": "Chagua picha ili uaze",
     "retired": "Imeondolewa",
@@ -124,6 +132,7 @@
   "WorkflowSelector": {
     "WorkflowSelectButton": {
       "complete": "Imefika {{completeness}}%",
+      "externalWorkflow": "mtiririko wa kazi wa nje",
       "setSelection": "uteuzi wa seti",
       "subjectSelection": "uteuzi wa picha"
     },

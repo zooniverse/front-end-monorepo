@@ -1,6 +1,6 @@
 import zooTheme from '@zooniverse/grommet-theme'
 import { Anchor, Box } from 'grommet'
-import { bool, func, number, shape, string } from 'prop-types'
+import { bool, func, node, number, shape, string } from 'prop-types'
 import { useResizeDetector } from 'react-resize-detector'
 import styled from 'styled-components'
 
@@ -81,6 +81,7 @@ export const StyledLogoAnchor = styled(Anchor)`
 
 export default function ZooHeader({
   adminMode = false,
+  localeDropdown,
   onThemeChange = defaultHandler,
   register = defaultHandler,
   showThemeToggle = false,
@@ -173,6 +174,7 @@ export default function ZooHeader({
           {hasMounted && (
             <UserNavigation
               isNarrow={isNarrow}
+              localeDropdown={localeDropdown}
               onThemeChange={onThemeChange}
               register={register}
               showThemeToggle={showThemeToggle}
@@ -201,6 +203,7 @@ export default function ZooHeader({
 
 ZooHeader.propTypes = {
   adminMode: bool,
+  localeDropdown: node,
   onThemeChange: func,
   register: func,
   showThemeToggle: bool,

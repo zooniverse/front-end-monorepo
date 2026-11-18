@@ -1,1 +1,1 @@
-export { default } from './getServerSideAPIHost'
+export { default, getServerSideERASHost } from './getServerSideAPIHost'

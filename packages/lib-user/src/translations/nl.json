@@ -1,0 +1,192 @@
+{
+  "AllProjects": {
+    "error": "Er is een fout opgetreden",
+    "noProjects": "Geen projecten gevonden",
+    "recent": "recente",
+    "sortBy": "sorteren op",
+    "title": "Projecten van {{displayName}}",
+    "top": "Topprojecten"
+  },
+  "BarChart": {
+    "a11y": "Staafdiagram van {{typeLabel}} per {{countLabel}} van {{startDate}} tot {{endDate}}",
+    "day": "Dag",
+    "hourAbbrev": "uur",
+    "minAbbrev": "min",
+    "monthOf": "Maand van",
+    "time": "Tijd",
+    "weekOf": "Week van",
+    "year": "Jaar"
+  },
+  "Contributors": {
+    "ContributorsList": {
+      "a11y": "Lidstatistieken van {{name}}",
+      "privateProject": "Privéproject {{index}}",
+      "projectStats": "{{name}}-projectstatistieken"
+    },
+    "ExportStats": {
+      "cancel": "Annuleren",
+      "close": "Sluiten",
+      "complete": "Export voltooid",
+      "confirm": "Bevestigen",
+      "confirmMessage": "Csv van groepsstatistieken genereren voor {{memberCount}} leden?",
+      "download": "Klik op de link om het csv-bestand te downloaden:",
+      "downloading": "Gegevens downloaden...",
+      "error": "Exportfout",
+      "errorMessage": "Rapport genereren mislukt.",
+      "fileSize": "Ongeveer {{fileSize}}.",
+      "generating": "Exportbestand met statistieken wordt gegenereerd. Sluit dit browsertabblad niet.",
+      "progress": "Voortgang: {{progress}}%",
+      "retry": "Opnieuw proberen"
+    },
+    "ProjectStats": {
+      "a11y": "Lidstatistieken van {{project}}"
+    },
+    "error": "Er is een fout opgetreden",
+    "exportLink": "Alle statistieken exporteren",
+    "generating": "Statistiekenexport genereren...",
+    "noPermission": "Je hebt geen toestemming om de bijdragers van deze groep te bekijken.",
+    "none": "Er zijn geen bijdragers voor deze groep.",
+    "title": "Volledige groepsstatistieken"
+  },
+  "GroupContainer": {
+    "deactivated": "Dit is een gedeactiveerde groep. Verlaat de groep of neem contact op met de groepsbeheerder als je denkt dat dit een fout is.",
+    "joinFail": "Deelnemen mislukt.",
+    "joined": "Je neemt deel aan de nieuwe groep!",
+    "joining": "Deelnemen aan groep...",
+    "leaveGroup": "Groep verlaten",
+    "loginToJoin": "Log in om deel te nemen aan de groep.",
+    "noAuth": "Je moet ingelogd zijn om toegang te krijgen tot een besloten groep.",
+    "notFound": "Groep niet gevonden"
+  },
+  "GroupForm": {
+    "anyone": "je kunt deze groep met iedereen delen",
+    "createNew": "Nieuwe groep maken",
+    "deactivate": "Groep deactiveren",
+    "deactivateHelp": "Weet je zeker dat je deze groep wilt verwijderen?",
+    "greaterThanChar": "moet > 3 tekens zijn",
+    "lessThanChar": "moet < 60 tekens zijn",
+    "name": "Groepsnaam",
+    "nameHelp": "Door een nieuwe groep te maken, word je de beheerder ervan.",
+    "onlyMembers": "alleen leden kunnen deze groep bekijken",
+    "private": "Besloten",
+    "privateAggOnly": "Nee, individuele statistieken niet weergeven aan leden",
+    "privateShowAggAndInd": "Ja, individuele statistieken weergeven aan leden",
+    "pubVis": "Openbare zichtbaarheid",
+    "public": "Openbaar",
+    "publicAggOnly": "Nee, individuele statistieken nooit weergeven",
+    "publicAggShowInd": "Ja, individuele statistieken altijd weergeven indien lid",
+    "publicShowAll": "Ja, individuele statistieken altijd weergeven",
+    "saveChanges": "Wijzigingen opslaan",
+    "showInd": "Individuele statistieken weergeven",
+    "showIndHelp": "Beheerders kunnen altijd individuele statistieken bekijken.",
+    "showIndInfo": "Je kunt alle andere leden toevoegen via een deelnamelink nadat je de nieuwe groep hieronder hebt aangemaakt.",
+    "visibility": "Zichtbaarheid van statistieken"
+  },
+  "GroupStats": {
+    "GroupUpdateFormContainer": {
+      "error": "Er is iets misgegaan. Probeer het opnieuw."
+    },
+    "MemberListItem": {
+      "a11y": "Menu om het groepslidmaatschap van {{name}} bij te werken of te verwijderen",
+      "giveAdmin": "Beheerderstoegang geven",
+      "remove": "Lid verwijderen",
+      "removeAdmin": "Beheerderstoegang intrekken"
+    },
+    "MembersList": {
+      "title": "Groepsleden",
+      "warning": "Door een lid te verwijderen, wordt diens lidmaatschap van de groep gedeactiveerd. Diegene heeft geen toegang meer tot de groep, maar diens bijdragen als lid blijven bestaan."
+    },
+    "TopContributors": {
+      "error": "Er is een fout opgetreden bij het ophalen van de topbijdragers.",
+      "linkLabel": "Bekijk alle bijdragers en gedetailleerde statistieken",
+      "tip": "Omvat actieve en inactieve leden.",
+      "title": "Topbijdragers"
+    },
+    "headerItems": {
+      "all": "Al mijn groepen",
+      "copied": "Groepslink gekopieerd!",
+      "copy": "Deelnamelink kopiëren",
+      "leave": "Groep verlaten",
+      "share": "Groep delen"
+    },
+    "leaveQuestion": "Weet je zeker dat je deze groep wilt verlaten?",
+    "manage": "Groep beheren"
+  },
+  "HeaderDropdown": {
+    "label": "Groepsopties"
+  },
+  "MainContent": {
+    "allProjects": "Alle projecten",
+    "calendarBtn": "Gereed",
+    "calendarTitle": "Aangepast datumbereik",
+    "certificate": "Vrijwilligerscertificaat genereren",
+    "dateRange": {
+      "allTime": "Altijd",
+      "custom": "Aangepast",
+      "lastSevenDays": "Afgelopen 7 dagen",
+      "lastThirtyDays": "Afgelopen 30 dagen",
+      "lastThreeMonths": "Afgelopen 3 maanden",
+      "lastTwelveMonths": "Afgelopen 12 maanden",
+      "thisMonth": "Deze maand",
+      "thisYear": "Dit jaar"
+    },
+    "error": "Er is een fout opgetreden.",
+    "hoursTip": "Uren worden berekend op basis van de begin- en eindtijd van je classificatiewerkzaamheden. Uren geven niet weer hoeveel tijd je aan Talk hebt besteed.",
+    "noData": "Geen gegevens gevonden.",
+    "selectDateRange": "Selecteer datumbereik",
+    "selectProject": "Selecteer project",
+    "start": "<0>Classificeer in een project</0> nu of wijzig het datumbereik.",
+    "tabContents": "Inhoud tabblad"
+  },
+  "MyGroups": {
+    "GroupCard": {
+      "admin": "Beheerder",
+      "member": "Lid"
+    },
+    "PreviewLayout": {
+      "seeAll": "Alles weergeven"
+    },
+    "createNew": "Nieuwe groep maken",
+    "error": "Er is een fout opgetreden bij het ophalen van je groepen",
+    "learnMore": "Meer informatie over groepen",
+    "noGroups": "Je bent geen lid van groepen.<0/>Maak er een hieronder",
+    "title": "Mijn groepen"
+  },
+  "TopProjects": {
+    "title": "Topprojecten"
+  },
+  "UserHome": {
+    "Dashboard": {
+      "allTime": "Altijd",
+      "collections": "Collecties",
+      "comments": "Opmerkingen",
+      "favorites": "Favorieten",
+      "messages": "Berichten",
+      "moreStats": "Meer statistieken",
+      "thisWeek": "Deze week"
+    },
+    "RecentProjects": {
+      "error": "Er is een fout opgetreden bij het ophalen van je recente projecten",
+      "noProjects": "Geen recente projecten gevonden",
+      "start": "Begin met <0>classificeren in een project</0>.",
+      "title": "Doorgaan met classificeren"
+    },
+    "RecentSubjects": {
+      "error": "Er is een fout opgetreden bij het ophalen van recente classificaties",
+      "noSubjects": "Geen recente classificaties gevonden",
+      "title": "Je recente waarnemingen"
+    },
+    "SubjectCard": {
+      "subject": "Onderwerp"
+    }
+  },
+  "common": {
+    "avatarAlt": "{{login}}-avatar",
+    "back": "Terug",
+    "classifications": "Classificaties",
+    "contributors": "Bijdragers",
+    "hours": "Uren",
+    "projects": "Projecten",
+    "seeAll": "Alles weergeven"
+  }
+}

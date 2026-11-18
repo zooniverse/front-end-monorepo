@@ -1,0 +1,59 @@
+{
+  "AboutPage": {
+    "mobile": {
+      "altAppStore": "Dawuniḽoudani kha App Store",
+      "altImage": "Tshifanyiso tsha luṱingothendeleki lu re na app ya Zooniverse",
+      "altPlayStore": "I wanala  kha Google Play",
+      "description": "Iḓani na Zooniverse. Dawuniḽoudani app ya zwishumiswa zwa iOS na Android.",
+      "heading": "Sedzani App yashu ya Mobile",
+      "subheading": "Tumbulani, funzani, na u guda - huṅwe na huṅwe"
+    },
+    "ourMission": {
+      "stats": {
+        "classifications": "Khethekanyo u swika zwino",
+        "volunteers": "Vhashumi vha u ḓifunela vho ṅwaliswaho"
+      }
+    }
+  },
+  "Home": {
+    "Community": {
+      "feedOne": "Zooniverse ya Ḓuvha ḽiṅwe na ḽiṅwe",
+      "feedTwo": "Blogo ya Zooniverse",
+      "heading": "Tshitshavha tsha Zooniverse",
+      "seeAll": "Vhonani zwoṱhe",
+      "subheading": "Hu khou itea mini?"
+    },
+    "DefaultHome": {
+      "FeaturedProjects": {
+        "heading": "Phurojeke dzo sumbedzwaho",
+        "none": "A hu na phurojeke dzo sumbedzwaho"
+      },
+      "Introduction": {
+        "description1": "Zooniverse ndi pulatifomo khulwanesa ya ḽifhasi ya ṱhoḓisiso dzine dza ṋewa maanḓa nga vhathu. Ri ṱumanya vhaṱoḓisisi vha phurofeshinala na vhaḓiṋekedzi vha dzimiḽioni ḽifhasini ḽoṱhe. U leludza mvelelo dza vhukuma dzi bvaho kha ṱhoḓisiso dzi sa shumi, kana dzi sa konadzei. Hezwi zwo ita uri hu tumbulwe zwithu zwiswa, masiandoitwa a mbekanyamaitele na khandiso dza ṱhoḓisiso.",
+        "description2": "Puḽatifomo yashu i ṱuṱuwedzwa nga vhashumi vha u ḓifunela, u fana na inwi. Miṅwaha yoṱhe na vhubvo zwo ṱanganedzwa u shela mulenzhe, a hu ṱoḓei PhD — u sokou pfa u mangala na u tou puṱedza zwi si gathi. Vhunzhi ha mawanwa a takadzaho vhukuma a bvaho kha phurojeke dza Zooniverse o bvelela kha nyambedzano vhukati ha vhashumi vha u ḓifunela na vhaṱoḓisisi. Kha vha ri dzhoine ṋamusi u itela u dzhia sia kha ṱhoḓisiso dza vhuimo ha nṱha na u ḓiitela zwine vha zwi wana!",
+        "register": "Ṅwalisa",
+        "signIn": "Kha vha dzhene",
+        "video": "Marangaphanḓa Mapfufhi a Zooniverse"
+      },
+      "Researchers": {
+        "build": "Khethani phurojeke",
+        "description": "U bva kha u khethekanya zwipuka u swika kha u tumbula dzi exoplanet u swika kha u ṅwalulula maṅwalo a ḓivhazwakale, na zwiṅwe, vhaṱoḓisisi kha masia oṱhe vho shumisa Mufhaṱi wa Phurojeke u sika phurojeke dzi kwamaho, dzi swikeleleaho. Muthu munwe na munwe a nga fhata mushumo wa Zooniverse. Kha vha sokou dzhenisa data yavho, vha nange mishumo ine vha ṱoḓa vhaḓiṋekedzi vha tshi i ita, nahone vha ri ṱanganedze kha u alusa tshitshavha tsha inthanethe tshi katelaho na tshi ṱanganedzaho tshine tsha khou ita ṱhoḓisiso ya vhukuma."
+      },
+      "headings": {
+        "first": "Zooniverse ndi mini?",
+        "fourth": "Kha vha sedze app yashu ya luṱingothendeleki",
+        "second": "Phurojeke dzo sumbedzwaho",
+        "third": "Vhaṱoḓisisi vha vhukuma, mvelelo dza vhukuma"
+      },
+      "heroText": "Dzhoinani vhathu vha dzimilioni vhane vha thusa u i sa phanḓa ṱhoḓisiso ya vhukuma, saintsi na nḓivho.",
+      "mainHeading": "Tsedzuluso yo ṱuṱuwedzwaho nga vhathu",
+      "projects": "Kha vha ṱoḓisise phurojeke",
+      "subheadings": {
+        "first": "Vhuṱali ha gogo",
+        "fourth": "Tumbulani, funzani, na u guda - huṅwe na huṅwe",
+        "second": "Zooniverse i a shuma",
+        "third": "Ṱanganedzani vhaṱoḓisisi vhe vha sika phurojeke kha Zooniverse"
+      }
+    }
+  }
+}

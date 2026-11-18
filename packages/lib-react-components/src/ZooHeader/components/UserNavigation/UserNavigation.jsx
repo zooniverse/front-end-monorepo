@@ -33,12 +33,7 @@ const StyledMailIcon = styled(Mail)`
 
 function Icon({ icon, size, title }) {
   return (
-    <StyledBlank
-      role='img'
-      aria-label={title}
-      aria-hidden='false'
-      size={size}
-    >
+    <StyledBlank role='img' aria-label={title} aria-hidden='false' size={size}>
       {icon}
     </StyledBlank>
   )
@@ -46,6 +41,7 @@ function Icon({ icon, size, title }) {
 
 export default function UserNavigation({
   isNarrow = false,
+  localeDropdown,
   onThemeChange,
   register,
   showThemeToggle,
@@ -64,10 +60,9 @@ export default function UserNavigation({
     { count: unreadNotifications }
   )
 
-  const messagesLabelString = t(
-    'ZooHeader.SignedInUserNavigation.navListLabels.messages',
-    { count: unreadMessages }
-  )
+  const messagesLabelString = t('ZooHeader.SignedInUserNavigation.navListLabels.messages', {
+    count: unreadMessages
+  })
 
   const notificationLabel = isNarrow ? (
     <Icon
@@ -94,20 +89,15 @@ export default function UserNavigation({
       {Object.keys(user).length === 0 && (
         <>
           {showThemeToggle && (
-            <ThemeModeToggle
-              themeMode={themeMode}
-              onThemeChange={onThemeChange}
-            />
+            <ThemeModeToggle themeMode={themeMode} onThemeChange={onThemeChange} />
           )}
+          {localeDropdown}
           <NavButton
             label={t('ZooHeader.SignedOutUserNavigation.signIn')}
             onClick={signIn}
             margin={{ right: 'small' }}
           />
-          <NavButton
-            label={t('ZooHeader.SignedOutUserNavigation.register')}
-            onClick={register}
-          />
+          <NavButton label={t('ZooHeader.SignedOutUserNavigation.register')} onClick={register} />
         </>
       )}
       {Object.keys(user).length > 0 && signOut && (
@@ -127,11 +117,9 @@ export default function UserNavigation({
             url={`${host}/inbox`}
           />
           {showThemeToggle && (
-            <ThemeModeToggle
-              themeMode={themeMode}
-              onThemeChange={onThemeChange}
-            />
+            <ThemeModeToggle themeMode={themeMode} onThemeChange={onThemeChange} />
           )}
+          {localeDropdown}
           <UserMenu signOut={signOut} user={user} />
         </>
       )}

@@ -1,0 +1,192 @@
+{
+  "AllProjects": {
+    "error": "오류가 발생했습니다",
+    "noProjects": "프로젝트를 찾을 수 없음",
+    "recent": "최근의",
+    "sortBy": "정렬 기준",
+    "title": "{{displayName}}의 프로젝트",
+    "top": "상위 프로젝트"
+  },
+  "BarChart": {
+    "a11y": "{{startDate}}부터 {{endDate}}까지 {{countLabel}}별 {{typeLabel}} 막대 차트",
+    "day": "일",
+    "hourAbbrev": "시간",
+    "minAbbrev": "분",
+    "monthOf": "월",
+    "time": "시간",
+    "weekOf": "주",
+    "year": "연"
+  },
+  "Contributors": {
+    "ContributorsList": {
+      "a11y": "{{name}} 구성원 통계",
+      "privateProject": "비공개 프로젝트 {{index}}",
+      "projectStats": "{{name}} 프로젝트 통계"
+    },
+    "ExportStats": {
+      "cancel": "취소",
+      "close": "닫기",
+      "complete": "내보내기 완료",
+      "confirm": "확인",
+      "confirmMessage": "{{memberCount}}명의 구성원에 대한 그룹 통계 CSV를 생성할까요?",
+      "download": "CSV 다운로드 링크 클릭:",
+      "downloading": "데이터 다운로드 중...",
+      "error": "내보내기 오류",
+      "errorMessage": "내보내기를 생성하지 못했습니다.",
+      "fileSize": "약 {{fileSize}}입니다.",
+      "generating": "통계 내보내기 파일을 생성 중입니다. 이 브라우저 탭을 닫지 마세요.",
+      "progress": "진행도: {{progress}}%",
+      "retry": "다시 시도"
+    },
+    "ProjectStats": {
+      "a11y": "{{project}} 구성원 통계"
+    },
+    "error": "오류가 발생했습니다",
+    "exportLink": "모든 통계 내보내기",
+    "generating": "통계 내보내기 생성 중...",
+    "noPermission": "이 그룹의 기여자를 볼 권한이 없습니다.",
+    "none": "이 그룹의 기여자가 없습니다.",
+    "title": "전체 그룹 통계"
+  },
+  "GroupContainer": {
+    "deactivated": "비활성화된 그룹입니다. 이 그룹을 나가시거나 오류라고 생각되면 해당 그룹의 관리자에게 문의하세요.",
+    "joinFail": "참가하지 못했습니다.",
+    "joined": "새 그룹에 참가했습니다!",
+    "joining": "그룹 참가 중...",
+    "leaveGroup": "그룹 나가기",
+    "loginToJoin": "이 그룹에 참가하려면 로그인하세요.",
+    "noAuth": "비공개 그룹에 액세스하려면 로그인 상태여야 합니다.",
+    "notFound": "그룹을 찾을 수 없음"
+  },
+  "GroupForm": {
+    "anyone": "이 그룹을 모든 사람과 공유할 수 있습니다",
+    "createNew": "새 그룹 만들기",
+    "deactivate": "그룹 비활성화",
+    "deactivateHelp": "이 그룹을 삭제하시겠어요?",
+    "greaterThanChar": "3자를 초과해야 합니다",
+    "lessThanChar": "60자 미만이어야 합니다",
+    "name": "그룹 이름",
+    "nameHelp": "새 그룹을 만들면 관리자가 됩니다.",
+    "onlyMembers": "구성원만 이 그룹을 볼 수 있습니다",
+    "private": "비공개",
+    "privateAggOnly": "아니요. 구성원에게 개인 통계를 표시하지 않습니다",
+    "privateShowAggAndInd": "예. 구성원에게 개인 통계를 표시합니다",
+    "pubVis": "공개 여부",
+    "public": "공개",
+    "publicAggOnly": "아니요. 개인 통계를 표시하지 않습니다",
+    "publicAggShowInd": "예. 구성원인 경우 개인 통계를 표시합니다",
+    "publicShowAll": "예. 개인 통계를 항상 표시합니다",
+    "saveChanges": "변경 사항 저장",
+    "showInd": "개인 통계 표시",
+    "showIndHelp": "관리자는 언제나 개인 통계를 확인할 수 있습니다.",
+    "showIndInfo": "아래에서 새 그룹을 만든 후 참가 링크를 통해 다른 모든 구성원을 추가할 수 있습니다.",
+    "visibility": "통계 표시 여부"
+  },
+  "GroupStats": {
+    "GroupUpdateFormContainer": {
+      "error": "문제가 발생했습니다. 다시 시도해 주세요."
+    },
+    "MemberListItem": {
+      "a11y": "메뉴 업데이트 또는 {{name}}의 그룹 멤버십 제거",
+      "giveAdmin": "관리자 액세스 권한 부여",
+      "remove": "구성원 제거",
+      "removeAdmin": "관리자 액세스 권한 제거"
+    },
+    "MembersList": {
+      "title": "그룹 구성원",
+      "warning": "구성원을 제거하면 해당 구성원의 그룹 멤버십이 비활성화됩니다. 그러면 해당 그룹에 액세스할 수는 없게 되나, 구성원이 활동을 지속한다면 기여할 수는 있습니다."
+    },
+    "TopContributors": {
+      "error": "상위 기여자를 가져오는 중에 오류가 발생했습니다.",
+      "linkLabel": "모든 기여자와 세부 통계 보기",
+      "tip": "활성 및 비활성 구성원을 포함합니다.",
+      "title": "상위 기여자"
+    },
+    "headerItems": {
+      "all": "모든 내 그룹",
+      "copied": "그룹 링크가 복사되었습니다!",
+      "copy": "참가 링크 복사",
+      "leave": "그룹 나가기",
+      "share": "그룹 공유"
+    },
+    "leaveQuestion": "이 그룹을 나가시겠어요?",
+    "manage": "그룹 관리"
+  },
+  "HeaderDropdown": {
+    "label": "그룹 옵션"
+  },
+  "MainContent": {
+    "allProjects": "모든 프로젝트",
+    "calendarBtn": "완료",
+    "calendarTitle": "사용자 지정 데이터 범위",
+    "certificate": "자원 봉사 인증서 생성",
+    "dateRange": {
+      "allTime": "모든 시간",
+      "custom": "사용자 지정",
+      "lastSevenDays": "지난 7일",
+      "lastThirtyDays": "지난 30일",
+      "lastThreeMonths": "지난 3개월",
+      "lastTwelveMonths": "지난 12개월",
+      "thisMonth": "이번 달",
+      "thisYear": "올해"
+    },
+    "error": "오류가 발생했습니다.",
+    "hoursTip": "시간은 사용자가 기여 활동을 시작하고 종료한 시간을 기반으로 계산됩니다. 시간은 Talk에 사용된 시간을 반영하지 않습니다.",
+    "noData": "데이터를 찾을 수 없습니다.",
+    "selectDateRange": "데이터 범위 선택",
+    "selectProject": "프로젝트 선택",
+    "start": "지금 <0>프로젝트에 기여</0>하거나 데이터 범위를 변경하세요.",
+    "tabContents": "콘텐츠 탭하기"
+  },
+  "MyGroups": {
+    "GroupCard": {
+      "admin": "관리자",
+      "member": "구성원"
+    },
+    "PreviewLayout": {
+      "seeAll": "모두 보기"
+    },
+    "createNew": "새 그룹 만들기",
+    "error": "그룹을 가져오는 중에 오류가 발생했습니다",
+    "learnMore": "그룹에 대해 더 알아보기",
+    "noGroups": "어떤 그룹의 구성원도 아니시네요.<0/>아래에서 그룹을 만들어 보세요",
+    "title": "내 그룹"
+  },
+  "TopProjects": {
+    "title": "상위 프로젝트"
+  },
+  "UserHome": {
+    "Dashboard": {
+      "allTime": "모든 시간",
+      "collections": "컬렉션",
+      "comments": "댓글",
+      "favorites": "즐겨찾기",
+      "messages": "메시지",
+      "moreStats": "통계 더 보기",
+      "thisWeek": "이번 주"
+    },
+    "RecentProjects": {
+      "error": "최근 프로젝트를 가져오는 중에 오류가 발생했습니다",
+      "noProjects": "최근 프로젝트를 찾을 수 없습니다",
+      "start": "<0>어떤 프로젝트에든 기여</0>하여 시작해 보세요.",
+      "title": "계속 기여"
+    },
+    "RecentSubjects": {
+      "error": "최근 기여 활동을 가져오는 중에 오류가 발생했습니다",
+      "noSubjects": "최근 기여 활동을 찾을 수 없습니다",
+      "title": "최근 기여 활동"
+    },
+    "SubjectCard": {
+      "subject": "주제"
+    }
+  },
+  "common": {
+    "avatarAlt": "{{login}} 아바타",
+    "back": "뒤로",
+    "classifications": "기여",
+    "contributors": "기여자",
+    "hours": "시간",
+    "projects": "프로젝트",
+    "seeAll": "모두 보기"
+  }
+}

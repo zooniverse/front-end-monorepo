@@ -76,15 +76,22 @@
     "classify": "Osztályozás",
     "collect": "Begyűjtés",
     "exploreProject": "Projekt felfedezése",
+    "lab": "Labor",
     "organization": "A következő szervezettől:",
     "recents": "Legutóbbiak",
     "talk": "Talk fórum"
   },
   "ProjectStatistics": {
+    "active": "Aktív statisztikák",
+    "allTime": "Minden idők statisztikái",
+    "byTheNumbers": "A számok szerint",
     "classifications": "Osztályozások",
     "completedSubjects": "Befejezett témák",
+    "launched": "A projekt elindítása: {{date}}",
+    "notLaunched": "A projekt nem indult el",
     "percentComplete": "Készültségi szint százalékban",
     "subjects": "Témák",
+    "subtitle": "Kövesse nyomon, hogy Ön és a többi önkéntes milyen előrehaladást ért el a projekttel kapcsolatban.",
     "text": "Minden kattintás számít! Csatlakozzon a(z) {{projectName}} közösségéhez a projekt teljesítéséhez, és segítsen a kutatóknak, hogy fontos eredményeket érhessenek el. A „További statisztikák” megtekintése gombra kattintva még több statisztikát tekinthet meg.",
     "title": "{{projectName}} statisztikák",
     "viewMoreStats": "További statisztikák megtekintése",
@@ -100,6 +107,7 @@
     "alreadySeen": "Már megtekintett",
     "back": "Válasszon ki egy másik témakészletet",
     "byline": "A listát az oszlopok nevére kattintva rendezheti. A témák egymás után jelennek meg, az Ön által kiválasztottal kezdődően.",
+    "error": "Sajnáljuk, nem tudtuk betölteni a tárgycsoport tárgyait. Próbáld újra később, vagy tudasd a projektcsapattal a Talkban.",
     "fetching": "Kérjük, várjon...",
     "heading": "Válasszon ki egy témát a kezdéshez",
     "retired": "Bevont",
@@ -124,6 +132,7 @@
   "WorkflowSelector": {
     "WorkflowSelectButton": {
       "complete": "{{completeness}}% kész",
+      "externalWorkflow": "külső munkafolyamat",
       "setSelection": "kiválasztott készlet",
       "subjectSelection": "témaválasztás"
     },

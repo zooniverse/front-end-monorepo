@@ -43,12 +43,20 @@ export default function Resources() {
           <Paragraph margin={{ bottom: 'none' }}>{t('AIEthics.faq.second.question')}</Paragraph>
           <StyledList>
             <li>
-              <Paragraph margin='none'>{t('AIEthics.faq.second.answerOne')}</Paragraph>
+              <Paragraph margin='none'>{t('AIEthics.faq.second.answer')}</Paragraph>
+            </li>
+          </StyledList>
+        </li>
+        <li>
+          <Paragraph margin={{ bottom: 'none' }}>{t('AIEthics.faq.third.question')}</Paragraph>
+          <StyledList>
+            <li>
+              <Paragraph margin='none'>{t('AIEthics.faq.third.answerOne')}</Paragraph>
             </li>
             <li>
               <Paragraph margin='none'>
                 <Trans
-                  i18nKey='AIEthics.faq.second.answerTwo'
+                  i18nKey='AIEthics.faq.third.answerTwo'
                   t={t}
                   components={[<Anchor href='mailto:contact@zooniverse.org' key='mail-us-two' />]}
                 />

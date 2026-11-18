@@ -76,15 +76,22 @@
     "classify": "Klassificer",
     "collect": "Samling",
     "exploreProject": "Udforsk projekt",
+    "lab": "Laboratorium",
     "organization": "Fra organisationen:",
     "recents": "Seneste",
     "talk": "Snak"
   },
   "ProjectStatistics": {
+    "active": "Aktiv statistik",
+    "allTime": "Statistikker fra alle tider",
+    "byTheNumbers": "I tal",
     "classifications": "Klassificeringer",
     "completedSubjects": "Afsluttede emner",
+    "launched": "Projekt lanceret {{date}}",
+    "notLaunched": "Projektet er ikke igangsat",
     "percentComplete": "Procent færdigt",
     "subjects": "Emner",
+    "subtitle": "Hold styr på de fremskridt, som du og dine medfrivillige har gjort på dette projekt.",
     "text": "Hvert klik tæller! Bliv en del af fællesskabet omkring {{projectName}} for at fuldføre dette projekt og hjælpe forskerne med at skabe vigtige resultater. Klik på \"Vis flere statistikker\" for at se endnu flere statistikker.",
     "title": "Statistikker for {{projectName}}",
     "viewMoreStats": "Vis flere statistikker",
@@ -100,6 +107,7 @@
     "alreadySeen": "Allerede set",
     "back": "Vælg et andet emnesæt",
     "byline": "Sortér listen ved at klikke på kolonnernes navne. Du vil se emnerne i rækkefølge fra og med det, du vælger.",
+    "error": "Beklager, vi kunne ikke indlæse emnerne i dette emnesæt. Prøv igen senere, eller giv projektteamet besked på Talk.",
     "fetching": "Vent venligst ...",
     "heading": "Vælg et emne for at komme i gang",
     "retired": "Udgået",
@@ -124,6 +132,7 @@
   "WorkflowSelector": {
     "WorkflowSelectButton": {
       "complete": "{{completeness}} % færdig",
+      "externalWorkflow": "ekstern arbejdsgang",
       "setSelection": "indstil valg",
       "subjectSelection": "emnevalg"
     },

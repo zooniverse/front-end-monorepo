@@ -14,6 +14,7 @@
     },
     "SidebarHeading": "소개",
     "TeamMember": {
+      "admin": "주니버스 팀",
       "collaborator": "공동 연구자",
       "expert": "전문가",
       "moderator": "모더레이터",
@@ -30,7 +31,12 @@
         "title": "클래시파이어에 오류가 발생했습니다 :("
       }
     },
+    "ExternalWorkflow": {
+      "button": "외부 워크플로를 계속 진행하세요",
+      "fallback": "이 워크플로는 외부 사이트에서 호스팅됩니다. 아래 버튼을 선택하여 해당 사이트에서 계속 진행하세요."
+    },
     "RecentSubjects": {
+      "noSubjects": "최근에 분류한 주제가 여기에 표시됩니다.",
       "text": "토크에서 대상에 대해 토론을 하거나, 대상을 즐겨찾기 또는 컬렉션에 추가하세요.",
       "title": "최근 기여 활동"
     },
@@ -47,6 +53,51 @@
       "link": "더 보기",
       "title": "내 통계"
     }
+  },
+  "Collect": {
+    "exploreLink": "Zooniverse의 모든 컬렉션을 살펴보세요",
+    "hideSingleSubject": "주제가 하나만 있는 컬렉션을 숨깁니다.",
+    "placeholders": {
+      "empty": "컬렉션을 찾을 수 없습니다.",
+      "error": "컬렉션을 불러오는 중 오류가 발생했습니다."
+    },
+    "resultsCount": "{{total}}개 컬렉션 중 {{range}}개를 표시합니다.",
+    "sortBy": "정렬 기준:",
+    "sortOptions": {
+      "alphabeticalAscending": "알파벳순 AZ",
+      "alphabeticalDescending": "알파벳 ZA",
+      "recentlyCreated": "최근에 생성됨",
+      "recentlyUpdated": "최근 업데이트됨"
+    },
+    "tabs": {
+      "collections": "컬렉션",
+      "favorites": "즐겨찾기",
+      "myCollections": "내 {{projectName}} 컬렉션",
+      "myFavorites": "내 {{projectName}} 즐겨찾기",
+      "title": "컬렉션 페이지"
+    },
+    "title": "모으다"
+  },
+  "Collection": {
+    "CollectionOptions": {
+      "copied": "URL이 클립보드에 복사되었습니다.",
+      "settings": "설정",
+      "share": "공유하다"
+    },
+    "emptySubjects": "이 컬렉션에는 주제가 없습니다.",
+    "linkedToProjectCollections": "<projectLink>{{projectName}}<\/projectLink> 컬렉션에 연결됨",
+    "notFound": "이 컬렉션을 불러오는 중 오류가 발생했습니다.",
+    "ownerLoadError": "컬렉션 소유자 정보를 불러올 수 없습니다.",
+    "resultsCount": "{{총}}명의 피험자 중 {{범위}}명을 표시합니다.",
+    "roles": {
+      "collaborator": "협력자",
+      "contributor": "기부자",
+      "owner": "소유자",
+      "viewer": "뷰어"
+    },
+    "seeAllOwnerCollections": "<collectionsLink>{{displayName}}의 컬렉션 모두 보기<\/collectionsLink>",
+    "selectSubjects": "과목을 선택하세요",
+    "subjectsLoadError": "이 컬렉션의 주제를 불러오는 중 오류가 발생했습니다."
   },
   "Home": {
     "AboutProject": {
@@ -75,5 +126,96 @@
       "message": "연구 팀 및 다른 자발적 참여자들과 이야기를 나누세요!",
       "title": "Zooniverse 토크"
     }
+  },
+  "ProjectRecents": {
+    "empty": "지난 90일 동안 분류한 가장 최근의 주제 20개가 여기에 표시됩니다.",
+    "emptyTitle": "최근 분류된 내용이 없습니다.",
+    "error": "최근 항목을 불러오는 데 오류가 발생했습니다.",
+    "signedOut": "로그인하시면 최근에 분류한 주제들을 보실 수 있습니다.",
+    "title": "최근 분류"
+  },
+  "ProjectStats": {
+    "BarChart": {
+      "a11y": "{{typeLabel}} 유형별 {{countLabel}} 개수의 막대 그래프 (시작일: {{startDate}} ~ 종료일: {{endDate}})",
+      "allWorkflows": "모든 워크플로",
+      "dateRange": {
+        "allTime": "역대 최고",
+        "custom": "관습",
+        "lastSevenDays": "지난 7일",
+        "lastThirtyDays": "지난 30일",
+        "lastThreeMonths": "지난 3개월",
+        "lastTwelveMonths": "지난 12개월",
+        "thisMonth": "이번 달",
+        "thisYear": "올해"
+      },
+      "empty": "데이터가 없습니다. 워크플로 또는 날짜 범위를 변경하세요.",
+      "selectDateRange": "날짜 범위를 선택하세요",
+      "selectWorkflow": "워크플로우를 선택하세요"
+    },
+    "calendarBtn": "완료",
+    "calendarTitle": "사용자 지정 날짜 범위",
+    "comments": "댓글",
+    "count": "분류",
+    "endDate": "종료일",
+    "heading": "{{projectName}} 통계",
+    "startDate": "시작일",
+    "workflows": {
+      "empty": "관련 워크플로 없음",
+      "percentComplete": "{{percent}}% 완료",
+      "retireLimit": "퇴직 한도: {{number}}",
+      "subjectsRetired": "은퇴한 대상자 수: {{retired}}\/{{tal}}",
+      "tip": "완료 예상 시간은 지난 14일간의 분류율을 기준으로 산출되었으며, 일부 워크플로우의 경우 정확하지 않거나 제공되지 않을 수 있습니다.",
+      "title": "워크플로"
+    }
+  },
+  "Talk": {
+    "Comment": {
+      "avatarAlt": "{{login}} 아바타",
+      "comment": "논평",
+      "goToComment": "댓글로 이동",
+      "reply": "답변으로",
+      "userDisplayNamePossessive": "{{userDisplayName}}의"
+    },
+    "Discussions": {
+      "addComment": "댓글을 남겨주세요",
+      "commentMessage": "특정 댓글에 답글을 달려면 해당 댓글을 클릭하여 토론 페이지로 이동하세요.",
+      "comments": "댓글",
+      "commentsViewing": "{{total}}개의 댓글 중 {{count}}개를 보고 있습니다.",
+      "discussionBoard": "토론 게시판",
+      "discussionTitle": "토론 제목",
+      "discussions": "{{count}} 토론",
+      "initialComment": "초기 의견",
+      "newComment": "새 댓글",
+      "noDiscussions": "토론 금지",
+      "oneDiscussion": "1. 토론",
+      "participants": "참가자들",
+      "sortBy": "정렬 기준",
+      "sortedNewestFirst": "최신순",
+      "sortedOldestFirst": "가장 오래된 순서부터",
+      "startDiscussion": "새로운 토론을 시작하세요"
+    },
+    "Metadata": {
+      "collapse": "무너지다",
+      "expand": "확장하다",
+      "noMetadata": "사용 가능한 메타데이터가 없습니다.",
+      "subjectMetadata": "주제 메타데이터"
+    },
+    "Tags": {
+      "add": "추가하다",
+      "addATag": "태그를 추가하세요",
+      "addVote": "투표에 참여하세요",
+      "createTag": "태그를 생성하세요",
+      "noTags": "태그 없음",
+      "popularTagsFrom": "{{projectDisplayName}}의 인기 태그",
+      "removeVote": "투표를 취소하세요",
+      "signInToTag": "태그를 추가하려면 로그인하세요",
+      "tagValidationMessage": "3~40자(문자, 숫자, 하이픈, 밑줄 포함)를 사용하세요. 공백이나 기타 문자는 사용할 수 없습니다.",
+      "tags": "태그"
+    },
+    "ancillaryData": "보조 데이터",
+    "ancillaryDataTip": "이 정보는 현재 보고 계신 주제에 대한 부가적인 데이터입니다. 더 자세한 내용은 '소개' 페이지를 참조하세요.",
+    "mentions": "언급하다",
+    "searchPlaceholder": "이 프로젝트에서 태그, 주제 또는 @사용자를 검색하세요.",
+    "somethingWentWrong": "뭔가 잘못됐어요."
   }
 }

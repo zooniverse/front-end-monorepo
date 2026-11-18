@@ -14,6 +14,7 @@
     },
     "SidebarHeading": "O projektu",
     "TeamMember": {
+      "admin": "Tým Zooniverse",
       "collaborator": "Spolupracovník",
       "expert": "Expert",
       "moderator": "Moderátor",
@@ -30,7 +31,12 @@
         "title": "V klasifikátoru došlo k chybě :("
       }
     },
+    "ExternalWorkflow": {
+      "button": "Pokračovat k externímu pracovnímu postupu",
+      "fallback": "Tento pracovní postup je hostován na externím webu. Chcete-li tam pokračovat, klikněte na tlačítko níže."
+    },
     "RecentSubjects": {
+      "noSubjects": "Zde se zobrazují nejnovější předměty, které jste zařadili.",
       "text": "Diskutujte o tématu v Diskusi nebo si ho přidejte do Oblíbených nebo do sbírky.",
       "title": "Tvé nedávné klasifikace"
     },
@@ -47,6 +53,51 @@
       "link": "Více informací",
       "title": "Vaše statistiky"
     }
+  },
+  "Collect": {
+    "exploreLink": "Prozkoumejte všechny kolekce Zooniverse",
+    "hideSingleSubject": "Skrýt sbírky pouze s 1 předmětem",
+    "placeholders": {
+      "empty": "Nebyly nalezeny žádné sbírky.",
+      "error": "Při načítání kolekcí došlo k chybě."
+    },
+    "resultsCount": "Zobrazeno {{range}} z {{total}} kolekcí",
+    "sortBy": "Seřadit podle:",
+    "sortOptions": {
+      "alphabeticalAscending": "Abecední AZ",
+      "alphabeticalDescending": "Abecední ZA",
+      "recentlyCreated": "Nedávno vytvořeno",
+      "recentlyUpdated": "Nedávno aktualizováno"
+    },
+    "tabs": {
+      "collections": "Kolekce",
+      "favorites": "Oblíbené",
+      "myCollections": "Moje kolekce {{projectName}}",
+      "myFavorites": "Moje oblíbené položky ({{projectName}})",
+      "title": "Stránky kolekce"
+    },
+    "title": "Sbírat"
+  },
+  "Collection": {
+    "CollectionOptions": {
+      "copied": "URL zkopírována do schránky",
+      "settings": "Nastavení",
+      "share": "Podíl"
+    },
+    "emptySubjects": "V této kolekci nejsou žádné předměty.",
+    "linkedToProjectCollections": "Propojeno s kolekcemi <projectLink>{{projectName}}<projectLink>",
+    "notFound": "Při načítání této kolekce došlo k chybě.",
+    "ownerLoadError": "Údaje o vlastníkovi sbírky se nepodařilo načíst.",
+    "resultsCount": "Zobrazeno {{range}} z {{total}} předmětů",
+    "roles": {
+      "collaborator": "Spolupracovník",
+      "contributor": "Přispěvatel",
+      "owner": "Majitel",
+      "viewer": "Prohlížeč"
+    },
+    "seeAllOwnerCollections": "<collectionsLink>Zobrazit všechny sbírky uživatele {{displayName}}<\/collectionsLink>",
+    "selectSubjects": "Vyberte předměty",
+    "subjectsLoadError": "Při načítání předmětů této kolekce došlo k chybě."
   },
   "Home": {
     "AboutProject": {
@@ -75,5 +126,96 @@
       "message": "Popovídejte si s výzkumným týmem a dalšími dobrovolníky!",
       "title": "Zooniverse Talk"
     }
+  },
+  "ProjectRecents": {
+    "empty": "Zde se zobrazuje 20 nejnovějších předmětů, které jste zařadili za posledních 90 dní.",
+    "emptyTitle": "Nenalezeny žádné nedávné klasifikace",
+    "error": "Při načítání vašich nedávných příspěvků došlo k chybě.",
+    "signedOut": "Přihlaste se a zobrazte si témata, která jste nedávno zařadili.",
+    "title": "Nedávné klasifikace"
+  },
+  "ProjectStats": {
+    "BarChart": {
+      "a11y": "Sloupcový graf pro {{typeLabel}} podle {{countLabel}} od {{startDate}} do {{endDate}}",
+      "allWorkflows": "Všechny pracovní postupy",
+      "dateRange": {
+        "allTime": "Všechny časy",
+        "custom": "Zvyk",
+        "lastSevenDays": "Posledních 7 dní",
+        "lastThirtyDays": "Posledních 30 dní",
+        "lastThreeMonths": "Poslední 3 měsíce",
+        "lastTwelveMonths": "Posledních 12 měsíců",
+        "thisMonth": "Tento měsíc",
+        "thisYear": "Letos"
+      },
+      "empty": "Žádná data. Změňte pracovní postup nebo rozsah dat.",
+      "selectDateRange": "Vyberte rozsah dat",
+      "selectWorkflow": "Vyberte pracovní postup"
+    },
+    "calendarBtn": "Hotovo",
+    "calendarTitle": "Vlastní rozsah dat",
+    "comments": "Komentáře",
+    "count": "Klasifikace",
+    "endDate": "Datum ukončení",
+    "heading": "Statistiky {{projectName}}",
+    "startDate": "Datum zahájení",
+    "workflows": {
+      "empty": "Žádné související pracovní postupy",
+      "percentComplete": "Hotovo na {{percent}} %",
+      "retireLimit": "Důchodový limit: {{number}}",
+      "subjectsRetired": "Vyřazení subjektů: {{retired}}\/{{total}}",
+      "tip": "Odhadovaná doba do dokončení je založena na míře klasifikace za posledních 14 dní a pro některé pracovní postupy může být nesprávná nebo nedostupná.",
+      "title": "Pracovní postupy"
+    }
+  },
+  "Talk": {
+    "Comment": {
+      "avatarAlt": "avatar {{login}}",
+      "comment": "komentář",
+      "goToComment": "Přejít na komentář",
+      "reply": "V odpovědi na",
+      "userDisplayNamePossessive": "Uživatel {{userDisplayName}}"
+    },
+    "Discussions": {
+      "addComment": "Přidejte svůj komentář",
+      "commentMessage": "Chcete-li reagovat na konkrétní komentář, klikněte na něj a přejděte do diskuse.",
+      "comments": "Komentáře",
+      "commentsViewing": "Zobrazuje se {{count}} z {{total}} komentářů",
+      "discussionBoard": "Diskusní fórum",
+      "discussionTitle": "Název diskuse",
+      "discussions": "Diskuse",
+      "initialComment": "Úvodní komentář",
+      "newComment": "Nový komentář",
+      "noDiscussions": "Žádné diskuse",
+      "oneDiscussion": "1 Diskuse",
+      "participants": "Účastníci",
+      "sortBy": "Seřadit podle",
+      "sortedNewestFirst": "Nejnovější jako první",
+      "sortedOldestFirst": "Od nejstarších",
+      "startDiscussion": "Zahájit novou diskusi"
+    },
+    "Metadata": {
+      "collapse": "Kolaps",
+      "expand": "Rozšířit",
+      "noMetadata": "Nejsou k dispozici žádná metadata",
+      "subjectMetadata": "Metadata předmětu"
+    },
+    "Tags": {
+      "add": "Přidat",
+      "addATag": "Přidat štítek",
+      "addVote": "Přidejte svůj hlas",
+      "createTag": "Vytvořte štítek",
+      "noTags": "Žádné štítky",
+      "popularTagsFrom": "Oblíbené tagy z {{projectDisplayName}}",
+      "removeVote": "Odebrat svůj hlas",
+      "signInToTag": "Přihlaste se pro přidání štítku",
+      "tagValidationMessage": "Použijte 3–40 znaků, písmen, číslic, pomlček a podtržítek. Žádné mezery ani jiné znaky.",
+      "tags": "Štítky"
+    },
+    "ancillaryData": "Doplňkové údaje",
+    "ancillaryDataTip": "Toto jsou doplňující údaje o tématu, které si prohlížíte. Více informací naleznete na stránce O nás.",
+    "mentions": "Zmínky",
+    "searchPlaceholder": "Hledat v tomto projektu štítky, předměty nebo @uživatele",
+    "somethingWentWrong": "Něco se pokazilo."
   }
 }
