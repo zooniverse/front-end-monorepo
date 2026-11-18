@@ -7,7 +7,7 @@ import UnsupportedMeta, { UnsupportedMimeType } from '../../stories/interactive/
 
 describe('InteractiveMedia', function () {
   describe('with single image location', function () {
-    it('should render a link wrapping the media', function () {
+    it('should render a link for the media', function () {
       const Story = composeStory(Landscape, ImageMeta)
       render(<Story />)
       const link = screen.getByRole('link')
@@ -24,7 +24,7 @@ describe('InteractiveMedia', function () {
   })
 
   describe('with multiple image locations', function () {
-    it('should render a link wrapping the media', function () {
+    it('should render a link for the media', function () {
       const Story = composeStory(MultiImage, MultiMediaMeta)
       render(<Story />)
       const link = screen.getByRole('link')
@@ -41,7 +41,7 @@ describe('InteractiveMedia', function () {
   })
 
   describe('with an unsupported mime type', function () {
-    it('should render a fallback wrapped in a link', function () {
+    it('should render a fallback with a link', function () {
       const Story = composeStory(UnsupportedMimeType, UnsupportedMeta)
       render(<Story />)
       const link = screen.getByRole('link')

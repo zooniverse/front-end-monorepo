@@ -21,12 +21,7 @@ const StyledSelectButton = styled.button`
   margin: 0;
   padding: 0;
   position: absolute;
-  transition: background-color 0.2s ease;
   z-index: 3;
-
-  &:hover {
-    background: rgba(0, 0, 0, 0.25);
-  }
 
   &:focus-visible {
     box-shadow: inset 0 0 0 2px ${props => props.theme.global.colors['accent-1']};
@@ -49,22 +44,18 @@ function MediaContainer({
     selectLabel
   } = selectProps
 
-  if (!selectable) {
-    return (
-      <MediaLink href={href} title={title}>
-        {children}
-      </MediaLink>
-    )
-  }
-
   return (
     <StyledWrapper $fill={!children}>
       {children}
-      <StyledSelectButton
-        aria-label={selectLabel}
-        onClick={onSelect}
-        type='button'
-      />
+      {selectable ? (
+        <StyledSelectButton
+          aria-label={selectLabel}
+          onClick={onSelect}
+          type='button'
+        />
+      ) : (
+        <MediaLink href={href} title={title} />
+      )}
     </StyledWrapper>
   )
 }

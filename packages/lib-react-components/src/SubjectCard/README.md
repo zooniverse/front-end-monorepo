@@ -21,7 +21,7 @@ A preview card for subjects.
 - `placeholder` (node): Placeholder passed to `Media`.
 - `projectId` (string): Project ID used for favoriting and collecting the subject.
 - `projectSlug` (string, required): Project slug used to build subject talk URL.
-- `selectable` (boolean): Shows the select checkbox.
+- `selectable` (boolean): Shows the select checkbox and makes the media area select the subject instead of linking to Talk, without reloading the preview.
 - `selected` (boolean): Whether the card is selected.
 - `size` (string): One of `large`, `medium`, or `small`.
 - `subject` (object): Subject resource with `id` and `locations`.

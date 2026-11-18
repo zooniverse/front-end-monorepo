@@ -100,7 +100,7 @@ describe('Audio', function () {
     )
     const audioElement = container.querySelector('audio')
     const links = container.querySelectorAll('a')
-    // The first link is the MediaLink wrapper (before the audio element)
+    // The first link is the media overlay (before the audio element).
     const mediaLink = links[0]
     expect(mediaLink).toBeTruthy()
     expect(mediaLink.getAttribute('aria-label')).to.equal(linkTitle)

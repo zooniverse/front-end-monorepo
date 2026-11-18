@@ -1,6 +1,6 @@
 import { SpacedText } from '@zooniverse/react-components'
 import { Box, Button, CheckBox } from 'grommet'
-import { Bookmark, Checkbox, CheckboxSelected, Trash } from 'grommet-icons'
+import { Bookmark, CheckboxSelected, Trash } from 'grommet-icons'
 import { useTranslation } from 'next-i18next/pages'
 import { bool, func, number } from 'prop-types'
 
