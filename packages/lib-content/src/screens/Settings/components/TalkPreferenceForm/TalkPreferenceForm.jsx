@@ -3,18 +3,12 @@ import { Box, Form, Text } from 'grommet'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
+import BigLabel from '../BigLabel/BigLabel'
 import FormStatusAndSubmitField from '../FormStatusAndSubmitField/FormStatusAndSubmitField'
 import useTalkPreferences from '../../helpers/useTalkPreferences'
 import updateTalkPreference from '../../helpers/updateTalkPreference'
 
 const DEBOUNCE = 500
-
-const BigLabel = styled(Text)`
-  font-weight: 700;
-  font-size: 1rem;
-  font-style: bold;
-  text-transform: uppercase;
-`
 
 const EMAIL_DIGEST_OPTIONS = [
   'immediate',

@@ -6,6 +6,8 @@ import styled, { css } from 'styled-components'
 import { shape, string } from 'prop-types'
 
 import { IconActionButton } from '@zooniverse/react-components'
+
+import BigLabel from '../BigLabel/BigLabel'
 import FormStatusAndSubmitField from '../FormStatusAndSubmitField/FormStatusAndSubmitField'
 
 import useUserMedia from '../../helpers/useUserMedia'
@@ -20,13 +22,6 @@ const FormFieldsContainer = styled(Box)`
   input:user-invalid {
     border-color: ${props => props.theme.global.colors['neutral-4']};
   }
-`
-
-const BigLabel = styled(Text)`
-  font-weight: 700;
-  font-size: 1rem;
-  font-style: bold;
-  text-transform: uppercase;
 `
 
 // The File Input Container 

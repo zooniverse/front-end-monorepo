@@ -5,19 +5,14 @@ import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import { bool, func, shape, string } from 'prop-types'
 
+import BigLabel from '../BigLabel/BigLabel'
+
 const InputFieldContainer = styled(Box)`
   gap: 0.5em;
 
   input:user-invalid {
     border-color: ${props => props.theme.global.colors['neutral-4']};
   }
-`
-
-const BigLabel = styled(Text)`
-  font-weight: 700;
-  font-size: 1rem;
-  font-style: bold;
-  text-transform: uppercase;
 `
 
 const StyledHelpIcon = styled(CircleInformation)`
@@ -48,15 +43,21 @@ function FormInputField ({
       <Box direction='row' gap='1em' align='center'>
         <BigLabel
           as='label'
+          color={{ light: 'neutral-4', dark: 'neutral-4' }}
           htmlFor={inputId}
         >
           {labelText}
         </BigLabel>
         {optional &&
-          <Text>{t('Settings.forms.optional')}</Text>
+          <Text
+            color={{ light: 'neutral-4', dark: 'neutral-4' }}
+          >
+            {t('Settings.forms.optional')}
+          </Text>
         }
       </Box>
       <TextInput
+        color={{ light: 'neutral-4', dark: 'neutral-4' }}
         data-field={fieldName}
         disabled={disabled}
         id={inputId}
