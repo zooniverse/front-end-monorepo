@@ -154,9 +154,12 @@
     "resultsCount": "Showing {{range}} of {{total}} subjects",
     "roles": {
       "collaborator": "Collaborator",
+      "collaboratorDescription": "Can add and remove subjects from the collection.",
       "contributor": "Contributor",
+      "contributorDescription": "Can only add subjects to the collection.",
       "owner": "Owner",
-      "viewer": "Viewer"
+      "viewer": "Viewer",
+      "viewerDescription": "Can see this collection even if set to private."
     },
     "seeAllOwnerCollections": "<collectionsLink>See all {{displayName}}'s collections</collectionsLink>",
     "setCoverError": "The collection cover could not be updated. Please try again.",
