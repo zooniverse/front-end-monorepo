@@ -38,13 +38,13 @@ function ProjectCollectionPage({
   const { data: collectionRoles } = useCollectionRoles({ collectionId: collection?.id })
 
   const collectionRole = getCollectionRole(collectionRoles, userId)
-  const canDelete = collectionRole === 'owner' || collectionRole === 'collaborator'
+  const canEdit = collectionRole === 'owner' || collectionRole === 'collaborator'
 
   return (
     <StandardLayout>
       <CollectionOptions 
+        canEdit={canEdit}
         isLoggedIn={!!userId}
-        isOwner={collectionRole === 'owner'}
         onSettings={() => setSettingsActive(true)}
       />
       {collection && (
@@ -89,7 +89,7 @@ function ProjectCollectionPage({
                 </Paragraph>
               )}
               <SubjectsListContainer
-                canDelete={canDelete}
+                canDelete={canEdit}
                 collection={collection}
                 isOwner={collectionRole === 'owner'}
                 login={login}

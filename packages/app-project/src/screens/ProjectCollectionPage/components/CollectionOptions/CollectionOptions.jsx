@@ -8,8 +8,8 @@ import { useState } from 'react'
 import OptionButton from './components/OptionButton'
 
 function CollectionOptions({
+  canEdit = false,
   isLoggedIn = false,
-  isOwner = false,
   onSettings
 }) {
   const { t } = useTranslation('screens')
@@ -45,7 +45,7 @@ function CollectionOptions({
           label={t('Collection.CollectionOptions.share')}
           onClick={onShare}
         />
-        {isLoggedIn && isOwner && (
+        {isLoggedIn && canEdit && (
           <OptionButton
             icon={<SettingsOption color='white' size='small' />}
             label={t('Collection.CollectionOptions.settings')}
@@ -71,8 +71,8 @@ function CollectionOptions({
 }
 
 CollectionOptions.propTypes = {
+  canEdit: bool,
   isLoggedIn: bool,
-  isOwner: bool,
   onSettings: func
 }
 

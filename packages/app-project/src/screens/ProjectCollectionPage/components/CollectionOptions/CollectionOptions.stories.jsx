@@ -10,21 +10,21 @@ export default {
 
 export const LoggedOut = {
   args: {
-    isLoggedIn: false,
-    isOwner: false
+    canEdit: false,
+    isLoggedIn: false
   }
 }
 
 export const LoggedInNotOwner = {
   args: {
-    isLoggedIn: true,
-    isOwner: false
+    canEdit: false,
+    isLoggedIn: true
   }
 }
 
 export const LoggedInOwner = {
   args: {
-    isLoggedIn: true,
-    isOwner: true
+    canEdit: true,
+    isLoggedIn: true
   }
 }
