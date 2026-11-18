@@ -2,7 +2,7 @@ import { Loader } from '@zooniverse/react-components'
 import { Box, Paragraph } from 'grommet'
 import { MobXProviderContext, observer } from 'mobx-react'
 import { useTranslation } from 'next-i18next/pages'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { string } from 'prop-types'
 
 import StandardLayout from '@shared/components/StandardLayout'
@@ -10,6 +10,7 @@ import ProjectAboutPageLayout from '../ProjectAboutPage/ProjectAboutPageLayout'
 
 import CollectionHeader from './components/CollectionHeader'
 import CollectionOptions from './components/CollectionOptions'
+import CollectionSettingsModal from './components/CollectionSettingsModal'
 import SubjectsListContainer from './components/SubjectsListContainer'
 import UserHeader from './components/UserHeader'
 import getCollectionRole from './helpers/getCollectionRole'
@@ -25,6 +26,8 @@ function ProjectCollectionPage({
   const { t } = useTranslation('screens')
   const { store } = useContext(MobXProviderContext)
   const { user, isLoading: isUserLoading } = useContext(PanoptesAuthContext)
+  // TODO: refactor per url
+  const [settingsActive, setSettingsActive] = useState(false)
   
   const slug = `${loginParam}/${collectionNameParam}`
   const { project } = store
@@ -35,14 +38,23 @@ function ProjectCollectionPage({
   const { data: collectionRoles } = useCollectionRoles({ collectionId: collection?.id })
 
   const collectionRole = getCollectionRole(collectionRoles, userId)
-  const canEdit = collectionRole === 'owner' || collectionRole === 'collaborator'
+  const canDelete = collectionRole === 'owner' || collectionRole === 'collaborator'
 
   return (
     <StandardLayout>
       <CollectionOptions 
-        canEdit={canEdit}
         isLoggedIn={!!userId}
+        isOwner={collectionRole === 'owner'}
+        onSettings={() => setSettingsActive(true)}
       />
+      {collection && (
+        <CollectionSettingsModal
+          active={settingsActive}
+          collection={collection}
+          collectionUrl={`/collections/${slug}`}
+          onClose={() => setSettingsActive(false)}
+        />
+      )}
       <ProjectAboutPageLayout>
         <Box
           height={{ min: '300px' }}
@@ -77,7 +89,7 @@ function ProjectCollectionPage({
                 </Paragraph>
               )}
               <SubjectsListContainer
-                canDelete={canEdit}
+                canDelete={canDelete}
                 collection={collection}
                 isOwner={collectionRole === 'owner'}
                 login={login}

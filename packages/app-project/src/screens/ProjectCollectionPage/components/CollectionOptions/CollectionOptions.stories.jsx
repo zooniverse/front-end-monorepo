@@ -2,26 +2,29 @@ import CollectionOptions from './CollectionOptions'
 
 export default {
   title: 'Project App / Screens / Project Collection / CollectionOptions',
-  component: CollectionOptions
+  component: CollectionOptions,
+  args: {
+    onSettings: () => console.log('opening collection settings')
+  }
 }
 
 export const LoggedOut = {
   args: {
-    canEdit: false,
-    isLoggedIn: false
+    isLoggedIn: false,
+    isOwner: false
   }
 }
 
 export const LoggedInNotOwner = {
   args: {
-    canEdit: false,
-    isLoggedIn: true
+    isLoggedIn: true,
+    isOwner: false
   }
 }
 
-export const LoggedInOwnerOrCollaborator = {
+export const LoggedInOwner = {
   args: {
-    canEdit: true,
-    isLoggedIn: true
+    isLoggedIn: true,
+    isOwner: true
   }
 }
