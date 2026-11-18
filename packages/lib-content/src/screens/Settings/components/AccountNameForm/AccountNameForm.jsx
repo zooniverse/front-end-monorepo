@@ -6,7 +6,7 @@ import { shape, string } from 'prop-types'
 
 import { Loader, StatusMessage } from '@zooniverse/react-components'
 
-import Button from '../Button/Button'
+import FormSubmitButton from '../FormSubmitButton/FormSubmitButton'
 import FormInputField from '../FormInputField/FormInputField'
 import useUserData from '../../helpers/useUserData'
 import updateUserData from '../../helpers/updateUserData'
@@ -160,7 +160,7 @@ function AccountNameForm ({
           gap='1em'
           wrap={true}
         >
-          <Button
+          <FormSubmitButton
             disabled={disableInput}
             label={t('Settings.forms.change')}
             type='submit'

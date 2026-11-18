@@ -19,6 +19,6 @@ const StyledButton = styled(GrommetButton)`
   `}
 `
 
-export default function Button (props) {
+export default function FormSubmitButton (props) {
   return (<StyledButton {...props} />)
 }
