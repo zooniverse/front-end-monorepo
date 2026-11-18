@@ -18,6 +18,13 @@ import resizeImageData from '../../helpers/resizeImageData'
 
 const VALID_MEDIA_TYPES = ['avatar', 'profile_header']
 
+const StyledParagraph = styled(Paragraph)`
+  ${props => props.theme.dark
+    ? css`color: ${props.theme.global.colors['light-5']};`
+    : css`color: ${props.theme.global.colors['dark-5']};`
+  }
+`
+
 const FormFieldsContainer = styled(Box)`
   input:user-invalid {
     border-color: ${props => props.theme.global.colors['neutral-4']};
@@ -390,7 +397,9 @@ function UserMediaForm ({
           {labels?.main}
         </BigLabel>
 
-        <Paragraph>{labels?.body}</Paragraph>
+        <StyledParagraph>
+          {labels?.body}
+        </StyledParagraph>
 
         <FileInputContainer
           width={width}
