@@ -5,9 +5,7 @@ import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 import { shape, string } from 'prop-types'
 
-import { Loader, StatusMessage } from '@zooniverse/react-components'
 import { IconActionButton } from '@zooniverse/react-components'
-import FormSubmitButton from '../FormSubmitButton/FormSubmitButton'
 import FormStatusAndSubmitField from '../FormStatusAndSubmitField/FormStatusAndSubmitField'
 
 import useUserMedia from '../../helpers/useUserMedia'
