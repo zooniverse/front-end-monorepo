@@ -8,7 +8,7 @@ import { shape, string } from 'prop-types'
 import { Loader, StatusMessage } from '@zooniverse/react-components'
 import { IconActionButton } from '@zooniverse/react-components'
 
-import Button from '../Button/Button'
+import FormSubmitButton from '../FormSubmitButton/FormSubmitButton'
 import useUserMedia from '../../helpers/useUserMedia'
 import uploadUserMedia from '../../helpers/uploadUserMedia'
 import deleteUserMedia from '../../helpers/deleteUserMedia'
@@ -461,7 +461,7 @@ function UserMediaForm ({
           margin={{ vertical: 'small' }}
           wrap={true}
         >
-          <Button
+          <FormSubmitButton
             disabled={disableInput}
             label={t('Settings.forms.save')}
             type='submit'
