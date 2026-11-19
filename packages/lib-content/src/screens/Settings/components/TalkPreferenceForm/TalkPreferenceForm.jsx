@@ -35,14 +35,14 @@ const PseudoTable = styled(Box)`
 
   fieldset {
     border: none;
-    margin: 0;
+    margin: 0 0 0.5rem 0;
     padding: 0;
   }
 
   /* A row of "table cells" with specific widths. */
   .pseudo-row {
     display: grid;
-    grid-template-columns: 5fr ${'1fr '.repeat(EMAIL_DIGEST_OPTIONS.length)};
+    grid-template-columns: 6fr ${'1fr '.repeat(EMAIL_DIGEST_OPTIONS.length)};
     align-items: center;
     column-gap: 0.5rem;
   }
@@ -164,6 +164,7 @@ function TalkPreferenceForm ({
           <div className='header-cell'>
             <Text
               color={{ light: 'dark-5', dark: 'light-5' }}
+              size="0.875rem"
             >
               {t('Settings.EmailSettings.talkPreferences.sendEmail')}
             </Text>
@@ -175,6 +176,7 @@ function TalkPreferenceForm ({
             >
               <Text
                 color={{ light: 'dark-5', dark: 'light-5' }}
+                size="0.875rem"
               >
                 {t(`Settings.EmailSettings.talkPreferences.emailDigestOptions.${option}`)}
               </Text>
@@ -219,6 +221,7 @@ function TalkPreferenceRow ({
       <div className='pseudo-row'>
         <Text
           color={{ light: 'dark-4', dark: 'neutral-6' }}
+          size="1rem"
         >
           {t(`Settings.EmailSettings.talkPreferences.categories.${talkPreference.category}`)}
         </Text>
