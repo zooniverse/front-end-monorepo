@@ -19,6 +19,8 @@ import resizeImageData from '../../helpers/resizeImageData'
 const VALID_MEDIA_TYPES = ['avatar', 'profile_header']
 
 const StyledParagraph = styled(Paragraph)`
+  font-size: 0.75rem;
+  font-weight: 400;
   ${props => props.theme.dark
     ? css`color: ${props.theme.global.colors['light-5']};`
     : css`color: ${props.theme.global.colors['dark-5']};`
