@@ -56,8 +56,6 @@ function EmailSettings ({
         >
           <SettingsHeading section='EmailSettings' />
 
-          <hr />
-
           <TalkPreferenceForm
             authUser={authUser}
           />
