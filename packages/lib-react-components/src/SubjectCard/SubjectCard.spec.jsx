@@ -132,4 +132,43 @@ describe('SubjectCard', function() {
       expect(onRemoveFromCollection).toHaveBeenCalledWith(RADIO_METEOR_ZOO_SUBJECT)
     })
   })
+
+  it('should call the cover handler with the subject', async function() {
+    const onSetCover = vi.fn()
+    const user = userEvent.setup()
+
+    render(<CollectionRemoveStory onSetCover={onSetCover} />)
+
+    await user.click(screen.getByRole('button', { name: 'More options' }))
+    await user.click(screen.getByText('Set as Collection Cover'))
+
+    expect(onSetCover).toHaveBeenCalledWith(RADIO_METEOR_ZOO_SUBJECT)
+  })
+
+  it('should disable setting the current cover again', async function() {
+    const user = userEvent.setup()
+
+    render(<CollectionWithCoverStory />)
+
+    await user.click(screen.getByRole('button', { name: 'More options' }))
+    expect(screen.getByText('Set as Collection Cover').closest('button').disabled).toBe(true)
+  })
+
+  it('should hide editing controls without edit permission even when handlers are supplied', function() {
+    render(<CollectionRemoveStory canEdit={false} />)
+
+    expect(screen.queryByRole('button', { name: 'More options' })).toBeNull()
+    expect(screen.queryByRole('checkbox', { name: `Select Subject ${RADIO_METEOR_ZOO_SUBJECT.id}` })).toBeNull()
+  })
+
+  it('should replace the edit menu with the checkbox in selection mode', async function() {
+    const onSelect = vi.fn()
+    const user = userEvent.setup()
+
+    render(<CollectionRemoveStory onSelect={onSelect} selectable={true} />)
+
+    expect(screen.queryByRole('button', { name: 'More options' })).toBeNull()
+    await user.click(screen.getByRole('checkbox', { name: `Select Subject ${RADIO_METEOR_ZOO_SUBJECT.id}` }))
+    expect(onSelect).toHaveBeenCalledWith(RADIO_METEOR_ZOO_SUBJECT, true)
+  })
 })

@@ -63,12 +63,13 @@ const DEFAULT_SUBJECT = {
 }
 
 function SubjectCard({
+  canEdit = false,
   interactive = false,
   isCover = false,
   login,
-  onRemoveFromCollection = null,
+  onRemoveFromCollection,
   onSelect = null,
-  onSetCover = null,
+  onSetCover,
   placeholder,
   projectId,
   projectSlug,
@@ -156,13 +157,11 @@ function SubjectCard({
           />
         </StyledSelectCheckbox>
       ) : null}
-      {!selectable && (onSetCover || onRemoveFromCollection) && (
+      {canEdit && !selectable && (
         <SubjectCardMenu
           isCover={isCover}
-          onRemoveFromCollection={onRemoveFromCollection
-            ? () => onRemoveFromCollection(subject)
-            : null}
-          onSetCover={onSetCover ? () => onSetCover(subject) : null}
+          onRemoveFromCollection={() => onRemoveFromCollection(subject)}
+          onSetCover={() => onSetCover(subject)}
         />
       )}
       <Box
@@ -195,6 +194,7 @@ function SubjectCard({
 }
 
 SubjectCard.propTypes = {
+  canEdit: bool,
   interactive: bool,
   isCover: bool,
   login: string,

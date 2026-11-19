@@ -456,6 +456,7 @@ export function StoryRow({
 }
 
 export function InteractiveStory({
+  canEdit = false,
   isCover = false,
   login,
   onRemoveFromCollection = null,
@@ -471,6 +472,7 @@ export function InteractiveStory({
   return (
     <Box direction='row' gap='medium' pad='medium'>
       <SubjectCard
+        canEdit={canEdit}
         interactive={true}
         isCover={isCover}
         login={login}

@@ -16,28 +16,31 @@ export const LandscapeWithCover = {
   render: ({
     onRemoveFromCollection = () => true,
     onSetCover = () => true
-  } = {}) => <InteractiveStory onRemoveFromCollection={onRemoveFromCollection} onSetCover={onSetCover} login={'TestUser'} isCover={true} subject={RADIO_METEOR_ZOO_SUBJECT} />
+  } = {}) => <InteractiveStory canEdit={true} onRemoveFromCollection={onRemoveFromCollection} onSetCover={onSetCover} login={'TestUser'} isCover={true} subject={RADIO_METEOR_ZOO_SUBJECT} />
 }
 
 export const PortraitWithCover = {
   render: ({
     onRemoveFromCollection = () => true,
     onSetCover = () => true
-  } = {}) => <InteractiveStory onRemoveFromCollection={onRemoveFromCollection} onSetCover={onSetCover} login={'TestUser'} isCover={true} subject={PRINT_SUBJECT} />
+  } = {}) => <InteractiveStory canEdit={true} onRemoveFromCollection={onRemoveFromCollection} onSetCover={onSetCover} login={'TestUser'} isCover={true} subject={PRINT_SUBJECT} />
 }
 
 export const Landscape = {
   render: ({
+    canEdit = true,
     onRemoveFromCollection = () => true,
-    onSetCover = () => true
-  } = {}) => <InteractiveStory onRemoveFromCollection={onRemoveFromCollection} onSetCover={onSetCover} login={'TestUser'} subject={RADIO_METEOR_ZOO_SUBJECT} />
+    onSelect = () => true,
+    onSetCover = () => true,
+    selectable = false
+  } = {}) => <InteractiveStory canEdit={canEdit} onRemoveFromCollection={onRemoveFromCollection} onSelect={onSelect} onSetCover={onSetCover} selectable={selectable} login={'TestUser'} subject={RADIO_METEOR_ZOO_SUBJECT} />
 }
 
 export const Portrait = {
   render: ({
     onRemoveFromCollection = () => true,
     onSetCover = () => true
-  } = {}) => <InteractiveStory onRemoveFromCollection={onRemoveFromCollection} onSetCover={onSetCover} login={'TestUser'} subject={PRINT_SUBJECT} />
+  } = {}) => <InteractiveStory canEdit={true} onRemoveFromCollection={onRemoveFromCollection} onSetCover={onSetCover} login={'TestUser'} subject={PRINT_SUBJECT} />
 }
 
 export const SelectMode = {

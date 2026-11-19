@@ -57,25 +57,22 @@ const StyledMenu = styled(Menu)`
 
 function SubjectCardMenu({
   isCover = false,
-  onRemoveFromCollection = null,
-  onSetCover = null
+  onRemoveFromCollection,
+  onSetCover
 }) {
   const { t } = useTranslation()
 
-  const items = []
-  if (onSetCover) {
-    items.push({
+  const items = [
+    {
       disabled: isCover,
       label: t('SubjectCard.setAsCollectionCover'),
       onClick: onSetCover
-    })
-  }
-  if (onRemoveFromCollection) {
-    items.push({
+    },
+    {
       label: t('SubjectCard.deleteFromCollection'),
       onClick: onRemoveFromCollection
-    })
-  }
+    }
+  ]
 
   return (
     <MenuContainer
