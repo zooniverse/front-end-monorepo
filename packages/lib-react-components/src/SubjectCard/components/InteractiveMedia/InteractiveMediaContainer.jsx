@@ -6,6 +6,7 @@ import InteractiveMedia from './InteractiveMedia'
 function InteractiveMediaContainer({
   placeholder,
   previewHeight,
+  selectProps,
   subject,
   subjectIdTitle,
   width
@@ -27,6 +28,7 @@ function InteractiveMediaContainer({
       mediaSrc={supportsSimplePreview ? mediaSrc : null}
       placeholder={placeholder}
       previewHeight={previewHeight}
+      selectProps={selectProps}
       showBackground={showBackground}
       subjectIdTitle={subjectIdTitle}
       width={width}

@@ -456,9 +456,14 @@ export function StoryRow({
 }
 
 export function InteractiveStory({
+  canEdit = false,
   isCover = false,
   login,
+  onRemoveFromCollection = null,
+  onSelect = null,
   onSetCover = null,
+  selectable = false,
+  selected = false,
   subject
 }) {
   const projectSlug = 'team/example-project'
@@ -467,12 +472,17 @@ export function InteractiveStory({
   return (
     <Box direction='row' gap='medium' pad='medium'>
       <SubjectCard
+        canEdit={canEdit}
         interactive={true}
         isCover={isCover}
         login={login}
+        onRemoveFromCollection={onRemoveFromCollection}
+        onSelect={onSelect}
         onSetCover={onSetCover}
         projectId={subject.links.project}
         projectSlug={projectSlug}
+        selectable={selectable}
+        selected={selected}
         subject={subject}
         userId={userId}
       />

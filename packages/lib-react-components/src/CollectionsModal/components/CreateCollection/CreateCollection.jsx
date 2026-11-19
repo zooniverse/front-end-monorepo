@@ -2,7 +2,7 @@ import { Box, Button, CheckBox, FormField, Grid, TextInput } from 'grommet'
 import { bool, func, shape, string } from 'prop-types'
 import { useRef } from 'react'
 
-import { useTranslation } from '../../../../../translations/i18n'
+import { useTranslation } from '../../../translations/i18n'
 
 const defaultCollection = {
   display_name: '',
@@ -11,7 +11,7 @@ const defaultCollection = {
 
 const DEFAULT_HANDLER = () => true
 
-function CreateCollection ({
+function CreateCollection({
   collection = defaultCollection,
   disabled = false,
   onChange = DEFAULT_HANDLER,
@@ -20,12 +20,12 @@ function CreateCollection ({
   const { t } = useTranslation()
   const checkboxRef = useRef()
   const textInputRef = useRef()
-  const { display_name, private: isPrivate } = collection
-  function updateCollection () {
-    const display_name = textInputRef.current.value
+  const { display_name: displayName, private: isPrivate } = collection
+  function updateCollection() {
+    const newDisplayName = textInputRef.current.value
     const isPrivate = checkboxRef.current.checked
     onChange({
-      display_name,
+      display_name: newDisplayName,
       private: isPrivate
     })
   }
@@ -47,7 +47,7 @@ function CreateCollection ({
           id='collectionName'
           onChange={updateCollection}
           ref={textInputRef}
-          value={display_name} // eslint-disable-line
+          value={displayName}
         />
       </FormField>
       <Box align='center' margin={{ top: 'medium' }} pad={{ top: 'small' }}>

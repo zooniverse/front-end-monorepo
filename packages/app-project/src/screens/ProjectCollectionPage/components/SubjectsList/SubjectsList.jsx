@@ -1,9 +1,11 @@
 import { SubjectCard } from '@zooniverse/react-components'
 import { Box } from 'grommet'
-import { arrayOf, bool, func, object, string } from 'prop-types'
+import { arrayOf, bool, func, instanceOf, object, string } from 'prop-types'
 import styled from 'styled-components'
 
 import getCoverSubjectId from '../../helpers/getCoverSubjectId'
+
+const NO_SELECTION = new Set()
 
 const StyledSubjectList = styled.ul`
   position: relative;
@@ -38,13 +40,18 @@ function LoadingOverlay() {
 }
 
 function SubjectsList({
+  canEdit = false,
   defaultSubjectSrc,
   isLoading = false,
   isSettingCover = false,
   login,
-  onSetCover = null,
+  onRemoveFromCollection,
+  onSelect = null,
+  onSetCover,
   projectId,
   projectSlug,
+  selectable = false,
+  selectedIds = NO_SELECTION,
   subjects = [],
   userId
 }) {
@@ -58,12 +65,17 @@ function SubjectsList({
       {subjects.map(subject => (
         <li key={subject.id}>
           <SubjectCard
+            canEdit={canEdit}
             interactive={true}
             isCover={subject.id === coverSubjectId}
             login={login}
+            onRemoveFromCollection={onRemoveFromCollection}
+            onSelect={onSelect}
             onSetCover={onSetCover}
             projectId={projectId}
             projectSlug={projectSlug}
+            selectable={selectable}
+            selected={selectedIds.has(subject.id)}
             subject={subject}
             userId={userId}
           />
@@ -74,13 +86,18 @@ function SubjectsList({
 }
 
 SubjectsList.propTypes = {
+  canEdit: bool,
   defaultSubjectSrc: string,
   isLoading: bool,
   isSettingCover: bool,
   login: string,
+  onRemoveFromCollection: func,
+  onSelect: func,
   onSetCover: func,
   projectId: string,
   projectSlug: string,
+  selectable: bool,
+  selectedIds: instanceOf(Set),
   subjects: arrayOf(object),
   userId: string
 }

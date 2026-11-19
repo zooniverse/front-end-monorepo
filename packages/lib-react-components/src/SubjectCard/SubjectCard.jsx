@@ -10,9 +10,10 @@ import ShareIconButton from '../ShareIconButton'
 import addQueryParams from '../helpers/addQueryParams'
 
 import CollectionCoverBanner from './components/CollectionCoverBanner'
-import SubjectCardMenu from './components/SubjectCardMenu'
-import SimpleMedia from './components/SimpleMedia'
 import InteractiveMedia from './components/InteractiveMedia'
+import SimpleMedia from './components/SimpleMedia'
+import SubjectCardMenu from './components/SubjectCardMenu'
+import SubjectCheckbox from './components/SubjectCheckbox'
 
 const INTERACTIVE_WIDTH = 300
 const METATOOLS_HEIGHT = 45
@@ -20,6 +21,13 @@ const METATOOLS_HEIGHT = 45
 const StyledSubjectCard = styled(Box)`
   position: relative;
   z-index: 0;
+`
+
+const StyledSelectCheckbox = styled(Box)`
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  z-index: 3;
 `
 
 function cardWidth(size) {
@@ -55,13 +63,18 @@ const DEFAULT_SUBJECT = {
 }
 
 function SubjectCard({
+  canEdit = false,
   interactive = false,
   isCover = false,
   login,
-  onSetCover = null,
+  onRemoveFromCollection,
+  onSelect = null,
+  onSetCover,
   placeholder,
   projectId,
   projectSlug,
+  selectable = false,
+  selected = false,
   size = 'large',
   subject = DEFAULT_SUBJECT,
   userId
@@ -82,6 +95,27 @@ function SubjectCard({
   const origin = typeof window !== 'undefined' ? window.location.origin : ''
   const subjectTalkUrl = `${origin}${subjectTalkHref}`
 
+  // subject select properties
+  const selectLabel = t('SubjectCard.selectSubject', { subjectId: subjectIdTitle })
+  function handleSelect(checked) {
+    onSelect?.(subject, checked)
+  }
+
+  function handleCheckboxChange(event) {
+    handleSelect(event.target.checked)
+  }
+
+  function handleMediaSelect() {
+    handleSelect(!selected)
+  }
+
+  const selectProps = {
+    onSelect: handleMediaSelect,
+    selectable,
+    selected,
+    selectLabel
+  }
+
   return (
     <StyledSubjectCard
       elevation='small'
@@ -95,6 +129,7 @@ function SubjectCard({
           linkTitle={linkTitle}
           placeholder={placeholder}
           previewHeight={previewHeight}
+          selectProps={selectProps}
           subject={subject}
           subjectIdTitle={subjectIdTitle}
           width={width}
@@ -105,6 +140,7 @@ function SubjectCard({
           linkTitle={linkTitle}
           placeholder={placeholder}
           previewHeight={previewHeight}
+          selectProps={selectProps}
           subject={subject}
           subjectIdTitle={subjectIdTitle}
           width={width}
@@ -112,12 +148,22 @@ function SubjectCard({
         />
       )}
       {isCover ? <CollectionCoverBanner /> : null}
-      {onSetCover ? (
+      {selectable ? (
+        <StyledSelectCheckbox>
+          <SubjectCheckbox
+            a11yTitle={selectLabel}
+            checked={selected}
+            onChange={handleCheckboxChange}
+          />
+        </StyledSelectCheckbox>
+      ) : null}
+      {canEdit && !selectable && (
         <SubjectCardMenu
           isCover={isCover}
+          onRemoveFromCollection={() => onRemoveFromCollection(subject)}
           onSetCover={() => onSetCover(subject)}
         />
-      ) : null}
+      )}
       <Box
         align='center'
         background={{ dark: 'dark-3', light: 'white' }}
@@ -148,13 +194,18 @@ function SubjectCard({
 }
 
 SubjectCard.propTypes = {
+  canEdit: bool,
   interactive: bool,
   isCover: bool,
   login: string,
+  onRemoveFromCollection: func,
+  onSelect: func,
   onSetCover: func,
   placeholder: node,
   projectId: string,
   projectSlug: string.isRequired,
+  selectable: bool,
+  selected: bool,
   size: oneOf(['large', 'medium', 'small']),
   subject: shape({
     id: string.isRequired,

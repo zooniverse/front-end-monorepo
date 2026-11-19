@@ -57,6 +57,7 @@ const StyledMenu = styled(Menu)`
 
 function SubjectCardMenu({
   isCover = false,
+  onRemoveFromCollection,
   onSetCover
 }) {
   const { t } = useTranslation()
@@ -66,6 +67,10 @@ function SubjectCardMenu({
       disabled: isCover,
       label: t('SubjectCard.setAsCollectionCover'),
       onClick: onSetCover
+    },
+    {
+      label: t('SubjectCard.deleteFromCollection'),
+      onClick: onRemoveFromCollection
     }
   ]
 
@@ -87,7 +92,8 @@ function SubjectCardMenu({
 
 SubjectCardMenu.propTypes = {
   isCover: bool,
-  onSetCover: func.isRequired
+  onRemoveFromCollection: func,
+  onSetCover: func
 }
 
 export default SubjectCardMenu
