@@ -48,7 +48,6 @@ const PseudoTable = styled(Box)`
   }
 
   .header-cell {
-    color: ${props => props.theme.global.colors['dark-5']};
     padding-bottom: 0.5rem;
   }
 
@@ -163,7 +162,9 @@ function TalkPreferenceForm ({
       <PseudoTable>
         <div className='pseudo-row'>
           <div className='header-cell'>
-            <Text>
+            <Text
+              color={{ light: 'dark-5', dark: 'light-5' }}
+            >
               {t('Settings.EmailSettings.talkPreferences.sendEmail')}
             </Text>
           </div>
@@ -172,7 +173,9 @@ function TalkPreferenceForm ({
               key={option}
               className='header-cell option-cell'
             >
-              <Text>
+              <Text
+                color={{ light: 'dark-5', dark: 'light-5' }}
+              >
                 {t(`Settings.EmailSettings.talkPreferences.emailDigestOptions.${option}`)}
               </Text>
             </div>
@@ -214,7 +217,9 @@ function TalkPreferenceRow ({
         {t(`Settings.EmailSettings.talkPreferences.categories.${talkPreference.category}`)}
       </legend>
       <div className='pseudo-row'>
-        <Text>
+        <Text
+          color={{ light: 'dark-4', dark: 'neutral-6' }}
+        >
           {t(`Settings.EmailSettings.talkPreferences.categories.${talkPreference.category}`)}
         </Text>
         {EMAIL_DIGEST_OPTIONS.map((option, index) => {
