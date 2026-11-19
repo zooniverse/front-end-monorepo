@@ -28,6 +28,13 @@ const StyledTextInput = styled(TextInput)`
   }
 `
 
+const StyledHelpBox = styled(Box)`
+  ${props => props.theme.dark
+    ? css`color: ${props.theme.global.colors['light-5']};`
+    : css`color: ${props.theme.global.colors['dark-5']};`
+  }
+`
+
 async function DEFAULT_FUNCTION () {}
 
 function FormInputField ({
@@ -75,13 +82,13 @@ function FormInputField ({
         value={user?.[fieldName] || ''}
       />
       {helpText && (
-        <Box
+        <StyledHelpBox
           align='center'
           direction='row'
         >
           <StyledHelpIcon size='0.75rem' />
           <Text size='0.75rem'>{helpText}</Text>
-        </Box>
+        </StyledHelpBox>
       )}      
     </InputFieldContainer>
   )
