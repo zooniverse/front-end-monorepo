@@ -16,11 +16,12 @@ const InputFieldContainer = styled(Box)`
 `
 
 const StyledHelpIcon = styled(CircleInformation)`
-  margin-top: 4px;
-  margin-right: 0.5em;
+  margin-right: 0.25rem;
 `
 
 const StyledTextInput = styled(TextInput)`
+  font-size: 1rem;
+  font-weight: 500;
   ${props => props.theme.dark
     ? css`color: ${props.theme.global.colors['neutral-6']};`
     : css`color: ${props.theme.global.colors['neutral-7']};`
@@ -75,10 +76,11 @@ function FormInputField ({
       />
       {helpText && (
         <Box
+          align='center'
           direction='row'
         >
-          <StyledHelpIcon size='small' />
-          <Text>{helpText}</Text>
+          <StyledHelpIcon size='0.75rem' />
+          <Text size='0.75rem'>{helpText}</Text>
         </Box>
       )}      
     </InputFieldContainer>
