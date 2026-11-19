@@ -60,4 +60,15 @@ describe('Component > GeoFeedback', function () {
     const container = screen.getByTestId('geo-feedback-map')
     expect(container.querySelector('.ol-viewport')).to.exist
   })
+
+  it('should offer zoom buttons on the feedback map', function () {
+    render(
+      <Provider classifierStore={buildClassifierStore()}>
+        <GeoFeedback />
+      </Provider>
+    )
+    const container = screen.getByTestId('geo-feedback-map')
+    expect(container.querySelector('.ol-zoom-in')).to.exist
+    expect(container.querySelector('.ol-zoom-out')).to.exist
+  })
 })
