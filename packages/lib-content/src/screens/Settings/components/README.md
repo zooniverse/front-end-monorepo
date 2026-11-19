@@ -54,7 +54,7 @@ _Form._ This form allows users to view and edit various Talk Preference settings
 
 Now that I think about it, I should have named this Talk PreferenceS Form. 😬
 
-### User Media Form
+## User Media Form
 
 Used in: Email Settings page.
 
