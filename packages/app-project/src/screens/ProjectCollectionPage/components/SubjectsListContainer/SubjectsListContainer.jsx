@@ -19,9 +19,8 @@ import SelectionToolbar from '../SelectionToolbar'
 import SubjectsList from '../SubjectsList'
 
 function SubjectsListContainer({
-  canDelete = false,
+  canEdit = false,
   collection,
-  isOwner = false,
   login,
   projectId,
   projectSlug,
@@ -209,7 +208,7 @@ function SubjectsListContainer({
           <SelectionToolbar
             allSelected={allSelected}
             canAdd={!!userId}
-            canDelete={canDelete}
+            canEdit={canEdit}
             isSelecting={isSelecting}
             onAdd={handleAdd}
             onDelete={handleDelete}
@@ -236,13 +235,14 @@ function SubjectsListContainer({
           </Paragraph>
         ) : null}
         <SubjectsList
-          defaultSubjectSrc={isOwner ? defaultSubjectSrc : undefined}
+          canEdit={canEdit}
+          defaultSubjectSrc={canEdit ? defaultSubjectSrc : undefined}
           isLoading={isLoading || isValidating || isRemoving}
           isSettingCover={isSettingCover}
           login={login}
-          onRemoveFromCollection={canDelete && !isSelecting ? handleRemoveFromCollection : null}
+          onRemoveFromCollection={handleRemoveFromCollection}
           onSelect={handleSelect}
-          onSetCover={isOwner && !isSelecting ? handleSetCover : null}
+          onSetCover={handleSetCover}
           projectId={projectId}
           projectSlug={projectSlug}
           selectable={isSelecting}
@@ -257,13 +257,12 @@ function SubjectsListContainer({
 }
 
 SubjectsListContainer.propTypes = {
-  canDelete: bool,
+  canEdit: bool,
   collection: shape({
     default_subject_src: string,
     id: string,
     slug: string
   }).isRequired,
-  isOwner: bool,
   login: string,
   projectId: string,
   projectSlug: string,

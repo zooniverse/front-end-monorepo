@@ -29,7 +29,7 @@ function ToolLabel({ children, icon, pressed = false }) {
 function SelectionToolbar({
   allSelected = false,
   canAdd = false,
-  canDelete = false,
+  canEdit = false,
   isSelecting = false,
   onAdd = DEFAULT_HANDLER,
   onDelete = DEFAULT_HANDLER,
@@ -66,7 +66,7 @@ function SelectionToolbar({
           </ToolLabel>
         </Button>
       ) : null}
-      {isSelecting && canDelete ? (
+      {isSelecting && canEdit ? (
         <Button
           disabled={!hasSelection}
           onClick={onDelete}
@@ -98,7 +98,7 @@ function SelectionToolbar({
 SelectionToolbar.propTypes = {
   allSelected: bool,
   canAdd: bool,
-  canDelete: bool,
+  canEdit: bool,
   isSelecting: bool,
   onAdd: func,
   onDelete: func,

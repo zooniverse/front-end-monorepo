@@ -40,13 +40,14 @@ function LoadingOverlay() {
 }
 
 function SubjectsList({
+  canEdit = false,
   defaultSubjectSrc,
   isLoading = false,
   isSettingCover = false,
   login,
-  onRemoveFromCollection = null,
+  onRemoveFromCollection,
   onSelect = null,
-  onSetCover = null,
+  onSetCover,
   projectId,
   projectSlug,
   selectable = false,
@@ -64,6 +65,7 @@ function SubjectsList({
       {subjects.map(subject => (
         <li key={subject.id}>
           <SubjectCard
+            canEdit={canEdit}
             interactive={true}
             isCover={subject.id === coverSubjectId}
             login={login}
@@ -84,6 +86,7 @@ function SubjectsList({
 }
 
 SubjectsList.propTypes = {
+  canEdit: bool,
   defaultSubjectSrc: string,
   isLoading: bool,
   isSettingCover: bool,

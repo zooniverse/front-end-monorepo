@@ -6,19 +6,19 @@ export default {
 }
 
 export const Default = {
-  args: { canAdd: true, canDelete: true }
+  args: { canAdd: true, canEdit: true }
 }
 
 export const Selecting = {
-  args: { canAdd: true, canDelete: true, isSelecting: true }
+  args: { canAdd: true, canEdit: true, isSelecting: true }
 }
 
 export const SelectingWithSelection = {
-  args: { canAdd: true, canDelete: true, isSelecting: true, selectedCount: 3 }
+  args: { canAdd: true, canEdit: true, isSelecting: true, selectedCount: 3 }
 }
 
 export const SelectingAllSelected = {
-  args: { allSelected: true, canAdd: true, canDelete: true, isSelecting: true, selectedCount: 20 }
+  args: { allSelected: true, canAdd: true, canEdit: true, isSelecting: true, selectedCount: 20 }
 }
 
 export const SelectingAsViewer = {
