@@ -1,0 +1,221 @@
+{
+  "About": {
+    "PageHeading": {
+      "title": {
+        "education": "শিক্ষা",
+        "faq": "প্রায়শই জিজ্ঞাসিত প্রশ্নাবলী",
+        "research": "গবেষণা",
+        "results": "ফলাফল",
+        "team": "দলটি"
+      }
+    },
+    "PageNav": {
+      "title": "প্রোজেক্ট সম্পর্কে"
+    },
+    "SidebarHeading": "সম্পর্কে",
+    "TeamMember": {
+      "admin": "জুনিভার্স টিম",
+      "collaborator": "সহযোগী",
+      "expert": "বিশেষজ্ঞ",
+      "moderator": "মডারেটর",
+      "museum": "মিউজিয়াম",
+      "owner": "মালিক",
+      "researcher": "গবেষক",
+      "tester": "পরীক্ষক",
+      "translator": "অনুবাদক"
+    }
+  },
+  "Classify": {
+    "ClassifierWrapper": {
+      "ErrorMessage": {
+        "title": "ক্লাসিফায়ারে একটি ত্রুটি ছিল :("
+      }
+    },
+    "ExternalWorkflow": {
+      "button": "বাহ্যিক কর্মপ্রবাহ চালিয়ে যান",
+      "fallback": "এই ওয়ার্কফ্লোটি একটি বাহ্যিক সাইটে হোস্ট করা আছে। সেখানে চালিয়ে যাওয়ার জন্য নিচের বাটনটি নির্বাচন করুন।"
+    },
+    "RecentSubjects": {
+      "noSubjects": "আপনার শ্রেণীবদ্ধ করা সর্বশেষ বিষয়গুলো এখানে দেখানো হচ্ছে।",
+      "text": "টক-এ কোনো বিষয় নিয়ে আলোচনা করুন, অথবা এটি আপনার ফেভারিটস বা কালেকশনে যুক্ত করুন।",
+      "title": "আপনার সাম্প্রতিক শ্রেণীবিভাগ"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "না, ধন্যবাদ।",
+      "confirm": "আমাকে পরবর্তী ওয়ার্কফ্লোতে নিয়ে যান!",
+      "content": "অভিনন্দন! যেহেতু আপনি খুব ভালো করছেন, তাই এখন আপনি অন্য একটি ওয়ার্কফ্লো অ্যাক্সেস করতে পারবেন। আপনি যদি বর্তমান ওয়ার্কফ্লোটিতে থাকতে চান, তাহলে আপনি থেকে যেতে পারেন।",
+      "dismiss": "এই সেশনে এটি আর দেখাবেন না",
+      "title": "নতুন ওয়ার্কফ্লো উপলব্ধ"
+    },
+    "YourStats": {
+      "allTime": "সর্বকালের",
+      "lastSeven": "গত 7 দিন",
+      "link": "আরও দেখুন",
+      "title": "আপনার পরিসংখ্যান"
+    }
+  },
+  "Collect": {
+    "exploreLink": "জুনোভার্সের সমস্ত সংগ্রহ অন্বেষণ করুন",
+    "hideSingleSubject": "শুধুমাত্র ১টি বিষয় আছে এমন সংগ্রহগুলি লুকান",
+    "placeholders": {
+      "empty": "কোন সংগ্রহ খুঁজে পাওয়া যায়নি।",
+      "error": "কালেকশনগুলো লোড করতে ত্রুটি হয়েছে।"
+    },
+    "resultsCount": "মোট সংগ্রহের {{range}} দেখানো হচ্ছে",
+    "sortBy": "অনুসারে সাজান:",
+    "sortOptions": {
+      "alphabeticalAscending": "বর্ণানুক্রমিক AZ",
+      "alphabeticalDescending": "বর্ণানুক্রমিক ZA",
+      "recentlyCreated": "সম্প্রতি তৈরি করা হয়েছে",
+      "recentlyUpdated": "সম্প্রতি আপডেট করা হয়েছে"
+    },
+    "tabs": {
+      "collections": "সংগ্রহ",
+      "favorites": "প্রিয়",
+      "myCollections": "আমার {{projectName}} সংগ্রহসমূহ",
+      "myFavorites": "আমার {{projectName}} পছন্দের তালিকা",
+      "title": "সংগ্রহ পৃষ্ঠাগুলি"
+    },
+    "title": "সংগ্রহ করুন"
+  },
+  "Collection": {
+    "CollectionOptions": {
+      "copied": "URL ক্লিপবোর্ডে কপি করা হয়েছে",
+      "settings": "সেটিংস",
+      "share": "শেয়ার"
+    },
+    "emptySubjects": "এই সংগ্রহে কোনো বিষয় নেই।",
+    "linkedToProjectCollections": "<projectLink>{{projectName}}<\/projectLink> সংগ্রহগুলির সাথে সংযুক্ত",
+    "notFound": "এই সংগ্রহটি পুনরুদ্ধার করতে একটি ত্রুটি হয়েছে।",
+    "ownerLoadError": "সংগ্রহের মালিকের বিবরণ লোড করা যায়নি।",
+    "resultsCount": "{{total}} টি বিষয়ের {{range}} টি দেখানো হচ্ছে",
+    "roles": {
+      "collaborator": "সহযোগী",
+      "contributor": "অবদানকারী",
+      "owner": "মালিক",
+      "viewer": "দর্শক"
+    },
+    "seeAllOwnerCollections": "<collectionsLink>সব {{displayName}}-এর সংগ্রহ দেখুন<\/collectionsLink>",
+    "selectSubjects": "বিষয় নির্বাচন করুন",
+    "subjectsLoadError": "এই সংকলনের বিষয়গুলো লোড করতে ত্রুটি হয়েছে।"
+  },
+  "Home": {
+    "AboutProject": {
+      "title": "{{projectName}} সম্পর্কে"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "আরও জানুন"
+      },
+      "NotApproved": {
+        "paragraph": "এই প্রোজেক্টটি জুনিভার্স প্রজেক্ট বিল্ডার ব্যবহার করে তৈরি করা হয়েছে কিন্তু এটি এখনও একটি অফিসিয়াল জুনিভার্স প্রকল্প নয়। এই প্রোজেক্ট  সম্পর্কিত প্রশ্ন বা সমস্যার উত্তর দিতে জুনিভার্স এর টীম বাধিত নয়"
+      }
+    },
+    "MessageFromResearcher": {
+      "noMessage": "এই প্রোজেক্ট সম্পর্কে আরও জানতে টক-এ গবেষণা দলের সাথে যোগাযোগ করুন!",
+      "noMessageButton": "টক-এ যান",
+      "title": "গবেষকের বার্তা"
+    },
+    "ZooniverseTalk": {
+      "RecentSubjects": {
+        "error": "বিষয়গুলি লোড করার ত্রুটি একটি সমস্যা হয়েছে :(",
+        "noSubjects": "মনে হচ্ছে কেউ এখনও কোনো বিষয়ে কমেন্ট করেনি। টক-এ যান এবং সবার প্রথম সেটি করুন!",
+        "subjectLabel": "বিষয় {{id}}"
+      },
+      "button": "যোগদান করুন",
+      "message": "গবেষণা দল এবং অন্যান্য ভলেন্টিয়ারদের সাথে কথা বলুন!",
+      "title": "Zooniverse টক"
+    }
+  },
+  "ProjectRecents": {
+    "empty": "গত ৯০ দিনে আপনার শ্রেণীবদ্ধ করা সর্বশেষ ২০টি বিষয় এখানে দেখানো হয়েছে।",
+    "emptyTitle": "সাম্প্রতিক কোনো শ্রেণিবিন্যাস পাওয়া যায়নি",
+    "error": "আপনার সাম্প্রতিক তথ্য লোড করতে ত্রুটি হয়েছে।",
+    "signedOut": "আপনি সম্প্রতি যে বিষয়গুলো শ্রেণীবদ্ধ করেছেন তা দেখতে সাইন ইন করুন।",
+    "title": "সাম্প্রতিক শ্রেণিবিন্যাস"
+  },
+  "ProjectStats": {
+    "BarChart": {
+      "a11y": "{{startDate}} থেকে {{endDate}} পর্যন্ত {{typeLabel}} বনাম {{countLabel}} এর বার চার্ট।",
+      "allWorkflows": "সমস্ত ওয়ার্কফ্লো",
+      "dateRange": {
+        "allTime": "সর্বকালের",
+        "custom": "কাস্টম",
+        "lastSevenDays": "গত ৭ দিন",
+        "lastThirtyDays": "গত ৩০ দিন",
+        "lastThreeMonths": "গত ৩ মাস",
+        "lastTwelveMonths": "গত ১২ মাস",
+        "thisMonth": "এই মাসে",
+        "thisYear": "এই বছর"
+      },
+      "empty": "কোনো ডেটা নেই। ওয়ার্কফ্লো বা তারিখের পরিসর পরিবর্তন করুন।",
+      "selectDateRange": "তারিখের পরিসর নির্বাচন করুন",
+      "selectWorkflow": "ওয়ার্কফ্লো নির্বাচন করুন"
+    },
+    "calendarBtn": "সম্পন্ন হয়েছে",
+    "calendarTitle": "কাস্টম তারিখের পরিসর",
+    "comments": "মন্তব্য",
+    "count": "শ্রেণীবিভাগ",
+    "endDate": "শেষ তারিখ",
+    "heading": "{{প্রকল্পের নাম}} পরিসংখ্যান",
+    "startDate": "শুরুর তারিখ",
+    "workflows": {
+      "empty": "কোনো সংশ্লিষ্ট ওয়ার্কফ্লো নেই",
+      "percentComplete": "{{শতাংশ}}% সম্পন্ন",
+      "retireLimit": "অবসরের সীমা: {{number}}",
+      "subjectsRetired": "অবসরপ্রাপ্ত ব্যক্তিগণ: {{retired}}\/{{total}}",
+      "tip": "কাজ শেষ হওয়ার আনুমানিক সময় বিগত ১৪ দিনের শ্রেণিবিন্যাস হারের উপর ভিত্তি করে নির্ধারণ করা হয় এবং কিছু ওয়ার্কফ্লোর ক্ষেত্রে এটি ভুল বা অনুপলব্ধ হতে পারে।",
+      "title": "ওয়ার্কফ্লো"
+    }
+  },
+  "Talk": {
+    "Comment": {
+      "avatarAlt": "{{লগইন}} অবতার",
+      "comment": "মন্তব্য",
+      "goToComment": "মন্তব্যে যান",
+      "reply": "জবাবে",
+      "userDisplayNamePossessive": "{{userDisplayName}}'s"
+    },
+    "Discussions": {
+      "addComment": "আপনার মন্তব্য যোগ করুন",
+      "commentMessage": "কোনো নির্দিষ্ট মন্তব্যের উত্তর দিতে, আলোচনা অংশে যাওয়ার জন্য সেই মন্তব্যটির উপর ক্লিক করুন।",
+      "comments": "মন্তব্য",
+      "commentsViewing": "{{total}} টি মন্তব্যের মধ্যে {{count}} টি দেখা হচ্ছে",
+      "discussionBoard": "আলোচনা বোর্ড",
+      "discussionTitle": "আলোচনার শিরোনাম",
+      "discussions": "{{count}} আলোচনা",
+      "initialComment": "প্রাথমিক মন্তব্য",
+      "newComment": "নতুন মন্তব্য",
+      "noDiscussions": "কোন আলোচনা নেই",
+      "oneDiscussion": "১ আলোচনা",
+      "participants": "অংশগ্রহণকারীরা",
+      "sortBy": "অনুসারে সাজান",
+      "sortedNewestFirst": "নতুনতম প্রথমে",
+      "sortedOldestFirst": "প্রাচীনতম প্রথমে",
+      "startDiscussion": "একটি নতুন আলোচনা শুরু করুন"
+    },
+    "Metadata": {
+      "collapse": "ভেঙে পড়া",
+      "expand": "প্রসারিত করুন",
+      "noMetadata": "কোন মেটাডেটা উপলব্ধ নেই",
+      "subjectMetadata": "বিষয় মেটাডেটা"
+    },
+    "Tags": {
+      "add": "যোগ করুন",
+      "addATag": "একটি ট্যাগ যোগ করুন",
+      "addVote": "আপনার ভোট যোগ করুন",
+      "createTag": "একটি ট্যাগ তৈরি করুন",
+      "noTags": "কোন ট্যাগ নেই",
+      "popularTagsFrom": "{{projectDisplayName}} থেকে জনপ্রিয় ট্যাগসমূহ",
+      "removeVote": "আপনার ভোট সরিয়ে ফেলুন",
+      "signInToTag": "ট্যাগ যোগ করতে সাইন ইন করুন",
+      "tagValidationMessage": "৩ থেকে ৪০টি অক্ষর, বর্ণ, সংখ্যা, হাইফেন এবং আন্ডারস্কোর ব্যবহার করুন। কোনো স্পেস বা অন্য কোনো অক্ষর ব্যবহার করা যাবে না।",
+      "tags": "ট্যাগ"
+    },
+    "ancillaryData": "আনুষঙ্গিক ডেটা",
+    "ancillaryDataTip": "এটি আপনার দেখা বিষয় সম্পর্কিত আনুষঙ্গিক তথ্য। এ বিষয়ে আরও তথ্যের জন্য, অনুগ্রহ করে ‘আমাদের সম্পর্কে’ পৃষ্ঠাটি দেখুন।",
+    "mentions": "উল্লেখ",
+    "searchPlaceholder": "এই প্রজেক্টে ট্যাগ, বিষয় বা @ব্যবহারকারীদের দিয়ে অনুসন্ধান করুন।",
+    "somethingWentWrong": "কিছু একটা ভুল হয়েছে।"
+  }
+}

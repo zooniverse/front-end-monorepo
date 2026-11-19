@@ -1,0 +1,221 @@
+{
+  "About": {
+    "PageHeading": {
+      "title": {
+        "education": "Освіта",
+        "faq": "Поширені запитання",
+        "research": "Дослідження",
+        "results": "Результати",
+        "team": "Команда"
+      }
+    },
+    "PageNav": {
+      "title": "Про проєкт"
+    },
+    "SidebarHeading": "Про застосунок",
+    "TeamMember": {
+      "admin": "Команда Зоонверс",
+      "collaborator": "Співробітник",
+      "expert": "Експерт",
+      "moderator": "Модератор",
+      "museum": "Музей",
+      "owner": "Власник",
+      "researcher": "Дослідник",
+      "tester": "Тестер",
+      "translator": "Перекладач"
+    }
+  },
+  "Classify": {
+    "ClassifierWrapper": {
+      "ErrorMessage": {
+        "title": "У класифікаторі сталася помилка :("
+      }
+    },
+    "ExternalWorkflow": {
+      "button": "Перейти до зовнішнього робочого процесу",
+      "fallback": "Цей робочий процес розміщено на зовнішньому сайті. Натисніть кнопку нижче, щоб продовжити там."
+    },
+    "RecentSubjects": {
+      "noSubjects": "Тут показано найновіші предмети, які ви класифікували.",
+      "text": "Обговоріть завдання в розділі «Поговорити» або додайте її до «Вибраного» чи колекції.",
+      "title": "Ваші нещодавні класифікації"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "Ні, дякую",
+      "confirm": "Перейти до наступного робочого процесу!",
+      "content": "Вітаємо! Оскільки у вас все йде так добре, тепер ви можете отримати доступ до іншого робочого процесу. Якщо ви бажаєте залишитися з поточним робочим процесом, ви можете вибрати залишитися.",
+      "dismiss": "Не показувати це знову в цій сесії",
+      "title": "Новий робочий процес доступний"
+    },
+    "YourStats": {
+      "allTime": "За весь час",
+      "lastSeven": "За останні 7 днів",
+      "link": "Переглянути більше",
+      "title": "Ваша статистика"
+    }
+  },
+  "Collect": {
+    "exploreLink": "Перегляньте всі колекції Zooniverse",
+    "hideSingleSubject": "Приховати колекції лише з 1 темою",
+    "placeholders": {
+      "empty": "Не знайдено жодної колекції.",
+      "error": "Сталася помилка під час завантаження колекцій."
+    },
+    "resultsCount": "Показано {{range}} з {{total}} колекцій з {{range}}",
+    "sortBy": "Сортувати за:",
+    "sortOptions": {
+      "alphabeticalAscending": "Алфавітний Аризона",
+      "alphabeticalDescending": "Алфавітний ZA",
+      "recentlyCreated": "Нещодавно створено",
+      "recentlyUpdated": "Нещодавно оновлено"
+    },
+    "tabs": {
+      "collections": "Колекції",
+      "favorites": "Улюблені",
+      "myCollections": "Мої колекції {{projectName}}",
+      "myFavorites": "Мої улюблені {{projectName}}",
+      "title": "Сторінки колекції"
+    },
+    "title": "Збирати"
+  },
+  "Collection": {
+    "CollectionOptions": {
+      "copied": "URL-адресу скопійовано в буфер обміну",
+      "settings": "Налаштування",
+      "share": "Поділитися"
+    },
+    "emptySubjects": "У цій колекції немає тем.",
+    "linkedToProjectCollections": "Пов’язано з колекціями <projectLink>{{projectName}}<projectLink>",
+    "notFound": "Під час отримання цієї колекції сталася помилка.",
+    "ownerLoadError": "Не вдалося завантажити дані власника колекції.",
+    "resultsCount": "Показано {{range}} з {{total}} предметів",
+    "roles": {
+      "collaborator": "Співробітник",
+      "contributor": "Автор",
+      "owner": "Власник",
+      "viewer": "Глядач"
+    },
+    "seeAllOwnerCollections": "<collectionsLink>Переглянути всі колекції {{displayName}}<\/collectionsLink>",
+    "selectSubjects": "Виберіть предмети",
+    "subjectsLoadError": "Під час завантаження тем цієї колекції сталася помилка."
+  },
+  "Home": {
+    "AboutProject": {
+      "title": "Про {{projectName}}"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "Докладніше"
+      },
+      "NotApproved": {
+        "paragraph": "Цей проект був створений за допомогою Конструктора проектів Zooniverse, але ще не є офіційним проектом Zooniverse. Запитання та проблеми, пов'язані з цим проектом, спрямовані до команди Zooniverse, можуть залишитися без відповіді."
+      }
+    },
+    "MessageFromResearcher": {
+      "noMessage": "Зв'яжіться з дослідницькою командою у розділі «Поговорити», щоб дізнатися більше про цей проєкт!",
+      "noMessageButton": "Перейти до розділу «Поговорити»",
+      "title": "Повідомлення від дослідника"
+    },
+    "ZooniverseTalk": {
+      "RecentSubjects": {
+        "error": "Виникла помилка при завантаженні завдань :(",
+        "noSubjects": "Схоже, ще ніхто не залишив коментарів по цьому завданню. Перейдіть у розділ «Поговорити» та станьте першим!",
+        "subjectLabel": "Завдання {{id}}"
+      },
+      "button": "Приєднатись",
+      "message": "Спілкуйтеся в чаті з дослідницькою командою та іншими волонтерами!",
+      "title": "Поговорити Zooniverse"
+    }
+  },
+  "ProjectRecents": {
+    "empty": "Тут показано 20 останніх тем, які ви класифікували за останні 90 днів.",
+    "emptyTitle": "Не знайдено останніх класифікацій",
+    "error": "Сталася помилка під час завантаження ваших нещодавніх записів.",
+    "signedOut": "Увійдіть, щоб переглянути теми, які ви нещодавно класифікували.",
+    "title": "Нещодавні класифікації"
+  },
+  "ProjectStats": {
+    "BarChart": {
+      "a11y": "Гістограма {{typeLabel}} за даними {{countLabel}} з {{startDate}} до {{endDate}}",
+      "allWorkflows": "Усі робочі процеси",
+      "dateRange": {
+        "allTime": "Весь час",
+        "custom": "Користувацька",
+        "lastSevenDays": "Останні 7 днів",
+        "lastThirtyDays": "Останні 30 днів",
+        "lastThreeMonths": "Останні 3 місяці",
+        "lastTwelveMonths": "Останні 12 місяців",
+        "thisMonth": "Цього місяця",
+        "thisYear": "Цього року"
+      },
+      "empty": "Немає даних. Змініть робочий процес або діапазон дат.",
+      "selectDateRange": "Виберіть діапазон дат",
+      "selectWorkflow": "Виберіть робочий процес"
+    },
+    "calendarBtn": "Готово",
+    "calendarTitle": "Власний діапазон дат",
+    "comments": "Коментарі",
+    "count": "Класифікації",
+    "endDate": "Дата завершення",
+    "heading": "Статистика {{projectName}}",
+    "startDate": "Дата початку",
+    "workflows": {
+      "empty": "Немає пов'язаних робочих процесів",
+      "percentComplete": "Виконано на {{percent}}%",
+      "retireLimit": "Ліміт виходу на пенсію: {{number}}",
+      "subjectsRetired": "Суб'єкти, виведені з експлуатації: {{retired}}\/{{total}}",
+      "tip": "Орієнтовний час до завершення розраховується на основі коефіцієнта класифікації за останні 14 днів і може бути неправильним або недоступним для деяких робочих процесів.",
+      "title": "Робочі процеси"
+    }
+  },
+  "Talk": {
+    "Comment": {
+      "avatarAlt": "Аватар {{login}}",
+      "comment": "коментар",
+      "goToComment": "Перейти до коментаря",
+      "reply": "У відповідь на",
+      "userDisplayNamePossessive": "{{userDisplayName}}"
+    },
+    "Discussions": {
+      "addComment": "Додайте свій коментар",
+      "commentMessage": "Щоб відповісти на певний коментар, натисніть на нього, щоб перейти до обговорення.",
+      "comments": "Коментарі",
+      "commentsViewing": "Перегляд {{count}} коментарів з {{total}}",
+      "discussionBoard": "Дошка обговорень",
+      "discussionTitle": "Назва обговорення",
+      "discussions": "Обговорення",
+      "initialComment": "Початковий коментар",
+      "newComment": "Новий коментар",
+      "noDiscussions": "Без обговорень",
+      "oneDiscussion": "1 Обговорення",
+      "participants": "Учасники",
+      "sortBy": "Сортувати за",
+      "sortedNewestFirst": "Спочатку новіші",
+      "sortedOldestFirst": "Спочатку найстаріші",
+      "startDiscussion": "Розпочати нове обговорення"
+    },
+    "Metadata": {
+      "collapse": "Згорнути",
+      "expand": "Розгорнути",
+      "noMetadata": "Метадані недоступні",
+      "subjectMetadata": "Метадані теми"
+    },
+    "Tags": {
+      "add": "Додати",
+      "addATag": "Додати тег",
+      "addVote": "Додайте свій голос",
+      "createTag": "Створити тег",
+      "noTags": "Без тегів",
+      "popularTagsFrom": "Популярні теги з {{projectDisplayName}}",
+      "removeVote": "Видалити свій голос",
+      "signInToTag": "Увійдіть, щоб додати тег",
+      "tagValidationMessage": "Використовуйте 3-40 символів: літери, цифри, дефіси та символи підкреслення. Без пробілів та інших символів.",
+      "tags": "Теги"
+    },
+    "ancillaryData": "Допоміжні дані",
+    "ancillaryDataTip": "Це допоміжні дані про тему, яку ви переглядаєте. Для отримання додаткової інформації дивіться сторінку «Про нас».",
+    "mentions": "Згадки",
+    "searchPlaceholder": "Шукати в цьому проєкті теги, теми або @користувачів",
+    "somethingWentWrong": "Щось пішло не так."
+  }
+}

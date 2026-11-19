@@ -1,0 +1,221 @@
+{
+  "About": {
+    "PageHeading": {
+      "title": {
+        "education": "Giáo dục",
+        "faq": "Câu hỏi thường gặp",
+        "research": "Nghiên cứu",
+        "results": "Kết quả",
+        "team": "Đội ngũ"
+      }
+    },
+    "PageNav": {
+      "title": "Về dự án"
+    },
+    "SidebarHeading": "Giới thiệu",
+    "TeamMember": {
+      "admin": "Nhóm Zooniverse",
+      "collaborator": "Cộng tác viên",
+      "expert": "Chuyên gia",
+      "moderator": "Người điều phối",
+      "museum": "Bảo tàng",
+      "owner": "Chủ sở hữu",
+      "researcher": "Nhà nghiên cứu",
+      "tester": "Người kiểm thử",
+      "translator": "Người biên dịch"
+    }
+  },
+  "Classify": {
+    "ClassifierWrapper": {
+      "ErrorMessage": {
+        "title": "Đã có lỗi trong bộ phân loại :("
+      }
+    },
+    "ExternalWorkflow": {
+      "button": "Tiếp tục quy trình làm việc bên ngoài",
+      "fallback": "Quy trình làm việc này được lưu trữ trên một trang web bên ngoài. Chọn nút bên dưới để tiếp tục tại đó."
+    },
+    "RecentSubjects": {
+      "noSubjects": "Các chủ đề bạn đã phân loại gần đây nhất được hiển thị ở đây.",
+      "text": "Thảo luận về một chủ đề trên Talk, hoặc thêm nó vào mục yêu thích hoặc bộ sưu tập của bạn.",
+      "title": "Các phân loại gần đây của bạn"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "Không, cảm ơn",
+      "confirm": "Đưa tôi đến quy trình làm việc tiếp theo!",
+      "content": "Chúc mừng! Vì bạn đang làm rất tốt, bạn có thể truy cập vào một quy trình làm việc khác. Nếu bạn muốn tiếp tục với quy trình làm việc hiện tại, bạn có thể chọn ở lại.",
+      "dismiss": "Đừng hiển thị lại thông báo này trong phiên làm việc này",
+      "title": "Quy trình làm việc mới có sẵn"
+    },
+    "YourStats": {
+      "allTime": "Mọi lúc",
+      "lastSeven": "7 ngày qua",
+      "link": "Xem thêm",
+      "title": "Thống kê của bạn"
+    }
+  },
+  "Collect": {
+    "exploreLink": "Khám phá tất cả các bộ sưu tập của Zooniverse",
+    "hideSingleSubject": "Ẩn các bộ sưu tập chỉ có 1 chủ đề",
+    "placeholders": {
+      "empty": "Không tìm thấy bộ sưu tập nào.",
+      "error": "Đã xảy ra lỗi khi tải bộ sưu tập."
+    },
+    "resultsCount": "Hiển thị {{range}} trong số {{total}} bộ sưu tập",
+    "sortBy": "Sắp xếp theo:",
+    "sortOptions": {
+      "alphabeticalAscending": "Theo thứ tự bảng chữ cái AZ",
+      "alphabeticalDescending": "Theo thứ tự bảng chữ cái ZA",
+      "recentlyCreated": "Mới được tạo gần đây",
+      "recentlyUpdated": "Mới được cập nhật gần đây"
+    },
+    "tabs": {
+      "collections": "Bộ sưu tập",
+      "favorites": "Mục yêu thích",
+      "myCollections": "Bộ sưu tập {{projectName}} của tôi",
+      "myFavorites": "Mục yêu thích của tôi {{projectName}}",
+      "title": "Trang bộ sưu tập"
+    },
+    "title": "Sưu tầm"
+  },
+  "Collection": {
+    "CollectionOptions": {
+      "copied": "URL đã được sao chép vào clipboard",
+      "settings": "Cài đặt",
+      "share": "Chia sẻ"
+    },
+    "emptySubjects": "Không có chủ đề nào trong bộ sưu tập này.",
+    "linkedToProjectCollections": "Liên kết với bộ sưu tập <projectLink>{{projectName}}<\/projectLink>",
+    "notFound": "Đã xảy ra lỗi khi truy xuất bộ sưu tập này.",
+    "ownerLoadError": "Không thể tải thông tin chủ sở hữu bộ sưu tập.",
+    "resultsCount": "Hiển thị {{range}} trong số {{total}} đối tượng",
+    "roles": {
+      "collaborator": "Cộng tác viên",
+      "contributor": "Người đóng góp",
+      "owner": "Người sở hữu",
+      "viewer": "Người xem"
+    },
+    "seeAllOwnerCollections": "<collectionsLink>Xem tất cả bộ sưu tập của {{displayName}}<\/collectionsLink>",
+    "selectSubjects": "Chọn môn học",
+    "subjectsLoadError": "Đã xảy ra lỗi khi tải các chủ đề của bộ sưu tập này."
+  },
+  "Home": {
+    "AboutProject": {
+      "title": "Giới thiệu về {{projectName}}"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "Tìm hiểu thêm"
+      },
+      "NotApproved": {
+        "paragraph": "Dự án này được xây dựng bằng Zooniverse Project Builder nhưng hiện chưa phải là một dự án chính thức của Zooniverse. Các câu hỏi và vấn đề liên quan đến dự án này gửi tới Đội ngũ Zooniverse có thể sẽ không nhận được phản hồi."
+      }
+    },
+    "MessageFromResearcher": {
+      "noMessage": "Kết nối với nhóm nghiên cứu trên Talk để tìm hiểu thêm về dự án này!",
+      "noMessageButton": "Đi đến Talk",
+      "title": "Tin nhắn từ nhà nghiên cứu"
+    },
+    "ZooniverseTalk": {
+      "RecentSubjects": {
+        "error": "Đã có lỗi khi tải các chủ đề :(",
+        "noSubjects": "Có vẻ như chưa ai bình luận về chủ đề này. Hãy đến Talk và trở thành người đầu tiên!",
+        "subjectLabel": "Chủ đề {{id}}"
+      },
+      "button": "Tham gia ngay",
+      "message": "Trò chuyện với nhóm nghiên cứu và các tình nguyện viên khác!",
+      "title": "Zooniverse Talk"
+    }
+  },
+  "ProjectRecents": {
+    "empty": "20 chủ đề gần đây nhất mà bạn đã phân loại trong 90 ngày qua được hiển thị ở đây.",
+    "emptyTitle": "Không tìm thấy phân loại gần đây nào.",
+    "error": "Đã xảy ra lỗi khi tải mục gần đây của bạn.",
+    "signedOut": "Đăng nhập để xem các chủ đề bạn vừa phân loại gần đây.",
+    "title": "Phân loại gần đây"
+  },
+  "ProjectStats": {
+    "BarChart": {
+      "a11y": "Biểu đồ cột của {{typeLabel}} theo {{countLabel}} từ {{startDate}} đến {{endDate}}",
+      "allWorkflows": "Tất cả quy trình làm việc",
+      "dateRange": {
+        "allTime": "Mọi thời đại",
+        "custom": "Phong tục",
+        "lastSevenDays": "7 ngày qua",
+        "lastThirtyDays": "30 ngày cuối cùng",
+        "lastThreeMonths": "3 tháng gần đây",
+        "lastTwelveMonths": "12 tháng qua",
+        "thisMonth": "Tháng này",
+        "thisYear": "Năm nay"
+      },
+      "empty": "Không có dữ liệu. Hãy thay đổi quy trình làm việc hoặc phạm vi ngày.",
+      "selectDateRange": "Chọn phạm vi ngày",
+      "selectWorkflow": "Chọn quy trình làm việc"
+    },
+    "calendarBtn": "Xong",
+    "calendarTitle": "Khoảng thời gian tùy chỉnh",
+    "comments": "Bình luận",
+    "count": "Phân loại",
+    "endDate": "Ngày kết thúc",
+    "heading": "Thống kê {{projectName}}",
+    "startDate": "Ngày bắt đầu",
+    "workflows": {
+      "empty": "Không có quy trình làm việc liên kết nào.",
+      "percentComplete": "{{phần trăm}}% hoàn thành",
+      "retireLimit": "Giới hạn nghỉ hưu: {{number}}",
+      "subjectsRetired": "Số môn học đã nghỉ hưu: {{retired}}\/{{total}}",
+      "tip": "Thời gian hoàn thành ước tính dựa trên tỷ lệ phân loại trong 14 ngày qua và có thể không chính xác hoặc không khả dụng đối với một số quy trình công việc.",
+      "title": "Quy trình làm việc"
+    }
+  },
+  "Talk": {
+    "Comment": {
+      "avatarAlt": "{{login}} avatar",
+      "comment": "bình luận",
+      "goToComment": "Xem bình luận",
+      "reply": "Đáp lại",
+      "userDisplayNamePossessive": "của {{userDisplayName}}"
+    },
+    "Discussions": {
+      "addComment": "Thêm bình luận của bạn",
+      "commentMessage": "Để trả lời một bình luận cụ thể, hãy nhấp vào bình luận đó để chuyển đến phần thảo luận.",
+      "comments": "Bình luận",
+      "commentsViewing": "Đang xem {{count}} trong tổng số {{total}} bình luận",
+      "discussionBoard": "Diễn đàn thảo luận",
+      "discussionTitle": "Tiêu đề thảo luận",
+      "discussions": "{{count}} Thảo luận",
+      "initialComment": "Bình luận ban đầu",
+      "newComment": "Bình luận mới",
+      "noDiscussions": "Không có thảo luận",
+      "oneDiscussion": "1. Thảo luận",
+      "participants": "Người tham gia",
+      "sortBy": "Sắp xếp theo",
+      "sortedNewestFirst": "Mới nhất trước",
+      "sortedOldestFirst": "Người lớn tuổi nhất trước",
+      "startDiscussion": "Bắt đầu một cuộc thảo luận mới"
+    },
+    "Metadata": {
+      "collapse": "Sụp đổ",
+      "expand": "Mở rộng",
+      "noMetadata": "Không có siêu dữ liệu nào.",
+      "subjectMetadata": "Siêu dữ liệu chủ đề"
+    },
+    "Tags": {
+      "add": "Thêm vào",
+      "addATag": "Thêm thẻ",
+      "addVote": "Thêm phiếu bầu của bạn",
+      "createTag": "Tạo thẻ",
+      "noTags": "Không có thẻ",
+      "popularTagsFrom": "Các thẻ phổ biến từ {{projectDisplayName}}",
+      "removeVote": "Hủy bỏ phiếu bầu của bạn",
+      "signInToTag": "Đăng nhập để thêm thẻ",
+      "tagValidationMessage": "Sử dụng từ 3 đến 40 ký tự, bao gồm chữ cái, số, dấu gạch ngang và dấu gạch dưới. Không được dùng khoảng trắng hoặc các ký tự khác.",
+      "tags": "Thẻ"
+    },
+    "ancillaryData": "Dữ liệu phụ trợ",
+    "ancillaryDataTip": "Đây là dữ liệu bổ sung về chủ đề bạn đang xem. Để biết thêm thông tin chi tiết, vui lòng xem trang Giới thiệu.",
+    "mentions": "Đề cập đến",
+    "searchPlaceholder": "Tìm kiếm dự án này theo thẻ, chủ đề hoặc @người dùng",
+    "somethingWentWrong": "Đã xảy ra lỗi."
+  }
+}

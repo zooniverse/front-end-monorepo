@@ -1,0 +1,221 @@
+{
+  "About": {
+    "PageHeading": {
+      "title": {
+        "education": "शिक्षा",
+        "faq": "अक्सर पूछे जाने वाले प्रश्न",
+        "research": "अनुसंधान",
+        "results": "परिणाम",
+        "team": "टीम"
+      }
+    },
+    "PageNav": {
+      "title": "प्रोजेक्ट का परिचय"
+    },
+    "SidebarHeading": "प्रोजेक्ट के बारे में",
+    "TeamMember": {
+      "admin": "ज़ूनिवर्स टीम",
+      "collaborator": "सहयोगी",
+      "expert": "विशेषज्ञ",
+      "moderator": "मध्यस्थ",
+      "museum": "संग्रहालय",
+      "owner": "स्वामी",
+      "researcher": "शोधकर्ता",
+      "tester": "टेस्टर",
+      "translator": "अनुवादक"
+    }
+  },
+  "Classify": {
+    "ClassifierWrapper": {
+      "ErrorMessage": {
+        "title": "क्लासिफायर में एक त्रुटि थी :("
+      }
+    },
+    "ExternalWorkflow": {
+      "button": "बाह्य वर्कफ़्लो जारी रखें",
+      "fallback": "यह वर्कफ़्लो एक बाहरी साइट पर होस्ट किया गया है। वहाँ जारी रखने के लिए नीचे दिए गए बटन का चयन करें।"
+    },
+    "RecentSubjects": {
+      "noSubjects": "आपके द्वारा हाल ही में वर्गीकृत किए गए विषय यहां दिखाए गए हैं।",
+      "text": "टॉक पर किसी विषय पर चर्चा करें, या उसे अपने पसंदीदा या संग्रह में जोड़ें।",
+      "title": "आपके हाल की श्रेणियां"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "नहीं, धन्यवाद",
+      "confirm": "मुझे अगले चरण पर ले जाएं",
+      "content": "बधाईयां! आपने अगला वर्क फ्लो शुरू कर लिया है। अगर आप इस ही वर्क फ्लो पर आगे काम करना चाहते हैं, तो जारी रखें",
+      "dismiss": "मुझे आगे से संदेश ना दिखाएं",
+      "title": "नया वर्कफ्लो उपलब्ध"
+    },
+    "YourStats": {
+      "allTime": "हर समय",
+      "lastSeven": "पिछले 7 दिन",
+      "link": "और देखें",
+      "title": "आँकड़े"
+    }
+  },
+  "Collect": {
+    "exploreLink": "ज़ूनिवर्स के सभी संग्रहों को देखें",
+    "hideSingleSubject": "केवल एक विषय वाले संग्रहों को छुपाएँ",
+    "placeholders": {
+      "empty": "कोई संग्रह नहीं मिला।",
+      "error": "संग्रहों को लोड करने में त्रुटि हुई।"
+    },
+    "resultsCount": "कुल संग्रहों की श्रेणी दिखाई जा रही है",
+    "sortBy": "इसके अनुसार क्रमबद्ध करें:",
+    "sortOptions": {
+      "alphabeticalAscending": "वर्णानुक्रमिक AZ",
+      "alphabeticalDescending": "वर्णानुक्रम ZA",
+      "recentlyCreated": "हाल ही में निर्मित",
+      "recentlyUpdated": "हाल ही में अपडेट किया गया"
+    },
+    "tabs": {
+      "collections": "संग्रह",
+      "favorites": "पसंदीदा",
+      "myCollections": "मेरे {{projectName}} संग्रह",
+      "myFavorites": "मेरे {{projectName}} पसंदीदा",
+      "title": "संग्रह पृष्ठ"
+    },
+    "title": "इकट्ठा करना"
+  },
+  "Collection": {
+    "CollectionOptions": {
+      "copied": "यूआरएल क्लिपबोर्ड पर कॉपी हो गया",
+      "settings": "सेटिंग्स",
+      "share": "शेयर करना"
+    },
+    "emptySubjects": "इस संग्रह में कोई विषय शामिल नहीं हैं।",
+    "linkedToProjectCollections": "<projectLink>{{projectName}}<\/projectLink> संग्रहों से जुड़ा हुआ",
+    "notFound": "इस संग्रह को प्राप्त करने में त्रुटि हुई।",
+    "ownerLoadError": "संग्रह के स्वामी का विवरण लोड नहीं हो सका।",
+    "resultsCount": "{{कुल}} विषयों की {{श्रेणी}} दिखाई जा रही है",
+    "roles": {
+      "collaborator": "सहयोगी",
+      "contributor": "योगदानकर्ता",
+      "owner": "मालिक",
+      "viewer": "दर्शक"
+    },
+    "seeAllOwnerCollections": "<collectionsLink>सभी {{displayName}} के संग्रह देखें<\/collectionsLink>",
+    "selectSubjects": "विषय चुनें",
+    "subjectsLoadError": "इस संग्रह के विषयों को लोड करने में त्रुटि हुई।"
+  },
+  "Home": {
+    "AboutProject": {
+      "title": "{{projectName}} के बारे में"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "अधिक जानकारी "
+      },
+      "NotApproved": {
+        "paragraph": "इस परियोजना को ज़ूनीवरस आधिकारिक प्लेटफार्म की सहायता से बनाया गया है लेकिन यह अभी तक एक आधिकारिक ज़ूनीवर्स​ प्रोजेक्ट नहीं है। अतः इस बाबत ज़ूनीवरस टीम को भेजे गए किसी भी सवाल या मुद्दे पर कोई उत्तर देने के लिए ज़िम्मेदार नहीं है।"
+      }
+    },
+    "MessageFromResearcher": {
+      "noMessage": "इस प्रोजेक्ट के बारे में अधिक जानने के लिए टॉक पर रिसर्च टीम से जुड़ें!",
+      "noMessageButton": "टॉक पर जाएं",
+      "title": "शोधकर्ता की ओर से संदेश"
+    },
+    "ZooniverseTalk": {
+      "RecentSubjects": {
+        "error": "विषयों को लोड करते समय त्रुटि हुई :(",
+        "noSubjects": "ऐसा लगता है कि अभी तक किसी ने इस विषय पर टिप्पणी नहीं की है। टॉक पर जाएँ और सबसे पहले टिप्पणी करें!",
+        "subjectLabel": "विषय {{id}}"
+      },
+      "button": "चर्चा में शामिल हों",
+      "message": "यह भी सुनिश्चित करें कि [Talk](\/talk) की जाँच करें जहाँ आप अन्य समान विचारधारा वाले स्वयंसेवकों से चैट कर सकते हैं।",
+      "title": "बात करें"
+    }
+  },
+  "ProjectRecents": {
+    "empty": "पिछले 90 दिनों में आपके द्वारा वर्गीकृत किए गए सबसे हाल के 20 विषय यहां दिखाए गए हैं।",
+    "emptyTitle": "कोई हालिया वर्गीकरण नहीं मिला",
+    "error": "आपके हालिया कंटेंट को लोड करने में त्रुटि आई।",
+    "signedOut": "हाल ही में वर्गीकृत किए गए विषयों को देखने के लिए लॉग इन करें।",
+    "title": "हालिया वर्गीकरण"
+  },
+  "ProjectStats": {
+    "BarChart": {
+      "a11y": "{{startDate}} से {{endDate}} तक {{typeLabel}} का {{countLabel}} द्वारा बार चार्ट",
+      "allWorkflows": "सभी वर्कफ़्लो",
+      "dateRange": {
+        "allTime": "पूरे समय",
+        "custom": "रिवाज़",
+        "lastSevenDays": "पिछले 7 दिन",
+        "lastThirtyDays": "पिछले 30 दिन",
+        "lastThreeMonths": "पिछले 3 महीने",
+        "lastTwelveMonths": "पिछले 12 महीने",
+        "thisMonth": "इस महीने",
+        "thisYear": "इस साल"
+      },
+      "empty": "कोई डेटा उपलब्ध नहीं है। वर्कफ़्लो या दिनांक सीमा बदलें।",
+      "selectDateRange": "दिनांक सीमा चुनें",
+      "selectWorkflow": "वर्कफ़्लो चुनें"
+    },
+    "calendarBtn": "हो गया",
+    "calendarTitle": "अनुकूलित तिथि सीमा",
+    "comments": "टिप्पणियाँ",
+    "count": "वर्गीकरण",
+    "endDate": "अंतिम तिथि",
+    "heading": "{{projectName}} सांख्यिकी",
+    "startDate": "आरंभ करने की तिथि",
+    "workflows": {
+      "empty": "कोई संबद्ध वर्कफ़्लो नहीं",
+      "percentComplete": "{{पूर्ण प्रतिशत",
+      "retireLimit": "सेवानिवृत्ति सीमा: {{संख्या}}",
+      "subjectsRetired": "सेवानिवृत्त विषय: {{सेवानिवृत्त}}\/{{कुल}}",
+      "tip": "कार्य पूरा होने का अनुमानित समय पिछले 14 दिनों की वर्गीकरण दर पर आधारित है और कुछ कार्यप्रवाहों के लिए यह गलत या अनुपलब्ध हो सकता है।",
+      "title": "वर्कफ़्लो"
+    }
+  },
+  "Talk": {
+    "Comment": {
+      "avatarAlt": "{{login}} अवतार",
+      "comment": "टिप्पणी",
+      "goToComment": "टिप्पणी पर जाएं",
+      "reply": "इसके जवाब में",
+      "userDisplayNamePossessive": "{{userDisplayName}} का"
+    },
+    "Discussions": {
+      "addComment": "अपनी टिप्पणी जोड़ें",
+      "commentMessage": "किसी विशिष्ट टिप्पणी का जवाब देने के लिए, उस टिप्पणी पर क्लिक करके चर्चा में शामिल हों।",
+      "comments": "टिप्पणियाँ",
+      "commentsViewing": "{{count}} टिप्पणियाँ देखी जा रही हैं",
+      "discussionBoard": "चर्चा बोर्ड",
+      "discussionTitle": "चर्चा का शीर्षक",
+      "discussions": "{{count}} चर्चाएँ",
+      "initialComment": "प्रारंभिक टिप्पणी",
+      "newComment": "नई टिप्पणी",
+      "noDiscussions": "कोई चर्चा नहीं",
+      "oneDiscussion": "1 चर्चा",
+      "participants": "प्रतिभागियों",
+      "sortBy": "इसके अनुसार क्रमबद्ध करें",
+      "sortedNewestFirst": "सबसे नया पहले",
+      "sortedOldestFirst": "सबसे पुराना पहले",
+      "startDiscussion": "एक नई चर्चा शुरू करें"
+    },
+    "Metadata": {
+      "collapse": "गिर जाना",
+      "expand": "बढ़ाना",
+      "noMetadata": "कोई मेटाडेटा उपलब्ध नहीं है",
+      "subjectMetadata": "विषय मेटाडेटा"
+    },
+    "Tags": {
+      "add": "जोड़ना",
+      "addATag": "एक टैग जोड़ना",
+      "addVote": "अपना वोट डालें",
+      "createTag": "टैग बनाएं",
+      "noTags": "कोई टैग नहीं",
+      "popularTagsFrom": "{{projectDisplayName}} से लोकप्रिय टैग",
+      "removeVote": "अपना वोट हटाएँ",
+      "signInToTag": "टैग जोड़ने के लिए साइन इन करें",
+      "tagValidationMessage": "3-40 अक्षर, संख्याएँ, हाइफ़न और अंडरस्कोर का उपयोग करें। रिक्त स्थान या अन्य वर्णों का उपयोग न करें।",
+      "tags": "टैग"
+    },
+    "ancillaryData": "सहायक डेटा",
+    "ancillaryDataTip": "यह उस विषय से संबंधित अतिरिक्त जानकारी है जिसे आप देख रहे हैं। इस बारे में अधिक जानकारी के लिए, कृपया 'हमारे बारे में' पृष्ठ देखें।",
+    "mentions": "का उल्लेख है",
+    "searchPlaceholder": "इस प्रोजेक्ट में टैग, विषय या @उपयोगकर्ताओं के आधार पर खोजें",
+    "somethingWentWrong": "कुछ गलत हो गया।"
+  }
+}
