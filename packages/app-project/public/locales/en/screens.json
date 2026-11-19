@@ -126,6 +126,7 @@
     "linkedToProjectCollections": "Linked to <projectLink>{{projectName}}</projectLink> collections",
     "notFound": "There was an error retrieving this collection.",
     "ownerLoadError": "Collection owner details could not be loaded.",
+    "removeSubjectsConfirmation": "Are you sure you want to remove {{count}} subjects from this collection?",
     "resultsCount": "Showing {{range}} of {{total}} subjects",
     "roles": {
       "collaborator": "Collaborator",

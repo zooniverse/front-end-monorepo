@@ -124,7 +124,7 @@ function SubjectsListContainer({
   async function handleDelete() {
     if (isRemoving) return
 
-    const confirmed = window.confirm(`Are you sure you want to remove ${selectedIds.size} subjects from this collection?`)
+    const confirmed = window.confirm(t('Collection.removeSubjectsConfirmation', { count: selectedIds.size }))
     if (!confirmed) return
 
     const idsToDelete = [...selectedIds]
