@@ -224,6 +224,24 @@ describe('Component > GeoMapViewer', function () {
       expect(overlay.getPosition()).to.not.exist
     })
 
+    it('hides the delete button when the selected feature is removed some other way, like Reset', async function () {
+      let map = null
+      render(<PointCreationStory min={0} max={0} seedSubjectPoint onMapReady={(olMap) => { map = olMap }} />)
+
+      let overlay
+      await waitFor(() => {
+        overlay = deleteOverlay(map)
+        expect(overlay?.getPosition()).to.exist
+      })
+      const featureSource = map.getLayers().getArray()
+        .map((layer) => layer.getSource?.())
+        .find((source) => source?.getFeatures?.().length > 0)
+      featureSource.clear()
+
+      await waitFor(() => expect(overlay.getPosition()).to.not.exist)
+      expect(overlay.getElement().style.display).to.equal('none')
+    })
+
     it('blocks point drawing while the seed occupies the only slot', async function () {
       let map = null
       render(<PointCreationStory min={0} max={1} seedSubjectPoint onMapReady={(olMap) => { map = olMap }} />)
