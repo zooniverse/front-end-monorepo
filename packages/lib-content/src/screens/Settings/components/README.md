@@ -2,6 +2,14 @@
 
 This folder contains all the unique components for the User Settings Page.
 
+## Account Email Form
+
+Used in: Email Settings page.
+
+_Form._ This form allows users to view and edit their Panoptes User account's email.
+
+Uses an explicit save button, with status messages.
+
 ## Account Name Form
 
 Used in: Account Settings page.
