@@ -1,17 +1,16 @@
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import styled from 'styled-components'
 import { arrayOf, func, number, object, shape, string } from 'prop-types'
-import { Box, Button, Paragraph, ResponsiveContext } from 'grommet'
+import { Box, Button, Paragraph } from 'grommet'
 import { Markdownz, Media } from '@zooniverse/react-components'
 import { useTranslation } from '@translations/i18n'
 
-import StepNavigation from '@shared/StepNavigation'
+import StepNavigation from '././components/StepNavigation'
 
 const StyledMarkdownWrapper = styled(Box)`
   > h1,
   h2 {
     font-size: 26px;
-    line-height: 31px;
   }
 
   > p {
@@ -26,10 +25,8 @@ A workflow slide tutorial which can be embedded directly into the classifier or 
 ```
 <SlideTutorial
   activeStep={0}
-  height='100%'
   steps={[...steps]}
   stepwithMedium={index => steps[index]}
-  width='40vw'
 />
 ```
 */
@@ -42,8 +39,7 @@ function SlideTutorial({
   onComplete = DEFAULT_HANDLER,
   steps = [],
   stepWithMedium,
-  strings = {},
-  width
+  strings = {}
 }) {
   const [stepIndex, setStepIndex] = useState(activeStep)
   const { t } = useTranslation('components')
@@ -51,34 +47,34 @@ function SlideTutorial({
   const isThereMedia = medium?.src
   const isLastStep = stepIndex === steps.length - 1
 
-  const size = useContext(ResponsiveContext)
-  const height = size === 'small' ? '100%' : '73vh'
-
   const emptyState = (
-      <Box height='100%' width='100%' justify='center' align='center'>
-        <Paragraph>{t('SlideTutorial.error')}</Paragraph>
-      </Box>
-    )
+    <Box height='100%' width='100%' justify='center' align='center'>
+      <Paragraph>{t('SlideTutorial.error')}</Paragraph>
+    </Box>
+  )
 
   return (
-    <Box className={className} width={width} style={{ border: 'solid red 1px' }}>
-      <Box aria-live='polite' overflow={{ horizontal: 'hidden', vertical: 'auto' }}>
+    <Box className={className}>
+      <Box
+        aria-live='polite'
+        overflow={{ horizontal: 'hidden', vertical: 'auto' }}
+        height={{ max: '70vh' }}
+      >
         {isThereMedia && (
           <Media
             alt={t('SlideTutorial.alt', { activeStep: stepIndex })}
             alignSelf='center'
             fit='contain'
-            width={400}
+            height={300} // landscape images are best for tutorial media, but use a height constraint in case someone inserts a very tall portrait image/gif/video here.
             src={medium.src}
           />
         )}
-        <StyledMarkdownWrapper pad={{ horizontal: 'medium' }}>
+        <StyledMarkdownWrapper pad={{ horizontal: 'small', top: '10px' }}>
           {!step ? emptyState : <Markdownz>{strings[`steps.${stepIndex}.content`]}</Markdownz>}
         </StyledMarkdownWrapper>
       </Box>
       <Box
-        gap='medium'
-        height={{ min: 'auto' }} // prevent StepNavigation from expanding beyond this container when it flex-wraps many radio buttons
+        height={{ min: 'auto' }} // prevent StepNavigation from expanding beyond this container when it flex-wraps many radio buttons.
         width='100%'
       >
         <StepNavigation
@@ -115,9 +111,7 @@ SlideTutorial.propTypes = {
   /** A function which should return the step and media file for a given step index. */
   stepWithMedium: func.isRequired,
   /** Translated strings for the tutorial content */
-  strings: object,
-  /** Tutorial width (CSS units). */
-  width: string
+  strings: object
 }
 
 export default SlideTutorial

@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import { useTranslation } from '@translations/i18n'
 
 import { DisabledTaskPopup, Tasks } from './components'
-import SlideTutorial from '../SlideTutorial'
+import SlideTutorial from '../Tutorial/SlideTutorial'
 
 const TaskContainer = styled.div`
   &[inert] {
@@ -14,7 +14,6 @@ const TaskContainer = styled.div`
   }
 `
 
-// TODO: add autofocus for the first tab/task area
 /**
 The tabbed tasks area of the classifier, with tabs for the tutorial and active tasks.
 */

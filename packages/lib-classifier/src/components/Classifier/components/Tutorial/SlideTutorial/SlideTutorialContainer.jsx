@@ -45,7 +45,6 @@ function SlideTutorialContainer({
   return (
     <SlideTutorial
       activeStep={activeStep}
-      pad={pad}
       steps={steps}
       stepWithMedium={stepWithMedium}
       strings={strings}
