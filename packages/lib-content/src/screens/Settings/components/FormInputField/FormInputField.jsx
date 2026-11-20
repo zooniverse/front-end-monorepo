@@ -55,6 +55,8 @@ function FormInputField ({
   const labelText = t(`Settings.forms.fields.${fieldName}.label`) || ''
   const helpText = t(`Settings.forms.fields.${fieldName}.help`) || ''
 
+  console.log('+++ autocomplete', autocomplete)
+
   return (
     <InputFieldContainer>
       <Box direction='row' gap='1em' align='center'>
@@ -73,7 +75,7 @@ function FormInputField ({
         }
       </Box>
       <StyledTextInput
-        autocomplete={autocomplete}
+        autoComplete={autocomplete}  // This needs to have that capital 'C' to work.
         data-field={fieldName}
         disabled={disabled}
         id={inputId}
