@@ -5,7 +5,7 @@ export const media = [
     src: 'https://panoptes-uploads.zooniverse.org/project_attached_image/55bbe58d-30a5-44b0-bfe6-4834605c61ca.jpeg'
   }),
   TutorialMediumFactory.build({
-    src: 'https://panoptes-uploads.zooniverse.org/project_attached_image/5185e358-2658-4f43-995f-7964623b18b1.jpeg'
+    src: 'https://panoptes-uploads.zooniverse.org/project_attached_image/0c1d473f-cd41-4c1d-a9aa-03366b83f658.mp4'
   }),
   TutorialMediumFactory.build({
     src: 'https://panoptes-uploads.zooniverse.org/project_attached_image/121e47ed-b4ab-47e9-925c-344d38ebeca1.jpeg'
@@ -59,7 +59,7 @@ export const steps = [
     medium: media[2].id
   },
   {
-    content: `## **Arirang** ##\n\n*Arirang* is BTS's fifth studio album—released on March 20, 2026—marking the seven-member group's full reunion after military service.\n\nThe Arirang World Tour is their massive all-stadium tour running from April 2026 through March 2027.\n\nLink to the [2.0 Music Vide](https://www.youtube.com/watch?v=_gyultVTesk). You have to click through because the channel is configured not to embed videos.`,
+    content: `## **Arirang** ##\n\n*Arirang* is BTS's fifth studio album—released on March 20, 2026—marking the seven-member group's full reunion after military service.\n\nThe Arirang World Tour is their massive all-stadium tour running from April 2026 through March 2027.\n\nLink to the [2.0 Music Video](https://www.youtube.com/watch?v=_gyultVTesk). You have to click through because the channel is configured not to embed videos.`,
     medium: media[3].id
   }
 ]

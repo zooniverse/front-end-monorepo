@@ -14,6 +14,14 @@ const TaskContainer = styled.div`
   }
 `
 
+// Override the ThemeContext in lib-react-components Tabs. Inserting another ThemeContext around tabs here doesn't work ¯\(ツ)/¯
+// We want the tutorial media to fill the width of the TaskArea
+const StyledTabs = styled(Tabs)`
+ & > [aria-label="2 Tab Contents"] {
+    padding: 0;
+ }
+`
+
 /**
 The tabbed tasks area of the classifier, with tabs for the tutorial and active tasks.
 */
@@ -71,37 +79,21 @@ export default function TaskArea({
       />
       <TaskContainer
         aria-label={`Task area: Step ${currentStepIndex} of ${totalSteps}`}
-        className="classifier-task-area"
+        className='classifier-task-area'
         ref={taskArea}
-        role="region"
+        role='region'
         tabIndex={-1}
       >
-        <Tabs
-          activeIndex={activeIndex}
-          className={className}
-          onActive={onTabClick}
-          flex
-        >
-          <Tab
-            title={t('TaskArea.task')}
-          >
-            <Box
-              fill
-            >
-              <Tasks
-                disabled={disabled}
-              />
+        <StyledTabs activeIndex={activeIndex} className={className} onActive={onTabClick} flex>
+          <Tab title={t('TaskArea.task')}>
+            <Box fill>
+              <Tasks disabled={disabled} />
             </Box>
           </Tab>
-          <Tab
-            disabled={disabled || disableTutorialTab}
-            title={t('TaskArea.tutorial')}
-          >
-            <Box>
+            <Tab disabled={disabled || disableTutorialTab} title={t('TaskArea.tutorial')}>
               <SlideTutorial onComplete={onClose} />
-            </Box>
-          </Tab>
-        </Tabs>
+            </Tab>
+        </StyledTabs>
       </TaskContainer>
     </>
   )

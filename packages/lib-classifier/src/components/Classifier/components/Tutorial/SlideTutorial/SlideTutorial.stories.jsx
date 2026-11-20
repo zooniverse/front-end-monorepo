@@ -17,7 +17,7 @@ import {
 } from './mockTutorials'
 
 export default {
-  title: 'Other / SlideTutorial',
+  title: 'Help Resources / SlideTutorial',
   component: SlideTutorial
 }
 
