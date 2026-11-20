@@ -14,7 +14,7 @@ import FormLayout from '@components/PageLayout/FormLayout'
 import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent'
 
 import SettingsHeading from './components/SettingsHeading/SettingsHeading'
-import AccountEmailForm from './components/AccountEmailForm/AccountNameForm'
+import AccountEmailForm from './components/AccountEmailForm/AccountEmailForm'
 import TalkPreferenceForm from './components/TalkPreferenceForm/TalkPreferenceForm'
 
 function EmailSettings ({
