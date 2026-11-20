@@ -104,8 +104,7 @@ function AccountEmailForm ({
     }
   }
 
-  // If a FETCH or SAVE operation is ongoing, don't let
-  // other operations trigger.
+  // If a FETCH or SAVE operation is ongoing, don't let other operations trigger.
   const isBusy = isLoading || isSaving
   const disableInput = isBusy || !user
   // ⚠️ Note: isBusy does NOT check for isValidating. isValidating can trigger

@@ -670,6 +670,10 @@
           "help": "How your name will appear to others throughout the platform.",
           "label": "Display Name"
         },
+        "email": {
+          "help": "",
+          "label": "Email Address"
+        },
         "avatar": {
           "label": "Avatar",
           "image": "User Avatar image",
