@@ -10,17 +10,17 @@ export const StyledInputStatus = styled(Text)`
   flex-grow: 1;
 `
 
-export default function InputStatus ({ count = 0, tool = {} }) {
+export default function InputStatus ({ count = 0, keyPrefix = 'InputStatus', tool = {} }) {
   const { t } = useTranslation('plugins')
-  let status = t('InputStatus.drawn', { count })
+  let status = t(`${keyPrefix}.drawn`, { count })
   const hasMin = tool.min && tool.min > 0
   const hasMax = tool.max && tool.max < Infinity
   if (hasMin && hasMax) {
-    status = t('InputStatus.maxAndMin', { count, max: tool.max, min: tool.min })
+    status = t(`${keyPrefix}.maxAndMin`, { count, max: tool.max, min: tool.min })
   } else if (hasMax) {
-    status = t('InputStatus.max', { count, max: tool.max })
+    status = t(`${keyPrefix}.max`, { count, max: tool.max })
   } else if (hasMin) {
-    status = t('InputStatus.min', { count, min: tool.min })
+    status = t(`${keyPrefix}.min`, { count, min: tool.min })
   }
 
   return (
@@ -32,6 +32,7 @@ export default function InputStatus ({ count = 0, tool = {} }) {
 
 InputStatus.propTypes = {
   count: number,
+  keyPrefix: string,
   tool: shape({
     min: oneOfType([
       number,

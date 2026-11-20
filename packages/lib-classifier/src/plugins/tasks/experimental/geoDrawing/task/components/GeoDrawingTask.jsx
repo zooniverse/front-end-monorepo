@@ -154,7 +154,7 @@ function GeoDrawingTask({
                 <Text size='small'>
                   {task.strings.get(`tools.${index}.label`)}
                 </Text>
-                <InputStatus count={drawnCount} tool={tool} />
+                <InputStatus count={drawnCount} keyPrefix='GeoDrawingTask.status' tool={tool} />
               </ToolHeader>
               {showUncertaintySlider && (
                 <RadiusSlider

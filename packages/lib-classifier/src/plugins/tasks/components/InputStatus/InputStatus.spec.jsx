@@ -21,4 +21,14 @@ describe('InputStatus', function () {
     render(<InputStatus tool={{ min: 1, max: 2 }} />)
     expect(screen.getByText('0 of 1 required, 2 maximum drawn')).to.exist
   })
+
+  it('should word the maximum as a limit for map tasks', function () {
+    render(<InputStatus count={2} keyPrefix='GeoDrawingTask.status' tool={{ max: 10 }} />)
+    expect(screen.getByText('2 drawn (limit 10)')).to.exist
+  })
+
+  it('should word the minimum and maximum for map tasks', function () {
+    render(<InputStatus count={0} keyPrefix='GeoDrawingTask.status' tool={{ min: 2, max: 20 }} />)
+    expect(screen.getByText('0 drawn (at least 2, limit 20)')).to.exist
+  })
 })
