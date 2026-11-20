@@ -14,6 +14,7 @@ import FormLayout from '@components/PageLayout/FormLayout'
 import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent'
 
 import SettingsHeading from './components/SettingsHeading/SettingsHeading'
+import AccountEmailForm from './components/AccountEmailForm/AccountNameForm'
 import TalkPreferenceForm from './components/TalkPreferenceForm/TalkPreferenceForm'
 
 function EmailSettings ({
@@ -55,6 +56,10 @@ function EmailSettings ({
           color={{ light: 'black', dark: 'white' }}
         >
           <SettingsHeading section='EmailSettings' />
+
+          <AccountEmailForm
+            authUser={authUser}
+          />
 
           <TalkPreferenceForm
             authUser={authUser}
