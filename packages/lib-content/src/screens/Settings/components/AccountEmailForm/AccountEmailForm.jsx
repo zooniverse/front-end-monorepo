@@ -132,11 +132,13 @@ function AccountEmailForm ({
     >
       <FormFieldsContainer margin={{ vertical: 'small' }}>
         <FormInputField
+          autocomplete='email'
           disabled={disableInput}
           fieldName='email'
           onInputChange={onInputChange}
-          // pattern='.*\S.*'  // TODO
+          // pattern=''  // ⚠️ We're not enforcing an email pattern client-side, but instead relying on the Panoptes API. This is to avoid over-policing input, beyond setting type=email and required=true.
           required
+          type='email'
           user={user}
         />
 
