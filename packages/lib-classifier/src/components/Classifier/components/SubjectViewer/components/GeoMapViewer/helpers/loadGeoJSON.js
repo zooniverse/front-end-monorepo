@@ -10,19 +10,21 @@ function getSubjectExtent(data) {
   return transformExtent(data.bbox, GEOJSON_READ_OPTIONS.dataProjection, GEOJSON_READ_OPTIONS.featureProjection)
 }
 
+// Returns the subject bbox extent the view is constrained to, or null when the subject has none.
 export default function loadGeoJSON({ map, source, select, measure, data, autoSelect = true }) {
-  if (!map || !source) return
+  if (!map || !source) return null
   measure?.clear?.()
   source.clear()
-  if (!data) return
+  if (!data) return null
 
   const format = new GeoJSON()
   const features = format.readFeatures(data, GEOJSON_READ_OPTIONS)
   source.addFeatures(features)
   const subjectExtent = getSubjectExtent(data)
   const viewExtent = subjectExtent || (features.length ? source.getExtent() : null)
-  if (!viewExtent) return
+  if (!viewExtent) return null
   if (subjectExtent) constrainMapToExtent(map, subjectExtent)
   fitViewToExtent(map, viewExtent, ZOOM_ANIMATION_DURATION_MS)
   if (autoSelect) selectFirstFeature(select, features)
+  return subjectExtent
 }
