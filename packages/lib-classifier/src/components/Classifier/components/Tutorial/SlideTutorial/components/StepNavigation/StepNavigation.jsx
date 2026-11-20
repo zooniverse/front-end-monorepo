@@ -4,18 +4,6 @@ import styled from 'styled-components'
 import { FormNext, FormPrevious } from 'grommet-icons'
 import { useTranslation } from '@translations/i18n'
 
-const StyledButton = styled(Button)`
-  &:first-of-type {
-    margin: 0 15px 0 0;
-    padding: 0;
-  }
-
-  &:last-of-type {
-    margin: 0;
-    padding: 0;
-  }
-`
-
 const StyledRadioButtonGroup = styled(RadioButtonGroup)`
   display: flex;
   flex-wrap: wrap;
@@ -29,7 +17,7 @@ const StyledRadioButtonGroup = styled(RadioButtonGroup)`
     }
 
     > div {
-      margin-right: 0;
+      margin-right: 15px;
     }
   }
 `
@@ -69,25 +57,26 @@ function StepNavigation({
         className={className}
         direction='row'
         justify='center'
-        margin={{ vertical: 'medium' }}
+        margin={{ vertical: 'medium', horizontal: '5px' }}
       >
-        <StyledButton
+        <Button
           a11yTitle={t('StepNavigation.previous')}
           data-index={prevStep}
           disabled={stepIndex === 0}
           icon={<FormPrevious />}
           onClick={() => onChange(prevStep)}
           plain
+          margin={{ right: '15px'}}
         />
         <StyledRadioButtonGroup
           direction='row'
-          gap='15px'
+          gap='0'
           name={name}
           onChange={onRadioChange}
           options={options}
           value={`step-${stepIndex}`}
         />
-        <StyledButton
+        <Button
           a11yTitle={t('StepNavigation.next')}
           data-index={nextStep}
           disabled={stepIndex === steps.length - 1}
