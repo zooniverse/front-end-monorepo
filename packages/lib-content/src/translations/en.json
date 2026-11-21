@@ -633,6 +633,17 @@
     },
     "EmailSettings": {
       "title": "Email",
+      "emailValidAndVerifiedStatus": {
+        "valid": "Valid email",
+        "invalid": "Invalid email",
+        "invalidPrompt": "Please re-enter your email above",
+        "verified": "Verified email",
+        "unverified": "Unverified email",
+        "unverifiedPrompt": "Resend confirmation email",
+        "unverifiedRequesting": "Requesting...",
+        "unverifiedSuccess": "Confirmation email requested, please check your inbox",
+        "unverifiedError": "ERROR: could not request confirmation email"
+      },
       "talkPreferences": {
         "title": "Talk Preferences",
         "sendEmail": "Send me an email",
@@ -669,6 +680,10 @@
         "display_name": {
           "help": "How your name will appear to others throughout the platform.",
           "label": "Display Name"
+        },
+        "email": {
+          "help": "",
+          "label": "Email Address"
         },
         "avatar": {
           "label": "Avatar",

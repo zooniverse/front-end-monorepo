@@ -2,6 +2,14 @@
 
 This folder contains all the unique components for the User Settings Page.
 
+## Account Email Form
+
+Used in: Email Settings page.
+
+_Form._ This form allows users to view and edit their Panoptes User account's email.
+
+Uses an explicit save button, with status messages.
+
 ## Account Name Form
 
 Used in: Account Settings page.
@@ -19,6 +27,14 @@ _Content element._ This is the "big font" text - all caps, all bold. Should be u
 ```
 <BigLabel as="label" for="display_name">Display Name</BigLabel>
 ```
+
+## Email Valid And Verified Status
+
+Used in: Account Email Form
+
+_Form component._ Shows ✅ or ❌ if the user's email is valid/invalid. Shows ✅ or ❌ if the user's email is verified/unverified. If the email is unverified, there's also an option to request a new verification email.
+
+⚠ Accessibility warning: the "request verification email" functionality is designed to be fairly lightweight and separate from the actual form itself, and doesn't follow or more stringent accessibility patterns on the rest of the form.
 
 ## Form Input Field
 
