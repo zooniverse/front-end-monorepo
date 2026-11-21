@@ -4,6 +4,8 @@ import { Checkmark as PassIcon, FormClose as FailIcon } from 'grommet-icons'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
+import requestVerificationEmail from '../../helpers/requestVerificationEmail'
+
 // Dev note: this is a "dev design", and should receive a design review when possible.
 const RequestButton = styled(Button)`
   color: ${props => props.theme.dark ? props.theme.global.colors['neutral-6'] : props.theme.global.colors['neutral-7']};
@@ -40,14 +42,13 @@ export default function EmailValidAndVerifiedStatus({ user }) {
   const [ requestSuccess, setRequestSuccess ] = useState(false)  // Was the verification email request successful?
   const [ requestError, setRequestError ] = useState(null)  // If the reverification email request failed, this is the error object.
 
-  async function requestVerificationEmail () {
+  async function doRequestVerificationEmail () {
     try {
       setIsRequesting(true)
       setRequestSuccess(false)
       setRequestError(null)
 
-      // TODO
-      return
+      await requestVerificationEmail(user?.email)
 
       setIsRequesting(false)
       setRequestSuccess(true)
@@ -111,7 +112,7 @@ export default function EmailValidAndVerifiedStatus({ user }) {
             </Text>
             <RequestButton
               disabled={disableRequestButton}
-              onClick={requestVerificationEmail}
+              onClick={doRequestVerificationEmail}
             >
               {t('Settings.EmailSettings.emailValidAndVerifiedStatus.unverifiedPrompt')}
             </RequestButton>
