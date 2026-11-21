@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import { shape, string } from 'prop-types'
 
+import EmailValidAndVerifiedStatus from '../EmailValidAndVerifiedStatus/EmailValidAndVerifiedStatus'
 import FormInputField from '../FormInputField/FormInputField'
 import FormStatusAndSubmitField from '../FormStatusAndSubmitField/FormStatusAndSubmitField'
 import useUserData from '../../helpers/useUserData'
@@ -142,10 +143,9 @@ function AccountEmailForm ({
           user={user}
         />
 
-        <div>
-          TODO: Email pattern. 
-          TODO: Valid Email, Verified Email.
-        </div>
+        <EmailValidAndVerifiedStatus
+          user={user}
+        />
 
         <FormStatusAndSubmitField
           showLoader={isBusy || isValidating}
