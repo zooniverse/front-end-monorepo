@@ -1,3 +1,4 @@
+import { Text } from 'grommet'
 import styled, { css } from 'styled-components'
 
 const BigLabel = styled(Text)`
