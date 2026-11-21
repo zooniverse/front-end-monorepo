@@ -2,8 +2,10 @@ import { useId, useRef } from 'react'
 import { Box, Text, TextInput } from 'grommet'
 import { CircleInformation } from 'grommet-icons'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { bool, func, shape, string } from 'prop-types'
+
+import BigLabel from '../BigLabel/BigLabel'
 
 const InputFieldContainer = styled(Box)`
   gap: 0.5em;
@@ -13,16 +15,24 @@ const InputFieldContainer = styled(Box)`
   }
 `
 
-const BigLabel = styled(Text)`
-  font-weight: 700;
-  font-size: 1rem;
-  font-style: bold;
-  text-transform: uppercase;
+const StyledHelpIcon = styled(CircleInformation)`
+  margin-right: 0.25rem;
 `
 
-const StyledHelpIcon = styled(CircleInformation)`
-  margin-top: 4px;
-  margin-right: 0.5em;
+const StyledTextInput = styled(TextInput)`
+  font-size: 1rem;
+  font-weight: 500;
+  ${props => props.theme.dark
+    ? css`color: ${props.theme.global.colors['neutral-6']};`
+    : css`color: ${props.theme.global.colors['neutral-7']};`
+  }
+`
+
+const StyledHelpBox = styled(Box)`
+  ${props => props.theme.dark
+    ? css`color: ${props.theme.global.colors['light-5']};`
+    : css`color: ${props.theme.global.colors['dark-5']};`
+  }
 `
 
 async function DEFAULT_FUNCTION () {}
@@ -53,10 +63,14 @@ function FormInputField ({
           {labelText}
         </BigLabel>
         {optional &&
-          <Text>{t('Settings.forms.optional')}</Text>
+          <Text
+            color={{ light: 'dark-5', dark: 'light-5' }}
+          >
+            {t('Settings.forms.optional')}
+          </Text>
         }
       </Box>
-      <TextInput
+      <StyledTextInput
         data-field={fieldName}
         disabled={disabled}
         id={inputId}
@@ -68,12 +82,13 @@ function FormInputField ({
         value={user?.[fieldName] || ''}
       />
       {helpText && (
-        <Box
+        <StyledHelpBox
+          align='center'
           direction='row'
         >
-          <StyledHelpIcon size='small' />
-          <Text>{helpText}</Text>
-        </Box>
+          <StyledHelpIcon size='0.75rem' />
+          <Text size='0.75rem'>{helpText}</Text>
+        </StyledHelpBox>
       )}      
     </InputFieldContainer>
   )

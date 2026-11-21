@@ -5,10 +5,11 @@ import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 import { shape, string } from 'prop-types'
 
-import { Loader, StatusMessage } from '@zooniverse/react-components'
 import { IconActionButton } from '@zooniverse/react-components'
 
-import Button from '../Button/Button'
+import BigLabel from '../BigLabel/BigLabel'
+import FormStatusAndSubmitField from '../FormStatusAndSubmitField/FormStatusAndSubmitField'
+
 import useUserMedia from '../../helpers/useUserMedia'
 import uploadUserMedia from '../../helpers/uploadUserMedia'
 import deleteUserMedia from '../../helpers/deleteUserMedia'
@@ -17,17 +18,19 @@ import resizeImageData from '../../helpers/resizeImageData'
 
 const VALID_MEDIA_TYPES = ['avatar', 'profile_header']
 
+const StyledParagraph = styled(Paragraph)`
+  font-size: 0.75rem;
+  font-weight: 400;
+  ${props => props.theme.dark
+    ? css`color: ${props.theme.global.colors['light-5']};`
+    : css`color: ${props.theme.global.colors['dark-5']};`
+  }
+`
+
 const FormFieldsContainer = styled(Box)`
   input:user-invalid {
     border-color: ${props => props.theme.global.colors['neutral-4']};
   }
-`
-
-const BigLabel = styled(Text)`
-  font-weight: 700;
-  font-size: 1rem;
-  font-style: bold;
-  text-transform: uppercase;
 `
 
 // The File Input Container 
@@ -355,8 +358,8 @@ function UserMediaForm ({
   const saveErrorMessage = saveError?.errors?.[0]?.message || saveError?.toString() || (saveError && 'Unknown error')
   const deleteErrorMessage = deleteError?.errors?.[0]?.message || deleteError?.toString() || (deleteError && 'Unknown error')
 
-  // The <StatusMessage> component is used to provide feedback on all stages of
-  // a Save/Delete/Selecting operation.
+  // The <StatusMessage> component (in FormStatusAndSubmitField) is used to
+  // provide feedback on all stages of a Save/Delete/Selecting operation.
   const statusType =
     (saveSuccess || deleteSuccess) ? 'success'
     : (loadError || saveError || deleteError) ? 'error'
@@ -396,7 +399,9 @@ function UserMediaForm ({
           {labels?.main}
         </BigLabel>
 
-        <Paragraph>{labels?.body}</Paragraph>
+        <StyledParagraph>
+          {labels?.body}
+        </StyledParagraph>
 
         <FileInputContainer
           width={width}
@@ -453,33 +458,15 @@ function UserMediaForm ({
           )}
         </FileInputContainer>
 
-        <Box
-          direction='row'
-          align='center'
-          justify='between'
-          gap='1em'
+        <FormStatusAndSubmitField
+          showLoader={isBusy || isValidating}
+          showSubmit={true}
+          submitDisabled={disableInput}
+          submitLabel={t('Settings.forms.save')}
+          statusMessage={statusMessage}
+          statusType={statusType}
           margin={{ vertical: 'small' }}
-          wrap={true}
-        >
-          <Button
-            disabled={disableInput}
-            label={t('Settings.forms.save')}
-            type='submit'
-          />
-
-          <Box
-            flex='grow'
-            direction='row'
-            align='center'
-          >
-            <StatusMessage
-              text={statusMessage}
-              type={statusType}
-            />
-          </Box>
-
-          {(isBusy || isValidating) && <Loader />}
-        </Box>
+        />
       </FormFieldsContainer>
     </Form>
   )
