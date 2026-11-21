@@ -55,8 +55,6 @@ function FormInputField ({
   const labelText = t(`Settings.forms.fields.${fieldName}.label`) || ''
   const helpText = t(`Settings.forms.fields.${fieldName}.help`) || ''
 
-  console.log('+++ autocomplete', autocomplete)
-
   return (
     <InputFieldContainer>
       <Box direction='row' gap='1em' align='center'>
