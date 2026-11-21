@@ -28,6 +28,12 @@ _Content element._ This is the "big font" text - all caps, all bold. Should be u
 <BigLabel as="label" for="display_name">Display Name</BigLabel>
 ```
 
+## Email Valid And Verified Status
+
+Used in: Account Email Form
+
+_Form component._ Shows ✅ or ❌ if the user's email is valid/invalid. Shows ✅ or ❌ if the user's email is verified/unverified. If the email is unverified, there's also an option to request a new verification email.
+
 ## Form Input Field
 
 Used in: Account Name Form.
