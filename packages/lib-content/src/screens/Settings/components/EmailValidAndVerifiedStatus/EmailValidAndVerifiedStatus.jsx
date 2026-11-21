@@ -79,7 +79,7 @@ export default function EmailValidAndVerifiedStatus({ user }) {
       margin={{ bottom: '-20px' }}
     >
       <StatusContainer>
-        {isEmailValid ? (
+        {!isEmailValid ? (
           <>
             <PassStatus />
             <Text size='0.875rem'>
@@ -91,6 +91,13 @@ export default function EmailValidAndVerifiedStatus({ user }) {
             <FailStatus />
             <Text size='0.875rem'>
               {t('Settings.EmailSettings.emailValidAndVerifiedStatus.invalid')}
+            </Text>
+
+            <Text
+              as='output'
+              aria-live='polite'
+            >
+              - {t('Settings.EmailSettings.emailValidAndVerifiedStatus.invalidPrompt')}
             </Text>
           </>
         )}
