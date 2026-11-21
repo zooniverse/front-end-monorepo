@@ -1,7 +1,7 @@
 import QuickTalk from './QuickTalk'
 
 export default {
-  title: 'Other / QuickTalk',
+  title: 'Help Resources / QuickTalk',
   component: QuickTalk
 }
 

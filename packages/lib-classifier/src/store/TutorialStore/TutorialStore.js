@@ -144,7 +144,7 @@ const TutorialStore = types
         return
       }
 
-      if (tutorialID !== tutorial?.id){
+      if (tutorialID !== tutorial?.id) {
         self.active = tutorialID
         return
       }
