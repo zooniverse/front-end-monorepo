@@ -75,6 +75,7 @@ export default function EmailValidAndVerifiedStatus({ user }) {
   return (
     <Box
       className='EmailValidAndVerifiedStatus'
+      margin={{ bottom: '-20px' }}
     >
       <StatusContainer>
         {isEmailValid ? (
