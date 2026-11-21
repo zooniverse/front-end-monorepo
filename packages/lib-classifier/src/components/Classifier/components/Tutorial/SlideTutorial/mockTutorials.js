@@ -2,7 +2,7 @@ import { TutorialMediumFactory } from '@test/factories'
 
 export const media = [
   TutorialMediumFactory.build({
-    src: 'https://panoptes-uploads.zooniverse.org/project_attached_image/55bbe58d-30a5-44b0-bfe6-4834605c61ca.jpeg'
+    src: 'https://panoptes-uploads.zooniverse.org/project_attached_image/833afccc-faff-4d6e-9274-fa7ca2589ef5.jpeg'
   }),
   TutorialMediumFactory.build({
     src: 'https://panoptes-uploads.zooniverse.org/project_attached_image/0c1d473f-cd41-4c1d-a9aa-03366b83f658.mp4'

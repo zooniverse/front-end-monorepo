@@ -34,7 +34,8 @@ function ModalTutorial({ hasNotSeenTutorialBefore = false, tutorial, ...props })
     tutorial.setSeenTime()
   }
 
-  const maxWidth = size === 'small' ? '100%' : '400px'
+  const maxWidth = size === 'small' ? '100%' : '460px'
+  const maxHeight = size === 'small' ? '70vh' : '90vh' // To account for mobile browser nav bars and the "notch"
 
   if (tutorial) {
     return (
@@ -42,7 +43,7 @@ function ModalTutorial({ hasNotSeenTutorialBefore = false, tutorial, ...props })
         {...props}
         active={active}
         closeFn={onClose}
-        height={{ max: '90%' }} // To account for Safari mobile browser. Don't use vh units.
+        height={{ max: maxHeight }}
         width={{ max: maxWidth}}
         pad='none'
         title={t('ModalTutorial.title')}
