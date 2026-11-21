@@ -34,6 +34,8 @@ Used in: Account Email Form
 
 _Form component._ Shows ✅ or ❌ if the user's email is valid/invalid. Shows ✅ or ❌ if the user's email is verified/unverified. If the email is unverified, there's also an option to request a new verification email.
 
+⚠ Accessibility warning: the "request verification email" functionality is designed to be fairly lightweight and separate from the actual form itself, and doesn't follow or more stringent accessibility patterns on the rest of the form.
+
 ## Form Input Field
 
 Used in: Account Name Form.
