@@ -120,4 +120,11 @@ describe('Component > GeoFeedback', function () {
     expect(constrainMapToExtent.mock.calls).to.have.lengthOf(0)
     expect(fitViewToExtent.mock.calls).to.have.lengthOf(1)
   })
+
+  it('should offer zoom buttons on the feedback map', function () {
+    renderFeedback(buildClassifierStore())
+    const container = screen.getByTestId('geo-feedback-map')
+    expect(container.querySelector('.ol-zoom-in')).to.exist
+    expect(container.querySelector('.ol-zoom-out')).to.exist
+  })
 })
