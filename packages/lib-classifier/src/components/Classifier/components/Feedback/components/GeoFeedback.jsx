@@ -1,5 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { Map, View } from 'ol'
+import { defaults as defaultControls } from 'ol/control/defaults'
+import { defaults as defaultInteractions } from 'ol/interaction/defaults'
 import VectorLayer from 'ol/layer/Vector'
 import VectorSource from 'ol/source/Vector'
 import styled from 'styled-components'
@@ -49,8 +51,8 @@ export default function GeoFeedback () {
     })
     const map = new Map({
       target: mapElement.current,
-      controls: [],
-      interactions: [],
+      controls: defaultControls({ rotate: false }),
+      interactions: defaultInteractions({ onFocusOnly: false }),
       layers: [
         createTileLayer(defaultTileLayer(tileLayers)),
         new VectorLayer({ source })
