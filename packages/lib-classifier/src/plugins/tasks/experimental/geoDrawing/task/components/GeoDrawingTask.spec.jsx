@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { Grommet } from 'grommet'
 import zooTheme from '@zooniverse/grommet-theme'
+import { fromLonLat } from 'ol/proj'
 
 import GeoDrawingTask from './GeoDrawingTask'
 import GeoDrawingTaskModel from '../models/GeoDrawingTask'
@@ -113,6 +114,40 @@ describe('Component > GeoDrawingTask', function () {
       setActiveFeature(pointTask)
       renderTask(pointTask)
       expect(screen.getByText('Selected feature:')).to.exist
+    })
+
+    function buildPointTaskAt (lonLat) {
+      const task = GeoDrawingTaskModel.create({
+        activeToolIndex: 0,
+        strings: { instruction: 'Select', 'tools.0.label': 'Point' },
+        taskKey: 'T1',
+        tools: [{ color: '#E65252', label: 'Point', type: 'Point' }],
+        type: 'geoDrawing'
+      })
+      task.setActiveFeature({ geometry: { coordinates: lonLat, type: 'Point' }, properties: {}, type: 'Feature' })
+      task.setActiveOlFeature({
+        get: () => null,
+        getGeometry: () => ({ getCoordinates: () => fromLonLat(lonLat) }),
+        on: () => {},
+        un: () => {}
+      })
+      return task
+    }
+
+    it('tells apart points a few metres apart', function () {
+      const { unmount } = renderTask(buildPointTaskAt([-91.95112, 47.56104]))
+      const first = screen.getByText(/Longitude:/).textContent
+      unmount()
+      renderTask(buildPointTaskAt([-91.95045, 47.56104]))
+      const second = screen.getByText(/Longitude:/).textContent
+      expect(first).to.not.equal(second)
+      expect(second).to.equal('Longitude: -91.95045°')
+    })
+
+    it('shows a coordinate of exactly zero as zero', function () {
+      renderTask(buildPointTaskAt([0, 0]))
+      expect(screen.getByText('Longitude: 0.00000°')).to.exist
+      expect(screen.getByText('Latitude: 0.00000°')).to.exist
     })
   })
 })
