@@ -58,7 +58,10 @@ function FeedbackModal({
             <ul>
               {reducedMessages.map(message =>
                 <li key={Math.random()}>
-                  {message.text} <small>({message.count} { message.count === 1 ? 'match' : 'matches' })</small>
+                  {message.text}
+                  {message.count > 1 && (
+                    <> <small>{t('FeedbackModal.matches', { count: message.count })}</small></>
+                  )}
                 </li>
               )}
             </ul>
