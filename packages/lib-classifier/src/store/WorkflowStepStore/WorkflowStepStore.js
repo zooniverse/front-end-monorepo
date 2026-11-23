@@ -52,6 +52,12 @@ const WorkflowStepStore = types
       return Array.from(self.steps.values()).some(step => step.hasUnsupportedTasks)
     },
 
+    get unsupportedTasks() {
+      return Array.from(self.steps.values())
+        .flatMap(step => Array.from(step.unsupportedTaskKeys))
+        .map(taskKey => ({ taskKey, type: self.workflow?.tasks?.[taskKey]?.type }))
+    },
+
     findTasksByType (type) {
       const tasksByType = Array.from(self.steps).map(([stepKey, step]) => {
         if (step?.tasks && step.tasks.length > 0) {

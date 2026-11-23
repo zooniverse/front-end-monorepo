@@ -822,6 +822,7 @@ describe('Model > WorkflowStepStore', function () {
         it('should be false when every task is supported', function () {
           const store = underNodeEnv(nodeEnv, () => buildStore(MultipleChoiceTaskFactory.build()))
           expect(store.workflowSteps.hasUnsupportedTasks).to.be.false
+          expect(store.workflowSteps.unsupportedTasks).to.be.empty
           store.workflowSteps.steps.forEach(step => {
             expect(step.unsupportedTaskKeys).to.be.empty
           })
@@ -831,6 +832,11 @@ describe('Model > WorkflowStepStore', function () {
           const store = underNodeEnv(nodeEnv, () => buildStore(UNSUPPORTED_TYPE))
           expect(store.workflowSteps.hasUnsupportedTasks).to.be.true
           expect(store.workflowSteps.steps.get('S2').unsupportedTaskKeys.slice()).to.deep.equal(['T2'])
+        })
+
+        it('should list each unsupported task with its type', function () {
+          const store = underNodeEnv(nodeEnv, () => buildStore(UNSUPPORTED_TYPE))
+          expect(store.workflowSteps.unsupportedTasks).to.deep.equal([{ taskKey: 'T2', type: 'wakkawakka' }])
         })
 
         it('should be true for a multi-menu legacy dropdown', function () {

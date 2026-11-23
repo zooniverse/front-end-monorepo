@@ -331,7 +331,8 @@
       "demoMode": "In demo mode, classifications will not be saved. Use this for quick, inaccurate demos of the classification interface.",
       "error": "Something went wrong",
       "loading": "Loading",
-      "renderFallback": "Task component could not be rendered."
+      "renderFallback": "Task component could not be rendered.",
+      "unsupportedTask": "{{taskKey}} {{type}} is not a supported task type."
     },
     "task": "Task",
     "tutorial": "Tutorial"
