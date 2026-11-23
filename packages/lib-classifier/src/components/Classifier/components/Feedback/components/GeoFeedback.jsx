@@ -6,6 +6,8 @@ import styled from 'styled-components'
 
 import { useStores } from '@hooks'
 import createTileLayer from '../../SubjectViewer/components/GeoMapViewer/helpers/createTileLayer'
+import constrainMapToExtent from '../../SubjectViewer/components/GeoMapViewer/helpers/extentConstraint'
+import { fitViewToExtent } from '../../SubjectViewer/components/GeoMapViewer/helpers/mapSelection'
 import getGeoFeedbackFeatures from './helpers/getGeoFeedbackFeatures'
 
 const MapContainer = styled.div`
@@ -17,24 +19,31 @@ function storeMapper (classifierStore) {
   const {
     classifications: { currentAnnotations: annotations },
     feedback: { applicableRules },
-    workflows: { active: workflow }
+    workflows: { active: workflow },
+    workflowSteps
   } = classifierStore
+  const geoDrawingTask = workflowSteps?.activeStepTasks?.find(task => task.type === 'geoDrawing')
 
   return {
     annotations,
     applicableRules,
+    subjectExtent: geoDrawingTask?.mapContext?.subjectExtent,
     tileLayers: workflow?.configuration?.subject_viewer_config?.tile_layers ?? []
   }
 }
 
+function defaultTileLayer (tileLayers) {
+  if (!tileLayers.length) return { type: 'osm' }
+  return tileLayers.find(descriptor => descriptor?.default) ?? tileLayers[0]
+}
+
 export default function GeoFeedback () {
-  const { annotations = [], applicableRules = [], tileLayers } = useStores(storeMapper)
+  const { annotations = [], applicableRules = [], subjectExtent, tileLayers } = useStores(storeMapper)
   const mapElement = useRef(null)
 
   useEffect(function createFeedbackMap () {
     if (!mapElement.current) return undefined
 
-    const descriptors = tileLayers.length ? tileLayers : [{ type: 'osm' }]
     const source = new VectorSource({
       features: getGeoFeedbackFeatures(annotations, applicableRules)
     })
@@ -43,20 +52,20 @@ export default function GeoFeedback () {
       controls: [],
       interactions: [],
       layers: [
-        ...descriptors.map(descriptor => createTileLayer(descriptor)),
+        createTileLayer(defaultTileLayer(tileLayers)),
         new VectorLayer({ source })
       ],
       view: new View({ center: [0, 0], zoom: 2 })
     })
-    const extent = source.getExtent()
-    if (extent.every(Number.isFinite)) {
-      map.getView().fit(extent, { padding: [40, 40, 40, 40], maxZoom: 17 })
-    }
+    // Open framed the way the subject first loaded in the classifier (see loadGeoJSON).
+    if (subjectExtent) constrainMapToExtent(map, subjectExtent)
+    const extent = subjectExtent ?? source.getExtent()
+    if (extent.every(Number.isFinite)) fitViewToExtent(map, extent, 0)
 
     return function destroyFeedbackMap () {
       map.setTarget(undefined)
     }
-  }, [annotations, applicableRules, tileLayers])
+  }, [annotations, applicableRules, subjectExtent, tileLayers])
 
   return (
     <MapContainer

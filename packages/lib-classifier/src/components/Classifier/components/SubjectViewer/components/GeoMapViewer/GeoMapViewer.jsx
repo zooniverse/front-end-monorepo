@@ -206,8 +206,12 @@ function GeoMapViewer({
     return () => unByKey(key)
   }, [map, geoDrawingTask])
 
+  // A ref, so a new task object never re-runs loadGeoJSON and wipes the volunteer's marks.
+  const geoDrawingTaskRef = useRef(geoDrawingTask)
+  geoDrawingTaskRef.current = geoDrawingTask
   useEffect(() => {
-    loadGeoJSON({ map, source, select, measure, data: geoJSON, autoSelect })
+    const subjectExtent = loadGeoJSON({ map, source, select, measure, data: geoJSON, autoSelect })
+    if (subjectExtent) geoDrawingTaskRef.current?.updateMapContext?.({ subjectExtent })
   }, [map, source, select, measure, geoJSON, autoSelect])
 
   useEffect(() => {
