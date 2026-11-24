@@ -4,8 +4,9 @@ import userEvent from '@testing-library/user-event'
 import TileLayer from 'ol/layer/Tile'
 import VectorLayer from 'ol/layer/Vector'
 import { transformExtent } from 'ol/proj'
-import Meta, { Default, WithGeoDrawingTask, WithGeoDrawingPointCreationTask, WithoutGeoDrawingTask } from './GeoMapViewer.stories'
+import Meta, { Default, WithGeoDrawingTask, WithGeoDrawingLineStringTask, WithGeoDrawingPointCreationTask, WithoutGeoDrawingTask } from './GeoMapViewer.stories'
 import GeoMapViewer from './GeoMapViewer'
+import GeoDrawingTask from '@plugins/tasks/experimental/geoDrawing/task/models/GeoDrawingTask'
 
 const DefaultStory = composeStory(Default, Meta)
 const WithGeoDrawingTaskStory = composeStory(WithGeoDrawingTask, Meta)
@@ -314,6 +315,65 @@ describe('Component > GeoMapViewer', function () {
       const { View } = await import('ol')
       act(() => map.setView(new View({ center: [0, 0], zoom: 5, minZoom: 5 })))
       await waitFor(() => expect(zoomOut.disabled).to.equal(true))
+    })
+  })
+
+  describe('measuring on a line workflow', function () {
+    const LineStringStory = composeStory(WithGeoDrawingLineStringTask, Meta)
+
+    function activeDrawInteractions (map) {
+      return map.getInteractions().getArray()
+        .filter((interaction) => interaction.constructor.name === 'Draw' && interaction.getActive())
+    }
+
+    it('stays in measure mode after Measure is pressed', async function () {
+      const user = userEvent.setup()
+      let map = null
+      render(<LineStringStory onMapReady={(olMap) => { map = olMap }} />)
+      await waitFor(() => expect(map).to.exist)
+
+      const measureButton = screen.getByRole('button', { name: 'Measure distance' })
+      await user.click(measureButton)
+      await new Promise((resolve) => setTimeout(resolve, 50))
+      expect(measureButton.getAttribute('aria-pressed')).to.equal('true')
+    })
+
+    it('draws only the measure line while measuring, never a feature line', async function () {
+      const user = userEvent.setup()
+      let map = null
+      render(<LineStringStory onMapReady={(olMap) => { map = olMap }} />)
+      await waitFor(() => expect(map).to.exist)
+      await waitFor(() => expect(activeDrawInteractions(map)).to.have.lengthOf(1))
+      const lineDraw = activeDrawInteractions(map)[0]
+
+      await user.click(screen.getByRole('button', { name: 'Measure distance' }))
+      await new Promise((resolve) => setTimeout(resolve, 50))
+      const active = activeDrawInteractions(map)
+      expect(active).to.have.lengthOf(1)
+      expect(active[0]).to.not.equal(lineDraw)
+    })
+
+    it('leaves measure mode when the volunteer picks a different tool', async function () {
+      const user = userEvent.setup()
+      const geoDrawingTask = GeoDrawingTask.create({
+        taskKey: 'T0',
+        activeToolIndex: 0,
+        tools: [
+          { type: 'SegmentedLine', label: 'Segmented Line', color: '#E65252' },
+          { type: 'SegmentedLine', label: 'Segmented Line 2', color: '#F1AE45' }
+        ],
+        type: 'geoDrawing'
+      })
+      let map = null
+      render(<GeoMapViewer geoDrawingTask={geoDrawingTask} onMapReady={(olMap) => { map = olMap }} />)
+      await waitFor(() => expect(map).to.exist)
+
+      const measureButton = screen.getByRole('button', { name: 'Measure distance' })
+      await user.click(measureButton)
+      await new Promise((resolve) => setTimeout(resolve, 50))
+      expect(measureButton.getAttribute('aria-pressed')).to.equal('true')
+      act(() => geoDrawingTask.setActiveTool(1))
+      await waitFor(() => expect(measureButton.getAttribute('aria-pressed')).to.equal('false'))
     })
   })
 
