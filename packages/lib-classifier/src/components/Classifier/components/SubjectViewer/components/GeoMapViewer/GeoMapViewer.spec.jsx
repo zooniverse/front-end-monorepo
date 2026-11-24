@@ -1,5 +1,5 @@
 import { composeStory } from '@storybook/react'
-import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import TileLayer from 'ol/layer/Tile'
 import VectorLayer from 'ol/layer/Vector'
@@ -278,6 +278,42 @@ describe('Component > GeoMapViewer', function () {
       const expected = transformExtent(bbox, 'EPSG:4326', 'EPSG:3857')
       await waitFor(() => expect(updates.some(context => context.subjectExtent)).to.equal(true))
       expect(updates.find(context => context.subjectExtent).subjectExtent).to.deep.equal(expected)
+    })
+  })
+
+  describe('zoom button limits', function () {
+    it('disables zoom out at the minimum zoom and enables it again after zooming in', async function () {
+      let map = null
+      render(<DefaultStory onMapReady={(olMap) => { map = olMap }} />)
+      await waitFor(() => expect(map).to.exist)
+      const zoomOut = screen.getByRole('button', { name: 'Zoom out from subject' })
+
+      act(() => map.getView().setZoom(map.getView().getMinZoom()))
+      await waitFor(() => expect(zoomOut.disabled).to.equal(true))
+
+      act(() => map.getView().setZoom(map.getView().getMinZoom() + 2))
+      await waitFor(() => expect(zoomOut.disabled).to.equal(false))
+    })
+
+    it('disables zoom in at the maximum zoom', async function () {
+      let map = null
+      render(<DefaultStory onMapReady={(olMap) => { map = olMap }} />)
+      await waitFor(() => expect(map).to.exist)
+      const zoomIn = screen.getByRole('button', { name: 'Zoom in on subject' })
+
+      act(() => map.getView().setZoom(map.getView().getMaxZoom()))
+      await waitFor(() => expect(zoomIn.disabled).to.equal(true))
+    })
+
+    it('follows the view when the map swaps it for a constrained one', async function () {
+      let map = null
+      render(<DefaultStory onMapReady={(olMap) => { map = olMap }} />)
+      await waitFor(() => expect(map).to.exist)
+      const zoomOut = screen.getByRole('button', { name: 'Zoom out from subject' })
+
+      const { View } = await import('ol')
+      act(() => map.setView(new View({ center: [0, 0], zoom: 5, minZoom: 5 })))
+      await waitFor(() => expect(zoomOut.disabled).to.equal(true))
     })
   })
 
