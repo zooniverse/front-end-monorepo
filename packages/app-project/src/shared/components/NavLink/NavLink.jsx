@@ -2,11 +2,14 @@ import { bool, elementType, object, oneOfType, shape, string } from 'prop-types'
 import { SpacedText } from '@zooniverse/react-components'
 import { Anchor } from 'grommet'
 import Link from 'next/link'
+import { useRouter } from 'next/compat/router'
 import styled from 'styled-components'
 
 import addQueryParams from '@helpers/addQueryParams'
 
 const DefaultAnchor = styled(Anchor)``
+const DEFAULT_LOCALE = 'en'
+
 function NavLink({
   color,
   link,
@@ -16,6 +19,15 @@ function NavLink({
   ...anchorProps
 }) {
   const { externalLink = false, href, text } = link
+  const router = useRouter()
+  const locale = router?.locale
+  /*
+    next/link adds the locale to internal links. PFE pages read it from
+    the language query param instead, as PFE's own links do.
+  */
+  const language = locale && locale !== (router?.defaultLocale || DEFAULT_LOCALE)
+    ? locale
+    : null
 
   const label = (
     <StyledSpacedText color={color} weight={weight}>
@@ -30,7 +42,7 @@ function NavLink({
     <>
       {externalLink ? (
         <StyledAnchor
-          href={addQueryParams(href)}
+          href={addQueryParams(href, { language })}
           color={color}
           label={label}
           {...anchorProps}
