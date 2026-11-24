@@ -1,9 +1,12 @@
 import { composeStory } from '@storybook/react'
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import TileLayer from 'ol/layer/Tile'
+import BaseTileLayer from 'ol/layer/BaseTile'
 import VectorLayer from 'ol/layer/Vector'
 import { transformExtent } from 'ol/proj'
+import GeoTIFF from 'ol/source/GeoTIFF'
+import OSM from 'ol/source/OSM'
+import TileWMS from 'ol/source/TileWMS'
 import Meta, { Default, WithGeoDrawingTask, WithGeoDrawingLineStringTask, WithGeoDrawingPointCreationTask, WithoutGeoDrawingTask } from './GeoMapViewer.stories'
 import GeoMapViewer from './GeoMapViewer'
 import GeoDrawingTask from '@plugins/tasks/experimental/geoDrawing/task/models/GeoDrawingTask'
@@ -93,8 +96,8 @@ describe('Component > GeoMapViewer', function () {
     ]
 
     function baseLayers (map) {
-      // basemap tile layers are TileLayers; the feature + selection layers are VectorLayers
-      return map.getLayers().getArray().filter(layer => layer instanceof TileLayer)
+      // basemap layers are tile layers (canvas or WebGL); the feature + selection layers are VectorLayers
+      return map.getLayers().getArray().filter(layer => layer instanceof BaseTileLayer)
     }
 
     it('falls back to a single OSM base layer when no tile_layers are configured', async function () {
@@ -104,21 +107,15 @@ describe('Component > GeoMapViewer', function () {
       expect(baseLayers(map)).to.have.lengthOf(1)
     })
 
-    it('builds one base tile layer per configured descriptor', async function () {
+    it('builds only the active base layer, the first configured one by default', async function () {
       let map = null
       render(<DefaultStory tileLayers={twoLayers} onMapReady={(olMap) => { map = olMap }} />)
       await waitFor(() => expect(map).to.exist)
-      expect(baseLayers(map)).to.have.lengthOf(2)
+      await waitFor(() => expect(baseLayers(map)).to.have.lengthOf(1))
+      expect(baseLayers(map)[0].getSource()).to.be.instanceOf(OSM)
     })
 
-    it('shows only the first configured layer by default', async function () {
-      let map = null
-      render(<DefaultStory tileLayers={twoLayers} onMapReady={(olMap) => { map = olMap }} />)
-      await waitFor(() => expect(map).to.exist)
-      expect(baseLayers(map).map(layer => layer.getVisible())).to.deep.equal([true, false])
-    })
-
-    it('shows the layer marked default instead of the first', async function () {
+    it('builds the layer marked default instead of the first', async function () {
       const withDefault = [
         { type: 'osm', label: 'OpenStreetMap' },
         { type: 'wms', label: 'imagery', url: 'https://example.org/wms', params: { LAYERS: 'foo' }, default: true }
@@ -126,7 +123,20 @@ describe('Component > GeoMapViewer', function () {
       let map = null
       render(<DefaultStory tileLayers={withDefault} onMapReady={(olMap) => { map = olMap }} />)
       await waitFor(() => expect(map).to.exist)
-      expect(baseLayers(map).map(layer => layer.getVisible())).to.deep.equal([false, true])
+      await waitFor(() => expect(baseLayers(map)).to.have.lengthOf(1))
+      expect(baseLayers(map)[0].getSource()).to.be.instanceOf(TileWMS)
+    })
+
+    it('does not build hidden COG layers, so they fetch nothing', async function () {
+      const withCog = [
+        { type: 'osm', label: 'OpenStreetMap' },
+        { type: 'cog', label: 'Elevation', url: 'https://example.com/elevation/dem.tif' }
+      ]
+      let map = null
+      render(<DefaultStory tileLayers={withCog} onMapReady={(olMap) => { map = olMap }} />)
+      await waitFor(() => expect(map).to.exist)
+      await waitFor(() => expect(baseLayers(map)).to.have.lengthOf(1))
+      expect(baseLayers(map).some(layer => layer.getSource() instanceof GeoTIFF)).to.equal(false)
     })
 
     it('does not render the LayerControl when only one layer is configured', async function () {
@@ -144,7 +154,7 @@ describe('Component > GeoMapViewer', function () {
     ]
 
     function baseLayers (map) {
-      return map.getLayers().getArray().filter(layer => layer instanceof TileLayer)
+      return map.getLayers().getArray().filter(layer => layer instanceof BaseTileLayer)
     }
 
     it('renders a tab per configured layer when more than one is configured', async function () {
@@ -155,15 +165,18 @@ describe('Component > GeoMapViewer', function () {
       expect(tablist.querySelectorAll('[role="tab"]')).to.have.lengthOf(2)
     })
 
-    it('swaps which base tile layer is visible when a tab is clicked', async function () {
+    it('replaces the base layer with the selected one when a tab is clicked', async function () {
       const user = userEvent.setup()
       let map = null
       render(<DefaultStory tileLayers={twoLayers} onMapReady={(olMap) => { map = olMap }} />)
       await waitFor(() => expect(map).to.exist)
-      expect(baseLayers(map).map(layer => layer.getVisible())).to.deep.equal([true, false])
+      await waitFor(() => expect(baseLayers(map)).to.have.lengthOf(1))
+      const previous = baseLayers(map)[0]
 
       await user.click(screen.getByRole('tab', { name: 'imagery' }))
-      expect(baseLayers(map).map(layer => layer.getVisible())).to.deep.equal([false, true])
+      await waitFor(() => expect(baseLayers(map)[0].getSource()).to.be.instanceOf(TileWMS))
+      expect(baseLayers(map)).to.have.lengthOf(1)
+      expect(previous.disposed).to.equal(true)
     })
 
     it('keeps the vector (features) layer visible across a layer switch', async function () {
@@ -418,8 +431,8 @@ describe('Component > GeoMapViewer', function () {
       const overlays = overlayLayers(map)
       expect(overlays).to.have.lengthOf(2)
 
+      await waitFor(() => expect(map.getLayers().item(0)).to.be.an.instanceOf(BaseTileLayer))
       const layers = map.getLayers().getArray()
-      expect(layers[0]).to.be.an.instanceOf(TileLayer)
       expect(layers[1]).to.equal(overlays[0])
       expect(layers[2]).to.equal(overlays[1])
       expect(layers[3]).to.be.an.instanceOf(VectorLayer)
