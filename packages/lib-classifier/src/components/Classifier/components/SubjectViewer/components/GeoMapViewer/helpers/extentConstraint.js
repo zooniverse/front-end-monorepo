@@ -43,7 +43,10 @@ export function createExtentMaskLayer(extent) {
     style: new Style({
       fill: new Fill({ color: MASK_FILL_COLOR }),
       stroke: new Stroke({ color: MASK_STROKE_COLOR, width: MASK_STROKE_WIDTH })
-    })
+    }),
+    // Without these, map revealed mid-drag stays undimmed until the pointer is released.
+    updateWhileAnimating: true,
+    updateWhileInteracting: true
   })
   layer.set('extentMask', true)
   return layer
