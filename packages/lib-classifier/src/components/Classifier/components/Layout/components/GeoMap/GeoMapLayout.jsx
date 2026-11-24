@@ -42,7 +42,7 @@ const StickyTaskArea = styled(Box)`
   min-width: auto;
   position: sticky;
   top: 10px;
-  width: 20rem;
+  width: 25rem;
 
   // small screens
   @media screen and (max-width: 768px) {
