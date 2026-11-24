@@ -1,4 +1,5 @@
 import getDefaultPageProps from '@helpers/getDefaultPageProps'
+import projectRedirect from '@helpers/projectRedirect'
 import fetchSubjectSets from '@helpers/fetchSubjectSets'
 export { default } from '@screens/ClassifyPage'
 import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations'
@@ -6,6 +7,8 @@ import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslation
 export async function getStaticProps({ locale, params }) {
   const { panoptesEnv } = params
   const { notFound, props: defaultProps } = await getDefaultPageProps({ locale, params })
+  const redirect = projectRedirect({ params, project: defaultProps.initialState.project })
+  if (redirect) return redirect
   const { workflows } = defaultProps
   const workflow = workflows?.find(workflow => workflow.id === params.workflowID)
   const pageTitle = workflow?.displayName || null

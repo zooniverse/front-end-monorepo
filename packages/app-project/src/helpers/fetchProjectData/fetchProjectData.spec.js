@@ -44,6 +44,11 @@ describe('Helpers > fetchProjectData', function () {
       const { projectTwo } = mocks.resources
       expect(project.slug).to.equal(projectTwo.slug)
     })
+
+    it('should have a redirect', function () {
+      const { projectTwo } = mocks.resources
+      expect(project.redirect).to.equal(projectTwo.redirect)
+    })
   })
 
   it('should set an error state if response is an empty array', async function () {

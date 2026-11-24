@@ -40,6 +40,32 @@ describe('components > shared > AllProjects', function () {
     })
   })
 
+  describe('when a project has an external redirect', function () {
+    it('should link its card to the external site', function () {
+      const legacyProject = {
+        ...PROJECTS[0],
+        id: '51',
+        display_name: 'Sunspotter',
+        redirect: 'http://sunspotter.org/#/',
+        slug: 'zooniverse/sunspotter'
+      }
+      render(
+        <Grommet theme={zooTheme}>
+          <Projects
+            numProjects={3}
+            page={1}
+            pageSize={PAGE_SIZE}
+            renderedProjects={[legacyProject, { ...legacyProject, id: '52' }, PROJECTS[1]]}
+          />
+        </Grommet>
+      )
+      const cards = screen.getAllByRole('link')
+      expect(cards[0].href).to.equal('http://sunspotter.org/#/')
+      expect(cards[1].href).to.equal('http://sunspotter.org/#/')
+      expect(cards[2].href).to.include('/projects/brbcornell/nest-quest-go-eastern-bluebirds')
+    })
+  })
+
   describe('when there are no projectContributions', function () {
     it('should show the `no projects` message', function () {
       render(<Projects renderedProjects={[]} />)

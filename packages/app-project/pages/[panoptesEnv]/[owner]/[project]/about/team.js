@@ -1,11 +1,14 @@
 import fetchProjectPage from '@helpers/fetchProjectPage'
 import getDefaultPageProps from '@helpers/getDefaultPageProps'
+import projectRedirect from '@helpers/projectRedirect'
 export { default } from '@screens/ProjectAboutPage'
 import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations'
 import fetchTeam from '@helpers/fetchTeam'
 
-export async function getStaticProps({ locale, params }) {
+export async function getStaticProps({ defaultLocale, locale, params }) {
   const { notFound, props } = await getDefaultPageProps({ locale, params })
+  const redirect = projectRedirect({ defaultLocale, locale, params, project: props.initialState.project, toHomePage: true })
+  if (redirect) return redirect
   const { panoptesEnv } = params
 
   const { project } = props.initialState

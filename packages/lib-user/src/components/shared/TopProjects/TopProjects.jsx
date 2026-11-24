@@ -131,7 +131,7 @@ function TopProjects({
                   badge={topProject?.count}
                   description={topProject?.description}
                   displayName={topProject?.display_name}
-                  href={getProjectHrefWithLocale(`/${topProject?.slug}`, locale)}
+                  href={topProject?.redirect || getProjectHrefWithLocale(`/${topProject?.slug}`, locale)}
                   imageSrc={topProject?.avatar_src}
                   size={cardSize}
                   state={topProject?.state}

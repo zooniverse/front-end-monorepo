@@ -12,6 +12,7 @@ function storeMapper(store) {
       display_name: title,
       id: projectId,
       inBeta,
+      redirect,
       slug
     },
     user: {
@@ -37,6 +38,7 @@ function storeMapper(store) {
     isLoggedIn,
     organizations: Array.from(organizationsMap.values()),
     projectId,
+    redirect,
     slug,
     title,
     userId

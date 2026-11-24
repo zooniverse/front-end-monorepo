@@ -7,6 +7,7 @@ import * as Stories from './ProjectHeader.stories'
 const {
   AdminMode,
   DefaultWorkflow,
+  ExternalRedirect,
   InBeta,
   LaunchApproved,
   LoggedIn,
@@ -169,6 +170,35 @@ describe('Component > ProjectHeader', function () {
 
     it('should show the language menu button', async function () {
       expect(languageButton).toBeDefined()
+    })
+  })
+
+  describe('with an external redirect', function () {
+    let navLinks, titleLink
+
+    before(function () {
+      render(<ExternalRedirect />)
+      const navMenu = screen.getByRole('navigation', { name: 'ProjectHeader.ProjectNav.ariaLabel' })
+      navLinks = within(navMenu).getAllByRole('link')
+      titleLink = screen.getByRole('link', { name: 'Sunspotter' })
+    })
+
+    it('should link the project title to the external site', function () {
+      expect(titleLink.href).to.equal('http://sunspotter.org/#/')
+    })
+
+    it('should show an external link icon on the project title', function () {
+      expect(titleLink.querySelector('svg')).to.not.equal(null)
+    })
+
+    it('should not link to the about pages', function () {
+      const aboutLink = navLinks.find(link => link.textContent === 'ProjectHeader.about')
+      expect(aboutLink).to.equal(undefined)
+    })
+
+    it('should link classify to the external site', function () {
+      expect(navLinks[0].textContent).to.equal('ProjectHeader.classify')
+      expect(navLinks[0].href).to.equal('http://sunspotter.org/#/classify')
     })
   })
 

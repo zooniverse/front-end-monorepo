@@ -317,6 +317,41 @@ MultipleLanguages.args = {
   }
 }
 
+export function ExternalRedirect({ className, project }) {
+  const snapshot = {
+    project
+  }
+  applySnapshot(ExternalRedirect.store, snapshot)
+  return (
+    <Provider store={ExternalRedirect.store}>
+      <ProjectHeader className={className} />
+    </Provider>
+  )
+}
+ExternalRedirect.store = initStore(true)
+ExternalRedirect.args = {
+  className: '',
+  project: {
+    avatar: {
+      src: 'https://panoptes-uploads.zooniverse.org/project_avatar/174b892e-1a6a-44d3-9f39-bc1a3420a9ec.jpeg'
+    },
+    background: {
+      src: 'https://panoptes-uploads.zooniverse.org/project_background/7a3c6210-f97d-4f40-9ab4-8da30772ee01.jpeg'
+    },
+    configuration: {
+      languages: ['en']
+    },
+    redirect: 'http://sunspotter.org/#/',
+    slug: 'zooniverse/sunspotter',
+    strings: {
+      display_name: 'Sunspotter'
+    },
+    links: {
+      active_workflows: []
+    }
+  }
+}
+
 export function OrganizationLink({ organizations, project }) {
   const snapshot = {
     organizations,

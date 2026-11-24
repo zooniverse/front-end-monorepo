@@ -9,10 +9,10 @@ import PFE_SLUGS from '../../../../helpers/slugList'
 function useStores() {
   const { store } = useContext(MobXProviderContext)
 
-  const { hasResultsPage, isComplete } = store.project
+  const { hasResultsPage, isComplete, redirect } = store.project
 
   return {
-    hasResultsPage,
+    hasResultsPage: hasResultsPage && !redirect,
     isVisible: isComplete,
     slug: store?.project?.slug
   }
