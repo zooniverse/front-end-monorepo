@@ -56,6 +56,7 @@ function MainContent({
   const [activeTab, setActiveTab] = useState(0)
   const [showCalendar, setShowCalendar] = useState(false)
   const [customDateRange, setCustomDateRange] = useState([selectedDateRange.startDate, selectedDateRange.endDate])
+  const [chosenDateRangeLabel, setChosenDateRangeLabel] = useState('')
 
   const handleActiveTab = useCallback((tabIndex) => {
     setActiveTab(tabIndex)
@@ -76,6 +77,7 @@ function MainContent({
   const sourceCreatedAtDate = getStatsDateString(source?.created_at)
 
   const { dateRangeOptions, selectedDateRangeOption } = getDateRangeSelectOptions({
+    chosenLabel: chosenDateRangeLabel,
     sourceCreatedAtDate,
     paramsValidationMessage,
     selectedDateRange,
@@ -92,6 +94,7 @@ function MainContent({
       return
     }
 
+    setChosenDateRangeLabel(option.label)
     setSelectedDateRange({
       endDate: null,
       startDate: option.value
