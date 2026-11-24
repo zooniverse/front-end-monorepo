@@ -66,8 +66,31 @@ const limitedHeightWorkflow = WorkflowFactory.build({
   }
 })
 
+const loopWorkflow = WorkflowFactory.build({
+  configuration: {
+    video_loop: true
+  }
+})
+
+const loopDrawingWorkflow = WorkflowFactory.build({
+  ...drawingWorkflow,
+  configuration: {
+    video_loop: true
+  }
+})
+
 const noDrawingStore = mockStore({
   subject: subject
+})
+
+const loopStore = mockStore({
+  subject: subjectNoSound,
+  workflow: loopWorkflow
+})
+
+const loopDrawingStore = mockStore({
+  subject: subjectNoSound,
+  workflow: loopDrawingWorkflow
 })
 
 const drawingStore = mockStore({
@@ -151,6 +174,32 @@ export const NoSubject = () => {
     <Provider classifierStore={drawingStore}>
       <Box width='large'>
         <SingleVideoViewerContainer />
+      </Box>
+    </Provider>
+  )
+}
+
+export const Loop = () => {
+  return (
+    <Provider classifierStore={loopStore}>
+      <Box width='large'>
+        <SingleVideoViewerContainer
+          loadingState='success'
+          subject={loopStore.subjects.active}
+        />
+      </Box>
+    </Provider>
+  )
+}
+
+export const LoopWithDrawing = () => {
+  return (
+    <Provider classifierStore={loopDrawingStore}>
+      <Box width='large'>
+        <SingleVideoViewerContainer
+          loadingState='success'
+          subject={loopDrawingStore.subjects.active}
+        />
       </Box>
     </Provider>
   )

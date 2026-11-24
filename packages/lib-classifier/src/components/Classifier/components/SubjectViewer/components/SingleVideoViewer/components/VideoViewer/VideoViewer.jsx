@@ -28,6 +28,7 @@ const SubjectContainer = styled.div`
 function VideoViewer({
   invert = false,
   limitSubjectHeight = false,
+  loop = false,
   onError = () => true,
   onReady = () => true,
   subject
@@ -66,6 +67,7 @@ function VideoViewer({
     <ReactPlayer
       controls
       height='100%'
+      loop={loop}
       onError={handlePlayerError}
       onReady={onReactPlayerReady}
       ref={playerRef}
@@ -84,7 +86,7 @@ function VideoViewer({
         }
       }}
     />
-  ), [videoLocation])
+  ), [loop, videoLocation])
 
   return (
     <>
@@ -105,6 +107,7 @@ function VideoViewer({
 VideoViewer.propTypes = {
   invert: bool,
   limitSubjectHeight: bool,
+  loop: bool,
   onError: func,
   onReady: func,
   subject: shape({
