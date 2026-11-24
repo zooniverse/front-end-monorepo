@@ -63,7 +63,6 @@ export default function useSelectionLayer({
       const current = select.getFeatures()?.item(0)
       if (!isDeletableFeature(current)) return
       source.removeFeature(current)
-      clearSelectedFeature(select)
     }
 
     function invalidateSelected() {
@@ -113,9 +112,15 @@ export default function useSelectionLayer({
       }
     })
 
+    // Reset and subject reloads clear the source without a select event, which would orphan the button.
+    const removeKey = source.on('removefeature', (event) => {
+      if (select.getFeatures().getArray().includes(event.feature)) clearSelectedFeature(select)
+    })
+
     return () => {
       if (changeKey) unByKey(changeKey)
       unByKey(selectKey)
+      unByKey(removeKey)
       map.removeOverlay(overlay)
       root.unmount()
     }

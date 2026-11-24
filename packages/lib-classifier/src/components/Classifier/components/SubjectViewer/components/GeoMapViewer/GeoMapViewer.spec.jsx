@@ -1,10 +1,15 @@
 import { composeStory } from '@storybook/react'
-import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import TileLayer from 'ol/layer/Tile'
+import BaseTileLayer from 'ol/layer/BaseTile'
 import VectorLayer from 'ol/layer/Vector'
-import Meta, { Default, WithGeoDrawingTask, WithGeoDrawingPointCreationTask, WithoutGeoDrawingTask } from './GeoMapViewer.stories'
+import { transformExtent } from 'ol/proj'
+import GeoTIFF from 'ol/source/GeoTIFF'
+import OSM from 'ol/source/OSM'
+import TileWMS from 'ol/source/TileWMS'
+import Meta, { Default, WithGeoDrawingTask, WithGeoDrawingLineStringTask, WithGeoDrawingPointCreationTask, WithoutGeoDrawingTask } from './GeoMapViewer.stories'
 import GeoMapViewer from './GeoMapViewer'
+import GeoDrawingTask from '@plugins/tasks/experimental/geoDrawing/task/models/GeoDrawingTask'
 
 const DefaultStory = composeStory(Default, Meta)
 const WithGeoDrawingTaskStory = composeStory(WithGeoDrawingTask, Meta)
@@ -91,8 +96,8 @@ describe('Component > GeoMapViewer', function () {
     ]
 
     function baseLayers (map) {
-      // basemap tile layers are TileLayers; the feature + selection layers are VectorLayers
-      return map.getLayers().getArray().filter(layer => layer instanceof TileLayer)
+      // basemap layers are tile layers (canvas or WebGL); the feature + selection layers are VectorLayers
+      return map.getLayers().getArray().filter(layer => layer instanceof BaseTileLayer)
     }
 
     it('falls back to a single OSM base layer when no tile_layers are configured', async function () {
@@ -102,21 +107,15 @@ describe('Component > GeoMapViewer', function () {
       expect(baseLayers(map)).to.have.lengthOf(1)
     })
 
-    it('builds one base tile layer per configured descriptor', async function () {
+    it('builds only the active base layer, the first configured one by default', async function () {
       let map = null
       render(<DefaultStory tileLayers={twoLayers} onMapReady={(olMap) => { map = olMap }} />)
       await waitFor(() => expect(map).to.exist)
-      expect(baseLayers(map)).to.have.lengthOf(2)
+      await waitFor(() => expect(baseLayers(map)).to.have.lengthOf(1))
+      expect(baseLayers(map)[0].getSource()).to.be.instanceOf(OSM)
     })
 
-    it('shows only the first configured layer by default', async function () {
-      let map = null
-      render(<DefaultStory tileLayers={twoLayers} onMapReady={(olMap) => { map = olMap }} />)
-      await waitFor(() => expect(map).to.exist)
-      expect(baseLayers(map).map(layer => layer.getVisible())).to.deep.equal([true, false])
-    })
-
-    it('shows the layer marked default instead of the first', async function () {
+    it('builds the layer marked default instead of the first', async function () {
       const withDefault = [
         { type: 'osm', label: 'OpenStreetMap' },
         { type: 'wms', label: 'imagery', url: 'https://example.org/wms', params: { LAYERS: 'foo' }, default: true }
@@ -124,7 +123,20 @@ describe('Component > GeoMapViewer', function () {
       let map = null
       render(<DefaultStory tileLayers={withDefault} onMapReady={(olMap) => { map = olMap }} />)
       await waitFor(() => expect(map).to.exist)
-      expect(baseLayers(map).map(layer => layer.getVisible())).to.deep.equal([false, true])
+      await waitFor(() => expect(baseLayers(map)).to.have.lengthOf(1))
+      expect(baseLayers(map)[0].getSource()).to.be.instanceOf(TileWMS)
+    })
+
+    it('does not build hidden COG layers, so they fetch nothing', async function () {
+      const withCog = [
+        { type: 'osm', label: 'OpenStreetMap' },
+        { type: 'cog', label: 'Elevation', url: 'https://example.com/elevation/dem.tif' }
+      ]
+      let map = null
+      render(<DefaultStory tileLayers={withCog} onMapReady={(olMap) => { map = olMap }} />)
+      await waitFor(() => expect(map).to.exist)
+      await waitFor(() => expect(baseLayers(map)).to.have.lengthOf(1))
+      expect(baseLayers(map).some(layer => layer.getSource() instanceof GeoTIFF)).to.equal(false)
     })
 
     it('does not render the LayerControl when only one layer is configured', async function () {
@@ -142,7 +154,7 @@ describe('Component > GeoMapViewer', function () {
     ]
 
     function baseLayers (map) {
-      return map.getLayers().getArray().filter(layer => layer instanceof TileLayer)
+      return map.getLayers().getArray().filter(layer => layer instanceof BaseTileLayer)
     }
 
     it('renders a tab per configured layer when more than one is configured', async function () {
@@ -153,15 +165,18 @@ describe('Component > GeoMapViewer', function () {
       expect(tablist.querySelectorAll('[role="tab"]')).to.have.lengthOf(2)
     })
 
-    it('swaps which base tile layer is visible when a tab is clicked', async function () {
+    it('replaces the base layer with the selected one when a tab is clicked', async function () {
       const user = userEvent.setup()
       let map = null
       render(<DefaultStory tileLayers={twoLayers} onMapReady={(olMap) => { map = olMap }} />)
       await waitFor(() => expect(map).to.exist)
-      expect(baseLayers(map).map(layer => layer.getVisible())).to.deep.equal([true, false])
+      await waitFor(() => expect(baseLayers(map)).to.have.lengthOf(1))
+      const previous = baseLayers(map)[0]
 
       await user.click(screen.getByRole('tab', { name: 'imagery' }))
-      expect(baseLayers(map).map(layer => layer.getVisible())).to.deep.equal([false, true])
+      await waitFor(() => expect(baseLayers(map)[0].getSource()).to.be.instanceOf(TileWMS))
+      expect(baseLayers(map)).to.have.lengthOf(1)
+      expect(previous.disposed).to.equal(true)
     })
 
     it('keeps the vector (features) layer visible across a layer switch', async function () {
@@ -224,6 +239,24 @@ describe('Component > GeoMapViewer', function () {
       expect(overlay.getPosition()).to.not.exist
     })
 
+    it('hides the delete button when the selected feature is removed some other way, like Reset', async function () {
+      let map = null
+      render(<PointCreationStory min={0} max={0} seedSubjectPoint onMapReady={(olMap) => { map = olMap }} />)
+
+      let overlay
+      await waitFor(() => {
+        overlay = deleteOverlay(map)
+        expect(overlay?.getPosition()).to.exist
+      })
+      const featureSource = map.getLayers().getArray()
+        .map((layer) => layer.getSource?.())
+        .find((source) => source?.getFeatures?.().length > 0)
+      featureSource.clear()
+
+      await waitFor(() => expect(overlay.getPosition()).to.not.exist)
+      expect(overlay.getElement().style.display).to.equal('none')
+    })
+
     it('blocks point drawing while the seed occupies the only slot', async function () {
       let map = null
       render(<PointCreationStory min={0} max={1} seedSubjectPoint onMapReady={(olMap) => { map = olMap }} />)
@@ -242,6 +275,118 @@ describe('Component > GeoMapViewer', function () {
         expect(vectorSources.some((layerSource) => layerSource.getFeatures().length > 0)).to.equal(true)
       })
       expect(activeDraws()).to.have.lengthOf(0)
+    })
+  })
+
+  describe('subject extent for feedback', function () {
+    it('reports the subject box the map first fits to, so feedback can open the same way', async function () {
+      const bbox = [-91.05, 47.96, -90.97, 48.01]
+      const updates = []
+      const geoDrawingTask = { type: 'geoDrawing', tools: [], updateMapContext: (context) => updates.push(context) }
+      render(
+        <GeoMapViewer
+          geoDrawingTask={geoDrawingTask}
+          geoJSON={{ type: 'FeatureCollection', bbox, features: [] }}
+        />
+      )
+      const expected = transformExtent(bbox, 'EPSG:4326', 'EPSG:3857')
+      await waitFor(() => expect(updates.some(context => context.subjectExtent)).to.equal(true))
+      expect(updates.find(context => context.subjectExtent).subjectExtent).to.deep.equal(expected)
+    })
+  })
+
+  describe('zoom button limits', function () {
+    it('disables zoom out at the minimum zoom and enables it again after zooming in', async function () {
+      let map = null
+      render(<DefaultStory onMapReady={(olMap) => { map = olMap }} />)
+      await waitFor(() => expect(map).to.exist)
+      const zoomOut = screen.getByRole('button', { name: 'Zoom out from subject' })
+
+      act(() => map.getView().setZoom(map.getView().getMinZoom()))
+      await waitFor(() => expect(zoomOut.disabled).to.equal(true))
+
+      act(() => map.getView().setZoom(map.getView().getMinZoom() + 2))
+      await waitFor(() => expect(zoomOut.disabled).to.equal(false))
+    })
+
+    it('disables zoom in at the maximum zoom', async function () {
+      let map = null
+      render(<DefaultStory onMapReady={(olMap) => { map = olMap }} />)
+      await waitFor(() => expect(map).to.exist)
+      const zoomIn = screen.getByRole('button', { name: 'Zoom in on subject' })
+
+      act(() => map.getView().setZoom(map.getView().getMaxZoom()))
+      await waitFor(() => expect(zoomIn.disabled).to.equal(true))
+    })
+
+    it('follows the view when the map swaps it for a constrained one', async function () {
+      let map = null
+      render(<DefaultStory onMapReady={(olMap) => { map = olMap }} />)
+      await waitFor(() => expect(map).to.exist)
+      const zoomOut = screen.getByRole('button', { name: 'Zoom out from subject' })
+
+      const { View } = await import('ol')
+      act(() => map.setView(new View({ center: [0, 0], zoom: 5, minZoom: 5 })))
+      await waitFor(() => expect(zoomOut.disabled).to.equal(true))
+    })
+  })
+
+  describe('measuring on a line workflow', function () {
+    const LineStringStory = composeStory(WithGeoDrawingLineStringTask, Meta)
+
+    function activeDrawInteractions (map) {
+      return map.getInteractions().getArray()
+        .filter((interaction) => interaction.constructor.name === 'Draw' && interaction.getActive())
+    }
+
+    it('stays in measure mode after Measure is pressed', async function () {
+      const user = userEvent.setup()
+      let map = null
+      render(<LineStringStory onMapReady={(olMap) => { map = olMap }} />)
+      await waitFor(() => expect(map).to.exist)
+
+      const measureButton = screen.getByRole('button', { name: 'Measure distance' })
+      await user.click(measureButton)
+      await new Promise((resolve) => setTimeout(resolve, 50))
+      expect(measureButton.getAttribute('aria-pressed')).to.equal('true')
+    })
+
+    it('draws only the measure line while measuring, never a feature line', async function () {
+      const user = userEvent.setup()
+      let map = null
+      render(<LineStringStory onMapReady={(olMap) => { map = olMap }} />)
+      await waitFor(() => expect(map).to.exist)
+      await waitFor(() => expect(activeDrawInteractions(map)).to.have.lengthOf(1))
+      const lineDraw = activeDrawInteractions(map)[0]
+
+      await user.click(screen.getByRole('button', { name: 'Measure distance' }))
+      await new Promise((resolve) => setTimeout(resolve, 50))
+      const active = activeDrawInteractions(map)
+      expect(active).to.have.lengthOf(1)
+      expect(active[0]).to.not.equal(lineDraw)
+    })
+
+    it('leaves measure mode when the volunteer picks a different tool', async function () {
+      const user = userEvent.setup()
+      const geoDrawingTask = GeoDrawingTask.create({
+        taskKey: 'T0',
+        activeToolIndex: 0,
+        tools: [
+          { type: 'SegmentedLine', label: 'Segmented Line', color: '#E65252' },
+          { type: 'SegmentedLine', label: 'Segmented Line 2', color: '#F1AE45' }
+        ],
+        type: 'geoDrawing'
+      })
+      let map = null
+      render(<GeoMapViewer geoDrawingTask={geoDrawingTask} onMapReady={(olMap) => { map = olMap }} />)
+      await waitFor(() => expect(map).to.exist)
+
+      const measureButton = screen.getByRole('button', { name: 'Measure distance' })
+      await user.click(measureButton)
+      await new Promise((resolve) => setTimeout(resolve, 50))
+      expect(measureButton.getAttribute('aria-pressed')).to.equal('true')
+      act(() => geoDrawingTask.setActiveTool(1))
+      await waitFor(() => expect(measureButton.getAttribute('aria-pressed')).to.equal('false'))
     })
   })
 
@@ -286,8 +431,8 @@ describe('Component > GeoMapViewer', function () {
       const overlays = overlayLayers(map)
       expect(overlays).to.have.lengthOf(2)
 
+      await waitFor(() => expect(map.getLayers().item(0)).to.be.an.instanceOf(BaseTileLayer))
       const layers = map.getLayers().getArray()
-      expect(layers[0]).to.be.an.instanceOf(TileLayer)
       expect(layers[1]).to.equal(overlays[0])
       expect(layers[2]).to.equal(overlays[1])
       expect(layers[3]).to.be.an.instanceOf(VectorLayer)
