@@ -62,7 +62,7 @@ _Content element._ A stylised h1 heading for every User Settings page.
 
 ## Talk Preference Form
 
-Used in: all Email Settings pages.
+Used in: Email Settings page.
 
 _Form._ This form allows users to view and edit various Talk Preference settings, e.g. setting their "send me an email when I'm mentioned on Talk" preference to immediately, daily, weekly, or never.
 
@@ -79,3 +79,9 @@ _Form._ This form allows users to view and edit their User Media resources, nota
 ### Dev Notes
 
 Due to its complexity, this component probably needs its own README.md. 😬
+
+## Zooniverse Email Preference Form
+
+Used in: Email Settings page.
+
+_Form._ This form allows users to view and edit their choices (yes/no) for their Zooniverse Email Preferences ("general newsletter" and "beta newsletter"). This form is just a collection of checkboxes.

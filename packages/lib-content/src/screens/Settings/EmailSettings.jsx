@@ -16,6 +16,7 @@ import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent'
 import SettingsHeading from './components/SettingsHeading/SettingsHeading'
 import AccountEmailForm from './components/AccountEmailForm/AccountEmailForm'
 import TalkPreferenceForm from './components/TalkPreferenceForm/TalkPreferenceForm'
+import ZooniverseEmailPreferenceForm from './components/ZooniverseEmailPreferenceForm/ZooniverseEmailPreferenceForm'
 
 function EmailSettings ({
   authUser
@@ -58,6 +59,10 @@ function EmailSettings ({
           <SettingsHeading section='EmailSettings' />
 
           <AccountEmailForm
+            authUser={authUser}
+          />
+
+          <ZooniverseEmailPreferenceForm
             authUser={authUser}
           />
 
