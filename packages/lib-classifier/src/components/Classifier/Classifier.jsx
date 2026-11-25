@@ -5,7 +5,7 @@ import { StrictMode, useEffect } from 'react'
 
 import { useStores } from '@hooks'
 import Layout from './components/Layout'
-import ModalTutorial from './components/ModalTutorial'
+import ModalTutorial from './components/Tutorial/ModalTutorial'
 
 function Classifier({
   onError = () => true,
