@@ -1,0 +1,221 @@
+{
+  "About": {
+    "PageHeading": {
+      "title": {
+        "education": "Կրթություն",
+        "faq": "ՀՏՀ",
+        "research": "Հետազոտություն",
+        "results": "Արդյունքներ",
+        "team": "Թիմը"
+      }
+    },
+    "PageNav": {
+      "title": "Նախագծի մասին"
+    },
+    "SidebarHeading": "Ավելին",
+    "TeamMember": {
+      "admin": "Zooniverse թիմ",
+      "collaborator": "Համագործակից",
+      "expert": "Փորձագետ",
+      "moderator": "Մոդերատոր",
+      "museum": "Թանգարան",
+      "owner": "Սեփանակատեր",
+      "researcher": "Հետազոտող",
+      "tester": "Թեստավորող",
+      "translator": "Թարգմանիչ"
+    }
+  },
+  "Classify": {
+    "ClassifierWrapper": {
+      "ErrorMessage": {
+        "title": "Դասակարգչում տեղի ունեցավ սխալ ։("
+      }
+    },
+    "ExternalWorkflow": {
+      "button": "Շարունակեք արտաքին աշխատանքային հոսքը",
+      "fallback": "Այս աշխատանքային հոսքը տեղակայված է արտաքին կայքում: Սեղմեք ստորև նշված կոճակը՝ այնտեղ շարունակելու համար:"
+    },
+    "RecentSubjects": {
+      "noSubjects": "Այստեղ ցուցադրված են ձեր կողմից դասակարգված ամենավերջին առարկաները։",
+      "text": "Քննարկեք թեման Talk-ում կամ ավելացրեք այն ձեր ֆավորիտներին կամ հավաքածուին:",
+      "title": "Ձեր վերջին դասակարգումները"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "Ոչ, շնորհակալություն",
+      "confirm": "Անցնել հաջորդ աշխատահոսքին։",
+      "content": "Շնորհավորում ենք: Քանի որ դուք շատ լավ եք աշխատում, այժմ կարող եք մուտք գործել մեկ այլ աշխատանքային հոսք: Եթե նախընտրում եք մնալ ընթացիկ աշխատանքային հոսքի մեջ, կարող եք ընտրել մնալ:",
+      "dismiss": "Այս սեսիայի ժամանակ սա կրկին ցույց չտալ",
+      "title": "Հասանելի է նոր աշխատանքային հոսք"
+    },
+    "YourStats": {
+      "allTime": "Ողջ ժամանակը",
+      "lastSeven": "Վերջին 7 օրը",
+      "link": "Տեսնել ավելին",
+      "title": "Ձեր վիճակագրությունը"
+    }
+  },
+  "Collect": {
+    "exploreLink": "Զննեք Zooniverse-ի բոլոր հավաքածուները",
+    "hideSingleSubject": "Թաքցնել միայն 1 թեմայով հավաքածուները",
+    "placeholders": {
+      "empty": "Հավաքածուներ չեն գտնվել։",
+      "error": "Հավաքածուները բեռնելիս սխալ տեղի ունեցավ։"
+    },
+    "resultsCount": "Ցուցադրվում է {{range}} հավաքածուն {{total}}-ից",
+    "sortBy": "Դասավորել ըստ՝",
+    "sortOptions": {
+      "alphabeticalAscending": "Այբբենական կարգով՝ Արիզոնա",
+      "alphabeticalDescending": "Այբբենական ZA",
+      "recentlyCreated": "Վերջերս ստեղծված",
+      "recentlyUpdated": "Վերջերս թարմացված"
+    },
+    "tabs": {
+      "collections": "Հավաքածուներ",
+      "favorites": "Ընտրյալներ",
+      "myCollections": "Իմ {{projectName}} հավաքածուները",
+      "myFavorites": "Իմ {{projectName}} նախընտրածները",
+      "title": "Հավաքածուի էջեր"
+    },
+    "title": "Հավաքել"
+  },
+  "Collection": {
+    "CollectionOptions": {
+      "copied": "URL-ը պատճենվեց սեղմատախտակին",
+      "settings": "Կարգավորումներ",
+      "share": "Կիսվել"
+    },
+    "emptySubjects": "Այս հավաքածուում թեմաներ չկան։",
+    "linkedToProjectCollections": "Կապված է <projectLink>{{projectName}}<\/projectLink> հավաքածուների հետ",
+    "notFound": "Այս հավաքածուն վերականգնելիս սխալ տեղի ունեցավ։",
+    "ownerLoadError": "Հավաքածուի սեփականատիրոջ տվյալները չհաջողվեց բեռնել։",
+    "resultsCount": "Ցուցադրվում է {{range}}՝ {{total}} թեմաներից",
+    "roles": {
+      "collaborator": "Համագործակից",
+      "contributor": "Հեղինակ",
+      "owner": "Սեփականատեր",
+      "viewer": "Դիտող"
+    },
+    "seeAllOwnerCollections": "<collectionsLink>Տեսնել {{displayName}}-ի բոլոր հավաքածուները<\/collectionsLink>",
+    "selectSubjects": "Ընտրեք առարկաներ",
+    "subjectsLoadError": "Այս հավաքածուի թեմաները բեռնելիս սխալ տեղի ունեցավ։"
+  },
+  "Home": {
+    "AboutProject": {
+      "title": "Տեղեկություններ {{projectName}}"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "Իմանալ ավելին"
+      },
+      "NotApproved": {
+        "paragraph": "Այս նախագիծը ստեղծվել է Zooniverse Project Builder-ի օգնությամբ, բայց դեռ չի համարվում Zooniverse-ի պաշտոնական նախագիծ: Ուստի նախագծին վերաբերվող հարցումները և դրա հետ կապված խնդիրները, ուղղված Zooniverse թիմին, կարող են մնալ անպատասխան:"
+      }
+    },
+    "MessageFromResearcher": {
+      "noMessage": "Կապվեք Talk-ի հետազոտական թիմի հետ՝ այս նախագծի մասին ավելին իմանալու համար:",
+      "noMessageButton": "Անցնել Talk",
+      "title": "Նամակ հետազոտողից"
+    },
+    "ZooniverseTalk": {
+      "RecentSubjects": {
+        "error": "Թեմաները բեռնելիս սխալ տեղի ունեցավ :(",
+        "noSubjects": "Կարծես թե դեռևս ոչ ոք չի մեկնաբանել որևէ թեմա: Գնացեք Talk և եղեք առաջինը:",
+        "subjectLabel": "Առարկա {{id}}"
+      },
+      "button": "Միանալ",
+      "message": "Զրուցեք հետազոտական թիմի և այլ կամավորների հետ:",
+      "title": "Zooniverse Talk"
+    }
+  },
+  "ProjectRecents": {
+    "empty": "Այստեղ ներկայացված են վերջին 90 օրվա ընթացքում ձեր կողմից դասակարգված 20 ամենավերջին առարկաները։",
+    "emptyTitle": "Վերջերս դասակարգումներ չեն գտնվել",
+    "error": "Ձեր վերջին լուսանկարները բեռնելիս սխալ տեղի ունեցավ։",
+    "signedOut": "Մուտք գործեք՝ տեսնելու համար վերջերս դասակարգված առարկաները։",
+    "title": "Վերջին դասակարգումները"
+  },
+  "ProjectStats": {
+    "BarChart": {
+      "a11y": "{{typeLabel}}-ի սյունակային դիագրամը՝ ըստ {{countLabel}}-ի, {{startDate}}-ից մինչև {{endDate}}",
+      "allWorkflows": "Բոլոր աշխատանքային հոսքերը",
+      "dateRange": {
+        "allTime": "Բոլոր ժամանակների",
+        "custom": "Պատվերով",
+        "lastSevenDays": "Վերջին 7 օրերը",
+        "lastThirtyDays": "Վերջին 30 օրերը",
+        "lastThreeMonths": "Վերջին 3 ամիսները",
+        "lastTwelveMonths": "Վերջին 12 ամիսները",
+        "thisMonth": "Այս ամիս",
+        "thisYear": "Այս տարի"
+      },
+      "empty": "Տվյալներ չկան։ Փոխեք աշխատանքային հոսքը կամ ամսաթվերի միջակայքը։",
+      "selectDateRange": "Ընտրեք ամսաթվերի միջակայքը",
+      "selectWorkflow": "Ընտրեք աշխատանքային հոսքը"
+    },
+    "calendarBtn": "Կատարված է",
+    "calendarTitle": "Հատուկ ամսաթվերի միջակայք",
+    "comments": "Մեկնաբանություններ",
+    "count": "Դասակարգումներ",
+    "endDate": "Ավարտի ամսաթիվ",
+    "heading": "{{projectName}} վիճակագրություն",
+    "startDate": "Սկզբի ամսաթիվ",
+    "workflows": {
+      "empty": "Առնչվող աշխատանքային հոսքեր չկան",
+      "percentComplete": "{{percent}}% ավարտված է",
+      "retireLimit": "Կենսաթոշակի սահմանաչափ՝ {{number}}",
+      "subjectsRetired": "Թոշակի անցած անձինք՝ {{թոշակի անցած}}\/{{ընդհանուր}}",
+      "tip": "Ավարտման մոտավոր ժամանակը հիմնված է վերջին 14 օրվա դասակարգման մակարդակի վրա և կարող է սխալ լինել կամ անհասանելի լինել որոշ աշխատանքային հոսքերի համար։",
+      "title": "Աշխատանքային հոսքեր"
+    }
+  },
+  "Talk": {
+    "Comment": {
+      "avatarAlt": "{{login}} ավատար",
+      "comment": "մեկնաբանություն",
+      "goToComment": "Անցնել մեկնաբանությանը",
+      "reply": "Ի պատասխան",
+      "userDisplayNamePossessive": "{{userDisplayName}}-ի"
+    },
+    "Discussions": {
+      "addComment": "Ավելացրեք ձեր մեկնաբանությունը",
+      "commentMessage": "Կոնկրետ մեկնաբանությանը պատասխանելու համար սեղմեք այդ մեկնաբանության վրա՝ քննարկմանը անցնելու համար։",
+      "comments": "Մեկնաբանություններ",
+      "commentsViewing": "Դիտվում է {{count}} մեկնաբանություն {{total}}-ից",
+      "discussionBoard": "Քննարկման խորհուրդ",
+      "discussionTitle": "Քննարկման վերնագիր",
+      "discussions": "{{count}} Քննարկումներ",
+      "initialComment": "Սկզբնական մեկնաբանություն",
+      "newComment": "Նոր մեկնաբանություն",
+      "noDiscussions": "Քննարկումներ չկան",
+      "oneDiscussion": "1 Քննարկում",
+      "participants": "Մասնակիցներ",
+      "sortBy": "Դասավորել ըստ",
+      "sortedNewestFirst": "Ամենանորը սկզբում",
+      "sortedOldestFirst": "Ամենահինը սկզբում",
+      "startDiscussion": "Սկսել նոր քննարկում"
+    },
+    "Metadata": {
+      "collapse": "Ծալել",
+      "expand": "Ընդարձակել",
+      "noMetadata": "Մետատվյալներ հասանելի չեն",
+      "subjectMetadata": "Թեմայի մետատվյալներ"
+    },
+    "Tags": {
+      "add": "Ավելացնել",
+      "addATag": "Ավելացնել պիտակ",
+      "addVote": "Ավելացրեք ձեր քվեն",
+      "createTag": "Ստեղծեք պիտակ",
+      "noTags": "Առանց պիտակների",
+      "popularTagsFrom": "{{projectDisplayName}}-ի հայտնի թեգերը",
+      "removeVote": "Հեռացրեք ձեր քվեն",
+      "signInToTag": "Մուտք գործեք՝ պիտակ ավելացնելու համար",
+      "tagValidationMessage": "Օգտագործեք 3-40 նիշ, տառեր, թվեր, գծիկներ և ընդգծման նշաններ։ Բացատներ կամ այլ նիշեր չկան։",
+      "tags": "Թեգեր"
+    },
+    "ancillaryData": "Լրացուցիչ տվյալներ",
+    "ancillaryDataTip": "Սրանք լրացուցիչ տվյալներ են ձեր դիտած թեմայի վերաբերյալ: Լրացուցիչ տեղեկությունների համար, խնդրում ենք այցելել «Մեր մասին» էջը:",
+    "mentions": "Հիշատակումներ",
+    "searchPlaceholder": "Որոնեք այս նախագծում թեգերի, թեմաների կամ @օգտատերերի համար",
+    "somethingWentWrong": "Ինչ-որ բան սխալ է գնացել։"
+  }
+}

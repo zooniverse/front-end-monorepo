@@ -1,0 +1,221 @@
+{
+  "About": {
+    "PageHeading": {
+      "title": {
+        "education": "Karatu",
+        "faq": "Tambayoyin Da Ake Yawan Yi",
+        "research": "Bincike",
+        "results": "Sakamako",
+        "team": "Tawagar"
+      }
+    },
+    "PageNav": {
+      "title": "Game da aikin"
+    },
+    "SidebarHeading": "Game da",
+    "TeamMember": {
+      "admin": "Ƙungiyar Kula da Dabbobi",
+      "collaborator": "Abokin Haɗin Guiwa",
+      "expert": "Gwani",
+      "moderator": "Mai Daidaitawa",
+      "museum": "Gidan Tarihi",
+      "owner": "Mamallaki",
+      "researcher": "Manazarci",
+      "tester": "Mai Gwaji",
+      "translator": "Mai Fassara"
+    }
+  },
+  "Classify": {
+    "ClassifierWrapper": {
+      "ErrorMessage": {
+        "title": "An samu matsala tattare da wannan mai rarrabawa :("
+      }
+    },
+    "ExternalWorkflow": {
+      "button": "Ci gaba zuwa aikin aiki na waje",
+      "fallback": "Ana ɗaukar nauyin wannan aikin a wani shafin yanar gizo na waje. Zaɓi maɓallin da ke ƙasa don ci gaba a can."
+    },
+    "RecentSubjects": {
+      "noSubjects": "An nuna batutuwa na baya-bayan nan da ka rarraba a nan.",
+      "text": "Tattauna batu a kan shafin Maga, ko ku sanya a cikin Waɗanda Kuka Fi So ko a rukuni.",
+      "title": "Rabonku da ya gabata"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "A'a, na gode",
+      "confirm": "Kai ni zuwa aiki na gaba!",
+      "content": "Muna taya ku murna! Kasancewar kuna ƙoƙari sosai, yanzu za ku iya buɗe wani aiki na daban. Idan kun fi son ku kasance a wannan aikin na yanzu, to kuna iya zaɓen tsayawa tare da shi.",
+      "dismiss": "Kada a sake nuna wannan a zangon nan",
+      "title": "Sabon Aikin Da Ake Da Shi"
+    },
+    "YourStats": {
+      "allTime": "Dukkannin Lokuta",
+      "lastSeven": "Kwanaki 7 Da Suka Gabata",
+      "link": "Duba ƙari",
+      "title": "Bayananku"
+    }
+  },
+  "Collect": {
+    "exploreLink": "Bincika duk tarin Zooniverse",
+    "hideSingleSubject": "Ɓoye tarin abubuwa masu jigo ɗaya kawai",
+    "placeholders": {
+      "empty": "Ba a sami tarin abubuwa ba.",
+      "error": "An sami kuskure wajen loda tarin abubuwa."
+    },
+    "resultsCount": "Ana nuna {{range}} na tarin {{total}}",
+    "sortBy": "Kasa:",
+    "sortOptions": {
+      "alphabeticalAscending": "Haruffa AZ",
+      "alphabeticalDescending": "ZA na Haruffa",
+      "recentlyCreated": "An ƙirƙira kwanan nan",
+      "recentlyUpdated": "An sabunta kwanan nan"
+    },
+    "tabs": {
+      "collections": "Tarin abubuwa",
+      "favorites": "Abubuwan da aka fi so",
+      "myCollections": "Tarin {{projectName}} dina",
+      "myFavorites": "Abubuwan da na fi so a {{projectName}}",
+      "title": "Shafukan tattarawa"
+    },
+    "title": "Tattara"
+  },
+  "Collection": {
+    "CollectionOptions": {
+      "copied": "An kwafi URL zuwa allo mai allo",
+      "settings": "Saituna",
+      "share": "Raba"
+    },
+    "emptySubjects": "Babu wani abu a cikin wannan tarin.",
+    "linkedToProjectCollections": "An haɗa shi da tarin <projectLink>{{projectName}}<\/projectLink>",
+    "notFound": "An sami kuskure wajen dawo da wannan tarin.",
+    "ownerLoadError": "Ba za a iya loda bayanan mai tarin ba.",
+    "resultsCount": "Ana nuna {{range}} na {{total}} batutuwa",
+    "roles": {
+      "collaborator": "Mai haɗin gwiwa",
+      "contributor": "Mai ba da gudummawa",
+      "owner": "Mai shi",
+      "viewer": "Mai Kallo"
+    },
+    "seeAllOwnerCollections": "<collectionsLink>Duba duk tarin {{displayName}}<\/collectionsLink>",
+    "selectSubjects": "Zaɓi Abubuwan da Aka Yi",
+    "subjectsLoadError": "Akwai kuskure wajen loda abubuwan da wannan tarin ya kunsa."
+  },
+  "Home": {
+    "AboutProject": {
+      "title": "Game da {{projectName}}"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "Samu ƙarin bayani"
+      },
+      "NotApproved": {
+        "paragraph": "An gina wannan aikin ne ta amfani da Zooniverse Project Builder, amma har yanzu ba aikin Zooniverse ba ne a bisa doka. Ba dole ne a samu wata amsa ba yayin da aka tura tambayoyi game da wannan aikin zuwa ga Tawagar Zooniverse."
+      }
+    },
+    "MessageFromResearcher": {
+      "noMessage": "Ku haɗu da tawagar mai manazarcin a kan Magana domin samun ƙarin bayani game da wannan aiki!",
+      "noMessageButton": "Je Zuwa Magana",
+      "title": "Saƙo daga manazarcin"
+    },
+    "ZooniverseTalk": {
+      "RecentSubjects": {
+        "error": "An samu matsala yayin buɗe maudu'an:",
+        "noSubjects": "Da alama babu wanda ya yi tsokaci a kan batu tukuna. Ku je kan shafin Magana domin kasancewa na farko!",
+        "subjectLabel": "Batu {{id}}"
+      },
+      "button": "Ku shiga ciki",
+      "message": "Ku tattauna tare da tawagar binciken da sauran 'yan sa-kai",
+      "title": "Shafin Magana na Zooniverse"
+    }
+  },
+  "ProjectRecents": {
+    "empty": "An nuna batutuwa 20 na baya-bayan nan da kuka rarraba daga cikin kwanaki 90 da suka gabata a nan.",
+    "emptyTitle": "Ba a Samu Rarrabuwa na Kwanan Nan ba",
+    "error": "An sami kuskure wajen loda sabbin hotunanka.",
+    "signedOut": "Shiga don ganin abubuwan da kuka rarraba kwanan nan.",
+    "title": "Rarrabuwa na Kwanan Nan"
+  },
+  "ProjectStats": {
+    "BarChart": {
+      "a11y": "Taswirar sandunan {{typeLabel}} ta {{countLabel}} daga {{startDate}} zuwa {{endDate}}",
+      "allWorkflows": "Duk hanyoyin aiki",
+      "dateRange": {
+        "allTime": "Duk Lokaci",
+        "custom": "Na musamman",
+        "lastSevenDays": "Kwanaki 7 na Ƙarshe",
+        "lastThirtyDays": "Kwanaki 30 na Ƙarshe",
+        "lastThreeMonths": "Watanni 3 da suka gabata",
+        "lastTwelveMonths": "Watanni 12 da suka gabata",
+        "thisMonth": "Wannan Watan",
+        "thisYear": "Wannan shekara"
+      },
+      "empty": "Babu bayanai. Canja tsarin aiki ko kewayon kwanan wata.",
+      "selectDateRange": "Zaɓi kewayon kwanan wata",
+      "selectWorkflow": "Zaɓi tsarin aiki"
+    },
+    "calendarBtn": "An gama",
+    "calendarTitle": "Kewayen Kwanan Wata na Musamman",
+    "comments": "Sharhi",
+    "count": "Rarrabuwa",
+    "endDate": "Ranar Ƙarshe",
+    "heading": "Ƙididdiga {{Sunan aikin}}",
+    "startDate": "Ranar Farawa",
+    "workflows": {
+      "empty": "Babu ayyukan aiki masu alaƙa",
+      "percentComplete": "{{kashi}}% an kammala",
+      "retireLimit": "Iyakar ritaya: {{lambar}}",
+      "subjectsRetired": "Wadanda suka yi ritaya: {{an yi ritaya}}\/{{jimlar}}",
+      "tip": "Lokacin da aka kiyasta kafin a kammala ya dogara ne akan ƙimar rarrabuwa na kwanaki 14 da suka gabata kuma yana iya zama ba daidai ba ko kuma ba a samu don wasu ayyukan aiki ba.",
+      "title": "Tsarin aiki"
+    }
+  },
+  "Talk": {
+    "Comment": {
+      "avatarAlt": "Alamar {{login}}",
+      "comment": "sharhi",
+      "goToComment": "Je zuwa sharhi",
+      "reply": "A martanin da ya mayar",
+      "userDisplayNamePossessive": "{{sunan mai amfani}}"
+    },
+    "Discussions": {
+      "addComment": "Ƙara sharhinka",
+      "commentMessage": "Domin amsa wani takamaiman tsokaci, danna kan wannan tsokaci don zuwa tattaunawar.",
+      "comments": "Sharhi",
+      "commentsViewing": "Duba {{count}} na {{total}} sharhi",
+      "discussionBoard": "Kwamitin Tattaunawa",
+      "discussionTitle": "Taken Tattaunawa",
+      "discussions": "{{adadi}} Tattaunawa",
+      "initialComment": "Sharhin Farko",
+      "newComment": "Sabon Sharhi",
+      "noDiscussions": "Babu Tattaunawa",
+      "oneDiscussion": "1 Tattaunawa",
+      "participants": "Mahalarta",
+      "sortBy": "Kasa",
+      "sortedNewestFirst": "Sabon farko",
+      "sortedOldestFirst": "Mafi tsufa da farko",
+      "startDiscussion": "Fara sabuwar tattaunawa"
+    },
+    "Metadata": {
+      "collapse": "Rugujewa",
+      "expand": "Faɗaɗa",
+      "noMetadata": "Babu metadata da ake samu",
+      "subjectMetadata": "Bayanan Maudu'i"
+    },
+    "Tags": {
+      "add": "Ƙara",
+      "addATag": "Ƙara alama",
+      "addVote": "Ƙara ƙuri'arka",
+      "createTag": "Ƙirƙiri alama",
+      "noTags": "Babu Alamu",
+      "popularTagsFrom": "Shahararrun alamun alama daga {{projectDisplayName}}",
+      "removeVote": "Cire ƙuri'arku",
+      "signInToTag": "Shiga don ƙara alama",
+      "tagValidationMessage": "Yi amfani da haruffa 3-40, haruffa, lambobi, jan layi, da kuma ja layi a ƙasa. Babu sarari ko wasu haruffa.",
+      "tags": "Alamomi"
+    },
+    "ancillaryData": "Bayanan Ma'aikata",
+    "ancillaryDataTip": "Wannan ƙarin bayani ne game da batun da kake kallo. Don ƙarin bayani game da wannan, da fatan za a duba shafin Game da shi.",
+    "mentions": "Ambato",
+    "searchPlaceholder": "Bincika wannan aikin don alamun, batutuwa, ko @users",
+    "somethingWentWrong": "Wani abu ya faru ba daidai ba."
+  }
+}

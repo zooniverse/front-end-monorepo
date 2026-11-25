@@ -1,0 +1,221 @@
+{
+  "About": {
+    "PageHeading": {
+      "title": {
+        "education": "Edukasi",
+        "faq": "Tanya Jawab",
+        "research": "Riset",
+        "results": "Hasil",
+        "team": "Tim"
+      }
+    },
+    "PageNav": {
+      "title": "Tentang proyek"
+    },
+    "SidebarHeading": "Tentang",
+    "TeamMember": {
+      "admin": "Tim Zooniverse",
+      "collaborator": "Kolaborator",
+      "expert": "Ahli",
+      "moderator": "Moderator",
+      "museum": "Museum",
+      "owner": "Pemilik",
+      "researcher": "Peneliti",
+      "tester": "Tester",
+      "translator": "Penerjemah"
+    }
+  },
+  "Classify": {
+    "ClassifierWrapper": {
+      "ErrorMessage": {
+        "title": "Ada kesalahan di pembuat klasifikasi :("
+      }
+    },
+    "ExternalWorkflow": {
+      "button": "Lanjutkan ke alur kerja eksternal",
+      "fallback": "Alur kerja ini dihosting di situs eksternal. Pilih tombol di bawah untuk melanjutkan ke sana."
+    },
+    "RecentSubjects": {
+      "noSubjects": "Subjek terbaru yang telah Anda klasifikasikan ditampilkan di sini.",
+      "text": "Diskusikan subjek di Bicarakan, atau tambahkan ke Favorit atau koleksi Anda.",
+      "title": "Klasifikasi terbaru Anda"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "Tidak, terima kasih",
+      "confirm": "Bawa saya ke alur kerja berikutnya!",
+      "content": "Selamat! Anda bekerja dengan baik, jadi sekarang Anda bisa mengakses alur kerja lainnya. Jika Anda memilih untuk tetap di alur kerja saat ini, Anda bisa tetap di sini.",
+      "dismiss": "Jangan tampilkan ini lagi di sesi ini",
+      "title": "Alur Kerja Baru Tersedia"
+    },
+    "YourStats": {
+      "allTime": "Sepanjang Waktu",
+      "lastSeven": "7 Hari Terakhir",
+      "link": "Lihat selengkapnya",
+      "title": "Status Anda"
+    }
+  },
+  "Collect": {
+    "exploreLink": "Jelajahi semua koleksi Zooniverse",
+    "hideSingleSubject": "Sembunyikan koleksi yang hanya berisi 1 subjek",
+    "placeholders": {
+      "empty": "Tidak ada koleksi yang ditemukan.",
+      "error": "Terjadi kesalahan saat memuat koleksi."
+    },
+    "resultsCount": "Menampilkan {{range}} dari {{total}} koleksi",
+    "sortBy": "Urutkan berdasarkan:",
+    "sortOptions": {
+      "alphabeticalAscending": "AZ Alfabetis",
+      "alphabeticalDescending": "Alfabetis ZA",
+      "recentlyCreated": "Baru saja dibuat",
+      "recentlyUpdated": "Baru saja diperbarui"
+    },
+    "tabs": {
+      "collections": "Koleksi",
+      "favorites": "Favorit",
+      "myCollections": "Koleksi {{projectName}} saya",
+      "myFavorites": "Favorit {{projectName}} saya",
+      "title": "Halaman koleksi"
+    },
+    "title": "Mengumpulkan"
+  },
+  "Collection": {
+    "CollectionOptions": {
+      "copied": "URL disalin ke papan klip",
+      "settings": "Pengaturan",
+      "share": "Membagikan"
+    },
+    "emptySubjects": "Tidak ada subjek dalam koleksi ini.",
+    "linkedToProjectCollections": "Terhubung ke koleksi <projectLink>{{projectName}}<\/projectLink>",
+    "notFound": "Terjadi kesalahan saat mengambil koleksi ini.",
+    "ownerLoadError": "Detail pemilik koleksi tidak dapat dimuat.",
+    "resultsCount": "Menampilkan {{range}} dari {{total}} subjek",
+    "roles": {
+      "collaborator": "Kolaborator",
+      "contributor": "Penyumbang",
+      "owner": "Pemilik",
+      "viewer": "Penonton"
+    },
+    "seeAllOwnerCollections": "<collectionsLink>Lihat semua koleksi {{displayName}}<\/collectionsLink>",
+    "selectSubjects": "Pilih Mata Pelajaran",
+    "subjectsLoadError": "Terjadi kesalahan saat memuat subjek koleksi ini."
+  },
+  "Home": {
+    "AboutProject": {
+      "title": "Tentang {{projectName}}"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "Pelajari selengkapnya"
+      },
+      "NotApproved": {
+        "paragraph": "Proyek ini telah dibangun menggunakan Zooniverse Project Builder, tetapi belum menjadi proyek  Zooniverse resmi. Pertanyaan dan masalah terkait dengan proyek ini yang dialihkan ke  Zooniverse Team mungkin tidak mendapatkan tanggapan."
+      }
+    },
+    "MessageFromResearcher": {
+      "noMessage": "Terhubung dengan tim peneliti di Bicarakan untuk mengetahui selengkapnya tentang proyek ini!",
+      "noMessageButton": "Kunjungi Bicarakan",
+      "title": "Pesan dari peneliti"
+    },
+    "ZooniverseTalk": {
+      "RecentSubjects": {
+        "error": "Ada kesalahan saat memuat subjek :(",
+        "noSubjects": "Sepertinya belum ada yang berkomentar di subjek. Buka Bicarakan dan jadi yang pertama berkomentar!",
+        "subjectLabel": "Subjek {{id}}"
+      },
+      "button": "Bergabung",
+      "message": "Mengobrol dengan tim peneliti dan sukarelawan lain!",
+      "title": "Pembicaraan Zooniverse"
+    }
+  },
+  "ProjectRecents": {
+    "empty": "Berikut ditampilkan 20 subjek terbaru yang telah Anda klasifikasikan dalam 90 hari terakhir.",
+    "emptyTitle": "Tidak Ditemukan Klasifikasi Terbaru",
+    "error": "Terjadi kesalahan saat memuat riwayat penelusuran Anda.",
+    "signedOut": "Masuk untuk melihat subjek yang baru saja Anda klasifikasikan.",
+    "title": "Klasifikasi Terbaru"
+  },
+  "ProjectStats": {
+    "BarChart": {
+      "a11y": "Bagan batang {{typeLabel}} berdasarkan {{countLabel}} dari {{startDate}} hingga {{endDate}}",
+      "allWorkflows": "Semua Alur Kerja",
+      "dateRange": {
+        "allTime": "Sepanjang Masa",
+        "custom": "Kebiasaan",
+        "lastSevenDays": "7 Hari Terakhir",
+        "lastThirtyDays": "30 Hari Terakhir",
+        "lastThreeMonths": "3 Bulan Terakhir",
+        "lastTwelveMonths": "12 Bulan Terakhir",
+        "thisMonth": "Bulan Ini",
+        "thisYear": "Tahun ini"
+      },
+      "empty": "Tidak ada data. Ubah alur kerja atau rentang tanggal.",
+      "selectDateRange": "Pilih rentang tanggal",
+      "selectWorkflow": "Pilih alur kerja"
+    },
+    "calendarBtn": "Selesai",
+    "calendarTitle": "Rentang Tanggal Kustom",
+    "comments": "Komentar",
+    "count": "Klasifikasi",
+    "endDate": "Tanggal Akhir",
+    "heading": "Statistik {{projectName}}",
+    "startDate": "Tanggal Mulai",
+    "workflows": {
+      "empty": "Tidak ada alur kerja terkait",
+      "percentComplete": "{{persen}}% selesai",
+      "retireLimit": "Batas pensiun: {{number}}",
+      "subjectsRetired": "Subjek yang dipensiunkan: {{retired}}\/{{total}}",
+      "tip": "Estimasi waktu penyelesaian didasarkan pada tingkat klasifikasi selama 14 hari terakhir dan mungkin tidak akurat atau tidak tersedia untuk beberapa alur kerja.",
+      "title": "Alur kerja"
+    }
+  },
+  "Talk": {
+    "Comment": {
+      "avatarAlt": "{{login}} avatar",
+      "comment": "komentar",
+      "goToComment": "Buka komentar",
+      "reply": "Sebagai balasan atas",
+      "userDisplayNamePossessive": "milik {{userDisplayName}}"
+    },
+    "Discussions": {
+      "addComment": "Tambahkan komentar Anda",
+      "commentMessage": "Untuk menanggapi komentar tertentu, klik komentar tersebut untuk menuju ke diskusi.",
+      "comments": "Komentar",
+      "commentsViewing": "Menampilkan {{count}} dari {{total}} komentar",
+      "discussionBoard": "Forum Diskusi",
+      "discussionTitle": "Judul Diskusi",
+      "discussions": "{{count}} Diskusi",
+      "initialComment": "Komentar Awal",
+      "newComment": "Komentar Baru",
+      "noDiscussions": "Tidak ada diskusi",
+      "oneDiscussion": "1 Diskusi",
+      "participants": "Peserta",
+      "sortBy": "Urutkan berdasarkan",
+      "sortedNewestFirst": "Terbaru terlebih dahulu",
+      "sortedOldestFirst": "Yang tertua dulu",
+      "startDiscussion": "Mulailah diskusi baru"
+    },
+    "Metadata": {
+      "collapse": "Runtuh",
+      "expand": "Memperluas",
+      "noMetadata": "Tidak ada metadata yang tersedia.",
+      "subjectMetadata": "Metadata Subjek"
+    },
+    "Tags": {
+      "add": "Menambahkan",
+      "addATag": "Tambahkan tag",
+      "addVote": "Tambahkan suara Anda",
+      "createTag": "Buat tag",
+      "noTags": "Tidak ada Tag",
+      "popularTagsFrom": "Tag populer dari {{projectDisplayName}}",
+      "removeVote": "Hapus suara Anda",
+      "signInToTag": "Masuk untuk menambahkan tag",
+      "tagValidationMessage": "Gunakan 3-40 karakter, huruf, angka, tanda hubung, dan garis bawah. Tidak diperbolehkan spasi atau karakter lain.",
+      "tags": "Tag"
+    },
+    "ancillaryData": "Data Tambahan",
+    "ancillaryDataTip": "Ini adalah data tambahan tentang subjek yang sedang Anda lihat. Untuk informasi lebih lanjut mengenai hal ini, silakan lihat halaman Tentang Kami.",
+    "mentions": "Penyebutan",
+    "searchPlaceholder": "Cari di proyek ini berdasarkan tag, subjek, atau @pengguna",
+    "somethingWentWrong": "Terjadi kesalahan."
+  }
+}

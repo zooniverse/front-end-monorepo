@@ -1,0 +1,221 @@
+{
+  "About": {
+    "PageHeading": {
+      "title": {
+        "education": "تعلیم",
+        "faq": "اکثر پوچھے جانے والے سوالات ",
+        "research": "تحقیق",
+        "results": "نتائج",
+        "team": "ٹیم"
+      }
+    },
+    "PageNav": {
+      "title": "پروجیکٹ کے متعلق"
+    },
+    "SidebarHeading": "کے متعلق",
+    "TeamMember": {
+      "admin": "زونیورس ٹیم",
+      "collaborator": "تعاون کنندہ",
+      "expert": "ماہر",
+      "moderator": "ثالث",
+      "museum": "میوزیم",
+      "owner": "مالک",
+      "researcher": "محقق",
+      "tester": "ٹیسٹر",
+      "translator": "ترجمان"
+    }
+  },
+  "Classify": {
+    "ClassifierWrapper": {
+      "ErrorMessage": {
+        "title": "درجہ کار میں نقص تھا :("
+      }
+    },
+    "ExternalWorkflow": {
+      "button": "بیرونی ورک فلو پر جاری رکھیں",
+      "fallback": "یہ ورک فلو ایک بیرونی سائٹ پر ہوسٹ کیا جاتا ہے۔ وہاں جاری رکھنے کے لیے نیچے دیئے گئے بٹن کو منتخب کریں۔"
+    },
+    "RecentSubjects": {
+      "noSubjects": "سب سے حالیہ مضامین جن کی آپ نے درجہ بندی کی ہے وہ یہاں دکھائے گئے ہیں۔",
+      "text": "Talk پر کسی سبجیکٹ پر گفتگو کریں، یا اسے اپنے پسندیدگان یا مجموعے میں شامل کریں۔",
+      "title": " آپ کی حالیہ درجہ بندی"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "جی نہیں ، شکریہ",
+      "confirm": "مجھے اگلے درجے پر لے چلیں ​",
+      "content": "مبارک ہو !آپ نے اگلا ورک فلو کھول لیا ہے۔ اگر آپ اس ورک فلو کو جاری رکھنا چاہتے ہیں تو آپ اسٹے کا انتخاب کر سکتے ہیں۔",
+      "dismiss": "مزید پیغامات نہ دکھائیں",
+      "title": "نیا ورک فلو دستیاب ہے"
+    },
+    "YourStats": {
+      "allTime": "ہمیشہ",
+      "lastSeven": "گزشتہ 7 دن",
+      "link": "مزید دیکھیں",
+      "title": "شماریات"
+    }
+  },
+  "Collect": {
+    "exploreLink": "Zooniverse کے تمام مجموعوں کو دریافت کریں۔",
+    "hideSingleSubject": "صرف 1 مضمون کے ساتھ مجموعے چھپائیں۔",
+    "placeholders": {
+      "empty": "کوئی مجموعہ نہیں ملا۔",
+      "error": "مجموعے لوڈ کرنے میں ایک خرابی تھی۔"
+    },
+    "resultsCount": "{{total}} مجموعہ میں سے {{range}} دکھا رہا ہے۔",
+    "sortBy": "ترتیب دیں:",
+    "sortOptions": {
+      "alphabeticalAscending": "حروف تہجی AZ",
+      "alphabeticalDescending": "حروف تہجی ZA",
+      "recentlyCreated": "حال ہی میں تخلیق کیا گیا۔",
+      "recentlyUpdated": "حال ہی میں اپ ڈیٹ کیا گیا۔"
+    },
+    "tabs": {
+      "collections": "مجموعے",
+      "favorites": "پسندیدہ",
+      "myCollections": "میرے {{projectName}} مجموعے۔",
+      "myFavorites": "میرے {{projectName}} پسندیدہ",
+      "title": "مجموعہ کے صفحات"
+    },
+    "title": "جمع کرنا"
+  },
+  "Collection": {
+    "CollectionOptions": {
+      "copied": "URL کو کلپ بورڈ پر کاپی کیا گیا۔",
+      "settings": "ترتیبات",
+      "share": "شیئر کریں۔"
+    },
+    "emptySubjects": "اس مجموعہ میں کوئی مضامین نہیں ہیں۔",
+    "linkedToProjectCollections": "<projectLink>{{projectName}}<\/projectLink> مجموعہ سے منسلک",
+    "notFound": "اس مجموعہ کو بازیافت کرنے میں ایک خامی تھی۔",
+    "ownerLoadError": "کلیکشن کے مالک کی تفصیلات لوڈ نہیں کی جا سکیں۔",
+    "resultsCount": "{{total}} مضامین میں سے {{range}} دکھا رہا ہے۔",
+    "roles": {
+      "collaborator": "تعاون کرنے والا",
+      "contributor": "تعاون کرنے والا",
+      "owner": "مالک",
+      "viewer": "دیکھنے والا"
+    },
+    "seeAllOwnerCollections": "<collectionsLink>{{displayName}} کے تمام مجموعے دیکھیں<\/collectionsLink>",
+    "selectSubjects": "مضامین منتخب کریں۔",
+    "subjectsLoadError": "اس مجموعہ کے مضامین کو لوڈ کرنے میں ایک خامی تھی۔"
+  },
+  "Home": {
+    "AboutProject": {
+      "title": "{{projectName}} کے متعلق"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "مزید جانیں"
+      },
+      "NotApproved": {
+        "paragraph": "اس پروجیکٹ کو 'زونیورس پروجیکٹ بلڈر' کی مدد سے بنایا گیا ہے مگر یہ ابھی زونیورس کا پروجیکٹ نہیں ہے۔ اس پروجیکٹ کے متعلق کوئی سوال یا مسئلہ اگر زونیورس ٹیم کو بھیجا جاتا ہے تو ممکن ہے کہ اُس کا کوئی جواب نہ آئے۔"
+      }
+    },
+    "MessageFromResearcher": {
+      "noMessage": "اس پروجیکٹ کے متعلق مزید جاننے کے لیے Talk پر تحقیقی ٹیم سے مربوط ہوں!",
+      "noMessageButton": "Talk پر جائیں",
+      "title": "محقق کا پیغام"
+    },
+    "ZooniverseTalk": {
+      "RecentSubjects": {
+        "error": "سبجیکٹس لوڈ کرنے میں نقص تھا :(",
+        "noSubjects": "ایسا لگتا ہے کہ ابھی تک کسی نے سبجیکٹ پر تبصرہ نہیں کیا۔ Talk پر جائیں اور پہلے تبصرہ کرنے والے بنیں!",
+        "subjectLabel": "سبجیکٹ {{id}}"
+      },
+      "button": "شامل ہوں",
+      "message": "اپنے جیسے دوسرے رضاکاروں سے بات کریں",
+      "title": "بات (کریں)"
+    }
+  },
+  "ProjectRecents": {
+    "empty": "پچھلے 90 دنوں سے آپ نے جن 20 تازہ ترین مضامین کی درجہ بندی کی ہے وہ یہاں دکھائے گئے ہیں۔",
+    "emptyTitle": "کوئی حالیہ درجہ بندی نہیں ملی",
+    "error": "آپ کے حالیہ لوڈ کرنے میں ایک خرابی تھی۔",
+    "signedOut": "ان مضامین کو دیکھنے کے لیے سائن ان کریں جن کی آپ نے حال ہی میں درجہ بندی کی ہے۔",
+    "title": "حالیہ درجہ بندی"
+  },
+  "ProjectStats": {
+    "BarChart": {
+      "a11y": "{{typeLabel}} کا بار چارٹ بذریعہ {{countLabel}} {{startDate}} سے {{endDate}} تک",
+      "allWorkflows": "تمام ورک فلوز",
+      "dateRange": {
+        "allTime": "ہر وقت",
+        "custom": "حسب ضرورت",
+        "lastSevenDays": "آخری 7 دن",
+        "lastThirtyDays": "آخری 30 دن",
+        "lastThreeMonths": "پچھلے 3 مہینے",
+        "lastTwelveMonths": "پچھلے 12 مہینے",
+        "thisMonth": "اس مہینے",
+        "thisYear": "اس سال"
+      },
+      "empty": "کوئی ڈیٹا نہیں۔ ورک فلو یا تاریخ کی حد کو تبدیل کریں۔",
+      "selectDateRange": "تاریخ کی حد منتخب کریں۔",
+      "selectWorkflow": "ورک فلو کو منتخب کریں۔"
+    },
+    "calendarBtn": "ہو گیا",
+    "calendarTitle": "اپنی مرضی کی تاریخ کی حد",
+    "comments": "تبصرے",
+    "count": "درجہ بندی",
+    "endDate": "اختتامی تاریخ",
+    "heading": "{{projectName}} اعدادوشمار",
+    "startDate": "آغاز کی تاریخ",
+    "workflows": {
+      "empty": "کوئی وابستہ ورک فلو نہیں ہے۔",
+      "percentComplete": "{{percent}}% مکمل",
+      "retireLimit": "ریٹائرمنٹ کی حد: {{number}}",
+      "subjectsRetired": "ریٹائرڈ مضامین: {{ریٹائرڈ}}\/{{total}}",
+      "tip": "تکمیل کا تخمینی وقت گزشتہ 14 دنوں کی درجہ بندی کی شرح پر مبنی ہے اور کچھ ورک فلو کے لیے غلط یا غیر دستیاب ہو سکتا ہے۔",
+      "title": "ورک فلو"
+    }
+  },
+  "Talk": {
+    "Comment": {
+      "avatarAlt": "{{login}} اوتار",
+      "comment": "تبصرہ",
+      "goToComment": "تبصرہ پر جائیں۔",
+      "reply": "کے جواب میں",
+      "userDisplayNamePossessive": "{{userDisplayName}} کا"
+    },
+    "Discussions": {
+      "addComment": "اپنا تبصرہ شامل کریں۔",
+      "commentMessage": "کسی مخصوص تبصرے کا جواب دینے کے لیے، بحث میں جانے کے لیے اس تبصرے پر کلک کریں۔",
+      "comments": "تبصرے",
+      "commentsViewing": "{{total}} میں سے {{count}} تبصرے دیکھے جا رہے ہیں۔",
+      "discussionBoard": "ڈسکشن بورڈ",
+      "discussionTitle": "بحث کا عنوان",
+      "discussions": "{{count}} مباحث",
+      "initialComment": "ابتدائی تبصرہ",
+      "newComment": "نیا تبصرہ",
+      "noDiscussions": "کوئی بحث نہیں",
+      "oneDiscussion": "1 بحث",
+      "participants": "شرکاء",
+      "sortBy": "ترتیب دیں",
+      "sortedNewestFirst": "تازہ ترین پہلے",
+      "sortedOldestFirst": "سب سے قدیم پہلے",
+      "startDiscussion": "ایک نئی بحث شروع کریں۔"
+    },
+    "Metadata": {
+      "collapse": "سمٹنا",
+      "expand": "پھیلائیں۔",
+      "noMetadata": "کوئی میٹا ڈیٹا دستیاب نہیں ہے۔",
+      "subjectMetadata": "سبجیکٹ میٹا ڈیٹا"
+    },
+    "Tags": {
+      "add": "شامل کریں۔",
+      "addATag": "ایک ٹیگ شامل کریں۔",
+      "addVote": "اپنا ووٹ شامل کریں۔",
+      "createTag": "ایک ٹیگ بنائیں",
+      "noTags": "کوئی ٹیگز نہیں۔",
+      "popularTagsFrom": "{{projectDisplayName}} کے مشہور ٹیگز",
+      "removeVote": "اپنا ووٹ ہٹا دیں۔",
+      "signInToTag": "ٹیگ شامل کرنے کے لیے سائن ان کریں۔",
+      "tagValidationMessage": "3-40 حروف، حروف، نمبر، ہائفن اور انڈر سکور استعمال کریں۔ کوئی خالی جگہ یا دیگر حروف نہیں۔",
+      "tags": "ٹیگز"
+    },
+    "ancillaryData": "ذیلی ڈیٹا",
+    "ancillaryDataTip": "یہ اس مضمون کے متعلق ذیلی ڈیٹا ہے جسے آپ دیکھ رہے ہیں۔ اس بارے میں مزید معلومات کے لیے، براہِ کرم صفحہ کے بارے میں دیکھیں۔",
+    "mentions": "تذکرہ",
+    "searchPlaceholder": "اس پروجیکٹ کو ٹیگز، مضامین، یا @users کے لیے تلاش کریں۔",
+    "somethingWentWrong": "کچھ غلط ہو گیا۔"
+  }
+}

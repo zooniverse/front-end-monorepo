@@ -1,0 +1,221 @@
+{
+  "About": {
+    "PageHeading": {
+      "title": {
+        "education": "Educació",
+        "faq": "Preguntes freqüents",
+        "research": "Recerca",
+        "results": "Resultats",
+        "team": "L’equip"
+      }
+    },
+    "PageNav": {
+      "title": "Sobre el projecte"
+    },
+    "SidebarHeading": "Quant a",
+    "TeamMember": {
+      "admin": "Equip de Zooniverse",
+      "collaborator": "Col·laborador",
+      "expert": "Expert",
+      "moderator": "Moderador",
+      "museum": "Museu",
+      "owner": "Propietari",
+      "researcher": "Investigador\/a",
+      "tester": "Provador",
+      "translator": "Traductor"
+    }
+  },
+  "Classify": {
+    "ClassifierWrapper": {
+      "ErrorMessage": {
+        "title": "S’ha produït un error en el classificador :("
+      }
+    },
+    "ExternalWorkflow": {
+      "button": "Continua al flux de treball extern",
+      "fallback": "Aquest flux de treball està allotjat en un lloc extern. Seleccioneu el botó següent per continuar-hi."
+    },
+    "RecentSubjects": {
+      "noSubjects": "Aquí es mostren les assignatures més recents que heu classificat.",
+      "text": "Debateix un objecte a Talk o afegeix-lo als teus favorits o a una col·lecció.",
+      "title": "Les teves classificacions recents"
+    },
+    "WorkflowAssignmentModal": {
+      "cancel": "No, gràcies",
+      "confirm": "Porta’m al següent flux de treball!",
+      "content": "Enhorabona! Com que ho estàs fent molt bé, ara pots accedir a un altre flux de treball. Si prefereixes continuar amb el flux de treball actual, pots triar quedar-t’hi.",
+      "dismiss": "No tornis a mostrar això en aquesta sessió",
+      "title": "Nou flux de treball disponible"
+    },
+    "YourStats": {
+      "allTime": "Tot el temps",
+      "lastSeven": "Darrers 7 dies",
+      "link": "Veure més",
+      "title": "Les teves estadístiques"
+    }
+  },
+  "Collect": {
+    "exploreLink": "Explora totes les col·leccions de Zooniverse",
+    "hideSingleSubject": "Amaga les col·leccions amb només 1 tema",
+    "placeholders": {
+      "empty": "No s'han trobat col·leccions.",
+      "error": "S'ha produït un error en carregar les col·leccions."
+    },
+    "resultsCount": "Mostrant {{range}} de {{total}} col·leccions",
+    "sortBy": "Ordenar per:",
+    "sortOptions": {
+      "alphabeticalAscending": "Alfabètic de la A a la Z",
+      "alphabeticalDescending": "ZA alfabètica",
+      "recentlyCreated": "Creat recentment",
+      "recentlyUpdated": "Actualitzat recentment"
+    },
+    "tabs": {
+      "collections": "Col·leccions",
+      "favorites": "Preferits",
+      "myCollections": "Les meves col·leccions de {{projectName}}",
+      "myFavorites": "Els meus preferits de {{projectName}}",
+      "title": "Pàgines de col·lecció"
+    },
+    "title": "Recollir"
+  },
+  "Collection": {
+    "CollectionOptions": {
+      "copied": "URL copiada al porta-retalls",
+      "settings": "Configuració",
+      "share": "Comparteix"
+    },
+    "emptySubjects": "No hi ha temes en aquesta col·lecció.",
+    "linkedToProjectCollections": "Enllaçat a les col·leccions <projectLink>{{projectName}}<\/projectLink>",
+    "notFound": "S'ha produït un error en recuperar aquesta col·lecció.",
+    "ownerLoadError": "No s'han pogut carregar les dades del propietari de la col·lecció.",
+    "resultsCount": "Mostrant {{range}} de {{total}} temes",
+    "roles": {
+      "collaborator": "Col·laborador",
+      "contributor": "Col·laborador",
+      "owner": "propietari",
+      "viewer": "Visualitzador"
+    },
+    "seeAllOwnerCollections": "<collectionsLink>Veure totes les col·leccions de {{displayName}}<\/collectionsLink>",
+    "selectSubjects": "Selecciona Assumptes",
+    "subjectsLoadError": "S'ha produït un error en carregar els temes d'aquesta col·lecció."
+  },
+  "Home": {
+    "AboutProject": {
+      "title": "Quant a {{projectName}}"
+    },
+    "Hero": {
+      "Introduction": {
+        "link": "Aprèn més"
+      },
+      "NotApproved": {
+        "paragraph": "Aquest projecte s’ha creat amb el Zooniverse Project Builder, però encara no és un projecte oficial de Zooniverse. Les consultes i incidències relacionades amb aquest projecte dirigides a l’equip de Zooniverse poden no rebre cap resposta."
+      }
+    },
+    "MessageFromResearcher": {
+      "noMessage": "Connecta amb l’equip de recerca a Parlem per saber més sobre aquest projecte.",
+      "noMessageButton": "Ves a Parlem",
+      "title": "Missatge de l'investigador"
+    },
+    "ZooniverseTalk": {
+      "RecentSubjects": {
+        "error": "S’ha produït un error en carregar els objectes :(",
+        "noSubjects": "Sembla que encara ningú no ha comentat cap objecte. Ves a Parlem i sigues el primer!",
+        "subjectLabel": "Objecte {{id}}"
+      },
+      "button": "Uneix-te",
+      "message": "Parla amb l’equip de recerca i amb altres voluntaris.",
+      "title": "Parlem"
+    }
+  },
+  "ProjectRecents": {
+    "empty": "Aquí es mostren les 20 assignatures més recents que has classificat dels darrers 90 dies.",
+    "emptyTitle": "No s'han trobat classificacions recents",
+    "error": "S'ha produït un error en carregar els teus recents.",
+    "signedOut": "Inicia la sessió per veure les assignatures que has classificat recentment.",
+    "title": "Classificacions recents"
+  },
+  "ProjectStats": {
+    "BarChart": {
+      "a11y": "Gràfic de barres de {{typeLabel}} per {{countLabel}} des de {{startDate}} fins a {{endDate}}",
+      "allWorkflows": "Tots els fluxos de treball",
+      "dateRange": {
+        "allTime": "Tots els temps",
+        "custom": "Personalitzat",
+        "lastSevenDays": "Últims 7 dies",
+        "lastThirtyDays": "Últims 30 dies",
+        "lastThreeMonths": "darrers 3 mesos",
+        "lastTwelveMonths": "darrers 12 mesos",
+        "thisMonth": "Aquest mes",
+        "thisYear": "Aquest any"
+      },
+      "empty": "No hi ha dades. Canvia el flux de treball o l'interval de dates.",
+      "selectDateRange": "Selecciona un interval de dates",
+      "selectWorkflow": "Selecciona el flux de treball"
+    },
+    "calendarBtn": "Fet",
+    "calendarTitle": "Interval de dates personalitzat",
+    "comments": "Comentaris",
+    "count": "Classificacions",
+    "endDate": "Data de finalització",
+    "heading": "Estadístiques de {{projectName}}",
+    "startDate": "Data d'inici",
+    "workflows": {
+      "empty": "Sense fluxos de treball associats",
+      "percentComplete": "{{percent}}% completat",
+      "retireLimit": "Límit de jubilació: {{number}}",
+      "subjectsRetired": "Assumptes jubilats: {{retired}}\/{{total}}",
+      "tip": "El temps estimat per a la finalització es basa en la taxa de classificació dels darrers 14 dies i pot ser incorrecte o no estar disponible per a alguns fluxos de treball.",
+      "title": "Fluxos de treball"
+    }
+  },
+  "Talk": {
+    "Comment": {
+      "avatarAlt": "avatar de {{login}}",
+      "comment": "comentari",
+      "goToComment": "Ves al comentari",
+      "reply": "En resposta a",
+      "userDisplayNamePossessive": "{{userDisplayName}}"
+    },
+    "Discussions": {
+      "addComment": "Afegeix el teu comentari",
+      "commentMessage": "Per respondre a un comentari específic, feu clic en aquest comentari per anar a la discussió.",
+      "comments": "Comentaris",
+      "commentsViewing": "Visualitzant {{count}} de {{total}} comentaris",
+      "discussionBoard": "Fòrum de discussió",
+      "discussionTitle": "Títol de la discussió",
+      "discussions": "{{count}} Debats",
+      "initialComment": "Comentari inicial",
+      "newComment": "Nou comentari",
+      "noDiscussions": "Sense debats",
+      "oneDiscussion": "1 Discussió",
+      "participants": "Participants",
+      "sortBy": "Ordena per",
+      "sortedNewestFirst": "El més nou primer",
+      "sortedOldestFirst": "Més antic primer",
+      "startDiscussion": "Inicia una nova discussió"
+    },
+    "Metadata": {
+      "collapse": "Replegar",
+      "expand": "Expandir",
+      "noMetadata": "No hi ha metadades disponibles",
+      "subjectMetadata": "Metadades de l'assumpte"
+    },
+    "Tags": {
+      "add": "Afegeix",
+      "addATag": "Afegeix una etiqueta",
+      "addVote": "Afegeix el teu vot",
+      "createTag": "Crea una etiqueta",
+      "noTags": "Sense etiquetes",
+      "popularTagsFrom": "Etiquetes populars de {{projectDisplayName}}",
+      "removeVote": "Elimina el teu vot",
+      "signInToTag": "Inicia la sessió per afegir una etiqueta",
+      "tagValidationMessage": "Utilitzeu entre 3 i 40 caràcters, lletres, números, guions i subratllats. No hi podeu posar espais ni altres caràcters.",
+      "tags": "Etiquetes"
+    },
+    "ancillaryData": "Dades auxiliars",
+    "ancillaryDataTip": "Aquestes són dades auxiliars sobre el tema que esteu veient. Per obtenir més informació sobre això, consulteu la pàgina Quant a.",
+    "mentions": "Mencions",
+    "searchPlaceholder": "Cerca etiquetes, temes o @usuaris en aquest projecte",
+    "somethingWentWrong": "Alguna cosa ha anat malament."
+  }
+}
