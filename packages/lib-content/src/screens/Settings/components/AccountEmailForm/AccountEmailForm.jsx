@@ -22,7 +22,7 @@ function AccountEmailForm ({
   authUser,
 }) {
   const { t } = useTranslation()
-  const { data: user, isLoading, error: loadError, isValidating, mutate } = useUserData({ login: authUser.login })
+  const { data: user, isLoading, error: loadError, isValidating, mutate } = useUserData({ login: authUser?.login })
   const [ isSaving, setIsSaving ] = useState(false)  // Are we in the process of saving?
   const [ saveSuccess, setSaveSuccess ] = useState(false)  // Was the save successful?
   const [ saveMessage, setSaveMessage ] = useState('')  // Additional (non-error) information message on the save process.
