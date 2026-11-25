@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types'
 
+import FEEDBACK_COLORS from '../../../helpers/feedback-colors'
+
 function FeedbackMark ({ rule }) {
-  const color = (rule.success) ? 'green' : 'red'
+  const color = (rule.success) ? FEEDBACK_COLORS.success : FEEDBACK_COLORS.failure
   const tolerance = parseInt(rule.tolerance, 10)
   return (
     <g>

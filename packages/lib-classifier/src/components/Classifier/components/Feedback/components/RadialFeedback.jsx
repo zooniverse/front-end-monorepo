@@ -1,14 +1,10 @@
 import { node, number, shape, string } from 'prop-types'
 
 import { useStores } from '@hooks'
+import FEEDBACK_COLORS from '@store/feedback/helpers/feedback-colors'
 import FeedbackMark from '@store/feedback/strategies/drawing/radial/feedback-mark'
 
 import SingleImageViewerContainer from '../../SubjectViewer/components/SingleImageViewer/SingleImageViewerContainer'
-
-export const FEEDBACK_COLORS = {
-  failure: "#f56F5D",
-  success: "#4EAF79",
-};
 
 const ALLOWED_TOOL_TYPES = [
   "circle",
