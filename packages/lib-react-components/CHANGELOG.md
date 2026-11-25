@@ -13,6 +13,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Added
 - `useRovingTabIndex` hook, so other tabbed components can share the keyboard model used by `Tabs` (#7539).
+- `closeOnClickOutside` prop for `withLayer` (`Modal`, `MovableModal`), so a non-blocking dialog can stay open while the rest of the page is used.
+- `MovableModal` can be moved with the arrow keys while the modal itself has focus (hold Shift for larger steps).
+- `MovableModal` shows a drag icon in its heading. `Modal` accepts a `headingIcon` prop.
 
 ## Fixed
 - roving tabindex and arrow-key navigation for `Tabs`, using the `focusgroup` attribute where supported (#7539).

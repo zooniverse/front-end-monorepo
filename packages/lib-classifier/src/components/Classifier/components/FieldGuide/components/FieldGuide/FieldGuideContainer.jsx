@@ -24,6 +24,7 @@ function FieldGuideContainer ({
   const modalProps = {
     active: true,
     closeFn: onClose,
+    closeOnClickOutside: false,
     modal: false,
     pad: '0',
     position: 'right',

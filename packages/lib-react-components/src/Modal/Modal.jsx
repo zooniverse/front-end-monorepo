@@ -1,4 +1,4 @@
-import { bool, func, node, object, oneOfType, string } from 'prop-types'
+import { bool, elementType, func, node, object, oneOfType, string } from 'prop-types'
 import { forwardRef, useEffect, useRef } from 'react'
 import { Box } from 'grommet'
 import withLayer from '../helpers/withLayer'
@@ -16,6 +16,7 @@ const Modal = forwardRef(function ({
   className = '',
   closeFn,
   headingBackground = 'brand',
+  headingIcon,
   overflow = 'auto',
   pad,
   title = '',
@@ -49,6 +50,7 @@ ref) {
         className={className}
         closeFn={closeFn}
         color={titleColor}
+        icon={headingIcon}
         title={title}
       />
       <ModalBody
@@ -85,6 +87,10 @@ Modal.propTypes = {
     The background color for the modal header. It can be set to any CSS color value or color string value from the Zooniverse Grommet theme or an object setting the color for the light and dark theme.
   */
   headingBackground: string,
+  /**
+    Optional icon component, shown before the title. It takes the title color.
+  */
+  headingIcon: elementType,
   overflow: string,
   /**
     string to use as the modal title

@@ -1,6 +1,49 @@
-// Old enzyme tests are here for reference, but enzyme is no longer used in this library (Aug’ 25)
+import { fireEvent, render, screen } from '@testing-library/react'
+import zooTheme from '@zooniverse/grommet-theme'
+import { Grommet } from 'grommet'
+import sinon from 'sinon'
+import { FieldGuideFactory } from '@test/factories'
 
-describe.skip('Component > FieldGuideContainer', function () {})
+import FieldGuideContainer from './FieldGuideContainer'
+
+describe('Component > FieldGuideContainer', function () {
+  const fieldGuide = FieldGuideFactory.build({
+    items: [{ title: 'Cat' }]
+  })
+  const strings = {
+    'items.0.title': 'Cat',
+    'items.0.content': 'lorem ipsum'
+  }
+
+  function renderFieldGuide(onClose) {
+    render(
+      <Grommet theme={zooTheme}>
+        <FieldGuideContainer
+          fieldGuide={fieldGuide}
+          onClose={onClose}
+          strings={strings}
+        />
+      </Grommet>
+    )
+  }
+
+  it('should stay open when the volunteer clicks outside the field guide', function () {
+    const onClose = sinon.spy()
+    renderFieldGuide(onClose)
+    expect(screen.getByRole('dialog')).to.exist
+    fireEvent.mouseDown(document.body)
+    expect(onClose).not.to.have.been.called
+  })
+
+  it('should close when Escape is pressed', function () {
+    const onClose = sinon.spy()
+    renderFieldGuide(onClose)
+    fireEvent.keyDown(document, { key: 'Escape', keyCode: 27, which: 27 })
+    expect(onClose).to.have.been.calledOnce
+  })
+})
+
+// Old enzyme tests are here for reference, but enzyme is no longer used in this library (Aug’ 25)
 
 // import { MovableModal, Modal } from '@zooniverse/react-components'
 // import FieldGuideContainer from './FieldGuideContainer'

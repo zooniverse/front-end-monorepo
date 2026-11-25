@@ -1,110 +1,123 @@
-describe.skip('MovableModal', function () {
+import { fireEvent, render, screen } from '@testing-library/react'
+import zooTheme from '@zooniverse/grommet-theme'
+import { Grommet } from 'grommet'
+import { useState } from 'react'
 
-// Old enzyme tests are here for reference, but we no longer use enzyme in this library (Aug '25)
+import { MovableModal } from './MovableModal'
 
-// import { Rnd } from 'react-rnd'
-// import sinon from 'sinon'
-// import { MovableModal } from './MovableModal'
-// import { Modal } from '../Modal'
+function renderModal(props) {
+  const { container } = render(
+    <Grommet theme={zooTheme}>
+      <MovableModal closeFn={() => true} title='Modal Heading' {...props}>
+        <input aria-label='Notes' type='text' />
+      </MovableModal>
+    </Grommet>
+  )
+  const modal = container.querySelector('[aria-keyshortcuts]')
+  return { modal, movable: modal?.closest('.react-draggable') }
+}
 
-// const title = 'Modal Heading'
+describe('MovableModal', function () {
+  it('should render the title and children', function () {
+    renderModal()
+    expect(screen.getByText('Modal Heading')).toBeDefined()
+    expect(screen.getByRole('textbox', { name: 'Notes' })).toBeDefined()
+  })
 
-// const content = (
-//   <p>
-//     Leo mollis dictum id dis maecenas consectetur metus elementum vivamus nisl, suscipit tristique lectus nulla mus etiam nisi facilisis magnis, scelerisque ligula montes luctus cursus nibh vulputate parturient risus.
-//   </p>
-// )
+  describe('drag icon', function () {
+    it('should show in the heading, hidden from assistive technology', function () {
+      const { modal } = renderModal()
+      const icon = modal.querySelector('svg[aria-label="Drag"]')
+      expect(icon.getAttribute('aria-hidden')).to.equal('true')
+      expect(icon.parentElement.contains(screen.getByText('Modal Heading'))).to.equal(true)
+    })
 
-// describe('MovableModal', function () {
-//   it('should render without crashing', function () {
-//     const wrapper = shallow(
-//       <MovableModal>
-//         {content}
-//       </MovableModal>
-//     )
-//     expect(wrapper).to.be.ok()
-//   })
+    it('should show without a title', function () {
+      const { modal } = renderModal({ title: '' })
+      expect(modal.querySelector('svg[aria-label="Drag"]')).to.not.equal(null)
+    })
+  })
 
-//   describe('with Rnd wrapper', function () {
-//     it('should be wrapped by an Rnd component', function () {
-//       const wrapper = shallow(
-//         <MovableModal>
-//           {content}
-//         </MovableModal>
-//       )
-//       expect(wrapper.find(Rnd)).to.have.lengthOf(1)
-//     })
+  describe('with a controlled position', function () {
+    function ControlledModal() {
+      const [position, setPosition] = useState({ x: 0, y: 0 })
+      const rndProps = {
+        onDragStop: (event, { x, y }) => setPosition({ x, y }),
+        position
+      }
+      return (
+        <Grommet theme={zooTheme}>
+          <MovableModal closeFn={() => true} rndProps={rndProps} title='Modal Heading'>
+            <p>Content</p>
+          </MovableModal>
+        </Grommet>
+      )
+    }
 
-//     it('should set the min-height, min-width, and position by props', function () {
-//       const minWidth = 800
-//       const minHeight = 400
-//       const position = { x: 100, y: 100 }
-//       const wrapper = shallow(
-//         <MovableModal>
-//           {content}
-//         </MovableModal>
-//       )
-//       let rnd = wrapper.find(Rnd)
-//       expect(rnd.props().minHeight).to.equal(wrapper.props().minHeight)
-//       expect(rnd.props().minWidth).to.equal(wrapper.props().minWidth)
-//       expect(rnd.props().default).to.deep.equal({ x: 0, y: 0})
-//       wrapper.setProps({ rndProps: { minHeight, minWidth, default: position }})
-//       rnd = wrapper.find(Rnd)
-//       expect(rnd.props().minHeight).to.equal(minHeight)
-//       expect(rnd.props().minWidth).to.equal(minWidth)
-//       expect(rnd.props().default).to.deep.equal(position)
-//     })
+    it('should move with the arrow keys', function () {
+      const { container } = render(<ControlledModal />)
+      const modal = container.querySelector('[aria-keyshortcuts]')
+      fireEvent.keyDown(modal, { key: 'ArrowRight' })
+      fireEvent.keyDown(modal, { key: 'ArrowDown', shiftKey: true })
+      expect(modal.closest('.react-draggable').style.transform).to.equal('translate(10px,50px)')
+    })
+  })
 
-//     it('should pass along any other rnd props', function () {
-//       const wrapper = shallow(
-//         <MovableModal>
-//           {content}
-//         </MovableModal>
-//       )
-//       let rnd = wrapper.find(Rnd)
-//       expect(rnd.props().lockAspectRatio).to.be.undefined()
-//       wrapper.setProps({ rndProps: { lockAspectRatio: true }})
-//       rnd = wrapper.find(Rnd)
-//       expect(rnd.props().lockAspectRatio).to.be.true()
-//     })
-//   })
+  describe('keyboard', function () {
+    it('should be reachable with the Tab key', function () {
+      const { modal } = renderModal()
+      expect(modal.tabIndex).to.equal(0)
+    })
 
-//   describe('with Modal component', function () {
-//     it('should render the component', function () {
-//       const wrapper = shallow(
-//         <MovableModal>
-//           {content}
-//         </MovableModal>
-//       )
-//       expect(wrapper.find(Modal)).to.have.lengthOf(1)
-//     })
+    it('should describe its shortcuts', function () {
+      const { modal } = renderModal()
+      expect(modal.getAttribute('aria-keyshortcuts')).to.equal('ArrowUp ArrowDown ArrowLeft ArrowRight')
+    })
 
-//     it('should pass along the expected props', function () {
-//       const closeFn = sinon.spy()
-//       const headingBackground = 'transparent'
-//       const pad = { horizontal: 'small', vertical: 'none' }
-//       const wrapper = shallow(
-//         <MovableModal closeFn={closeFn} headingBackground={headingBackground} pad={pad} title={title} titleColor='accent-1'>
-//           {content}
-//         </MovableModal>
-//       )
-//       const modalProps = wrapper.find(Modal).props()
-//       expect(modalProps.closeFn).to.equal(closeFn)
-//       expect(modalProps.headingBackground).to.equal(headingBackground)
-//       expect(modalProps.pad).to.deep.equal(pad)
-//       expect(modalProps.title).to.equal(title)
-//       expect(modalProps.titleColor).to.equal('accent-1')
-//     })
+    it('should move right with the right arrow key', function () {
+      const { modal, movable } = renderModal()
+      fireEvent.keyDown(modal, { key: 'ArrowRight' })
+      expect(movable.style.transform).to.equal('translate(10px,0px)')
+    })
 
-//     it('should render children nodes', function () {
-//       const wrapper = shallow(
-//         <MovableModal>
-//           {content}
-//         </MovableModal>
-//       )
+    it('should move down with the down arrow key', function () {
+      const { modal, movable } = renderModal()
+      fireEvent.keyDown(modal, { key: 'ArrowDown' })
+      expect(movable.style.transform).to.equal('translate(0px,10px)')
+    })
 
-//       expect(wrapper.find(Modal).contains(content)).to.be.true()
-//     })
-//   })
-// })
+    it('should move further with Shift held', function () {
+      const { modal, movable } = renderModal()
+      fireEvent.keyDown(modal, { key: 'ArrowRight', shiftKey: true })
+      fireEvent.keyDown(modal, { key: 'ArrowDown', shiftKey: true })
+      expect(movable.style.transform).to.equal('translate(50px,50px)')
+    })
+
+    it('should stay inside the window', function () {
+      const { modal, movable } = renderModal()
+      fireEvent.keyDown(modal, { key: 'ArrowLeft' })
+      fireEvent.keyDown(modal, { key: 'ArrowUp' })
+      expect(movable.style.transform).to.equal('translate(0px,0px)')
+    })
+
+    it('should keep the arrow keys from scrolling the page', function () {
+      const { modal } = renderModal()
+      const notCancelled = fireEvent.keyDown(modal, { key: 'ArrowDown' })
+      expect(notCancelled).to.equal(false)
+    })
+
+    it('should leave arrow keys alone inside the content', function () {
+      const { movable } = renderModal()
+      const notCancelled = fireEvent.keyDown(screen.getByRole('textbox', { name: 'Notes' }), { key: 'ArrowRight' })
+      expect(notCancelled).to.equal(true)
+      expect(movable.style.transform).to.equal('translate(0px,0px)')
+    })
+
+    it('should leave other keys alone', function () {
+      const { modal, movable } = renderModal()
+      const notCancelled = fireEvent.keyDown(modal, { key: 'a' })
+      expect(notCancelled).to.equal(true)
+      expect(movable.style.transform).to.equal('translate(0px,0px)')
+    })
+  })
 })
