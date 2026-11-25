@@ -4,6 +4,17 @@ import { propTypes, defaultProps } from '../../helpers/mediaPropTypes'
 import { useJSONData } from '../../../hooks'
 import * as Viewers from './components'
 
+function isGeoJSON(data) {
+  if (data?.type === 'FeatureCollection') return Array.isArray(data.features)
+  return data?.type === 'Feature' && 'geometry' in data
+}
+
+function getViewerType(type, data) {
+  if (type === 'TESSLightCurve') return 'DataSeriesPlot'
+  if (isGeoJSON(data)) return 'GeoJSON'
+  return type
+}
+
 const StyledBox = styled(Box)`
   ${props => props.maxHeight && css`max-height: ${props.maxHeight}px;`}
   ${props => props.maxWidth && css`max-width: ${props.maxWidth}px;`}
@@ -32,7 +43,7 @@ export default function Data({
   }
   
   if (jsonData) {
-    const viewerType = type === 'TESSLightCurve' ? 'DataSeriesPlot' : type
+    const viewerType = getViewerType(type, jsonData)
     const viewerData = type === 'TESSLightCurve'
       ? {
         data: jsonData,
