@@ -61,6 +61,13 @@ const SegmentedLineToolIcon = styled(SegmentedLineIcon)`
   flex-shrink: 0;
 `
 
+// 5 decimal places is about 1 m, enough to tell neighbouring marks apart.
+const COORDINATE_DECIMALS = 5
+
+function formatDegrees (value) {
+  return Number.isFinite(value) ? value.toFixed(COORDINATE_DECIMALS) : 'N/A'
+}
+
 const TOOL_ICONS = {
   SegmentedLine: SegmentedLineToolIcon,
   Point: ToolIcon
@@ -111,8 +118,8 @@ function GeoDrawingTask({
         'EPSG:4326'
       )
     : []
-  const featureLon = activeCoords[0] ? (Math.round(activeCoords[0] * 100) / 100).toFixed(2) : 'N/A'
-  const featureLat = activeCoords[1] ? (Math.round(activeCoords[1] * 100) / 100).toFixed(2) : 'N/A'
+  const featureLon = formatDegrees(activeCoords[0])
+  const featureLat = formatDegrees(activeCoords[1])
   const featureRadius = task.activeOlFeature?.get?.('uncertainty_radius') ?? task.activeFeature?.properties?.uncertainty_radius ?? null
 
   return (
@@ -154,7 +161,7 @@ function GeoDrawingTask({
                 <Text size='small'>
                   {task.strings.get(`tools.${index}.label`)}
                 </Text>
-                <InputStatus count={drawnCount} tool={tool} />
+                <InputStatus count={drawnCount} keyPrefix='GeoDrawingTask.status' tool={tool} />
               </ToolHeader>
               {showUncertaintySlider && (
                 <RadiusSlider

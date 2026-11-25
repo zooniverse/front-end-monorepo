@@ -456,7 +456,9 @@ export function StoryRow({
 }
 
 export function InteractiveStory({
+  isCover = false,
   login,
+  onSetCover = null,
   subject
 }) {
   const projectSlug = 'team/example-project'
@@ -466,7 +468,9 @@ export function InteractiveStory({
     <Box direction='row' gap='medium' pad='medium'>
       <SubjectCard
         interactive={true}
+        isCover={isCover}
         login={login}
+        onSetCover={onSetCover}
         projectId={subject.links.project}
         projectSlug={projectSlug}
         subject={subject}

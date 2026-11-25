@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { Grommet } from 'grommet'
 import zooTheme from '@zooniverse/grommet-theme'
+import { fromLonLat } from 'ol/proj'
 
 import GeoDrawingTask from './GeoDrawingTask'
 import GeoDrawingTaskModel from '../models/GeoDrawingTask'
@@ -50,24 +51,24 @@ describe('Component > GeoDrawingTask', function () {
       expect(screen.getByText('0 drawn')).to.exist
     })
 
-    it('max only → "0 of N maximum drawn"', function () {
+    it('max only → "0 drawn (limit N)"', function () {
       renderTask(buildLineStringTask({ max: 4 }))
-      expect(screen.getByText('0 of 4 maximum drawn')).to.exist
+      expect(screen.getByText('0 drawn (limit 4)')).to.exist
     })
 
-    it('min only → "0 of N required drawn"', function () {
+    it('min only → "0 drawn (at least N)"', function () {
       renderTask(buildLineStringTask({ min: 2 }))
-      expect(screen.getByText('0 of 2 required drawn')).to.exist
+      expect(screen.getByText('0 drawn (at least 2)')).to.exist
     })
 
-    it('min + max → "0 of N required, M maximum drawn"', function () {
+    it('min + max → "0 drawn (at least N, limit M)"', function () {
       renderTask(buildLineStringTask({ min: 1, max: 3 }))
-      expect(screen.getByText('0 of 1 required, 3 maximum drawn')).to.exist
+      expect(screen.getByText('0 drawn (at least 1, limit 3)')).to.exist
     })
 
     it('coerces Panoptes string snapshots (min/max) through MST', function () {
       renderTask(buildLineStringTask({ min: '1', max: '3' }))
-      expect(screen.getByText('0 of 1 required, 3 maximum drawn')).to.exist
+      expect(screen.getByText('0 drawn (at least 1, limit 3)')).to.exist
     })
 
     it('renders one status per tool (multi-tool: Tool 0 bounded, Tool 1 unbounded)', function () {
@@ -85,7 +86,7 @@ describe('Component > GeoDrawingTask', function () {
         type: 'geoDrawing'
       })
       renderTask(task)
-      expect(screen.getByText('0 of 1 required, 3 maximum drawn')).to.exist
+      expect(screen.getByText('0 drawn (at least 1, limit 3)')).to.exist
       expect(screen.getByText('0 drawn')).to.exist
       expect(screen.getByText('Segmented Line 2')).to.exist
     })
@@ -113,6 +114,40 @@ describe('Component > GeoDrawingTask', function () {
       setActiveFeature(pointTask)
       renderTask(pointTask)
       expect(screen.getByText('Selected feature:')).to.exist
+    })
+
+    function buildPointTaskAt (lonLat) {
+      const task = GeoDrawingTaskModel.create({
+        activeToolIndex: 0,
+        strings: { instruction: 'Select', 'tools.0.label': 'Point' },
+        taskKey: 'T1',
+        tools: [{ color: '#E65252', label: 'Point', type: 'Point' }],
+        type: 'geoDrawing'
+      })
+      task.setActiveFeature({ geometry: { coordinates: lonLat, type: 'Point' }, properties: {}, type: 'Feature' })
+      task.setActiveOlFeature({
+        get: () => null,
+        getGeometry: () => ({ getCoordinates: () => fromLonLat(lonLat) }),
+        on: () => {},
+        un: () => {}
+      })
+      return task
+    }
+
+    it('tells apart points a few metres apart', function () {
+      const { unmount } = renderTask(buildPointTaskAt([-91.95112, 47.56104]))
+      const first = screen.getByText(/Longitude:/).textContent
+      unmount()
+      renderTask(buildPointTaskAt([-91.95045, 47.56104]))
+      const second = screen.getByText(/Longitude:/).textContent
+      expect(first).to.not.equal(second)
+      expect(second).to.equal('Longitude: -91.95045°')
+    })
+
+    it('shows a coordinate of exactly zero as zero', function () {
+      renderTask(buildPointTaskAt([0, 0]))
+      expect(screen.getByText('Longitude: 0.00000°')).to.exist
+      expect(screen.getByText('Latitude: 0.00000°')).to.exist
     })
   })
 })

@@ -28,6 +28,7 @@ import useMapInteractions from './hooks/useMapInteractions'
 import useMapSelection from './hooks/useMapSelection'
 import useOLMap, { isUsableOverlayDescriptor } from './hooks/useOLMap'
 import useSelectionLayer from './hooks/useSelectionLayer'
+import useZoomLimits from './hooks/useZoomLimits'
 
 const StyledBox = styled(Box)`
   position: relative;
@@ -112,7 +113,8 @@ function GeoMapViewer({
   // Sparse boolean[] keyed by overlay index; undefined means visible.
   const [overlayVisibility, setOverlayVisibility] = useState([])
 
-  const { map, source, layer, scaleLine, baseLayers, overlays } = useOLMap(containerRef, tileLayers, overlayLayers)
+  const { map, source, layer, scaleLine, overlays } = useOLMap(containerRef, tileLayers, overlayLayers, currentLayerIndex)
+  const { atMaxZoom, atMinZoom } = useZoomLimits(map)
 
   const { select, translate } = useMapSelection({
     map,
@@ -169,11 +171,6 @@ function GeoMapViewer({
   }, [map, onMapReady])
 
   useEffect(() => {
-    if (!baseLayers.length) return
-    baseLayers.forEach((tileLayer, index) => tileLayer.setVisible(index === currentLayerIndex))
-  }, [baseLayers, currentLayerIndex])
-
-  useEffect(() => {
     overlays.forEach((overlayLayer, index) => overlayLayer.setVisible(overlayVisibility[index] !== false))
   }, [overlays, overlayVisibility])
 
@@ -206,8 +203,12 @@ function GeoMapViewer({
     return () => unByKey(key)
   }, [map, geoDrawingTask])
 
+  // A ref, so a new task object never re-runs loadGeoJSON and wipes the volunteer's marks.
+  const geoDrawingTaskRef = useRef(geoDrawingTask)
+  geoDrawingTaskRef.current = geoDrawingTask
   useEffect(() => {
-    loadGeoJSON({ map, source, select, measure, data: geoJSON, autoSelect })
+    const subjectExtent = loadGeoJSON({ map, source, select, measure, data: geoJSON, autoSelect })
+    if (subjectExtent) geoDrawingTaskRef.current?.updateMapContext?.({ subjectExtent })
   }, [map, source, select, measure, geoJSON, autoSelect])
 
   useEffect(() => {
@@ -289,8 +290,8 @@ function GeoMapViewer({
   return (
     <StyledBox forwardedAs='section' fill>
       <ControlsBox align='end'>
-        <ZoomInButton onClick={() => handleZoom(1)} />
-        <ZoomOutButton onClick={() => handleZoom(-1)} />
+        <ZoomInButton disabled={atMaxZoom} onClick={() => handleZoom(1)} />
+        <ZoomOutButton disabled={atMinZoom} onClick={() => handleZoom(-1)} />
         <MeasureButton active={isMeasureModeActive} onClick={handleToggleMeasureMode} />
         <LayerControl
           layers={tileLayers}

@@ -11,6 +11,12 @@
     "latitude": "Latitude: {{lat}}°",
     "longitude": "Longitude: {{lon}}°",
     "selectedFeature": "Selected feature:",
+    "status": {
+      "drawn": "{{count}} drawn",
+      "max": "{{count}} drawn (limit {{max}})",
+      "maxAndMin": "{{count}} drawn (at least {{min}}, limit {{max}})",
+      "min": "{{count}} drawn (at least {{min}})"
+    },
     "uncertaintyRadius": "Uncertainty radius: {{radius}}"
   },
   "HighlighterTask": {
