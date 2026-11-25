@@ -18,7 +18,7 @@ function storeMapper(classifierStore) {
   }
 }
 
-function ModalTutorial({ hasNotSeenTutorialBefore = false, tutorial, ...props }) {
+function ModalTutorial({ hasNotSeenTutorialBefore = false, tutorial }) {
   const [active, setActive] = useState(false)
   const size = useContext(ResponsiveContext)
   const { t } = useTranslation('components')
@@ -34,17 +34,18 @@ function ModalTutorial({ hasNotSeenTutorialBefore = false, tutorial, ...props })
     tutorial.setSeenTime()
   }
 
-  const maxWidth = size === 'small' ? '100%' : '460px'
-  const maxHeight = size === 'small' ? '70vh' : '90vh' // To account for mobile browser nav bars and the "notch"
+  const width = size === 'small' ? '100%' : '460px'
+  // Account for mobile browser nav bars and the "notch"
+  // Must override Modal's default height of 100vh
+  const maxHeight = size === 'small' ? '70%' : '100%'
 
   if (tutorial) {
     return (
       <Modal
-        {...props}
         active={active}
         closeFn={onClose}
         height={{ max: maxHeight }}
-        width={{ max: maxWidth}}
+        width={{ max: width, width: width, min: width }}
         pad='none'
         title={t('ModalTutorial.title')}
       >

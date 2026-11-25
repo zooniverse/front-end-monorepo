@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import styled from 'styled-components'
 import { arrayOf, func, number, object, shape, string } from 'prop-types'
-import { Box, Button, Paragraph } from 'grommet'
+import { Box, Button, Paragraph, ResponsiveContext } from 'grommet'
 import { Markdownz, Media } from '@zooniverse/react-components'
 import { useTranslation } from '@translations/i18n'
 
@@ -47,35 +47,40 @@ function SlideTutorial({
   const isThereMedia = medium?.src
   const isLastStep = stepIndex === steps.length - 1
 
+  const size = useContext(ResponsiveContext)
+
   const emptyState = (
     <Box height='100%' width='100%' justify='center' align='center'>
       <Paragraph>{t('SlideTutorial.error')}</Paragraph>
     </Box>
   )
 
+  // Attempt to keep the tutorial tab within the viewport
+  const height = size === 'small' ? '64vh' : '72vh'
+
+  // Volunteers should always be able to see there's text content in each tutorial step
+  // landscape images are best for tutorial media, but use a height constraint in case someone inserts a very tall portrait image/gif/video here.
+  const mediaHeight = size === 'small' ? 220 : 300
+
   return (
-    <Box className={className}>
-      <Box
-        aria-live='polite'
-        overflow={{ horizontal: 'hidden', vertical: 'auto' }}
-        height={{ max: '70vh' }}
-      >
+    <Box className={className} height={height}>
+      <Box aria-live='polite' overflow={{ vertical: 'auto' }} height='100%'>
         {isThereMedia && (
-          <Media
-            alt={t('SlideTutorial.alt', { activeStep: stepIndex })}
-            alignSelf='center'
-            fit='contain'
-            height={300} // landscape images are best for tutorial media, but use a height constraint in case someone inserts a very tall portrait image/gif/video here.
-            src={medium.src}
-          />
+          <Box align='center' flex={{ shrink: 0 }}>
+            <Media
+              alt={t('SlideTutorial.alt', { activeStep: stepIndex })}
+              fit='contain'
+              height={mediaHeight}
+              src={medium.src}
+            />
+          </Box>
         )}
-        <StyledMarkdownWrapper pad={{ horizontal: 'small', top: '10px' }}>
+        <StyledMarkdownWrapper pad='small'>
           {!step ? emptyState : <Markdownz>{strings[`steps.${stepIndex}.content`]}</Markdownz>}
         </StyledMarkdownWrapper>
       </Box>
       <Box
         height={{ min: 'auto' }} // prevent StepNavigation from expanding beyond this container when it flex-wraps many radio buttons.
-        width='100%'
       >
         <StepNavigation
           name='TutorialStepNavigation'
@@ -84,7 +89,12 @@ function SlideTutorial({
           steps={steps}
         />
         {isLastStep && (
-          <Button label={t('SlideTutorial.getStarted')} onClick={onComplete} primary />
+          <Button
+            label={t('SlideTutorial.getStarted')}
+            onClick={onComplete}
+            primary
+            margin={{ horizontal: 'small', bottom: 'medium' }} // A bit of separation from the Field Guide button in some classifie Layout components
+          />
         )}
       </Box>
     </Box>
