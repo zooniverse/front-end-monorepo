@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import { shape, string } from 'prop-types'
 
+import BigLabel from '../BigLabel/BigLabel'
 import FormInputField from '../FormInputField/FormInputField'
 import FormStatusAndSubmitField from '../FormStatusAndSubmitField/FormStatusAndSubmitField'
 import useUserData from '../../helpers/useUserData'
@@ -19,148 +20,102 @@ const FormFieldsContainer = styled(Box)`
 
 function ZooniverseEmailPreferenceForm ({
   authUser,
+  heading = 'TESTING',
+  fields = [
+    'global_email_communication',
+    'beta_email_communication',
+    'nasa_email_communication',
+  ],
+  ...rest
 }) {
   const { t } = useTranslation()
-  const { data: user, isLoading, error: loadError, isValidating, mutate } = useUserData({ login: authUser.login })
-  const [ isSaving, setIsSaving ] = useState(false)  // Are we in the process of saving?
-  const [ saveSuccess, setSaveSuccess ] = useState(false)  // Was the save successful?
-  const [ saveMessage, setSaveMessage ] = useState('')  // Additional (non-error) information message on the save process.
+  const { data: user, isLoading, error: loadError, isValidating, mutate } = useUserData({ login: authUser?.login })
   const [ saveError, setSaveError ] = useState(null)  // If the save failed, this is the error object.
-  const [ hasUnsavedChanges, setHasUnsavedChanges ] = useState(false)
+  // ⚠️ Note that saveError is NEVER cleared, because multiple save operations
+  // can occur at the same time and we don't know which will finish first.
 
   // On input change, update the LOCAL data copy.
   // Changes aren't saved to Panoptes until updateUserData() is triggered.
-  function onInputChange (e) {
-    const value = e.target.value
+  async function onInputChange (e) {
+    const value = e.target.checked
     const field = e.target.dataset.field
 
-    mutate(prevData => ({
-      ...prevData,
-      [field]: value
-    }), {
-      // DON'T revalidate. (i.e. don't overwrite local changes with data from Panoptes)
+    await mutate(
+      async (prevData) => {
+        const nextData = structuredClone(prevData)
+
+        // For some reason, nextData?.[field] isn't enabled at time of writing?? 🤨
+        nextData && (nextData[field] = value)
+
+        // Don't await
+        updateUserData({
+          [field]: !!value
+        }, authUser.id)
+        .catch(err => {
+          console.error(err)
+          setSaveError(err?.response?.body || err)
+
+          mutate() // mutate() with no arguments revalidates and restores the UI to match the server state.
+        })
+
+        return nextData
+      }
+    , {
       revalidate: false
-    })  
-
-    setHasUnsavedChanges(true)
-    setSaveSuccess(false)
-    setSaveMessage('')
-    setSaveError(null)
+    })
   }
 
-  async function onSubmit () {
+  // "Is ready" means we have sufficient data to show the form input. We don't
+  // check for isValidating, because that that would make the form input
+  // disappear every time we validate.
+  const isReady = !isLoading && !loadError
 
-    // Sanity check
-    if (isBusy) { return }
-    if (!hasUnsavedChanges) {
-      setSaveSuccess(false)
-      setSaveMessage(t('Settings.forms.saveUnnecessary'))
-      return
-    }
-
-    // Fun fact: did you know that display_name and credited_name can both accept emojis?
-    // credited_name can be empty, but not display_name.
-    const displayName = user.display_name
-    const creditedName = user.credited_name
-
-    try {
-      let shouldRevalidate = false
-
-      await mutate(
-        async (prevData) => {
-
-          setIsSaving(true)
-          setSaveSuccess(false)
-          setSaveMessage('')
-          setSaveError(null)
-
-          await updateUserData({
-            ['credited_name']: creditedName,
-            ['display_name']: displayName
-          }, authUser.id)
-
-          setIsSaving(false)
-          setSaveSuccess(true)
-          setSaveMessage('')
-          setSaveError(null)
-          setHasUnsavedChanges(false)
-          shouldRevalidate = true
-
-          return prevData  // Return existing data with no changes.
-        }, {
-          // DO revalidate, IF updateUserData() is successful. (i.e. please sync local data with Panoptes) 
-          revalidate: () => shouldRevalidate,
-
-          // Optimitic data isn't required here since we're using onInputChange() to make local changes.
-          // optimisticData: prevData => prevData,
-
-          // Rollback isn't required here because this mutate doesn't use optimisticData
-          // rollbackOnError: (err) => { return true }
-        }
-      )
-
-    } catch (err) {
-      console.error(err)
-      setIsSaving(false)
-      setSaveSuccess(false)
-      setSaveMessage('')
-      setSaveError(err?.response?.body || err)
-    }
-  }
-
-  // If a FETCH or SAVE operation is ongoing, don't let
-  // other operations trigger.
-  const isBusy = isLoading || isSaving
+  // If a FETCH operation is ongoing, show the Loader. That's all.
+  const isBusy = isLoading || isValidating
   const disableInput = isBusy || !user
-  // ⚠️ Note: isBusy does NOT check for isValidating. isValidating can trigger
-  // in a semi-unpredictable manner, so if we factored that in, users could
-  // see the UI "stop working" randomly.
 
   const loadErrorMessage = loadError?.toString() || (loadError && 'Unknown error')
   const saveErrorMessage = saveError?.errors?.[0]?.message || saveError?.toString() || (saveError && 'Unknown error')
   const statusType =
-    saveSuccess ? 'success'
-    : (loadError || saveError) ? 'error'
-    : saveMessage ? 'warning'  // TODO: this would preferably just be an 'info' type.
+    (loadError || saveError) ? 'error'
     : ''
   const statusMessage =
     loadError ? loadErrorMessage
-    : saveSuccess ? t('Settings.forms.saveSuccess')
     : saveError ? saveErrorMessage
-    : saveMessage ? saveMessage
     : ''
   
   return (
     <Form
       className='ZooniverseEmailPreferenceForm'
-      onSubmit={onSubmit}
+      {...rest}
     >
       <FormFieldsContainer margin={{ vertical: 'small' }}>
-        <FormInputField
-          disabled={disableInput}
-          fieldName='display_name'
-          onInputChange={onInputChange}
-          pattern='.*\S.*'  // display_name must be at least 1 character long. Unicode characters are allowed. Trailing & leading whitespaces are allowed by Panoptes, apparently. 🤨
-          required
-          user={user}
-        />
+        {heading && (
+          <BigLabel as="h2">
+            {heading}
+          </BigLabel>
+        )}
 
-        <FormInputField
-          disabled={disableInput}
-          fieldName='credited_name'
-          onInputChange={onInputChange}
-          optional
-          user={user}
-        />
+        {isReady && fields.map(field => (
+          <div>
+            <label>
+              <input
+                checked={!!user?.[field]}
+                data-field={field}
+                disabled={disableInput}
+                onChange={onInputChange}
+                type="checkbox"
+              />
+              {field} - {user?.[field] ? 'true' : 'false'}
+            </label>
+          </div>
+        ))}
 
         <FormStatusAndSubmitField
-          showLoader={isBusy || isValidating}
-          showSubmit={true}
-          submitDisabled={disableInput}
-          submitLabel={t('Settings.forms.change')}
+          showLoader={isBusy}
+          showSubmit={false}
           statusMessage={statusMessage}
           statusType={statusType}
-          margin={{ vertical: 'small' }}
         />
       </FormFieldsContainer>
     </Form>
