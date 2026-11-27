@@ -1,5 +1,6 @@
 import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations'
 import getDefaultPageProps from '@helpers/getDefaultPageProps'
+import projectRedirect from '@helpers/projectRedirect'
 
 export { default } from '@screens/ClassifyPage'
 
@@ -8,6 +9,8 @@ const defaultEnv = process.env.APP_ENV === 'development' ? 'staging' : 'producti
 
 export async function getStaticProps({ defaultLocale, locale, params }) {
   const { notFound, props } = await getDefaultPageProps({ locale, params })
+  const redirect = projectRedirect({ params, project: props.initialState.project })
+  if (redirect) return redirect
 
   if (props.workflowID) {
     const { project } = props.initialState

@@ -77,7 +77,7 @@ export default function FeaturedProjects() {
               key={project.slug}
               description={project.description}
               displayName={project.display_name}
-              href={getProjectHrefWithLocale(`/${project.slug}`, locale)}
+              href={project.redirect || getProjectHrefWithLocale(`/${project.slug}`, locale)}
               imageSrc={project.avatar_src}
               size={cardSize}
             />

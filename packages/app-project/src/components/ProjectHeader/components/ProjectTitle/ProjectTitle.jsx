@@ -1,4 +1,5 @@
-import { Anchor, Heading } from 'grommet'
+import { Anchor, Box, Heading } from 'grommet'
+import { ShareRounded } from 'grommet-icons'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { string } from 'prop-types'
@@ -28,7 +29,7 @@ const StyledAnchor = styled(Anchor)`
 
 function ProjectTitle({ textAlign = 'start', title = '' }) {
   const router = useRouter()
-  const { slug } = useStores()
+  const { redirect, slug } = useStores()
 
   const slugArr = slug.split('/')
   const owner = slugArr?.[0]
@@ -41,6 +42,19 @@ function ProjectTitle({ textAlign = 'start', title = '' }) {
   }
 
   const isCurrentPage = router?.isReady && router?.asPath === linkProps.href
+
+  if (redirect) {
+    return (
+      <StyledAnchor href={redirect}>
+        <Box direction='row' align='center' gap='small'>
+          <StyledHeading level={1} color='white' margin='0' textAlign={textAlign}>
+            {title}
+          </StyledHeading>
+          <ShareRounded aria-hidden='true' color='white' size='medium' />
+        </Box>
+      </StyledAnchor>
+    )
+  }
 
   if (isCurrentPage) {
     return (

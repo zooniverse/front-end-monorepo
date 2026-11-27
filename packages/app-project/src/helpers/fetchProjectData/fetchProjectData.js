@@ -46,6 +46,7 @@ export default async function fetchProjectData(slug, params) {
       'links',
       'live',
       'primary_language',
+      'redirect',
       'retired_subjects_count',
       'slug',
       'subjects_count',

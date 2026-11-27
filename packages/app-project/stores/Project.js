@@ -27,6 +27,7 @@ const Project = types
     loadingState: types.optional(types.enumeration('state', asyncStates.values), asyncStates.initialized),
     primary_language: types.optional(types.string, 'en'),
     owners: types.frozen([]),
+    redirect: types.maybeNull(types.string),
     retired_subjects_count: types.optional(types.number, 0),
     slug: types.optional(types.string, ''),
     strings: TranslationStrings,

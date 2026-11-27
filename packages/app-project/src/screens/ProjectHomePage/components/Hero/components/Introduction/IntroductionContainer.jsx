@@ -10,15 +10,20 @@ function useStores() {
   const { project } = store
   return {
     description: project.description,
+    redirect: project.redirect,
     title: project['display_name']
   }
 }
 
 function IntroductionContainer() {
-  const { description, title } = useStores()
+  const { description, redirect, title } = useStores()
   const router = useRouter()
 
   function getLinkProps() {
+    if (redirect) {
+      return { href: redirect, externalLink: true }
+    }
+
     const { owner, project } = router?.query || {}
     const isPFEProject = PFE_SLUGS.includes(`${owner}/${project}`)
 

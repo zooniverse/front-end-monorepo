@@ -6,7 +6,7 @@ import { useHasLabAccess, useStores } from '.'
 import PFE_SLUGS from '../../../helpers/slugList'
 
 export default function useProjectNavigation() {
-  const { isAdmin, isLoggedIn, defaultWorkflow, projectId, slug, userId } = useStores()
+  const { isAdmin, isLoggedIn, defaultWorkflow, projectId, redirect, slug, userId } = useStores()
   const { adminMode } = useContext(PanoptesAuthContext)
   const hasLabAccess = useHasLabAccess(projectId, userId)
   const { t } = useTranslation('components')
@@ -42,6 +42,14 @@ export default function useProjectNavigation() {
       externalLink: true // code is in PFE
     }
   ]
+
+  if (redirect) {
+    links.splice(0, 2, {
+      href: `${redirect.replace(/\/+$/, '')}/classify`,
+      text: t('ProjectHeader.classify'),
+      externalLink: true
+    })
+  }
 
   if (isLoggedIn) {
     links.push({

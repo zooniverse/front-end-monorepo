@@ -77,7 +77,7 @@ export default function RecentProjects({
               <ProjectCard
                 description={project?.description}
                 displayName={project?.display_name}
-                href={getProjectHrefWithLocale(`/${project?.slug}`, locale)}
+                href={project?.redirect || getProjectHrefWithLocale(`/${project?.slug}`, locale)}
                 imageSrc={project?.avatar_src}
                 size={size}
                 state={project?.state}
