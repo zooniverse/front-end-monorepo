@@ -40,7 +40,8 @@ const WorkflowConfiguration = types.snapshotProcessor(
         tile_layers: types.maybe(types.frozen([])),
         overlay_layers: types.maybe(types.frozen([]))
       })
-    )
+    ),
+    video_loop: types.optional(types.boolean, false)
   })
     .views(self => ({
       get viewerType() {

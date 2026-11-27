@@ -14,7 +14,10 @@ function storeMapper(store) {
     subjectViewer: { invert, setVideoSpeed, setVolume, videoSpeed, volume },
     workflows: {
       active: {
-        configuration: { limit_subject_height: limitSubjectHeight }
+        configuration: {
+          limit_subject_height: limitSubjectHeight,
+          video_loop: loop
+        }
       }
     }
   } = store
@@ -23,6 +26,7 @@ function storeMapper(store) {
     enableInteractionLayer: !!drawingTasks?.length,
     invert,
     limitSubjectHeight,
+    loop,
     setVideoSpeed,
     setVolume,
     videoSpeed,
@@ -43,6 +47,7 @@ function SingleVideoViewerContainer({
     enableInteractionLayer,
     invert,
     limitSubjectHeight,
+    loop,
     setVideoSpeed,
     setVolume,
     videoSpeed,
@@ -56,6 +61,7 @@ function SingleVideoViewerContainer({
           invert={invert}
           limitSubjectHeight={limitSubjectHeight}
           loadingState={loadingState}
+          loop={loop}
           onError={onError}
           onReady={onReady}
           onKeyDown={onKeyDown}
@@ -69,6 +75,7 @@ function SingleVideoViewerContainer({
         <VideoViewer
           invert={invert}
           limitSubjectHeight={limitSubjectHeight}
+          loop={loop}
           onError={onError}
           onReady={onReady}
           subject={subject}

@@ -43,6 +43,10 @@ The Workflow of the project can be configured that the Single Video Viewer shoul
 
 There is a fall back to assume rendering the Single Video Viewer if the subject has a single location with an video media mime type, but specific configuration on the workflow is preferred.
 
+To make the video replay from the start each time it ends, set `video_loop` (default `false`):
+
+`workflow.configuration = { video_loop: true }`
+
 **Subject**
 
 Each Subject has a single video media location

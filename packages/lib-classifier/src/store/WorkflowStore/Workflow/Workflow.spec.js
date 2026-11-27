@@ -53,6 +53,10 @@ describe('Model > Workflow', function () {
     it('should have limit_subject_height default to false', function () {
       expect(workflow.configuration.limit_subject_height).to.equal(false)
     })
+
+    it('should have video_loop default to false', function () {
+      expect(workflow.configuration.video_loop).to.equal(false)
+    })
   })
 
   describe('with custom configuration', function () {
@@ -80,6 +84,19 @@ describe('Model > Workflow', function () {
       })
       const workflow = Workflow.create(workflowSnapshot)
       expect(workflow.configuration.playIterations).to.equal(Infinity)
+    })
+
+    it('should read video_loop', function () {
+      const workflowSnapshot = WorkflowFactory.build({
+        id: 'workflow1',
+        configuration: {
+          video_loop: true
+        },
+        display_name: 'A test workflow with looping video',
+        version: '0.0'
+      })
+      const workflow = Workflow.create(workflowSnapshot)
+      expect(workflow.configuration.video_loop).to.equal(true)
     })
   })
 

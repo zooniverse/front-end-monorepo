@@ -3,7 +3,7 @@ import * as stories from './SingleVideoViewerContainer.stories'
 import { composeStories } from '@storybook/react'
 
 describe('Component > SingleVideoViewerContainer', function () {
-  const { Default, WithDrawing, NoSubject } = composeStories(stories)
+  const { Default, WithDrawing, NoSubject, Loop, LoopWithDrawing } = composeStories(stories)
 
   describe('with a video subject src and drawing tools disabled', function () {
     it('should render a video html element and no custom controls', async function () {
@@ -14,6 +14,29 @@ describe('Component > SingleVideoViewerContainer', function () {
         expect(videoElement).to.exist
         const customControls = queryByTestId('video subject viewer custom controls')
         expect(customControls).to.equal(null)
+      })
+    })
+
+    it('should not loop the video', async function () {
+      const { container } = render(<Default />)
+      await waitFor(() => {
+        expect(container.querySelector('video').loop).to.equal(false)
+      })
+    })
+  })
+
+  describe('with video_loop enabled', function () {
+    it('should loop the video', async function () {
+      const { container } = render(<Loop />)
+      await waitFor(() => {
+        expect(container.querySelector('video').loop).to.equal(true)
+      })
+    })
+
+    it('should loop the video with drawing tools enabled', async function () {
+      const { container } = render(<LoopWithDrawing />)
+      await waitFor(() => {
+        expect(container.querySelector('video').loop).to.equal(true)
       })
     })
   })

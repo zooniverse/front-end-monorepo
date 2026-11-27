@@ -46,6 +46,7 @@ function VideoWithDrawing({
   invert = false,
   limitSubjectHeight = false,
   loadingState = asyncStates.initialized,
+  loop = false,
   onError = DEFAULT_HANDLER,
   onReady = DEFAULT_HANDLER,
   onKeyDown = DEFAULT_HANDLER,
@@ -197,6 +198,7 @@ function VideoWithDrawing({
           <ReactPlayer
             controls={false}
             height='100%'
+            loop={loop}
             onDuration={handleVideoDuration}
             onEnded={handleVideoEnded}
             onError={handlePlayerError}
@@ -286,6 +288,7 @@ VideoWithDrawing.propTypes = {
   invert: bool,
   limitSubjectHeight: bool,
   loadingState: string,
+  loop: bool,
   onError: func,
   onKeyDown: func,
   onReady: func,
