@@ -694,6 +694,18 @@
           "label": "Header Image",
           "image": "User Header image",
           "body": "Drag and drop an image here, or select an image from your files.  Wide format images look best! Upload size should be less than 256kb."
+        },
+        "global_email_communication": {
+          "help": "",
+          "label": "Get general Zooniverse email updates"
+        },
+        "beta_email_communication": {
+          "help": "",
+          "label": "Get beta project email updates and become a beta tester"
+        },
+        "nasa_email_communication": {
+          "help": "",
+          "label": "Get periodic email updates from NASA regarding broader NASA citizen science projects and efforts"
         }
       },
       "optional": "Optional",
