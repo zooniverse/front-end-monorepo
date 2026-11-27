@@ -2,7 +2,8 @@ import { render } from '@testing-library/react'
 import { Provider } from 'mobx-react'
 import { vi } from 'vitest'
 
-import RadialFeedback, { FEEDBACK_COLORS } from './RadialFeedback'
+import RadialFeedback from './RadialFeedback'
+import FEEDBACK_COLORS from '@store/feedback/helpers/feedback-colors'
 import { Point } from '@plugins/drawingTools/components'
 import { RectangleTool, RotateRectangleTool } from '@plugins/drawingTools/models/tools'
 
@@ -26,6 +27,10 @@ describe('Component > RadialFeedback', function () {
       </Provider>
     )
   }
+
+  it('should use color-blind friendly success and failure colors', function () {
+    expect(FEEDBACK_COLORS).to.deep.equal({ failure: '#FF2B70', success: '#0CFFE0' })
+  })
 
   it('should render radial rule circles and overlay points for matching annotations', function () {
     const annotationValue = [
@@ -78,8 +83,8 @@ describe('Component > RadialFeedback', function () {
     const ruleCircles = document.querySelectorAll('circle[fill-opacity="0.5"]')
 
     expect(ruleCircles).to.have.lengthOf(2)
-    expect(document.querySelector('circle[stroke="green"][cx="20"][cy="30"][r="15"]')).to.not.equal(null)
-    expect(document.querySelector('circle[stroke="red"][cx="100"][cy="150"][r="10"]')).to.not.equal(null)
+    expect(document.querySelector(`circle[stroke="${FEEDBACK_COLORS.success}"][cx="20"][cy="30"][r="15"]`)).to.not.equal(null)
+    expect(document.querySelector(`circle[stroke="${FEEDBACK_COLORS.failure}"][cx="100"][cy="150"][r="10"]`)).to.not.equal(null)
     expect(document.querySelectorAll(`g[stroke="${FEEDBACK_COLORS.success}"][transform="translate(22, 31)"]`)).to.have.lengthOf(1)
     expect(document.querySelectorAll(`g[stroke="${FEEDBACK_COLORS.failure}"][transform="translate(120, 151)"]`)).to.have.lengthOf(1)
     expect(document.querySelectorAll(`g[stroke="${FEEDBACK_COLORS.success}"][transform="translate(20, 30)"]`)).to.have.lengthOf(0)

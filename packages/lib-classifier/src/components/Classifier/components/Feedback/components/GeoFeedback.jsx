@@ -29,6 +29,7 @@ function storeMapper (classifierStore) {
   return {
     annotations,
     applicableRules,
+    geoDrawingTask,
     subjectExtent: geoDrawingTask?.mapContext?.subjectExtent,
     tileLayers: workflow?.configuration?.subject_viewer_config?.tile_layers ?? []
   }
@@ -40,14 +41,14 @@ function defaultTileLayer (tileLayers) {
 }
 
 export default function GeoFeedback () {
-  const { annotations = [], applicableRules = [], subjectExtent, tileLayers } = useStores(storeMapper)
+  const { annotations = [], applicableRules = [], geoDrawingTask, subjectExtent, tileLayers } = useStores(storeMapper)
   const mapElement = useRef(null)
 
   useEffect(function createFeedbackMap () {
     if (!mapElement.current) return undefined
 
     const source = new VectorSource({
-      features: getGeoFeedbackFeatures(annotations, applicableRules)
+      features: getGeoFeedbackFeatures(annotations, applicableRules, geoDrawingTask)
     })
     const map = new Map({
       target: mapElement.current,
@@ -67,7 +68,7 @@ export default function GeoFeedback () {
     return function destroyFeedbackMap () {
       map.setTarget(undefined)
     }
-  }, [annotations, applicableRules, subjectExtent, tileLayers])
+  }, [annotations, applicableRules, geoDrawingTask, subjectExtent, tileLayers])
 
   return (
     <MapContainer

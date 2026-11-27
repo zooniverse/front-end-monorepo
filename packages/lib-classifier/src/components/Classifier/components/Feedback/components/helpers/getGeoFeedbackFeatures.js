@@ -5,9 +5,9 @@ import Point from 'ol/geom/Point'
 import { fromLonLat } from 'ol/proj'
 import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style'
 
+import FEEDBACK_COLORS from '@store/feedback/helpers/feedback-colors'
 import grader from '@store/feedback/strategies/geo/grader'
 import strategies from '@store/feedback/strategies'
-import { FEEDBACK_COLORS } from '../RadialFeedback'
 
 const FILL_ALPHA = '33'
 const RULE_LINE_DASH = [8, 6]
@@ -70,8 +70,13 @@ function volunteerFeature (geometry, color) {
   return null
 }
 
-// Target regions and volunteer marks as styled OL features, colored by success.
-function getGeoFeedbackFeatures (annotations = [], applicableRules = []) {
+function toolColor (feature, geoDrawingTask) {
+  const toolIndex = geoDrawingTask?.getToolIndexForFeature?.(feature)
+  return geoDrawingTask?.tools?.[toolIndex]?.color
+}
+
+// Target regions colored by success; volunteer marks in the color of the tool that made them.
+function getGeoFeedbackFeatures (annotations = [], applicableRules = [], geoDrawingTask) {
   const features = []
 
   applicableRules.forEach(rule => {
@@ -84,11 +89,10 @@ function getGeoFeedbackFeatures (annotations = [], applicableRules = []) {
 
   annotations.forEach(annotation => {
     if (annotation.taskType !== 'geoDrawing') return
-    const geometries = (annotation.value?.features || [])
-      .map(feature => feature?.geometry)
-      .filter(Boolean)
-    geometries.forEach(geometry => {
-      const feature = volunteerFeature(geometry, feedbackColor(isSuccessful(geometry, applicableRules)))
+    const marks = (annotation.value?.features || []).filter(mark => mark?.geometry)
+    marks.forEach(mark => {
+      const color = toolColor(mark, geoDrawingTask) || feedbackColor(isSuccessful(mark.geometry, applicableRules))
+      const feature = volunteerFeature(mark.geometry, color)
       if (feature) features.push(feature)
     })
   })

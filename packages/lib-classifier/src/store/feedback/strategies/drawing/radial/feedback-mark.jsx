@@ -1,7 +1,9 @@
 import { bool, number, shape } from 'prop-types'
 
+import FEEDBACK_COLORS from '../../../helpers/feedback-colors'
+
 function FeedbackMark ({ rule }) {
-  const color = (rule.success) ? 'green' : 'red'
+  const color = (rule.success) ? FEEDBACK_COLORS.success : FEEDBACK_COLORS.failure
   return (
     <circle
       cx={rule.x}
