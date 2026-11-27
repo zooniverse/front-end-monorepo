@@ -62,6 +62,20 @@ const imageData = await readImageFile(imageFile)
 return <img src={imageData} />
 ```
 
+## requestVerificationEmail()
+
+requestVerificationEmail() asks Panoptes to send a verification email to the
+user's registered email address.
+
+Input:
+- `email`: user's email address.
+
+Output: 
+- `true` on successful request.
+
+Potentially throws:
+- API errors from Panoptes.
+
 ## resizeImageData()
 
 resizeImageData() is an async function that resizes (shrinks) an image down to

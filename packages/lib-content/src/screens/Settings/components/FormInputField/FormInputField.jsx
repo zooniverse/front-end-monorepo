@@ -38,12 +38,14 @@ const StyledHelpBox = styled(Box)`
 async function DEFAULT_FUNCTION () {}
 
 function FormInputField ({
+  autocomplete,
   disabled = false,
   fieldName = '',
   pattern = undefined,
   onInputChange = DEFAULT_FUNCTION,
   optional = false,
   required = false,
+  type = 'text',
   user,
 }) {
   const { t } = useTranslation()
@@ -71,6 +73,7 @@ function FormInputField ({
         }
       </Box>
       <StyledTextInput
+        autoComplete={autocomplete}  // This needs to have that capital 'C' to work.
         data-field={fieldName}
         disabled={disabled}
         id={inputId}
@@ -79,6 +82,7 @@ function FormInputField ({
         pattern={pattern}
         ref={inputRef}
         required={required}
+        type={type}
         value={user?.[fieldName] || ''}
       />
       {helpText && (
@@ -95,11 +99,15 @@ function FormInputField ({
 }
 
 FormInputField.propTypes = {
+  autocomplete: string,
   disabled: bool,
   fieldName: string,
   inputPattern: string,
   onInputChange: func,
   optional: bool,
+  pattern: string,
+  required: bool,
+  type: string,
   user: shape({
     credited_name: string,
     display_name: string,
