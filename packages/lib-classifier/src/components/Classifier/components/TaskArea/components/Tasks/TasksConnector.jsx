@@ -18,7 +18,8 @@ function storeMapper(store) {
     },
     workflowSteps: {
       active: step,
-      isThereTaskHelp
+      isThereTaskHelp,
+      unsupportedTasks
     }
   } = store
 
@@ -36,7 +37,8 @@ function storeMapper(store) {
     isThereTaskHelp,
     loadingState,
     step,
-    subjectReadyState
+    subjectReadyState,
+    unsupportedTasks
   }
 }
 

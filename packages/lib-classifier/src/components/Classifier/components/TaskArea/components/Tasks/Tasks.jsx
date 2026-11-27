@@ -1,6 +1,6 @@
 import asyncStates from '@zooniverse/async-states'
 import { Box, Paragraph } from 'grommet'
-import { array, bool, object, oneOf, shape, string } from 'prop-types'
+import { array, arrayOf, bool, object, oneOf, shape, string } from 'prop-types'
 import { useTranslation } from '@translations/i18n'
 
 import Task from './components/Task'
@@ -19,7 +19,8 @@ export default function Tasks({
   loadingState = asyncStates.initialized,
   previousAnnotationValues = null,
   subjectReadyState,
-  step
+  step,
+  unsupportedTasks = []
 }) {
 
   const { t } = useTranslation('components')
@@ -54,6 +55,11 @@ export default function Tasks({
                 previousAnnotationValues={previousAnnotationValues}
                 task={task}
               />
+            ))}
+            {unsupportedTasks.map(({ taskKey, type }) => (
+              <Paragraph key={taskKey}>
+                {t('TaskArea.Tasks.unsupportedTask', { taskKey, type })}
+              </Paragraph>
             ))}
             {isThereTaskHelp && <TaskHelp disabled={disabled} tasks={step.tasks} />}
             <TaskNavButtons disabled={disabled || !ready || !isComplete} />
@@ -95,5 +101,10 @@ Tasks.propTypes = {
   step: shape({
     /** The step's tasks. */
     tasks: array
-  })
+  }),
+  /** Tasks anywhere in the workflow that the classifier cannot render. */
+  unsupportedTasks: arrayOf(shape({
+    taskKey: string,
+    type: string
+  }))
 }

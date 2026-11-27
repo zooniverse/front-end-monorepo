@@ -6,6 +6,7 @@ import Meta, {
   NoClassification,
   NoStep,
   SubjectLoading,
+  UnsupportedTask,
   WorkflowLoading
 } from './Tasks.stories'
 
@@ -64,6 +65,26 @@ describe('Tasks', function () {
       render(<MultipleTasksStory />)
       const activeElement = document.activeElement
       expect(activeElement.className.includes('StyledFieldset'))
+    })
+
+    it('should not show an unsupported task message', function () {
+      render(<MultipleTasksStory />)
+      expect(screen.queryByText(/is not a supported task type/)).to.equal(null)
+    })
+  })
+
+  describe('with an unsupported task in the workflow', function () {
+    const UnsupportedTaskStory = composeStory(UnsupportedTask, Meta)
+
+    it('should name the unsupported task on a step that can render', function () {
+      render(<UnsupportedTaskStory />)
+      expect(screen.getByText('Yes or No?')).to.exist
+      expect(screen.getByText('T1 wakkawakka is not a supported task type.')).to.exist
+    })
+
+    it('should disable Done', function () {
+      render(<UnsupportedTaskStory />)
+      expect(screen.getByRole('button', { name: 'Done' }).disabled).to.equal(true)
     })
   })
 })

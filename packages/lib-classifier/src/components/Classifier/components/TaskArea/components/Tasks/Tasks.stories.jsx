@@ -100,6 +100,30 @@ export function MultipleTasks() {
   )
 }
 
+/* A workflow with a task type that the classifier cannot render. */
+const unsupportedWorkflow = WorkflowFactory.build({
+  display_name: 'Unsupported task',
+  tasks: {
+    T0: { ...singleChoiceTask, required: false },
+    T1: { question: 'Nope', type: 'wakkawakka' }
+  },
+  steps: [['S0', { stepKey: 'S0', taskKeys: ['T0', 'T1'] }]]
+})
+const unsupportedStore = mockStore({ subject: mockSubject, workflow: unsupportedWorkflow })
+applySnapshot(
+  unsupportedStore.workflows.resources.get(unsupportedWorkflow.id).strings,
+  workflowStrings
+)
+unsupportedStore.subjectViewer.onSubjectReady()
+
+export function UnsupportedTask() {
+  return (
+    <Provider classifierStore={unsupportedStore}>
+      <TasksConnector />
+    </Provider>
+  )
+}
+
 export function WorkflowLoading() {
   return <Tasks loadingState={asyncStates.loading} />
 }

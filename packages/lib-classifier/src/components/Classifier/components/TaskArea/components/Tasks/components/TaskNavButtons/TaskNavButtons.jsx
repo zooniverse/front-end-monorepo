@@ -14,24 +14,26 @@ import ExpertOptions from './components/ExpertOptions'
 function storeMapper(classifierStore) {
   const subjectViewer = classifierStore.workflows?.active?.configuration?.subject_viewer
   return {
+    hasUnsupportedTasks: classifierStore.workflowSteps.hasUnsupportedTasks,
     isSubjectGroupViewer: subjectViewer === 'subjectGroup'
   }
 }
 
 function TaskNavButtons({ disabled = false }) {
   const [saving, setSaving] = useState(false)
-  const { isSubjectGroupViewer } = useStores(storeMapper)
+  const { hasUnsupportedTasks, isSubjectGroupViewer } = useStores(storeMapper)
+  const doneDisabled = disabled || saving || hasUnsupportedTasks
 
   return (
     <Box direction='row' justify='center'>
       <BackButton />
       <NextButton disabled={disabled} />
       {isSubjectGroupViewer ? (
-        <SGVDoneAndTalkButton disabled={disabled || saving} setSaving={setSaving} />
+        <SGVDoneAndTalkButton disabled={doneDisabled} setSaving={setSaving} />
       ) : (
-        <DoneAndTalkButton disabled={disabled || saving} setSaving={setSaving} />
+        <DoneAndTalkButton disabled={doneDisabled} setSaving={setSaving} />
       )}
-      <DoneButton disabled={disabled || saving} setSaving={setSaving} />
+      <DoneButton disabled={doneDisabled} setSaving={setSaving} />
       <ExpertOptions />
     </Box>
   )
