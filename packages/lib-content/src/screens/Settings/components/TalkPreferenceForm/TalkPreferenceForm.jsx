@@ -3,19 +3,12 @@ import { Box, Form, Text } from 'grommet'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { Loader, StatusMessage } from '@zooniverse/react-components'
-
+import BigLabel from '../BigLabel/BigLabel'
+import FormStatusAndSubmitField from '../FormStatusAndSubmitField/FormStatusAndSubmitField'
 import useTalkPreferences from '../../helpers/useTalkPreferences'
 import updateTalkPreference from '../../helpers/updateTalkPreference'
 
 const DEBOUNCE = 500
-
-const BigLabel = styled(Text)`
-  font-weight: 700;
-  font-size: 1rem;
-  font-style: bold;
-  text-transform: uppercase;
-`
 
 const EMAIL_DIGEST_OPTIONS = [
   'immediate',
@@ -42,20 +35,19 @@ const PseudoTable = styled(Box)`
 
   fieldset {
     border: none;
-    margin: 0;
+    margin: 0 0 0.5rem 0;
     padding: 0;
   }
 
   /* A row of "table cells" with specific widths. */
   .pseudo-row {
     display: grid;
-    grid-template-columns: 5fr ${'1fr '.repeat(EMAIL_DIGEST_OPTIONS.length)};
+    grid-template-columns: 6fr ${'1fr '.repeat(EMAIL_DIGEST_OPTIONS.length)};
     align-items: center;
     column-gap: 0.5rem;
   }
 
   .header-cell {
-    color: ${props => props.theme.global.colors['dark-5']};
     padding-bottom: 0.5rem;
   }
 
@@ -170,7 +162,10 @@ function TalkPreferenceForm ({
       <PseudoTable>
         <div className='pseudo-row'>
           <div className='header-cell'>
-            <Text>
+            <Text
+              color={{ light: 'dark-5', dark: 'light-5' }}
+              size="0.875rem"
+            >
               {t('Settings.EmailSettings.talkPreferences.sendEmail')}
             </Text>
           </div>
@@ -179,7 +174,10 @@ function TalkPreferenceForm ({
               key={option}
               className='header-cell option-cell'
             >
-              <Text>
+              <Text
+                color={{ light: 'dark-5', dark: 'light-5' }}
+                size="0.875rem"
+              >
                 {t(`Settings.EmailSettings.talkPreferences.emailDigestOptions.${option}`)}
               </Text>
             </div>
@@ -195,27 +193,12 @@ function TalkPreferenceForm ({
         ))}
       </PseudoTable>
 
-      <Box
-        direction='row'
-        align='center'
-        justify='between'
-        gap='1em'
-        wrap={true}
-      >
-        <Box
-          flex='grow'
-          direction='row'
-          align='center'
-        >
-          <StatusMessage
-            text={statusMessage}
-            type={statusType}
-          />
-        </Box>
-
-        {(isBusy) && <Loader />}
-      </Box>
-
+      <FormStatusAndSubmitField
+        showLoader={isBusy}
+        showSubmit={false}
+        statusMessage={statusMessage}
+        statusType={statusType}
+      />
     </Form>
   )
 }
@@ -236,7 +219,10 @@ function TalkPreferenceRow ({
         {t(`Settings.EmailSettings.talkPreferences.categories.${talkPreference.category}`)}
       </legend>
       <div className='pseudo-row'>
-        <Text>
+        <Text
+          color={{ light: 'dark-4', dark: 'neutral-6' }}
+          size="1rem"
+        >
           {t(`Settings.EmailSettings.talkPreferences.categories.${talkPreference.category}`)}
         </Text>
         {EMAIL_DIGEST_OPTIONS.map((option, index) => {
