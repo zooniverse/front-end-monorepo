@@ -2,7 +2,10 @@ import CollectionOptions from './CollectionOptions'
 
 export default {
   title: 'Project App / Screens / Project Collection / CollectionOptions',
-  component: CollectionOptions
+  component: CollectionOptions,
+  args: {
+    onSettings: () => console.log('opening collection settings')
+  }
 }
 
 export const LoggedOut = {
@@ -19,7 +22,7 @@ export const LoggedInNotOwner = {
   }
 }
 
-export const LoggedInOwnerOrCollaborator = {
+export const LoggedInOwner = {
   args: {
     canEdit: true,
     isLoggedIn: true

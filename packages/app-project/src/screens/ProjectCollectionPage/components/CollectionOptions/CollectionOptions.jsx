@@ -2,14 +2,15 @@ import { Box, Notification } from 'grommet'
 import { Layer, SettingsOption } from 'grommet-icons'
 import { ZooniverseLogotype } from '@zooniverse/react-components'
 import { useTranslation } from 'next-i18next/pages'
-import { bool } from 'prop-types'
+import { bool, func } from 'prop-types'
 import { useState } from 'react'
 
 import OptionButton from './components/OptionButton'
 
 function CollectionOptions({
   canEdit = false,
-  isLoggedIn = false
+  isLoggedIn = false,
+  onSettings
 }) {
   const { t } = useTranslation('screens')
   const [shareVisible, setShareVisible] = useState(false)
@@ -21,11 +22,6 @@ function CollectionOptions({
     } catch (error) {
       console.error(error.message)
     }
-  }
-
-  function onSettings() {
-    // placeholder for collection settings
-    window.alert('Collection settings...')
   }
 
   return (
@@ -76,7 +72,8 @@ function CollectionOptions({
 
 CollectionOptions.propTypes = {
   canEdit: bool,
-  isLoggedIn: bool
+  isLoggedIn: bool,
+  onSettings: func
 }
 
 export default CollectionOptions
