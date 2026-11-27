@@ -1,18 +1,17 @@
-import { Anchor, Box } from 'grommet'
-import { node, string } from 'prop-types'
+import { Anchor } from 'grommet'
+import { string } from 'prop-types'
 import styled from 'styled-components'
 
 const StyledMediaLink = styled(Anchor)`
-  display: block;
+  inset: 0;
+  position: absolute;
   text-decoration: none;
-  width: 100%;
   outline: none;
+  z-index: 3;
 
   &:focus-visible {
     box-shadow: 0 0 0 2px ${props => props.theme.global.colors['accent-1']};
     outline: none;
-    position: relative;
-    z-index: 1;
   }
 
   &:hover {
@@ -20,19 +19,16 @@ const StyledMediaLink = styled(Anchor)`
   }
 `
 
-function MediaLink({ children, href, title }) {
+function MediaLink({ href, title }) {
   return (
     <StyledMediaLink
       a11yTitle={title}
       href={href}
-    >
-      {children}
-    </StyledMediaLink>
+    />
   )
 }
 
 MediaLink.propTypes = {
-  children: node.isRequired,
   href: string.isRequired,
   title: string.isRequired
 }

@@ -1,9 +1,9 @@
 import { Anchor, Box } from 'grommet'
-import { node, number, string } from 'prop-types'
-import styled, { css } from 'styled-components'
+import { bool, func, number, shape, string } from 'prop-types'
+import styled from 'styled-components'
 
 import { svgAudioIcon } from '../../../../../Media/components/Audio/Audio'
-import MediaLink from '../../../MediaLink'
+import MediaContainer from '../../../MediaContainer'
 
 const CONTROLS_HEIGHT = '54px'
 const encodedSvgAudioIcon = encodeURIComponent(svgAudioIcon)
@@ -21,6 +21,7 @@ function Audio({
   linkTitle,
   mediaSrc,
   previewHeight,
+  selectProps,
   subjectIdTitle,
   width,
   url
@@ -31,9 +32,13 @@ function Audio({
       height={previewHeight}
       width={width}
     >
-      <MediaLink href={url} title={linkTitle}>
+      <MediaContainer
+        href={url}
+        selectProps={selectProps}
+        title={linkTitle}
+      >
         <StyledBox $previewHeight={previewHeight} />
-      </MediaLink>
+      </MediaContainer>
       <audio
         aria-label={subjectIdTitle}
         controls
@@ -51,6 +56,12 @@ Audio.propTypes = {
   linkTitle: string.isRequired,
   mediaSrc: string.isRequired,
   previewHeight: number.isRequired,
+  selectProps: shape({
+    onSelect: func,
+    selectable: bool,
+    selected: bool,
+    selectLabel: string
+  }),
   subjectIdTitle: string.isRequired,
   width: number.isRequired,
   url: string.isRequired

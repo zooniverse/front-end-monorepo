@@ -12,13 +12,18 @@ A preview card for subjects.
 
 ## Props
 
+- `canEdit` (boolean): Shows the collection edit menu when not selecting. Requires both `onRemoveFromCollection` and `onSetCover`.
 - `interactive` (boolean): Whether the card has interactive media or not.
 - `isCover` (boolean): Whether the subject is set as the collection cover.
 - `login` (string): The login of the current user for enabling favorite action.
-- `onSetCover` (function): Callback function for setting the subject as the collection cover.
+- `onRemoveFromCollection` (function): Called with `subject` to remove it from its collection.
+- `onSelect` (function): Called with `(subject, checked)` when the select checkbox changes.
+- `onSetCover` (function): Called with `subject` to set it as the collection cover.
 - `placeholder` (node): Placeholder passed to `Media`.
 - `projectId` (string): Project ID used for favoriting and collecting the subject.
 - `projectSlug` (string, required): Project slug used to build subject talk URL.
+- `selectable` (boolean): Shows the select checkbox and makes the media area select the subject instead of linking to Talk, without reloading the preview.
+- `selected` (boolean): Whether the card is selected.
 - `size` (string): One of `large`, `medium`, or `small`.
 - `subject` (object): Subject resource with `id` and `locations`.
 - `userId` (string): User ID of the current user for enabling collect action.

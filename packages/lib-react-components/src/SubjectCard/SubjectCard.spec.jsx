@@ -11,19 +11,25 @@ vi.mock('../ShareIconButton', function() {
   }
 })
 
+import CollectionMeta, {
+  LandscapeWithCover as CollectionLandscapeWithCover,
+  Landscape as CollectionLandscape,
+  SelectMode as CollectionSelectMode,
+} from './stories/interactive/collection/SubjectCard.collection.stories'
+import InteractiveMeta, { Landscape as InteractiveLandscape } from './stories/interactive/singleMedia/SubjectCard.image.stories'
+import InteractiveMultiMediaMeta, { MultiImage as InteractiveMultiImage } from './stories/interactive/multiMedia/SubjectCard.multiMedia.stories'
 import SimpleMeta, { Landscape as SimpleLandscape } from './stories/simple/SubjectCard.image.stories'
-import InteractiveMeta, {
-  Landscape as InteractiveLandscape,
-  LandscapeWithCover,
-  LandscapeWithOnSetCover
-} from './stories/interactive/singleMedia/SubjectCard.image.stories'
+
 import { RADIO_METEOR_ZOO_SUBJECT } from './stories/SubjectCardStoryData'
 
 describe('SubjectCard', function() {
   const DefaultStory = composeStory(SimpleLandscape, SimpleMeta)
-  const InteractiveDefaultStory = composeStory(InteractiveLandscape, InteractiveMeta)
-  const WithCoverStory = composeStory(LandscapeWithCover, InteractiveMeta)
-  const WithOnSetCoverStory = composeStory(LandscapeWithOnSetCover, InteractiveMeta)
+  const InteractiveStory = composeStory(InteractiveLandscape, InteractiveMeta)
+  const InteractiveMultiImageStory = composeStory(InteractiveMultiImage, InteractiveMultiMediaMeta)
+  const CollectionWithCoverStory = composeStory(CollectionLandscapeWithCover, CollectionMeta)
+  const CollectionRemoveStory = composeStory(CollectionLandscape, CollectionMeta)
+  const CollectionSelectModeStory = composeStory(CollectionSelectMode, CollectionMeta)
+  
   const originalUrl = window.location.href
 
   afterEach(function() {
@@ -85,27 +91,84 @@ describe('SubjectCard', function() {
     expect(screen.getAllByText('Subject 75219502')[0]).toBeTruthy()
   })
 
-  describe('with collection cover', function () {
-    it('should not render cover by default', function () {
-      render(<InteractiveDefaultStory />)
-      expect(screen.queryByText('Collection Cover')).toBeNull()
-      expect(screen.queryByText('Set as Collection Cover')).toBeNull()
+  describe('with interactive, single media', function () {
+    it('should link the image preview', function () {
+      render(<InteractiveStory />)
+      expect(screen.getByRole('link', { href: '/projects/team/example-project/talk/subjects/75219502' })).toBeTruthy()
     })
+  })
 
-    it('should call onSetCover with the subject when the menu item is clicked', async function () {
+  describe('with interactive, multi media', function () {
+    it('should render the flipbook controls', function () {
+      render(<InteractiveMultiImageStory />)
+      expect(screen.getByTestId('flipbook-controls')).toBeTruthy()
+    })
+  })
+
+  describe('with collection, landscape with cover', function () {
+    it('should show the collection cover banner', function () {
+      render(<CollectionWithCoverStory />)
+      expect(screen.getByText('Collection Cover')).toBeTruthy()
+    })
+  })
+  
+  describe('with collection, select mode', function () {
+    it('should show the subject checkbox', function () {
+      render(<CollectionSelectModeStory />)
+      expect(screen.getByRole('checkbox', { name: `Select Subject ${RADIO_METEOR_ZOO_SUBJECT.id}` })).toBeTruthy()
+    })
+  })
+
+  describe('with collection, remove action', function() {
+    it('should call the remove handler', async function() {
+      const onRemoveFromCollection = vi.fn()
       const user = userEvent.setup()
-      const onSetCover = vi.fn()
-      render(<WithOnSetCoverStory onSetCover={onSetCover} />)
+
+      render(<CollectionRemoveStory onRemoveFromCollection={onRemoveFromCollection} />)
 
       await user.click(screen.getByRole('button', { name: 'More options' }))
-      await user.click(await screen.findByRole('menuitem', { name: 'Set as Collection Cover' }))
-      expect(onSetCover).toHaveBeenCalledWith(RADIO_METEOR_ZOO_SUBJECT)
-    })
+      await user.click(screen.getByText('Delete from collection'))
 
-    it('should show the cover banner when isCover is true', function () {
-      render(<WithCoverStory />)
-      expect(screen.getByText('Collection Cover')).toBeTruthy()
-      expect(screen.queryByRole('button', { name: 'Set as Collection Cover' })).toBeNull()
+      expect(onRemoveFromCollection).toHaveBeenCalledWith(RADIO_METEOR_ZOO_SUBJECT)
     })
+  })
+
+  it('should call the cover handler with the subject', async function() {
+    const onSetCover = vi.fn()
+    const user = userEvent.setup()
+
+    render(<CollectionRemoveStory onSetCover={onSetCover} />)
+
+    await user.click(screen.getByRole('button', { name: 'More options' }))
+    await user.click(screen.getByText('Set as Collection Cover'))
+
+    expect(onSetCover).toHaveBeenCalledWith(RADIO_METEOR_ZOO_SUBJECT)
+  })
+
+  it('should disable setting the current cover again', async function() {
+    const user = userEvent.setup()
+
+    render(<CollectionWithCoverStory />)
+
+    await user.click(screen.getByRole('button', { name: 'More options' }))
+    expect(screen.getByText('Set as Collection Cover').closest('button').disabled).toBe(true)
+  })
+
+  it('should hide editing controls without edit permission even when handlers are supplied', function() {
+    render(<CollectionRemoveStory canEdit={false} />)
+
+    expect(screen.queryByRole('button', { name: 'More options' })).toBeNull()
+    expect(screen.queryByRole('checkbox', { name: `Select Subject ${RADIO_METEOR_ZOO_SUBJECT.id}` })).toBeNull()
+  })
+
+  it('should replace the edit menu with the checkbox in selection mode', async function() {
+    const onSelect = vi.fn()
+    const user = userEvent.setup()
+
+    render(<CollectionRemoveStory onSelect={onSelect} selectable={true} />)
+
+    expect(screen.queryByRole('button', { name: 'More options' })).toBeNull()
+    await user.click(screen.getByRole('checkbox', { name: `Select Subject ${RADIO_METEOR_ZOO_SUBJECT.id}` }))
+    expect(onSelect).toHaveBeenCalledWith(RADIO_METEOR_ZOO_SUBJECT, true)
   })
 })

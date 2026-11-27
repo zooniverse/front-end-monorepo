@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 import { useTranslation } from '../translations/i18n'
 import IconActionButton from '../IconActionButton'
-import CollectionsModal from './components/CollectionsModal'
+import CollectionsModal from '../CollectionsModal'
 
 function CollectIconButton({
   projectId,

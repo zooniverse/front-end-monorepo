@@ -1,10 +1,10 @@
 import { Box } from 'grommet'
-import { node, number, arrayOf, string, shape } from 'prop-types'
+import { arrayOf, bool, func, node, number, shape, string } from 'prop-types'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 import Media from '../../../../../Media'
-import MediaLink from '../../../MediaLink'
+import MediaContainer from '../../../MediaContainer'
 import MediaFallback from '../../../MediaFallback'
 import FlipbookControls from '../FlipbookControls'
 import Audio from '../Audio'
@@ -27,6 +27,7 @@ function MultiMedia({
 	placeholder,
 	sources = [],
 	previewHeight,
+	selectProps,
 	subjectIdTitle,
 	width,
 	url
@@ -73,6 +74,7 @@ function MultiMedia({
 		const commonProps = {
 			linkTitle,
 			previewHeight,
+			selectProps,
 			subjectIdTitle,
 			width,
 			url
@@ -80,7 +82,11 @@ function MultiMedia({
 
 		if (currentMediaType === 'image') {
 			return (
-				<MediaLink href={url} title={linkTitle}>
+				<MediaContainer
+					href={url}
+					selectProps={selectProps}
+					title={linkTitle}
+				>
 					<StyledPreview
 						justify='center'
 						height={`${previewHeight}px`}
@@ -95,7 +101,7 @@ function MultiMedia({
 							width={width}
 						/>
 					</StyledPreview>
-				</MediaLink>
+				</MediaContainer>
 			)
 		}
 
@@ -119,7 +125,11 @@ function MultiMedia({
 
 		if (currentMediaType === 'text') {
 			return (
-				<MediaLink href={url} title={linkTitle}>
+				<MediaContainer
+					href={url}
+					selectProps={selectProps}
+					title={linkTitle}
+				>
 					<StyledPreview
 						justify='center'
 						height={`${previewHeight}px`}
@@ -134,13 +144,17 @@ function MultiMedia({
 							width={width}
 						/>
 					</StyledPreview>
-				</MediaLink>
+				</MediaContainer>
 			)
 		}
 
 		if (currentMediaType === 'application') {
 			return (
-				<MediaLink href={url} title={linkTitle}>
+				<MediaContainer
+					href={url}
+					selectProps={selectProps}
+					title={linkTitle}
+				>
 					<StyledPreview
 						justify='center'
 						height={`${previewHeight}px`}
@@ -157,19 +171,23 @@ function MultiMedia({
 							width={width}
 						/>
 					</StyledPreview>
-				</MediaLink>
+				</MediaContainer>
 			)
 		}
 
 		return (
-			<MediaLink href={url} title={linkTitle}>
+			<MediaContainer
+				href={url}
+				selectProps={selectProps}
+				title={linkTitle}
+			>
 				<MediaFallback
 					alt={subjectIdTitle}
 					placeholder={placeholder}
 					previewHeight={previewHeight}
 					width={width}
 				/>
-			</MediaLink>
+			</MediaContainer>
 		)
 	}
 
@@ -195,6 +213,12 @@ MultiMedia.propTypes = {
 		url: string.isRequired
 	})).isRequired,
 	previewHeight: number.isRequired,
+	selectProps: shape({
+		onSelect: func,
+		selectable: bool,
+		selected: bool,
+		selectLabel: string
+	}),
 	subjectIdTitle: string.isRequired,
 	width: number.isRequired,
 	url: string.isRequired

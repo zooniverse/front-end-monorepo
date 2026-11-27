@@ -119,10 +119,14 @@
       "settings": "Settings",
       "share": "Share"
     },
+    "addToCollection": "Add to Collection",
+    "delete": "Delete",
+    "deleteError": "The subjects could not be deleted. Please try again.",
     "emptySubjects": "No subjects in this collection.",
     "linkedToProjectCollections": "Linked to <projectLink>{{projectName}}</projectLink> collections",
     "notFound": "There was an error retrieving this collection.",
     "ownerLoadError": "Collection owner details could not be loaded.",
+    "removeSubjectsConfirmation": "Are you sure you want to remove {{count}} subjects from this collection?",
     "resultsCount": "Showing {{range}} of {{total}} subjects",
     "roles": {
       "collaborator": "Collaborator",
@@ -132,6 +136,7 @@
     },
     "seeAllOwnerCollections": "<collectionsLink>See all {{displayName}}'s collections</collectionsLink>",
     "setCoverError": "The collection cover could not be updated. Please try again.",
+    "selectAll": "Select All",
     "selectSubjects": "Select Subjects",
     "subjectsLoadError": "There was an error loading this collection's subjects."
   },
