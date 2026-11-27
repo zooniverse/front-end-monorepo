@@ -715,6 +715,10 @@
         "nasa_email_communication": {
           "help": "",
           "label": "Get periodic email updates from NASA regarding broader NASA citizen science projects and efforts"
+        },
+        "project_email_communication": {
+          "help": "Turning this off won’t affect your existing subscriptions",
+          "label": "Get email updates when you first classify on a project"
         }
       },
       "optional": "Optional",

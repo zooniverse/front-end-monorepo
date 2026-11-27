@@ -83,6 +83,15 @@ function EmailSettings ({
           <TalkPreferenceForm
             authUser={authUser}
           />
+
+          <ZooniverseEmailPreferenceForm
+            authUser={authUser}
+            heading={t('Settings.EmailSettings.projectEmailPreference.title')}
+            fields={[
+              'project_email_communication',
+            ]}
+            style={{ 'margin-top': '-10px' }}  // Visual tweak to avoid excessive space.
+          />
           
         </MaxWidthContent>
       </StyledGrid>
