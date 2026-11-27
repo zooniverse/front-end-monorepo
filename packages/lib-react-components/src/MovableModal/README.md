@@ -13,6 +13,7 @@ Additional props for the HOC `Layer component (see Notes):
 
 - `animate` (boolean) - Defaults to `false`. Same as Grommet's `Layer` animate prop. Determines whether or not to animate on rendering. 
 - `className` (string) - Defaults to an empty string. CSS class applied to the `Layer` component.
+- `closeOnClickOutside` (boolean) - Defaults to `true`. Set to `false` to keep the modal open when clicking outside it. The Esc key still calls `closeFn`.
 - `modal` (boolean) - Defaults to `true`. Same as Grommet's `Layer` modal prop. Determines if the modal renders an underlayer preventing interaction with other elements.
 - `plain` (boolean) - Defaults to `false`. Same as Grommet's `Layer` plain prop. Determines if the underlayer is styled.
 - `position` (string) - Defaults to `'center'`. Same as Grommet's `Layer` position prop. Determine the position of the rendered modal in the viewport. 
@@ -33,6 +34,12 @@ Additional props for the `Rnd` component:
 ```
 
 The props `minHeight` and `minWidth` in the object get applied to the `Rnd` `minHeight` and `minWidth` props. The `default` prop is applied to `Rnd`'s `default` prop. The object can accept any other additional props allowed by `Rnd`.
+
+## Keyboard
+
+The modal is a tab stop. While the modal itself has focus, the arrow keys move it by 10px, or by 50px with Shift held, and it stays inside the window. Arrow keys pressed inside the modal's content keep their usual behavior. A keyboard move calls `rndProps.onDragStop` with the new position, as a drag does.
+
+The heading shows a drag icon, so the modal reads as movable.
 
 ## Example
 

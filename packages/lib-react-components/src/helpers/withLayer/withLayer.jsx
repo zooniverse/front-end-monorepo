@@ -8,6 +8,7 @@ function withLayer (WrappedComponent) {
     animate = false,
     className = '',
     closeFn,
+    closeOnClickOutside = true,
     full = false,
     modal = true,
     plain = false,
@@ -31,7 +32,7 @@ function withLayer (WrappedComponent) {
         modal={modal}
         plain={plain}
         position={position}
-        onClickOutside={closeFn}
+        onClickOutside={closeOnClickOutside ? closeFn : undefined}
         onEsc={closeFn}
         target={target}
       >
@@ -52,6 +53,7 @@ function withLayer (WrappedComponent) {
     animate: bool,
     className: string,
     closeFn: func,
+    closeOnClickOutside: bool,
     modal: bool,
     plain: bool,
     position: string,
