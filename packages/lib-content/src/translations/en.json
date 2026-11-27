@@ -633,6 +633,15 @@
     },
     "EmailSettings": {
       "title": "Email",
+      "generalEmailPreference": {
+        "title": "Zooniverse Preferences"
+      },
+      "partnerEmailPreference": {
+        "title": "Zooniverse Partner Preferences"
+      },
+      "projectEmailPreference": {
+        "title": "Project Preferences"
+      },
       "emailValidAndVerifiedStatus": {
         "valid": "Valid email",
         "invalid": "Invalid email",

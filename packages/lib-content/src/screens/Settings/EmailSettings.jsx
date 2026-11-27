@@ -64,6 +64,19 @@ function EmailSettings ({
 
           <ZooniverseEmailPreferenceForm
             authUser={authUser}
+            heading={t('Settings.EmailSettings.generalEmailPreference.title')}
+            fields={[
+              'global_email_communication',
+              'beta_email_communication',
+            ]}
+          />
+
+          <ZooniverseEmailPreferenceForm
+            authUser={authUser}
+            heading={t('Settings.EmailSettings.partnerEmailPreference.title')}
+            fields={[
+              'nasa_email_communication',
+            ]}
           />
 
           <TalkPreferenceForm

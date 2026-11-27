@@ -19,12 +19,8 @@ const FormFieldsContainer = styled(Box)`
 
 function ZooniverseEmailPreferenceForm ({
   authUser,
-  heading = 'TESTING',
-  fields = [
-    'global_email_communication',
-    'beta_email_communication',
-    'nasa_email_communication',
-  ],
+  heading = '',
+  fields = [],
   ...rest
 }) {
   const { data: user, isLoading, error: loadError, isValidating, mutate } = useUserData({ login: authUser?.login })
