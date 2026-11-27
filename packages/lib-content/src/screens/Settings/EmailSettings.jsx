@@ -77,6 +77,7 @@ function EmailSettings ({
             fields={[
               'nasa_email_communication',
             ]}
+            style={{ 'margin-top': '-10px' }}  // Visual tweak to avoid excessive space.
           />
 
           <TalkPreferenceForm
