@@ -38,8 +38,20 @@ function SearchBar({ handleSearch, value = '' }) {
     }
   }, [value])
 
+  /*
+    The results already update as you type, so the form's submit only has to
+    keep the page where it is and close the on-screen keyboard.
+  */
+  function handleSubmit(event) {
+    event.preventDefault()
+    event.currentTarget.querySelector('input')?.blur()
+  }
+
   return (
     <StyledBox
+      as='form'
+      role='search'
+      onSubmit={handleSubmit}
       align='center'
       border={{ color: 'light-5', side: 'all', size: '0.5px' }}
       direction='row'
