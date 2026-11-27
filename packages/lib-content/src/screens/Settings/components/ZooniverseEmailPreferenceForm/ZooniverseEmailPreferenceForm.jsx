@@ -1,11 +1,10 @@
 import { useState } from 'react'
 import { Box, Form } from 'grommet'
-import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import { shape, string } from 'prop-types'
 
 import BigLabel from '../BigLabel/BigLabel'
-import FormInputField from '../FormInputField/FormInputField'
+import FormCheckboxField from '../FormCheckboxField/FormCheckboxField'
 import FormStatusAndSubmitField from '../FormStatusAndSubmitField/FormStatusAndSubmitField'
 import useUserData from '../../helpers/useUserData'
 import updateUserData from '../../helpers/updateUserData'
@@ -28,7 +27,6 @@ function ZooniverseEmailPreferenceForm ({
   ],
   ...rest
 }) {
-  const { t } = useTranslation()
   const { data: user, isLoading, error: loadError, isValidating, mutate } = useUserData({ login: authUser?.login })
   const [ saveError, setSaveError ] = useState(null)  // If the save failed, this is the error object.
   // ⚠️ Note that saveError is NEVER cleared, because multiple save operations
@@ -96,19 +94,14 @@ function ZooniverseEmailPreferenceForm ({
           </BigLabel>
         )}
 
-        {isReady && fields.map(field => (
-          <div>
-            <label>
-              <input
-                checked={!!user?.[field]}
-                data-field={field}
-                disabled={disableInput}
-                onChange={onInputChange}
-                type="checkbox"
-              />
-              {field} - {user?.[field] ? 'true' : 'false'}
-            </label>
-          </div>
+        {isReady && fields.map(fieldName => (
+          <FormCheckboxField
+            key={fieldName}
+            disabled={disableInput}
+            fieldName={fieldName}
+            onInputChange={onInputChange}
+            user={user}
+          />
         ))}
 
         <FormStatusAndSubmitField

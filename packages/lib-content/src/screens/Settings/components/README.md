@@ -36,6 +36,12 @@ _Form component._ Shows ✅ or ❌ if the user's email is valid/invalid. Shows �
 
 ⚠ Accessibility warning: the "request verification email" functionality is designed to be fairly lightweight and separate from the actual form itself, and doesn't follow or more stringent accessibility patterns on the rest of the form.
 
+## Form Checkbox Field
+
+Used in: various Forms in Email Settings page.
+
+_Form component._ A div that combines a single checkbox input with a label, and an optional help text.
+
 ## Form Input Field
 
 Used in: Account Name Form.
