@@ -79,7 +79,7 @@ export default function EmailValidAndVerifiedStatus({ user }) {
       margin={{ bottom: '-20px' }}
     >
       <StatusContainer>
-        {!isEmailValid ? (
+        {isEmailValid ? (
           <>
             <PassStatus />
             <Text size='0.875rem'>
