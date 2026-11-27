@@ -211,6 +211,11 @@
         "ariaLabel": "Reset features to original position",
         "confirm": "Are you sure you want to reset the features on the map to their original positions?"
       },
+      "TileLoadStatus": {
+        "failed": "Some map imagery failed to load.",
+        "loading": "Loading map imagery…",
+        "retry": "Retry"
+      },
       "UnitSelect": {
         "label": "Units"
       }
