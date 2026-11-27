@@ -1,23 +1,28 @@
-function addQueryParams(url) {
+/**
+  Add the env and demo query params of the current page to a link, plus any
+  `params` (such as { language: 'es' } for a link to PFE). Params with a null
+  or undefined value are left out.
+*/
+function addQueryParams(url, params = {}) {
   const isBrowser = typeof window !== 'undefined'
-  if (!isBrowser) return url
-
-  const query = new URLSearchParams(window.location.search)
+  const query = isBrowser ? new URLSearchParams(window.location.search) : new URLSearchParams()
   const env = query.get('env')
   const demo = query.get('demo')
 
   const newSearch = {
     env,
-    demo
+    demo,
+    ...params
   }
 
   const filtered = Object.fromEntries(
-    Object.entries(newSearch).filter(([_, value]) => value !== null)
+    Object.entries(newSearch).filter(([_, value]) => value !== null && value !== undefined)
   )
   const newQueryParams = new URLSearchParams(filtered).toString()
 
   if (newQueryParams?.length) {
-    return `${url}?${newQueryParams}`
+    const separator = url.includes('?') ? '&' : '?'
+    return `${url}${separator}${newQueryParams}`
   } else {
     return url
   }

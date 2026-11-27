@@ -42,4 +42,35 @@ describe('Helper > addQueryParams', function () {
       })
       })
     })
+
+  describe('with extra params', function () {
+    afterEach(function () {
+      global.dom.reconfigure({
+        url: 'https://localhost'
+      })
+    })
+
+    it('should add them to the url', function () {
+      const result = addQueryParams('/projects/foo/bar/talk', { language: 'es' })
+      expect(result).to.equal('/projects/foo/bar/talk?language=es')
+    })
+
+    it('should leave out params without a value', function () {
+      const result = addQueryParams('/projects/foo/bar/talk', { language: null })
+      expect(result).to.equal('/projects/foo/bar/talk')
+    })
+
+    it('should add them after the env and demo params', function () {
+      global.dom.reconfigure({
+        url: 'https://localhost/foo/bar?env=production'
+      })
+      const result = addQueryParams('/projects/foo/bar/talk', { language: 'es' })
+      expect(result).to.equal('/projects/foo/bar/talk?env=production&language=es')
+    })
+
+    it('should keep a query the url already has', function () {
+      const result = addQueryParams('/projects/foo/bar/talk?page=2', { language: 'es' })
+      expect(result).to.equal('/projects/foo/bar/talk?page=2&language=es')
+    })
   })
+})
