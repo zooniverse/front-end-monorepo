@@ -15,7 +15,7 @@ export default function FormStatusAndSubmitField ({
     <Box
       align='center'
       direction='row'
-      gap='1em'
+      gap='1rem'
       justify='between'
       wrap={true}
       {...rest}

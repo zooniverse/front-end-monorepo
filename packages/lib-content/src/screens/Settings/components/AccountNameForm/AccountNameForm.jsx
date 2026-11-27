@@ -10,7 +10,7 @@ import useUserData from '../../helpers/useUserData'
 import updateUserData from '../../helpers/updateUserData'
 
 const FormFieldsContainer = styled(Box)`
-  gap: 1em;
+  gap: 1rem;
 
   input:user-invalid {
     border-color: ${props => props.theme.global.colors['neutral-4']};
@@ -135,7 +135,7 @@ function AccountNameForm ({
       className='AccountNameForm'
       onSubmit={onSubmit}
     >
-      <FormFieldsContainer margin={{ vertical: 'small' }}>
+      <FormFieldsContainer margin={{ top: 'small' }}>
         <FormInputField
           disabled={disableInput}
           fieldName='display_name'
@@ -160,7 +160,7 @@ function AccountNameForm ({
           submitLabel={t('Settings.forms.change')}
           statusMessage={statusMessage}
           statusType={statusType}
-          margin={{ vertical: 'small' }}
+          margin={{ top: 'small' }}
         />
       </FormFieldsContainer>
     </Form>

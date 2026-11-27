@@ -11,7 +11,7 @@ import useUserData from '../../helpers/useUserData'
 import updateUserData from '../../helpers/updateUserData'
 
 const FormFieldsContainer = styled(Box)`
-  gap: 1em;
+  gap: 1rem;
 
   input:user-invalid {
     border-color: ${props => props.theme.global.colors['neutral-4']};
@@ -22,7 +22,7 @@ function AccountEmailForm ({
   authUser,
 }) {
   const { t } = useTranslation()
-  const { data: user, isLoading, error: loadError, isValidating, mutate } = useUserData({ login: authUser.login })
+  const { data: user, isLoading, error: loadError, isValidating, mutate } = useUserData({ login: authUser?.login })
   const [ isSaving, setIsSaving ] = useState(false)  // Are we in the process of saving?
   const [ saveSuccess, setSaveSuccess ] = useState(false)  // Was the save successful?
   const [ saveMessage, setSaveMessage ] = useState('')  // Additional (non-error) information message on the save process.
@@ -131,7 +131,7 @@ function AccountEmailForm ({
       className='AccountEmailForm'
       onSubmit={onSubmit}
     >
-      <FormFieldsContainer margin={{ vertical: 'small' }}>
+      <FormFieldsContainer margin={{ top: 'small' }}>
         <FormInputField
           autocomplete='email'
           disabled={disableInput}
@@ -154,7 +154,7 @@ function AccountEmailForm ({
           submitLabel={t('Settings.forms.change')}
           statusMessage={statusMessage}
           statusType={statusType}
-          margin={{ vertical: 'small' }}
+          margin={{ top: 'small' }}
         />
       </FormFieldsContainer>
     </Form>

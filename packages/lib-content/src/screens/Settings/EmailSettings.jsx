@@ -16,6 +16,7 @@ import MaxWidthContent from '@components/MaxWidthContent/MaxWidthContent'
 import SettingsHeading from './components/SettingsHeading/SettingsHeading'
 import AccountEmailForm from './components/AccountEmailForm/AccountEmailForm'
 import TalkPreferenceForm from './components/TalkPreferenceForm/TalkPreferenceForm'
+import ZooniverseEmailPreferenceForm from './components/ZooniverseEmailPreferenceForm/ZooniverseEmailPreferenceForm'
 
 function EmailSettings ({
   authUser
@@ -61,8 +62,35 @@ function EmailSettings ({
             authUser={authUser}
           />
 
+          <ZooniverseEmailPreferenceForm
+            authUser={authUser}
+            heading={t('Settings.EmailSettings.generalEmailPreference.title')}
+            fields={[
+              'global_email_communication',
+              'beta_email_communication',
+            ]}
+          />
+
+          <ZooniverseEmailPreferenceForm
+            authUser={authUser}
+            heading={t('Settings.EmailSettings.partnerEmailPreference.title')}
+            fields={[
+              'nasa_email_communication',
+            ]}
+            style={{ 'margin-top': '-10px' }}  // Visual tweak to avoid excessive space.
+          />
+
           <TalkPreferenceForm
             authUser={authUser}
+          />
+
+          <ZooniverseEmailPreferenceForm
+            authUser={authUser}
+            heading={t('Settings.EmailSettings.projectEmailPreference.title')}
+            fields={[
+              'project_email_communication',
+            ]}
+            style={{ 'margin-top': '-10px' }}  // Visual tweak to avoid excessive space.
           />
           
         </MaxWidthContent>

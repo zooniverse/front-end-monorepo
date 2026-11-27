@@ -36,6 +36,12 @@ _Form component._ Shows ✅ or ❌ if the user's email is valid/invalid. Shows �
 
 ⚠ Accessibility warning: the "request verification email" functionality is designed to be fairly lightweight and separate from the actual form itself, and doesn't follow or more stringent accessibility patterns on the rest of the form.
 
+## Form Checkbox Field
+
+Used in: various Forms in Email Settings page.
+
+_Form component._ A div that combines a single checkbox input with a label, and an optional help text.
+
 ## Form Input Field
 
 Used in: Account Name Form.
@@ -62,7 +68,7 @@ _Content element._ A stylised h1 heading for every User Settings page.
 
 ## Talk Preference Form
 
-Used in: all Email Settings pages.
+Used in: Email Settings page.
 
 _Form._ This form allows users to view and edit various Talk Preference settings, e.g. setting their "send me an email when I'm mentioned on Talk" preference to immediately, daily, weekly, or never.
 
@@ -79,3 +85,11 @@ _Form._ This form allows users to view and edit their User Media resources, nota
 ### Dev Notes
 
 Due to its complexity, this component probably needs its own README.md. 😬
+
+## Zooniverse Email Preference Form
+
+Used in: Email Settings page.
+
+_Form._ This form allows users to view and edit their choices (yes/no) for their Zooniverse Email Preferences - usually "subscribe to general newsletter", "subscribe to beta newsletter", and "subscribe to NASA newsletter". Note that these preferences are tied to the User resource as true/false values.
+
+In fact, this form is actually a _customisable_ selection of checkboxes grouped under a shared heading, and can be used to modify multiple true/false values in the User object.
