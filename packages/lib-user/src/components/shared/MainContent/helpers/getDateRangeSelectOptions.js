@@ -48,6 +48,7 @@ const DEFAULT_DATE_RANGE = {
 const DEFAULT_HANDLER = key => key
 
 export function getDateRangeSelectOptions({
+  chosenLabel = '',
   sourceCreatedAtDate = '',
   paramsValidationMessage = '',
   selectedDateRange = DEFAULT_DATE_RANGE,
@@ -58,10 +59,16 @@ export function getDateRangeSelectOptions({
 
   const dateRangeOptions = getPresetSelectOptions({ sourceCreatedAtDate, today, t })
 
-  let selectedDateRangeOption = dateRangeOptions.find(option =>
+  const matchingOptions = dateRangeOptions.filter(option =>
     (selectedDateRange.endDate === todayUTC) &&
     (option.value === selectedDateRange.startDate)
   )
+  /*
+    Some presets start on the same day, such as This Month and This Year in January.
+    Prefer the one the user chose (chosenLabel) to the first one in the list.
+  */
+  let selectedDateRangeOption = matchingOptions.find(option => option.label === chosenLabel) ||
+    matchingOptions[0]
 
   if (!selectedDateRangeOption && !paramsValidationMessage) {
     const customDateRangeOption = {

@@ -1,5 +1,7 @@
 import { composeStory } from '@storybook/react'
 import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import { useState } from 'react'
 
 import { getStatsDateString } from '@utils'
 
@@ -71,5 +73,47 @@ describe('components > shared > MainContent', function () {
     render(<ParamsValidationMessageStory />)
 
     expect(screen.getByText('Invalid project_id, must be a number')).toBeTruthy()
+  })
+
+  describe('in January', function () {
+    // This Month and This Year both start on 1 January.
+    function StatefulStory() {
+      const [selectedDateRange, setSelectedDateRange] = useState({
+        endDate: '2026-01-15',
+        startDate: '2026-01-09'
+      })
+      return (
+        <DefaultStory
+          selectedDateRange={selectedDateRange}
+          setSelectedDateRange={({ endDate, startDate }) => setSelectedDateRange({
+            endDate: endDate || '2026-01-15',
+            startDate
+          })}
+        />
+      )
+    }
+
+    beforeEach(function () {
+      vi.useFakeTimers({ now: new Date('2026-01-15T12:00:00Z'), toFake: ['Date'] })
+    })
+
+    afterEach(function () {
+      vi.useRealTimers()
+    })
+
+    it('should show "THIS YEAR" after choosing This Year', async function () {
+      const user = userEvent.setup()
+      render(<StatefulStory />)
+
+      await user.click(screen.getByRole('textbox', { name: 'Select date range, LAST 7 DAYS' }))
+      await user.click(screen.getByRole('option', { name: 'THIS YEAR' }))
+
+      expect(screen.getByRole('button', { name: 'Select date range; Selected: THIS YEAR' })).toBeTruthy()
+
+      await user.click(screen.getByRole('textbox', { name: 'Select date range, THIS YEAR' }))
+      await user.click(screen.getByRole('option', { name: 'THIS MONTH' }))
+
+      expect(screen.getByRole('button', { name: 'Select date range; Selected: THIS MONTH' })).toBeTruthy()
+    })
   })
 })

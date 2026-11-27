@@ -274,4 +274,51 @@ describe('components > MainContent > getDateRangeSelectOptions', function () {
       ])
     })
   })
+
+  describe('in January, when This Month and This Year start on the same day', function () {
+    const selectedDateRange = {
+      endDate: '2026-01-15',
+      startDate: '2026-01-01'
+    }
+
+    beforeEach(function () {
+      clock = sinon.useFakeTimers(new Date('2026-01-15T12:00:00Z'))
+    })
+
+    afterEach(function () {
+      clock.restore()
+    })
+
+    it('should select the first matching option by default', function () {
+      const { selectedDateRangeOption } = getDateRangeSelectOptions({
+        sourceCreatedAtDate: '2015-07-01',
+        selectedDateRange
+      })
+      expect(selectedDateRangeOption).to.deep.equal({
+        label: 'MAINCONTENT.DATERANGE.THISMONTH',
+        value: '2026-01-01'
+      })
+    })
+
+    it('should select the option the user chose', function () {
+      const { selectedDateRangeOption } = getDateRangeSelectOptions({
+        chosenLabel: 'MAINCONTENT.DATERANGE.THISYEAR',
+        sourceCreatedAtDate: '2015-07-01',
+        selectedDateRange
+      })
+      expect(selectedDateRangeOption).to.deep.equal({
+        label: 'MAINCONTENT.DATERANGE.THISYEAR',
+        value: '2026-01-01'
+      })
+    })
+
+    it('should ignore a chosen option that does not match the date range', function () {
+      const { selectedDateRangeOption } = getDateRangeSelectOptions({
+        chosenLabel: 'MAINCONTENT.DATERANGE.LASTSEVENDAYS',
+        sourceCreatedAtDate: '2015-07-01',
+        selectedDateRange
+      })
+      expect(selectedDateRangeOption.label).to.equal('MAINCONTENT.DATERANGE.THISMONTH')
+    })
+  })
 })
