@@ -10,7 +10,7 @@ import useUserData from '../../helpers/useUserData'
 import updateUserData from '../../helpers/updateUserData'
 
 const FormFieldsContainer = styled(Box)`
-  gap: 1em;
+  gap: 1rem;
 
   input:user-invalid {
     border-color: ${props => props.theme.global.colors['neutral-4']};
@@ -87,7 +87,7 @@ function ZooniverseEmailPreferenceForm ({
       className='ZooniverseEmailPreferenceForm'
       {...rest}
     >
-      <FormFieldsContainer margin={{ vertical: 'small' }}>
+      <FormFieldsContainer margin={{ top: 'small' }}>
         {heading && (
           <BigLabel as="h2">
             {heading}

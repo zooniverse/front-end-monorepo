@@ -388,10 +388,7 @@ function UserMediaForm ({
       onSubmit={onSubmit}
       {...rest}
     >
-      <FormFieldsContainer
-        direction='column'
-        margin={{ vertical: 'small' }}
-      >
+      <FormFieldsContainer margin={{ top: 'small' }}>
         <BigLabel
           as='label'
           htmlFor={fileInputId}
@@ -465,7 +462,7 @@ function UserMediaForm ({
           submitLabel={t('Settings.forms.save')}
           statusMessage={statusMessage}
           statusType={statusType}
-          margin={{ vertical: 'small' }}
+          margin={{ top: 'small' }}
         />
       </FormFieldsContainer>
     </Form>
