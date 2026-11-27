@@ -90,4 +90,6 @@ Due to its complexity, this component probably needs its own README.md. 😬
 
 Used in: Email Settings page.
 
-_Form._ This form allows users to view and edit their choices (yes/no) for their Zooniverse Email Preferences ("general newsletter" and "beta newsletter"). This form is just a collection of checkboxes.
+_Form._ This form allows users to view and edit their choices (yes/no) for their Zooniverse Email Preferences - usually "subscribe to general newsletter", "subscribe to beta newsletter", and "subscribe to NASA newsletter". Note that these preferences are tied to the User resource as true/false values.
+
+In fact, this form is actually a _customisable_ selection of checkboxes grouped under a shared heading, and can be used to modify multiple true/false values in the User object.
