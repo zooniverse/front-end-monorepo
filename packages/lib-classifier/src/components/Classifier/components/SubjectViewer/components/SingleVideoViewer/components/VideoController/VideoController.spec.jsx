@@ -5,7 +5,7 @@ import { Grommet } from 'grommet'
 
 import formatTimeStamp from '@helpers/formatTimeStamp'
 import VideoController from './VideoController'
-import controlsTheme from './theme'
+import controlsTheme from '../../../../helpers/mediaControlsTheme'
 
 describe('Component > VideoController', function () {
   let onPlayPauseSpy, onSpeedChangeSpy

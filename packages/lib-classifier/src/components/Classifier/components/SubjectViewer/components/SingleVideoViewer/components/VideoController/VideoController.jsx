@@ -22,7 +22,7 @@ import {
 import styled, { css } from 'styled-components'
 import { useTranslation } from '@translations/i18n'
 
-import controlsTheme from './theme'
+import controlsTheme from '../../../../helpers/mediaControlsTheme'
 import formatTimeStamp from '@helpers/formatTimeStamp'
 
 const iconSize = '1rem'

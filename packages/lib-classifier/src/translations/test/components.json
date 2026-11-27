@@ -213,6 +213,9 @@
         "switchToSeparateFrames": "Translated"
       }
     },
+    "SingleAudioViewerContainer": {
+      "error": "Translated"
+    },
     "SingleVideoViewerContainer": {
       "error": "Translated"
     },
@@ -227,6 +230,15 @@
       "periodMultiple": "Translated",
       "phase": "Translated",
       "phaseFocus": "Translated"
+    },
+    "AudioController": {
+      "closeVolume": "Translated",
+      "openVolume": "Translated",
+      "pause": "Translated",
+      "play": "Translated",
+      "playbackSpeed": "Translated",
+      "scrubber": "Translated",
+      "volumeSlider": "Translated"
     },
     "VideoController": {
       "closeVolume": "Translated",
