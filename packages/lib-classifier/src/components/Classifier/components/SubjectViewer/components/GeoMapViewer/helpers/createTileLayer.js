@@ -5,6 +5,7 @@ import GeoTIFF from 'ol/source/GeoTIFF'
 import TileWMS from 'ol/source/TileWMS'
 import XYZ from 'ol/source/XYZ'
 
+import loadTileWithTimeout from './loadTileWithTimeout'
 import './registerProjections'
 
 const DEFAULT_WMS_FORMAT = 'image/png'
@@ -26,6 +27,7 @@ function createTileLayer (descriptor) {
       source = new TileWMS({
         url,
         params: { ...params, FORMAT: format || params.FORMAT || DEFAULT_WMS_FORMAT },
+        tileLoadFunction: loadTileWithTimeout,
         ...(attributions ? { attributions } : {}),
         ...(projection ? { projection } : {})
       })
@@ -36,6 +38,7 @@ function createTileLayer (descriptor) {
       if (!url) throw new Error('createTileLayer: xyz descriptor requires a url')
       source = new XYZ({
         url,
+        tileLoadFunction: loadTileWithTimeout,
         ...(attributions ? { attributions } : {}),
         ...(projection ? { projection } : {})
       })
